@@ -16,6 +16,8 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.categories.WirelessAndNetw
 
 public class SummaryTweaks {
 
+    private static final String TAG = "SummaryTweaks";
+
     // All tiles. Tiles without a subtitle are commented out to improve performance.
     // They will be removed completely in the near future.
 
@@ -87,7 +89,7 @@ public class SummaryTweaks {
             setSummaries((List) XposedHelpers.getObjectField(category, "tiles"), context);
         }
 
-        XposedHook.logD("[SETTINGS] Total hook took " + (System.currentTimeMillis() - startTime) + "ms");
+        XposedHook.logD(TAG, "Total hook took " + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     private static void setupIds(Context context) {
@@ -138,7 +140,7 @@ public class SummaryTweaks {
         //privacy_settings_cyanogenmod = getId(context, "privacy_settings_cyanogenmod");
         //supersu_settings = getId(context, "supersu_settings");
 
-        XposedHook.logD("[SETTINGS] Fetching ids took " + (System.currentTimeMillis() - startTime) + "ms");
+        XposedHook.logD(TAG, "Fetching ids took " + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     private static void setSummaries(List tiles, Context context) {
@@ -259,7 +261,7 @@ public class SummaryTweaks {
             }
 
             if (!tileId.equals(""))
-                XposedHook.logD("[SETTINGS] Hooking settings tile '" + tileId + "' took " + (System.currentTimeMillis() - startTime) + "ms");
+                XposedHook.logD(TAG, "Hooking tile '" + tileId + "' took " + (System.currentTimeMillis() - startTime) + "ms");
 
         }
     }

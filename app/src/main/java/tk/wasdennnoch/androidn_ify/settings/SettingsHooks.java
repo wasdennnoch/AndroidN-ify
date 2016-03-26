@@ -13,6 +13,8 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.SummaryTweaks;
 
 public class SettingsHooks {
 
+    private static final String TAG = "SettingsHooks";
+
     public static void hookLoadCategoriesFromResource(XC_LoadPackage.LoadPackageParam lpparam) {
 
         Class<?> SettingsActivity = XposedHelpers.findClass("com.android.settings.SettingsActivity", lpparam.classLoader);
@@ -32,7 +34,7 @@ public class SettingsHooks {
             });*/
 
         } catch (Throwable t) {
-            XposedHook.logE("Error hooking loadCategoriesFromResource", t);
+            XposedHook.logE(TAG, "Error hooking loadCategoriesFromResource", t);
         }
 
 
