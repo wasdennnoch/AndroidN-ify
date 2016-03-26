@@ -20,8 +20,8 @@
             android:name="xposeddescription"
             android:value="@string/xposed_description"/>
 
-        <!--<activity
-            android:name=".SettingsActivity"
+        <activity
+            android:name=".ui.SettingsActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,12 +33,12 @@
             android:name=".SettingsAlias"
             android:enabled="true"
             android:label="@string/app_name"
-            android:targetActivity=".SettingsActivity">
+            android:targetActivity=".ui.SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity-alias>-->
+        </activity-alias>
 
     </application>
 

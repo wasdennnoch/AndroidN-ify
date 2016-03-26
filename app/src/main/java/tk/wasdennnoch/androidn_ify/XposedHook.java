@@ -1,20 +1,30 @@
 package tk.wasdennnoch.androidn_ify;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
+import de.robv.android.xposed.IXposedHookZygoteInit;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 
-public class XposedHook implements IXposedHookLoadPackage {
+public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit {
 
-    public static final boolean debug = true;
+    private static final String TAG = "[Android N-ify]";
 
     public static final String PACKAGE_ANDROID = "android";
     public static final String PACKAGE_SYSTEMUI = "com.android.systemui";
     public static final String PACKAGE_SETTINGS = "com.android.settings";
-    //private XSharedPreferences mPrefs = new XSharedPreferences(XposedHook.this.getClass().getPackage().getName());
+
+    public static boolean debug = true;
+
+    private XSharedPreferences mPrefs = new XSharedPreferences(getClass().getPackage().getName());
+
+    @Override
+    public void initZygote(StartupParam startupParam) throws Throwable {
+        debug = mPrefs.getBoolean("debug_log", false);
+    }
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
@@ -34,17 +44,17 @@ public class XposedHook implements IXposedHookLoadPackage {
     }
 
     public static void logE(String tag, String msg, Throwable t) {
-        XposedBridge.log("[Android N-ify] [FATAL ERROR] " + tag + ": " + msg);
+        XposedBridge.log(TAG + " [FATAL ERROR] " + tag + ": " + msg);
         if (t != null)
             XposedBridge.log(t);
     }
 
     public static void log(String tag, String msg) {
-        XposedBridge.log("[Android N-ify] " + tag + ": " + msg);
+        XposedBridge.log(TAG + " " + tag + ": " + msg);
     }
 
     public static void logD(String tag, String msg) {
-        if (debug) XposedBridge.log("[Android N-ify] [DEBUG] " + tag + ": " + msg);
+        if (debug) XposedBridge.log(TAG + " [DEBUG] " + tag + ": " + msg);
     }
 
 }
