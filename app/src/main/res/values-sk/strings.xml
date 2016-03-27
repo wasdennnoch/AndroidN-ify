@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name" translatable="false">Android N-ify</string>
+    
     <string name="xposed_description">Funkcie z Android N pre Lollipop a Marshmallow!</string>
 
     <string name="header_app">App</string>
