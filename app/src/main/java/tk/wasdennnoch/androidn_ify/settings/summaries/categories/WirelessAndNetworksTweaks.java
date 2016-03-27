@@ -15,7 +15,7 @@ import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 public class WirelessAndNetworksTweaks {
 
     public static void hookWifiTile(Object tile, Context context) {
-        String summary = "Disabled";
+        String summary = StringUtils.getInstance().getString(R.string.disabled);
         WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         if (manager.isWifiEnabled()) {
             //noinspection ResourceType
