@@ -48,7 +48,7 @@ public class SummaryTweaks {
     //private static int security_settings;
     //private static int account_settings;
     private static int language_settings;
-    private static int privacy_settings;
+    //private static int privacy_settings; // TODO last tile: "backup & reset"
 
     // SYSTEM
     private static int date_time_settings;
@@ -119,7 +119,7 @@ public class SummaryTweaks {
         //security_settings = getId(context, "security_settings");
         //account_settings = getId(context, "account_settings");
         language_settings = getId(context, "language_settings");
-        privacy_settings = getId(context, "privacy_settings");
+        //privacy_settings = getId(context, "privacy_settings");
 
         date_time_settings = getId(context, "date_time_settings");
         //accessibility_settings = getId(context, "accessibility_settings");
@@ -213,9 +213,9 @@ public class SummaryTweaks {
             } else if (id == language_settings) {
                 tileId = "language_settings";
                 PersonalTweaks.hookLanguageTile(tile);
-            } else if (id == privacy_settings) {
-                tileId = "privacy_settings";
-                XposedHelpers.setObjectField(tile, "summary", "privacy_settings");  // TODO last tile: "backup & reset"
+                //} else if (id == privacy_settings) {
+                //    tileId = "privacy_settings";
+                //    XposedHelpers.setObjectField(tile, "summary", "privacy_settings");
                 // When backup is enabled, it shows the email of the backup account. That's all I know.
 
             } else if (id == date_time_settings) {

@@ -11,10 +11,10 @@ import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit {
 
+    private static final String TAG = "[Android N-ify]";
     public static final String PACKAGE_ANDROID = "android";
     public static final String PACKAGE_SYSTEMUI = "com.android.systemui";
     public static final String PACKAGE_SETTINGS = "com.android.settings";
-    private static final String TAG = "[Android N-ify]";
     public static boolean debug = true;
 
     private XSharedPreferences mPrefs = new XSharedPreferences(getClass().getPackage().getName());
@@ -23,6 +23,10 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         XposedBridge.log(TAG + " [FATAL ERROR] " + tag + ": " + msg);
         if (t != null)
             XposedBridge.log(t);
+    }
+
+    public static void logW(String tag, String msg) {
+        XposedBridge.log(TAG + " [WARNING] " + tag + ": " + msg);
     }
 
     public static void log(String tag, String msg) {
@@ -36,6 +40,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
         debug = mPrefs.getBoolean("debug_log", false);
+        // TODO replace with BroadcastReceiver:
+        // When a preference changed, send a broadcast that only informs the hook
+        // that uses this preference. (See GravityBox for reference)
     }
 
     @Override

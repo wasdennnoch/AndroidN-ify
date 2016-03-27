@@ -9,7 +9,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 
 public class DoubleTapBase {
 
@@ -54,7 +56,7 @@ public class DoubleTapBase {
                         if (lastAppId != 0) {
                             am.moveTaskToFront(lastAppId, ActivityManager.MOVE_TASK_NO_USER_ACTION);
                         } else {
-                            Toast.makeText(context, "No previous app", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, StringUtils.getInstance().getString(R.string.no_previous_recents), Toast.LENGTH_SHORT).show();
                         }
                         XposedHook.logD(TAG, "App switched");
                     }

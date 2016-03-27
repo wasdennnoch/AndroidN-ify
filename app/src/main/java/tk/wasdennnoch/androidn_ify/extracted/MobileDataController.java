@@ -13,7 +13,6 @@ import android.os.ServiceManager;
 import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.util.Log;
 
 import java.util.Date;
 import java.util.Locale;
@@ -82,14 +81,14 @@ public class MobileDataController {
             try {
                 mSession = mStatsService.openSession();
             } catch (RemoteException | RuntimeException e) {
-                Log.w(TAG, "Failed to open stats session", e);
+                XposedHook.logW(TAG, "Failed to open stats session");
             }
         }
         return mSession;
     }
 
     private DataUsageInfo warn(String msg) {
-        Log.w(TAG, "Failed to get data usage, " + msg);
+        XposedHook.logW(TAG, "Failed to get data usage, " + msg);
         return null;
     }
 
@@ -110,7 +109,7 @@ public class MobileDataController {
             final long start, end;
             if (policy != null && policy.cycleDay > 0) {
                 // period = determined from cycleDay
-                if (XposedHook.debug) Log.d(TAG, "Cycle day=" + policy.cycleDay + " tz="
+                XposedHook.logD(TAG, "Cycle day=" + policy.cycleDay + " tz="
                         + policy.cycleTimezone);
                 //noinspection deprecation
                 final Time nowTime = new Time(policy.cycleTimezone);
@@ -134,8 +133,7 @@ public class MobileDataController {
             final long callStart = System.currentTimeMillis();
             final NetworkStatsHistory.Entry entry = history.getValues(start, end, now, null);
             final long callEnd = System.currentTimeMillis();
-            if (XposedHook.debug)
-                Log.d(TAG, String.format("history call from %s to %s now=%s took %sms: %s",
+            XposedHook.logD(TAG, String.format("history call from %s to %s now=%s took %sms: %s",
                         new Date(start), new Date(end), new Date(now), callEnd - callStart,
                         historyEntryToString(entry)));
             if (entry == null) {

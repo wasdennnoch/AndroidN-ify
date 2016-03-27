@@ -5,7 +5,11 @@ import android.annotation.StringRes;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import tk.wasdennnoch.androidn_ify.XposedHook;
+
 public class StringUtils {
+
+    private static final String TAG = "StringUtils";
 
     private static Context mContext;
     private static StringUtils mInstance;
@@ -15,7 +19,7 @@ public class StringUtils {
         try {
             mContext = context.createPackageContext("tk.wasdennnoch.androidn_ify", Context.CONTEXT_IGNORE_SECURITY);
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            XposedHook.logE(TAG, "Failed to instantiate package context", e);
         }
     }
 
@@ -32,6 +36,7 @@ public class StringUtils {
     public final String getString(@StringRes int resId, Object... formatArgs) {
         return mContext.getResources().getString(resId, formatArgs);
     }
+
 }
 
 

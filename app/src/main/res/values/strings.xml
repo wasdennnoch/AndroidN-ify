@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Android N-ify</string>
+    <string name="app_name" translatable="false">Android N-ify</string>
     <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
 
     <string name="header_app">App</string>
@@ -15,22 +15,26 @@
     <string name="off">OFF</string>
     <string name="on">ON</string>
 
+    <!-- SETTINGS -->
     <string name="data_usage_summary">%1$s of data used</string>
     <string name="display_summary">Adaptive brightness is %1$s</string>
     <string name="sound_summary">Ringer volume at %1$s</string>
     <string name="apps_summary">%1$d apps installed</string>
     <string name="storage_summary">%1$s of %2$s used</string>
-    <!-- Battery strings-->
-    <string name="battery_summary">%1$s - approx. %2$s  left</string>
+    <string name="battery_summary">%1$s - approx. %2$s left</string>
     <string name="battery_charging_wireless">%1$s - Charging on WIRELESS</string>
     <string name="battery_charging_usb">%1$s - Charging on USB</string>
     <string name="battery_charging_ac">%1$s - Charging on AC</string>
-    <!--End battery strings-->
     <string name="memory_summary">Currently %1$s of %2$s memory used</string>
     <string name="user_summary">Signed in as %1$s</string>
     <string name="location_on_power">ON / Power saving</string>
     <string name="location_on_device">ON / Device only</string>
     <string name="location_on_high">ON / High accuracy</string>
     <string name="print_summary">%1$d print jobs</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">No previous app</string>
+    <!-- /RECENTS -->
 
 </resources>

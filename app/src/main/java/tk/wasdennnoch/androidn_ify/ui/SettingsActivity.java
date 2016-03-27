@@ -18,7 +18,8 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bare_settings);
-        getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
+        if (savedInstanceState == null)
+            getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
     }
 
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -33,7 +34,7 @@ public class SettingsActivity extends Activity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            switch (key) {
+            switch (key) { // TODO send broadcast here.
                 case "hide_launcher_icon":
                     int mode = prefs.getBoolean("hide_launcher_icon", false) ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
                     getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getActivity(), "tk.wasdennnoch.androidn_ify.SettingsAlias"), mode, PackageManager.DONT_KILL_APP);

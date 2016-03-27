@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Android N-ify</string>
     <string name="xposed_description">Porta le funzionalità introdotte in Android N a Lollipop e Marshmallow!</string>
 
     <string name="header_app">App</string>
@@ -16,6 +15,7 @@
     <string name="off">OFF</string>
     <string name="on">ON</string>
 
+    <!-- SETTINGS -->
     <string name="data_usage_summary">%1$s di dati usati</string>
     <string name="display_summary">Luminosità adattiva è %1$s</string>
     <string name="sound_summary">Volume suoneria al %1$s</string>
@@ -31,5 +31,6 @@
     <string name="location_on_device">ON / Solo dispositivo</string>
     <string name="location_on_high">ON / Alta precisione</string>
     <string name="print_summary">%1$d processi di stampa</string>
+    <!-- /SETTINGS -->
 
 </resources>
