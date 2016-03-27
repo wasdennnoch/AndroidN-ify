@@ -14,9 +14,8 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 public class DoubleTapBase {
 
     private static final String TAG = "DoubleTapBase";
-
-    private static ActivityManager mAm;
     protected static int mDoubletapSpeed = 400;
+    private static ActivityManager mAm;
 
     protected static ActivityManager getActivityManager(Context context) {
         if (mAm == null) {

@@ -6,22 +6,24 @@ import android.location.LocationManager;
 import java.util.Locale;
 
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 
 public class PersonalTweaks {
 
     public static void hookLocationTile(Object tile, Context context) {
         String summary;
-        LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (!gps_enabled && !network_enabled) {
-            summary = "Disabled";
+            summary = StringUtils.getInstance().getString(R.string.disabled);
         } else if (gps_enabled && network_enabled) {
-            summary = "ON / High accuracy";
+            summary = StringUtils.getInstance().getString(R.string.location_on_high);
         } else if (gps_enabled) {
-            summary = "ON / Device only";
+            summary = StringUtils.getInstance().getString(R.string.location_on_device);
         } else {
-            summary = "ON / Power saving";
+            summary = StringUtils.getInstance().getString(R.string.location_on_power);
         }
 
         XposedHelpers.setObjectField(tile, "summary", summary);

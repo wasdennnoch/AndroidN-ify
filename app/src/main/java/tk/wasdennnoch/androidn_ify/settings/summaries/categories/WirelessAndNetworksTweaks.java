@@ -8,12 +8,14 @@ import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.extracted.MobileDataController;
+import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 
 public class WirelessAndNetworksTweaks {
 
     public static void hookWifiTile(Object tile, Context context) {
-        String summary = "Disabled";
+        String summary = StringUtils.getInstance().getString(R.string.disabled);
         WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         if (manager.isWifiEnabled()) {
             //noinspection ResourceType
@@ -24,14 +26,14 @@ public class WirelessAndNetworksTweaks {
                     summary = wifiInfo.getSSID();
                 }
             } else {
-                summary = "Disconnected";
+                summary = StringUtils.getInstance().getString(R.string.disconnected);
             }
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
     }
 
     public static void hookBluetoothTile(Object tile) {
-        String summary = "Disabled";
+        String summary = StringUtils.getInstance().getString(R.string.disabled);
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //noinspection ResourceType
         if (bluetoothAdapter.isEnabled()) {
@@ -50,7 +52,7 @@ public class WirelessAndNetworksTweaks {
             MobileDataController controller = new MobileDataController(context);
             MobileDataController.DataUsageInfo info = controller.getDataUsageInfo();
             if (info != null)
-                summary = Formatter.formatFileSize(context, info.usageLevel) + " of data used";
+                summary = StringUtils.getInstance().getString(R.string.data_usage_summary, Formatter.formatFileSize(context, info.usageLevel));
         } catch (Exception ignored) {
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
