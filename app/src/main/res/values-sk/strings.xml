@@ -1,0 +1,40 @@
+<resources>
+
+    
+    <string name="xposed_description">Funkcie z Android N pre Lollipop a Marshmallow!</string>
+
+    <string name="header_app">App</string>
+
+    <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
+    <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
+    <string name="debug_log_title">Zaznamenávanie chýb</string>
+    <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
+
+    <string name="disconnected">Odpojené</string>
+    <string name="disabled">Zakázané</string>
+    <string name="off">VYP.</string>
+    <string name="on">ZAP.</string>
+
+    <!-- SETTINGS -->
+    <string name="data_usage_summary">Objem využitých dát: %1$s</string>
+    <string name="display_summary">Prispôsobivý jas je %1$s</string>
+    <string name="sound_summary">Stupeň hlasitosti zvonenia: %1$s</string>
+    <string name="apps_summary">Počet nainštalovaných aplikácií: %1$d</string>
+    <string name="storage_summary">Využité miesto: %1$s z %2$s</string>
+    <string name="battery_summary">%1$s - zostáva približne %2$s</string>
+    <string name="battery_charging_wireless">%1$s - Bezdrôtové nabíjanie</string>
+    <string name="battery_charging_usb">%1$s - Nabíjanie cez USB</string>
+    <string name="battery_charging_ac">%1$s - Nabíjanie zo zásuvky</string>
+    <string name="memory_summary">Využíva sa v priemere %1$s z celkovej pamäte %2$s</string>
+    <string name="user_summary">Prihlásený/-á ako %1$s</string>
+    <string name="location_on_power">ZAP. / Úspora betérie</string>
+    <string name="location_on_device">ZAP. / Len senzory zariadenia</string>
+    <string name="location_on_high">ZAP. / Vysoká presnosť</string>
+    <string name="print_summary">%1$d tlačových úloh</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">Žiadna nedávna aplikácia</string>
+    <!-- /RECENTS -->
+
+</resources>
