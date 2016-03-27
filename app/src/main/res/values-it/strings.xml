@@ -13,7 +13,7 @@
 
     <string name="disabled">Disabilitato</string>
     <string name="disconnected">Disconnesso</string>
-    <string name="off">spento</string>
+    <string name="off">OFF</string>
     <string name="on">ON</string>
 
     <string name="data_usage_summary">%1$s di dati usati</string>
