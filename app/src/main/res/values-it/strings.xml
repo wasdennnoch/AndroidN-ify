@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Android N-ify</string>
+    <string name="xposed_description">Porta le funzionalità introdotte in Android N a Lollipop e Marshamallow!</string>
+
+    <string name="header_app">App</string>
+
+    <string name="hide_launcher_icon">Potrebbe richiedere il riavvio del launcher</string>
+    <string name="hide_launcher_icon_title">Nascondi icona launcher</string>
+    <string name="debug_log_title">Log di debug</string>
+    <string name="debug_log">Attenzione: Log invasivo</string>
+
+    <string name="disabled">Disabilitato</string>
+    <string name="disconnected">Disconnesso</string>
+    <string name="off">spento</string>
+    <string name="on">ON</string>
+
+    <string name="data_usage_summary">%1$s di dati usati</string>
+    <string name="display_summary">Luminosità adattiva è %1$s</string>
+    <string name="sound_summary">Volume suoneria al %1$s</string>
+    <string name="apps_summary">%1$d applicazioni installate</string>
+    <string name="storage_summary">%1$s di %2$s usati</string>
+    <string name="battery_summary">%1$s - circa %2$s rimanenti</string>
+    <string name="battery_charging_wireless">%1$s - Carica tramite WIRELESS</string>
+    <string name="battery_charging_usb">%1$s - Carica tramite USB</string>
+    <string name="battery_charging_ac">%1$s - Carica tramite AC</string>
+    <string name="memory_summary">Utilizzo memoria %1$s di %2$s </string>
+    <string name="user_summary">Accesso come %1$s</string>
+    <string name="location_on_power">ON / Risparmio energia</string>
+    <string name="location_on_device">ON / Solo dispositivo</string>
+    <string name="location_on_high">ON / Alta precisione</string>
+    <string name="print_summary">%1$d processi di stampa</string>
+
+</resources>
