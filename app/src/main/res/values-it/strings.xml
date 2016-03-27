@@ -33,4 +33,8 @@
     <string name="print_summary">%1$d processi di stampa</string>
     <!-- /SETTINGS -->
 
+    <!-- RECENTS -->
+    <string name="no_previous_recents">Nessuna app precedente</string>
+    <!-- /RECENTS -->
+
 </resources>
