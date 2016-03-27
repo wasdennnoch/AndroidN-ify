@@ -1,0 +1,39 @@
+<resources>
+
+    <string name="xposed_description">Bringt in Android N vorgestellte Features auf Geräte mit Lollipop und Marshmallow!</string>
+
+    <string name="header_app">App</string>
+
+    <string name="hide_launcher_icon_title">Launcher-Icon verbergen</string>
+    <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
+    <string name="debug_log_title">Debugging-Log</string>
+    <string name="debug_log">Warnung: Überschwemmt den Log</string>
+
+    <string name="disconnected">Getrennt</string>
+    <string name="disabled">Deaktiviert</string>
+    <string name="off">AUS</string>
+    <string name="on">AN</string>
+
+    <!-- SETTINGS -->
+    <string name="data_usage_summary">%1$s des Datenvolumens verbraucht</string>
+    <string name="display_summary">Angepasste Helligkeit ist %1$s</string>
+    <string name="sound_summary">Ruflautstärke auf %1$s</string>
+    <string name="apps_summary">%1$d Apps installiert</string>
+    <string name="storage_summary">%1$s von %2$s genutzt</string>
+    <string name="battery_summary">%1$s - ca. %2$s verbleibend</string>
+    <string name="battery_charging_wireless">%1$s - Kabelloses Laden</string>
+    <string name="battery_charging_usb">%1$s - Laden an USB</string>
+    <string name="battery_charging_ac">%1$s - Laden am Netz</string>
+    <string name="memory_summary">Derzeit %1$s von %2$s Speicher genutzt</string>
+    <string name="user_summary">Angemeldet als %1$s</string>
+    <string name="location_on_power">An / Energiesparmodus</string>
+    <string name="location_on_device">AN / Nur Gerät</string>
+    <string name="location_on_high">AN / Hohe Genauigkeit</string>
+    <string name="print_summary">%1$d Druckaufträge</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">Keine zuletzt genutzten Apps</string>
+    <!-- /RECENTS -->
+
+</resources>
