@@ -14,6 +14,12 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.SummaryTweaks;
 public class SettingsHooks {
 
     private static final String TAG = "SettingsHooks";
+    private static XC_MethodHook loadCategoriesFromResourceHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            SummaryTweaks.afterLoadCategoriesFromResource(param);
+        }
+    };
 
     public static void hookLoadCategoriesFromResource(XC_LoadPackage.LoadPackageParam lpparam) {
 
@@ -39,12 +45,5 @@ public class SettingsHooks {
 
 
     }
-
-    private static XC_MethodHook loadCategoriesFromResourceHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            SummaryTweaks.afterLoadCategoriesFromResource(param);
-        }
-    };
 
 }

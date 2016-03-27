@@ -1,10 +1,5 @@
 package tk.wasdennnoch.androidn_ify.extracted;
 
-import static android.net.NetworkStatsHistory.FIELD_RX_BYTES;
-import static android.net.NetworkStatsHistory.FIELD_TX_BYTES;
-import static android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
-import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.INetworkStatsService;
@@ -25,6 +20,11 @@ import java.util.Locale;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+
+import static android.net.NetworkStatsHistory.FIELD_RX_BYTES;
+import static android.net.NetworkStatsHistory.FIELD_TX_BYTES;
+import static android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
+import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
 
 public class MobileDataController {
     private static final String TAG = "MobileDataController";
@@ -49,6 +49,34 @@ public class MobileDataController {
         mPolicyManager = NetworkPolicyManager.from(mContext);
     }
 
+    @SuppressWarnings("deprecation")
+    private static Time addMonth(Time t, int months) {
+        final Time rt = new Time(t);
+        rt.set(t.monthDay, t.month + months, t.year);
+        rt.normalize(false);
+        return rt;
+    }
+
+    private static String historyEntryToString(NetworkStatsHistory.Entry entry) {
+        return entry == null ? null : "Entry[" +
+                "bucketDuration=" + entry.bucketDuration +
+                ",bucketStart=" + entry.bucketStart +
+                ",activeTime=" + entry.activeTime +
+                ",rxBytes=" + entry.rxBytes +
+                ",rxPackets=" + entry.rxPackets +
+                ",txBytes=" + entry.txBytes +
+                ",txPackets=" + entry.txPackets +
+                ",operations=" + entry.operations +
+                ']';
+    }
+
+    private static String getActiveSubscriberId(Context context) {
+        final TelephonyManager tele = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        Class<?> SubscriptionManager = XposedHelpers.findClass("android.telephony.SubscriptionManager", null);
+        int getDefaultDataSubId = (int) XposedHelpers.callStaticMethod(SubscriptionManager, "getDefaultDataSubId");
+        return (String) XposedHelpers.callMethod(tele, "getSubscriberId", getDefaultDataSubId);
+    }
+
     private INetworkStatsSession getSession() {
         if (mSession == null) {
             try {
@@ -63,14 +91,6 @@ public class MobileDataController {
     private DataUsageInfo warn(String msg) {
         Log.w(TAG, "Failed to get data usage, " + msg);
         return null;
-    }
-
-    @SuppressWarnings("deprecation")
-    private static Time addMonth(Time t, int months) {
-        final Time rt = new Time(t);
-        rt.set(t.monthDay, t.month + months, t.year);
-        rt.normalize(false);
-        return rt;
     }
 
     public DataUsageInfo getDataUsageInfo() {
@@ -114,9 +134,10 @@ public class MobileDataController {
             final long callStart = System.currentTimeMillis();
             final NetworkStatsHistory.Entry entry = history.getValues(start, end, now, null);
             final long callEnd = System.currentTimeMillis();
-            if (XposedHook.debug) Log.d(TAG, String.format("history call from %s to %s now=%s took %sms: %s",
-                    new Date(start), new Date(end), new Date(now), callEnd - callStart,
-                    historyEntryToString(entry)));
+            if (XposedHook.debug)
+                Log.d(TAG, String.format("history call from %s to %s now=%s took %sms: %s",
+                        new Date(start), new Date(end), new Date(now), callEnd - callStart,
+                        historyEntryToString(entry)));
             if (entry == null) {
                 return warn("no entry data");
             }
@@ -136,7 +157,6 @@ public class MobileDataController {
         }
     }
 
-
     private NetworkPolicy findNetworkPolicy(NetworkTemplate template) {
         if (mPolicyManager == null || template == null) return null;
         final NetworkPolicy[] policies = mPolicyManager.getNetworkPolicies();
@@ -147,26 +167,6 @@ public class MobileDataController {
             }
         }
         return null;
-    }
-
-    private static String historyEntryToString(NetworkStatsHistory.Entry entry) {
-        return entry == null ? null : "Entry[" +
-                "bucketDuration=" + entry.bucketDuration +
-                ",bucketStart=" + entry.bucketStart +
-                ",activeTime=" + entry.activeTime +
-                ",rxBytes=" + entry.rxBytes +
-                ",rxPackets=" + entry.rxPackets +
-                ",txBytes=" + entry.txBytes +
-                ",txPackets=" + entry.txPackets +
-                ",operations=" + entry.operations +
-                ']';
-    }
-
-    private static String getActiveSubscriberId(Context context) {
-        final TelephonyManager tele = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        Class<?> SubscriptionManager = XposedHelpers.findClass("android.telephony.SubscriptionManager", null);
-        int getDefaultDataSubId = (int) XposedHelpers.callStaticMethod(SubscriptionManager, "getDefaultDataSubId");
-        return (String) XposedHelpers.callMethod(tele, "getSubscriberId", getDefaultDataSubId);
     }
 
     private String formatDateRange(long start, long end) {

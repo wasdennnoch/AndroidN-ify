@@ -43,20 +43,6 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             }
         }
     };
-
-    public static void hook(XC_LoadPackage.LoadPackageParam lpparam) {
-
-        Class<?> PhoneWindowManager = XposedHelpers.findClass("com.android.server.policy.PhoneWindowManager", lpparam.classLoader);
-
-        try {
-            XposedHelpers.findAndHookMethod(PhoneWindowManager, "init", Context.class, CLASS_IWINDOW_MANAGER, CLASS_WINDOW_MANAGER_FUNCS, initHook);
-            XposedHelpers.findAndHookMethod(PhoneWindowManager, "interceptKeyBeforeDispatching", CLASS_WINDOW_STATE, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
-        } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error hooking init or interceptKeyBeforeDispatching", t);
-        }
-
-    }
-
     private static XC_MethodHook initHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -65,7 +51,6 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             mHandler = (Handler) XposedHelpers.getObjectField(mPhoneWindowManager, "mHandler");
         }
     };
-
     private static XC_MethodHook interceptKeyBeforeDispatchingHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -113,6 +98,19 @@ public class DoubleTapHwKeys extends DoubleTapBase {
 
         }
     };
+
+    public static void hook(XC_LoadPackage.LoadPackageParam lpparam) {
+
+        Class<?> PhoneWindowManager = XposedHelpers.findClass("com.android.server.policy.PhoneWindowManager", lpparam.classLoader);
+
+        try {
+            XposedHelpers.findAndHookMethod(PhoneWindowManager, "init", Context.class, CLASS_IWINDOW_MANAGER, CLASS_WINDOW_MANAGER_FUNCS, initHook);
+            XposedHelpers.findAndHookMethod(PhoneWindowManager, "interceptKeyBeforeDispatching", CLASS_WINDOW_STATE, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error hooking init or interceptKeyBeforeDispatching", t);
+        }
+
+    }
 
     public static void injectKey(final int keyCode) {
         mHandler.post(new Runnable() {

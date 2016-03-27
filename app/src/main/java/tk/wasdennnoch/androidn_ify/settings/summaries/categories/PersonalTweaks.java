@@ -13,7 +13,7 @@ public class PersonalTweaks {
 
     public static void hookLocationTile(Object tile, Context context) {
         String summary;
-        LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (!gps_enabled && !network_enabled) {

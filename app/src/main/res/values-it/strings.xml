@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Android N-ify</string>
-    <string name="xposed_description">Porta le funzionalità introdotte in Android N a Lollipop e Marshamallow!</string>
+    <string name="xposed_description">Porta le funzionalità introdotte in Android N a Lollipop e Marshmallow!</string>
 
     <string name="header_app">App</string>
 

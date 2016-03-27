@@ -11,15 +11,27 @@ import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit {
 
-    private static final String TAG = "[Android N-ify]";
-
     public static final String PACKAGE_ANDROID = "android";
     public static final String PACKAGE_SYSTEMUI = "com.android.systemui";
     public static final String PACKAGE_SETTINGS = "com.android.settings";
-
+    private static final String TAG = "[Android N-ify]";
     public static boolean debug = true;
 
     private XSharedPreferences mPrefs = new XSharedPreferences(getClass().getPackage().getName());
+
+    public static void logE(String tag, String msg, Throwable t) {
+        XposedBridge.log(TAG + " [FATAL ERROR] " + tag + ": " + msg);
+        if (t != null)
+            XposedBridge.log(t);
+    }
+
+    public static void log(String tag, String msg) {
+        XposedBridge.log(TAG + " " + tag + ": " + msg);
+    }
+
+    public static void logD(String tag, String msg) {
+        if (debug) XposedBridge.log(TAG + " [DEBUG] " + tag + ": " + msg);
+    }
 
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
@@ -41,20 +53,6 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 break;
         }
 
-    }
-
-    public static void logE(String tag, String msg, Throwable t) {
-        XposedBridge.log(TAG + " [FATAL ERROR] " + tag + ": " + msg);
-        if (t != null)
-            XposedBridge.log(t);
-    }
-
-    public static void log(String tag, String msg) {
-        XposedBridge.log(TAG + " " + tag + ": " + msg);
-    }
-
-    public static void logD(String tag, String msg) {
-        if (debug) XposedBridge.log(TAG + " [DEBUG] " + tag + ": " + msg);
     }
 
 }

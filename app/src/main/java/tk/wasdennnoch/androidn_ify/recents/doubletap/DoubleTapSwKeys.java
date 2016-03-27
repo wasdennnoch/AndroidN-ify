@@ -17,21 +17,6 @@ public class DoubleTapSwKeys extends DoubleTapBase {
 
     private static Object NAVBAR_RECENT;
     private static boolean mWasPressed = false;
-
-    public static void hook(XC_LoadPackage.LoadPackageParam lpparam) {
-
-        Class<?> NavigationBarView = XposedHelpers.findClass(CLASS_NAVIGATION_BAR_VIEW, lpparam.classLoader);
-        Class<?> NavbarEditor = XposedHelpers.findClass(CLASS_NAVBAR_EDITOR, lpparam.classLoader);
-
-        try {
-            XposedHelpers.findAndHookMethod(NavigationBarView, "updateButtonListeners", updateButtonListenersHook);
-            NAVBAR_RECENT = XposedHelpers.getStaticObjectField(NavbarEditor, "NAVBAR_RECENT");
-        } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error hooking updateButtonListeners or getting NAVBAR_RECENT", t);
-        }
-
-    }
-
     private static XC_MethodHook updateButtonListenersHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
@@ -67,5 +52,19 @@ public class DoubleTapSwKeys extends DoubleTapBase {
 
         }
     };
+
+    public static void hook(XC_LoadPackage.LoadPackageParam lpparam) {
+
+        Class<?> NavigationBarView = XposedHelpers.findClass(CLASS_NAVIGATION_BAR_VIEW, lpparam.classLoader);
+        Class<?> NavbarEditor = XposedHelpers.findClass(CLASS_NAVBAR_EDITOR, lpparam.classLoader);
+
+        try {
+            XposedHelpers.findAndHookMethod(NavigationBarView, "updateButtonListeners", updateButtonListenersHook);
+            NAVBAR_RECENT = XposedHelpers.getStaticObjectField(NavbarEditor, "NAVBAR_RECENT");
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error hooking updateButtonListeners or getting NAVBAR_RECENT", t);
+        }
+
+    }
 
 }

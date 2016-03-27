@@ -19,7 +19,7 @@ public class SystemTweaks {
         Calendar cal = GregorianCalendar.getInstance(tz);
         int offsetInMillis = tz.getOffset(cal.getTimeInMillis());
         String offset = String.format("%02d:%02d", Math.abs(offsetInMillis / 3600000), Math.abs((offsetInMillis / 60000) % 60));
-        offset = "GMT"+(offsetInMillis >= 0 ? "+" : "-") + offset;
+        offset = "GMT" + (offsetInMillis >= 0 ? "+" : "-") + offset;
         XposedHelpers.setObjectField(tile, "summary", offset);
     }
 
