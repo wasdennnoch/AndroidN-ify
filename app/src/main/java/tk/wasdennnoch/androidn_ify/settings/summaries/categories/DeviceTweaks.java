@@ -86,20 +86,19 @@ public class DeviceTweaks {
                 BatteryStats batteryStats = batteryStatsHelper.getStats();
                 long remaining = batteryStats.computeBatteryTimeRemaining(SystemClock.elapsedRealtime()); // TODO Fix remaining time
                 if (remaining > 0) {
-                    summary += StringUtils.getInstance().getString(R.string.battery_approx);
                     Class<?> Formatter = XposedHelpers.findClass("android.text.format.Formatter", null);
-                    summary += XposedHelpers.callStaticMethod(Formatter, "formatShortElapsedTime", context, remaining / 1000);
-                    summary += StringUtils.getInstance().getString(R.string.battery_left);
+                    String time = (String) XposedHelpers.callStaticMethod(Formatter, "formatShortElapsedTime", context, remaining / 1000);
+                    summary = StringUtils.getInstance().getString(R.string.battery_summary, formatPercentage(level, scale), time);
                 }
                 break;
             case BatteryManager.BATTERY_PLUGGED_AC:
-                summary += StringUtils.getInstance().getString(R.string.battery_charging_ac);
+                summary = StringUtils.getInstance().getString(R.string.battery_charging_ac, formatPercentage(level, scale));
                 break;
             case BatteryManager.BATTERY_PLUGGED_USB:
-                summary += StringUtils.getInstance().getString(R.string.battery_charging_usb);
+                summary = StringUtils.getInstance().getString(R.string.battery_charging_usb, formatPercentage(level, scale));
                 break;
             case BatteryManager.BATTERY_PLUGGED_WIRELESS:
-                summary += StringUtils.getInstance().getString(R.string.battery_charging_wireless);
+                summary = StringUtils.getInstance().getString(R.string.battery_charging_wireless, formatPercentage(level, scale));
                 break;
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
