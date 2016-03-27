@@ -9,6 +9,8 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 
 public class SystemTweaks {
 
@@ -27,7 +29,7 @@ public class SystemTweaks {
         //int uid = (int) XposedHelpers.callStaticMethod(UserHandle, "getCallingUserId");
         PrintManager publicPm = (PrintManager) XposedHelpers.callMethod(pm, "getGlobalPrintManagerForUser", -2); // or -2
         if (publicPm != null) {
-            XposedHelpers.setObjectField(tile, "summary", publicPm.getPrintJobs().size() + " print jobs");
+            XposedHelpers.setObjectField(tile, "summary", StringUtils.getInstance().getString(R.string.print_summary, publicPm.getPrintJobs().size()));
         }
     }
 

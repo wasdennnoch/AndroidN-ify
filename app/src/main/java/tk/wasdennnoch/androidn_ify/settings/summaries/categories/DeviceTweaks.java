@@ -16,6 +16,7 @@ import android.os.SystemClock;
 import android.os.UserManager;
 import android.provider.Settings;
 import android.text.format.Formatter;
+
 import com.android.internal.os.BatteryStatsHelper;
 import com.android.internal.util.MemInfoReader;
 
@@ -24,15 +25,16 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 
 public class DeviceTweaks {
 
     public static void hookDisplayTile(Object tile, Context context) {
-        String summary;
         int brightnessMode = Settings.System.getInt(context.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-        summary = "Adaptive brightness is ";
-        summary += brightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL ? "OFF" : "ON";
+        String status = brightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL ? StringUtils.getInstance().getString(R.string.off) : StringUtils.getInstance().getString(R.string.on);
+        String summary = StringUtils.getInstance().getString(R.string.display_summary, status);
         XposedHelpers.setObjectField(tile, "summary", summary);
     }
 
@@ -44,13 +46,13 @@ public class DeviceTweaks {
         AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int currentVolume = audio.getStreamVolume(AudioManager.STREAM_RING);
         int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_RING);
-        XposedHelpers.setObjectField(tile, "summary", "Ringer volume at " + formatPercentage(currentVolume, maxVolume));
+        XposedHelpers.setObjectField(tile, "summary", StringUtils.getInstance().getString(R.string.sound_summary, formatPercentage(currentVolume, maxVolume)));
     }
 
     public static void hookApplicationTile(Object tile, Context context) {
         final PackageManager pm = context.getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(0);
-        XposedHelpers.setObjectField(tile, "summary", packages.size() + " apps installed");
+        XposedHelpers.setObjectField(tile, "summary", StringUtils.getInstance().getString(R.string.apps_summary, packages.size()));
     }
 
     public static void hookStorageTile(Object tile, Context context) {
@@ -64,10 +66,7 @@ public class DeviceTweaks {
         long total = totalBlocks * blockSize;
         long used = total - available;
 
-        String summary = Formatter.formatFileSize(context, used);
-        summary += " of ";
-        summary += Formatter.formatFileSize(context, total);
-        summary += " used";
+        String summary = StringUtils.getInstance().getString(R.string.storage_summary, Formatter.formatFileSize(context, used), Formatter.formatFileSize(context, total));
         XposedHelpers.setObjectField(tile, "summary", summary);
     }
 
@@ -87,20 +86,20 @@ public class DeviceTweaks {
                 BatteryStats batteryStats = batteryStatsHelper.getStats();
                 long remaining = batteryStats.computeBatteryTimeRemaining(SystemClock.elapsedRealtime()); // TODO Fix remaining time
                 if (remaining > 0) {
-                    summary += " - approx. ";
+                    summary += StringUtils.getInstance().getString(R.string.battery_approx);
                     Class<?> Formatter = XposedHelpers.findClass("android.text.format.Formatter", null);
                     summary += XposedHelpers.callStaticMethod(Formatter, "formatShortElapsedTime", context, remaining / 1000);
-                    summary += " left";
+                    summary += StringUtils.getInstance().getString(R.string.battery_left);
                 }
                 break;
             case BatteryManager.BATTERY_PLUGGED_AC:
-                summary += " - Charging on AC";
+                summary += StringUtils.getInstance().getString(R.string.battery_charging_ac);
                 break;
             case BatteryManager.BATTERY_PLUGGED_USB:
-                summary += " - Charging on USB";
+                summary += StringUtils.getInstance().getString(R.string.battery_charging_usb);
                 break;
             case BatteryManager.BATTERY_PLUGGED_WIRELESS:
-                summary += " - Charging on WIRELESS";
+                summary += StringUtils.getInstance().getString(R.string.battery_charging_wireless);
                 break;
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
@@ -119,19 +118,14 @@ public class DeviceTweaks {
         long availMem = mMemInfoReader.getFreeSize() + mMemInfoReader.getCachedSize() - secServerMem;
         long totalMem = mMemInfoReader.getTotalSize();
 
-        String summary = "Currently ";
-        summary += Formatter.formatShortFileSize(context, totalMem - availMem);
-        summary += " of ";
-        summary += Formatter.formatShortFileSize(context, totalMem);
-        summary += " memory used";
-
+        String summary = StringUtils.getInstance().getString(R.string.memory_summary, Formatter.formatShortFileSize(context, totalMem - availMem), Formatter.formatShortFileSize(context, totalMem));
         XposedHelpers.setObjectField(tile, "summary", summary);
 
     }
 
     public static void hookUserTile(Object tile, Context context) {
         UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
-        XposedHelpers.setObjectField(tile, "summary", "Signed in as " + userManager.getUserName());
+        XposedHelpers.setObjectField(tile, "summary", StringUtils.getInstance().getString(R.string.user_summary, userManager.getUserName()));
     }
 
 

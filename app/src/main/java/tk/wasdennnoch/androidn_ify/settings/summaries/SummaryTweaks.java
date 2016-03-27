@@ -13,6 +13,7 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.categories.PersonalTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.RomTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.SystemTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.WirelessAndNetworksTweaks;
+import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 
 public class SummaryTweaks {
 
@@ -147,6 +148,7 @@ public class SummaryTweaks {
         int id;
         String tileId;
         long startTime;
+        new StringUtils(context);
         for (Object tile : tiles) {
             id = (int) XposedHelpers.getLongField(tile, "id");
             if (id == -1)
