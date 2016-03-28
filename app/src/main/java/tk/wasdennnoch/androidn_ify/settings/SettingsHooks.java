@@ -14,22 +14,30 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.SummaryTweaks;
 public class SettingsHooks {
 
     private static final String TAG = "SettingsHooks";
+    private static XSharedPreferences sPrefs;
 
+    /*private static XC_MethodHook onCreateHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            SummaryTweaks.afterOnCreate(param);
+        }
+    };*/
     private static XC_MethodHook loadCategoriesFromResourceHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            SummaryTweaks.afterLoadCategoriesFromResource(param);
+            SummaryTweaks.afterLoadCategoriesFromResource(param, sPrefs);
         }
     };
 
     public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
         try {
+            sPrefs = prefs;
             prefs.reload();
             if (prefs.getBoolean("enable_settings_tweaks", true)) {
 
                 Class<?> classSettingsActivity = XposedHelpers.findClass("com.android.settings.SettingsActivity", classLoader);
 
-                SummaryTweaks.setFixSoundNotifTile(prefs.getBoolean("fix_sound_notif_tile", false));
+                //XposedHelpers.findAndHookMethod(classSettingsActivity, "onCreate", Bundle.class, onCreateHook);
 
                 if (Build.VERSION.SDK_INT >= 23)
                     XposedHelpers.findAndHookMethod(classSettingsActivity, "loadCategoriesFromResource", int.class, List.class, Context.class, loadCategoriesFromResourceHook);

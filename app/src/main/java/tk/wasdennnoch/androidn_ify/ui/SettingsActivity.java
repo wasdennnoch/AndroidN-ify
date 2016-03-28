@@ -16,8 +16,8 @@ import tk.wasdennnoch.androidn_ify.R;
 
 public class SettingsActivity extends Activity {
 
-    public static final String ACTION_SETTINGS_CHANGED = "an.action.ACTION_SETTINGS_CHANGED";
-    public static final String EXTRA_SETTINGS_FIX_SOUND_NOTIF_TILE = "an.extra.settings.FIX_SOUND_NOTIF_TILE";
+    //public static final String ACTION_SETTINGS_CHANGED = "an.action.ACTION_SETTINGS_CHANGED";
+    //public static final String EXTRA_SETTINGS_FIX_SOUND_NOTIF_TILE = "an.extra.settings.FIX_SOUND_NOTIF_TILE";
 
     public static final String ACTION_RECENTS_CHANGED = "an.action.ACTION_RECENTS_CHANGED";
     public static final String EXTRA_RECENTS_DOUBLE_TAP_SPEED = "an.extra.recents.DOUBLE_TAP_SPEED";
@@ -78,10 +78,6 @@ public class SettingsActivity extends Activity {
         private void sendUpdateBroadcast(SharedPreferences prefs, String key) {
             Intent intent = new Intent();
             switch (key) {
-                case "fix_sound_notif_tile":
-                    intent.setAction(ACTION_SETTINGS_CHANGED);
-                    intent.putExtra(EXTRA_SETTINGS_FIX_SOUND_NOTIF_TILE, prefs.getBoolean(key, false));
-                    break;
                 case "double_tap_speed":
                     intent.setAction(ACTION_RECENTS_CHANGED);
                     intent.putExtra(EXTRA_RECENTS_DOUBLE_TAP_SPEED, prefs.getInt(key, 400));

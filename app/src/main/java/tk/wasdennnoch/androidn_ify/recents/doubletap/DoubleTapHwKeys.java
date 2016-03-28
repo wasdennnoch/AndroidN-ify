@@ -14,7 +14,6 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.settings.summaries.SummaryTweaks;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 
 public class DoubleTapHwKeys extends DoubleTapBase {
@@ -48,12 +47,6 @@ public class DoubleTapHwKeys extends DoubleTapBase {
         public void onReceive(Context context, Intent intent) {
             XposedHook.logD(TAG, "Broadcast received: " + intent);
             switch (intent.getAction()) {
-                // Needs to be here because the settings don't get informed about changes when
-                // they aren't open (the BroadcastReceiver gets unregistered in onDestroy)
-                case SettingsActivity.ACTION_SETTINGS_CHANGED:
-                    if (intent.hasExtra(SettingsActivity.EXTRA_SETTINGS_FIX_SOUND_NOTIF_TILE))
-                        SummaryTweaks.setFixSoundNotifTile(intent.getBooleanExtra(SettingsActivity.EXTRA_SETTINGS_FIX_SOUND_NOTIF_TILE, false));
-                    break;
                 case SettingsActivity.ACTION_RECENTS_CHANGED:
                     if (intent.hasExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED))
                         mDoubletapSpeed = intent.getIntExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED, 400);
@@ -74,7 +67,6 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             mHandler = (Handler) XposedHelpers.getObjectField(mPhoneWindowManager, "mHandler");
             // No need to unregister this because the system process will last "forever"
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(SettingsActivity.ACTION_SETTINGS_CHANGED);
             intentFilter.addAction(SettingsActivity.ACTION_RECENTS_CHANGED);
             intentFilter.addAction(SettingsActivity.ACTION_GENERAL);
             mContext.registerReceiver(sBroadcastReceiver, intentFilter);
