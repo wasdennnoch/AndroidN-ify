@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="xposed_description">Funkcie z Android N pre Lollipop a Marshmallow!</string>
+    <string name="xposed_description">Niektoré funkcie z Android N pre Lollipop a Marshmallow!</string>
 
-    <string name="header_app">App</string>
+    <string name="header_settings">Nastavenia</string>
+    <string name="header_recents">Nedávne aplikácie</string>
+    <string name="header_app">Aplikácia</string>
 
     <!-- prefs -->
+    <string name="enable_settings">Povoliť úpravy nastavení</string>
+    <string name="fix_sound_notif_tile_title">Opraviť "Zvuk a upozornenia"</string>
+    <string name="fix_sound_notif_tile">Niektoré ROM kombinujú Zvuky a Upozornenia. Povoľte pre zobrazenie správneho zhrnutia</string>
+
+    <string name="enable_recents">Povoliť prepínač nedávnych aplikácií</string>
+    <string name="double_tap_speed_title">Rýchlosť dvojitého kliknutia</string>
+
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
