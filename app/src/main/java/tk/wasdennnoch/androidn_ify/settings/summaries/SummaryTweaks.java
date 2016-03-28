@@ -18,6 +18,8 @@ import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 public class SummaryTweaks {
 
     private static final String TAG = "SummaryTweaks";
+    private static boolean sFixSoundNotifTile = false;
+
 
     // All tiles. Tiles without a subtitle are commented out to improve performance.
     // They will be removed completely in the near future.
@@ -74,23 +76,32 @@ public class SummaryTweaks {
     //private static int supersu_settings;
 
     public static void afterLoadCategoriesFromResource(XC_MethodHook.MethodHookParam param) {
-        long startTime = System.currentTimeMillis();
+        try {
+            long startTime = System.currentTimeMillis();
 
-        Context context;
-        if (Build.VERSION.SDK_INT >= 23)
-            context = (Context) param.args[2];
-        else
-            context = (Context) param.thisObject; // Surrounding activity
+            Context context;
+            if (Build.VERSION.SDK_INT >= 23)
+                context = (Context) param.args[2];
+            else
+                context = (Context) param.thisObject; // Surrounding activity
 
-        List target = (List) param.args[1];
+            List target = (List) param.args[1];
 
-        setupIds(context);
+            setupIds(context);
+            StringUtils.getInstance(context); // Setup instance
 
-        for (Object category : target) {
-            setSummaries((List) XposedHelpers.getObjectField(category, "tiles"), context);
+            for (Object category : target) {
+                setSummaries((List) XposedHelpers.getObjectField(category, "tiles"), context);
+            }
+
+            XposedHook.logD(TAG, "Total afterLoadCategoriesFromResource hook took " + (System.currentTimeMillis() - startTime) + "ms");
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error in afterLoadCategoriesFromResource", t);
         }
+    }
 
-        XposedHook.logD(TAG, "Total hook took " + (System.currentTimeMillis() - startTime) + "ms");
+    public static void setFixSoundNotifTile(boolean fix) {
+        sFixSoundNotifTile = fix;
     }
 
     private static void setupIds(Context context) {
@@ -148,7 +159,6 @@ public class SummaryTweaks {
         int id;
         String tileId;
         long startTime;
-        new StringUtils(context);
         for (Object tile : tiles) {
             id = (int) XposedHelpers.getLongField(tile, "id");
             if (id == -1)
@@ -179,7 +189,10 @@ public class SummaryTweaks {
                 DeviceTweaks.hookDisplayTile(tile, context);
             } else if (id == notification_settings) {
                 tileId = "notification_settings";
-                DeviceTweaks.hookNotificationTile(tile, context);
+                if (!sFixSoundNotifTile)
+                    DeviceTweaks.hookNotificationTile(tile, context);
+                else
+                    DeviceTweaks.hookSoundTile(tile, context);
             } else if (id == sound_settings) {
                 tileId = "sound_settings";
                 DeviceTweaks.hookSoundTile(tile, context);

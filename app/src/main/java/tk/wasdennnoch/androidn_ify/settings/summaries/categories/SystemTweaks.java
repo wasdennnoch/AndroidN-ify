@@ -25,9 +25,7 @@ public class SystemTweaks {
 
     public static void hookPrintTile(Object tile, Context context) {
         PrintManager pm = (PrintManager) context.getSystemService(Context.PRINT_SERVICE);
-        //Class<?> UserHandle = XposedHelpers.findClass("android.os.UserHandle", null);
-        //int uid = (int) XposedHelpers.callStaticMethod(UserHandle, "getCallingUserId");
-        PrintManager publicPm = (PrintManager) XposedHelpers.callMethod(pm, "getGlobalPrintManagerForUser", -2); // or -2
+        PrintManager publicPm = (PrintManager) XposedHelpers.callMethod(pm, "getGlobalPrintManagerForUser", -2);
         if (publicPm != null) {
             XposedHelpers.setObjectField(tile, "summary", StringUtils.getInstance().getString(R.string.print_summary, publicPm.getPrintJobs().size()));
         }

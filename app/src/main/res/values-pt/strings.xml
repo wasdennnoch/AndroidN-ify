@@ -5,17 +5,19 @@
 
     <string name="header_app">App</string>
 
+    <!-- prefs -->
     <string name="hide_launcher_icon">Pode requerer um reinício do launcher</string>
     <string name="hide_launcher_icon_title">Esconder ícone do launcher</string>
     <string name="debug_log_title">Registros de depuração</string>
     <string name="debug_log">Atenção: Registro invasivo</string>
+    <!-- /prefs -->
 
+
+    <!-- SETTINGS -->
     <string name="disabled">Desativado</string>
     <string name="disconnected">Desconectado</string>
     <string name="off">DESATIVADO</string>
     <string name="on">ATIVADO</string>
-
-    <!-- SETTINGS -->
     <string name="data_usage_summary">%1$s de dados usados</string>
     <string name="display_summary">Brilho adaptável %1$s</string>
     <string name="sound_summary">Volume da campainha em %1$s</string>

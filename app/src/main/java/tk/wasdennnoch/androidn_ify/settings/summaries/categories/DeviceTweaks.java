@@ -76,18 +76,15 @@ public class DeviceTweaks {
         int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
         int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, 100);
         int plugged = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-        //summary = String.valueOf((int) (((float)level / (float)scale) * 100.0f)) + "% - ";
-        //summary = String.valueOf((level * 100) / scale) + "%";
         String summary = formatPercentage(level, scale);
         switch (plugged) {
             case 0:
                 BatteryStatsHelper batteryStatsHelper = new BatteryStatsHelper(context, false);
                 batteryStatsHelper.create(new Bundle());
                 BatteryStats batteryStats = batteryStatsHelper.getStats();
-                long remaining = batteryStats.computeBatteryTimeRemaining(SystemClock.elapsedRealtime()); // TODO Fix remaining time
+                long remaining = batteryStats.computeBatteryTimeRemaining(SystemClock.elapsedRealtime());
                 if (remaining > 0) {
-                    Class<?> Formatter = XposedHelpers.findClass("android.text.format.Formatter", null);
-                    String time = (String) XposedHelpers.callStaticMethod(Formatter, "formatShortElapsedTime", context, remaining / 1000);
+                    String time = (String) XposedHelpers.callStaticMethod(Formatter.class, "formatShortElapsedTime", context, remaining / 1000);
                     summary = StringUtils.getInstance().getString(R.string.battery_summary, formatPercentage(level, scale), time);
                 }
                 break;

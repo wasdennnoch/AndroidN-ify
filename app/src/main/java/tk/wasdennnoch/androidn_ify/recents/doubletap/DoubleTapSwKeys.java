@@ -4,8 +4,8 @@ import android.os.Handler;
 import android.view.View;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
-import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
 public class DoubleTapSwKeys extends DoubleTapBase {
@@ -17,52 +17,67 @@ public class DoubleTapSwKeys extends DoubleTapBase {
 
     private static Object NAVBAR_RECENT;
     private static boolean mWasPressed = false;
+    private static View.OnClickListener mRecentsClickListener;
+    private static View recentView;
+    private static Runnable resetPressedState = new Runnable() {
+        @Override
+        public void run() {
+            XposedHook.logD(TAG, "resetPressedState runnable: Invoking original mRecentsClickListener");
+            mWasPressed = false;
+            mRecentsClickListener.onClick(recentView);
+        }
+    };
     private static XC_MethodHook updateButtonListenersHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
 
-            final Handler mHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
-            final View.OnClickListener mRecentsClickListener = (View.OnClickListener) XposedHelpers.getObjectField(param, "mRecentsClickListener");
-            View mCurrentView = (View) XposedHelpers.getObjectField(param.thisObject, "mCurrentView");
-            final View recentView = mCurrentView.findViewWithTag(NAVBAR_RECENT);
+            final View mCurrentView = (View) XposedHelpers.getObjectField(param.thisObject, "mCurrentView");
 
-            final Runnable resetPressed = new Runnable() {
-                @Override
-                public void run() {
-                    XposedHook.logD(TAG, "resetPressed runnable: Invoking original mRecentsClickListener");
-                    mWasPressed = false;
-                    mRecentsClickListener.onClick(recentView);
-                }
-            };
+            if (!isTaskLocked(mCurrentView.getContext())) {
 
-            if (recentView != null) {
-                recentView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!mWasPressed) {
-                            mWasPressed = true;
-                            mHandler.postDelayed(resetPressed, mDoubletapSpeed);
-                        } else {
-                            mHandler.removeCallbacks(resetPressed);
-                            switchToLastApp(recentView.getContext(), mHandler);
+                final Handler mHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
+                mRecentsClickListener = (View.OnClickListener) XposedHelpers.getObjectField(param.thisObject, "mRecentsClickListener");
+                recentView = mCurrentView.findViewWithTag(NAVBAR_RECENT);
+
+                if (recentView != null) {
+                    recentView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (!mWasPressed) {
+                                mWasPressed = true;
+                                mHandler.postDelayed(resetPressedState, mDoubletapSpeed);
+                            } else {
+                                XposedHook.logD(TAG, "Double tap detected");
+                                mHandler.removeCallbacks(resetPressedState);
+                                mWasPressed = false;
+                                switchToLastApp(mCurrentView.getContext(), mHandler);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
             }
 
         }
     };
 
-    public static void hook(XC_LoadPackage.LoadPackageParam lpparam) {
-
-        Class<?> NavigationBarView = XposedHelpers.findClass(CLASS_NAVIGATION_BAR_VIEW, lpparam.classLoader);
-        Class<?> NavbarEditor = XposedHelpers.findClass(CLASS_NAVBAR_EDITOR, lpparam.classLoader);
+    public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
 
         try {
-            XposedHelpers.findAndHookMethod(NavigationBarView, "updateButtonListeners", updateButtonListenersHook);
-            NAVBAR_RECENT = XposedHelpers.getStaticObjectField(NavbarEditor, "NAVBAR_RECENT");
+
+            prefs.reload();
+            if (prefs.getBoolean("enable_recents_tweaks", true)) {
+
+                Class<?> classNavigationBarView = XposedHelpers.findClass(CLASS_NAVIGATION_BAR_VIEW, classLoader);
+                Class<?> classNavbarEditor = XposedHelpers.findClass(CLASS_NAVBAR_EDITOR, classLoader);
+
+                NAVBAR_RECENT = XposedHelpers.getStaticObjectField(classNavbarEditor, "NAVBAR_RECENT");
+                XposedHelpers.findAndHookMethod(classNavigationBarView, "updateButtonListeners", updateButtonListenersHook);
+
+            }
+
         } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error hooking updateButtonListeners or getting NAVBAR_RECENT", t);
+            XposedHook.logE(TAG, "Error in hook", t);
         }
 
     }

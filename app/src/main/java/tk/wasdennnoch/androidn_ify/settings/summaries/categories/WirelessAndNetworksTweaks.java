@@ -5,17 +5,21 @@ import android.content.Context;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.net.wifi.WifiSsid;
 import android.text.format.Formatter;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.MobileDataController;
 import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 
 public class WirelessAndNetworksTweaks {
 
+    private static final String TAG = "WirelessAndNetworksTweaks";
+
     public static void hookWifiTile(Object tile, Context context) {
-        String summary = StringUtils.getInstance().getString(R.string.disabled);
+        String summary;
         WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         if (manager.isWifiEnabled()) {
             //noinspection ResourceType
@@ -23,11 +27,20 @@ public class WirelessAndNetworksTweaks {
             if (wifiInfo != null) {
                 NetworkInfo.DetailedState state = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
                 if (state == NetworkInfo.DetailedState.CONNECTED || state == NetworkInfo.DetailedState.OBTAINING_IPADDR) {
-                    summary = wifiInfo.getSSID();
+                    String ssid = wifiInfo.getSSID();
+                    if (!ssid.equals(WifiSsid.NONE)) {
+                        summary = ssid;
+                    } else {
+                        summary = StringUtils.getInstance().getString(R.string.disconnected);
+                    }
+                } else {
+                    summary = StringUtils.getInstance().getString(R.string.disconnected);
                 }
             } else {
                 summary = StringUtils.getInstance().getString(R.string.disconnected);
             }
+        } else {
+            summary = StringUtils.getInstance().getString(R.string.disabled);
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
     }
@@ -53,7 +66,8 @@ public class WirelessAndNetworksTweaks {
             MobileDataController.DataUsageInfo info = controller.getDataUsageInfo();
             if (info != null)
                 summary = StringUtils.getInstance().getString(R.string.data_usage_summary, Formatter.formatFileSize(context, info.usageLevel));
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            XposedHook.logE(TAG, "Error hooking data usage tile", e);
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
     }

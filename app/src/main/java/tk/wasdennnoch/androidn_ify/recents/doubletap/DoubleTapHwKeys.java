@@ -1,7 +1,9 @@
 package tk.wasdennnoch.androidn_ify.recents.doubletap;
 
-import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.input.InputManager;
 import android.os.Build;
 import android.os.Handler;
@@ -9,89 +11,100 @@ import android.os.SystemClock;
 import android.view.KeyEvent;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
-import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.settings.summaries.SummaryTweaks;
+import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 
-// Huge thanks to Peter Gregus from the GravityBox Project (C3C076@xda) for this code!
 public class DoubleTapHwKeys extends DoubleTapBase {
 
     private static final String TAG = "DoubleTapHwKeys";
 
+    private static final String CLASS_PHONE_WINDOW_MANAGER;
     private static final String CLASS_WINDOW_STATE = "android.view.WindowManagerPolicy$WindowState";
     private static final String CLASS_WINDOW_MANAGER_FUNCS = "android.view.WindowManagerPolicy.WindowManagerFuncs";
     private static final String CLASS_IWINDOW_MANAGER = "android.view.IWindowManager";
+
+    static {
+        CLASS_PHONE_WINDOW_MANAGER = Build.VERSION.SDK_INT >= 23 ? "com.android.server.policy.PhoneWindowManager" : "com.android.internal.policy.impl.PhoneWindowManager";
+    }
 
     private static Object mPhoneWindowManager;
     private static Context mContext;
     private static Handler mHandler;
 
-    private static boolean mRecentsKeyPressed = false;
-    private static boolean mIsRecentsLongPressed = false;
-    private static boolean mIsRecentsDoubleTap = false;
-    private static boolean mWasRecentsDoubleTap = false;
-    private static Runnable mRecentsDoubleTapReset = new Runnable() {
+    private static boolean mWasPressed = false;
+    private static Runnable resetPressedState = new Runnable() {
         @Override
         public void run() {
-            mIsRecentsDoubleTap = false;
-            // doubletap timed out and since we blocked default RECENTS key action while waiting for doubletap
-            // let's inject it now additionally, but only in case it's not still pressed as we might still be waiting
-            // for long-press action
-            if (!mRecentsKeyPressed) {
-                XposedHook.logD(TAG, "RECENTS key double tap timed out and key not pressed; injecting RECENTS key");
-                injectKey(KeyEvent.KEYCODE_APP_SWITCH);
+            XposedHook.logD(TAG, "resetPressedState runnable: double-tap timed out, invoking original KeyEvent");
+            mWasPressed = false;
+            injectKey(KeyEvent.KEYCODE_APP_SWITCH);
+        }
+    };
+    private static BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            XposedHook.logD(TAG, "Broadcast received: " + intent);
+            switch (intent.getAction()) {
+                // Needs to be here because the settings don't get informed about changes when
+                // they aren't open (the BroadcastReceiver gets unregistered in onDestroy)
+                case SettingsActivity.ACTION_SETTINGS_CHANGED:
+                    if (intent.hasExtra(SettingsActivity.EXTRA_SETTINGS_FIX_SOUND_NOTIF_TILE))
+                        SummaryTweaks.setFixSoundNotifTile(intent.getBooleanExtra(SettingsActivity.EXTRA_SETTINGS_FIX_SOUND_NOTIF_TILE, false));
+                    break;
+                case SettingsActivity.ACTION_RECENTS_CHANGED:
+                    if (intent.hasExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED))
+                        mDoubletapSpeed = intent.getIntExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED, 400);
+                    break;
+                case SettingsActivity.ACTION_GENERAL:
+                    if (intent.hasExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG))
+                        XposedHook.debug = intent.getBooleanExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG, false);
+                    break;
             }
         }
     };
+
     private static XC_MethodHook initHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mPhoneWindowManager = param.thisObject;
             mContext = (Context) XposedHelpers.getObjectField(mPhoneWindowManager, "mContext");
             mHandler = (Handler) XposedHelpers.getObjectField(mPhoneWindowManager, "mHandler");
+            // No need to unregister this because the system process will last "forever"
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(SettingsActivity.ACTION_SETTINGS_CHANGED);
+            intentFilter.addAction(SettingsActivity.ACTION_RECENTS_CHANGED);
+            intentFilter.addAction(SettingsActivity.ACTION_GENERAL);
+            mContext.registerReceiver(sBroadcastReceiver, intentFilter);
         }
     };
     private static XC_MethodHook interceptKeyBeforeDispatchingHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            if ((Boolean) XposedHelpers.callMethod(mPhoneWindowManager, "keyguardOn")) return;
+            if ((boolean) XposedHelpers.callMethod(mPhoneWindowManager, "keyguardOn")) return;
 
             KeyEvent event = (KeyEvent) param.args[1];
             int keyCode = event.getKeyCode();
             boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
             boolean isFromSystem = (event.getFlags() & KeyEvent.FLAG_FROM_SYSTEM) != 0;
-            XposedHook.logD(TAG, "interceptKeyBeforeDispatching: keyCode=" + keyCode +
-                    "; isInjected=" + (((Integer) param.args[2] & 0x01000000) != 0) +
-                    "; fromSystem=" + isFromSystem);
+            XposedHook.logD(TAG, "interceptKeyBeforeDispatching: keyCode= " + keyCode +
+                    "; keyCodeString=" + KeyEvent.keyCodeToString(keyCode) +
+                    "; down= " + down +
+                    "; repeatCount= " + event.getRepeatCount() +
+                    "; isInjected= " + (((Integer) param.args[2] & 0x01000000) != 0) +
+                    "; fromSystem= " + isFromSystem);
 
-            if (keyCode == KeyEvent.KEYCODE_APP_SWITCH && isFromSystem && !isTaskLocked()) {
-
-                if (!down) {
-                    mRecentsKeyPressed = false;
-                    if (mIsRecentsLongPressed) {
-                        mIsRecentsLongPressed = false;
-                    } else if (event.getRepeatCount() == 0) {
-                        if (mIsRecentsDoubleTap) {
-                            // we are still waiting for double-tap
-                            XposedHook.logD(TAG, "RECENTS doubletap pending. Ignoring.");
-                        } else if (!mWasRecentsDoubleTap && !event.isCanceled()) {
-                            XposedHook.logD(TAG, "Triggering original DOWN/UP events for RECENTS key");
-                            injectKey(KeyEvent.KEYCODE_APP_SWITCH);
-                        }
-                    }
-                } else if (event.getRepeatCount() == 0) {
-                    mRecentsKeyPressed = true;
-                    mWasRecentsDoubleTap = mIsRecentsDoubleTap;
-                    if (mIsRecentsDoubleTap) {
-                        switchToLastApp(mContext, mHandler);
-                        mHandler.removeCallbacks(mRecentsDoubleTapReset);
-                        mIsRecentsDoubleTap = false;
-                    } else {
-                        mIsRecentsLongPressed = false;
-                        mIsRecentsDoubleTap = true;
-                        mHandler.postDelayed(mRecentsDoubleTapReset, mDoubletapSpeed);
-
-                    }
+            if (keyCode == KeyEvent.KEYCODE_APP_SWITCH && isFromSystem && !isTaskLocked(mContext) && down && event.getRepeatCount() == 0) {
+                if (!mWasPressed) {
+                    mWasPressed = true;
+                    mHandler.postDelayed(resetPressedState, mDoubletapSpeed);
+                } else {
+                    XposedHook.logD(TAG, "Double tap detected");
+                    mHandler.removeCallbacks(resetPressedState);
+                    mWasPressed = false;
+                    switchToLastApp(mContext, mHandler);
                 }
                 param.setResult(-1);
             }
@@ -99,17 +112,20 @@ public class DoubleTapHwKeys extends DoubleTapBase {
         }
     };
 
-    public static void hook(XC_LoadPackage.LoadPackageParam lpparam) {
-
-        Class<?> PhoneWindowManager = XposedHelpers.findClass("com.android.server.policy.PhoneWindowManager", lpparam.classLoader);
-
+    public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
         try {
-            XposedHelpers.findAndHookMethod(PhoneWindowManager, "init", Context.class, CLASS_IWINDOW_MANAGER, CLASS_WINDOW_MANAGER_FUNCS, initHook);
-            XposedHelpers.findAndHookMethod(PhoneWindowManager, "interceptKeyBeforeDispatching", CLASS_WINDOW_STATE, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
-        } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error hooking init or interceptKeyBeforeDispatching", t);
-        }
+            prefs.reload();
+            if (prefs.getBoolean("enable_recents_tweaks", true)) {
 
+                Class<?> classPhoneWindowManager = XposedHelpers.findClass(CLASS_PHONE_WINDOW_MANAGER, classLoader);
+
+                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "init", Context.class, CLASS_IWINDOW_MANAGER, CLASS_WINDOW_MANAGER_FUNCS, initHook);
+                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching", CLASS_WINDOW_STATE, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
+
+            }
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error in hook", t);
+        }
     }
 
     public static void injectKey(final int keyCode) {
@@ -130,10 +146,6 @@ public class DoubleTapHwKeys extends DoubleTapBase {
                 }
             }
         });
-    }
-
-    private static boolean isTaskLocked() {
-        return Build.VERSION.SDK_INT >= 23 && getActivityManager(mContext).getLockTaskModeState() != ActivityManager.LOCK_TASK_MODE_NONE;
     }
 
 }

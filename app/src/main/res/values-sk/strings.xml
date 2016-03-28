@@ -1,20 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     
     <string name="xposed_description">Funkcie z Android N pre Lollipop a Marshmallow!</string>
 
     <string name="header_app">App</string>
 
+    <!-- prefs -->
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
+    <!-- /prefs -->
 
+
+    <!-- SETTINGS -->
     <string name="disconnected">Odpojené</string>
     <string name="disabled">Zakázané</string>
     <string name="off">VYP.</string>
     <string name="on">ZAP.</string>
-
-    <!-- SETTINGS -->
     <string name="data_usage_summary">Objem využitých dát: %1$s</string>
     <string name="display_summary">Prispôsobivý jas je %1$s</string>
     <string name="sound_summary">Stupeň hlasitosti zvonenia: %1$s</string>

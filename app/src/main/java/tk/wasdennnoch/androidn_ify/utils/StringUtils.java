@@ -27,6 +27,12 @@ public class StringUtils {
         return mInstance;
     }
 
+    public static StringUtils getInstance(Context context) {
+        if (mInstance == null)
+            mInstance = new StringUtils(context);
+        return mInstance;
+    }
+
     @NonNull
     public final String getString(@StringRes int resId) {
         return mContext.getResources().getString(resId);

@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidUnknownAttribute -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/header_settings">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="enable_settings_tweaks"
+            android:title="@string/enable_settings"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="enable_settings_tweaks"
+            android:key="fix_sound_notif_tile"
+            android:summary="@string/fix_sound_notif_tile"
+            android:title="@string/fix_sound_notif_tile_title"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/header_recents">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="enable_recents_tweaks"
+            android:title="@string/enable_recents"/>
+
+        <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+            interval="10"
+            maximum="1500"
+            minimum="100"
+            monitorBoxEnabled="true"
+            monitorBoxUnit="ms"
+            android:defaultValue="400"
+            android:key="double_tap_speed"
+            android:title="@string/double_tap_speed_title"/>
+
+    </PreferenceCategory>
+
 
     <PreferenceCategory
         android:title="@string/header_app">

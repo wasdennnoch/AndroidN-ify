@@ -17,7 +17,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_SETTINGS = "com.android.settings";
     public static boolean debug = true;
 
-    private XSharedPreferences mPrefs = new XSharedPreferences(getClass().getPackage().getName());
+    private static XSharedPreferences sPrefs;
 
     public static void logE(String tag, String msg, Throwable t) {
         XposedBridge.log(TAG + " [FATAL ERROR] " + tag + ": " + msg);
@@ -37,12 +37,15 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         if (debug) XposedBridge.log(TAG + " [DEBUG] " + tag + ": " + msg);
     }
 
+    public static XSharedPreferences getPrefs() {
+        if (sPrefs == null)
+            sPrefs = new XSharedPreferences("tk.wasdennnoch.androidn_ify");
+        return sPrefs;
+    }
+
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
-        debug = mPrefs.getBoolean("debug_log", false);
-        // TODO replace with BroadcastReceiver:
-        // When a preference changed, send a broadcast that only informs the hook
-        // that uses this preference. (See GravityBox for reference)
+        debug = getPrefs().getBoolean("debug_log", false);
     }
 
     @Override
@@ -50,13 +53,13 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
 
         switch (lpparam.packageName) {
             case PACKAGE_SETTINGS:
-                SettingsHooks.hookLoadCategoriesFromResource(lpparam);
+                SettingsHooks.hook(lpparam.classLoader, getPrefs());
                 break;
             case PACKAGE_SYSTEMUI:
-                DoubleTapSwKeys.hook(lpparam);
+                DoubleTapSwKeys.hook(lpparam.classLoader, getPrefs());
                 break;
             case PACKAGE_ANDROID:
-                DoubleTapHwKeys.hook(lpparam);
+                DoubleTapHwKeys.hook(lpparam.classLoader, getPrefs());
                 break;
         }
 
