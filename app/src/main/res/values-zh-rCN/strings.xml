@@ -1,0 +1,39 @@
+<resources>
+
+    <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
+
+    <string name="header_app">App</string>
+
+    <string name="hide_launcher_icon_title">Hide launcher icon</string>
+    <string name="hide_launcher_icon">May require launcher restart</string>
+    <string name="debug_log_title">Debug log</string>
+    <string name="debug_log">Warning: Log-flooding</string>
+
+    <string name="disconnected">未连接</string>
+    <string name="disabled">已禁用</string>
+    <string name="off">关闭</string>
+    <string name="on">开启</string>
+
+    <!-- SETTINGS -->
+    <string name="data_usage_summary">流量已用 %1$s</string>
+    <string name="display_summary">自动亮度 %1$s</string>
+    <string name="sound_summary">铃声音量 %1$s</string>
+    <string name="apps_summary">%1$d 个应用已安装</string>
+    <string name="storage_summary">%1$s / %2$s 已用</string>
+    <string name="battery_summary">%1$s - 还可用大约 %2$s </string>
+    <string name="battery_charging_wireless">%1$s - 通过无线充电</string>
+    <string name="battery_charging_usb">%1$s - 通过USB充电</string>
+    <string name="battery_charging_ac">%1$s - 通过AC充电器充电</string>
+    <string name="memory_summary">当前 %1$s / %2$s 内存已用</string>
+    <string name="user_summary">%1$s 已登录</string>
+    <string name="location_on_power">开启 / 节电</string>
+    <string name="location_on_device">开启 / 仅限设备</string>
+    <string name="location_on_high">开启 / 高精确度</string>
+    <string name="print_summary">%1$d 个打印进程</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">No previous app</string>
+    <!-- /RECENTS -->
+
+</resources>
