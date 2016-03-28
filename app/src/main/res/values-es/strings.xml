@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="xposed_description">Porta funciones introducidas en Android N para dispositivos con Lollipop y Marshmallow!</string>
+
+    <string name="header_app">App</string>
+
+    <string name="hide_launcher_icon">Puede requerir un reinicio del launcher</string>
+    <string name="hide_launcher_icon_title">Esconder ícono del launcher</string>
+    <string name="debug_log_title">Registros de depuración</string>
+    <string name="debug_log">Atención: Registro invasivo</string>
+
+    <string name="disabled">Desactivado</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="off">DESACTIVADO</string>
+    <string name="on">ACTIVADO</string>
+
+    <!-- SETTINGS -->
+    <string name="data_usage_summary">%1$s de datos usados</string>
+    <string name="display_summary">Brillo automático %1$s</string>
+    <string name="sound_summary">Volumen del tono en %1$s</string>
+    <string name="apps_summary">%1$d aplicaciones instaladas</string>
+    <string name="storage_summary">%1$s de %2$s usados</string>
+    <string name="battery_summary">%1$s - Quedan %2$s aproximadamente</string>
+    <string name="battery_charging_wireless">%1$s - Cargando de forma inalámbrica</string>
+    <string name="battery_charging_usb">%1$s - Cargando por USB</string>
+    <string name="battery_charging_ac">%1$s - Cargando en CA</string>
+    <string name="memory_summary">Uso de memoria %1$s de %2$s </string>
+    <string name="user_summary">Conectado como %1$s</string>
+    <string name="location_on_power">ACTIVADA / Ahorro de energía</string>
+    <string name="location_on_device">ACTIVADA / Solo dispositivo</string>
+    <string name="location_on_high">ACTIVADA / Máxima precisión</string>
+    <string name="print_summary">%1$d trabajos de impresión</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">Ninguna app reciente</string>
+    <!-- /RECENTS -->
+
+</resources>
