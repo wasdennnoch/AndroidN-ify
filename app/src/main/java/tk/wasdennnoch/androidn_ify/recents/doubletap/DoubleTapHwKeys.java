@@ -114,12 +114,14 @@ public class DoubleTapHwKeys extends DoubleTapBase {
 
     public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
         try {
+
+            Class<?> classPhoneWindowManager = XposedHelpers.findClass(CLASS_PHONE_WINDOW_MANAGER, classLoader);
+
+            XposedHelpers.findAndHookMethod(classPhoneWindowManager, "init", Context.class, CLASS_IWINDOW_MANAGER, CLASS_WINDOW_MANAGER_FUNCS, initHook);
+
             prefs.reload();
             if (prefs.getBoolean("enable_recents_tweaks", true)) {
 
-                Class<?> classPhoneWindowManager = XposedHelpers.findClass(CLASS_PHONE_WINDOW_MANAGER, classLoader);
-
-                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "init", Context.class, CLASS_IWINDOW_MANAGER, CLASS_WINDOW_MANAGER_FUNCS, initHook);
                 XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching", CLASS_WINDOW_STATE, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
 
             }
