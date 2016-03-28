@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="xposed_description">Caracteristici întroduse în Android N pe Lollipop şi Marshmallow!</string>
+
+    <string name="header_settings">Setări</string>
+    <string name="header_recents">Recente</string>
+    <string name="header_app">App</string>
+    
+    <!-- prefs -->
+    <string name="enable_settings">Activare modificări setări</string>
+    <string name="fix_sound_notif_tile_title">Reglează titlu "Sunete &amp; notificări"</string>
+    <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete şi notificări. Activează ca să setezi rezumatul optim pt. acest titlu</string>
+
+    <string name="enable_recents">Activare modificări aplicaţii recente</string>
+    <string name="double_tap_speed_title">Viteză atingere dublă</string>
+
+    <string name="hide_launcher_icon_title">Ascunde iconiţa din lansator</string>
+    <string name="hide_launcher_icon">Este necesar repornirea lansatorului</string>
+    <string name="debug_log_title">Jurnal de depanare</string>
+    <string name="debug_log">Atenţie: flux jurnal</string>
+    <!-- /prefs -->
+
+
+    <!-- SETTINGS -->
+    <string name="disconnected">Deconectat</string>
+    <string name="disabled">Dezactivat</string>
+    <string name="off">OPRIT</string>
+    <string name="on">PORNIT</string>
+    <string name="data_usage_summary">%1$s din date mobile utilizate</string>
+    <string name="display_summary">Luminozitatea adaptivă este %1$s</string>
+    <string name="sound_summary">Sunet apel la %1$s</string>
+    <string name="apps_summary">%1$d aplicaţii instalate</string>
+    <string name="storage_summary">%1$s din %2$s utilizat</string>
+    <string name="battery_summary">%1$s - approx. %2$s rămas</string>
+    <string name="battery_charging_wireless">%1$s - încărcare prin WIRELESS</string>
+    <string name="battery_charging_usb">%1$s - Încărcare prin USB</string>
+    <string name="battery_charging_ac">%1$s - Încarcare prin AC</string>
+    <string name="memory_summary">Curent %1$s din %2$s memorie utilizată</string>
+    <string name="user_summary">Logat ca %1$s</string>
+    <string name="location_on_power">PORNIT / Salvare energie</string>
+    <string name="location_on_device">PORNIT / Doar GPS</string>
+    <string name="location_on_high">PORNIT / Acuritate mare</string>
+    <string name="print_summary">%1$d serviciu printat</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">Nici o aplicaţie recentă</string>
+    <!-- /RECENTS -->
+
+</resources>

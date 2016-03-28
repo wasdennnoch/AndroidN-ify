@@ -3,6 +3,7 @@ v0.1.2:
 - Fixed double-tap recents - again.
 - Fixed settings tile fix
 - Removed print tile summary (was huge performance issue)
+- Romanian translation
 
 v0.1.1:
 
