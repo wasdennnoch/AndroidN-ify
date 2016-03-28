@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="app_name" translatable="false">Android N-ify</string>
     <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
 
     <string name="header_app">App</string>
