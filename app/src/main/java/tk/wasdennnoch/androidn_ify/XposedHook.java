@@ -20,7 +20,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     private static XSharedPreferences sPrefs;
 
     public static void logE(String tag, String msg, Throwable t) {
-        XposedBridge.log(TAG + " [FATAL ERROR] " + tag + ": " + msg);
+        XposedBridge.log(TAG + " [ERROR] " + tag + ": " + msg);
         if (t != null)
             XposedBridge.log(t);
     }

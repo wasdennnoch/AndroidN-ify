@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.recents.doubletap;
 
+import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 
@@ -12,52 +13,45 @@ public class DoubleTapSwKeys extends DoubleTapBase {
 
     private static final String TAG = "DoubleTapSwKeys";
 
-    private static final String CLASS_NAVIGATION_BAR_VIEW = "com.android.systemui.statusbar.phone.NavigationBarView";
-    private static final String CLASS_NAVBAR_EDITOR = "com.android.systemui.statusbar.phone.NavbarEditor";
+    private static final String CLASS_PHONE_STATUS_BAR = "com.android.systemui.statusbar.phone.PhoneStatusBar";
 
-    private static Object NAVBAR_RECENT;
-    private static boolean mWasPressed = false;
-    private static View.OnClickListener mRecentsClickListener;
-    private static View recentView;
-    private static Runnable resetPressedState = new Runnable() {
+    private static boolean sWasPressed = false;
+    private static View.OnClickListener sOriginalRecentsClickListener;
+    private static View sRecentsButton;
+    private static Runnable sResetPressedStateRunnable = new Runnable() {
         @Override
         public void run() {
             XposedHook.logD(TAG, "resetPressedState runnable: Invoking original mRecentsClickListener");
-            mWasPressed = false;
-            mRecentsClickListener.onClick(recentView);
+            sWasPressed = false;
+            sOriginalRecentsClickListener.onClick(sRecentsButton);
         }
     };
-    private static XC_MethodHook updateButtonListenersHook = new XC_MethodHook() {
+    private static XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
         @Override
-        protected void afterHookedMethod(final MethodHookParam param) throws Throwable {
-
-            final View mCurrentView = (View) XposedHelpers.getObjectField(param.thisObject, "mCurrentView");
-
-            if (!isTaskLocked(mCurrentView.getContext())) {
-
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            final Context mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+            if (!isTaskLocked(mContext)) {
                 final Handler mHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
-                mRecentsClickListener = (View.OnClickListener) XposedHelpers.getObjectField(param.thisObject, "mRecentsClickListener");
-                recentView = mCurrentView.findViewWithTag(NAVBAR_RECENT);
-
-                if (recentView != null) {
-                    recentView.setOnClickListener(new View.OnClickListener() {
+                sOriginalRecentsClickListener = (View.OnClickListener) XposedHelpers.getObjectField(param.thisObject, "mRecentsClickListener");
+                Object mNavigationBarView = XposedHelpers.getObjectField(param.thisObject, "mNavigationBarView");
+                sRecentsButton = (View) XposedHelpers.callMethod(mNavigationBarView, "getRecentsButton");
+                if (sRecentsButton != null) {
+                    sRecentsButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (!mWasPressed) {
-                                mWasPressed = true;
-                                mHandler.postDelayed(resetPressedState, mDoubletapSpeed);
+                            if (!sWasPressed) {
+                                sWasPressed = true;
+                                mHandler.postDelayed(sResetPressedStateRunnable, mDoubletapSpeed);
                             } else {
                                 XposedHook.logD(TAG, "Double tap detected");
-                                mHandler.removeCallbacks(resetPressedState);
-                                mWasPressed = false;
-                                switchToLastApp(mCurrentView.getContext(), mHandler);
+                                mHandler.removeCallbacks(sResetPressedStateRunnable);
+                                sWasPressed = false;
+                                switchToLastApp(mContext, mHandler);
                             }
                         }
                     });
                 }
-
             }
-
         }
     };
 
@@ -68,11 +62,8 @@ public class DoubleTapSwKeys extends DoubleTapBase {
             prefs.reload();
             if (prefs.getBoolean("enable_recents_tweaks", true)) {
 
-                Class<?> classNavigationBarView = XposedHelpers.findClass(CLASS_NAVIGATION_BAR_VIEW, classLoader);
-                Class<?> classNavbarEditor = XposedHelpers.findClass(CLASS_NAVBAR_EDITOR, classLoader);
-
-                NAVBAR_RECENT = XposedHelpers.getStaticObjectField(classNavbarEditor, "NAVBAR_RECENT");
-                XposedHelpers.findAndHookMethod(classNavigationBarView, "updateButtonListeners", updateButtonListenersHook);
+                Class<?> classPhoneStatusBar = XposedHelpers.findClass(CLASS_PHONE_STATUS_BAR, classLoader);
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "prepareNavigationBarView", prepareNavigationBarViewHook);
 
             }
 
