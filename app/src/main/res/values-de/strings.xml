@@ -13,7 +13,7 @@
     <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kachel. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
 
     <string name="enable_recents">Recents optimieren</string>
-    <string name="double_tap_speed_title">Doppelkilck-Geschwindigkeit</string>
+    <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
 
     <string name="hide_launcher_icon_title">Launcher-Icon verbergen</string>
     <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
