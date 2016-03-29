@@ -1,9 +1,6 @@
 package tk.wasdennnoch.androidn_ify.recents.doubletap;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.hardware.input.InputManager;
 import android.os.Build;
 import android.os.Handler;
@@ -14,7 +11,6 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 
 public class DoubleTapHwKeys extends DoubleTapBase {
 
@@ -42,22 +38,6 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             injectKey(KeyEvent.KEYCODE_APP_SWITCH);
         }
     };
-    private static BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            XposedHook.logD(TAG, "Broadcast received: " + intent);
-            switch (intent.getAction()) {
-                case SettingsActivity.ACTION_RECENTS_CHANGED:
-                    if (intent.hasExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED))
-                        mDoubletapSpeed = intent.getIntExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED, 400);
-                    break;
-                case SettingsActivity.ACTION_GENERAL:
-                    if (intent.hasExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG))
-                        XposedHook.debug = intent.getBooleanExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG, false);
-                    break;
-            }
-        }
-    };
 
     private static XC_MethodHook initHook = new XC_MethodHook() {
         @Override
@@ -66,10 +46,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             mContext = (Context) XposedHelpers.getObjectField(mPhoneWindowManager, "mContext");
             mHandler = (Handler) XposedHelpers.getObjectField(mPhoneWindowManager, "mHandler");
             // No need to unregister this because the system process will last "forever"
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(SettingsActivity.ACTION_RECENTS_CHANGED);
-            intentFilter.addAction(SettingsActivity.ACTION_GENERAL);
-            mContext.registerReceiver(sBroadcastReceiver, intentFilter);
+            registerReceiver(mContext);
         }
     };
     private static XC_MethodHook interceptKeyBeforeDispatchingHook = new XC_MethodHook() {
