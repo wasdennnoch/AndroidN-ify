@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    
+    <!-- SETTINGS -->
+    <string name="disconnected">Bağlı değil</string>
+    <string name="disabled">Etkin değil</string>
+    <string name="off">Kapalı</string>
+    <string name="on">Açık</string>
+    <string name="data_usage_summary">%1$s kullanıldı</string>
+    <string name="display_summary">Uyarlanan parlaklık %1$s</string>
+    <string name="sound_summary">Ses seviyesi %1$s</string>
+    <string name="apps_summary">%1$d uygulama yüklü</string>
+    <string name="storage_summary">Kullanılan alan %1$s</string>
+    <string name="battery_summary">%1$s - %2$s kaldı</string>
+    <string name="battery_charging_wireless">%1$s - WIRELESS</string>
+    <string name="battery_charging_usb">%1$s - USB</string>
+    <string name="battery_charging_ac">%1$s - AC ile şarj oluyor...</string>
+    <string name="memory_summary">Ortalama bellek kullanımı %2$s</string>
+    <string name="user_summary">%1$s olarak giriş yapıldı</string>
+    <string name="location_on_power">AÇIK / Enerji tasarrufu</string>
+    <string name="location_on_device">AÇIK / Yalnızca cihaz<string>
+    <string name="location_on_high">AÇIK / Yüksek doğruluk</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">Son uygulama yok</string>
+    <!-- /RECENTS -->
+
+</resources>
