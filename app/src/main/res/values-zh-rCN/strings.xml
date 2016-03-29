@@ -1,39 +1,53 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
+    <string name="xposed_description">将 Android N 内的特性移植到 Lollipop 和 Marshmallow 版本的rom中！</string>
 
-    <string name="header_app">App</string>
+    <string name="header_settings">设置</string>
+    <string name="header_recents">最近任务</string>
+    <string name="header_app">应用程序</string>
+    
+    <!-- prefs -->
+    <string name="enable_settings">启用设置调整</string>
+    <string name="fix_sound_notif_tile_title">修复“提示音&amp;通知”选项</string>
+    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音和通知合并为了一个选项，开启后可在这类 rom 中显示出正确的信息概要。</string>
 
-    <string name="hide_launcher_icon_title">Hide launcher icon</string>
-    <string name="hide_launcher_icon">May require launcher restart</string>
-    <string name="debug_log_title">Debug log</string>
-    <string name="debug_log">Warning: Log-flooding</string>
+    <string name="enable_recents">启用最近任务调整</string>
+    <string name="double_tap_speed_title">双击速度</string>
 
+    <string name="hide_launcher_icon_title">隐藏启动器图标</string>
+    <string name="hide_launcher_icon">或许需要重启启动器</string>
+    <string name="debug_log_title">调试日志</string>
+    <string name="debug_log">警告：将生成大量日志</string>
+    <!-- /prefs -->
+
+
+    <!-- SETTINGS -->
     <string name="disconnected">未连接</string>
     <string name="disabled">已禁用</string>
     <string name="off">关闭</string>
     <string name="on">开启</string>
-
-    <!-- SETTINGS -->
-    <string name="data_usage_summary">流量已用 %1$s</string>
-    <string name="display_summary">自动亮度 %1$s</string>
+    <string name="data_usage_summary">已使用数据流量 %1$s</string>
+    <string name="display_summary">自动调节亮度已%1$s</string>
     <string name="sound_summary">铃声音量 %1$s</string>
-    <string name="apps_summary">%1$d 个应用已安装</string>
-    <string name="storage_summary">%1$s / %2$s 已用</string>
-    <string name="battery_summary">%1$s - 还可用大约 %2$s </string>
-    <string name="battery_charging_wireless">%1$s - 通过无线充电</string>
-    <string name="battery_charging_usb">%1$s - 通过USB充电</string>
-    <string name="battery_charging_ac">%1$s - 通过AC充电器充电</string>
-    <string name="memory_summary">当前 %1$s / %2$s 内存已用</string>
-    <string name="user_summary">%1$s 已登录</string>
+    <string name="apps_summary">已安装 %1$d 个应用</string>
+    <string name="storage_summary">已用 %1$s / %2$s</string>
+    <string name="battery_summary">%1$s - 还可用大约%2$s</string>
+    <string name="battery_charging_wireless">%1$s - 正在使用无线充电</string>
+    <string name="battery_charging_usb">%1$s - 正在通过 USB 充电</string>
+    <string name="battery_charging_ac">%1$s - 正在通过交流电源充电</string>
+    <string name="memory_summary">当前已用 %1$s / %2$s 内存</string>
+    <string name="user_summary">已通过 %1$s 登录</string>
     <string name="location_on_power">开启 / 节电</string>
     <string name="location_on_device">开启 / 仅限设备</string>
     <string name="location_on_high">开启 / 高精确度</string>
-    <string name="print_summary">%1$d 个打印进程</string>
+    <string name="print_summary">%1$d 个打印任务</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="no_previous_recents">No previous app</string>
+    <string name="no_previous_recents">没有上一个程序</string>
     <!-- /RECENTS -->
 
 </resources>
