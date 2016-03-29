@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
@@ -21,7 +22,7 @@ public class DoubleTapBase {
 
     private static final String TAG = "DoubleTapBase";
     private static ActivityManager mAm;
-    protected static int mDoubletapSpeed = 400;
+    protected static int mDoubletapSpeed = 180;
 
     private static BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -30,7 +31,7 @@ public class DoubleTapBase {
             switch (intent.getAction()) {
                 case SettingsActivity.ACTION_RECENTS_CHANGED:
                     if (intent.hasExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED))
-                        mDoubletapSpeed = intent.getIntExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED, 120);
+                        mDoubletapSpeed = intent.getIntExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED, 180);
                     break;
                 case SettingsActivity.ACTION_GENERAL:
                     if (intent.hasExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG))
@@ -39,6 +40,10 @@ public class DoubleTapBase {
             }
         }
     };
+
+    protected static void loadPrefDoubleTapSpeed(XSharedPreferences prefs) {
+        mDoubletapSpeed = prefs.getInt("double_tap_speed", 180);
+    }
 
     protected static void registerReceiver(final Context context) {
         IntentFilter intentFilter = new IntentFilter();

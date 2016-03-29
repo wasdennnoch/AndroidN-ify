@@ -33,6 +33,8 @@ public class SettingsActivity extends Activity {
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
     }
 
+
+
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         @Override
@@ -80,7 +82,7 @@ public class SettingsActivity extends Activity {
             switch (key) {
                 case "double_tap_speed":
                     intent.setAction(ACTION_RECENTS_CHANGED);
-                    intent.putExtra(EXTRA_RECENTS_DOUBLE_TAP_SPEED, prefs.getInt(key, 400));
+                    intent.putExtra(EXTRA_RECENTS_DOUBLE_TAP_SPEED, prefs.getInt(key, 180));
                     break;
                 case "debug_log":
                     intent.setAction(ACTION_GENERAL);

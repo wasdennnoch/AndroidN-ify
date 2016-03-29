@@ -64,6 +64,7 @@ public class DoubleTapSwKeys extends DoubleTapBase {
         try {
 
             prefs.reload();
+            loadPrefDoubleTapSpeed(prefs);
             if (prefs.getBoolean("enable_recents_tweaks", true)) {
 
                 Class<?> classPhoneStatusBar = XposedHelpers.findClass(CLASS_PHONE_STATUS_BAR, classLoader);

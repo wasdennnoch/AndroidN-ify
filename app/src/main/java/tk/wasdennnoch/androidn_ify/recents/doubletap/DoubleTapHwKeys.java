@@ -89,6 +89,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             XposedHelpers.findAndHookMethod(classPhoneWindowManager, "init", Context.class, CLASS_IWINDOW_MANAGER, CLASS_WINDOW_MANAGER_FUNCS, initHook);
 
             prefs.reload();
+            loadPrefDoubleTapSpeed(prefs);
             if (prefs.getBoolean("enable_recents_tweaks", true)) {
 
                 XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching", CLASS_WINDOW_STATE, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
