@@ -41,7 +41,7 @@
     <string name="enable_recents">Activar modificações em recentes</string>
     <string name="enable_settings">Activar modificações nas definições</string>
     <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e Notificações. Activar para mostrar o sumário correcto para estes casos</string>
-    <string name="fix_sound_notif_tile_title"><![CDATA[Corrigir o módulo de "Sons & Notificações"]]></string>
+    <string name="fix_sound_notif_tile_title">Corrigir o módulo de "Sons &amp; Notificações</string>
     <string name="header_recents">Recentes</string>
     <string name="header_settings">Definições</string>
     <!-- /RECENTS -->
