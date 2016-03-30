@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Функции Android N на устройствах Lollipop and Marshmallow!</string>
+    <string name="xposed_description">Функции Android N на устройствах Lollipop и Marshmallow!</string>
 
     <string name="header_settings">Настройки</string>
     <string name="header_recents">Недавние</string>
@@ -11,7 +11,7 @@
     
     <!-- prefs -->
     <string name="enable_settings">Включить твики настроек</string>
-    <string name="fix_sound_notif_tile_title">Исправить пункт "Звуки иamp; Уведомления"</string>
+    <string name="fix_sound_notif_tile_title">Исправить пункт "Звуки и Уведомления"</string>
     <string name="fix_sound_notif_tile">Некоторые прошивки объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения.</string>
 
     <string name="enable_recents">Включить твики для недавних приложений</string>
@@ -25,7 +25,7 @@
 
 
     <!-- SETTINGS -->
-    <string name="disconnected">Disconnected</string>
+    <string name="disconnected">Разъединено</string>
     <string name="disabled">Отключено</string>
     <string name="off">Выкл</string>
     <string name="on">Вкл</string>
