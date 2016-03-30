@@ -2,10 +2,19 @@
 <resources>
 
     <string name="xposed_description">Porta le funzionalità introdotte in Android N a Lollipop e Marshmallow!</string>
-
+    
+    <string name="header_settings">Impostazioni</string>
+    <string name="header_recents">Recenti</string>
     <string name="header_app">App</string>
 
     <!-- prefs -->
+    <string name="enable_settings">Abilita modifiche alle impostazioni</string>
+    <string name="fix_sound_notif_tile_title">Fix sezione "Suono &amp; Notifiche"</string>
+    <string name="fix_sound_notif_tile">Alcune ROM uniscono la sezione Suono e Notifiche. Abilita per impostare il giusto sommario per questa sezione</string>
+
+    <string name="enable_recents">Abilita modifiche al tasto recenti</string>
+    <string name="double_tap_speed_title">Velocità doppio tap</string>
+    
     <string name="hide_launcher_icon">Potrebbe richiedere il riavvio del launcher</string>
     <string name="hide_launcher_icon_title">Nascondi icona launcher</string>
     <string name="debug_log_title">Log di debug</string>
