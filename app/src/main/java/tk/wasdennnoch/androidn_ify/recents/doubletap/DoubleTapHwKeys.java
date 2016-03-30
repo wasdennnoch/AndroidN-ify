@@ -33,7 +33,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
     private static Runnable resetPressedState = new Runnable() {
         @Override
         public void run() {
-            XposedHook.logD(TAG, "resetPressedState runnable: double-tap timed out, invoking original KeyEvent");
+            XposedHook.logD(TAG, "Double tap timed out after " + mDoubletapSpeed + "ms, injecting original KeyEvent");
             mWasPressed = false;
             injectKey(KeyEvent.KEYCODE_APP_SWITCH);
         }
@@ -67,6 +67,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
 
             if (keyCode == KeyEvent.KEYCODE_APP_SWITCH && isFromSystem && !isTaskLocked(mContext) && down && event.getRepeatCount() == 0) {
                 if (!mWasPressed) {
+                    XposedHook.logD(TAG, "HW recents clicked");
                     mWasPressed = true;
                     mHandler.postDelayed(resetPressedState, mDoubletapSpeed);
                 } else {

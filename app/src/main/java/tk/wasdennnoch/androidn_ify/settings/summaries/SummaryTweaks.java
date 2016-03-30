@@ -84,7 +84,6 @@ public class SummaryTweaks {
         try {
             long startTime = System.currentTimeMillis();
 
-            prefs.reload();
             sFixSoundNotifTile = prefs.getBoolean("fix_sound_notif_tile", false);
 
             Context context;

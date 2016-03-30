@@ -63,6 +63,7 @@ public class DoubleTapBase {
         return Build.VERSION.SDK_INT >= 23 && getActivityManager(context).getLockTaskModeState() != ActivityManager.LOCK_TASK_MODE_NONE;
     }
 
+    // Thanks to GravityBox for this code snippet!
     static void switchToLastApp(final Context context, Handler handler) {
         handler.post(
                 new Runnable() {

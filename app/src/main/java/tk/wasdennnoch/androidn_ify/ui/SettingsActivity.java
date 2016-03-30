@@ -16,9 +16,6 @@ import tk.wasdennnoch.androidn_ify.R;
 
 public class SettingsActivity extends Activity {
 
-    //public static final String ACTION_SETTINGS_CHANGED = "an.action.ACTION_SETTINGS_CHANGED";
-    //public static final String EXTRA_SETTINGS_FIX_SOUND_NOTIF_TILE = "an.extra.settings.FIX_SOUND_NOTIF_TILE";
-
     public static final String ACTION_RECENTS_CHANGED = "an.action.ACTION_RECENTS_CHANGED";
     public static final String EXTRA_RECENTS_DOUBLE_TAP_SPEED = "an.extra.recents.DOUBLE_TAP_SPEED";
 
@@ -32,7 +29,6 @@ public class SettingsActivity extends Activity {
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
     }
-
 
 
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
