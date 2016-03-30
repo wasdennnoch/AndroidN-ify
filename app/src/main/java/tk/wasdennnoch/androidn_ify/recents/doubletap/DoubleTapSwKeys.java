@@ -26,10 +26,14 @@ public class DoubleTapSwKeys extends DoubleTapBase {
             sOriginalRecentsClickListener.onClick(sRecentsButton);
         }
     };
+
     private static XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             final Context mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+
+            registerReceiver(mContext);
+
             if (!isTaskLocked(mContext)) {
                 final Handler mHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
                 sOriginalRecentsClickListener = (View.OnClickListener) XposedHelpers.getObjectField(param.thisObject, "mRecentsClickListener");
@@ -60,11 +64,11 @@ public class DoubleTapSwKeys extends DoubleTapBase {
         try {
 
             prefs.reload();
+            loadPrefDoubleTapSpeed(prefs);
             if (prefs.getBoolean("enable_recents_tweaks", true)) {
 
                 Class<?> classPhoneStatusBar = XposedHelpers.findClass(CLASS_PHONE_STATUS_BAR, classLoader);
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "prepareNavigationBarView", prepareNavigationBarViewHook);
-
             }
 
         } catch (Throwable t) {

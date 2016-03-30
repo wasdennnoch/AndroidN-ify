@@ -1,8 +1,10 @@
 package tk.wasdennnoch.androidn_ify.recents.doubletap;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Handler;
@@ -10,15 +12,45 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.StringUtils;
 
 public class DoubleTapBase {
 
     private static final String TAG = "DoubleTapBase";
     private static ActivityManager mAm;
-    protected static int mDoubletapSpeed = 400;
+    protected static int mDoubletapSpeed = 180;
+
+    private static BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            XposedHook.logD(TAG, "Broadcast received: " + intent);
+            switch (intent.getAction()) {
+                case SettingsActivity.ACTION_RECENTS_CHANGED:
+                    if (intent.hasExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED))
+                        mDoubletapSpeed = intent.getIntExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED, 180);
+                    break;
+                case SettingsActivity.ACTION_GENERAL:
+                    if (intent.hasExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG))
+                        XposedHook.debug = intent.getBooleanExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG, false);
+                    break;
+            }
+        }
+    };
+
+    protected static void loadPrefDoubleTapSpeed(XSharedPreferences prefs) {
+        mDoubletapSpeed = prefs.getInt("double_tap_speed", 180);
+    }
+
+    protected static void registerReceiver(final Context context) {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(SettingsActivity.ACTION_RECENTS_CHANGED);
+        intentFilter.addAction(SettingsActivity.ACTION_GENERAL);
+        context.registerReceiver(sBroadcastReceiver, intentFilter);
+    }
 
     private static ActivityManager getActivityManager(Context context) {
         if (mAm == null) {
