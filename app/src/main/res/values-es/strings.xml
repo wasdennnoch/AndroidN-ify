@@ -6,9 +6,9 @@
     <string name="header_app">App</string>
 
     <!-- prefs -->
-    <string name="hide_launcher_icon">Puede requerir reiniciar del lanzador</string>
-    <string name="hide_launcher_icon_title">Esconder ícono en lanzador</string>
-    <string name="debug_log_title">Registros de depuración</string>
+    <string name="hide_launcher_icon">Puede requerir reiniciar el lanzador</string>
+    <string name="hide_launcher_icon_title">Esconder ícono en el lanzador</string>
+    <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     <!-- /prefs -->
 
