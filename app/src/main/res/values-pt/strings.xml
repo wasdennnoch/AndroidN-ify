@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="xposed_description">Porta funções introduzidas no Android N para dispositivos com Lollipop e Marshmallow!</string>
+    <string name="xposed_description">Traz funções introduzidas no Android N para dispositivos com Lollipop e Marshmallow!</string>
 
+    <string name="header_settings">Configurações</string>
+    <string name="header_recents">Recentes</string>
     <string name="header_app">App</string>
 
     <!-- prefs -->
-    <string name="hide_launcher_icon">Pode requerer um reinício do launcher</string>
+    <string name="enable_settings">Ativar modificações em Configurações</string>
+    <string name="fix_sound_notif_tile_title">Corrigir o módulo de Sons &amp; Notificações</string>
+    <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Se esse for o caso do seu dispositivo, ative esta opção para que o sumário correto seja mostrado</string>
+
+    <string name="enable_recents">Ativar modificações em Apps recentes</string>
+    <string name="double_tap_speed_title">Velocidade de duplo toque</string>
+    
     <string name="hide_launcher_icon_title">Esconder ícone do launcher</string>
+    <string name="hide_launcher_icon">Pode ser preciso reiniciar o launcher</string>
     <string name="debug_log_title">Registros de depuração</string>
     <string name="debug_log">Atenção: Registro invasivo</string>
     <!-- /prefs -->
-
-
+    
     <!-- SETTINGS -->
     <string name="disabled">Desativado</string>
     <string name="disconnected">Desconectado</string>
