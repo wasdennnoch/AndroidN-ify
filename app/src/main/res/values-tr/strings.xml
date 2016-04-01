@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="xposed_description">Lollipop ve Marshmallow uzerinde android N ozelliklerini deneyin!</string>
+
+    <string name="header_settings">Ayarlar</string>
+    <string name="header_recents">Son uygulamalar</string>
+    <string name="header_app">App</string>
+
+    <!-- prefs -->
+    <string name="enable_settings">Ayarlar gelistirmesini aktiflestir</string>
+    <string name="fix_sound_notif_tile_title">Fix "Ses &amp; bildirim" satırı</string>
+    <string name="fix_sound_notif_tile">Eger ses ve bildirim aciklamasi yanlis ise acin</string>
+
+    <string name="enable_recents">Son uygulamalar gelistirmesi</string>
+    <string name="double_tap_speed_title">Cift dokunma hizi</string>
+
+    <string name="hide_launcher_icon_title">Simgeyi gizle</string>
+    <string name="hide_launcher_icon">Launcher yeniden baslayabilir</string>
+    <string name="debug_log_title">Debug logu</string>
+    <string name="debug_log">Warning: Log-flooding</string>
+    <!-- /prefs -->
+
+
+    <!-- SETTINGS -->
+    <string name="disconnected">Bağlı değil</string>
+    <string name="disabled">Etkin değil</string>
+    <string name="off">KAPALI</string>
+    <string name="on">AÇIK</string>
+    <string name="data_usage_summary">%1$s veri kullanıldı</string>
+    <string name="display_summary">Uyarlanan parlaklık %1$s</string>
+    <string name="sound_summary">Zil sesi düzeyi %1$s</string>
+    <string name="apps_summary">%1$d uygulama yüklendi</string>
+    <string name="storage_summary">%1$s kullanılıyor (Toplam: %2$s)</string>
+    <string name="battery_summary">%1$s - yaklaşık %2$s kaldı</string>
+    <string name="battery_charging_wireless">%1$s -WIRELESS</string>
+    <string name="battery_charging_usb">%1$s - USB</string>
+    <string name="battery_charging_ac">%1$s - AC ile şarj oluyor&#8230;</string>
+    <string name="memory_summary">Ortalama bellek kullanımı %1$s</string>
+    <string name="user_summary">%1$s olarak giriş yapıldı</string>
+    <string name="location_on_power">AÇIK / Pil tasarrufu</string>
+    <string name="location_on_device">AÇIK / Yalnızca cihaz</string>
+    <string name="location_on_high">AÇIK / Yüksek doğruluk</string>
+    <string name="print_summary">Bekleyen işlemler%1$d</string>
+    <!-- /SETTINGS -->
+
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">Son uygulama yok</string>
+    <!-- /RECENTS -->
+
+</resources>
