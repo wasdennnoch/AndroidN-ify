@@ -1,7 +1,8 @@
 <manifest
     package="tk.wasdennnoch.androidn_ify"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="internalOnly">
 
     <application
         android:allowBackup="true"
