@@ -3,12 +3,22 @@
 
     <string name="xposed_description">Porta funciones introducidas en Android N para dispositivos con Lollipop y Marshmallow!</string>
 
-    <string name="header_app">App</string>
+    <string name="header_settings">Módulo</string>
+    <string name="header_recents">Recientes</string>
+    <string name="header_app">Ajustes</string>
+    
+    <!-- prefs -->
+    <string name="enable_settings">Activar módulo</string>
+    <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
+    <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. activa esto para mostrar la información correctamente</string>
+
+    <string name="enable_recents">Activar ajustes del panel recientes</string>
+    <string name="double_tap_speed_title">Velocidad del doble toque</string>
 
     <!-- prefs -->
-    <string name="hide_launcher_icon">Puede requerir un reinicio del launcher</string>
-    <string name="hide_launcher_icon_title">Esconder ícono del launcher</string>
-    <string name="debug_log_title">Registros de depuración</string>
+    <string name="hide_launcher_icon">Puede requerir reiniciar el lanzador</string>
+    <string name="hide_launcher_icon_title">Esconder ícono en el lanzador</string>
+    <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     <!-- /prefs -->
 
@@ -16,27 +26,27 @@
     <!-- SETTINGS -->
     <string name="disabled">Desactivado</string>
     <string name="disconnected">Desconectado</string>
-    <string name="off">DESACTIVADO</string>
-    <string name="on">ACTIVADO</string>
-    <string name="data_usage_summary">%1$s de datos usados</string>
+    <string name="off">Desactivado</string>
+    <string name="on">Activado</string>
+    <string name="data_usage_summary">%1$s usados</string>
     <string name="display_summary">Brillo automático %1$s</string>
-    <string name="sound_summary">Volumen del tono en %1$s</string>
+    <string name="sound_summary">Volumen %1$s</string>
     <string name="apps_summary">%1$d aplicaciones instaladas</string>
     <string name="storage_summary">%1$s de %2$s usados</string>
-    <string name="battery_summary">%1$s - Quedan %2$s aproximadamente</string>
+    <string name="battery_summary">%1$s - Quedan %2$s apróximadamente</string>
     <string name="battery_charging_wireless">%1$s - Cargando de forma inalámbrica</string>
     <string name="battery_charging_usb">%1$s - Cargando por USB</string>
     <string name="battery_charging_ac">%1$s - Cargando en CA</string>
     <string name="memory_summary">Uso de memoria %1$s de %2$s </string>
     <string name="user_summary">Conectado como %1$s</string>
-    <string name="location_on_power">ACTIVADA / Ahorro de energía</string>
-    <string name="location_on_device">ACTIVADA / Solo dispositivo</string>
-    <string name="location_on_high">ACTIVADA / Máxima precisión</string>
+    <string name="location_on_power">Activada: Ahorro de energía</string>
+    <string name="location_on_device">Activada: Solo dispositivo</string>
+    <string name="location_on_high">Activada: Máxima precisión</string>
     <string name="print_summary">%1$d trabajos de impresión</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="no_previous_recents">Ninguna app reciente</string>
+    <string name="no_previous_recents">Ninguna aplicación reciente</string>
     <!-- /RECENTS -->
 
 </resources>
