@@ -15,6 +15,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
+import tk.wasdennnoch.androidn_ify.statusbar.header.StatusBarHeaderHooks;
 
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookInitPackageResources {
 
@@ -37,6 +38,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         XposedBridge.log(TAG + " [WARNING] " + tag + ": " + msg);
     }
 
+    @SuppressWarnings("unused")
     public static void log(String tag, String msg) {
         XposedBridge.log(TAG + " " + tag + ": " + msg);
     }
@@ -60,6 +62,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 break;
             case PACKAGE_SYSTEMUI:
                 DoubleTapSwKeys.hook(lpparam.classLoader, sPrefs);
+                StatusBarHeaderHooks.hook(lpparam.classLoader, sPrefs);
                 break;
             case PACKAGE_ANDROID:
                 DoubleTapHwKeys.hook(lpparam.classLoader, sPrefs);
@@ -71,33 +74,40 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     @Override
     public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam resparam) throws Throwable {
 
-        if (sPrefs.getBoolean("enable_notification_tweaks", true)) {
-            XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
-            if (resparam.packageName.equals(PACKAGE_SYSTEMUI)) {
+        if (resparam.packageName.equals(PACKAGE_SYSTEMUI)) {
+            if (sPrefs.getBoolean("enable_notification_tweaks", true)) {
+                XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
+
+                // Notifications
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
 
-                //resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius_negative", zero);
-                //resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_collapse_second_card_padding", new XResources.DimensionReplacement(-2, TypedValue.COMPLEX_UNIT_DIP)); // WRAP_CONTENT
-                //resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_children_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_children_divider_height", new XResources.DimensionReplacement(50, TypedValue.COMPLEX_UNIT_DIP));
+                // Panel
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", new XResources.DimensionReplacement(72, TypedValue.COMPLEX_UNIT_DIP));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height_expanded", new XResources.DimensionReplacement(96, TypedValue.COMPLEX_UNIT_DIP));
 
-                //resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "header_notifications_collide_distance", new XResources.DimensionReplacement(150, TypedValue.COMPLEX_UNIT_DIP)); // Testing
+                // Multi user switch
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_switch_width_collapsed", new XResources.DimensionReplacement(48, TypedValue.COMPLEX_UNIT_DIP));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_switch_width_expanded", new XResources.DimensionReplacement(48, TypedValue.COMPLEX_UNIT_DIP));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_collapsed_size", new XResources.DimensionReplacement(24, TypedValue.COMPLEX_UNIT_DIP));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", new XResources.DimensionReplacement(24, TypedValue.COMPLEX_UNIT_DIP));
 
                 resparam.res.hookLayout("com.android.systemui", "layout", "status_bar_expanded_header", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         liparam.view.setPadding(0, 0, 0, 0);
+                        liparam.view.setElevation(0);
                     }
                 });
                 resparam.res.hookLayout("com.android.systemui", "layout", "qs_panel", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        ((LinearLayout.LayoutParams) liparam.view.getLayoutParams()).setMarginStart(0);
-                        ((LinearLayout.LayoutParams) liparam.view.getLayoutParams()).setMarginEnd(0);
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) liparam.view.getLayoutParams();
+                        params.setMarginStart(0);
+                        params.setMarginEnd(0);
                     }
                 });
             }

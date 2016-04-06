@@ -43,6 +43,17 @@
 
 
     <PreferenceCategory
+        android:title="@string/header_notifications">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="enable_notification_tweaks"
+            android:title="@string/enable_notifications"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
         android:title="@string/header_app">
 
         <SwitchPreference

@@ -5,7 +5,9 @@ import android.hardware.input.InputManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.IWindowManager;
 import android.view.KeyEvent;
+import android.view.WindowManagerPolicy;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
@@ -17,9 +19,6 @@ public class DoubleTapHwKeys extends DoubleTapBase {
     private static final String TAG = "DoubleTapHwKeys";
 
     private static final String CLASS_PHONE_WINDOW_MANAGER;
-    private static final String CLASS_WINDOW_STATE = "android.view.WindowManagerPolicy$WindowState";
-    private static final String CLASS_WINDOW_MANAGER_FUNCS = "android.view.WindowManagerPolicy.WindowManagerFuncs";
-    private static final String CLASS_IWINDOW_MANAGER = "android.view.IWindowManager";
 
     static {
         CLASS_PHONE_WINDOW_MANAGER = Build.VERSION.SDK_INT >= 23 ? "com.android.server.policy.PhoneWindowManager" : "com.android.internal.policy.impl.PhoneWindowManager";
@@ -87,13 +86,13 @@ public class DoubleTapHwKeys extends DoubleTapBase {
 
             Class<?> classPhoneWindowManager = XposedHelpers.findClass(CLASS_PHONE_WINDOW_MANAGER, classLoader);
 
-            XposedHelpers.findAndHookMethod(classPhoneWindowManager, "init", Context.class, CLASS_IWINDOW_MANAGER, CLASS_WINDOW_MANAGER_FUNCS, initHook);
+            XposedHelpers.findAndHookMethod(classPhoneWindowManager, "init", Context.class, IWindowManager.class, WindowManagerPolicy.WindowManagerFuncs.class, initHook);
 
             prefs.reload();
             loadPrefDoubleTapSpeed(prefs);
             if (prefs.getBoolean("enable_recents_tweaks", true)) {
 
-                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching", CLASS_WINDOW_STATE, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
+                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching", WindowManagerPolicy.WindowState.class, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
 
             }
         } catch (Throwable t) {

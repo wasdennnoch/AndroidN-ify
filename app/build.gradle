@@ -23,4 +23,6 @@ android {
 dependencies {
     provided files('libs-provide/XposedBridgeApi-20150213.jar')
     provided files('libs-provide/android_hidden_api.jar')
+    provided files('libs-provide/SystemUI.jar')
+    provided files('libs-provide/Settings.jar')
 }

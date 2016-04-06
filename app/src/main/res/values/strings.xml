@@ -7,6 +7,7 @@
 
     <string name="header_settings">Settings</string>
     <string name="header_recents">Recents</string>
+    <string name="header_notifications">Notifications</string>
     <string name="header_app">App</string>
     
     <!-- prefs -->
@@ -16,6 +17,8 @@
 
     <string name="enable_recents">Enable recents tweaks</string>
     <string name="double_tap_speed_title">Double tap speed</string>
+
+    <string name="enable_notifications">Enable notification tweaks</string>
 
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>
