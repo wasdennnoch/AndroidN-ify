@@ -5,6 +5,7 @@
 
     <string name="header_settings">Nastavenia</string>
     <string name="header_recents">Nedávne aplikácie</string>
+    <string name="header_notifications">Upozornenia</string>
     <string name="header_app">Aplikácia</string>
 
     <!-- prefs -->
@@ -14,6 +15,8 @@
 
     <string name="enable_recents">Povoliť prepínač nedávnych aplikácií</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého kliknutia</string>
+
+    <string name="enable_notifications">Povoliť úpravy upozornení</string>
 
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
