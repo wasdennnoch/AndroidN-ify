@@ -30,6 +30,8 @@ public class StatusBarHeaderHooks {
     private static View mClock;
     private static FrameLayout mMultiUserSwitch;
     private static ImageView mMultiUserAvatar;
+    private static TextView mDateCollapsed;
+    private static TextView mDateExpanded;
     private static View mSettingsContainer;
     private static TextView mEmergencyCallsOnly;
     private static TextView mAlarmStatus;
@@ -38,44 +40,75 @@ public class StatusBarHeaderHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
-            mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
-            mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
-            mClock = (View) XposedHelpers.getObjectField(param.thisObject, "mClock");
-            mMultiUserSwitch = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mMultiUserSwitch");
-            mMultiUserAvatar = (ImageView) XposedHelpers.getObjectField(param.thisObject, "mMultiUserAvatar");
-            mSettingsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsContainer");
-            mEmergencyCallsOnly = (TextView) XposedHelpers.getObjectField(param.thisObject, "mEmergencyCallsOnly");
-            mAlarmStatus = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAlarmStatus");
+            try {
+                mCollapsedValues = XposedHelpers.getObjectField(param.thisObject, "mCollapsedValues");
+                mExpandedValues = XposedHelpers.getObjectField(param.thisObject, "mExpandedValues");
+            } catch (Throwable t) {
+                // Since we need those objects to determine which value gets captured later on
+                // and couldn't find them, abort. The new values wouldn't be applied anyways.
+                XposedHook.logE(TAG, "Couldn't find mCollapsedValues or mExpandedValues, aborting", t);
+                return;
+            }
 
-            mCollapsedValues = XposedHelpers.getObjectField(param.thisObject, "mCollapsedValues");
-            mExpandedValues = XposedHelpers.getObjectField(param.thisObject, "mExpandedValues");
+            try {
+                mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
+                mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
+                mClock = (View) XposedHelpers.getObjectField(param.thisObject, "mClock");
+                mMultiUserSwitch = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mMultiUserSwitch");
+                mMultiUserAvatar = (ImageView) XposedHelpers.getObjectField(param.thisObject, "mMultiUserAvatar");
+                mDateCollapsed = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateCollapsed");
+                mDateExpanded = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateExpanded");
+                mSettingsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsContainer");
+                mEmergencyCallsOnly = (TextView) XposedHelpers.getObjectField(param.thisObject, "mEmergencyCallsOnly");
+                mAlarmStatus = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAlarmStatus");
+            } catch (Throwable t) {
+                // try-catch for every single view would be overkill, I'll sort them by fail count after the release.
+                // TODO fail-count sorting in multiple try-catches
+                // Another problem would be that I can't move a view when I need the ID of another view that I couldn't find.
+                // That would efficiently break most of the repositioning.
+                XposedHook.logE(TAG, "Couldn't find required views, aborting", t);
+                return;
+            }
 
             mSystemIconsSuperContainer.setVisibility(View.GONE);
-            mDateGroup.setVisibility(View.GONE);
 
-            RelativeLayout.LayoutParams switchParams = (RelativeLayout.LayoutParams) mMultiUserSwitch.getLayoutParams();
-            switchParams.removeRule(RelativeLayout.ALIGN_PARENT_END);
-            switchParams.addRule(RelativeLayout.LEFT_OF, mSettingsContainer.getId());
-            //switchParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            try {
+                RelativeLayout.LayoutParams dateParams = (RelativeLayout.LayoutParams) mDateGroup.getLayoutParams();
+                dateParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                dateParams.addRule(RelativeLayout.RIGHT_OF, mClock.getId());
 
-            RelativeLayout.LayoutParams settingsParams = (RelativeLayout.LayoutParams) mSettingsContainer.getLayoutParams();
-            settingsParams.removeRule(RelativeLayout.START_OF);
-            settingsParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-            //settingsParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                RelativeLayout.LayoutParams clockParams = (RelativeLayout.LayoutParams) mClock.getLayoutParams();
+                clockParams.removeRule(RelativeLayout.ABOVE);
+                clockParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 
-            RelativeLayout.LayoutParams clockParams = (RelativeLayout.LayoutParams) mClock.getLayoutParams();
-            clockParams.removeRule(RelativeLayout.ABOVE);
-            clockParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                RelativeLayout.LayoutParams switchParams = (RelativeLayout.LayoutParams) mMultiUserSwitch.getLayoutParams();
+                switchParams.removeRule(RelativeLayout.ALIGN_PARENT_END);
+                switchParams.addRule(RelativeLayout.LEFT_OF, mSettingsContainer.getId());
+                //switchParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
-            RelativeLayout.LayoutParams emergencyParams = (RelativeLayout.LayoutParams) mEmergencyCallsOnly.getLayoutParams();
-            emergencyParams.removeRule(RelativeLayout.START_OF);
-            emergencyParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                //FrameLayout.LayoutParams dateCollapsedParams = (FrameLayout.LayoutParams) mDateCollapsed.getLayoutParams();
+                //dateCollapsedParams.removeRule(RelativeLayout.BELOW);
 
-            RelativeLayout.LayoutParams alarmParams = (RelativeLayout.LayoutParams) mAlarmStatus.getLayoutParams();
-            //alarmParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            alarmParams.removeRule(RelativeLayout.END_OF);
-            //alarmParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-            //alarmParams.addRule(RelativeLayout.BELOW, mClock.getId());
+                //FrameLayout.LayoutParams dateExpandedParams = (FrameLayout.LayoutParams) mDateExpanded.getLayoutParams();
+                //dateExpandedParams.removeRule(RelativeLayout.BELOW);
+
+                RelativeLayout.LayoutParams settingsParams = (RelativeLayout.LayoutParams) mSettingsContainer.getLayoutParams();
+                settingsParams.removeRule(RelativeLayout.START_OF);
+                settingsParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                //settingsParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+                RelativeLayout.LayoutParams emergencyParams = (RelativeLayout.LayoutParams) mEmergencyCallsOnly.getLayoutParams();
+                emergencyParams.addRule(RelativeLayout.START_OF, mMultiUserSwitch.getId());
+
+                // TODO why is this not working?!? The View just stays in the upper left corner no matter what I do
+                RelativeLayout.LayoutParams alarmParams = (RelativeLayout.LayoutParams) mAlarmStatus.getLayoutParams();
+                alarmParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                //alarmParams.removeRule(RelativeLayout.END_OF);
+                //alarmParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                //alarmParams.addRule(RelativeLayout.BELOW, mClock.getId());
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "Error modifying LayoutParams", t);
+            }
 
         }
     };
@@ -98,8 +131,7 @@ public class StatusBarHeaderHooks {
             }
             XposedHelpers.setObjectField(target, "settingsTranslation", 0f);
 
-            //mSystemIconsSuperContainer.setVisibility(View.GONE); // TODO testing here
-            //mDateGroup.setVisibility(View.GONE);
+            mSystemIconsSuperContainer.setVisibility(View.GONE); // TODO testing here
 
         }
     };
@@ -107,9 +139,13 @@ public class StatusBarHeaderHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
-            XposedHelpers.callMethod(param.thisObject, "applyAlpha", mMultiUserAvatar, mAdditionalCurrentValues.avatarAlpha);
-            mMultiUserAvatar.setTranslationY(mAdditionalCurrentValues.avatarTranslationY);
-            mSettingsContainer.setTranslationY(mAdditionalCurrentValues.settingsTranslationY);
+            // Better check if null than flooding the log with an NPE every frame update
+            if (mMultiUserAvatar != null) {
+                XposedHelpers.callMethod(param.thisObject, "applyAlpha", mMultiUserAvatar, mAdditionalCurrentValues.avatarAlpha);
+                mMultiUserAvatar.setTranslationY(mAdditionalCurrentValues.avatarTranslationY);
+            }
+            if (mSettingsContainer != null)
+                mSettingsContainer.setTranslationY(mAdditionalCurrentValues.settingsTranslationY);
 
         }
     };
@@ -155,9 +191,9 @@ public class StatusBarHeaderHooks {
             mType = type;
         }
 
+        // I was so kind to fix the typo here...
         public void interpolate(AdditionalLayoutValues v1, AdditionalLayoutValues v2, float t) {
 
-            avatarAlpha = v1.avatarAlpha * (1 - t) + v2.avatarAlpha * t;
             avatarTranslationY = v1.avatarTranslationY * (1 - t) + v2.avatarTranslationY * t;
             settingsTranslationY = v1.settingsTranslationY * (1 - t) + v2.settingsTranslationY * t;
 
