@@ -5,5 +5,11 @@
     <color name="colorPrimary">#FF272727</color>
     <color name="colorPrimaryDark">#FF263238</color>
     <color name="windowBackground">#FF272727</color>
+	
+    <!-- Colors used for replacements -->
+    <color name="notification_material_background_color">#FFFAFAFA</color>
+    <color name="notification_material_background_dimmed_color">#D4FFFFFF</color>
+    <color name="notification_ripple_untinted_color">#28000000</color>
+    <color name="system_primary_color">#FF263238</color>
 
 </resources>
