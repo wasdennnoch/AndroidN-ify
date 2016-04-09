@@ -2,8 +2,8 @@
 <resources>
 
     <color name="colorAccent">#FF80CBC4</color>
-    <color name="colorPrimary">#FF272727</color>
-    <color name="colorPrimaryDark">#FF263238</color>
+    <color name="colorPrimary">#263238</color>
+    <color name="colorPrimaryDark">#FF21272b</color>
     <color name="windowBackground">#FF272727</color>
 	
     <!-- Colors used for notifications -->
