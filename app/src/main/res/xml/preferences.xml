@@ -51,6 +51,14 @@
             android:title="@string/enable_notifications"
             android:summary="@string/enable_notifications_summary"/>
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="dark_theme_toggle"
+            android:title="@string/enable_dark_theme"
+            android:summary="@string/dark_theme_summary"/>
+
+
+
     </PreferenceCategory>
 
 </PreferenceScreen>
