@@ -124,8 +124,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 if (resparam.packageName.equals(PACKAGE_SYSTEMUI)) {
                     if (sPrefs.getBoolean("dark_theme_toggle", true)) {
 
-                        resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_dark_bg", modRes.fwd(R.drawable.replacement_notification_material_bg));
-                        resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_dark_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim));
+                        resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_dark_bg", modRes.fwd(R.drawable.replacement_notification_material_dark_bg));
+                        resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_dark_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_dark_bg_dim));
                     } else {
 
                         resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg));
