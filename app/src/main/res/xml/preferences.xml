@@ -11,7 +11,7 @@
             android:title="@string/enable_settings"/>
 
         <SwitchPreference
-            android:defaultValue="enable"
+            android:defaultValue="true"
             android:dependency="enable_settings_tweaks"
             android:key="fix_sound_notif_tile"
             android:summary="@string/fix_sound_notif_tile"
