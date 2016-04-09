@@ -11,7 +11,7 @@
             android:title="@string/enable_settings"/>
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:dependency="enable_settings_tweaks"
             android:key="fix_sound_notif_tile"
             android:summary="@string/fix_sound_notif_tile"
@@ -34,7 +34,7 @@
             minimum="100"
             monitorBoxEnabled="true"
             monitorBoxUnit="ms"
-            android:defaultValue="180"
+            android:defaultValue="300"
             android:dependency="enable_recents_tweaks"
             android:key="double_tap_speed"
             android:title="@string/double_tap_speed_title"/>
@@ -51,23 +51,13 @@
             android:title="@string/enable_notifications"
             android:summary="@string/enable_notifications_summary"/>
 
-    </PreferenceCategory>
-
-
-    <PreferenceCategory
-        android:title="@string/header_app">
-
         <SwitchPreference
             android:defaultValue="false"
-            android:key="hide_launcher_icon"
-            android:summary="@string/hide_launcher_icon"
-            android:title="@string/hide_launcher_icon_title"/>
+            android:key="dark_theme_toggle"
+            android:title="@string/enable_dark_theme"
+            android:summary="@string/dark_theme_summary"/>
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="debug_log"
-            android:summary="@string/debug_log"
-            android:title="@string/debug_log_title"/>
+
 
     </PreferenceCategory>
 
