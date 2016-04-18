@@ -1,10 +1,12 @@
 # Changelog
 
-### v0.1.3:
+### Next version (v0.2.0):
 
 - Every double-tap fix makes it work on more devices
 - Dark and orange app theme
 - Turkish translation
+- New notification design
+- New status bar header design
 
 
 ### v0.1.2:

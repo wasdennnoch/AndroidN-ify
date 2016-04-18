@@ -105,7 +105,7 @@
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="SystemUI" level="project" />
-    <orderEntry type="library" exported="" name="android_hidden_api" level="project" />
+    <orderEntry type="library" exported="" name="android_hidden_api_23" level="project" />
     <orderEntry type="library" exported="" name="XposedBridgeApi-20150213" level="project" />
     <orderEntry type="library" exported="" name="Settings" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="mockable-android-23" level="project" />

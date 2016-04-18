@@ -20,6 +20,7 @@
 
     <string name="enable_notifications">Enable notification tweaks</string>
     <string name="enable_notifications_summary">Requires SystemUI restart</string>
+    <string name="notifications_dark_theme_title">Dark notification theme</string>
 
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>

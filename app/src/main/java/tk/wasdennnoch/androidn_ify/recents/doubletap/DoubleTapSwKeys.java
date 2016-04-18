@@ -9,19 +9,6 @@ import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
-/**
- *
- * You can't directly address classes in the hooked packages
- * (e.g. by importing <code>com.android.systemui.statusbar.policy.KeyButtonView</code>)
- * because the hook method gets calles in <code>handleLoadPackage</code>.
- * At this point the referenced classes seem not to be loaded yet, which resolves
- * in a <code>NoClassDefFoundError</code>. This means I have to work with "normally"
- * available Objects and have to find classes via the <code>ClassLoader</code>.
- *
- * See: https://github.com/rovo89/XposedBridge/issues/57
- *
- */
-
 public class DoubleTapSwKeys extends DoubleTapBase {
 
     private static final String TAG = "DoubleTapSwKeys";

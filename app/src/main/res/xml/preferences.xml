@@ -48,8 +48,14 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="enable_notification_tweaks"
-            android:title="@string/enable_notifications"
-            android:summary="@string/enable_notifications_summary"/>
+            android:summary="@string/enable_notifications_summary"
+            android:title="@string/enable_notifications"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="enable_notification_tweaks"
+            android:key="notification_dark_theme"
+            android:title="@string/notifications_dark_theme_title"/>
 
     </PreferenceCategory>
 

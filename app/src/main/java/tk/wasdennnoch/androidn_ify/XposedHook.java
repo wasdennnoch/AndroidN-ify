@@ -1,23 +1,33 @@
 package tk.wasdennnoch.androidn_ify;
 
-import android.content.res.XModuleResources;
-import android.content.res.XResources;
-import android.util.TypedValue;
-import android.widget.LinearLayout;
-
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
-import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 import tk.wasdennnoch.androidn_ify.statusbar.header.StatusBarHeaderHooks;
 
+/**
+ *
+ * Right now it's impossible to explicitly use classes of the hooked package
+ * (e.g. <code>com.android.systemui.statusbar.policy.KeyButtonView</code>) because those
+ * application classes aren't loaded yet when the method <code>handleLoadPackage</code>
+ * gets called. Refection is used to find classes and methods, which forces ART to index
+ * every class in the <code>CLASSPATH</code> variable. When indexing a hook class that
+ * implements classes of the hooked package, a <code>NoClassDefFoundError</code> will be
+ * thrown as those classes aren't stored in the <code>CLASSPATH</code> yet. This forces
+ * us to work with standard framework classes and reflection. I hope this is sort of
+ * understandable.
+ *
+ * @see <a href="https://github.com/rovo89/XposedBridge/issues/57">https://github.com/rovo89/XposedBridge/issues/57</a>
+ *
+ */
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookInitPackageResources {
 
     private static final String LOG_FORMAT = "[Android N-ify] %1$s %2$s: %3$s";
@@ -75,56 +85,13 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     @Override
     public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam resparam) throws Throwable {
 
-        if (resparam.packageName.equals(PACKAGE_SYSTEMUI)) {
-            if (sPrefs.getBoolean("enable_notification_tweaks", true)) {
+        if (resparam.packageName.equals(PACKAGE_ANDROID)) {
 
-                XModuleResources modRes = XModuleResources.createInstance(sModulePath, resparam.res);
+            NotificationsHooks.hookResAndroid(resparam, sPrefs);
 
-                XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
+        } else if (resparam.packageName.equals(PACKAGE_SYSTEMUI)) {
 
-                // Notifications
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
-
-                // Panel
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", new XResources.DimensionReplacement(72, TypedValue.COMPLEX_UNIT_DIP));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height_expanded", new XResources.DimensionReplacement(96, TypedValue.COMPLEX_UNIT_DIP));
-
-                // Multi user switch
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_switch_width_collapsed", new XResources.DimensionReplacement(48, TypedValue.COMPLEX_UNIT_DIP));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_switch_width_expanded", new XResources.DimensionReplacement(48, TypedValue.COMPLEX_UNIT_DIP));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_collapsed_size", new XResources.DimensionReplacement(24, TypedValue.COMPLEX_UNIT_DIP));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", new XResources.DimensionReplacement(24, TypedValue.COMPLEX_UNIT_DIP));
-
-                resparam.res.hookLayout("com.android.systemui", "layout", "status_bar_expanded_header", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        liparam.view.setElevation(0);
-                        liparam.view.setPadding(0, 0, 0, 0);
-                    }
-                });
-                resparam.res.hookLayout("com.android.systemui", "layout", "qs_panel", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        liparam.view.setElevation(0);
-                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) liparam.view.getLayoutParams();
-                        params.setMarginStart(0);
-                        params.setMarginEnd(0);
-                    }
-                });
-
-                // Colors
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);
-
-                // Drawables
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_header_bg", modRes.fwd(R.drawable.replacement_notification_header_bg));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim));
-
-            }
+            NotificationsHooks.hookResSystemui(resparam, sPrefs, sModulePath);
 
         }
 
