@@ -31,8 +31,6 @@ public class StatusBarHeaderHooks {
 
     private static Class<?> classAlphaOptimizedButton;
 
-    private static Context mContext;
-
     private static TouchAnimator2 mAlarmTranslation;
     private static TouchAnimator2 mDateSizeAnimator;
     private static TouchAnimator2 mFirstHalfAnimator;
@@ -64,8 +62,8 @@ public class StatusBarHeaderHooks {
             XposedHook.logI(TAG, "onFinishInflateHook");
 
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
-            mContext = mStatusBarHeaderView.getContext();
-            ResourceUtils res = ResourceUtils.getInstance(mContext);
+            Context context = mStatusBarHeaderView.getContext();
+            ResourceUtils res = ResourceUtils.getInstance(context);
 
             try {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
@@ -93,10 +91,6 @@ public class StatusBarHeaderHooks {
                 mSettingsContainer = mSettingsButton;
             }
 
-            mStatusBarHeaderView.setOnClickListener(null);
-            mStatusBarHeaderView.setClickable(false);
-            mStatusBarHeaderView.setFocusable(false);
-
             try {
 
                 ((ViewGroup) mClock.getParent()).removeView(mClock);
@@ -105,7 +99,7 @@ public class StatusBarHeaderHooks {
                 ((ViewGroup) mSettingsContainer.getParent()).removeView(mSettingsContainer);
                 ((ViewGroup) mAlarmStatus.getParent()).removeView(mAlarmStatus);
 
-                LinearLayout rightLayout = new LinearLayout(mContext);
+                LinearLayout rightLayout = new LinearLayout(context);
                 RelativeLayout.LayoutParams rightLayoutLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.right_layout_height));
                 rightLayoutLp.topMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_top);
                 rightLayout.setLayoutParams(rightLayoutLp);
@@ -122,7 +116,7 @@ public class StatusBarHeaderHooks {
                 mSettingsContainer.setLayoutParams(settingsContainerLp);
 
                 int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
-                mExpandIndicator = new ExpandableIndicator(mContext);
+                mExpandIndicator = new ExpandableIndicator(context);
                 LinearLayout.LayoutParams expandIndicatorLp = new LinearLayout.LayoutParams(iconSize, iconSize);
                 mExpandIndicator.setLayoutParams(expandIndicatorLp);
                 mExpandIndicator.setPadding(expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding);
@@ -143,7 +137,7 @@ public class StatusBarHeaderHooks {
                 mEmergencyCallsOnly.setVisibility(View.GONE);
 
 
-                mDateTimeAlarmGroup = new LinearLayout(mContext);
+                mDateTimeAlarmGroup = new LinearLayout(context);
                 RelativeLayout.LayoutParams dateTimeAlarmGroupLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dateTimeAlarmGroupLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 dateTimeAlarmGroupLp.topMargin = res.getDimensionPixelSize(R.dimen.date_time_alarm_group_margin_top);
@@ -152,7 +146,7 @@ public class StatusBarHeaderHooks {
                 mDateTimeAlarmGroup.setGravity(Gravity.START);
                 mDateTimeAlarmGroup.setOrientation(LinearLayout.VERTICAL);
 
-                mDateTimeGroup = new LinearLayout(mContext);
+                mDateTimeGroup = new LinearLayout(context);
                 LinearLayout.LayoutParams dateTimeGroupLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.date_time_group_height));
                 mDateTimeGroup.setLayoutParams(dateTimeGroupLp);
                 mDateTimeGroup.setId(View.generateViewId());
@@ -181,11 +175,11 @@ public class StatusBarHeaderHooks {
                 mAlarmStatus.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.alarm_status_drawable_padding));
                 mAlarmStatus.setVisibility(View.GONE);
                 TypedValue outValue = new TypedValue();
-                mContext.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+                context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
                 mAlarmStatus.setBackgroundResource(outValue.resourceId);
 
 
-                mAlarmStatusCollapsed = (Button) XposedHelpers.newInstance(classAlphaOptimizedButton, mContext);
+                mAlarmStatusCollapsed = (Button) XposedHelpers.newInstance(classAlphaOptimizedButton, context);
                 LinearLayout.LayoutParams alarmStatusCollapsedLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 mAlarmStatusCollapsed.setLayoutParams(alarmStatusCollapsedLp);
                 mAlarmStatusCollapsed.setId(View.generateViewId());
@@ -219,7 +213,7 @@ public class StatusBarHeaderHooks {
                 return;
             }
 
-            updateResources();
+            updateResources(context);
 
             mSystemIconsSuperContainer.setVisibility(View.GONE);
             mDateGroup.setVisibility(View.GONE);
@@ -246,14 +240,14 @@ public class StatusBarHeaderHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logI(TAG, "onConfigurationChangedHook");
-            updateResources();
+            updateResources(((View) param.thisObject).getContext());
         }
     };
     private static XC_MethodHook updateEverythingHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logI(TAG, "updateEverythingHook");
-            updateDateTimePosition();
+            updateDateTimePosition(((View) param.thisObject).getContext());
         }
     };
     private static XC_MethodHook updateVisibilitiesHook = new XC_MethodHook() {
@@ -271,20 +265,20 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static void updateResources() {
+    private static void updateResources(Context context) {
         XposedHook.logI(TAG, "updateResources()");
         if (mDateTimeGroup == null) {
             XposedHook.logI(TAG, "updateResources(): Still null");
             return;
         }
 
-        ResourceUtils res = ResourceUtils.getInstance(mContext);
+        ResourceUtils res = ResourceUtils.getInstance(context);
         float timeCollapsed = res.getDimensionPixelSize(R.dimen.qs_time_collapsed_size);
         float timeExpanded = res.getDimensionPixelSize(R.dimen.qs_time_expanded_size);
         float dateScaleFactor = timeCollapsed / timeExpanded;
         float gearTranslation = res.getDimension(R.dimen.qs_header_gear_translation);
 
-        updateDateTimePosition();
+        updateDateTimePosition(context);
 
         mDateSizeAnimator = new TouchAnimator2.Builder()
                 .addFloat(mDateTimeGroup, "scaleX", 1, dateScaleFactor)
@@ -322,9 +316,9 @@ public class StatusBarHeaderHooks {
         }
     }
 
-    private static void updateDateTimePosition() {
+    private static void updateDateTimePosition(Context context) {
         XposedHook.logI(TAG, "updateDateTimePosition()");
-        ResourceUtils res = ResourceUtils.getInstance(mContext);
+        ResourceUtils res = ResourceUtils.getInstance(context);
         float mDateTimeTranslation = res.getDimension(R.dimen.qs_date_anim_translation);
         float mDateTimeAlarmTranslation = res.getDimension(R.dimen.qs_date_alarm_anim_translation);
         TouchAnimator2.Builder builder = new TouchAnimator2.Builder();
@@ -363,7 +357,6 @@ public class StatusBarHeaderHooks {
 
                 // Yes, this is a typo. Not my typo though. A typo in the source code that nobody noticed and that got compiled. ("interpoloate")
                 XposedHelpers.findAndHookMethod(CLASS_LAYOUT_VALUES, classLoader, "interpoloate", CLASS_LAYOUT_VALUES, CLASS_LAYOUT_VALUES, float.class, XC_MethodReplacement.DO_NOTHING);
-                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "requestCaptureValues", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "applyLayoutValues", CLASS_LAYOUT_VALUES, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "captureLayoutValues", CLASS_LAYOUT_VALUES, XC_MethodReplacement.DO_NOTHING);
@@ -377,6 +370,20 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateAmPmTranslation", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockLp", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateMultiUserSwitch", XC_MethodReplacement.DO_NOTHING);
+
+                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
+                    float prevX;
+
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        prevX = mAlarmStatus.getX();
+                    }
+
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        mAlarmStatus.setX(prevX);
+                    }
+                });
 
                 classAlphaOptimizedButton = XposedHelpers.findClass("com.android.systemui.statusbar.AlphaOptimizedButton", classLoader);
 
