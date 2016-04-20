@@ -18,6 +18,7 @@
 
     <string name="enable_notifications">Povoliť úpravy upozornení</string>
     <string name="enable_notifications_summary">Vyžaduje reštart SystemUI</string>
+    <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
 
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
