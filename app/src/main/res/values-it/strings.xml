@@ -18,6 +18,7 @@
     
     <string name="enable_notifications">Abilita modifiche alle notifiche</string>
     <string name="enable_notifications_summary">Richiede riavvio UI Sistema</string>
+    <string name="notifications_dark_theme_title">Tema notifiche scuro</string>
 
     
     <string name="hide_launcher_icon">Potrebbe richiedere il riavvio del launcher</string>
