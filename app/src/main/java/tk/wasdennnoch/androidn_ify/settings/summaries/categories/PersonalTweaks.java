@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.utils.StringUtils;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class PersonalTweaks {
 
@@ -17,13 +17,13 @@ public class PersonalTweaks {
         boolean gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (!gps_enabled && !network_enabled) {
-            summary = StringUtils.getInstance().getString(R.string.disabled);
+            summary = ResourceUtils.getInstance().getString(R.string.disabled);
         } else if (gps_enabled && network_enabled) {
-            summary = StringUtils.getInstance().getString(R.string.location_on_high);
+            summary = ResourceUtils.getInstance().getString(R.string.location_on_high);
         } else if (gps_enabled) {
-            summary = StringUtils.getInstance().getString(R.string.location_on_device);
+            summary = ResourceUtils.getInstance().getString(R.string.location_on_device);
         } else {
-            summary = StringUtils.getInstance().getString(R.string.location_on_power);
+            summary = ResourceUtils.getInstance().getString(R.string.location_on_power);
         }
 
         XposedHelpers.setObjectField(tile, "summary", summary);

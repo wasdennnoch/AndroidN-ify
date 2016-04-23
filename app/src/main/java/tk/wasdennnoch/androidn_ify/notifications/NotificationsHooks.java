@@ -25,7 +25,9 @@ public class NotificationsHooks {
                 XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
 
                 XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
-                XResources.DimensionReplacement eighty = new XResources.DimensionReplacement(80, TypedValue.COMPLEX_UNIT_DIP);
+                XResources.DimensionReplacement headerHeight = new XResources.DimensionReplacement(100, TypedValue.COMPLEX_UNIT_DIP);
+                XResources.DimensionReplacement emergencyCallsOnlySize = new XResources.DimensionReplacement(12, TypedValue.COMPLEX_UNIT_SP);
+                XResources.DimensionReplacement dateTimeExpandedSize = new XResources.DimensionReplacement(20, TypedValue.COMPLEX_UNIT_SP);
 
                 // Notifications
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
@@ -36,8 +38,11 @@ public class NotificationsHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
 
                 // Panel
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", eighty);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height_expanded", eighty);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", headerHeight);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height_expanded", headerHeight);
+
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_emergency_calls_only_text_size", emergencyCallsOnlySize);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_date_collapsed_size", dateTimeExpandedSize);
 
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded_header", new XC_LayoutInflated() {
                     @Override
@@ -55,19 +60,13 @@ public class NotificationsHooks {
                         params.setMarginEnd(0);
                     }
                 });
-                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_speed_bump", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        //liparam.view.getLayoutParams().height = 0; //TODO Remove or keep?
-                        //liparam.view.findViewById(liparam.res.getIdentifier("speedbump_line", "id", PACKAGE_SYSTEMUI)).getLayoutParams().height = 0;
-                    }
-                });
 
                 // Colors
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);
 
                 // Drawables
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_header_bg", modRes.fwd(R.drawable.replacement_notification_header_bg));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_guts_bg", modRes.fwd(R.drawable.replacement_notification_guts_bg));
                 if (prefs.getBoolean("notification_dark_theme", false)) {
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg_dark));
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim_dark));
@@ -86,12 +85,12 @@ public class NotificationsHooks {
     }
 
     public static void hookResAndroid(XC_InitPackageResources.InitPackageResourcesParam resparam, XSharedPreferences prefs) {
-        try {
+        /*try {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
 
                 //TODO Notification styling in the future
 
-                /*resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_action_list", new XC_LayoutInflated() {
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_action_list", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         XposedHook.logI(TAG, "notification_action_list");
@@ -216,12 +215,12 @@ public class NotificationsHooks {
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         XposedHook.logI(TAG, "notification_template_progressbar");
                     }
-                });*/
+                });
 
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking framework resources", t);
-        }
+        }*/
     }
 
 }

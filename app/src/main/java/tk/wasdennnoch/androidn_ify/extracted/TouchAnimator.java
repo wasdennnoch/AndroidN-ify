@@ -1,7 +1,3 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.geocities.com/kpdus/jad.html
-// Decompiler options: braces fieldsfirst space lnc
-
 package tk.wasdennnoch.androidn_ify.extracted;
 
 import android.util.FloatProperty;
@@ -16,156 +12,15 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class TouchAnimator {
 
-    public static class Builder {
-
-        private float mEndDelay;
-        private Interpolator mInterpolator;
-        private Listener mListener;
-        private float mStartDelay;
-        private List<View> mTargets;
-        private List<KeyframeSet> mValues;
-
-        private void add(View obj, KeyframeSet keyframeset) {
-            mTargets.add(obj);
-            mValues.add(keyframeset);
+    /*private static final FloatProperty<TouchAnimator2> POSITION = new FloatProperty("position") {
+        public Float get(TouchAnimator2 paramAnonymousTouchAnimator) {
+            return Float.valueOf(TouchAnimator2. - get1(paramAnonymousTouchAnimator));
         }
 
-        private static Property<View, Float> getProperty(Object obj, String s, Class class1) {
-            if (obj instanceof View) {
-                if (s.equals("translationX")) {
-                    return View.TRANSLATION_X;
-                }
-                if (s.equals("translationY")) {
-                    return View.TRANSLATION_Y;
-                }
-                if (s.equals("translationZ")) {
-                    return View.TRANSLATION_Z;
-                }
-                if (s.equals("alpha")) {
-                    return View.ALPHA;
-                }
-                if (s.equals("rotation")) {
-                    return View.ROTATION;
-                }
-                if (s.equals("x")) {
-                    return View.X;
-                }
-                if (s.equals("y")) {
-                    return View.Y;
-                }
-                if (s.equals("scaleX")) {
-                    return View.SCALE_X;
-                }
-                if (s.equals("scaleY")) {
-                    return View.SCALE_Y;
-                }
-            }
-            if ((obj instanceof TouchAnimator) && "position".equals(s)) {
-                return POSITION;
-            } else {
-                return Property.of(obj.getClass(), class1, s);
-            }
+        public void setValue(TouchAnimator2 paramAnonymousTouchAnimator, float paramAnonymousFloat) {
+            paramAnonymousTouchAnimator.setPosition(paramAnonymousFloat);
         }
-
-        public Builder addFloat(View obj, String s, float af[]) {
-            add(obj, KeyframeSet.ofFloat(getProperty(obj, s, Float.TYPE), af));
-            return this;
-        }
-
-        public TouchAnimator build() {
-            return new TouchAnimator(mTargets.toArray(new View[mTargets.size()]), mValues.toArray(new KeyframeSet[mValues.size()]), mStartDelay, mEndDelay, mInterpolator, mListener, null);
-        }
-
-        public Builder setEndDelay(float f) {
-            mEndDelay = f;
-            return this;
-        }
-
-        public Builder setInterpolator(Interpolator interpolator) {
-            mInterpolator = interpolator;
-            return this;
-        }
-
-        public Builder setListener(Listener listener) {
-            mListener = listener;
-            return this;
-        }
-
-        public Builder setStartDelay(float f) {
-            mStartDelay = f;
-            return this;
-        }
-
-        public Builder() {
-            mTargets = new ArrayList<>();
-            mValues = new ArrayList<>();
-        }
-    }
-
-    private static class FloatKeyframeSet extends KeyframeSet {
-
-        private final Property<View, Float> mProperty;
-        private final float mValues[];
-
-        protected void interpolate(int i, float f, View obj) {
-            float f1 = mValues[i - 1];
-            float f2 = mValues[i];
-            mProperty.set(obj, (f2 - f1) * f + f1);
-        }
-
-        public FloatKeyframeSet(Property<View, Float> property, float af[]) {
-            super(af.length);
-            mProperty = property;
-            mValues = af;
-        }
-    }
-
-    private static abstract class KeyframeSet {
-
-        private final float mFrameWidth;
-        private final int mSize;
-
-        public static KeyframeSet ofFloat(Property<View, Float> property, float af[]) {
-            return new FloatKeyframeSet(property, af);
-        }
-
-        protected abstract void interpolate(int i, float f, View obj);
-
-        void setValue(float f, View obj) {
-            int i;
-            for (i = 1; i < mSize - 1 && f > mFrameWidth; i++) {
-            }
-            interpolate(i, f / mFrameWidth, obj);
-        }
-
-        public KeyframeSet(int i) {
-            mSize = i;
-            mFrameWidth = 1.0F / (float) (i - 1);
-        }
-    }
-
-    public interface Listener {
-
-        void onAnimationAtEnd();
-
-        void onAnimationAtStart();
-
-        void onAnimationStarted();
-    }
-
-    public static class ListenerAdapter implements Listener {
-
-        public void onAnimationAtEnd() {
-        }
-
-        public void onAnimationAtStart() {
-        }
-
-        public void onAnimationStarted() {
-        }
-
-    }
-
+    };*/
 
     private static final FloatProperty POSITION = new FloatProperty("position") {
         public Float get(TouchAnimator touchanimator) {
@@ -185,85 +40,179 @@ public class TouchAnimator {
         }
     };
     private final Interpolator mInterpolator;
-    private final KeyframeSet mKeyframeSets[];
+    private final KeyframeSet[] mKeyframeSets;
+    private float mLastT = -1.0F;
     private final Listener mListener;
     private final float mSpan;
     private final float mStartDelay;
-    private final View mTargets[];
-    private float mLastT;
+    private final View[] mTargets;
 
     private TouchAnimator(View targets[], KeyframeSet keyframeset[], float startDelay, float endDelay, Interpolator interpolator, Listener listener) {
-        mLastT = -1F;
         mTargets = targets;
         mKeyframeSets = keyframeset;
         mStartDelay = startDelay;
-        mSpan = 1.0F - endDelay - mStartDelay;
+        mSpan = (1.0F - endDelay - mStartDelay);
         mInterpolator = interpolator;
         mListener = listener;
     }
 
-    TouchAnimator(View targets[], KeyframeSet keyframeset[], float startDelay, float endDelay, Interpolator interpolator, Listener listener, TouchAnimator touchanimator) {
-        this(targets, keyframeset, startDelay, endDelay, interpolator, listener);
-    }
-
-    public void setPosition(float f) {
-        float f1 = MathUtils.constrain((f - mStartDelay) / mSpan, 0.0F, 1.0F);
-        f = f1;
+    public void setPosition(float paramFloat) {
+        float f = MathUtils.constrain((paramFloat - mStartDelay) / mSpan, 0.0F, 1.0F);
+        paramFloat = f;
         if (mInterpolator != null) {
-            f = mInterpolator.getInterpolation(f1);
+            paramFloat = mInterpolator.getInterpolation(f);
         }
-        if (f == mLastT) {
+        if (paramFloat == mLastT) {
             return;
         }
-        if (mListener == null) {
-            for (int i = 0; i < mTargets.length; i++) {
-                mKeyframeSets[i].setValue(f, mTargets[i]);
-            }
-        } else {
-            if (f != 1.0F) {
-                if (f == 0.0F) {
+        if (mListener != null) {
+            if (paramFloat != 1.0F) {
+                if (paramFloat == 0.0F) {
                     mListener.onAnimationAtStart();
                 } else if (mLastT <= 0.0F || mLastT == 1.0F) {
                     mListener.onAnimationStarted();
                 }
-                mLastT = f;
+                mLastT = paramFloat;
             } else {
                 mListener.onAnimationAtEnd();
             }
         }
+        for (int i = 0; i < mTargets.length; i++) {
+            mKeyframeSets[i].setValue(paramFloat, mTargets[i]);
+        }
     }
 
+    public static class Builder {
+        private float mEndDelay;
+        private Interpolator mInterpolator;
+        private Listener mListener;
+        private float mStartDelay;
+        private List<View> mTargets = new ArrayList<>();
+        private List<KeyframeSet> mValues = new ArrayList<>();
 
-    /*public void setPosition(float f) {
-        float f1 = MathUtils.constrain((f - mStartDelay) / mSpan, 0.0F, 1.0F);
-        f = f1;
-        if (mInterpolator != null) {
-            f = mInterpolator.getInterpolation(f1);
-        }
-        if (f == mLastT) {
-            return;
-        }
-        if (mListener == null)goto _L2;else goto _L1
-        _L1:
-        if (f != 1.0F)goto _L4;else goto _L3
-        _L3:
-        mListener.onAnimationAtEnd();
-        _L6:
-        mLastT = f;
-        _L2:
-        for (int i = 0; i < mTargets.length; i++) {
-            mKeyframeSets[i].setValue(f, mTargets[i]);
+        private void add(View paramObject, KeyframeSet paramKeyframeSet) {
+            mTargets.add(paramObject);
+            mValues.add(paramKeyframeSet);
         }
 
-        break; // Loop/switch isn't completed
-        _L4:
-        if (f == 0.0F) {
-            mListener.onAnimationAtStart();
-        } else if (mLastT <= 0.0F || mLastT == 1.0F) {
-            mListener.onAnimationStarted();
+        private static Property<View, Float> getProperty(View paramObject, String paramString, Class<?> paramClass) {
+            if (paramString.equals("translationX")) {
+                return View.TRANSLATION_X;
+            }
+            if (paramString.equals("translationY")) {
+                return View.TRANSLATION_Y;
+            }
+            if (paramString.equals("translationZ")) {
+                return View.TRANSLATION_Z;
+            }
+            if (paramString.equals("alpha")) {
+                return View.ALPHA;
+            }
+            if (paramString.equals("rotation")) {
+                return View.ROTATION;
+            }
+            if (paramString.equals("x")) {
+                return View.X;
+            }
+            if (paramString.equals("y")) {
+                return View.Y;
+            }
+            if (paramString.equals("scaleX")) {
+                return View.SCALE_X;
+            }
+            if (paramString.equals("scaleY")) {
+                return View.SCALE_Y;
+            }
+            return null;
         }
-        if (true)goto _L6;else goto _L5
-        _L5:
-    }*/
 
+        public Builder addFloat(View paramObject, String paramString, float... paramVarArgs) {
+            add(paramObject, KeyframeSet.ofFloat(getProperty(paramObject, paramString, Float.TYPE), paramVarArgs));
+            return this;
+        }
+
+        public TouchAnimator build() {
+            return new TouchAnimator(mTargets.toArray(new View[mTargets.size()]), mValues.toArray(new KeyframeSet[mValues.size()]), mStartDelay, mEndDelay, mInterpolator, mListener);
+        }
+
+        public Builder setEndDelay(float paramFloat) {
+            mEndDelay = paramFloat;
+            return this;
+        }
+
+        public Builder setInterpolator(Interpolator paramInterpolator) {
+            mInterpolator = paramInterpolator;
+            return this;
+        }
+
+        public Builder setListener(Listener paramListener) {
+            mListener = paramListener;
+            return this;
+        }
+
+        public Builder setStartDelay(float paramFloat) {
+            mStartDelay = paramFloat;
+            return this;
+        }
+    }
+
+    private static class FloatKeyframeSet extends KeyframeSet {
+        private final Property<View, Float> mProperty;
+        private final float[] mValues;
+
+        public FloatKeyframeSet(Property<View, Float> paramProperty, float[] paramArrayOfFloat) {
+            super(paramArrayOfFloat.length);
+            mProperty = paramProperty;
+            mValues = paramArrayOfFloat;
+        }
+
+        protected void interpolate(int paramInt, float paramFloat, View paramObject) {
+            float f1 = mValues[(paramInt - 1)];
+            float f2 = mValues[paramInt];
+            mProperty.set(paramObject, (f2 - f1) * paramFloat + f1);
+        }
+    }
+
+    private static abstract class KeyframeSet {
+        private final float mFrameWidth;
+        private final int mSize;
+
+        public KeyframeSet(int paramInt) {
+            mSize = paramInt;
+            mFrameWidth = (1.0F / (paramInt - 1));
+        }
+
+        public static KeyframeSet ofFloat(Property<View, Float> paramProperty, float... paramVarArgs) {
+            return new FloatKeyframeSet(paramProperty, paramVarArgs);
+        }
+
+        protected abstract void interpolate(int paramInt, float paramFloat, View paramObject);
+
+        void setValue(float paramFloat, View paramObject) {
+            int i = 1;
+            while ((i < mSize - 1) && (paramFloat > mFrameWidth)) {
+                i += 1;
+            }
+            interpolate(i, paramFloat / mFrameWidth, paramObject);
+        }
+    }
+
+    public interface Listener {
+        void onAnimationAtEnd();
+
+        void onAnimationAtStart();
+
+        void onAnimationStarted();
+    }
+
+    public static class ListenerAdapter implements Listener {
+        public void onAnimationAtEnd() {
+        }
+
+        public void onAnimationAtStart() {
+        }
+
+        public void onAnimationStarted() {
+        }
+    }
 }

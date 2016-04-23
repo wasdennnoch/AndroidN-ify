@@ -26,15 +26,15 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.utils.StringUtils;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class DeviceTweaks {
 
     public static void hookDisplayTile(Object tile, Context context) {
         int brightnessMode = Settings.System.getInt(context.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-        String status = brightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL ? StringUtils.getInstance().getString(R.string.off) : StringUtils.getInstance().getString(R.string.on);
-        String summary = StringUtils.getInstance().getString(R.string.display_summary, status);
+        String status = brightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL ? ResourceUtils.getInstance().getString(R.string.off) : ResourceUtils.getInstance().getString(R.string.on);
+        String summary = ResourceUtils.getInstance().getString(R.string.display_summary, status);
         XposedHelpers.setObjectField(tile, "summary", summary);
     }
 
@@ -46,13 +46,13 @@ public class DeviceTweaks {
         AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int currentVolume = audio.getStreamVolume(AudioManager.STREAM_RING);
         int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_RING);
-        XposedHelpers.setObjectField(tile, "summary", StringUtils.getInstance().getString(R.string.sound_summary, formatPercentage(currentVolume, maxVolume)));
+        XposedHelpers.setObjectField(tile, "summary", ResourceUtils.getInstance().getString(R.string.sound_summary, formatPercentage(currentVolume, maxVolume)));
     }
 
     public static void hookApplicationTile(Object tile, Context context) {
         final PackageManager pm = context.getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(0);
-        XposedHelpers.setObjectField(tile, "summary", StringUtils.getInstance().getString(R.string.apps_summary, packages.size()));
+        XposedHelpers.setObjectField(tile, "summary", ResourceUtils.getInstance().getString(R.string.apps_summary, packages.size()));
     }
 
     public static void hookStorageTile(Object tile, Context context) {
@@ -66,7 +66,7 @@ public class DeviceTweaks {
         long total = totalBlocks * blockSize;
         long used = total - available;
 
-        String summary = StringUtils.getInstance().getString(R.string.storage_summary, Formatter.formatFileSize(context, used), Formatter.formatFileSize(context, total));
+        String summary = ResourceUtils.getInstance().getString(R.string.storage_summary, Formatter.formatFileSize(context, used), Formatter.formatFileSize(context, total));
         XposedHelpers.setObjectField(tile, "summary", summary);
     }
 
@@ -85,17 +85,17 @@ public class DeviceTweaks {
                 long remaining = batteryStats.computeBatteryTimeRemaining(SystemClock.elapsedRealtime());
                 if (remaining > 0) {
                     String time = (String) XposedHelpers.callStaticMethod(Formatter.class, "formatShortElapsedTime", context, remaining / 1000);
-                    summary = StringUtils.getInstance().getString(R.string.battery_summary, formatPercentage(level, scale), time);
+                    summary = ResourceUtils.getInstance().getString(R.string.battery_summary, formatPercentage(level, scale), time);
                 }
                 break;
             case BatteryManager.BATTERY_PLUGGED_AC:
-                summary = StringUtils.getInstance().getString(R.string.battery_charging_ac, formatPercentage(level, scale));
+                summary = ResourceUtils.getInstance().getString(R.string.battery_charging_ac, formatPercentage(level, scale));
                 break;
             case BatteryManager.BATTERY_PLUGGED_USB:
-                summary = StringUtils.getInstance().getString(R.string.battery_charging_usb, formatPercentage(level, scale));
+                summary = ResourceUtils.getInstance().getString(R.string.battery_charging_usb, formatPercentage(level, scale));
                 break;
             case BatteryManager.BATTERY_PLUGGED_WIRELESS:
-                summary = StringUtils.getInstance().getString(R.string.battery_charging_wireless, formatPercentage(level, scale));
+                summary = ResourceUtils.getInstance().getString(R.string.battery_charging_wireless, formatPercentage(level, scale));
                 break;
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
@@ -114,14 +114,14 @@ public class DeviceTweaks {
         long availMem = mMemInfoReader.getFreeSize() + mMemInfoReader.getCachedSize() - secServerMem;
         long totalMem = mMemInfoReader.getTotalSize();
 
-        String summary = StringUtils.getInstance().getString(R.string.memory_summary, Formatter.formatShortFileSize(context, totalMem - availMem), Formatter.formatShortFileSize(context, totalMem));
+        String summary = ResourceUtils.getInstance().getString(R.string.memory_summary, Formatter.formatShortFileSize(context, totalMem - availMem), Formatter.formatShortFileSize(context, totalMem));
         XposedHelpers.setObjectField(tile, "summary", summary);
 
     }
 
     public static void hookUserTile(Object tile, Context context) {
         UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
-        XposedHelpers.setObjectField(tile, "summary", StringUtils.getInstance().getString(R.string.user_summary, userManager.getUserName()));
+        XposedHelpers.setObjectField(tile, "summary", ResourceUtils.getInstance().getString(R.string.user_summary, userManager.getUserName()));
     }
 
 

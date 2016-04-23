@@ -19,7 +19,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.ExpandableIndicator;
-import tk.wasdennnoch.androidn_ify.extracted.TouchAnimator2;
+import tk.wasdennnoch.androidn_ify.extracted.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class StatusBarHeaderHooks {
@@ -31,17 +31,19 @@ public class StatusBarHeaderHooks {
 
     private static Class<?> classAlphaOptimizedButton;
 
-    private static TouchAnimator2 mAlarmTranslation;
-    private static TouchAnimator2 mDateSizeAnimator;
-    private static TouchAnimator2 mFirstHalfAnimator;
-    private static TouchAnimator2 mSecondHalfAnimator;
-    private static TouchAnimator2 mSettingsAlpha;
+    private static TouchAnimator mAlarmTranslation;
+    private static TouchAnimator mDateSizeAnimator;
+    private static TouchAnimator mFirstHalfAnimator;
+    private static TouchAnimator mSecondHalfAnimator;
+    private static TouchAnimator mSettingsAlpha;
 
     private static RelativeLayout mStatusBarHeaderView;
 
     private static View mSystemIconsSuperContainer;
     private static View mDateGroup;
     private static View mClock;
+    private static TextView mTime;
+    private static TextView mAmPm;
     private static FrameLayout mMultiUserSwitch;
     //private static ImageView mMultiUserAvatar;
     private static TextView mDateCollapsed;
@@ -59,7 +61,6 @@ public class StatusBarHeaderHooks {
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logI(TAG, "onFinishInflateHook");
 
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
             Context context = mStatusBarHeaderView.getContext();
@@ -69,6 +70,8 @@ public class StatusBarHeaderHooks {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
                 mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
                 mClock = (View) XposedHelpers.getObjectField(param.thisObject, "mClock");
+                mTime = (TextView) XposedHelpers.getObjectField(param.thisObject, "mTime");
+                mAmPm = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAmPm");
                 mMultiUserSwitch = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mMultiUserSwitch");
                 //mMultiUserAvatar = (ImageView) XposedHelpers.getObjectField(param.thisObject, "mMultiUserAvatar");
                 mDateCollapsed = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateCollapsed");
@@ -93,119 +96,134 @@ public class StatusBarHeaderHooks {
 
             try {
 
+                int rippleRes = context.getResources().getIdentifier("ripple_drawable", "drawable", XposedHook.PACKAGE_SYSTEMUI);
+                int iconSize = res.getDimensionPixelSize(R.dimen.right_icon_size);
+                int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
+
                 ((ViewGroup) mClock.getParent()).removeView(mClock);
                 ((ViewGroup) mMultiUserSwitch.getParent()).removeView(mMultiUserSwitch);
                 ((ViewGroup) mDateCollapsed.getParent()).removeView(mDateCollapsed);
                 ((ViewGroup) mSettingsContainer.getParent()).removeView(mSettingsContainer);
                 ((ViewGroup) mAlarmStatus.getParent()).removeView(mAlarmStatus);
 
-                LinearLayout rightLayout = new LinearLayout(context);
-                RelativeLayout.LayoutParams rightLayoutLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.right_layout_height));
-                rightLayoutLp.topMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_top);
-                rightLayout.setLayoutParams(rightLayoutLp);
-                rightLayout.setGravity(Gravity.CENTER);
-                rightLayout.setOrientation(LinearLayout.HORIZONTAL);
-                rightLayout.setClipChildren(false);
-                rightLayout.setClipToPadding(false);
+                RelativeLayout.LayoutParams rightContainerLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.right_layout_height));
+                rightContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
+                rightContainerLp.rightMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
+                LinearLayout rightContainer = new LinearLayout(context);
+                rightContainer.setLayoutParams(rightContainerLp);
+                rightContainer.setGravity(Gravity.CENTER);
+                rightContainer.setPadding(0, res.getDimensionPixelSize(R.dimen.right_layout_margin_top), 0, 0);
+                rightContainer.setOrientation(LinearLayout.HORIZONTAL);
+                rightContainer.setClipChildren(false);
+                rightContainer.setClipToPadding(false);
 
-                int iconSize = res.getDimensionPixelSize(R.dimen.right_icon_size);
                 LinearLayout.LayoutParams multiUserSwitchLp = new LinearLayout.LayoutParams(iconSize, iconSize);
                 mMultiUserSwitch.setLayoutParams(multiUserSwitchLp);
 
                 LinearLayout.LayoutParams settingsContainerLp = new LinearLayout.LayoutParams(iconSize, iconSize);
                 mSettingsContainer.setLayoutParams(settingsContainerLp);
 
-                int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
-                mExpandIndicator = new ExpandableIndicator(context);
                 LinearLayout.LayoutParams expandIndicatorLp = new LinearLayout.LayoutParams(iconSize, iconSize);
+                mExpandIndicator = new ExpandableIndicator(context);
                 mExpandIndicator.setLayoutParams(expandIndicatorLp);
                 mExpandIndicator.setPadding(expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding);
                 mExpandIndicator.setClickable(true);
                 mExpandIndicator.setFocusable(true);
-                mExpandIndicator.setFocusableInTouchMode(true);
+                mExpandIndicator.setFocusableInTouchMode(false);
                 mExpandIndicator.setCropToPadding(false);
+                mExpandIndicator.setBackgroundResource(rippleRes);
 
 
                 RelativeLayout.LayoutParams emergencyCallsOnlyLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 emergencyCallsOnlyLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                emergencyCallsOnlyLp.leftMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
                 mEmergencyCallsOnly.setLayoutParams(emergencyCallsOnlyLp);
                 //noinspection deprecation
-                mEmergencyCallsOnly.setTextSize(res.getDimensionPixelSize(R.dimen.qs_emergency_calls_only_text_size));
+                mEmergencyCallsOnly.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.emergency_calls_only_text_size));
                 mEmergencyCallsOnly.setTextColor(res.getColor(R.color.emergency_calls_only_text_color));
                 mEmergencyCallsOnly.setGravity(Gravity.CENTER_VERTICAL);
                 mEmergencyCallsOnly.setPadding(0, res.getDimensionPixelSize(R.dimen.emergency_calls_only_padding_top), 0, 0);
                 mEmergencyCallsOnly.setVisibility(View.GONE);
 
 
-                mDateTimeAlarmGroup = new LinearLayout(context);
                 RelativeLayout.LayoutParams dateTimeAlarmGroupLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dateTimeAlarmGroupLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 dateTimeAlarmGroupLp.topMargin = res.getDimensionPixelSize(R.dimen.date_time_alarm_group_margin_top);
+                dateTimeAlarmGroupLp.leftMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
+                mDateTimeAlarmGroup = new LinearLayout(context);
                 mDateTimeAlarmGroup.setLayoutParams(dateTimeAlarmGroupLp);
                 mDateTimeAlarmGroup.setId(View.generateViewId());
                 mDateTimeAlarmGroup.setGravity(Gravity.START);
                 mDateTimeAlarmGroup.setOrientation(LinearLayout.VERTICAL);
-
-                mDateTimeGroup = new LinearLayout(context);
-                LinearLayout.LayoutParams dateTimeGroupLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.date_time_group_height));
-                mDateTimeGroup.setLayoutParams(dateTimeGroupLp);
-                mDateTimeGroup.setId(View.generateViewId());
-                mDateTimeGroup.setOrientation(LinearLayout.HORIZONTAL);
-                mDateTimeGroup.setPivotX(0.0F);
-                mDateTimeGroup.setPivotY(0.0F);
-
-                LinearLayout.LayoutParams clockLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                mClock.setLayoutParams(clockLp);
-
-                LinearLayout.LayoutParams dateCollapsedLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                mDateCollapsed.setLayoutParams(dateCollapsedLp);
-                mDateCollapsed.setGravity(Gravity.TOP);
-                mDateCollapsed.setTextColor(res.getColor(R.color.clock_date_text_color));
-                mDateCollapsed.setTextSize(R.dimen.qs_time_collapsed_size);
-                mDateCollapsed.setSingleLine();
-                mDateCollapsed.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding));
+                mDateTimeAlarmGroup.setBaselineAligned(false);
 
                 LinearLayout.LayoutParams alarmStatusLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.alarm_status_height));
                 mAlarmStatus.setLayoutParams(alarmStatusLp);
                 mAlarmStatus.setGravity(Gravity.TOP);
                 //noinspection deprecation
                 mAlarmStatus.setTextColor(res.getColor(R.color.alarm_status_text_color));
-                mAlarmStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.qs_date_collapsed_size));
+                mAlarmStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
                 mAlarmStatus.setPadding(0, res.getDimensionPixelSize(R.dimen.alarm_status_padding_top), 0, 0);
                 mAlarmStatus.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.alarm_status_drawable_padding));
                 mAlarmStatus.setVisibility(View.GONE);
-                TypedValue outValue = new TypedValue();
-                context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
-                mAlarmStatus.setBackgroundResource(outValue.resourceId);
+                mAlarmStatus.setBackgroundResource(rippleRes);
 
 
-                mAlarmStatusCollapsed = (Button) XposedHelpers.newInstance(classAlphaOptimizedButton, context);
+                LinearLayout.LayoutParams dateTimeGroupLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.date_time_group_height));
+                mDateTimeGroup = new LinearLayout(context);
+                mDateTimeGroup.setLayoutParams(dateTimeGroupLp);
+                mDateTimeGroup.setId(View.generateViewId());
+                mDateTimeGroup.setOrientation(LinearLayout.HORIZONTAL);
+                mDateTimeGroup.setPivotX(0.0F);
+                mDateTimeGroup.setPivotY(0.0F);
+                mDateTimeGroup.setBaselineAligned(false);
+
+                LinearLayout.LayoutParams clockLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                mClock.setLayoutParams(clockLp);
+                mClock.findViewById(context.getResources().getIdentifier("empty_time_view", "id", XposedHook.PACKAGE_SYSTEMUI)).setVisibility(View.GONE);
+
+                mTime.setTextColor(res.getColor(R.color.clock_date_text_color));
+                mTime.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
+                mTime.setPadding(0, 0, res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding), 0);
+                mAmPm.setTextColor(res.getColor(R.color.clock_date_text_color));
+                mAmPm.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
+
+                LinearLayout.LayoutParams dateCollapsedLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                mDateCollapsed.setLayoutParams(dateCollapsedLp);
+                mDateCollapsed.setGravity(Gravity.TOP);
+                mDateCollapsed.setTextColor(res.getColor(R.color.clock_date_text_color));
+                mDateCollapsed.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
+                mDateCollapsed.setSingleLine();
+                mDateCollapsed.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.header_dot), null, null, null);
+                mDateCollapsed.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding));
+
                 LinearLayout.LayoutParams alarmStatusCollapsedLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                mAlarmStatusCollapsed = (Button) XposedHelpers.newInstance(classAlphaOptimizedButton, context);
                 mAlarmStatusCollapsed.setLayoutParams(alarmStatusCollapsedLp);
                 mAlarmStatusCollapsed.setId(View.generateViewId());
                 mAlarmStatusCollapsed.setGravity(Gravity.TOP);
                 //noinspection deprecation
                 mAlarmStatusCollapsed.setTextColor(res.getColor(R.color.alarm_status_text_color));
-                mAlarmStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.qs_date_collapsed_size));
-                mAlarmStatusCollapsed.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding));
+                mAlarmStatusCollapsed.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
+                mAlarmStatusCollapsed.setClickable(false);
+                mAlarmStatusCollapsed.setFocusable(false);
                 mAlarmStatusCollapsed.setVisibility(View.GONE);
-                //TypedValue outValue2 = new TypedValue(); // TODO collapsed icon shouldn't need a ripple background although that's how it's officially implemented
-                //mContext.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue2, true);
-                //mAlarmStatusCollapsed.setBackgroundResource(outValue2.resourceId);
+                //noinspection deprecation
+                mAlarmStatusCollapsed.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(context.getResources().getIdentifier("ic_access_alarms_small", "drawable", XposedHook.PACKAGE_SYSTEMUI)), null, null, null);
+                mAlarmStatusCollapsed.setBackgroundResource(0);
+                mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
 
-                rightLayout.addView(mMultiUserSwitch);
-                rightLayout.addView(mSettingsContainer);
-                rightLayout.addView(mExpandIndicator);
+
+                rightContainer.addView(mMultiUserSwitch);
+                rightContainer.addView(mSettingsContainer);
+                rightContainer.addView(mExpandIndicator);
                 mDateTimeGroup.addView(mClock);
                 mDateTimeGroup.addView(mDateCollapsed);
                 mDateTimeGroup.addView(mAlarmStatusCollapsed);
                 mDateTimeAlarmGroup.addView(mDateTimeGroup);
                 mDateTimeAlarmGroup.addView(mAlarmStatus);
-                mStatusBarHeaderView.addView(rightLayout);
+                mStatusBarHeaderView.addView(rightContainer);
                 mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
-
-                mStatusBarHeaderView.forceLayout(); // TODO testing
-                mStatusBarHeaderView.requestLayout();
 
             } catch (Throwable t) {
                 // :(
@@ -239,60 +257,58 @@ public class StatusBarHeaderHooks {
     private static XC_MethodHook onConfigurationChangedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logI(TAG, "onConfigurationChangedHook");
             updateResources(((View) param.thisObject).getContext());
         }
     };
     private static XC_MethodHook updateEverythingHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logI(TAG, "updateEverythingHook");
             updateDateTimePosition(((View) param.thisObject).getContext());
         }
     };
     private static XC_MethodHook updateVisibilitiesHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logI(TAG, "updateVisibilitiesHook");
             if (mSystemIconsSuperContainer != null) {
                 mSystemIconsSuperContainer.setVisibility(View.GONE);
                 mDateGroup.setVisibility(View.GONE);
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
             } else {
-                XposedHook.logI(TAG, "updateVisibilitiesHook: Still null");
+                XposedHook.logD(TAG, "updateVisibilitiesHook: mSystemIconsSuperContainer is still null");
             }
         }
     };
 
     private static void updateResources(Context context) {
-        XposedHook.logI(TAG, "updateResources()");
         if (mDateTimeGroup == null) {
-            XposedHook.logI(TAG, "updateResources(): Still null");
+            XposedHook.logD(TAG, "updateResources(): mDateTimeGroup is still null");
             return;
         }
 
         ResourceUtils res = ResourceUtils.getInstance(context);
-        float timeCollapsed = res.getDimensionPixelSize(R.dimen.qs_time_collapsed_size);
-        float timeExpanded = res.getDimensionPixelSize(R.dimen.qs_time_expanded_size);
-        float dateScaleFactor = timeCollapsed / timeExpanded;
-        float gearTranslation = res.getDimension(R.dimen.qs_header_gear_translation);
+        float timeCollapsed = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
+        float timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size);
+        float dateScaleFactor = timeExpanded / timeCollapsed;
+        float gearTranslation = res.getDimension(R.dimen.settings_gear_translation);
 
         updateDateTimePosition(context);
 
-        mDateSizeAnimator = new TouchAnimator2.Builder()
+        mDateSizeAnimator = new TouchAnimator.Builder()
                 .addFloat(mDateTimeGroup, "scaleX", 1, dateScaleFactor)
                 .addFloat(mDateTimeGroup, "scaleY", 1, dateScaleFactor)
+                //.addFloat(mDateTimeGroup, "scaleX", dateScaleFactor, 1)
+                //.addFloat(mDateTimeGroup, "scaleY", dateScaleFactor, 1)
                 .setStartDelay(0.36F)
                 .build();
-        mFirstHalfAnimator = new TouchAnimator2.Builder()
+        mFirstHalfAnimator = new TouchAnimator.Builder()
                 .addFloat(mAlarmStatusCollapsed, "alpha", 1.0F, 0.0F)
                 .setEndDelay(0.5F).build();
-        mSecondHalfAnimator = new TouchAnimator2.Builder()
+        mSecondHalfAnimator = new TouchAnimator.Builder()
                 .addFloat(mAlarmStatus, "alpha", 0.0F, 1.0F)
                 .addFloat(mEmergencyCallsOnly, "alpha", 0.0F, 1.0F)
                 .setStartDelay(0.5F).build();
-        mSettingsAlpha = new TouchAnimator2.Builder()
+        mSettingsAlpha = new TouchAnimator.Builder()
                 .addFloat(mSettingsContainer, "translationY", -gearTranslation, 0.0F)
                 .addFloat(mMultiUserSwitch, "translationY", -gearTranslation, 0.0F)
                 .addFloat(mSettingsButton, "rotation", -90F, 0.0F)
@@ -310,18 +326,17 @@ public class StatusBarHeaderHooks {
                         mDateTimeGroup.removeOnLayoutChangeListener(this);
                     }
                 });
-                return;
+            } else {
+                mDateTimeGroup.setPivotX(mDateTimeGroup.getWidth());
             }
-            mDateTimeGroup.setPivotX(mDateTimeGroup.getWidth());
         }
     }
 
     private static void updateDateTimePosition(Context context) {
-        XposedHook.logI(TAG, "updateDateTimePosition()");
         ResourceUtils res = ResourceUtils.getInstance(context);
-        float mDateTimeTranslation = res.getDimension(R.dimen.qs_date_anim_translation);
-        float mDateTimeAlarmTranslation = res.getDimension(R.dimen.qs_date_alarm_anim_translation);
-        TouchAnimator2.Builder builder = new TouchAnimator2.Builder();
+        float mDateTimeTranslation = res.getDimension(R.dimen.date_anim_translation);
+        float mDateTimeAlarmTranslation = res.getDimension(R.dimen.date_alarm_anim_translation);
+        TouchAnimator.Builder builder = new TouchAnimator.Builder();
         float f;
         if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing"))
             f = mDateTimeAlarmTranslation;
@@ -332,7 +347,6 @@ public class StatusBarHeaderHooks {
     }
 
     private static void updateAlarmVisibilities() {
-        XposedHook.logI(TAG, "updateAlarmVisibilities()");
         int v;
         if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing")) {
             v = View.VISIBLE;
@@ -367,21 +381,14 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateSystemIconsLayoutParams", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateAvatarScale", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockScale", XC_MethodReplacement.DO_NOTHING);
-                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateAmPmTranslation", XC_MethodReplacement.DO_NOTHING);
+                //XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateAmPmTranslation", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockLp", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateMultiUserSwitch", XC_MethodReplacement.DO_NOTHING);
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
-                    float prevX;
-
-                    @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        prevX = mAlarmStatus.getX();
-                    }
-
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        mAlarmStatus.setX(prevX);
+                        mAlarmStatus.setX(0);
                     }
                 });
 

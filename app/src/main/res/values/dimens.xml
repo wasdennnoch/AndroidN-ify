@@ -7,20 +7,20 @@
     <dimen name="expand_indicator_padding">12.0dp</dimen>
     
     <dimen name="emergency_calls_only_padding_top">8.0dp</dimen>
-    <dimen name="qs_emergency_calls_only_text_size">12.0sp</dimen>
-    
+    <dimen name="emergency_calls_only_text_size">12.0sp</dimen>
+
+    <dimen name="header_horizontal_margin">16.0dp</dimen>
     <dimen name="date_time_alarm_group_margin_top">8.0dp</dimen>
     <dimen name="date_time_group_height">19.0dp</dimen>
     <dimen name="date_collapsed_drawable_padding">6.0dp</dimen>
+    <dimen name="date_time_collapsed_size">14.0sp</dimen>
+    <dimen name="date_time_expanded_size">18.0sp</dimen>
+    <dimen name="date_anim_translation">16.0dip</dimen>
+    <dimen name="date_alarm_anim_translation">8.0dip</dimen>
     <dimen name="alarm_status_height">20.0dp</dimen>
     <dimen name="alarm_status_padding_top">3.0dp</dimen>
     <dimen name="alarm_status_drawable_padding">6.0dp</dimen>
     <dimen name="alarm_status_collapsed_drawable_padding">6.0dp</dimen>
-    <dimen name="qs_time_collapsed_size">14.0sp</dimen>
-    <dimen name="qs_time_expanded_size">20.0sp</dimen>
-    <dimen name="qs_date_collapsed_size">14.0sp</dimen>
-    <dimen name="qs_header_gear_translation">16.0dip</dimen>
-    <dimen name="qs_date_anim_translation">32.0dip</dimen>
-    <dimen name="qs_date_alarm_anim_translation">22.0dip</dimen>
+    <dimen name="settings_gear_translation">16.0dip</dimen>
 
 </resources>

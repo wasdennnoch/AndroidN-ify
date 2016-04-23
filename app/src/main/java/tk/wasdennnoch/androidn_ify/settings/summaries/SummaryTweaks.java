@@ -14,7 +14,7 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.categories.PersonalTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.RomTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.SystemTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.WirelessAndNetworksTweaks;
-import tk.wasdennnoch.androidn_ify.utils.StringUtils;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class SummaryTweaks {
 
@@ -95,7 +95,7 @@ public class SummaryTweaks {
             List target = (List) param.args[1];
 
             setupIds(context);
-            StringUtils.getInstance(context); // Setup instance
+            ResourceUtils.getInstance(context); // Setup instance
 
             for (Object category : target) {
                 setSummaries((List) XposedHelpers.getObjectField(category, "tiles"), context);

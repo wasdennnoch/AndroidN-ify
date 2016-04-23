@@ -60,6 +60,7 @@ public class SettingsActivity extends Activity {
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
+        @SuppressLint("SetWorldReadable")
         @Override
         public void onPause() {
             super.onPause();
