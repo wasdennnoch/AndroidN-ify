@@ -3,22 +3,26 @@
 
     <string name="xposed_description">Bringt in Android N vorgestellte Features auf Geräte mit Lollipop und Marshmallow!</string>
 
+    <!-- prefs -->
     <string name="header_settings">Einstellungen</string>
     <string name="header_recents">Recents</string>
+    <string name="header_notifications">Benachrichtigungen</string>
     <string name="header_app">App</string>
 
-    <!-- prefs -->
-    <string name="enable_settings">Einstellungen optimieren</string>
+    <string name="enable_settings">Einstellungen tweaken</string>
     <string name="fix_sound_notif_tile_title">"Töne &amp; Benachrichtigungen"-Kachel reparieren</string>
     <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kachel. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
 
-    <string name="enable_recents">Recents optimieren</string>
+    <string name="enable_recents">Recents tweaken</string>
     <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
+
+    <string name="enable_notifications">Benachrichtigungen tweaken</string>
+    <string name="notifications_dark_theme_title">Dunkle Benachrichtigungen</string>
 
     <string name="hide_launcher_icon_title">Launcher-Icon verbergen</string>
     <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
-    <string name="debug_log_title">Debugging-Log</string>
-    <string name="debug_log">Warnung: Überschwemmt den Log</string>
+    <string name="debug_log_title">Debug-Log</string>
+    <string name="debug_log">Warnung: Log-flutend</string>
     <!-- /prefs -->
 
 
