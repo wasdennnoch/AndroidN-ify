@@ -3,12 +3,19 @@
     
     <string name="xposed_description">Niektoré funkcie z Android N pre Lollipop a Marshmallow!</string>
 
+    <string name="activity_about">O aplikácii Android N-ify</string>
+    <string name="about_author">Vytvoril \"MrWasdennnoch\"</string>
+    <string name="about_version">Verzia %1$s (%2$d)</string>
+
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">Xposed nevie čítať súbor nastavení, predvolené hodnoty budú použité v hooks. To môže byť spôsobené ak je SELinux v režime enforcing.</string>
+
+
     <string name="header_settings">Nastavenia</string>
     <string name="header_recents">Nedávne aplikácie</string>
     <string name="header_notifications">Upozornenia</string>
     <string name="header_app">Aplikácia</string>
 
-    <!-- prefs -->
     <string name="enable_settings">Povoliť úpravy nastavení</string>
     <string name="fix_sound_notif_tile_title">Opraviť "Zvuk a upozornenia"</string>
     <string name="fix_sound_notif_tile">Niektoré ROM kombinujú Zvuky a Upozornenia. Povoľte pre zobrazenie správneho zhrnutia</string>
@@ -17,7 +24,6 @@
     <string name="double_tap_speed_title">Rýchlosť dvojitého kliknutia</string>
 
     <string name="enable_notifications">Povoliť úpravy upozornení</string>
-    <string name="enable_notifications_summary">Vyžaduje reštart SystemUI</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
 
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
