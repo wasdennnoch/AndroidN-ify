@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.view.View;
 
 import java.io.File;
 
@@ -25,9 +26,21 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bare_settings);
+        setContentView(R.layout.activity_settings);
+        //noinspection ConstantConditions
+        if (isActivated() && !isPrefsFileReadable()) {
+            findViewById(R.id.prefs_not_readable_warning).setVisibility(View.VISIBLE);
+        }
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
+    }
+
+    private boolean isActivated() {
+        return false;
+    }
+
+    private boolean isPrefsFileReadable() {
+        return true;
     }
 
 
@@ -39,6 +52,8 @@ public class SettingsActivity extends Activity {
             //noinspection deprecation
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
             addPreferencesFromResource(R.xml.preferences);
+            // SELinux test, see XposedHook
+            getPreferenceManager().getSharedPreferences().edit().putBoolean("can_read_prefs", true).commit();
         }
 
         @Override
