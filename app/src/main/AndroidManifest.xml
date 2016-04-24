@@ -20,7 +20,8 @@
             android:value="60"/>
         <meta-data
             android:name="xposeddescription"
-            android:value="@string/xposed_description"/>
+            android:value="@string/xposed_description"
+            tools:ignore="ManifestResource"/>
 
         <activity
             android:name=".ui.SettingsActivity"
@@ -41,6 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity-alias>
+
+        <activity
+            android:name=".ui.AboutActivity"
+            android:label="@string/activity_about"/>
 
     </application>
 

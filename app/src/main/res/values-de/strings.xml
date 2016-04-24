@@ -3,7 +3,13 @@
 
     <string name="xposed_description">Bringt in Android N vorgestellte Features auf Geräte mit Lollipop und Marshmallow!</string>
 
+    <string name="activity_about">Über Android N-ify</string>
+    <string name="about_author">Entwickelt von \"MrWasdennnoch\"</string>
+    <string name="about_version">Version %1$s (%2$d)</string>
+
     <!-- prefs -->
+    <string name="prefs_file_not_readable">Xposed kann die Datei mit den Einstellungen nicht lesen, Standardwerte werden in hooks benutzt. Ein Grund könnte SELinux im \"enforcing\"-Modus sein.</string>
+
     <string name="header_settings">Einstellungen</string>
     <string name="header_recents">Recents</string>
     <string name="header_notifications">Benachrichtigungen</string>
