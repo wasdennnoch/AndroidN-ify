@@ -1,7 +1,8 @@
-package tk.wasdennnoch.androidn_ify.statusbar.header;
+package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.XResources;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -16,6 +17,8 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources;
+import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.ExpandableIndicator;
@@ -26,6 +29,7 @@ public class StatusBarHeaderHooks {
 
     private static final String TAG = "StatusBarHeaderHooks";
 
+    private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_STATUS_BAR_HEADER_VIEW = "com.android.systemui.statusbar.phone.StatusBarHeaderView";
     private static final String CLASS_LAYOUT_VALUES = "com.android.systemui.statusbar.phone.StatusBarHeaderView$LayoutValues";
 
@@ -184,9 +188,9 @@ public class StatusBarHeaderHooks {
 
                 mTime.setTextColor(res.getColor(R.color.clock_date_text_color));
                 mTime.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
-                mTime.setPadding(0, 0, res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding), 0);
                 mAmPm.setTextColor(res.getColor(R.color.clock_date_text_color));
                 mAmPm.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
+                mAmPm.setPadding(0, 0, res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding), 0);
 
                 LinearLayout.LayoutParams dateCollapsedLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 mDateCollapsed.setLayoutParams(dateCollapsedLp);
@@ -397,6 +401,46 @@ public class StatusBarHeaderHooks {
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
+        }
+    }
+
+    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, XSharedPreferences prefs) {
+        try {
+            if (prefs.getBoolean("enable_notification_tweaks", true)) {
+
+                XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
+                XResources.DimensionReplacement headerHeight = new XResources.DimensionReplacement(100, TypedValue.COMPLEX_UNIT_DIP);
+                XResources.DimensionReplacement emergencyCallsOnlySize = new XResources.DimensionReplacement(12, TypedValue.COMPLEX_UNIT_SP);
+                XResources.DimensionReplacement dateTimeCollapsedSize = new XResources.DimensionReplacement(14, TypedValue.COMPLEX_UNIT_SP);
+
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", headerHeight);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height_expanded", headerHeight);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_emergency_calls_only_text_size", emergencyCallsOnlySize);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_date_collapsed_size", dateTimeCollapsedSize);
+
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);
+
+                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded_header", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        liparam.view.setElevation(0);
+                        liparam.view.setPadding(0, 0, 0, 0);
+                    }
+                });
+                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_panel", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        liparam.view.setElevation(0);
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) liparam.view.getLayoutParams();
+                        params.setMarginStart(0);
+                        params.setMarginEnd(0);
+                    }
+                });
+
+            }
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
         }
     }
 

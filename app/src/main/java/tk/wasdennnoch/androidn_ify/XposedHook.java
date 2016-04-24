@@ -8,13 +8,12 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
+import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
-import tk.wasdennnoch.androidn_ify.statusbar.header.StatusBarHeaderHooks;
 
 /**
- *
  * Right now it's impossible to explicitly use classes of the hooked package
  * (e.g. <code>com.android.systemui.statusbar.policy.KeyButtonView</code>) because those
  * application classes aren't loaded yet when the method <code>handleLoadPackage</code>
@@ -26,7 +25,6 @@ import tk.wasdennnoch.androidn_ify.statusbar.header.StatusBarHeaderHooks;
  * understandable.
  *
  * @see <a href="https://github.com/rovo89/XposedBridge/issues/57">https://github.com/rovo89/XposedBridge/issues/57</a>
- *
  */
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookInitPackageResources {
 
@@ -34,7 +32,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_ANDROID = "android";
     public static final String PACKAGE_SYSTEMUI = "com.android.systemui";
     public static final String PACKAGE_SETTINGS = "com.android.settings";
-    public static boolean debug = true;
+    public static boolean debug = false;
     private static String sModulePath;
 
     private static XSharedPreferences sPrefs = new XSharedPreferences(XposedHook.class.getPackage().getName());
@@ -85,14 +83,14 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     @Override
     public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam resparam) throws Throwable {
 
-        if (resparam.packageName.equals(PACKAGE_ANDROID)) {
-
-            NotificationsHooks.hookResAndroid(resparam, sPrefs);
-
-        } else if (resparam.packageName.equals(PACKAGE_SYSTEMUI)) {
-
-            NotificationsHooks.hookResSystemui(resparam, sPrefs, sModulePath);
-
+        switch (resparam.packageName) {
+            case PACKAGE_SYSTEMUI:
+                NotificationsHooks.hookResSystemui(resparam, sPrefs, sModulePath);
+                StatusBarHeaderHooks.hookResSystemui(resparam, sPrefs);
+                break;
+            case PACKAGE_ANDROID:
+                NotificationsHooks.hookResAndroid(resparam, sPrefs);
+                break;
         }
 
     }
