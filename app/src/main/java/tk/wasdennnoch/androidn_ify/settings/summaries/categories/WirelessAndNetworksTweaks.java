@@ -12,7 +12,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.MobileDataController;
-import tk.wasdennnoch.androidn_ify.utils.StringUtils;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class WirelessAndNetworksTweaks {
 
@@ -31,22 +31,22 @@ public class WirelessAndNetworksTweaks {
                     if (!ssid.equals(WifiSsid.NONE)) {
                         summary = ssid;
                     } else {
-                        summary = StringUtils.getInstance().getString(R.string.disconnected);
+                        summary = ResourceUtils.getInstance().getString(R.string.disconnected);
                     }
                 } else {
-                    summary = StringUtils.getInstance().getString(R.string.disconnected);
+                    summary = ResourceUtils.getInstance().getString(R.string.disconnected);
                 }
             } else {
-                summary = StringUtils.getInstance().getString(R.string.disconnected);
+                summary = ResourceUtils.getInstance().getString(R.string.disconnected);
             }
         } else {
-            summary = StringUtils.getInstance().getString(R.string.disabled);
+            summary = ResourceUtils.getInstance().getString(R.string.disabled);
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
     }
 
     public static void hookBluetoothTile(Object tile) {
-        String summary = StringUtils.getInstance().getString(R.string.disabled);
+        String summary = ResourceUtils.getInstance().getString(R.string.disabled);
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //noinspection ResourceType
         if (bluetoothAdapter.isEnabled()) {
@@ -65,7 +65,7 @@ public class WirelessAndNetworksTweaks {
             MobileDataController controller = new MobileDataController(context);
             MobileDataController.DataUsageInfo info = controller.getDataUsageInfo();
             if (info != null)
-                summary = StringUtils.getInstance().getString(R.string.data_usage_summary, Formatter.formatFileSize(context, info.usageLevel));
+                summary = ResourceUtils.getInstance().getString(R.string.data_usage_summary, Formatter.formatFileSize(context, info.usageLevel));
         } catch (Exception e) {
             XposedHook.logE(TAG, "Error hooking data usage tile", e);
         }

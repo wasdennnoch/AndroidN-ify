@@ -5,12 +5,14 @@
 
     <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
 
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">The preference file isn\'t readable by Xposed, default values will be used in hooks. This could be due to enforcing SELinux.</string>
+
     <string name="header_settings">Settings</string>
     <string name="header_recents">Recents</string>
     <string name="header_notifications">Notifications</string>
     <string name="header_app">App</string>
-    
-    <!-- prefs -->
+
     <string name="enable_settings">Enable settings tweaks</string>
     <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
     <string name="fix_sound_notif_tile">Some ROMs combine the Sounds- and Notifications tile. Enable to set the proper summary for this tile</string>
@@ -19,7 +21,6 @@
     <string name="double_tap_speed_title">Double tap speed</string>
 
     <string name="enable_notifications">Enable notification tweaks</string>
-    <string name="enable_notifications_summary">Requires SystemUI restart</string>
     <string name="notifications_dark_theme_title">Dark notification theme</string>
 
     <string name="hide_launcher_icon_title">Hide launcher icon</string>

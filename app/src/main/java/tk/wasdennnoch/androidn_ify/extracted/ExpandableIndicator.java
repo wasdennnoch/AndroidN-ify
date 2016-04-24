@@ -10,21 +10,11 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 public class ExpandableIndicator extends ImageView {
 
     private boolean mExpanded;
+    private AnimatedVectorDrawable mExpandedDrawable;
+    private AnimatedVectorDrawable mCollapsedDrawable;
 
     public ExpandableIndicator(Context context) {
         super(context);
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        int i;
-        if (mExpanded) { // TODO module resources?
-            i = R.drawable.ic_volume_collapse_animation; // 1
-        } else {
-            i = R.drawable.ic_volume_expand_animation; // 2
-        }
-        setImageResource(i);
     }
 
     public void setExpanded(boolean expanded) {
@@ -32,15 +22,18 @@ public class ExpandableIndicator extends ImageView {
             return;
         }
         mExpanded = expanded;
+
+        if (mExpandedDrawable == null)
+            mExpandedDrawable = (AnimatedVectorDrawable) ResourceUtils.getInstance(getContext()).getDrawable(R.drawable.ic_volume_expand_animation).getConstantState().newDrawable();
+        if (mCollapsedDrawable == null)
+            mCollapsedDrawable = (AnimatedVectorDrawable) ResourceUtils.getInstance(getContext()).getDrawable(R.drawable.ic_volume_collapse_animation).getConstantState().newDrawable();
+
         AnimatedVectorDrawable drawable;
-        int i;
         if (mExpanded) {
-            i = R.drawable.ic_volume_expand_animation; // 2
+            drawable = mExpandedDrawable;
         } else {
-            i = R.drawable.ic_volume_collapse_animation; // 1
+            drawable = mCollapsedDrawable;
         }
-        //noinspection ConstantConditions
-        drawable = (AnimatedVectorDrawable) ResourceUtils.getInstance(getContext()).getDrawable(i).getConstantState().newDrawable();
         setImageDrawable(drawable);
         drawable.start();
     }

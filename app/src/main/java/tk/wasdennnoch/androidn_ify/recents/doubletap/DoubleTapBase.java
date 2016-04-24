@@ -16,7 +16,7 @@ import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
-import tk.wasdennnoch.androidn_ify.utils.StringUtils;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class DoubleTapBase {
 
@@ -95,9 +95,9 @@ public class DoubleTapBase {
                             if (lastAppId != 0) {
                                 am.moveTaskToFront(lastAppId, ActivityManager.MOVE_TASK_NO_USER_ACTION);
                             } else {
-                                Toast.makeText(context, StringUtils.getInstance(context).getString(R.string.no_previous_recents), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, ResourceUtils.getInstance(context).getString(R.string.no_previous_recents), Toast.LENGTH_SHORT).show();
                             }
-                            XposedHook.logD(TAG, "App got switched: " + (lastAppId != 0));
+                            XposedHook.logD(TAG, "App got switched: " + (lastAppId != 0) + "; lastAppId: " + lastAppId);
                         } catch (Throwable t) {
                             XposedHook.logE(TAG, "Error in switchToLastApp", t);
                         }
