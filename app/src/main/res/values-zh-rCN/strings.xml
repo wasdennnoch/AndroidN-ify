@@ -5,23 +5,30 @@
 
     <string name="xposed_description">将 Android N 内的特性移植到 Lollipop 和 Marshmallow 版本的 rom 中！</string>
 
+    <string name="activity_about">关于 Android N-ify</string>
+    <string name="about_author">开发者 \"MrWasdennnoch\"</string>
+    <string name="about_version">版本 %1$s (%2$d)</string>
+    
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 而引起的。</string>
+
     <string name="header_settings">设置</string>
     <string name="header_recents">最近任务</string>
     <string name="header_notifications">通知区域</string>
     <string name="header_app">应用程序</string>
     
-    <!-- prefs -->
     <string name="enable_settings">启用设置调整</string>
-    <string name="fix_sound_notif_tile_title">修复“提示音&amp;通知”项</string>
-    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音和通知合并为了一个项目，开启后可在这类 rom 中显示出正确的信息概要。</string>
+    <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
+    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，开启后可在这类 rom 中显示出正确的信息概要。</string>
 
     <string name="enable_recents">启用最近任务调整</string>
     <string name="double_tap_speed_title">双击速度</string>
 
     <string name="enable_notifications">启用通知区域调整</string>
+    <string name="notifications_dark_theme_title">使用暗色主题通知</string>
 	
-	<string name="hide_launcher_icon_title">隐藏程序图标</string>
-    <string name="hide_launcher_icon">或许需要重启启动器</string>
+    <string name="hide_launcher_icon_title">隐藏程序图标</string>
+    <string name="hide_launcher_icon">或许需要重启桌面</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
     <!-- /prefs -->
@@ -50,7 +57,7 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="no_previous_recents">没有上一个程序</string>
+    <string name="no_previous_recents">没有上一个应用</string>
     <!-- /RECENTS -->
 
 </resources>
