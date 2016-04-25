@@ -10,7 +10,7 @@
     <string name="about_version">版本 %1$s (%2$d)</string>
     
     <!-- prefs -->
-    <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 而导致的。</string>
+    <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 而引起的。</string>
 
     <string name="header_settings">设置</string>
     <string name="header_recents">最近任务</string>
