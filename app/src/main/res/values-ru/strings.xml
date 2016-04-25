@@ -5,17 +5,27 @@
 
     <string name="xposed_description">Функции Android N на устройствах Lollipop и Marshmallow!</string>
 
+	<string name="activity_about">О приложении</string>
+    <string name="about_author">Разработчик: \"MrWasdennnoch\"</string>
+    <string name="about_version">Версия %1$s (%2$d)</string>
+	
+	<!-- prefs -->
+	<string name="prefs_file_not_readable">Xposed не может прочитать файл конфигурации, будут использованы стандартные значения. Это может быть связано с блокирующим режимом SELinux.</string>
+	
     <string name="header_settings">Настройки</string>
     <string name="header_recents">Недавние</string>
+	<string name="header_notifications">Уведомления</string>
     <string name="header_app">Приложение</string>
     
-    <!-- prefs -->
     <string name="enable_settings">Включить твики настроек</string>
-    <string name="fix_sound_notif_tile_title">Исправить пункт "Звуки и Уведомления"</string>
+    <string name="fix_sound_notif_tile_title">Исправить пункт \"Звуки и Уведомления\"</string>
     <string name="fix_sound_notif_tile">Некоторые прошивки объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения.</string>
 
     <string name="enable_recents">Включить твики для недавних приложений</string>
     <string name="double_tap_speed_title">Скорость двойного нажатия</string>
+
+    <string name="enable_notifications">Включить твики уведомлений</string>
+    <string name="notifications_dark_theme_title">Тёмная тема уведомлений</string>
 
     <string name="hide_launcher_icon_title">Скрыть иконку приложения</string>
     <string name="hide_launcher_icon">Может потребоватся перезагрузка рабочего стола</string>
@@ -38,7 +48,7 @@
     <string name="battery_charging_wireless">%1$s - Беспроводная зарядка</string>
     <string name="battery_charging_usb">%1$s - Зарядка по USB</string>
     <string name="battery_charging_ac">%1$s - Зарядка от сети</string>
-    <string name="memory_summary">Используется %1$s of %2$s</string>
+    <string name="memory_summary">Используется %1$s из %2$s</string>
     <string name="user_summary">Вы вошли как %1$s</string>
     <string name="location_on_power">Вкл / По координатам сети</string>
     <string name="location_on_device">Вкл / По спутникам GPS</string>
@@ -47,7 +57,7 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="no_previous_recents">Нет предыдущего приложения</string>
+    <string name="no_previous_recents">Нет недавних приложений</string>
     <!-- /RECENTS -->
 
 </resources>
