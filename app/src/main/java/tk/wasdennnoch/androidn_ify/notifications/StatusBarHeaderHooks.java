@@ -117,7 +117,7 @@ public class StatusBarHeaderHooks {
                 rightContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
                 rightContainerLp.rightMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_right);
                 rightContainerLp.topMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_top);
-                final LinearLayout rightContainer = new LinearLayout(context);
+                LinearLayout rightContainer = new LinearLayout(context);
                 rightContainer.setLayoutParams(rightContainerLp);
                 rightContainer.setGravity(Gravity.CENTER);
                 rightContainer.setOrientation(LinearLayout.HORIZONTAL);
