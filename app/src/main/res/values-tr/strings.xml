@@ -3,11 +3,11 @@
 
     <string name="xposed_description">Lollipop ve Marshmallow uzerinde android N ozelliklerini deneyin!</string>
 
+    <!-- prefs -->
     <string name="header_settings">Ayarlar</string>
     <string name="header_recents">Son uygulamalar</string>
     <string name="header_app">App</string>
 
-    <!-- prefs -->
     <string name="enable_settings">Ayarlar gelistirmesini aktiflestir</string>
     <string name="fix_sound_notif_tile_title">Fix "Ses &amp; bildirim" satırı</string>
     <string name="fix_sound_notif_tile">Eger ses ve bildirim aciklamasi yanlis ise acin</string>

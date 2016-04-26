@@ -4,11 +4,12 @@
     tools:ignore="MissingTranslation">
 
     <string name="xposed_description">將 Android N 的特點帶到 Lollipop(5.0/5.1) 或者 Marshmallow(6.0) 版本的rom中！</string>
+
+    <!-- prefs -->
     <string name="header_settings">設定</string>
     <string name="header_recents">最近任務</string>
     <string name="header_app">應用程式</string>
-    
-    <!-- prefs -->
+
     <string name="enable_settings">啟用設定調整</string>
     <string name="fix_sound_notif_tile_title">修復 "聲音 &amp; 通知" 瓷磚</string>
     <string name="fix_sound_notif_tile">有些ROM會組合聲音和通知瓷磚，啟用此選項可修復。</string>

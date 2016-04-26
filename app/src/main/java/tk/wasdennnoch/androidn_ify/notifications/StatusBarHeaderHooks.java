@@ -33,6 +33,9 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_STATUS_BAR_HEADER_VIEW = "com.android.systemui.statusbar.phone.StatusBarHeaderView";
     private static final String CLASS_LAYOUT_VALUES = "com.android.systemui.statusbar.phone.StatusBarHeaderView$LayoutValues";
 
+    private static byte sSetExpansionErrorCount = 0;
+    private static boolean sLogSetExpansionError = true;
+
     private static Class<?> classAlphaOptimizedButton;
 
     private static TouchAnimator mAlarmTranslation;
@@ -112,14 +115,13 @@ public class StatusBarHeaderHooks {
 
                 RelativeLayout.LayoutParams rightContainerLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.right_layout_height));
                 rightContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
-                rightContainerLp.rightMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
-                LinearLayout rightContainer = new LinearLayout(context);
+                rightContainerLp.rightMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_right);
+                rightContainerLp.topMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_top);
+                final LinearLayout rightContainer = new LinearLayout(context);
                 rightContainer.setLayoutParams(rightContainerLp);
                 rightContainer.setGravity(Gravity.CENTER);
-                rightContainer.setPadding(0, res.getDimensionPixelSize(R.dimen.right_layout_margin_top), 0, 0);
                 rightContainer.setOrientation(LinearLayout.HORIZONTAL);
                 rightContainer.setClipChildren(false);
-                rightContainer.setClipToPadding(false);
 
                 LinearLayout.LayoutParams multiUserSwitchLp = new LinearLayout.LayoutParams(iconSize, iconSize);
                 mMultiUserSwitch.setLayoutParams(multiUserSwitchLp);
@@ -141,12 +143,12 @@ public class StatusBarHeaderHooks {
                 RelativeLayout.LayoutParams emergencyCallsOnlyLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 emergencyCallsOnlyLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 emergencyCallsOnlyLp.leftMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
+                emergencyCallsOnlyLp.topMargin = res.getDimensionPixelSize(R.dimen.emergency_calls_only_margin_top);
                 mEmergencyCallsOnly.setLayoutParams(emergencyCallsOnlyLp);
                 //noinspection deprecation
                 mEmergencyCallsOnly.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.emergency_calls_only_text_size));
                 mEmergencyCallsOnly.setTextColor(res.getColor(R.color.emergency_calls_only_text_color));
                 mEmergencyCallsOnly.setGravity(Gravity.CENTER_VERTICAL);
-                mEmergencyCallsOnly.setPadding(0, res.getDimensionPixelSize(R.dimen.emergency_calls_only_padding_top), 0, 0);
                 mEmergencyCallsOnly.setVisibility(View.GONE);
 
 
@@ -169,6 +171,7 @@ public class StatusBarHeaderHooks {
                 mAlarmStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
                 mAlarmStatus.setPadding(0, res.getDimensionPixelSize(R.dimen.alarm_status_padding_top), 0, 0);
                 mAlarmStatus.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.alarm_status_drawable_padding));
+                mAlarmStatus.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(context.getResources().getIdentifier("ic_access_alarms_small", "drawable", XposedHook.PACKAGE_SYSTEMUI)), null, null, null);
                 mAlarmStatus.setVisibility(View.GONE);
                 mAlarmStatus.setBackgroundResource(rippleRes);
 
@@ -228,6 +231,7 @@ public class StatusBarHeaderHooks {
                 mDateTimeAlarmGroup.addView(mAlarmStatus);
                 mStatusBarHeaderView.addView(rightContainer);
                 mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
+                mStatusBarHeaderView.setClipChildren(false);
 
             } catch (Throwable t) {
                 // :(
@@ -246,16 +250,26 @@ public class StatusBarHeaderHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             float f = (float) param.args[0];
-            if (mAlarmTranslation != null)
-                mAlarmTranslation.setPosition(f);
-            if (mDateSizeAnimator != null) {
-                mDateSizeAnimator.setPosition(f);
-                mFirstHalfAnimator.setPosition(f);
-                mSecondHalfAnimator.setPosition(f);
-                mSettingsAlpha.setPosition(f);
-                //updateAlarmVisibilities(); //TODO is this necessary?
+            try {
+                if (mAlarmTranslation != null)
+                    mAlarmTranslation.setPosition(f);
+                if (mDateSizeAnimator != null) {
+                    mDateSizeAnimator.setPosition(f);
+                    mFirstHalfAnimator.setPosition(f);
+                    mSecondHalfAnimator.setPosition(f);
+                    mSettingsAlpha.setPosition(f);
+                }
+                mExpandIndicator.setExpanded(f > 0.93F);
+            } catch (Throwable t) {
+                // Prevent log spam
+                if (sLogSetExpansionError) {
+                    XposedHook.logE(TAG, "Error setting expansion values", t);
+                    sSetExpansionErrorCount++;
+                    if (sSetExpansionErrorCount > 5) {
+                        sLogSetExpansionError = false;
+                    }
+                }
             }
-            mExpandIndicator.setExpanded(f > 0.93F);
         }
     };
     private static XC_MethodHook onConfigurationChangedHook = new XC_MethodHook() {
@@ -409,15 +423,17 @@ public class StatusBarHeaderHooks {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
 
                 XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
-                XResources.DimensionReplacement headerHeight = new XResources.DimensionReplacement(100, TypedValue.COMPLEX_UNIT_DIP);
+                XResources.DimensionReplacement headerHeight = new XResources.DimensionReplacement(80, TypedValue.COMPLEX_UNIT_DIP);
                 XResources.DimensionReplacement emergencyCallsOnlySize = new XResources.DimensionReplacement(12, TypedValue.COMPLEX_UNIT_SP);
                 XResources.DimensionReplacement dateTimeCollapsedSize = new XResources.DimensionReplacement(14, TypedValue.COMPLEX_UNIT_SP);
+                XResources.DimensionReplacement multiUserAvatarSize = new XResources.DimensionReplacement(24, TypedValue.COMPLEX_UNIT_DIP);
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", headerHeight);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height_expanded", headerHeight);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_emergency_calls_only_text_size", emergencyCallsOnlySize);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_date_collapsed_size", dateTimeCollapsedSize);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", multiUserAvatarSize);
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);
 

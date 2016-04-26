@@ -5,11 +5,11 @@
 
     <string name="xposed_description">Portuje cechy Androida N do Androida Lollipop i Marshmallow!</string>
 
+    <!-- prefs -->
     <string name="header_settings">Ustawienia</string>
     <string name="header_recents">Ostatnie aplikacje</string>
     <string name="header_app">Aplikacja</string>
-    
-    <!-- prefs -->
+
     <string name="enable_settings">Włącz poprawki ustawień</string>
     <string name="fix_sound_notif_tile_title">Napraw kafelek "Dźwięki i powiadnomienia"</string>
     <string name="fix_sound_notif_tile">Niektóre ROMy łączą kafelek Dźwięki- i Powiadomienia. Włącz by ustawić poprawne podsumowanie.</string>

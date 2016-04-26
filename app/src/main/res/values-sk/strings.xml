@@ -10,7 +10,6 @@
     <!-- prefs -->
     <string name="prefs_file_not_readable">Xposed nevie čítať súbor nastavení, predvolené hodnoty budú použité v hooks. To môže byť spôsobené ak je SELinux v režime enforcing.</string>
 
-
     <string name="header_settings">Nastavenia</string>
     <string name="header_recents">Nedávne aplikácie</string>
     <string name="header_notifications">Upozornenia</string>

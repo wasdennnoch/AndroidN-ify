@@ -3,11 +3,11 @@
 
     <string name="xposed_description">Traz funções introduzidas no Android N para dispositivos com Lollipop e Marshmallow!</string>
 
+    <!-- prefs -->
     <string name="header_settings">Configurações</string>
     <string name="header_recents">Recentes</string>
     <string name="header_app">App</string>
 
-    <!-- prefs -->
     <string name="enable_settings">Ativar modificações em Configurações</string>
     <string name="fix_sound_notif_tile_title">Corrigir o módulo de Sons &amp; Notificações</string>
     <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Se esse for o caso do seu dispositivo, ative esta opção para que o sumário correto seja mostrado</string>
