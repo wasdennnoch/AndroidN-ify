@@ -442,6 +442,8 @@ public class StatusBarHeaderHooks {
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         liparam.view.setElevation(0);
                         liparam.view.setPadding(0, 0, 0, 0);
+                        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) liparam.view.getLayoutParams();
+                        params.height = ResourceUtils.getInstance(liparam.view.getContext()).getDimensionPixelSize(R.dimen.status_bar_header_height);
                     }
                 });
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_panel", new XC_LayoutInflated() {
