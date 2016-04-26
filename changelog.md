@@ -2,11 +2,12 @@
 
 ### Next version (v0.2.0):
 
-- Every double-tap fix makes it work on more devices
-- Dark and orange app theme
-- Turkish translation
 - New notification design
 - New status bar header design
+- More double-tap fixes
+- Dark and orange app theme
+- About screen in app
+- Turkish, Chinese, Russian, Polish and French translation
 
 
 ### v0.1.2:
