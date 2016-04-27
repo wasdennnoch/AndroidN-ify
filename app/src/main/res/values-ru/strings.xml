@@ -5,16 +5,18 @@
 
     <string name="xposed_description">Функции Android N на устройствах Lollipop и Marshmallow!</string>
 
-	<string name="activity_about">О приложении</string><!-- About Application? -->
+    <string name="activity_about">О модуле</string>
     <string name="about_author">Разработчик: \"MrWasdennnoch\"</string>
     <string name="about_version">Версия %1$s (%2$d)</string>
 
 	<!-- prefs -->
-	<string name="prefs_file_not_readable">Xposed не может прочитать файл конфигурации, будут использованы стандартные значения. Это может быть связано с блокирующим режимом SELinux.</string>
+    <string name="prefs_file_not_readable">Xposed не может прочитать файл конфигурации, будут использованы стандартные значения. Это может быть связано с блокирующим режимом SELinux.</string>
 	
+    <string name="restart_systemui">Перезапустить SystemUI</string>
+    <string name="restart_broadcast_sent">Запрос на перезапуск отправлен</string>
     <string name="header_settings">Настройки</string>
     <string name="header_recents">Недавние</string>
-	<string name="header_notifications">Уведомления</string>
+    <string name="header_notifications">Уведомления</string>
     <string name="header_app">Приложение</string>
     
     <string name="enable_settings">Включить твики настроек</string>
