@@ -3,11 +3,11 @@
 
     <string name="xposed_description">Caracteristici întroduse în Android N pe Lollipop şi Marshmallow!</string>
 
+    <!-- prefs -->
     <string name="header_settings">Setări</string>
     <string name="header_recents">Recente</string>
     <string name="header_app">App</string>
-    
-    <!-- prefs -->
+
     <string name="enable_settings">Activare modificări setări</string>
     <string name="fix_sound_notif_tile_title">Reglează titlu "Sunete &amp; notificări"</string>
     <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete şi notificări. Activează ca să setezi rezumatul optim pt. acest titlu</string>

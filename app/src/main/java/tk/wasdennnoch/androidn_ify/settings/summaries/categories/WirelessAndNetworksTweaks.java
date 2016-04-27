@@ -11,7 +11,7 @@ import android.text.format.Formatter;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.extracted.MobileDataController;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.MobileDataController;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class WirelessAndNetworksTweaks {

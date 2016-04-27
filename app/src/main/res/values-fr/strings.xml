@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="xposed_description">Adapte les fonctions introduites dans Android N pour Lollipop et Marshmallow !</string>
+
+    <string name="about_author">Developpé par \"MrWasdennnoch\"</string>
+    <string name="activity_about">À propos d\'Android N-ify</string>
+
+    <!-- prefs -->
+    <string name="header_settings">Paramètres</string>
+    <string name="header_recents">Applications Récentes</string>
+    <string name="header_app">App</string>
+
+    <string name="prefs_file_not_readable">Le fichier des préférences n\'est pas lisible par Xposed, les valeurs par défaut seront utilisées. Cela peut être causé par SELinux en Enforcing.</string>
+
+    <string name="enable_settings">Activer la modification des paramètres</string>
+    <string name="fix_sound_notif_tile_title">Correction "Son &amp; notifications" </string>
+    <string name="fix_sound_notif_tile">Certaines ROMs combine les Sons et Notifications. Activer pour afficher le bon résumé</string>
+
+    <string name="enable_recents">Activer la modification des Applications Récentes</string>
+    <string name="double_tap_speed_title">Vitesse de double-tap</string>
+
+    <string name="enable_notifications">Activer modification des notifications</string>
+    <string name="notifications_dark_theme_title">Thème foncé pour les notifications</string>
+
+    <string name="hide_launcher_icon_title">Cacher l\'icône dans le lanceur</string>
+    <string name="hide_launcher_icon">Peut nécessiter un redémarrage du lanceur</string>
+    <string name="debug_log_title">Log de Débogage</string>
+    <string name="debug_log">Attention : Beaucoup de Log</string>
+    <!-- /prefs -->
+
+
+    <!-- SETTINGS -->
+    <string name="disconnected">Déconnecté</string>
+    <string name="disabled">Désactivé</string>
+    <string name="off">DÉSACTIVÉ</string>
+    <string name="on">ACTIVÉ</string>
+    <string name="data_usage_summary">%1$s de données utilisés</string>
+    <string name="display_summary">Adaptation de la luminosité est %1$sE</string>
+    <string name="sound_summary">Volume de la sonnerie à %1$s</string>
+    <string name="apps_summary">%1$d applications installées</string>
+    <string name="storage_summary">%1$s sur %2$s utilisé</string>
+    <string name="battery_summary">%1$s - approx. %2$s restant(s)</string>
+    <string name="battery_charging_wireless">%1$s - En charge sans fil</string>
+    <string name="battery_charging_usb">%1$s - En charge sur USB</string>
+    <string name="battery_charging_ac">%1$s - En charge sur secteur</string>
+    <string name="memory_summary">%1$s sur %2$s de mémoire utilisée en moyenne</string>
+    <string name="user_summary">Connecté en tant que %1$s</string>
+    <string name="location_on_power">ACTIVÉE / Économie de batterie</string>
+    <string name="location_on_device">ACTIVÉE / Appareil uniquement</string>
+    <string name="location_on_high">ACTIVÉE / Haute précision</string>
+    <string name="print_summary">%1$d impressions</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">Aucune application récente</string>
+    <!-- /RECENTS -->
+
+</resources>

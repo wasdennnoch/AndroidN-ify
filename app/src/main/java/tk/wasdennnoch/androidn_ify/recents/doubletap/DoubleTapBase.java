@@ -27,7 +27,7 @@ public class DoubleTapBase {
     private static BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            XposedHook.logD(TAG, "Broadcast received: " + intent);
+            XposedHook.logD(TAG, "Broadcast received, action: " + intent.getAction());
             switch (intent.getAction()) {
                 case SettingsActivity.ACTION_RECENTS_CHANGED:
                     if (intent.hasExtra(SettingsActivity.EXTRA_RECENTS_DOUBLE_TAP_SPEED))

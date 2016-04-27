@@ -3,11 +3,11 @@
 
     <string name="xposed_description">Porta funciones introducidas en Android N para dispositivos con Lollipop y Marshmallow!</string>
 
+    <!-- prefs -->
     <string name="header_settings">Módulo</string>
     <string name="header_recents">Recientes</string>
     <string name="header_app">Ajustes</string>
-    
-    <!-- prefs -->
+
     <string name="enable_settings">Activar módulo</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
     <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. activa esto para mostrar la información correctamente</string>

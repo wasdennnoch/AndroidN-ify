@@ -3,13 +3,14 @@
     
     <string name="xposed_description">Niektoré funkcie z Android N pre Lollipop a Marshmallow!</string>
 
+    <string name="restart_systemui">Reštartovať SystemUI</string>
+    <string name="restart_broadcast_sent">Žiadosť na reštartovanie odoslaná</string>
     <string name="activity_about">O aplikácii Android N-ify</string>
     <string name="about_author">Vytvoril \"MrWasdennnoch\"</string>
     <string name="about_version">Verzia %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">Xposed nevie čítať súbor nastavení, predvolené hodnoty budú použité v hooks. To môže byť spôsobené ak je SELinux v režime enforcing.</string>
-
+    <string name="prefs_file_not_readable">Xposed nevie čítať súbor nastavení, budú použité predvolené hodnoty. To môže byť spôsobené ak je SELinux v režime enforcing.</string>
 
     <string name="header_settings">Nastavenia</string>
     <string name="header_recents">Nedávne aplikácie</string>

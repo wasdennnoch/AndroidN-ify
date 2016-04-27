@@ -3,47 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Portuje cechy Androida N do Androida Lollipop i Marshmallow!</string>
+    <string name="xposed_description">Dodaje funkcje Androida N do Androida Lollipop i Marshmallow!</string>
+
+    <string name="activity_about">O Android N-ify</string>
+    <string name="about_author">Stworzone przez \"MrWasdennnoch\"</string>
+    <string name="about_version">Wersja %1$s (%2$d)</string>
+    
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">Plik ustawień nie może być odczytany przez Xposed, zostaną użyte wartości domyślne. Może to być spowodowane statusem SELinux enforcing.</string>
 
     <string name="header_settings">Ustawienia</string>
     <string name="header_recents">Ostatnie aplikacje</string>
+    <string name="header_notifications">Powiadomienia</string>
     <string name="header_app">Aplikacja</string>
-    
-    <!-- prefs -->
-    <string name="enable_settings">Włącz poprawki ustawień</string>
-    <string name="fix_sound_notif_tile_title">Napraw kafelek "Dźwięki i powiadnomienia"</string>
-    <string name="fix_sound_notif_tile">Niektóre ROMy łączą kafelek Dźwięki- i Powiadomienia. Włącz by ustawić poprawne podsumowanie.</string>
 
-    <string name="enable_recents">Włącz poprawki ostatnich aplikacji</string>
-    <string name="double_tap_speed_title">Szybkość dwukliku</string>
+    <string name="enable_settings">Włącz poprawki Ustawień</string>
+    <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
+    <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
+
+    <string name="enable_recents">Włącz poprawki Ostatnich aplikacji</string>
+    <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
+
+    <string name="enable_notifications">Włącz poprawki Powiadomień</string>
+    <string name="notifications_dark_theme_title">Ciemny motyw Powiadomień</string>
 
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
-    <string name="debug_log_title">Debug log</string>
-    <string name="debug_log">Warning: Log-flooding</string>
+    <string name="debug_log_title">Włącz debugowanie</string>
+    <string name="debug_log">Ostrzeżenie: Powoduje zalanie dziennika wpisami</string>
     <!-- /prefs -->
 
 
     <!-- SETTINGS -->
     <string name="disconnected">Rozłączone</string>
     <string name="disabled">Wyłączone</string>
-    <string name="off">WYŁĄCZONE</string>
-    <string name="on">WŁĄCZONE</string>
-    <string name="data_usage_summary">%1$s zużytego transferu</string>
+    <string name="off">WYŁ.</string>
+    <string name="on">WŁ.</string>
+    <string name="data_usage_summary">%1$s przesłanych danych</string>
     <string name="display_summary">Automatyczna jasność jest %1$s</string>
     <string name="sound_summary">Głośność dzwonka: %1$s</string>
     <string name="apps_summary">%1$d zainstalowanych aplikacji</string>
-    <string name="storage_summary">%1$s użyte z %2$s</string>
+    <string name="storage_summary">%1$s z %2$s jest używane</string>
     <string name="battery_summary">%1$s - pozostało ok. %2$s</string>
     <string name="battery_charging_wireless">%1$s - Ładowanie BEZPRZEWODOWE</string>
     <string name="battery_charging_usb">%1$s - Ładowanie przez USB</string>
-    <string name="battery_charging_ac">%1$s - Ładowanie zasilaczem</string>
-    <string name="memory_summary">Aktualnie używane %1$s z %2$s pamięci</string>
+    <string name="battery_charging_ac">%1$s - Ładowanie zasilaczem sieciowym</string>
+    <string name="memory_summary">Obecnie %1$s z %2$s pamięci jest używane</string>
     <string name="user_summary">Zalogowany jako %1$s</string>
-    <string name="location_on_power">ON / Oszczędzanie energii</string>
-    <string name="location_on_device">ON / Tylko urządzenie</string>
-    <string name="location_on_high">ON / Wysoka dokładność</string>
-    <string name="print_summary">%1$d do wydrukowania</string>
+    <string name="location_on_power">WŁ. / Oszczędzanie baterii</string>
+    <string name="location_on_device">WŁ. / Tylko urządzenie</string>
+    <string name="location_on_high">WŁ. / Wysoka dokładność</string>
+    <string name="print_summary">%1$d zadań drukowania</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->

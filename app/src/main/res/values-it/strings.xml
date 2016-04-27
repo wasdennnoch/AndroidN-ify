@@ -22,7 +22,6 @@
     <string name="double_tap_speed_title">Velocità doppio tap</string>
     
     <string name="enable_notifications">Abilita modifiche alle notifiche</string>
-    <string name="enable_notifications_summary">Richiede riavvio UI Sistema</string>
     <string name="notifications_dark_theme_title">Tema notifiche scuro</string>
 
     

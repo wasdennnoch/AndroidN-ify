@@ -1,13 +1,18 @@
 package tk.wasdennnoch.androidn_ify.recents.doubletap;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
+import android.os.Process;
 import android.view.View;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 
 public class DoubleTapSwKeys extends DoubleTapBase {
 
@@ -39,6 +44,19 @@ public class DoubleTapSwKeys extends DoubleTapBase {
             sOriginalRecentsClickListener = (View.OnClickListener) XposedHelpers.getObjectField(param.thisObject, "mRecentsClickListener");
             Object navigationBarView = XposedHelpers.getObjectField(param.thisObject, "mNavigationBarView");
             sRecentsButton = (View) XposedHelpers.callMethod(navigationBarView, "getRecentsButton");
+
+            mContext.registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            XposedHook.logD(TAG, "Kill broadcast received, sending kill signal");
+                            Process.sendSignal(Process.myPid(), Process.SIGNAL_KILL);
+                        }
+                    }, 100);
+                }
+            }, new IntentFilter(SettingsActivity.ACTION_KILL_SYSTEMUI));
 
             sRecentsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
