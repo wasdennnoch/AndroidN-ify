@@ -12,6 +12,7 @@ import android.preference.PreferenceFragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -19,11 +20,11 @@ import tk.wasdennnoch.androidn_ify.R;
 
 public class SettingsActivity extends Activity {
 
-    public static final String ACTION_RECENTS_CHANGED = "an.action.ACTION_RECENTS_CHANGED";
-    public static final String EXTRA_RECENTS_DOUBLE_TAP_SPEED = "an.extra.recents.DOUBLE_TAP_SPEED";
-
-    public static final String ACTION_GENERAL = "an.action.ACTION_GENERAL";
-    public static final String EXTRA_GENERAL_DEBUG_LOG = "an.extra.general.DEBUG_LOG";
+    public static final String ACTION_RECENTS_CHANGED = "tk.wasdennnoch.androidn_ify.action.ACTION_RECENTS_CHANGED";
+    public static final String EXTRA_RECENTS_DOUBLE_TAP_SPEED = "extra.recents.DOUBLE_TAP_SPEED";
+    public static final String ACTION_GENERAL = "tk.wasdennnoch.androidn_ify.action.ACTION_GENERAL";
+    public static final String EXTRA_GENERAL_DEBUG_LOG = "extra.general.DEBUG_LOG";
+    public static final String ACTION_KILL_SYSTEMUI = "tk.wasdennnoch.androidn_ify.action.ACTION_KILL_SYSTEMUI";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +120,14 @@ public class SettingsActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.about) {
-            startActivity(new Intent(this, AboutActivity.class));
-            return true;
+        switch (item.getItemId()) {
+            case R.id.restart_systemui:
+                sendBroadcast(new Intent(ACTION_KILL_SYSTEMUI));
+                Toast.makeText(this, R.string.restart_broadcast_sent, Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.about:
+                startActivity(new Intent(this, AboutActivity.class));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
