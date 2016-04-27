@@ -21,8 +21,9 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.extracted.ExpandableIndicator;
-import tk.wasdennnoch.androidn_ify.extracted.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class StatusBarHeaderHooks {
@@ -35,8 +36,6 @@ public class StatusBarHeaderHooks {
 
     private static byte sSetExpansionErrorCount = 0;
     private static boolean sLogSetExpansionError = true;
-
-    private static Class<?> classAlphaOptimizedButton;
 
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
@@ -205,7 +204,7 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding));
 
                 LinearLayout.LayoutParams alarmStatusCollapsedLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                mAlarmStatusCollapsed = (Button) XposedHelpers.newInstance(classAlphaOptimizedButton, context);
+                mAlarmStatusCollapsed = new AlphaOptimizedButton(context);
                 mAlarmStatusCollapsed.setLayoutParams(alarmStatusCollapsedLp);
                 mAlarmStatusCollapsed.setId(View.generateViewId());
                 mAlarmStatusCollapsed.setGravity(Gravity.TOP);
@@ -387,11 +386,12 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateEverything", updateEverythingHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateVisibilities", updateVisibilitiesHook);
 
+                Class<?> classLayoutValues = XposedHelpers.findClass(CLASS_LAYOUT_VALUES, classLoader);
                 // Yes, this is a typo. Not my typo though. A typo in the source code that nobody noticed and that got compiled. ("interpoloate")
-                XposedHelpers.findAndHookMethod(CLASS_LAYOUT_VALUES, classLoader, "interpoloate", CLASS_LAYOUT_VALUES, CLASS_LAYOUT_VALUES, float.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classLayoutValues, "interpoloate", classLayoutValues, classLayoutValues, float.class, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "requestCaptureValues", XC_MethodReplacement.DO_NOTHING);
-                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "applyLayoutValues", CLASS_LAYOUT_VALUES, XC_MethodReplacement.DO_NOTHING);
-                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "captureLayoutValues", CLASS_LAYOUT_VALUES, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "applyLayoutValues", classLayoutValues, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "captureLayoutValues", classLayoutValues, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateLayoutValues", float.class, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockCollapsedMargin", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateHeights", XC_MethodReplacement.DO_NOTHING);
@@ -409,8 +409,6 @@ public class StatusBarHeaderHooks {
                         mAlarmStatus.setX(0);
                     }
                 });
-
-                classAlphaOptimizedButton = XposedHelpers.findClass("com.android.systemui.statusbar.AlphaOptimizedButton", classLoader);
 
             }
         } catch (Throwable t) {

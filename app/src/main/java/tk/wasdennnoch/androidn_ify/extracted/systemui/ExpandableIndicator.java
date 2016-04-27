@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.extracted;
+package tk.wasdennnoch.androidn_ify.extracted.systemui;
 
 import android.content.Context;
 import android.graphics.drawable.AnimatedVectorDrawable;
