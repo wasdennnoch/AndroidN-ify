@@ -208,7 +208,6 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setGravity(Gravity.TOP);
                 mDateCollapsed.setTextColor(res.getColor(R.color.clock_date_text_color));
                 mDateCollapsed.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
-                mDateCollapsed.setSingleLine();
                 mDateCollapsed.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.header_dot), null, null, null);
                 mDateCollapsed.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding));
 
@@ -240,6 +239,7 @@ public class StatusBarHeaderHooks {
                 mStatusBarHeaderView.addView(mRightContainer);
                 mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
                 mStatusBarHeaderView.setClipChildren(false);
+                mStatusBarHeaderView.setClipToPadding(false);
 
             } catch (Throwable t) {
                 // :(
