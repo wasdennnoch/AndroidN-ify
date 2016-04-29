@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -33,6 +34,8 @@ public class StatusBarHeaderHooks {
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_STATUS_BAR_HEADER_VIEW = "com.android.systemui.statusbar.phone.StatusBarHeaderView";
     private static final String CLASS_LAYOUT_VALUES = "com.android.systemui.statusbar.phone.StatusBarHeaderView$LayoutValues";
+    private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
+    private static final String CLASS_DETAIL_ADAPTER = "com.android.systemui.qs.QSTile$DetailAdapter";
 
     private static byte sSetExpansionErrorCount = 0;
     private static boolean sLogSetExpansionError = true;
@@ -56,12 +59,16 @@ public class StatusBarHeaderHooks {
     //private static TextView mDateExpanded;
     private static View mSettingsButton;
     private static View mSettingsContainer;
+    private static View mQsDetailHeader;
+    private static TextView mQsDetailHeaderTitle;
+    private static Switch mQsDetailHeaderSwitch;
     private static TextView mEmergencyCallsOnly;
     private static TextView mAlarmStatus;
 
     private static ExpandableIndicator mExpandIndicator;
     private static LinearLayout mDateTimeAlarmGroup;
     private static LinearLayout mDateTimeGroup;
+    private static LinearLayout mRightContainer;
     private static Button mAlarmStatusCollapsed;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
@@ -83,6 +90,9 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateCollapsed");
                 //mDateExpanded = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateExpanded");
                 mSettingsButton = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsButton");
+                mQsDetailHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeader");
+                mQsDetailHeaderTitle = (TextView) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeaderTitle");
+                mQsDetailHeaderSwitch = (Switch) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeaderSwitch");
                 mEmergencyCallsOnly = (TextView) XposedHelpers.getObjectField(param.thisObject, "mEmergencyCallsOnly");
                 mAlarmStatus = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAlarmStatus");
             } catch (Throwable t) {
@@ -116,11 +126,11 @@ public class StatusBarHeaderHooks {
                 rightContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
                 rightContainerLp.rightMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_right);
                 rightContainerLp.topMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_top);
-                LinearLayout rightContainer = new LinearLayout(context);
-                rightContainer.setLayoutParams(rightContainerLp);
-                rightContainer.setGravity(Gravity.CENTER);
-                rightContainer.setOrientation(LinearLayout.HORIZONTAL);
-                rightContainer.setClipChildren(false);
+                mRightContainer = new LinearLayout(context);
+                mRightContainer.setLayoutParams(rightContainerLp);
+                mRightContainer.setGravity(Gravity.CENTER);
+                mRightContainer.setOrientation(LinearLayout.HORIZONTAL);
+                mRightContainer.setClipChildren(false);
 
                 LinearLayout.LayoutParams multiUserSwitchLp = new LinearLayout.LayoutParams(iconSize, iconSize);
                 mMultiUserSwitch.setLayoutParams(multiUserSwitchLp);
@@ -141,13 +151,12 @@ public class StatusBarHeaderHooks {
 
                 RelativeLayout.LayoutParams emergencyCallsOnlyLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 emergencyCallsOnlyLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                emergencyCallsOnlyLp.leftMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
+                //emergencyCallsOnlyLp.leftMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
                 emergencyCallsOnlyLp.topMargin = res.getDimensionPixelSize(R.dimen.emergency_calls_only_margin_top);
                 mEmergencyCallsOnly.setLayoutParams(emergencyCallsOnlyLp);
                 //noinspection deprecation
                 mEmergencyCallsOnly.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.emergency_calls_only_text_size));
                 mEmergencyCallsOnly.setTextColor(res.getColor(R.color.emergency_calls_only_text_color));
-                mEmergencyCallsOnly.setGravity(Gravity.CENTER_VERTICAL);
                 mEmergencyCallsOnly.setVisibility(View.GONE);
 
 
@@ -199,7 +208,6 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setGravity(Gravity.TOP);
                 mDateCollapsed.setTextColor(res.getColor(R.color.clock_date_text_color));
                 mDateCollapsed.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.date_time_collapsed_size));
-                mDateCollapsed.setSingleLine();
                 mDateCollapsed.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.header_dot), null, null, null);
                 mDateCollapsed.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding));
 
@@ -220,17 +228,18 @@ public class StatusBarHeaderHooks {
                 mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
 
 
-                rightContainer.addView(mMultiUserSwitch);
-                rightContainer.addView(mSettingsContainer);
-                rightContainer.addView(mExpandIndicator);
+                mRightContainer.addView(mMultiUserSwitch);
+                mRightContainer.addView(mSettingsContainer);
+                mRightContainer.addView(mExpandIndicator);
                 mDateTimeGroup.addView(mClock);
                 mDateTimeGroup.addView(mDateCollapsed);
                 mDateTimeGroup.addView(mAlarmStatusCollapsed);
                 mDateTimeAlarmGroup.addView(mDateTimeGroup);
                 mDateTimeAlarmGroup.addView(mAlarmStatus);
-                mStatusBarHeaderView.addView(rightContainer);
+                mStatusBarHeaderView.addView(mRightContainer);
                 mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
                 mStatusBarHeaderView.setClipChildren(false);
+                mStatusBarHeaderView.setClipToPadding(false);
 
             } catch (Throwable t) {
                 // :(
@@ -370,8 +379,63 @@ public class StatusBarHeaderHooks {
         } else {
             v = View.INVISIBLE;
         }
-        mAlarmStatus.setVisibility(v);
-        mAlarmStatusCollapsed.setVisibility(v);
+        if (mAlarmStatus != null)
+            mAlarmStatus.setVisibility(v);
+        if (mAlarmStatusCollapsed != null)
+            mAlarmStatusCollapsed.setVisibility(v);
+    }
+
+    private static void handleShowingDetail(final Object detail) {
+        final boolean showingDetail = detail != null;
+        transition(mDateTimeAlarmGroup, !showingDetail);
+        transition(mRightContainer, !showingDetail);
+        transition(mExpandIndicator, !showingDetail);
+        transition(mQsDetailHeader, showingDetail);
+        XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
+        if (showingDetail) {
+            mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
+            final Boolean toggleState = (Boolean) XposedHelpers.callMethod(detail, "getToggleState");
+            if (toggleState == null) {
+                mQsDetailHeaderSwitch.setVisibility(View.INVISIBLE);
+                mQsDetailHeader.setClickable(false);
+            } else {
+                mQsDetailHeaderSwitch.setVisibility(View.VISIBLE);
+                mQsDetailHeaderSwitch.setChecked(toggleState);
+                mQsDetailHeader.setClickable(true);
+                mQsDetailHeader.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean checked = !mQsDetailHeaderSwitch.isChecked();
+                        mQsDetailHeaderSwitch.setChecked(checked);
+                        XposedHelpers.callMethod(detail, "setToggleState", checked);
+                    }
+                });
+            }
+        } else {
+            mQsDetailHeader.setClickable(false);
+        }
+    }
+
+    private static void transition(final View v, final boolean in) {
+        if (in) {
+            v.bringToFront();
+            v.setVisibility(View.VISIBLE);
+        }
+        if (v.hasOverlappingRendering()) {
+            v.animate().withLayer();
+        }
+        v.animate()
+                .alpha(in ? 1 : 0)
+                .withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!in) {
+                            v.setVisibility(View.INVISIBLE);
+                        }
+                        XposedHelpers.setBooleanField(mStatusBarHeaderView, "mDetailTransitioning", false);
+                    }
+                })
+                .start();
     }
 
     public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
@@ -407,6 +471,14 @@ public class StatusBarHeaderHooks {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         mAlarmStatus.setX(0);
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(CLASS_QS_PANEL, classLoader, "fireShowingDetail", CLASS_DETAIL_ADAPTER, new XC_MethodReplacement() {
+                    @Override
+                    protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                        handleShowingDetail(param.args[0]);
+                        return null;
                     }
                 });
 

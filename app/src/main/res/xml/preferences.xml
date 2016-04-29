@@ -54,6 +54,7 @@
             android:defaultValue="false"
             android:dependency="enable_notification_tweaks"
             android:key="notification_dark_theme"
+            android:summary="@string/notifications_dark_theme"
             android:title="@string/notifications_dark_theme_title"/>
 
     </PreferenceCategory>
