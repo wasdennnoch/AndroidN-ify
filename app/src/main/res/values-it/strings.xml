@@ -26,6 +26,7 @@
     
     <string name="enable_notifications">Abilita modifiche alle notifiche</string>
     <string name="notifications_dark_theme_title">Tema notifiche scuro</string>
+    <string name="notifications_dark_theme">Background delle notifiche scuro per utenti con specifici temi Layers.</string>
 
     
     <string name="hide_launcher_icon">Potrebbe richiedere il riavvio del launcher</string>
