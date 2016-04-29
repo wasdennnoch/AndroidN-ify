@@ -28,6 +28,7 @@
 
     <string name="enable_notifications">Включить твики уведомлений</string>
     <string name="notifications_dark_theme_title">Тёмная тема уведомлений</string>
+    <string name="notifications_dark_theme">Тёмный фон уведомлений для пользователей с данным цветом слоёв</string> 
 
     <string name="hide_launcher_icon_title">Скрыть иконку приложения</string>
     <string name="hide_launcher_icon">Может потребоватся перезагрузка рабочего стола</string>
