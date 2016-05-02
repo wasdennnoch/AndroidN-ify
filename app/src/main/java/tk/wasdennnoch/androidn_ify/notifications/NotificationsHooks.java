@@ -2,7 +2,6 @@ package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.app.Notification;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
@@ -41,6 +40,7 @@ public class NotificationsHooks {
 
     private static XC_MethodHook inflateViews = new XC_MethodHook() {
 
+        @SuppressWarnings("deprecation")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Object entry = param.args[0];
@@ -50,14 +50,6 @@ public class NotificationsHooks {
 
             View privateView = (View) XposedHelpers.callMethod(contentContainer, "getContractedChild");
             View publicView = (View) XposedHelpers.callMethod(contentContainerPublic, "getContractedChild");
-
-            /*
-            Object n = XposedHelpers.getObjectField(entry, "notification");
-            PackageManager pmUser = (PackageManager) XposedHelpers.callMethod(param.thisObject, "getPackageManagerForUser",
-                    XposedHelpers.callMethod(XposedHelpers.callMethod(n, "getUser"), "getIdentifier"));
-            String packageName = (String) XposedHelpers.callMethod(n, "getPackageName");
-            Notification notification = (Notification) XposedHelpers.callMethod(n, "getNotification");
-            */
 
             Context context = publicView.getContext();
 
@@ -172,6 +164,7 @@ public class NotificationsHooks {
         }
     }
 
+    @SuppressWarnings("unused")
     public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
         Class classNotificationBuilder = Notification.Builder.class;
         Class classRemoteViews = RemoteViews.class;
@@ -258,33 +251,7 @@ public class NotificationsHooks {
                     }
                 });
                 */
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_picture", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_template_material_big_picture");
-                        FrameLayout layout = (FrameLayout) liparam.view;
-                        View pic = layout.getChildAt(0);
-                        View shadow = layout.getChildAt(1);
-                        View base = layout.getChildAt(2);
-
-                        Context context = layout.getContext();
-                        ResourceUtils res = ResourceUtils.getInstance(context);
-
-                        int notificationHeight = res.getDimensionPixelSize(R.dimen.notification_min_height);
-
-                        FrameLayout.LayoutParams picLParams = (FrameLayout.LayoutParams) pic.getLayoutParams();
-                        FrameLayout.LayoutParams shadowLParams = (FrameLayout.LayoutParams) shadow.getLayoutParams();
-                        FrameLayout.LayoutParams baseLParams = (FrameLayout.LayoutParams) base.getLayoutParams();
-
-                        picLParams.setMargins(0, notificationHeight, 0, 0);
-                        shadowLParams.setMargins(0, notificationHeight, 0, 0);
-                        baseLParams.height = notificationHeight;
-
-                        pic.setLayoutParams(picLParams);
-                        shadow.setLayoutParams(shadowLParams);
-                        base.setLayoutParams(baseLParams);
-                    }
-                });
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_picture", notification_template_material_big_picture);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_text", notification_template_material_base);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_inbox", notification_template_material_base);
                 /*
@@ -317,6 +284,7 @@ public class NotificationsHooks {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private static XC_LayoutInflated notification_template_icon_group = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
@@ -432,6 +400,35 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_LayoutInflated notification_template_material_big_picture = new XC_LayoutInflated() {
+        @Override
+        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+            XposedHook.logI(TAG, "notification_template_material_big_picture");
+            FrameLayout layout = (FrameLayout) liparam.view;
+            View pic = layout.getChildAt(0);
+            View shadow = layout.getChildAt(1);
+            View base = layout.getChildAt(2);
+
+            Context context = layout.getContext();
+            ResourceUtils res = ResourceUtils.getInstance(context);
+
+            int notificationHeight = res.getDimensionPixelSize(R.dimen.notification_min_height);
+
+            FrameLayout.LayoutParams picLParams = (FrameLayout.LayoutParams) pic.getLayoutParams();
+            FrameLayout.LayoutParams shadowLParams = (FrameLayout.LayoutParams) shadow.getLayoutParams();
+            FrameLayout.LayoutParams baseLParams = (FrameLayout.LayoutParams) base.getLayoutParams();
+
+            picLParams.setMargins(0, notificationHeight, 0, 0);
+            shadowLParams.setMargins(0, notificationHeight, 0, 0);
+            baseLParams.height = notificationHeight;
+
+            pic.setLayoutParams(picLParams);
+            shadow.setLayoutParams(shadowLParams);
+            base.setLayoutParams(baseLParams);
+        }
+    };
+
+    @SuppressWarnings("deprecation")
     private static XC_LayoutInflated notification_public_default = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
