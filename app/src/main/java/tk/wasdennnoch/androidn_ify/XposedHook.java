@@ -86,6 +86,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             case PACKAGE_SYSTEMUI:
                 DoubleTapSwKeys.hook(lpparam.classLoader, sPrefs);
                 StatusBarHeaderHooks.hook(lpparam.classLoader, sPrefs);
+                NotificationsHooks.hookSystemui(lpparam.classLoader, sPrefs);
                 break;
             case PACKAGE_ANDROID:
                 DoubleTapHwKeys.hook(lpparam.classLoader, sPrefs);
@@ -97,6 +98,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 break;
         }
 
+        NotificationsHooks.hook(lpparam.classLoader, sPrefs);
+
     }
 
     @Override
@@ -107,10 +110,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 NotificationsHooks.hookResSystemui(resparam, sPrefs, sModulePath);
                 StatusBarHeaderHooks.hookResSystemui(resparam, sPrefs);
                 break;
-            case PACKAGE_ANDROID:
-                NotificationsHooks.hookResAndroid(resparam, sPrefs);
-                break;
         }
+
+        NotificationsHooks.hookResAndroid(resparam, sPrefs);
 
     }
 

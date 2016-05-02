@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="app_name_text" type="id">false</item>
+    <item name="time_divider" type="id">false</item>
+    <item name="public_app_name_text" type="id">false</item>
+    <item name="notification_icon" type="id">false</item>
+    <item name="public_time_divider" type="id">false</item>
+</resources>
