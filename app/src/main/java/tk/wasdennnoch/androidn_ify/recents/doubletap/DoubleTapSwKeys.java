@@ -125,10 +125,11 @@ public class DoubleTapSwKeys extends DoubleTapBase {
                 try {
                     XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", prepareNavigationBarViewHook);
                 } catch (NoSuchMethodError e) {
-                    // CM13 prepareNavigationBarView has a boolean parameter
+                    // CM takes a boolean parameter
                     XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", boolean.class, prepareNavigationBarViewHook);
                 }
 
+                // TODO remove obsolete code
                 // I'm hooking every view in the SystemUI here... but hey, it's working.
                 //XposedHelpers.findAndHookMethod(View.class, "setOnClickListener", View.OnClickListener.class, setOnClickListenerHook);
                 //XposedHelpers.findAndHookMethod(NavigationBarView.class, "reorient", reorientHook);

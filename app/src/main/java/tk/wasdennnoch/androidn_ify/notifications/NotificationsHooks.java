@@ -32,7 +32,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class NotificationsHooks {
-    
+
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
 
@@ -67,7 +67,7 @@ public class NotificationsHooks {
             textView.setText(privateTextView.getText());
 
             View time = publicView.findViewById(context.getResources().getIdentifier("time", "id", PACKAGE_SYSTEMUI));
-            if(time != null) {
+            if (time != null) {
                 publicView.findViewById(R.id.public_time_divider).setVisibility(time.getVisibility());
             }
         }
@@ -84,7 +84,7 @@ public class NotificationsHooks {
             contentView.setInt(R.id.notification_icon, "setColorFilter", mColor);
             contentView.setTextViewText(R.id.app_name_text, context.getString(context.getApplicationInfo().labelRes));
             contentView.setTextColor(R.id.app_name_text, mColor);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Icon mSmallIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mSmallIcon");
                 contentView.setImageViewIcon(R.id.notification_icon, mSmallIcon);
                 Icon mLargeIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
@@ -108,7 +108,7 @@ public class NotificationsHooks {
     private static XC_MethodHook processSmallIconAsLarge = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-            if(!((boolean)XposedHelpers.callMethod(methodHookParam.thisObject, "isLegacy"))) {
+            if (!((boolean) XposedHelpers.callMethod(methodHookParam.thisObject, "isLegacy"))) {
                 RemoteViews contentView = (RemoteViews) methodHookParam.args[1];
                 int mColor = (int) XposedHelpers.callMethod(methodHookParam.thisObject, "resolveColor");
                 XposedHelpers.callMethod(contentView, "setDrawableParameters",
@@ -157,7 +157,7 @@ public class NotificationsHooks {
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg));
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim));
                 }
-                
+
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
@@ -169,7 +169,7 @@ public class NotificationsHooks {
         Class classNotificationBuilder = Notification.Builder.class;
         Class classRemoteViews = RemoteViews.class;
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", Icon.class, classRemoteViews, processSmallIconAsLarge);
         } else {
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", int.class, classRemoteViews, processSmallIconAsLarge);
@@ -178,7 +178,7 @@ public class NotificationsHooks {
         XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplate", int.class, boolean.class, applyStandardTemplate);
     }
 
-    public static void hookSystemui(ClassLoader classLoader, XSharedPreferences prefs) {
+    public static void hookSystemUI(ClassLoader classLoader, XSharedPreferences prefs) {
         try {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
@@ -196,72 +196,14 @@ public class NotificationsHooks {
 
                 //TODO More notification styling in the future
 
-                /*
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_action_list", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_action_list");
-                    }
-                });
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_intruder_content", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_intruder_content");
-                    }
-                });
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_material_action");
-                    }
-                });
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action_list", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_material_action_list");
-                    }
-                });
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action_tombstone", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_material_action_tombstone");
-                    }
-                });
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_media_action", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_material_media_action");
-                    }
-                });
-                */
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_icon_group", notification_template_icon_group);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_base", notification_template_material_base);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_base", notification_template_material_base);
-                /*
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_media", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_template_material_big_media");
-                    }
-                });
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_media_narrow", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_template_material_big_media_narrow");
-                    }
-                });
-                */
+
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_picture", notification_template_material_big_picture);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_text", notification_template_material_base);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_inbox", notification_template_material_base);
-                /*
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_media", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_template_material_media");
-                    }
-                });
-                */
+
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_part_line1", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -269,14 +211,6 @@ public class NotificationsHooks {
                         layout.removeViewAt(1);
                     }
                 });
-                /*
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_progressbar", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
-                        XposedHook.logI(TAG, "notification_template_progressbar");
-                    }
-                });
-                */
 
             }
         } catch (Throwable t) {
@@ -386,6 +320,7 @@ public class NotificationsHooks {
             notificationMainLParams.setMargins(notificationContentPadding, notificationContentPaddingTop, notificationContentPadding, 0);
             notificationMain.setLayoutParams(notificationMainLParams);
 
+            //noinspection SuspiciousNameCombination
             FrameLayout.LayoutParams rightIconLParams = new FrameLayout.LayoutParams(rightIconSize, rightIconSize);
             rightIconLParams.setMargins(0, rightIconMarginTop, rightIconMarginEnd, 0);
             rightIconLParams.gravity = Gravity.TOP | Gravity.END;

@@ -2,4 +2,8 @@
 
     <string name="app_name" translatable="false">Android N-ify</string>
 
+    <!-- NOTIFICATIONS -->
+    <string name="notification_header_divider_symbol" translatable="false">•</string>
+    <!-- /NOTIFICATIONS -->
+
 </resources>

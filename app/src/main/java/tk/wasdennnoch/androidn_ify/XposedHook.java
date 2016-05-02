@@ -86,7 +86,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             case PACKAGE_SYSTEMUI:
                 DoubleTapSwKeys.hook(lpparam.classLoader, sPrefs);
                 StatusBarHeaderHooks.hook(lpparam.classLoader, sPrefs);
-                NotificationsHooks.hookSystemui(lpparam.classLoader, sPrefs);
+                NotificationsHooks.hookSystemUI(lpparam.classLoader, sPrefs);
                 break;
             case PACKAGE_ANDROID:
                 DoubleTapHwKeys.hook(lpparam.classLoader, sPrefs);
@@ -98,6 +98,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 break;
         }
 
+        // Has to be hooked in every app as every app creates own instances of the Notification.Builder
         NotificationsHooks.hook(lpparam.classLoader, sPrefs);
 
     }
@@ -112,6 +113,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 break;
         }
 
+        // Has too be hooked in every app too for some reason,probably
+        // because every hook only applies to the current process
         NotificationsHooks.hookResAndroid(resparam, sPrefs);
 
     }

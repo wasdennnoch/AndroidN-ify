@@ -33,9 +33,11 @@ public class StatusBarHeaderHooks {
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_STATUS_BAR_HEADER_VIEW = "com.android.systemui.statusbar.phone.StatusBarHeaderView";
-    private static final String CLASS_LAYOUT_VALUES = "com.android.systemui.statusbar.phone.StatusBarHeaderView$LayoutValues";
+    private static final String CLASS_LAYOUT_VALUES = CLASS_STATUS_BAR_HEADER_VIEW + "$LayoutValues";
     private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
     private static final String CLASS_DETAIL_ADAPTER = "com.android.systemui.qs.QSTile$DetailAdapter";
+    //private static final String CLASS_QS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
+    //private static final String CLASS_TILE_RECORD = CLASS_QS_PANEL + "$TileRecord";
 
     private static byte sSetExpansionErrorCount = 0;
     private static boolean sLogSetExpansionError = true;
@@ -70,6 +72,8 @@ public class StatusBarHeaderHooks {
     private static LinearLayout mDateTimeGroup;
     private static LinearLayout mRightContainer;
     private static Button mAlarmStatusCollapsed;
+
+    //private static QuickQSPanel mHeaderQsPanel;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -228,6 +232,15 @@ public class StatusBarHeaderHooks {
                 mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
 
 
+                /*LinearLayout.LayoutParams headerQsPanelLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                headerQsPanelLp.topMargin = res.getDimensionPixelSize(R.dimen.quick_qs_panel_margin_top);
+                mHeaderQsPanel = new QuickQSPanel(context);
+                mHeaderQsPanel.setClasses(sClassTileReord);
+                mHeaderQsPanel.setLayoutParams(headerQsPanelLp);
+                mHeaderQsPanel.setClipChildren(false);
+                mHeaderQsPanel.setClipToPadding(false);*/
+
+
                 mRightContainer.addView(mMultiUserSwitch);
                 mRightContainer.addView(mSettingsContainer);
                 mRightContainer.addView(mExpandIndicator);
@@ -238,6 +251,7 @@ public class StatusBarHeaderHooks {
                 mDateTimeAlarmGroup.addView(mAlarmStatus);
                 mStatusBarHeaderView.addView(mRightContainer);
                 mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
+                //mStatusBarHeaderView.addView(mHeaderQsPanel);
                 mStatusBarHeaderView.setClipChildren(false);
                 mStatusBarHeaderView.setClipToPadding(false);
 
