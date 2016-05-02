@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string name="xposed_description">ใช้ฟีเจอร์จาก Android N ใน Lollipop และ Marshmallow!</string>
+
+    <string name="restart_systemui">รีสตาร์ท SystemUI</string>
+    <string name="restart_broadcast_sent">Restart broadcast sent</string>
+    <string name="activity_about">เกี่ยวกับ Android N-ify</string>
+    <string name="about_author">พัฒนาโดย \"MrWasdennnoch\"</string>
+    <string name="about_version">เวอร์ชั่น %1$s (%2$d)</string>
+
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">Xposed ไม่สามารถอ่านข้อมูลการตั้งค่าได้ การตั้งค่าพื้นฐานจะถูกใช้งาน ข้อผิดพลาดนี้อาจเกิดจาก SELinux ถูกตั้งค่าเป็น enforcing</string>
+
+    <string name="header_settings">ตั้งค่า</string>
+    <string name="header_recents">Recents</string>
+    <string name="header_notifications">การแจ้งเตือน</string>
+    <string name="header_app">แอพ</string>
+
+    <string name="enable_settings">เปิดการปรับแต่งหน้าการตั้งค่า</string>
+    <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
+    <string name="fix_sound_notif_tile">Some ROMs combine the Sounds- and Notifications tile. Enable to set the proper summary for this tile</string>
+
+    <string name="enable_recents">เปิดการปรับแต่งหน้า Recent apps</string>
+    <string name="double_tap_speed_title">ความเร็ว Double tap</string>
+
+    <string name="enable_notifications">เปิดการปรับแต่งการแข้งเตือน</string>
+    <string name="notifications_dark_theme_title">การแจ้งเตือนแบบมืด</string>
+    <string name="notifications_dark_theme">สำหรับ layers themes</string>
+
+    <string name="hide_launcher_icon_title">ซ่อนไอคอนแอพ</string>
+    <string name="hide_launcher_icon">อาจต้องการรีสตาร์ท Launcher</string>
+    <string name="debug_log_title">Debug log</string>
+    <string name="debug_log">Warning: Log-flooding</string>
+    <!-- /prefs -->
+
+
+    <!-- SETTINGS -->
+    <string name="disconnected">ไม่ได้เชื่อมต่อ</string>
+    <string name="disabled">ปิด</string>
+    <string name="off">ปิด</string>
+    <string name="on">เปิด</string>
+    <string name="data_usage_summary">ข้อมูลถูกใช้ไป %1$s</string>
+    <string name="display_summary">Adaptive brightness ถูก%1$s</string>
+    <string name="sound_summary">ระดับเสียงเรียกเข้า %1$s</string>
+    <string name="apps_summary">%1$d แอพถูกติดตั้ง</string>
+    <string name="storage_summary">ใช้ไป %1$s จาก %2$s</string>
+    <string name="battery_summary">%1$s - เหลือประมาณ %2$s</string>
+    <string name="battery_charging_wireless">%1$s - กำลังชาร์จไร้สาย</string>
+    <string name="battery_charging_usb">%1$s - กำลังชาร์จ USB</string>
+    <string name="battery_charging_ac">%1$s - กำลังชาร์จ</string>
+    <string name="memory_summary">แรมถูกใช้ไป %1$s จาก %2$s</string>
+    <string name="user_summary">ลงชื่อเข้าใช้โดย %1$s</string>
+    <string name="location_on_power">เปิด / ประหยัดพลังงาน</string>
+    <string name="location_on_device">เปิด / เฉพาะอุปกรณ์</string>
+    <string name="location_on_high">เปิด / ความแม่นยำสูง</string>
+    <string name="print_summary">%1$d งานพิมพ์</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="no_previous_recents">ไม่มีแอพก่อนหน้า</string>
+    <!-- /RECENTS -->
+
+</resources>

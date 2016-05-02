@@ -25,5 +25,20 @@
     <dimen name="alarm_status_drawable_padding">6.0dp</dimen>
     <dimen name="alarm_status_collapsed_drawable_padding">6.0dp</dimen>
     <dimen name="settings_gear_translation">16.0dip</dimen>
-
+    <dimen name="notification_icon_size">18dp</dimen>
+    <dimen name="notification_icon_margin_end">3dp</dimen>
+    <dimen name="notification_app_name_margin_start">3dp</dimen>
+    <dimen name="notification_app_name_margin_end">3dp</dimen>
+    <dimen name="notification_content_margin_start">16dp</dimen>
+    <dimen name="notification_content_margin_top">24dp</dimen>
+    <dimen name="notification_header_height">37.5dp</dimen>
+    <dimen name="notification_header_margin_top">10dp</dimen>
+    <dimen name="notification_right_icon_size">40dp</dimen>
+    <dimen name="notification_right_icon_margin_top">36dp</dimen>
+    <dimen name="notification_right_icon_margin_end">16dp</dimen>
+    <dimen name="notification_min_height">88dp</dimen>
+    <dimen name="notification_mid_height">152dp</dimen>
+    <dimen name="notification_max_height">280dp</dimen>
+    <dimen name="notification_time_margin_start">1dp</dimen>
+    <dimen name="notification_divider_margin_top">1dp</dimen>
 </resources>
