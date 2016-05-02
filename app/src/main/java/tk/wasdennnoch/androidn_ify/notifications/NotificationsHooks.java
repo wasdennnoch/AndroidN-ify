@@ -92,9 +92,9 @@ public class NotificationsHooks {
                     contentView.setImageViewIcon(res.getIdentifier("right_icon", "id", "android"), mLargeIcon);
                 }
             } else {
-                int mSmallIcon = (int) XposedHelpers.getObjectField(param.thisObject, "mSmallIcon");
+                int mSmallIcon = XposedHelpers.getIntField(param.thisObject, "mSmallIcon");
                 contentView.setImageViewResource(R.id.notification_icon, mSmallIcon);
-                int mLargeIcon = (int) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
+                int mLargeIcon = XposedHelpers.getIntField(param.thisObject, "mLargeIcon");
                 if (mLargeIcon != 0) {
                     contentView.setImageViewResource(res.getIdentifier("right_icon", "id", "android"), mLargeIcon);
                 }
