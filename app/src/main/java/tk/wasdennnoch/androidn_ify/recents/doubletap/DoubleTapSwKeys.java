@@ -122,7 +122,13 @@ public class DoubleTapSwKeys extends DoubleTapBase {
             prefs.reload();
             loadPrefDoubleTapSpeed(prefs);
             if (prefs.getBoolean("enable_recents_tweaks", true)) {
-                XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", prepareNavigationBarViewHook);
+                try {
+                    XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", prepareNavigationBarViewHook);
+                } catch (NoSuchMethodError e) {
+                    // CM13 prepareNavigationBarView has a boolean parameter
+                    XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", boolean.class, prepareNavigationBarViewHook);
+                }
+
                 // I'm hooking every view in the SystemUI here... but hey, it's working.
                 //XposedHelpers.findAndHookMethod(View.class, "setOnClickListener", View.OnClickListener.class, setOnClickListenerHook);
                 //XposedHelpers.findAndHookMethod(NavigationBarView.class, "reorient", reorientHook);
