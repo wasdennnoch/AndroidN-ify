@@ -63,4 +63,8 @@
     <string name="no_previous_recents">No previous app</string>
     <!-- /RECENTS -->
 
+    <!-- NOTIFICATIONS -->
+    <string name="notification_header_divider_symbol" translatable="false">•</string>
+    <!-- /NOTIFICATIONS -->
+
 </resources>
