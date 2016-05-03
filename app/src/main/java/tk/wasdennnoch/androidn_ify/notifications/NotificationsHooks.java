@@ -38,7 +38,7 @@ public class NotificationsHooks {
 
     private static final String TAG = "NotificationsHooks";
 
-    private static XC_MethodHook inflateViews = new XC_MethodHook() {
+    private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
         @SuppressWarnings("deprecation")
         @Override
@@ -73,7 +73,7 @@ public class NotificationsHooks {
         }
     };
 
-    private static XC_MethodHook applyStandardTemplate = new XC_MethodHook() {
+    private static XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -106,7 +106,7 @@ public class NotificationsHooks {
         }
     };
 
-    private static XC_MethodHook processSmallIconAsLarge = new XC_MethodReplacement() {
+    private static XC_MethodHook processSmallIconAsLargeHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
             if (!((boolean) XposedHelpers.callMethod(methodHookParam.thisObject, "isLegacy"))) {
@@ -171,12 +171,12 @@ public class NotificationsHooks {
         Class classRemoteViews = RemoteViews.class;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", Icon.class, classRemoteViews, processSmallIconAsLarge);
+            XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", Icon.class, classRemoteViews, processSmallIconAsLargeHook);
         } else {
-            XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", int.class, classRemoteViews, processSmallIconAsLarge);
+            XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", int.class, classRemoteViews, processSmallIconAsLargeHook);
         }
         XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyLargeIconBackground", classRemoteViews, XC_MethodReplacement.DO_NOTHING);
-        XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplate", int.class, boolean.class, applyStandardTemplate);
+        XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplate", int.class, boolean.class, applyStandardTemplateHook);
     }
 
     public static void hookSystemUI(ClassLoader classLoader, XSharedPreferences prefs) {
@@ -184,7 +184,7 @@ public class NotificationsHooks {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
-                XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViews);
+                XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
