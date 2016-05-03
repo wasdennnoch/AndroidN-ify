@@ -102,6 +102,7 @@ public class NotificationsHooks {
             if ((boolean) XposedHelpers.callMethod(param.thisObject, "showsTimeOrChronometer")) {
                 contentView.setViewVisibility(R.id.time_divider, View.VISIBLE);
             }
+            contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
         }
     };
 
