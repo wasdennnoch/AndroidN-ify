@@ -37,4 +37,8 @@ public class ExpandableIndicator extends ImageView {
         setImageDrawable(drawable);
         drawable.start();
     }
+
+    public boolean isExpanded() {
+        return mExpanded;
+    }
 }
