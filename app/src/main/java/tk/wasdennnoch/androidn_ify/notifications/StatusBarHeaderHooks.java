@@ -151,6 +151,7 @@ public class StatusBarHeaderHooks {
                 mExpandIndicator.setFocusableInTouchMode(false);
                 mExpandIndicator.setCropToPadding(false);
                 mExpandIndicator.setBackgroundResource(rippleRes);
+                mExpandIndicator.setId(R.id.statusbar_header_expand_indicator);
 
 
                 RelativeLayout.LayoutParams emergencyCallsOnlyLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

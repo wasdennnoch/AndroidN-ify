@@ -9,6 +9,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
 import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapHwKeys;
@@ -86,6 +87,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             case PACKAGE_SYSTEMUI:
                 DoubleTapSwKeys.hook(lpparam.classLoader, sPrefs);
                 StatusBarHeaderHooks.hook(lpparam.classLoader, sPrefs);
+                NotificationPanelHooks.hook(lpparam.classLoader, sPrefs);
                 NotificationsHooks.hookSystemUI(lpparam.classLoader, sPrefs);
                 break;
             case PACKAGE_ANDROID:
