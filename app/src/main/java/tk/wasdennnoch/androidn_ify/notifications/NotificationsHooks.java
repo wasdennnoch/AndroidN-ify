@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Icon;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DateTimeView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -29,6 +31,7 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.LayoutUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class NotificationsHooks {
@@ -73,6 +76,23 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_MethodHook getStandardViewHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            RemoteViews contentView = (RemoteViews) param.getResult();
+            Notification.Builder mBuilder = (Notification.Builder) XposedHelpers.getObjectField(param.thisObject, "mBuilder");
+
+            CharSequence overflowText = (CharSequence) (XposedHelpers.getBooleanField(param.thisObject, "mSummaryTextSet")
+                ? XposedHelpers.getObjectField(param.thisObject, "mSummaryText")
+                : XposedHelpers.getObjectField(mBuilder, "mSubText"));
+            if (overflowText != null) {
+                contentView.setTextViewText(R.id.notification_summary, (CharSequence) XposedHelpers.callMethod(mBuilder, "processLegacyText", overflowText));
+                contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
+                contentView.setViewVisibility(R.id.notification_summary, View.VISIBLE);
+            }
+        }
+    };
+
     private static XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
 
         @Override
@@ -94,15 +114,35 @@ public class NotificationsHooks {
             } else {
                 int mSmallIcon = XposedHelpers.getIntField(param.thisObject, "mSmallIcon");
                 contentView.setImageViewResource(R.id.notification_icon, mSmallIcon);
-                int mLargeIcon = XposedHelpers.getIntField(param.thisObject, "mLargeIcon");
-                if (mLargeIcon != 0) {
-                    contentView.setImageViewResource(res.getIdentifier("right_icon", "id", "android"), mLargeIcon);
+                Bitmap mLargeIcon = (Bitmap) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
+                if (mLargeIcon != null) {
+                    contentView.setImageViewBitmap(res.getIdentifier("right_icon", "id", "android"), mLargeIcon);
                 }
+            }
+            CharSequence mContentInfo = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mContentInfo");
+            int mNumber = XposedHelpers.getIntField(param.thisObject, "mNumber");
+            if (mContentInfo != null) {
+                contentView.setViewVisibility(R.id.notification_info_divider, View.VISIBLE);
+            } else if (mNumber > 0) {
+                contentView.setViewVisibility(R.id.notification_info_divider, View.VISIBLE);
+            } else {
+                contentView.setViewVisibility(R.id.notification_info_divider, View.GONE);
             }
             if ((boolean) XposedHelpers.callMethod(param.thisObject, "showsTimeOrChronometer")) {
                 contentView.setViewVisibility(R.id.time_divider, View.VISIBLE);
             }
             contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
+        }
+    };
+
+    private static XC_MethodHook resetStandardTemplateHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            RemoteViews contentView = (RemoteViews) param.getResult();
+            contentView.setViewVisibility(R.id.notification_summary_divider, View.GONE);
+            contentView.setViewVisibility(R.id.notification_info_divider, View.GONE);
+            contentView.setViewVisibility(R.id.time_divider, View.GONE);
+            contentView.setTextViewText(R.id.notification_summary, null);
         }
     };
 
@@ -121,6 +161,37 @@ public class NotificationsHooks {
                         -1);
             }
             return null;
+        }
+    };
+
+    private static XC_MethodHook applyStandardTemplateWithActionsHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+
+            RemoteViews big = (RemoteViews) param.getResult();
+            big.setViewVisibility(context.getResources().getIdentifier("action_divider", "id", PACKAGE_ANDROID), View.GONE);
+        }
+    };
+
+    private static XC_MethodHook generateActionButtonHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+
+            int mColor = (int) XposedHelpers.callMethod(param.thisObject, "resolveColor");
+            int textViewId = context.getResources().getIdentifier("action0", "id", PACKAGE_ANDROID);
+
+            RemoteViews button = (RemoteViews) param.getResult();
+            button.setTextViewCompoundDrawablesRelative(textViewId, 0, 0, 0, 0);
+            button.setTextColor(textViewId, mColor);
+        }
+    };
+
+    private static XC_MethodHook initConstantsHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHelpers.setBooleanField(param.thisObject, "mScaleDimmed", false);
         }
     };
 
@@ -168,6 +239,7 @@ public class NotificationsHooks {
     @SuppressWarnings("unused")
     public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
         Class classNotificationBuilder = Notification.Builder.class;
+        Class classNotificationStyle = Notification.Style.class;
         Class classRemoteViews = RemoteViews.class;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -177,6 +249,10 @@ public class NotificationsHooks {
         }
         XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyLargeIconBackground", classRemoteViews, XC_MethodReplacement.DO_NOTHING);
         XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplate", int.class, boolean.class, applyStandardTemplateHook);
+        XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplateWithActions", int.class, applyStandardTemplateWithActionsHook);
+        XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
+        XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
+        XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
     }
 
     public static void hookSystemUI(ClassLoader classLoader, XSharedPreferences prefs) {
@@ -184,7 +260,10 @@ public class NotificationsHooks {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
+                Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
+
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
+                XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
@@ -197,9 +276,12 @@ public class NotificationsHooks {
 
                 //TODO More notification styling in the future
 
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action", notification_material_action);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_icon_group", notification_template_icon_group);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_base", notification_template_material_base);
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_media", notification_template_material_media);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_base", notification_template_material_base);
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_media", notification_template_material_big_media);
 
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_picture", notification_template_material_big_picture);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_text", notification_template_material_base);
@@ -210,8 +292,59 @@ public class NotificationsHooks {
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         LinearLayout layout = (LinearLayout) liparam.view;
                         layout.removeViewAt(1);
+
+                        Context context = layout.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
+
+                        TextView title = (TextView) layout.findViewById(context.getResources().getIdentifier("title", "id", PACKAGE_ANDROID));
+                        LinearLayout.LayoutParams titleLp = (LinearLayout.LayoutParams) title.getLayoutParams();
+                        titleLp.rightMargin = notificationTextMarginEnd;
+                        title.setLayoutParams(titleLp);
                     }
                 });
+
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_part_line3", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        LinearLayout layout = (LinearLayout) liparam.view;
+
+                        Context context = layout.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
+
+                        TextView text = (TextView) layout.findViewById(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID));
+                        LinearLayout.LayoutParams textLp = (LinearLayout.LayoutParams) text.getLayoutParams();
+                        textLp.rightMargin = notificationTextMarginEnd;
+                        text.setLayoutParams(textLp);
+
+                        layout.removeViewAt(1);
+                    }
+                });
+
+                // No use for now, but might be useful in the future.
+                /*
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_part_line2", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        View layout = liparam.view;
+                        View parent = (View) layout.getParent();
+
+                        Context context = layout.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
+
+                        View text2 = parent.findViewById(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID));
+                        ViewGroup.MarginLayoutParams textLp = (ViewGroup.MarginLayoutParams) layout.getLayoutParams();
+                        textLp.rightMargin = notificationTextMarginEnd;
+                        text2.setLayoutParams(textLp);
+
+                    }
+                });
+                */
 
             }
         } catch (Throwable t) {
@@ -237,6 +370,8 @@ public class NotificationsHooks {
             int appNameMarginEnd = res.getDimensionPixelSize(R.dimen.notification_app_name_margin_end);
             int dividerMarginTop = res.getDimensionPixelSize(R.dimen.notification_divider_margin_top);
 
+            String dividerText = res.getString(R.string.notification_header_divider_symbol);
+
             LinearLayout linearLayout = new LinearLayout(context);
 
             FrameLayout.LayoutParams linearLayoutLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, iconSize);
@@ -246,49 +381,82 @@ public class NotificationsHooks {
             linearLayout.setPadding(notificationContentPadding, 0, notificationContentPadding, 0);
 
             ImageView fakeIcon = new ImageView(context);
-            ImageView icon = new ImageView(context);
-            TextView textView = new TextView(context);
-            TextView divider = new TextView(context);
-
-            View timeView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_time", "layout", "android"), null);
-
             LinearLayout.LayoutParams fakeIconLParams = new LinearLayout.LayoutParams(0, 0);
+            fakeIcon.setLayoutParams(fakeIconLParams);
+            fakeIcon.setId(android.R.id.icon);
 
+            ImageView icon = new ImageView(context);
             LinearLayout.LayoutParams iconLParams = new LinearLayout.LayoutParams(iconSize, iconSize);
             iconLParams.setMarginEnd(iconMarginEnd);
+            icon.setLayoutParams(iconLParams);
+            icon.setId(R.id.notification_icon);
 
+            TextView textView = new TextView(context);
             LinearLayout.LayoutParams textViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             textViewLParams.setMarginStart(appNameMarginStart);
             textViewLParams.setMarginEnd(appNameMarginEnd);
-
-            LinearLayout.LayoutParams timeViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-            LinearLayout.LayoutParams dividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dividerLParams.setMargins(0, dividerMarginTop, 0, 0);
-
-            fakeIcon.setLayoutParams(fakeIconLParams);
-            icon.setLayoutParams(iconLParams);
             textView.setLayoutParams(textViewLParams);
-            timeView.setLayoutParams(timeViewLParams);
-            divider.setLayoutParams(dividerLParams);
-
-            fakeIcon.setId(android.R.id.icon);
-            icon.setId(R.id.notification_icon);
             textView.setId(R.id.app_name_text);
-            timeView.setId(context.getResources().getIdentifier("time", "id", "android"));
-            divider.setId(R.id.time_divider);
-
             textView.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
 
-            timeView.setPadding(appNameMarginEnd, 0, 0, 0);
+            TextView summaryDivider = new TextView(context);
+            LinearLayout.LayoutParams summaryDividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            summaryDividerLParams.setMargins(0, dividerMarginTop, 0, 0);
+            summaryDivider.setLayoutParams(summaryDividerLParams);
+            summaryDivider.setId(R.id.notification_summary_divider);
+            summaryDivider.setText(dividerText);
+            summaryDivider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
+            summaryDivider.setVisibility(View.GONE);
 
+            TextView summaryText = new TextView(context);
+            LinearLayout.LayoutParams summaryTextLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            summaryTextLParams.setMarginStart(appNameMarginStart);
+            summaryTextLParams.setMarginEnd(appNameMarginEnd);
+            summaryText.setLayoutParams(summaryTextLParams);
+            summaryText.setId(R.id.notification_summary);
+            summaryText.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
+            summaryText.setVisibility(View.GONE);
+
+            TextView infoDivider = new TextView(context);
+            LinearLayout.LayoutParams infoDividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            infoDividerLParams.setMargins(0, dividerMarginTop, 0, 0);
+            infoDivider.setLayoutParams(infoDividerLParams);
+            infoDivider.setId(R.id.notification_info_divider);
+            infoDivider.setText(dividerText);
+            infoDivider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
+            infoDivider.setVisibility(View.GONE);
+
+            TextView infoText = new TextView(context);
+            LinearLayout.LayoutParams infoTextLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            infoTextLParams.setMarginStart(appNameMarginStart);
+            infoTextLParams.setMarginEnd(appNameMarginEnd);
+            infoText.setLayoutParams(summaryTextLParams);
+            infoText.setId(context.getResources().getIdentifier("info", "id", PACKAGE_ANDROID));
+            infoText.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
+            infoText.setVisibility(View.GONE);
+
+            TextView divider = new TextView(context);
+            LinearLayout.LayoutParams dividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dividerLParams.setMargins(0, dividerMarginTop, 0, 0);
+            divider.setLayoutParams(dividerLParams);
+            divider.setId(R.id.time_divider);
             divider.setText(res.getString(R.string.notification_header_divider_symbol));
             divider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
             divider.setVisibility(View.GONE);
 
+            View timeView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_time", "layout", "android"), null);
+            LinearLayout.LayoutParams timeViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            timeView.setLayoutParams(timeViewLParams);
+            timeView.setId(context.getResources().getIdentifier("time", "id", "android"));
+            timeView.setPadding(appNameMarginEnd, 0, 0, 0);
+
             linearLayout.addView(fakeIcon);
             linearLayout.addView(icon);
             linearLayout.addView(textView);
+            linearLayout.addView(summaryDivider);
+            linearLayout.addView(summaryText);
+            linearLayout.addView(infoDivider);
+            linearLayout.addView(infoText);
             linearLayout.addView(divider);
             linearLayout.addView(timeView);
 
@@ -309,6 +477,7 @@ public class NotificationsHooks {
             int rightIconSize = res.getDimensionPixelSize(R.dimen.notification_right_icon_size);
             int rightIconMarginTop = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_top);
             int rightIconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_end);
+            int actionsMarginTop = res.getDimensionPixelSize(R.dimen.notification_actions_margin_top);
 
             FrameLayout headerLayout = (FrameLayout) layout.getChildAt(0);
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
@@ -318,7 +487,8 @@ public class NotificationsHooks {
             headerLayout.setLayoutParams(headerLayoutLParams);
 
             FrameLayout.LayoutParams notificationMainLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            notificationMainLParams.setMargins(notificationContentPadding, notificationContentPaddingTop, notificationContentPadding, 0);
+            notificationMainLParams.setMargins(0, notificationContentPaddingTop, 0, 0);
+            //notificationMainLParams.setMargins(notificationContentPadding, notificationContentPaddingTop, notificationContentPadding, 0);
             notificationMain.setLayoutParams(notificationMainLParams);
 
             //noinspection SuspiciousNameCombination
@@ -333,6 +503,117 @@ public class NotificationsHooks {
             ViewGroup.LayoutParams params = layout.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             layout.setLayoutParams(params);
+
+            // Margins for every child except actions container
+            int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
+            int childCount = notificationMain.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View child = notificationMain.getChildAt(i);
+                if (child.getId() != actionsId) {
+                    ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
+                    childLp.leftMargin += notificationContentPadding;
+                    childLp.rightMargin += notificationContentPadding;
+                    child.setLayoutParams(childLp);
+                } else {
+                    ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
+                    if (!layout.getTag().equals("inbox")) {
+                        childLp.topMargin += actionsMarginTop;
+                    }
+                    child.setLayoutParams(childLp);
+                    child.setBackgroundColor(res.getColor(R.color.notification_action_list));
+                    child.setPadding(child.getPaddingLeft() + notificationContentPadding,
+                            child.getPaddingTop(),
+                            child.getPaddingRight() + notificationContentPadding,
+                            child.getPaddingBottom());
+                }
+            }
+
+            if (layout.getTag().equals("inbox") || layout.getTag().equals("bigText")) {
+                // Remove divider
+                notificationMain.removeViewAt(notificationMain.getChildCount() - 2);
+                // Remove bottom line
+                notificationMain.removeViewAt(notificationMain.getChildCount() - 1);
+            }
+        }
+    };
+
+    private static XC_LayoutInflated notification_material_action = new XC_LayoutInflated() {
+        @Override
+        public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
+            Button button = (Button) liparam.view;
+
+            LinearLayout.LayoutParams buttonLp = (LinearLayout.LayoutParams) button.getLayoutParams();
+            buttonLp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            buttonLp.weight = 0;
+            button.setLayoutParams(buttonLp);
+        }
+    };
+
+    private static XC_LayoutInflated notification_template_material_big_media = new XC_LayoutInflated() {
+        @Override
+        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+            RelativeLayout layout = (RelativeLayout) liparam.view;
+            Context context = layout.getContext();
+            ResourceUtils res = ResourceUtils.getInstance(context);
+
+            View headerLayout = layout.getChildAt(0);
+            LinearLayout notificationMain = (LinearLayout) layout.getChildAt(1);
+
+            int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height);
+            int headerHeightExcludeTop = res.getDimensionPixelSize(R.dimen.notification_header_height_exclude_top);
+            int notificationHeight = res.getDimensionPixelSize(R.dimen.notification_min_height);
+            int notificationMidHeight = res.getDimensionPixelSize(R.dimen.notification_mid_height);
+            int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
+
+            LayoutUtils.setHeight(layout, notificationMidHeight);
+
+            ViewGroup.MarginLayoutParams headerLayoutLp = (ViewGroup.MarginLayoutParams) headerLayout.getLayoutParams();
+            headerLayoutLp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            headerLayoutLp.height = headerHeightExcludeTop;
+            headerLayout.setLayoutParams(headerLayoutLp);
+
+            RelativeLayout.LayoutParams notificationMainLp = (RelativeLayout.LayoutParams) notificationMain.getLayoutParams();
+            notificationMainLp.topMargin = headerHeight;
+            notificationMainLp.leftMargin = notificationContentPadding;
+            notificationMain.setLayoutParams(notificationMainLp);
+            notificationMain.setMinimumHeight(notificationHeight);
+        }
+    };
+
+    private static XC_LayoutInflated notification_template_material_media = new XC_LayoutInflated() {
+        @Override
+        public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
+            LinearLayout layout = (LinearLayout) liparam.view;
+            Context context = layout.getContext();
+            ResourceUtils res = ResourceUtils.getInstance(context);
+
+            layout.setOrientation(LinearLayout.VERTICAL);
+
+            View headerLayout = layout.getChildAt(0);
+            LinearLayout notificationMain = (LinearLayout) layout.getChildAt(1);
+            LinearLayout mediaActions = (LinearLayout) layout.getChildAt(2);
+
+            layout.removeViewAt(2);
+            layout.removeViewAt(1);
+
+            int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height_exclude_top);
+            int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
+
+            ViewGroup.MarginLayoutParams headerLayoutLp = (ViewGroup.MarginLayoutParams) headerLayout.getLayoutParams();
+            headerLayoutLp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            headerLayoutLp.height = headerHeight;
+            headerLayout.setLayoutParams(headerLayoutLp);
+
+            LinearLayout notificationLayout = new LinearLayout(context);
+            LinearLayout.LayoutParams notificationLayoutLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            notificationLayoutLp.setMargins(notificationContentPadding, 0, notificationContentPadding, 0);
+            notificationLayout.setLayoutParams(notificationLayoutLp);
+            notificationLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            layout.addView(notificationLayout);
+
+            notificationLayout.addView(notificationMain);
+            notificationLayout.addView(mediaActions);
         }
     };
 

@@ -41,4 +41,8 @@
     <dimen name="notification_max_height">280dp</dimen>
     <dimen name="notification_time_margin_start">1dp</dimen>
     <dimen name="notification_divider_margin_top">1dp</dimen>
+    <dimen name="notification_header_height_exclude_top">26dp</dimen>
+    <dimen name="notification_text_margin_end">56dp</dimen>
+    <dimen name="notification_actions_margin_top">16dp</dimen>
+    <color name="notification_action_list">#ffeeeeee</color>
 </resources>
