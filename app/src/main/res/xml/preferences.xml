@@ -48,7 +48,8 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="enable_notification_tweaks"
-            android:title="@string/enable_notifications"/>
+            android:title="@string/enable_notifications"
+            android:summary="@string/enable_notifications_summ"/>
 
         <SwitchPreference
             android:defaultValue="false"
