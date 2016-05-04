@@ -195,6 +195,18 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_MethodHook updateWindowWidthH = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            ViewGroup mDialogView = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mDialogView");
+            Context context = mDialogView.getContext();
+            ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mDialogView.getLayoutParams();
+            lp.setMargins(0, 0, 0, 0);
+            mDialogView.setLayoutParams(lp);
+            mDialogView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+        }
+    };
+
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, XSharedPreferences prefs, String modulePath) {
         try {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
@@ -261,9 +273,12 @@ public class NotificationsHooks {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
+                Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
+                Class classVolumeRow = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog.VolumeRow", classLoader);
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
+                XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
