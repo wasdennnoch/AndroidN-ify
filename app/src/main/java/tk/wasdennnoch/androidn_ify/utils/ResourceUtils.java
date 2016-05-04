@@ -17,7 +17,7 @@ public class ResourceUtils {
     private static Context mContext;
     private static ResourceUtils mInstance;
 
-    public ResourceUtils(Context context) {
+    private ResourceUtils(Context context) {
         mInstance = this;
         try {
             mContext = context.createPackageContext("tk.wasdennnoch.androidn_ify", Context.CONTEXT_IGNORE_SECURITY);

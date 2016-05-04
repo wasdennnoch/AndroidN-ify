@@ -23,6 +23,7 @@ public class NotificationPanelHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mNotificationPanelView = (View) param.thisObject;
             View mHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mHeader");
+            mHeader.setOnClickListener(null);
             mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
             mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
         }
