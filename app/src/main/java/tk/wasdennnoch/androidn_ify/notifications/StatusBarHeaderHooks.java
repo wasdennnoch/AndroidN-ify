@@ -519,6 +519,8 @@ public class StatusBarHeaderHooks {
                 XResources.DimensionReplacement emergencyCallsOnlySize = new XResources.DimensionReplacement(12, TypedValue.COMPLEX_UNIT_SP);
                 XResources.DimensionReplacement dateTimeCollapsedSize = new XResources.DimensionReplacement(14, TypedValue.COMPLEX_UNIT_SP);
                 XResources.DimensionReplacement multiUserAvatarSize = new XResources.DimensionReplacement(24, TypedValue.COMPLEX_UNIT_DIP);
+                XResources.DimensionReplacement BrigtSliderPadTop= new  XResources.DimensionReplacement(-12,TypedValue.COMPLEX_UNIT_DIP);
+
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", headerHeight);
@@ -526,6 +528,7 @@ public class StatusBarHeaderHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_emergency_calls_only_text_size", emergencyCallsOnlySize);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_date_collapsed_size", dateTimeCollapsedSize);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", multiUserAvatarSize);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_brightness_padding_top", BrigtSliderPadTop);
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);
 
