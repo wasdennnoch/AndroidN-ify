@@ -135,7 +135,7 @@ public class SettingsActivity extends Activity {
      private void showRestartSystemUIDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.restart_menu_title);
+        builder.setTitle(R.string.restart_systemui);
         builder.setMessage(R.string.restart_menu_message);
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
