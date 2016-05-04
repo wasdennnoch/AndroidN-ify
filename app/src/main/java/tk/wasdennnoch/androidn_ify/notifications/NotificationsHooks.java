@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Icon;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -42,6 +43,8 @@ public class NotificationsHooks {
     private static final String TAG = "NotificationsHooks";
 
     private static boolean darkTheme = false;
+    private static boolean fullWidthVolume = false;
+    private static boolean allowLoadLabelWithPackageManager = false;
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -58,15 +61,22 @@ public class NotificationsHooks {
 
             Context context = publicView.getContext();
 
+            // Try to find app label for notifications without public version
             TextView textView = (TextView) publicView.findViewById(R.id.public_app_name_text);
+            if (textView == null) {
+                // For notifications with public version
+                textView = (TextView) publicView.findViewById(R.id.app_name_text);
+            }
 
             View time = publicView.findViewById(context.getResources().getIdentifier("time", "id", PACKAGE_SYSTEMUI));
             if (time != null) {
                 publicView.findViewById(R.id.public_time_divider).setVisibility(time.getVisibility());
             }
 
+            // Try to find icon for notifications without public version
             ImageView icon = (ImageView) publicView.findViewById(context.getResources().getIdentifier("icon", "id", PACKAGE_SYSTEMUI));
             if (icon == null) {
+                // For notifications with public version
                 icon = (ImageView) publicView.findViewById(R.id.notification_icon);
             }
             if (icon == null) {
@@ -120,7 +130,13 @@ public class NotificationsHooks {
             RemoteViews contentView = (RemoteViews) param.getResult();
             int mColor = (int) XposedHelpers.callMethod(param.thisObject, "resolveColor");
             contentView.setInt(R.id.notification_icon, "setColorFilter", mColor);
-            contentView.setTextViewText(R.id.app_name_text, context.getString(context.getApplicationInfo().labelRes));
+            try {
+                contentView.setTextViewText(R.id.app_name_text, context.getString(context.getApplicationInfo().labelRes));
+            } catch (Exception e) {
+                if (allowLoadLabelWithPackageManager) {
+                    context.getApplicationInfo().loadLabel(context.getPackageManager());
+                }
+            }
             contentView.setTextColor(R.id.app_name_text, mColor);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Icon mSmallIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mSmallIcon");
@@ -238,6 +254,10 @@ public class NotificationsHooks {
             Context context = mDialogView.getContext();
             ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mDialogView.getLayoutParams();
             lp.setMargins(0, 0, 0, 0);
+            if(fullWidthVolume) {
+                DisplayMetrics dm = context.getResources().getDisplayMetrics();
+                lp.width = dm.widthPixels;
+            }
             mDialogView.setLayoutParams(lp);
             mDialogView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
         }
@@ -267,6 +287,8 @@ public class NotificationsHooks {
                 // Layouts
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
 
+                fullWidthVolume = prefs.getBoolean("notification_full_width_volume", false);
+                allowLoadLabelWithPackageManager = prefs.getBoolean("notification_allow_load_label_with_pm", false);
                 if (prefs.getBoolean("notification_dark_theme", false)) {
                     darkTheme = true;
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg_dark));
