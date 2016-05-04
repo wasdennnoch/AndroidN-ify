@@ -41,6 +41,8 @@ public class NotificationsHooks {
 
     private static final String TAG = "NotificationsHooks";
 
+    private static boolean darkTheme = false;
+
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
         @SuppressWarnings("deprecation")
@@ -156,7 +158,7 @@ public class NotificationsHooks {
     private static XC_MethodHook resetStandardTemplateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            RemoteViews contentView = (RemoteViews) param.getResult();
+            RemoteViews contentView = (RemoteViews) param.args[0];
             contentView.setViewVisibility(R.id.notification_summary_divider, View.GONE);
             contentView.setViewVisibility(R.id.notification_info_divider, View.GONE);
             contentView.setViewVisibility(R.id.time_divider, View.GONE);
@@ -250,6 +252,7 @@ public class NotificationsHooks {
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
 
                 if (prefs.getBoolean("notification_dark_theme", false)) {
+                    darkTheme = true;
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg_dark));
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim_dark));
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_material_background_low_priority_color", modRes.fwd(R.color.notification_material_background_low_priority_color_dark));
@@ -552,8 +555,10 @@ public class NotificationsHooks {
                     if (!layout.getTag().equals("inbox")) {
                         childLp.topMargin += actionsMarginTop;
                     }
+                    if (!darkTheme) {
+                        child.setBackgroundColor(res.getColor(R.color.notification_action_list));
+                    }
                     child.setLayoutParams(childLp);
-                    child.setBackgroundColor(res.getColor(R.color.notification_action_list));
                     child.setPadding(child.getPaddingLeft() + notificationContentPadding,
                             child.getPaddingTop(),
                             child.getPaddingRight() + notificationContentPadding,
