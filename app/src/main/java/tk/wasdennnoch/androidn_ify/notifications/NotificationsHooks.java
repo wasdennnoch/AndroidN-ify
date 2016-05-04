@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Icon;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,6 +42,10 @@ public class NotificationsHooks {
 
     private static final String TAG = "NotificationsHooks";
 
+    private static boolean darkTheme = false;
+    private static boolean fullWidthVolume = false;
+    private static boolean allowLoadLabelWithPackageManager = false;
+
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
         @SuppressWarnings("deprecation")
@@ -56,22 +61,45 @@ public class NotificationsHooks {
 
             Context context = publicView.getContext();
 
-            TextView privateTextView = (TextView) privateView.findViewById(R.id.app_name_text);
-            int color = privateTextView.getTextColors().getDefaultColor();
-
-            ImageView icon = (ImageView) publicView.findViewById(context.getResources().getIdentifier("icon", "id", PACKAGE_SYSTEMUI));
-            icon.setBackgroundResource(0);
-            icon.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-            icon.setPadding(0, 0, 0, 0);
-            icon.setColorFilter(color);
-
+            // Try to find app label for notifications without public version
             TextView textView = (TextView) publicView.findViewById(R.id.public_app_name_text);
-            textView.setTextColor(privateTextView.getTextColors());
-            textView.setText(privateTextView.getText());
+            if (textView == null) {
+                // For notifications with public version
+                textView = (TextView) publicView.findViewById(R.id.app_name_text);
+            }
 
             View time = publicView.findViewById(context.getResources().getIdentifier("time", "id", PACKAGE_SYSTEMUI));
             if (time != null) {
                 publicView.findViewById(R.id.public_time_divider).setVisibility(time.getVisibility());
+            }
+
+            // Try to find icon for notifications without public version
+            ImageView icon = (ImageView) publicView.findViewById(context.getResources().getIdentifier("icon", "id", PACKAGE_SYSTEMUI));
+            if (icon == null) {
+                // For notifications with public version
+                icon = (ImageView) publicView.findViewById(R.id.notification_icon);
+            }
+            if (icon == null) {
+                icon = (ImageView) publicView.findViewById(android.R.id.icon);
+            }
+            if (icon != null) {
+                icon.setBackgroundResource(0);
+                icon.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+                icon.setPadding(0, 0, 0, 0);
+            }
+
+            TextView privateTextView = (TextView) privateView.findViewById(R.id.app_name_text);
+            if(privateTextView != null) {
+                int color = privateTextView.getTextColors().getDefaultColor();
+
+                if(textView != null) {
+                    textView.setTextColor(privateTextView.getTextColors());
+                    textView.setText(privateTextView.getText());
+                }
+
+                if (icon != null) {
+                    icon.setColorFilter(color);
+                }
             }
         }
     };
@@ -102,7 +130,13 @@ public class NotificationsHooks {
             RemoteViews contentView = (RemoteViews) param.getResult();
             int mColor = (int) XposedHelpers.callMethod(param.thisObject, "resolveColor");
             contentView.setInt(R.id.notification_icon, "setColorFilter", mColor);
-            contentView.setTextViewText(R.id.app_name_text, context.getString(context.getApplicationInfo().labelRes));
+            try {
+                contentView.setTextViewText(R.id.app_name_text, context.getString(context.getApplicationInfo().labelRes));
+            } catch (Exception e) {
+                if (allowLoadLabelWithPackageManager) {
+                    context.getApplicationInfo().loadLabel(context.getPackageManager());
+                }
+            }
             contentView.setTextColor(R.id.app_name_text, mColor);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Icon mSmallIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mSmallIcon");
@@ -132,13 +166,31 @@ public class NotificationsHooks {
                 contentView.setViewVisibility(R.id.time_divider, View.VISIBLE);
             }
             contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
+
+            int resId = (int) param.args[0];
+            if(resId == context.getResources().getIdentifier("notification_template_material_big_media", "layout", PACKAGE_ANDROID) ||
+                    resId == context.getResources().getIdentifier("notification_template_material_media", "layout", PACKAGE_ANDROID)) {
+                CharSequence mContentText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mContentText");
+                CharSequence mSubText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mSubText");
+                if(mContentText != null && mSubText != null) {
+                    contentView.setTextViewText(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID),
+                            (CharSequence) XposedHelpers.callMethod(param.thisObject, "processLegacyText", mContentText));
+                    contentView.setViewVisibility(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID), View.GONE);
+                    contentView.setTextViewText(R.id.notification_summary, (CharSequence) XposedHelpers.callMethod(param.thisObject, "processLegacyText", mSubText));
+                    contentView.setViewVisibility(R.id.notification_summary, View.VISIBLE);
+                    contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
+                    contentView.setTextColor(R.id.notification_summary, mColor);
+                    contentView.setTextColor(R.id.notification_summary_divider, mColor);
+                    XposedHelpers.callMethod(param.thisObject, "unshrinkLine3Text");
+                }
+            }
         }
     };
 
     private static XC_MethodHook resetStandardTemplateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            RemoteViews contentView = (RemoteViews) param.getResult();
+            RemoteViews contentView = (RemoteViews) param.args[0];
             contentView.setViewVisibility(R.id.notification_summary_divider, View.GONE);
             contentView.setViewVisibility(R.id.notification_info_divider, View.GONE);
             contentView.setViewVisibility(R.id.time_divider, View.GONE);
@@ -195,6 +247,22 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_MethodHook updateWindowWidthH = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            ViewGroup mDialogView = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mDialogView");
+            Context context = mDialogView.getContext();
+            ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mDialogView.getLayoutParams();
+            lp.setMargins(0, 0, 0, 0);
+            if(fullWidthVolume) {
+                DisplayMetrics dm = context.getResources().getDisplayMetrics();
+                lp.width = dm.widthPixels;
+            }
+            mDialogView.setLayoutParams(lp);
+            mDialogView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+        }
+    };
+
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, XSharedPreferences prefs, String modulePath) {
         try {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
@@ -219,7 +287,10 @@ public class NotificationsHooks {
                 // Layouts
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
 
+                fullWidthVolume = prefs.getBoolean("notification_full_width_volume", false);
+                allowLoadLabelWithPackageManager = prefs.getBoolean("notification_allow_load_label_with_pm", false);
                 if (prefs.getBoolean("notification_dark_theme", false)) {
+                    darkTheme = true;
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg_dark));
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim_dark));
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_material_background_low_priority_color", modRes.fwd(R.color.notification_material_background_low_priority_color_dark));
@@ -261,9 +332,12 @@ public class NotificationsHooks {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
+                Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
+                Class classVolumeRow = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog.VolumeRow", classLoader);
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
+                XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
@@ -516,11 +590,16 @@ public class NotificationsHooks {
                     child.setLayoutParams(childLp);
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
-                    if (!layout.getTag().equals("inbox")) {
+                    // This only works on Marshmallow as notification templates don't have tag on Lollipop
+                    //if (!layout.getTag().equals("inbox")) {
+
+                    if (!liparam.resNames.fullName.contains("notification_template_material_inbox")) {
                         childLp.topMargin += actionsMarginTop;
                     }
+                    if (!darkTheme) {
+                        child.setBackgroundColor(res.getColor(R.color.notification_action_list));
+                    }
                     child.setLayoutParams(childLp);
-                    child.setBackgroundColor(res.getColor(R.color.notification_action_list));
                     child.setPadding(child.getPaddingLeft() + notificationContentPadding,
                             child.getPaddingTop(),
                             child.getPaddingRight() + notificationContentPadding,
@@ -595,6 +674,8 @@ public class NotificationsHooks {
 
             layout.removeViewAt(2);
             layout.removeViewAt(1);
+
+            layout.setClipChildren(false);
 
             int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height_exclude_top);
             int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
