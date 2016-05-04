@@ -17,7 +17,7 @@
     <dimen name="date_time_group_height">19.0dp</dimen>
     <dimen name="date_collapsed_drawable_padding">6.0dp</dimen>
     <dimen name="date_time_collapsed_size">14.0sp</dimen>
-    <dimen name="date_time_expanded_size">18.0sp</dimen>
+    <dimen name="date_time_expanded_size">16.0sp</dimen>
     <dimen name="date_anim_translation">32.0dip</dimen>
     <dimen name="date_alarm_anim_translation">22.0dip</dimen>
     <dimen name="alarm_status_height">20.0dp</dimen>
