@@ -58,22 +58,38 @@ public class NotificationsHooks {
 
             Context context = publicView.getContext();
 
-            TextView privateTextView = (TextView) privateView.findViewById(R.id.app_name_text);
-            int color = privateTextView.getTextColors().getDefaultColor();
-
-            ImageView icon = (ImageView) publicView.findViewById(context.getResources().getIdentifier("icon", "id", PACKAGE_SYSTEMUI));
-            icon.setBackgroundResource(0);
-            icon.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-            icon.setPadding(0, 0, 0, 0);
-            icon.setColorFilter(color);
-
             TextView textView = (TextView) publicView.findViewById(R.id.public_app_name_text);
-            textView.setTextColor(privateTextView.getTextColors());
-            textView.setText(privateTextView.getText());
 
             View time = publicView.findViewById(context.getResources().getIdentifier("time", "id", PACKAGE_SYSTEMUI));
             if (time != null) {
                 publicView.findViewById(R.id.public_time_divider).setVisibility(time.getVisibility());
+            }
+
+            ImageView icon = (ImageView) publicView.findViewById(context.getResources().getIdentifier("icon", "id", PACKAGE_SYSTEMUI));
+            if (icon == null) {
+                icon = (ImageView) publicView.findViewById(R.id.notification_icon);
+            }
+            if (icon == null) {
+                icon = (ImageView) publicView.findViewById(android.R.id.icon);
+            }
+            if (icon != null) {
+                icon.setBackgroundResource(0);
+                icon.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+                icon.setPadding(0, 0, 0, 0);
+            }
+
+            TextView privateTextView = (TextView) privateView.findViewById(R.id.app_name_text);
+            if(privateTextView != null) {
+                int color = privateTextView.getTextColors().getDefaultColor();
+
+                if(textView != null) {
+                    textView.setTextColor(privateTextView.getTextColors());
+                    textView.setText(privateTextView.getText());
+                }
+
+                if (icon != null) {
+                    icon.setColorFilter(color);
+                }
             }
         }
     };
