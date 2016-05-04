@@ -552,7 +552,10 @@ public class NotificationsHooks {
                     child.setLayoutParams(childLp);
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
-                    if (!layout.getTag().equals("inbox")) {
+                    // This only works on Marshmallow as notification templates don't have tag on Lollipop
+                    //if (!layout.getTag().equals("inbox")) {
+
+                    if (!liparam.resNames.fullName.contains("notification_template_material_inbox")) {
                         childLp.topMargin += actionsMarginTop;
                     }
                     if (!darkTheme) {
