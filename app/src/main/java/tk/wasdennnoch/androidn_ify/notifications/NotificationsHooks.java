@@ -132,6 +132,24 @@ public class NotificationsHooks {
                 contentView.setViewVisibility(R.id.time_divider, View.VISIBLE);
             }
             contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
+
+            int resId = (int) param.args[0];
+            if(resId == context.getResources().getIdentifier("notification_template_material_big_media", "layout", PACKAGE_ANDROID) ||
+                    resId == context.getResources().getIdentifier("notification_template_material_media", "layout", PACKAGE_ANDROID)) {
+                CharSequence mContentText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mContentText");
+                CharSequence mSubText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mSubText");
+                if(mContentText != null && mSubText != null) {
+                    contentView.setTextViewText(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID),
+                            (CharSequence) XposedHelpers.callMethod(param.thisObject, "processLegacyText", mContentText));
+                    contentView.setViewVisibility(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID), View.GONE);
+                    contentView.setTextViewText(R.id.notification_summary, (CharSequence) XposedHelpers.callMethod(param.thisObject, "processLegacyText", mSubText));
+                    contentView.setViewVisibility(R.id.notification_summary, View.VISIBLE);
+                    contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
+                    contentView.setTextColor(R.id.notification_summary, mColor);
+                    contentView.setTextColor(R.id.notification_summary_divider, mColor);
+                    XposedHelpers.callMethod(param.thisObject, "unshrinkLine3Text");
+                }
+            }
         }
     };
 
@@ -610,6 +628,8 @@ public class NotificationsHooks {
 
             layout.removeViewAt(2);
             layout.removeViewAt(1);
+
+            layout.setClipChildren(false);
 
             int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height_exclude_top);
             int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
