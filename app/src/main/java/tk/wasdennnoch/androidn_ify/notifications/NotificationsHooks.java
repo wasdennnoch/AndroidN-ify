@@ -76,6 +76,23 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_MethodHook getStandardViewHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            RemoteViews contentView = (RemoteViews) param.getResult();
+            Notification.Builder mBuilder = (Notification.Builder) XposedHelpers.getObjectField(param.thisObject, "mBuilder");
+
+            CharSequence overflowText = (CharSequence) (XposedHelpers.getBooleanField(param.thisObject, "mSummaryTextSet")
+                ? XposedHelpers.getObjectField(param.thisObject, "mSummaryText")
+                : XposedHelpers.getObjectField(mBuilder, "mSubText"));
+            if (overflowText != null) {
+                contentView.setTextViewText(R.id.notification_summary, (CharSequence) XposedHelpers.callMethod(mBuilder, "processLegacyText", overflowText));
+                contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
+                contentView.setViewVisibility(R.id.notification_summary, View.VISIBLE);
+            }
+        }
+    };
+
     private static XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
 
         @Override
@@ -102,10 +119,30 @@ public class NotificationsHooks {
                     contentView.setImageViewBitmap(res.getIdentifier("right_icon", "id", "android"), mLargeIcon);
                 }
             }
+            CharSequence mContentInfo = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mContentInfo");
+            int mNumber = XposedHelpers.getIntField(param.thisObject, "mNumber");
+            if (mContentInfo != null) {
+                contentView.setViewVisibility(R.id.notification_info_divider, View.VISIBLE);
+            } else if (mNumber > 0) {
+                contentView.setViewVisibility(R.id.notification_info_divider, View.VISIBLE);
+            } else {
+                contentView.setViewVisibility(R.id.notification_info_divider, View.GONE);
+            }
             if ((boolean) XposedHelpers.callMethod(param.thisObject, "showsTimeOrChronometer")) {
                 contentView.setViewVisibility(R.id.time_divider, View.VISIBLE);
             }
             contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
+        }
+    };
+
+    private static XC_MethodHook resetStandardTemplateHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            RemoteViews contentView = (RemoteViews) param.getResult();
+            contentView.setViewVisibility(R.id.notification_summary_divider, View.GONE);
+            contentView.setViewVisibility(R.id.notification_info_divider, View.GONE);
+            contentView.setViewVisibility(R.id.time_divider, View.GONE);
+            contentView.setTextViewText(R.id.notification_summary, null);
         }
     };
 
@@ -202,6 +239,7 @@ public class NotificationsHooks {
     @SuppressWarnings("unused")
     public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
         Class classNotificationBuilder = Notification.Builder.class;
+        Class classNotificationStyle = Notification.Style.class;
         Class classRemoteViews = RemoteViews.class;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -212,7 +250,9 @@ public class NotificationsHooks {
         XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyLargeIconBackground", classRemoteViews, XC_MethodReplacement.DO_NOTHING);
         XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplate", int.class, boolean.class, applyStandardTemplateHook);
         XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplateWithActions", int.class, applyStandardTemplateWithActionsHook);
+        XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
         XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
+        XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
     }
 
     public static void hookSystemUI(ClassLoader classLoader, XSharedPreferences prefs) {
@@ -279,6 +319,8 @@ public class NotificationsHooks {
                         LinearLayout.LayoutParams textLp = (LinearLayout.LayoutParams) text.getLayoutParams();
                         textLp.rightMargin = notificationTextMarginEnd;
                         text.setLayoutParams(textLp);
+
+                        layout.removeViewAt(1);
                     }
                 });
 
@@ -328,6 +370,8 @@ public class NotificationsHooks {
             int appNameMarginEnd = res.getDimensionPixelSize(R.dimen.notification_app_name_margin_end);
             int dividerMarginTop = res.getDimensionPixelSize(R.dimen.notification_divider_margin_top);
 
+            String dividerText = res.getString(R.string.notification_header_divider_symbol);
+
             LinearLayout linearLayout = new LinearLayout(context);
 
             FrameLayout.LayoutParams linearLayoutLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, iconSize);
@@ -337,49 +381,82 @@ public class NotificationsHooks {
             linearLayout.setPadding(notificationContentPadding, 0, notificationContentPadding, 0);
 
             ImageView fakeIcon = new ImageView(context);
-            ImageView icon = new ImageView(context);
-            TextView textView = new TextView(context);
-            TextView divider = new TextView(context);
-
-            View timeView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_time", "layout", "android"), null);
-
             LinearLayout.LayoutParams fakeIconLParams = new LinearLayout.LayoutParams(0, 0);
+            fakeIcon.setLayoutParams(fakeIconLParams);
+            fakeIcon.setId(android.R.id.icon);
 
+            ImageView icon = new ImageView(context);
             LinearLayout.LayoutParams iconLParams = new LinearLayout.LayoutParams(iconSize, iconSize);
             iconLParams.setMarginEnd(iconMarginEnd);
+            icon.setLayoutParams(iconLParams);
+            icon.setId(R.id.notification_icon);
 
+            TextView textView = new TextView(context);
             LinearLayout.LayoutParams textViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             textViewLParams.setMarginStart(appNameMarginStart);
             textViewLParams.setMarginEnd(appNameMarginEnd);
-
-            LinearLayout.LayoutParams timeViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-            LinearLayout.LayoutParams dividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dividerLParams.setMargins(0, dividerMarginTop, 0, 0);
-
-            fakeIcon.setLayoutParams(fakeIconLParams);
-            icon.setLayoutParams(iconLParams);
             textView.setLayoutParams(textViewLParams);
-            timeView.setLayoutParams(timeViewLParams);
-            divider.setLayoutParams(dividerLParams);
-
-            fakeIcon.setId(android.R.id.icon);
-            icon.setId(R.id.notification_icon);
             textView.setId(R.id.app_name_text);
-            timeView.setId(context.getResources().getIdentifier("time", "id", "android"));
-            divider.setId(R.id.time_divider);
-
             textView.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
 
-            timeView.setPadding(appNameMarginEnd, 0, 0, 0);
+            TextView summaryDivider = new TextView(context);
+            LinearLayout.LayoutParams summaryDividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            summaryDividerLParams.setMargins(0, dividerMarginTop, 0, 0);
+            summaryDivider.setLayoutParams(summaryDividerLParams);
+            summaryDivider.setId(R.id.notification_summary_divider);
+            summaryDivider.setText(dividerText);
+            summaryDivider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
+            summaryDivider.setVisibility(View.GONE);
 
+            TextView summaryText = new TextView(context);
+            LinearLayout.LayoutParams summaryTextLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            summaryTextLParams.setMarginStart(appNameMarginStart);
+            summaryTextLParams.setMarginEnd(appNameMarginEnd);
+            summaryText.setLayoutParams(summaryTextLParams);
+            summaryText.setId(R.id.notification_summary);
+            summaryText.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
+            summaryText.setVisibility(View.GONE);
+
+            TextView infoDivider = new TextView(context);
+            LinearLayout.LayoutParams infoDividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            infoDividerLParams.setMargins(0, dividerMarginTop, 0, 0);
+            infoDivider.setLayoutParams(infoDividerLParams);
+            infoDivider.setId(R.id.notification_info_divider);
+            infoDivider.setText(dividerText);
+            infoDivider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
+            infoDivider.setVisibility(View.GONE);
+
+            TextView infoText = new TextView(context);
+            LinearLayout.LayoutParams infoTextLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            infoTextLParams.setMarginStart(appNameMarginStart);
+            infoTextLParams.setMarginEnd(appNameMarginEnd);
+            infoText.setLayoutParams(summaryTextLParams);
+            infoText.setId(context.getResources().getIdentifier("info", "id", PACKAGE_ANDROID));
+            infoText.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
+            infoText.setVisibility(View.GONE);
+
+            TextView divider = new TextView(context);
+            LinearLayout.LayoutParams dividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dividerLParams.setMargins(0, dividerMarginTop, 0, 0);
+            divider.setLayoutParams(dividerLParams);
+            divider.setId(R.id.time_divider);
             divider.setText(res.getString(R.string.notification_header_divider_symbol));
             divider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
             divider.setVisibility(View.GONE);
 
+            View timeView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_time", "layout", "android"), null);
+            LinearLayout.LayoutParams timeViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            timeView.setLayoutParams(timeViewLParams);
+            timeView.setId(context.getResources().getIdentifier("time", "id", "android"));
+            timeView.setPadding(appNameMarginEnd, 0, 0, 0);
+
             linearLayout.addView(fakeIcon);
             linearLayout.addView(icon);
             linearLayout.addView(textView);
+            linearLayout.addView(summaryDivider);
+            linearLayout.addView(summaryText);
+            linearLayout.addView(infoDivider);
+            linearLayout.addView(infoText);
             linearLayout.addView(divider);
             linearLayout.addView(timeView);
 
@@ -439,7 +516,9 @@ public class NotificationsHooks {
                     child.setLayoutParams(childLp);
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
-                    childLp.topMargin += actionsMarginTop;
+                    if (!layout.getTag().equals("inbox")) {
+                        childLp.topMargin += actionsMarginTop;
+                    }
                     child.setLayoutParams(childLp);
                     child.setBackgroundColor(res.getColor(R.color.notification_action_list));
                     child.setPadding(child.getPaddingLeft() + notificationContentPadding,
@@ -447,6 +526,13 @@ public class NotificationsHooks {
                             child.getPaddingRight() + notificationContentPadding,
                             child.getPaddingBottom());
                 }
+            }
+
+            if (layout.getTag().equals("inbox") || layout.getTag().equals("bigText")) {
+                // Remove divider
+                notificationMain.removeViewAt(notificationMain.getChildCount() - 2);
+                // Remove bottom line
+                notificationMain.removeViewAt(notificationMain.getChildCount() - 1);
             }
         }
     };

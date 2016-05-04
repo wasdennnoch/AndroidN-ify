@@ -6,4 +6,7 @@
     <item name="notification_icon" type="id">false</item>
     <item name="public_time_divider" type="id">false</item>
     <item name="statusbar_header_expand_indicator" type="id">false</item>
+    <item name="notification_summary" type="id">false</item>
+    <item name="notification_summary_divider" type="id">false</item>
+    <item name="notification_info_divider" type="id">false</item>
 </resources>
