@@ -61,6 +61,10 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Нет недавних приложений</string>
+    <string name="notification_allow_load_label_with_pm_title">Разрешить загрузку названия приложения через PackageManager</string>  
+    <string name="notification_allow_load_label_with_pm">Может вызвать проблемы с производительностью</string>  
+    <string name="notification_full_width_volume_title">Растянуть диалог громкости</string>  
+    <string name="notification_full_width_volume">Убрать ограничение ширины диалога громкости для телефонов с большими дисплеями</string> 
     <!-- /RECENTS -->
 
 </resources>
