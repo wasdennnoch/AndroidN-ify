@@ -12,7 +12,7 @@
 	<!-- prefs -->
     <string name="prefs_file_not_readable">Xposed не может прочитать файл конфигурации, будут использованы стандартные значения. Это может быть связано с блокирующим режимом SELinux.</string>
 	
-    <string name="restart_systemui">Перезапустить SystemUI</string>
+    <string name="restart_systemui">Перезагрузка SystemUI</string>
     <string name="restart_systemui_message">Вы действительно хотите перезапустить SystemUI?</string>
     <string name="restart_broadcast_sent">Запрос на перезапуск отправлен</string>
     <string name="header_settings">Настройки</string>
