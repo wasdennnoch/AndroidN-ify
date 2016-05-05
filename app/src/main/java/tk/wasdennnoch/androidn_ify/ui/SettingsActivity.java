@@ -122,7 +122,7 @@ public class SettingsActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.restart_systemui:
-                sendBroadcast(new Intent(ACTION_KILL_SYSTEMUI));
+                showRestartSystemUIDialog();
                 Toast.makeText(this, R.string.restart_broadcast_sent, Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.about:
@@ -130,6 +130,32 @@ public class SettingsActivity extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+     private void showRestartSystemUIDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.restart_systemui);
+        builder.setMessage(R.string.restart_menu_message);
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                Intent intent = new Intent(ACTION_KILL_SYSTEMUI);
+                SettingsActivity.this.sendBroadcast(intent);
+
+                // terminate the app
+                finish();
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
 }
