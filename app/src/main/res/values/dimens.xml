@@ -44,5 +44,7 @@
     <dimen name="notification_header_height_exclude_top">34dp</dimen>
     <dimen name="notification_text_margin_end">56dp</dimen>
     <dimen name="notification_actions_margin_top">16dp</dimen>
+    <dimen name="notification_dismiss_button_padding">16dp</dimen>
+    <dimen name="notification_dismiss_button_padding_top">14dp</dimen>
     <color name="notification_action_list">#ffeeeeee</color>
 </resources>
