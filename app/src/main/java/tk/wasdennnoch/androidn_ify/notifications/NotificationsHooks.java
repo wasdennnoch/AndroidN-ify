@@ -7,8 +7,11 @@ import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.os.Build;
+import android.text.method.AllCapsTransformationMethod;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -287,6 +290,19 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            Button button = (Button) param.thisObject;
+
+            Drawable mAnimatedDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mAnimatedDismissDrawable");
+            mAnimatedDismissDrawable.setBounds(0, 0, 0, 0);
+            Drawable mStaticDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mStaticDismissDrawable");
+            mStaticDismissDrawable.setBounds(0, 0, 0, 0);
+            button.setVisibility(View.VISIBLE);
+        }
+    };
+
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, XSharedPreferences prefs, String modulePath) {
         try {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
@@ -307,11 +323,15 @@ public class NotificationsHooks {
                 // Drawables
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_header_bg", modRes.fwd(R.drawable.replacement_notification_header_bg));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_guts_bg", modRes.fwd(R.drawable.replacement_notification_guts_bg));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "dismiss_all_shape", modRes.fwd(R.drawable.replacement_dismiss_all_shape));
 
                 // Layouts
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_dismiss_all", status_bar_notification_dismiss_all);
+                try {
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_dismiss_button", status_bar_notification_dismiss_all);
+                } catch (Exception e) {
+                    
+                }
 
                 fullWidthVolume = prefs.getBoolean("notification_full_width_volume", false);
                 allowLoadLabelWithPackageManager = prefs.getBoolean("notification_allow_load_label_with_pm", false);
@@ -364,7 +384,8 @@ public class NotificationsHooks {
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
                 XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
-                XposedHelpers.findAndHookMethod(classDismissViewButton, "performClick", dismissViewButtonPerformClickHook);
+                XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
+                //XposedHelpers.findAndHookMethod(classDismissViewButton, "performClick", dismissViewButtonPerformClickHook);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
@@ -443,6 +464,7 @@ public class NotificationsHooks {
             int dismissButtonPaddingTop = res.getDimensionPixelSize(R.dimen.notification_dismiss_button_padding_top);
 
             Button button = (Button) layout.getChildAt(0);
+            button.setTextColor(res.getColor(android.R.color.white));
             button.setText(context.getString(context.getResources().getIdentifier("clear_all_notifications_text", "string", PACKAGE_SYSTEMUI)));
             button.setAllCaps(true);
             button.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
