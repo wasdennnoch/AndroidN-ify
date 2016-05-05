@@ -27,6 +27,10 @@
     <string name="enable_notifications">Povoliť úpravy upozornení</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
     <string name="notifications_dark_theme">Tmavá téma pozadia upozornení pre používateľov špecifických Layers tém</string>
+    <string name="notification_allow_load_label_with_pm_title">Povoliť načítanie názvu apl. pomocou PackageManager</string>
+    <string name="notification_allow_load_label_with_pm">Môže spôsobiť problémy s výkonom</string>
+    <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
+    <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
 
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>

@@ -27,6 +27,7 @@
     <string name="double_tap_speed_title">Скорость двойного нажатия</string>
 
     <string name="enable_notifications">Включить твики уведомлений</string>
+    <string name="enable_notifications_summ">После каждого изменения этих настроек перезапускайте SystemUI</string>
     <string name="notifications_dark_theme_title">Тёмная тема уведомлений</string>
     <string name="notifications_dark_theme">Тёмный фон уведомлений для пользователей с данным цветом слоёв</string> 
 
@@ -61,6 +62,10 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Нет недавних приложений</string>
+    <string name="notification_allow_load_label_with_pm_title">Разрешить загрузку названия приложения через PackageManager</string>  
+    <string name="notification_allow_load_label_with_pm">Может вызвать проблемы с производительностью</string>  
+    <string name="notification_full_width_volume_title">Растянуть диалог громкости</string>  
+    <string name="notification_full_width_volume">Убрать ограничение ширины диалога громкости для телефонов с большими дисплеями</string> 
     <!-- /RECENTS -->
 
 </resources>

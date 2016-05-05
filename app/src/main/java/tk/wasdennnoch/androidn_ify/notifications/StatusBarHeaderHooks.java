@@ -84,6 +84,13 @@ public class StatusBarHeaderHooks {
             ResourceUtils res = ResourceUtils.getInstance(context);
 
             try {
+                //noinspection deprecation
+                mStatusBarHeaderView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "Couldn't change header background color", t);
+            }
+
+            try {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
                 mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
                 mClock = (View) XposedHelpers.getObjectField(param.thisObject, "mClock");

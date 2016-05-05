@@ -4,7 +4,6 @@ import android.view.View;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -12,7 +11,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 
 public class NotificationPanelHooks {
 
-    private static final String TAG = "StatusBarHeaderHooks";
+    private static final String TAG = "NotificationPanelHooks";
 
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
 
@@ -24,6 +23,7 @@ public class NotificationPanelHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mNotificationPanelView = (View) param.thisObject;
             View mHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mHeader");
+            mHeader.setOnClickListener(null);
             mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
             mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
         }

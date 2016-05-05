@@ -27,6 +27,7 @@
     <string name="double_tap_speed_title">Double tap speed</string>
 
     <string name="enable_notifications">Enable notification tweaks</string>
+    <string name="enable_notifications_summ">After every change of those settings restart SystemUI</string>
     <string name="notifications_dark_theme_title">Dark notification theme</string>
     <string name="notifications_dark_theme">Dark notification background for users of specific layers themes</string>
 
@@ -61,6 +62,10 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">No previous app</string>
+    <string name="notification_allow_load_label_with_pm_title">Allow loading application name with PackageManager</string>
+    <string name="notification_allow_load_label_with_pm">May cause performance issues</string>
+    <string name="notification_full_width_volume_title">Full width volume dialog</string>
+    <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
     <!-- /RECENTS -->
 
 </resources>

@@ -3,44 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">將 Android N 的特點帶到 Lollipop(5.0/5.1) 或者 Marshmallow(6.0) 版本的rom中！</string>
+    <string name="xposed_description">將 Android N 的特色移植到 Lollipop(5.0/5.1) 或者 Marshmallow(6.0) 版本的系統(ROM)中！</string>
 
     <!-- prefs -->
     <string name="header_settings">設定</string>
-    <string name="header_recents">最近任務</string>
+    <string name="header_recents">最近使用的應用程式</string>
     <string name="header_app">應用程式</string>
 
     <string name="enable_settings">啟用設定調整</string>
-    <string name="fix_sound_notif_tile_title">修復 "聲音 &amp; 通知" 瓷磚</string>
-    <string name="fix_sound_notif_tile">有些ROM會組合聲音和通知瓷磚，啟用此選項可修復。</string>
+    <string name="fix_sound_notif_tile_title">修復 "聲音 和 通知" 的選項</string>
+    <string name="fix_sound_notif_tile">有些系統會組合聲音和通知的選項，啟用本選項可修復。</string>
 
     <string name="enable_recents">雙擊多工鍵切換應用程式速度</string>
     <string name="double_tap_speed_title">雙擊速度</string>
 
-    <string name="hide_launcher_icon_title">隱藏啟動器圖標</string>
+    <string name="hide_launcher_icon_title">隱藏啟動器圖示</string>
     <string name="hide_launcher_icon">可能需要重新啟動</string>
-	<string name="debug_log_title">Debug 日誌</string>
+	<string name="debug_log_title">除錯日誌</string>
     <string name="debug_log">警告:將會產生大量的日誌</string>
     <!-- /prefs -->
 
 
     <!-- SETTINGS -->
-    <string name="disconnected">未連接</string>
-    <string name="disabled">已禁用</string>
+    <string name="disconnected">未連線</string>
+    <string name="disabled">已關閉</string>
     <string name="off">關閉</string>
     <string name="on">開啟</string>
     <string name="data_usage_summary">已使用行動數據 %1$s</string>
-    <string name="display_summary">自動調節亮度已%1$s</string>
+    <string name="display_summary">自動調節亮度已 %1$s</string>
     <string name="sound_summary">鈴聲音量 %1$s</string>
-    <string name="apps_summary">已安裝 %1$d 個應用程式</string>
-    <string name="storage_summary">已用 %1$s / %2$s</string>
+    <string name="apps_summary">已安裝了 %1$d 個應用程式</string>
+    <string name="storage_summary">已使用 %1$s / %2$s</string>
     <string name="battery_summary">%1$s - 還可用大約 %2$s </string>
-    <string name="battery_charging_wireless">%1$s - 正在使用無線充電</string>
+    <string name="battery_charging_wireless">%1$s - 正在通過 無線 充電</string>
     <string name="battery_charging_usb">%1$s - 正在通過 USB 充電</string>
-    <string name="battery_charging_ac">%1$s - 正在通過 AC交流電 充電</string>
-    <string name="memory_summary">當前已用 %1$s / %2$s Ram</string>
-    <string name="user_summary">已透過 %1$s 登錄</string>
-    <string name="location_on_power">開啟/節電</string>
+    <string name="battery_charging_ac">%1$s - 正在通過 AC變壓器 充電</string>
+    <string name="memory_summary">目前已使用 %1$s / %2$s 的記憶體</string>
+    <string name="user_summary">已透過 %1$s 登入</string>
+    <string name="location_on_power">開啟/節約耗電量</string>
     <string name="location_on_device">開啟/僅限裝置</string>
     <string name="location_on_high">開啟/高精確度</string>
     <string name="print_summary">%1$d 個列印任務</string>
