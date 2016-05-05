@@ -4,6 +4,7 @@
     <string name="xposed_description">Porta le funzionalità introdotte in Android N a Lollipop e Marshmallow!</string>
 
     <string name="restart_systemui">Riavvia SystemUI</string>
+    <string name="restart_systemui_message">Sei sicuro di voler riavviare la SystemUI?</string>
     <string name="restart_broadcast_sent">Inviata una richiesta per riavviare</string>
     <string name="activity_about">Informazioni Android N-ify</string>
     <string name="about_author">Sviluppato da \"MrWasdennnoch\"</string>
