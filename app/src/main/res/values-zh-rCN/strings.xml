@@ -5,12 +5,15 @@
 
     <string name="xposed_description">将 Android N 内的特性移植到 Lollipop 和 Marshmallow 版本的 rom 中！</string>
 
+    <string name="restart_systemui">重启系统界面</string>
+    <string name="restart_systemui_message">你确定要重启系统界面吗？</string>
+    <string name="restart_broadcast_sent">已发送重启广播信息</string>
     <string name="activity_about">关于 Android N-ify</string>
     <string name="about_author">开发者 \"MrWasdennnoch\"</string>
     <string name="about_version">版本 %1$s (%2$d)</string>
     
     <!-- prefs -->
-    <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 而引起的。</string>
+    <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 而导致的。</string>
 
     <string name="header_settings">设置</string>
     <string name="header_recents">最近任务</string>
@@ -19,13 +22,15 @@
     
     <string name="enable_settings">启用设置调整</string>
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
-    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，开启后可在这类 rom 中显示出正确的信息概要。</string>
+    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，开启后可在这类 rom 的设置中显示出正确的信息概要。</string>
 
     <string name="enable_recents">启用最近任务调整</string>
     <string name="double_tap_speed_title">双击速度</string>
 
     <string name="enable_notifications">启用通知区域调整</string>
-    <string name="notifications_dark_theme_title">使用暗色主题通知</string>
+    <string name="enable_notifications_summ">每次更改设置后需重启系统界面</string>
+    <string name="notifications_dark_theme_title">使用暗色主题的通知</string>
+    <string name="notifications_dark_theme">针对某些特定层面主题的用户将使用暗色调的通知背景</string>
 	
     <string name="hide_launcher_icon_title">隐藏程序图标</string>
     <string name="hide_launcher_icon">或许需要重启桌面</string>
@@ -59,5 +64,12 @@
     <!-- RECENTS -->
     <string name="no_previous_recents">没有上一个应用</string>
     <!-- /RECENTS -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="notification_allow_load_label_with_pm_title">允许通过软件包安装程序获取应用名称</string>
+    <string name="notification_allow_load_label_with_pm">有可能会影响手机性能</string>
+    <string name="notification_full_width_volume_title">全宽度的音量控制对话框</string>
+    <string name="notification_full_width_volume">对大屏幕手机移除音量控制对话框的宽度限制</string>
+    <!-- /NOTIFICATIONS -->
 
 </resources>
