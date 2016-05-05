@@ -13,6 +13,7 @@
     <string name="prefs_file_not_readable">Xposed не может прочитать файл конфигурации, будут использованы стандартные значения. Это может быть связано с блокирующим режимом SELinux.</string>
 	
     <string name="restart_systemui">Перезапустить SystemUI</string>
+    <string name="restart_systemui_message">Вы действительно хотите перезапустить SystemUI?</string>
     <string name="restart_broadcast_sent">Запрос на перезапуск отправлен</string>
     <string name="header_settings">Настройки</string>
     <string name="header_recents">Недавние</string>
@@ -62,10 +63,13 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Нет недавних приложений</string>
+    <!-- /RECENTS -->  
+ 
+    <!-- NOTIFICATIONS -->
     <string name="notification_allow_load_label_with_pm_title">Разрешить загрузку названия приложения через PackageManager</string>  
     <string name="notification_allow_load_label_with_pm">Может вызвать проблемы с производительностью</string>  
     <string name="notification_full_width_volume_title">Растянуть диалог громкости</string>  
     <string name="notification_full_width_volume">Убрать ограничение ширины диалога громкости для телефонов с большими дисплеями</string> 
-    <!-- /RECENTS -->
+    <!-- /NOTIFICATIONS -->
 
 </resources>
