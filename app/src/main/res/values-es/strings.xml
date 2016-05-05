@@ -3,21 +3,35 @@
 
     <string name="xposed_description">Porta funciones introducidas en Android N para dispositivos con Lollipop y Marshmallow!</string>
 
+    <string name="restart_systemui">Reiniciar SystemUI</string>
+    <string name="restart_systemui_message">¿Estas seguro que quieres reiniciar SystemUI?</string>
+    <string name="restart_broadcast_sent">Petición de reinicio enviada</string>
+    <string name="activity_about">Sobre Android N-ify</string>
+    <string name="about_author">Desarrollado por \"MrWasdennnoch\"</string>
+    <string name="about_version">Versión %1$s (%2$d)</string>
+    
     <!-- prefs -->
+    <string name="prefs_file_not_readable">Xposed no puede leer el archivo de preferencias, los valores por defecto seran usados en hooks. Puede ser debido a imponer SELinux.</string>
+    
     <string name="header_settings">Módulo</string>
     <string name="header_recents">Recientes</string>
+    <string name="header_notifications">Notificaciones</string>
     <string name="header_app">Ajustes</string>
 
     <string name="enable_settings">Activar módulo</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
-    <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. activa esto para mostrar la información correctamente</string>
+    <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. Activa esto para mostrar la información correctamente</string>
 
     <string name="enable_recents">Activar ajustes del panel recientes</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
 
-    <!-- prefs -->
+    <string name="enable_notifications">Activar ajustes de notificación</string>
+    <string name="enable_notifications_summ">Depués de cada cambio reiniciar SystemUI</string>
+    <string name="notifications_dark_theme_title">Tema oscuro de notificaciones</string>
+    <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
+
     <string name="hide_launcher_icon">Puede requerir reiniciar el lanzador</string>
-    <string name="hide_launcher_icon_title">Esconder ícono en el lanzador</string>
+    <string name="hide_launcher_icon_title">Esconder icono en el lanzador</string>
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     <!-- /prefs -->
@@ -49,4 +63,10 @@
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
     <!-- /RECENTS -->
 
+    <!-- NOTIFICATIONS -->
+    <string name="notification_allow_load_label_with_pm_title">Permitir cargar el nombre de la aplicación con PackageManager</string>
+    <string name="notification_allow_load_label_with_pm">Puede causar problemas de rendimiento</string>
+    <string name="notification_full_width_volume_title">Diálogo de volumen con ancho completo</string>
+    <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
+    <!-- /NOTIFICATIONS -->
 </resources>
