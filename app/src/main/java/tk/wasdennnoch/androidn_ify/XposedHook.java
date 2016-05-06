@@ -14,6 +14,7 @@ import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
 import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapSwKeys;
+import tk.wasdennnoch.androidn_ify.recents.stack.RecentsStackHooks;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 
 /**
@@ -89,6 +90,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 StatusBarHeaderHooks.hook(lpparam.classLoader, sPrefs);
                 NotificationPanelHooks.hook(lpparam.classLoader, sPrefs);
                 NotificationsHooks.hookSystemUI(lpparam.classLoader, sPrefs);
+                RecentsStackHooks.hookSystemUI(lpparam.classLoader, sPrefs);
                 break;
             case PACKAGE_ANDROID:
                 DoubleTapHwKeys.hook(lpparam.classLoader, sPrefs);

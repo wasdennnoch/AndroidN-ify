@@ -388,7 +388,7 @@ public class NotificationsHooks {
                 //XposedHelpers.findAndHookMethod(classDismissViewButton, "performClick", dismissViewButtonPerformClickHook);
             }
         } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
+            XposedHook.logE(TAG, "Error hooking SystemUI", t);
         }
     }
 
