@@ -121,7 +121,7 @@ public class DoubleTapSwKeys extends DoubleTapBase {
         try {
             prefs.reload();
             loadPrefDoubleTapSpeed(prefs);
-            if (prefs.getBoolean("enable_recents_tweaks", true)) {
+            if (prefs.getBoolean("enable_recents_double_tap", true)) {
                 try {
                     XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", prepareNavigationBarViewHook);
                 } catch (NoSuchMethodError e) {

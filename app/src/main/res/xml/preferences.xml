@@ -27,6 +27,12 @@
             android:defaultValue="true"
             android:key="enable_recents_tweaks"
             android:title="@string/enable_recents"/>
+		
+		<SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_recents_double_tap"
+            android:dependency="enable_recents_tweaks"
+            android:title="@string/enable_recents_double_tap"/>
 
         <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
             interval="10"
@@ -35,7 +41,7 @@
             monitorBoxEnabled="true"
             monitorBoxUnit="ms"
             android:defaultValue="180"
-            android:dependency="enable_recents_tweaks"
+            android:dependency="enable_recents_double_tap"
             android:key="double_tap_speed"
             android:title="@string/double_tap_speed_title"/>
 

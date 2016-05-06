@@ -63,6 +63,7 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">No previous app</string>
+    <string name="enable_recents_double_tap">Double tap to switch to last app</string>
     <string name="enable_large_recents">Enable large recent apps</string>
     <!-- /RECENTS -->
 
