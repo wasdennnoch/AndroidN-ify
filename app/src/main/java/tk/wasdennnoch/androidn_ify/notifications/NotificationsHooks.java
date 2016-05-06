@@ -10,16 +10,13 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.os.Build;
-import android.text.method.AllCapsTransformationMethod;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
 import android.widget.DateTimeView;
 import android.widget.FrameLayout;
@@ -94,10 +91,10 @@ public class NotificationsHooks {
             }
 
             TextView privateTextView = (TextView) privateView.findViewById(R.id.app_name_text);
-            if(privateTextView != null) {
+            if (privateTextView != null) {
                 int color = privateTextView.getTextColors().getDefaultColor();
 
-                if(textView != null) {
+                if (textView != null) {
                     textView.setTextColor(privateTextView.getTextColors());
                     textView.setText(privateTextView.getText());
                 }
@@ -116,8 +113,8 @@ public class NotificationsHooks {
             Notification.Builder mBuilder = (Notification.Builder) XposedHelpers.getObjectField(param.thisObject, "mBuilder");
 
             CharSequence overflowText = (CharSequence) (XposedHelpers.getBooleanField(param.thisObject, "mSummaryTextSet")
-                ? XposedHelpers.getObjectField(param.thisObject, "mSummaryText")
-                : XposedHelpers.getObjectField(mBuilder, "mSubText"));
+                    ? XposedHelpers.getObjectField(param.thisObject, "mSummaryText")
+                    : XposedHelpers.getObjectField(mBuilder, "mSubText"));
             if (overflowText != null) {
                 contentView.setTextViewText(R.id.notification_summary, (CharSequence) XposedHelpers.callMethod(mBuilder, "processLegacyText", overflowText));
                 contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
@@ -173,11 +170,11 @@ public class NotificationsHooks {
             contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
 
             int resId = (int) param.args[0];
-            if(resId == context.getResources().getIdentifier("notification_template_material_big_media", "layout", PACKAGE_ANDROID) ||
+            if (resId == context.getResources().getIdentifier("notification_template_material_big_media", "layout", PACKAGE_ANDROID) ||
                     resId == context.getResources().getIdentifier("notification_template_material_media", "layout", PACKAGE_ANDROID)) {
                 CharSequence mContentText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mContentText");
                 CharSequence mSubText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mSubText");
-                if(mContentText != null && mSubText != null) {
+                if (mContentText != null && mSubText != null) {
                     contentView.setTextViewText(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID),
                             (CharSequence) XposedHelpers.callMethod(param.thisObject, "processLegacyText", mContentText));
                     contentView.setViewVisibility(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID), View.GONE);
@@ -259,11 +256,12 @@ public class NotificationsHooks {
             Context context = mDialogView.getContext();
             ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mDialogView.getLayoutParams();
             lp.setMargins(0, 0, 0, 0);
-            if(fullWidthVolume) {
+            if (fullWidthVolume) {
                 DisplayMetrics dm = context.getResources().getDisplayMetrics();
                 lp.width = dm.widthPixels;
             }
             mDialogView.setLayoutParams(lp);
+            //noinspection deprecation
             mDialogView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
         }
     };
@@ -305,7 +303,7 @@ public class NotificationsHooks {
                 // Layouts
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
 
-                if(prefs.getBoolean("notification_dismiss_button", false)) {
+                if (prefs.getBoolean("notification_dismiss_button", false)) {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_dismiss_all", status_bar_notification_dismiss_all);
                     try {
                         resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_dismiss_button", status_bar_notification_dismiss_all);
@@ -359,14 +357,20 @@ public class NotificationsHooks {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
-                Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
                 Class classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewButton", classLoader);
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
-                XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
-                if(prefs.getBoolean("notification_dismiss_button", false)) {
+                if (prefs.getBoolean("notification_dismiss_button", false)) {
                     XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
+                }
+
+                try {
+                    Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
+                    XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
+                } catch (Throwable ignore) {
+                    // Not there in LP
+                    // TODO implementation for LP devices
                 }
             }
         } catch (Throwable t) {
