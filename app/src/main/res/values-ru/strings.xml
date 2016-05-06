@@ -63,6 +63,7 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Нет недавних приложений</string>
+    <string name="enable_recents_double_tap">Двойное нажатие для переключения к предыдущему приложению</string>
     <string name="enable_large_recents">Увеличение высоты недавних приложений</string> 
     <!-- /RECENTS -->  
  
