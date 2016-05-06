@@ -3,6 +3,7 @@ package tk.wasdennnoch.androidn_ify.notifications;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.XResources;
+import android.os.Process;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -14,9 +15,12 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -36,8 +40,6 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_LAYOUT_VALUES = CLASS_STATUS_BAR_HEADER_VIEW + "$LayoutValues";
     private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
     private static final String CLASS_DETAIL_ADAPTER = "com.android.systemui.qs.QSTile$DetailAdapter";
-    //private static final String CLASS_QS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
-    //private static final String CLASS_TILE_RECORD = CLASS_QS_PANEL + "$TileRecord";
 
     private static byte sSetExpansionErrorCount = 0;
     private static boolean sLogSetExpansionError = true;
@@ -47,6 +49,7 @@ public class StatusBarHeaderHooks {
     private static TouchAnimator mFirstHalfAnimator;
     private static TouchAnimator mSecondHalfAnimator;
     private static TouchAnimator mSettingsAlpha;
+    private static TouchAnimator mQuickQSAnimator;
 
     private static RelativeLayout mStatusBarHeaderView;
 
@@ -73,11 +76,13 @@ public class StatusBarHeaderHooks {
     private static LinearLayout mRightContainer;
     private static Button mAlarmStatusCollapsed;
 
-    //private static QuickQSPanel mHeaderQsPanel;
+    private static QuickQSPanel mHeaderQsPanel;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+
+            XposedHook.logD(TAG, "SystemUI PID: " + Process.myPid());
 
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
             Context context = mStatusBarHeaderView.getContext();
@@ -126,6 +131,7 @@ public class StatusBarHeaderHooks {
                 int rippleRes = context.getResources().getIdentifier("ripple_drawable", "drawable", XposedHook.PACKAGE_SYSTEMUI);
                 int iconSize = res.getDimensionPixelSize(R.dimen.right_icon_size);
                 int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
+                int quickQSHorizontalMargin = res.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
 
                 ((ViewGroup) mClock.getParent()).removeView(mClock);
                 ((ViewGroup) mMultiUserSwitch.getParent()).removeView(mMultiUserSwitch);
@@ -175,7 +181,7 @@ public class StatusBarHeaderHooks {
                 RelativeLayout.LayoutParams dateTimeAlarmGroupLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dateTimeAlarmGroupLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 dateTimeAlarmGroupLp.topMargin = res.getDimensionPixelSize(R.dimen.date_time_alarm_group_margin_top);
-                dateTimeAlarmGroupLp.leftMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
+                dateTimeAlarmGroupLp.leftMargin = res.getDimensionPixelSize(R.dimen.date_time_alarm_group_margin_left);
                 mDateTimeAlarmGroup = new LinearLayout(context);
                 mDateTimeAlarmGroup.setLayoutParams(dateTimeAlarmGroupLp);
                 mDateTimeAlarmGroup.setId(View.generateViewId());
@@ -240,13 +246,12 @@ public class StatusBarHeaderHooks {
                 mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
 
 
-                /*LinearLayout.LayoutParams headerQsPanelLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                headerQsPanelLp.topMargin = res.getDimensionPixelSize(R.dimen.quick_qs_panel_margin_top);
+                LinearLayout.LayoutParams headerQsPanelLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 mHeaderQsPanel = new QuickQSPanel(context);
-                mHeaderQsPanel.setClasses(sClassTileReord);
                 mHeaderQsPanel.setLayoutParams(headerQsPanelLp);
+                mHeaderQsPanel.setPadding(quickQSHorizontalMargin, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), quickQSHorizontalMargin, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
                 mHeaderQsPanel.setClipChildren(false);
-                mHeaderQsPanel.setClipToPadding(false);*/
+                mHeaderQsPanel.setClipToPadding(false);
 
 
                 mRightContainer.addView(mMultiUserSwitch);
@@ -259,7 +264,7 @@ public class StatusBarHeaderHooks {
                 mDateTimeAlarmGroup.addView(mAlarmStatus);
                 mStatusBarHeaderView.addView(mRightContainer);
                 mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
-                //mStatusBarHeaderView.addView(mHeaderQsPanel);
+                mStatusBarHeaderView.addView(mHeaderQsPanel);
                 mStatusBarHeaderView.setClipChildren(false);
                 mStatusBarHeaderView.setClipToPadding(false);
 
@@ -288,7 +293,9 @@ public class StatusBarHeaderHooks {
                     mFirstHalfAnimator.setPosition(f);
                     mSecondHalfAnimator.setPosition(f);
                     mSettingsAlpha.setPosition(f);
+                    mQuickQSAnimator.setPosition(f);
                 }
+                mHeaderQsPanel.setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable t) {
                 // Prevent log spam
@@ -322,11 +329,38 @@ public class StatusBarHeaderHooks {
                 mDateGroup.setVisibility(View.GONE);
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
+                mMultiUserSwitch.setVisibility(XposedHelpers.getBooleanField(param.thisObject, "mExpanded") ? View.VISIBLE : View.INVISIBLE);
             } else {
                 XposedHook.logD(TAG, "updateVisibilitiesHook: mSystemIconsSuperContainer is still null");
             }
         }
     };
+
+    private static XC_MethodHook setTilesHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHook.logD(TAG, "setTilesHook PID: " + Process.myPid());
+            // This method gets called from two different processes,
+            // so we have to check if we are in the right one
+            if (mHeaderQsPanel != null) {
+                //noinspection unchecked
+                final ArrayList<Object> mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
+                mHeaderQsPanel.setTiles(mRecords);
+            }
+        }
+    };
+    private static XC_MethodHook drawTileHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHook.logD(TAG, "drawTileHook PID: " + Process.myPid());
+            // This method gets called from two different processes,
+            // so we have to check if we are in the right one
+            if (mHeaderQsPanel != null) {
+                mHeaderQsPanel.drawTile(param.args[0], param.args[1]); // TODO no icon animation
+            }
+        }
+    };
+
 
     private static void updateResources(Context context) {
         if (mDateTimeGroup == null) {
@@ -345,8 +379,6 @@ public class StatusBarHeaderHooks {
         mDateSizeAnimator = new TouchAnimator.Builder()
                 .addFloat(mDateTimeGroup, "scaleX", 1, dateScaleFactor)
                 .addFloat(mDateTimeGroup, "scaleY", 1, dateScaleFactor)
-                //.addFloat(mDateTimeGroup, "scaleX", dateScaleFactor, 1)
-                //.addFloat(mDateTimeGroup, "scaleY", dateScaleFactor, 1)
                 .setStartDelay(0.36F)
                 .build();
         mFirstHalfAnimator = new TouchAnimator.Builder()
@@ -363,6 +395,9 @@ public class StatusBarHeaderHooks {
                 .addFloat(mSettingsContainer, "alpha", 0.0F, 1.0F)
                 .addFloat(mMultiUserSwitch, "alpha", 0.0F, 1.0F)
                 .setStartDelay(0.7F).build();
+        mQuickQSAnimator = new TouchAnimator.Builder()
+                .addFloat(mHeaderQsPanel, "alpha", 1.0F, 0.0F)
+                .setEndDelay(0.64F).build();
 
         boolean rtl = (boolean) XposedHelpers.callMethod(mStatusBarHeaderView.getLayoutParams(), "isLayoutRtl");
         if (rtl && mDateTimeGroup.getWidth() == 0) {
@@ -454,7 +489,11 @@ public class StatusBarHeaderHooks {
                         if (!in) {
                             v.setVisibility(View.INVISIBLE);
                         }
-                        XposedHelpers.setBooleanField(mStatusBarHeaderView, "mDetailTransitioning", false);
+                        try {
+                            XposedHelpers.setBooleanField(mStatusBarHeaderView, "mDetailTransitioning", false);
+                        } catch (Throwable ignore) {
+                            // Not in LP
+                        }
                     }
                 })
                 .start();
@@ -465,6 +504,7 @@ public class StatusBarHeaderHooks {
             if (prefs.getBoolean("enable_notification_tweaks", true)) {
 
                 Class<?> classStatusBarHeaderView = XposedHelpers.findClass(CLASS_STATUS_BAR_HEADER_VIEW, classLoader);
+                Class<?> classQSPanel = XposedHelpers.findClass(CLASS_QS_PANEL, classLoader);
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpansion", float.class, setExpansionHook);
@@ -496,13 +536,19 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                XposedHelpers.findAndHookMethod(CLASS_QS_PANEL, classLoader, "fireShowingDetail", CLASS_DETAIL_ADAPTER, new XC_MethodReplacement() {
+                // TODO find better way of managing header view transitions on showing detail
+                XposedHelpers.findAndHookMethod(classQSPanel, "fireShowingDetail", CLASS_DETAIL_ADAPTER, new XC_MethodReplacement() {
                     @Override
                     protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                         handleShowingDetail(param.args[0]);
                         return null;
                     }
                 });
+
+
+                //XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
+                XposedBridge.hookAllMethods(classQSPanel, "setTiles", setTilesHook);
+                XposedBridge.hookAllMethods(classQSPanel, "drawTile", drawTileHook);
 
             }
         } catch (Throwable t) {
@@ -519,7 +565,7 @@ public class StatusBarHeaderHooks {
                 XResources.DimensionReplacement emergencyCallsOnlySize = new XResources.DimensionReplacement(12, TypedValue.COMPLEX_UNIT_SP);
                 XResources.DimensionReplacement dateTimeCollapsedSize = new XResources.DimensionReplacement(14, TypedValue.COMPLEX_UNIT_SP);
                 XResources.DimensionReplacement multiUserAvatarSize = new XResources.DimensionReplacement(24, TypedValue.COMPLEX_UNIT_DIP);
-                XResources.DimensionReplacement BrigtSliderPadTop= new  XResources.DimensionReplacement(-12,TypedValue.COMPLEX_UNIT_DIP);
+                XResources.DimensionReplacement brightnessSliderPaddingTop= new  XResources.DimensionReplacement(-12,TypedValue.COMPLEX_UNIT_DIP);
 
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
@@ -527,8 +573,13 @@ public class StatusBarHeaderHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height_expanded", headerHeight);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_emergency_calls_only_text_size", emergencyCallsOnlySize);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_date_collapsed_size", dateTimeCollapsedSize);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", multiUserAvatarSize);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_brightness_padding_top", BrigtSliderPadTop);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_collapsed_size", multiUserAvatarSize);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_brightness_padding_top", brightnessSliderPaddingTop);
+                try {
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", multiUserAvatarSize);
+                } catch (Throwable ignore) {
+                    // Not in LP
+                }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);
 

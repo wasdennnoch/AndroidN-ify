@@ -1,6 +1,7 @@
 package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
@@ -15,13 +16,15 @@ public class NotificationPanelHooks {
 
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
 
-    private static View mNotificationPanelView;
+    private static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            mNotificationPanelView = (View) param.thisObject;
+            mNotificationPanelView = (ViewGroup) param.thisObject;
+            mNotificationPanelView.setClipChildren(false);
+            mNotificationPanelView.setClipToPadding(false);
             View mHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mHeader");
             mHeader.setOnClickListener(null);
             mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
