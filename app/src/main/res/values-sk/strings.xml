@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
     
     <string name="xposed_description">Niektoré funkcie z Android N pre Lollipop a Marshmallow!</string>
 
@@ -13,27 +15,37 @@
     <!-- prefs -->
     <string name="prefs_file_not_readable">Xposed nevie čítať súbor nastavení, budú použité predvolené hodnoty. To môže byť spôsobené ak je SELinux v režime enforcing.</string>
 
-    <string name="header_settings">Nastavenia</string>
-    <string name="header_recents">Nedávne aplikácie</string>
-    <string name="header_notifications">Upozornenia</string>
     <string name="header_app">Aplikácia</string>
 
+    <!-- SETTINGS -->
+    <string name="header_settings">Nastavenia</string>
     <string name="enable_settings">Povoliť úpravy nastavení</string>
     <string name="fix_sound_notif_tile_title">Opraviť "Zvuk a upozornenia"</string>
     <string name="fix_sound_notif_tile">Niektoré ROM kombinujú Zvuky a Upozornenia. Povoľte pre zobrazenie správneho zhrnutia</string>
+    <!-- /SETTINGS -->
 
+    <!-- RECENTS -->
+    <string name="header_recents">Nedávne aplikácie</string>
+    <string name="no_previous_recents">Žiadna nedávna aplikácia</string>
     <string name="enable_recents">Povoliť prepínač nedávnych aplikácií</string>
-    <string name="double_tap_speed_title">Rýchlosť dvojitého kliknutia</string>
+    <string name="enable_recents_double_tap">Dvojitým poklepaním otvoriť predchádzajúcu apl.</string>
+    <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
+    <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
+    <!-- /RECENTS -->
 
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Upozornenia</string>
     <string name="enable_notifications">Povoliť úpravy upozornení</string>
+    <string name="enable_notifications_summ">Po každej zmene týchto nastavení reštartujte SystemUI</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
     <string name="notifications_dark_theme">Tmavá téma pozadia upozornení pre používateľov špecifických Layers tém</string>
+    <string name="notification_dismiss_button_title">Zmeniť tlačidlo pre vymazanie</string>
+    <string name="notification_dismiss_button">Zobrazí \"VYMAZAŤ VŠETKO\" namiesto ikony</string>
     <string name="notification_allow_load_label_with_pm_title">Povoliť načítanie názvu apl. pomocou PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Môže spôsobiť problémy s výkonom</string>
     <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
     <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
-    <string name="notification_dismiss_button_title">Zmeniť tlačidlo pre vymazanie</string>
-    <string name="notification_dismiss_button">Zobraziť \"VYMAZAŤ VŠETKO\" namiesto ikony</string>
+    <!-- /NOTIFICATIONS -->
 
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
@@ -63,10 +75,5 @@
     <string name="location_on_high">ZAP. / Vysoká presnosť</string>
     <string name="print_summary">%1$d tlačových úloh</string>
     <!-- /SETTINGS -->
-
-    <!-- RECENTS -->
-    <string name="no_previous_recents">Žiadna nedávna aplikácia</string>
-    <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
-    <!-- /RECENTS -->
 
 </resources>
