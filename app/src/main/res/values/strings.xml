@@ -63,6 +63,7 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">No previous app</string>
+    <string name="enable_large_recents">Enable large recent apps</string>
     <!-- /RECENTS -->
 
     <!-- NOTIFICATIONS -->
@@ -70,6 +71,8 @@
     <string name="notification_allow_load_label_with_pm">May cause performance issues</string>
     <string name="notification_full_width_volume_title">Full width volume dialog</string>
     <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
+    <string name="notification_dismiss_button_title">Change dismiss button</string>
+    <string name="notification_dismiss_button">Show \"CLEAR ALL\" instead of dismiss icon</string>
     <!-- /NOTIFICATIONS -->
 
 </resources>

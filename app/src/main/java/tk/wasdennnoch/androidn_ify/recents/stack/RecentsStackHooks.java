@@ -11,7 +11,7 @@ public class RecentsStackHooks {
 
     public static void hookSystemUI(ClassLoader classLoader, XSharedPreferences prefs) {
         try {
-            if (prefs.getBoolean("enable_recents_tweaks", true)) {
+            if (prefs.getBoolean("enable_large_recents", true)) {
                 Class classTaskStackViewLayoutAlgorithm = XposedHelpers.findClass("com.android.systemui.recents.views.TaskStackViewLayoutAlgorithm", classLoader);
 
                 XposedHelpers.findAndHookMethod(classTaskStackViewLayoutAlgorithm, "curveProgressToScale", float.class, XC_MethodReplacement.returnConstant(1f));
