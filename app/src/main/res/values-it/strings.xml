@@ -71,7 +71,7 @@
     <string name="notification_full_width_volume_title">Dialogo del volume per tutta la larghezza</string>
     <string name="notification_full_width_volume">Rimuovi i limiti di larghezza del dialogo del volume per dispositivi con display grandi</string>
     <string name="notification_dismiss_button_title">Cambia pulsante di rimozione</string>
-    <string name="notification_dismiss_button">Mostra \"CANCELLTA TUTTO\" invece dell'icona di rimozione</string>
+    <string name="notification_dismiss_button">Mostra \"CANCELLA TUTTO\" invece dell'icona di rimozione</string>
      <!-- /NOTIFICATIONS -->
 
 </resources>
