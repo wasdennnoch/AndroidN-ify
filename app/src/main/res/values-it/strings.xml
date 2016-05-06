@@ -62,10 +62,16 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Nessuna app precedente</string>
+    <string name="enable_large_recents">Abilita grandi app recenti</string>
+    <!-- /RECENTS -->
+    
+    <!-- NOTIFICATIONS -->
     <string name="notification_allow_load_label_with_pm_title">Abilita il caricamento del nome dell\'applicazione con PackageManger</string>
     <string name="notification_allow_load_label_with_pm">Potrebbe causare riduzioni di prestazioni</string>
     <string name="notification_full_width_volume_title">Dialogo del volume per tutta la larghezza</string>
     <string name="notification_full_width_volume">Rimuovi i limiti di larghezza del dialogo del volume per dispositivi con display grandi</string>
-    <!-- /RECENTS -->
+    <string name="notification_dismiss_button_title">Cambia pulsante di rimozione</string>
+    <string name="notification_dismiss_button">Mostra \"CANCELLTA TUTTO\" invece dell'icona di rimozione</string>
+     <!-- /NOTIFICATIONS -->
 
 </resources>
