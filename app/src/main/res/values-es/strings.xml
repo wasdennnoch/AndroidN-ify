@@ -61,6 +61,7 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
+    <string name="enable_large_recents">Activar tajetas grandes en aplicaciones recientes</string>
     <!-- /RECENTS -->
 
     <!-- NOTIFICATIONS -->
@@ -68,5 +69,7 @@
     <string name="notification_allow_load_label_with_pm">Puede causar problemas de rendimiento</string>
     <string name="notification_full_width_volume_title">Diálogo de volumen con ancho completo</string>
     <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
+    <string name="notification_dismiss_button_title">Cambiar botón descartar</string>
+    <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
     <!-- /NOTIFICATIONS -->
 </resources>
