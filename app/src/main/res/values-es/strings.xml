@@ -61,6 +61,7 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
+    <string name="enable_recents_double_tap">Doble toque para cambiar a la última aplicación usada</string>
     <string name="enable_large_recents">Activar tajetas grandes en aplicaciones recientes</string>
     <!-- /RECENTS -->
 
