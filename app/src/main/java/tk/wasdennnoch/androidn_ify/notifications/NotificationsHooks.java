@@ -268,28 +268,6 @@ public class NotificationsHooks {
         }
     };
 
-    private static XC_MethodReplacement dismissViewButtonPerformClickHook = new XC_MethodReplacement() {
-        @Override
-        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-            // Copied from View.performClick()
-
-            Button button = (Button) param.thisObject;
-
-            final boolean result;
-            final Object li = XposedHelpers.getObjectField(button, "mListenerInfo");
-            if (li != null && XposedHelpers.getObjectField(li, "mOnClickListener") != null) {
-                button.playSoundEffect(SoundEffectConstants.CLICK);
-                ((View.OnClickListener) XposedHelpers.getObjectField(li, "mOnClickListener")).onClick(button);
-                result = true;
-            } else {
-                result = false;
-            }
-
-            button.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
-            return result;
-        }
-    };
-
     private static XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -326,11 +304,14 @@ public class NotificationsHooks {
 
                 // Layouts
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
-                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_dismiss_all", status_bar_notification_dismiss_all);
-                try {
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_dismiss_button", status_bar_notification_dismiss_all);
-                } catch (Exception e) {
-                    
+
+                if(prefs.getBoolean("notification_dismiss_button", false)) {
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_dismiss_all", status_bar_notification_dismiss_all);
+                    try {
+                        resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_dismiss_button", status_bar_notification_dismiss_all);
+                    } catch (Exception e) {
+
+                    }
                 }
 
                 fullWidthVolume = prefs.getBoolean("notification_full_width_volume", false);
@@ -384,8 +365,9 @@ public class NotificationsHooks {
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
                 XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
-                XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
-                //XposedHelpers.findAndHookMethod(classDismissViewButton, "performClick", dismissViewButtonPerformClickHook);
+                if(prefs.getBoolean("notification_dismiss_button", false)) {
+                    XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
+                }
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI", t);
