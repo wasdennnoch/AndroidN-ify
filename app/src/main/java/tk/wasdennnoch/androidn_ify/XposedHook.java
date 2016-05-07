@@ -40,7 +40,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_SETTINGS = "com.android.settings";
     public static final String PACKAGE_OWN = "tk.wasdennnoch.androidn_ify";
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
-    private static boolean debug = false;
+    public static boolean debug = false;
     private static String sModulePath;
 
     private static XSharedPreferences sPrefs;
