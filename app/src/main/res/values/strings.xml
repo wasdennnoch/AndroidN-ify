@@ -24,6 +24,8 @@
     <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
     <string name="fix_sound_notif_tile">Some ROMs combine the Sounds- and Notifications tile. Enable to set the proper summary for this tile</string>
 
+    <string name="header_tweaks">Tweaks</string>
+
     <string name="enable_recents">Enable recents tweaks</string>
     <string name="double_tap_speed_title">Double tap speed</string>
 
