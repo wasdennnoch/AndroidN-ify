@@ -3,17 +3,32 @@
 
     <string name="xposed_description">Lollipop ve Marshmallow uzerinde android N ozelliklerini deneyin!</string>
 
+    <string name="restart_systemui">SystemUI yeniden baslat</string>
+    <string name="restart_systemui_message">SystemUI yeniden baslatilacak eminmisiniz?</string>
+    <string name="restart_broadcast_sent">Yayını yeniden baslat</string>
+    <string name="activity_about">Android N-ify Hakkinda</string>
+    <string name="about_author">Gelistirici \"MrWasdennnoch\"</string>
+    <string name="about_version">Versiyon %1$s (%2$d)</string>
+
     <!-- prefs -->
     <string name="header_settings">Ayarlar</string>
     <string name="header_recents">Son uygulamalar</string>
-    <string name="header_app">App</string>
+    <string name="header_notifications">Bildirimler</string>
+    <string name="header_app">Uygulama</string>
 
     <string name="enable_settings">Ayarlar gelistirmesini aktiflestir</string>
     <string name="fix_sound_notif_tile_title">Fix "Ses &amp; bildirim" satırı</string>
     <string name="fix_sound_notif_tile">Eger ses ve bildirim aciklamasi yanlis ise acin</string>
 
+    <string name="header_tweaks">Gelistirme</string>
+
     <string name="enable_recents">Son uygulamalar gelistirmesi</string>
     <string name="double_tap_speed_title">Cift dokunma hizi</string>
+
+    <string name="enable_notifications">Bildirimler gelistirmesi</string>
+    <string name="enable_notifications_summ">Her degisiklikten sonra SystemUI yeniden baslatilmasi gerekir</string>
+    <string name="notifications_dark_theme_title">Karanlik bildirimler temasi</string>
+    <string name="notifications_dark_theme">Kullanicilar icin karanlik bildirimler temasi</string>
 
     <string name="hide_launcher_icon_title">Simgeyi gizle</string>
     <string name="hide_launcher_icon">Launcher yeniden baslayabilir</string>
@@ -47,6 +62,17 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Son uygulama yok</string>
+    <string name="enable_recents_double_tap">Cift tiklama ile son uygulamayi acma</string>
+    <string name="enable_large_recents">Buyuk son uygulamalar</string>
     <!-- /RECENTS -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="notification_allow_load_label_with_pm_title">Tum uygulamalarin yuklenmesi icin paket yoneticisi izni</string>
+    <string name="notification_allow_load_label_with_pm">Performans sorunlarina yol acabilir</string>
+    <string name="notification_full_width_volume_title">Tam boyutlu ses ayarlari</string>
+    <string name="notification_full_width_volume">Genis ekranli telefonlar icin ses ayarlari sinirini kaldirir</string>
+    <string name="notification_dismiss_button_title">Temizleme butonunu değistirme</string>
+    <string name="notification_dismiss_button">Yerine \"TÜMÜNÜ TEMİZLE\" butonunu gösterir</string>
+    <!-- /NOTIFICATIONS -->
 
 </resources>
