@@ -21,7 +21,9 @@
     <string name="enable_settings">Activar módulo</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
     <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. Activa esto para mostrar la información correctamente</string>
-
+    
+    <string name="header_tweaks">Modificaciones</string>
+    
     <string name="enable_recents">Activar ajustes del panel recientes</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
 
