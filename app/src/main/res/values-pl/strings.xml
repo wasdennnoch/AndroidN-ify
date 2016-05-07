@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Dodaje funkcje wprowadzone w Androida N do Androida Lollipop i Marshmallow!</string>
+    <string name="xposed_description">Dodaje funkcje wprowadzone w Android N do Androida Lollipop i Marshmallow!</string>
 
+    <string name="restart_systemui">Zrestartuj SystemUI</string>
+    <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
+    <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
     <string name="activity_about">O Android N-ify</string>
     <string name="about_author">Stworzone przez \"MrWasdennnoch\"</string>
     <string name="about_version">Wersja %1$s (%2$d)</string>
@@ -17,20 +20,24 @@
     <string name="header_notifications">Powiadomienia</string>
     <string name="header_app">Aplikacja</string>
 
-    <string name="enable_settings">Włącz poprawki Ustawień</string>
+    <string name="enable_settings">Włącz poprawki ustawień</string>
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
     <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
 
-    <string name="enable_recents">Włącz poprawki Ostatnich aplikacji</string>
+    <string name="header_tweaks">Ulepszenia</string>
+
+    <string name="enable_recents">Włącz poprawki ostatnich aplikacji</string>
     <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
 
-    <string name="enable_notifications">Włącz poprawki Powiadomień</string>
-    <string name="notifications_dark_theme_title">Ciemny motyw Powiadomień</string>
+    <string name="enable_notifications">Włącz poprawki powiadomień</string>
+    <string name="enable_notifications_summ">Po każdej zmianie tych ustawień, zrestartuj SystemUI</string>
+    <string name="notifications_dark_theme_title">Ciemny motyw powiadomień</string>
+    <string name="notifications_dark_theme">Ciemne tło powiadomień dla użytkowników specificznych motywów</string>
 
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
     <string name="debug_log_title">Włącz debugowanie</string>
-    <string name="debug_log">Ostrzeżenie: Powoduje dużo wpisów w Logu</string>
+    <string name="debug_log">Ostrzeżenie: powoduje dużo wpisów w dzienniku debugowania</string>
     <!-- /prefs -->
 
 
@@ -58,20 +65,18 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Brak poprzedniej aplikacji</string>
+    <string name="enable_recents_double_tap">Podwójne kliknięcie, aby zmienić na ostatnio używaną aplikację</string>
     <string name="enable_large_recents">Włącz duże okna ostatnich aplikacji</string>
-    <string name="enable_notifications_summ">Po każdej zmianie tych ustawień, zrestartuj SystemUI</string>
-    <string name="enable_recents_double_tap">Dotnij dwókrtonie aby zmienić na ostanio używaną aplikację</string>
-    <string name="header_tweaks">Ulepszenia</string>
-    <string name="notification_allow_load_label_with_pm">Może powodować problemy z wydajnością</string>
-    <string name="notification_allow_load_label_with_pm_title">Pozwól na ładowanie nazw aplikacji z PackageManager</string>
-    <string name="notification_dismiss_button">Pokaż \"WYCZYŚĆ WSZYSTKIE\" zamiast ikony czyszczenia</string>
-    <string name="notification_dismiss_button_title">Zmień ikonę czyszczenia</string>
-    <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
-    <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
-    <string name="notifications_dark_theme">Ciemne tło powiadomień dla użytkowników specificznych motywów</string>
-    <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
-    <string name="restart_systemui">Zrestartuj SystemUI</string>
-    <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
     <!-- /RECENTS -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="notifications_change_style">Powiadomienia w stylu N</string>
+    <string name="notification_allow_load_label_with_pm_title">Pozwól na ładowanie nazw aplikacji z PackageManager</string>
+    <string name="notification_allow_load_label_with_pm">Może powodować problemy z wydajnością</string>
+    <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
+    <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
+    <string name="notification_dismiss_button_title">Zmień ikonę czyszczenia</string>
+    <string name="notification_dismiss_button">Pokaż \"WYCZYŚĆ WSZYSTKIE\" zamiast ikony czyszczenia</string>
+    <!-- /NOTIFICATIONS -->
 
 </resources>
