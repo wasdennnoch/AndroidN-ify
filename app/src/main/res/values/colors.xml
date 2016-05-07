@@ -9,7 +9,7 @@
     <!-- /App theme -->
 
 
-    <!-- Notifications / Status bar panel -->
+    <!-- Notifications / Status bar header -->
     <color name="alarm_status_text_color">#64FFFFFF</color>
     <color name="emergency_calls_only_text_color">#66FFFFFF</color>
     <color name="clock_date_text_color">#FFFFFFFF</color>
@@ -31,6 +31,8 @@
     <color name="notification_material_background_media_default_color_dark">#FF3A3A3A</color>
     <color name="notification_ripple_untinted_color_dark">#28FFFFFF</color>
     <color name="notification_ripple_color_low_priority_dark">#30FFFFFF</color>
-    <!-- /Notifications / Status bar panel -->
+
+    <color name="notification_action_list">#FFEEEEEE</color>
+    <!-- /Notifications / Status bar header -->
 
 </resources>

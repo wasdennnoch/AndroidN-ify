@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Notifications / Status bar header -->
     <dimen name="status_bar_header_height">80dp</dimen>
 
     <dimen name="right_layout_height">48.0dp</dimen>
@@ -14,9 +15,12 @@
     <dimen name="qs_quick_panel_padding_bottom">8dp</dimen>
     <dimen name="qs_quick_tile_size">48dip</dimen>
     <dimen name="qs_quick_tile_padding">12dip</dimen>
-    
+
+    <dimen name="brightness_slider_padding_top">-12dp</dimen>
     <dimen name="emergency_calls_only_margin_top">8.0dp</dimen>
     <dimen name="emergency_calls_only_text_size">12.0sp</dimen>
+    <dimen name="multi_user_avatar_size">24dp</dimen>
+    <dimen name="settings_gear_translation">16.0dip</dimen>
 
     <dimen name="date_time_alarm_group_margin_left">16.0dp</dimen>
     <dimen name="date_time_alarm_group_margin_top">8.0dp</dimen>
@@ -30,7 +34,6 @@
     <dimen name="alarm_status_padding_top">3.0dp</dimen>
     <dimen name="alarm_status_drawable_padding">6.0dp</dimen>
     <dimen name="alarm_status_collapsed_drawable_padding">6.0dp</dimen>
-    <dimen name="settings_gear_translation">16.0dip</dimen>
 
     <dimen name="notification_icon_size">18dp</dimen>
     <dimen name="notification_icon_margin_end">3dp</dimen>
@@ -53,5 +56,6 @@
     <dimen name="notification_actions_margin_top">16dp</dimen>
     <dimen name="notification_dismiss_button_padding">16dp</dimen>
     <dimen name="notification_dismiss_button_padding_top">14dp</dimen>
-    <color name="notification_action_list">#ffeeeeee</color>
+    <!-- /Notifications / Status bar header -->
+
 </resources>

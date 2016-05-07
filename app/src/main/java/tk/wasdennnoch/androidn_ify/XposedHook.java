@@ -113,7 +113,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         switch (resparam.packageName) {
             case PACKAGE_SYSTEMUI:
                 NotificationsHooks.hookResSystemui(resparam, sPrefs, sModulePath);
-                StatusBarHeaderHooks.hookResSystemui(resparam, sPrefs);
+                StatusBarHeaderHooks.hookResSystemui(resparam, sPrefs, sModulePath);
                 break;
         }
 
