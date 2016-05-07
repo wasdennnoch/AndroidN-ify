@@ -19,80 +19,84 @@
 
     </PreferenceCategory>
 
-
     <PreferenceCategory
-        android:title="@string/header_recents">
+        android:title="@string/header_tweaks">
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="enable_recents_tweaks"
-            android:title="@string/enable_recents"/>
-		
-		<SwitchPreference
-            android:defaultValue="false"
-            android:key="enable_recents_double_tap"
-            android:dependency="enable_recents_tweaks"
-            android:title="@string/enable_recents_double_tap"/>
+        <PreferenceScreen
+            android:title="@string/header_recents"
+            android:key="settings_recents">
 
-        <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
-            interval="10"
-            maximum="1500"
-            minimum="100"
-            monitorBoxEnabled="true"
-            monitorBoxUnit="ms"
-            android:defaultValue="180"
-            android:dependency="enable_recents_double_tap"
-            android:key="double_tap_speed"
-            android:title="@string/double_tap_speed_title"/>
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_recents_tweaks"
+                android:title="@string/enable_recents"/>
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="enable_large_recents"
-            android:dependency="enable_recents_tweaks"
-            android:title="@string/enable_large_recents"/>
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="enable_recents_double_tap"
+                android:dependency="enable_recents_tweaks"
+                android:title="@string/enable_recents_double_tap"/>
+
+            <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+                interval="10"
+                maximum="1500"
+                minimum="100"
+                monitorBoxEnabled="true"
+                monitorBoxUnit="ms"
+                android:defaultValue="180"
+                android:dependency="enable_recents_double_tap"
+                android:key="double_tap_speed"
+                android:title="@string/double_tap_speed_title"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_large_recents"
+                android:dependency="enable_recents_tweaks"
+                android:title="@string/enable_large_recents"/>
+
+        </PreferenceScreen>
+
+
+        <PreferenceScreen
+            android:title="@string/header_notifications">
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_notification_tweaks"
+                android:title="@string/enable_notifications"
+                android:summary="@string/enable_notifications_summ"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_notification_tweaks"
+                android:key="notification_dark_theme"
+                android:summary="@string/notifications_dark_theme"
+                android:title="@string/notifications_dark_theme_title"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_notification_tweaks"
+                android:key="notification_dismiss_button"
+                android:summary="@string/notification_dismiss_button"
+                android:title="@string/notification_dismiss_button_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_notification_tweaks"
+                android:key="notification_allow_load_label_with_pm"
+                android:summary="@string/notification_allow_load_label_with_pm"
+                android:title="@string/notification_allow_load_label_with_pm_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_notification_tweaks"
+                android:key="notification_full_width_volume"
+                android:summary="@string/notification_full_width_volume"
+                android:title="@string/notification_full_width_volume_title"/>
+
+        </PreferenceScreen>
 
     </PreferenceCategory>
-
-
-    <PreferenceCategory
-        android:title="@string/header_notifications">
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="enable_notification_tweaks"
-            android:title="@string/enable_notifications"
-            android:summary="@string/enable_notifications_summ"/>
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:dependency="enable_notification_tweaks"
-            android:key="notification_dark_theme"
-            android:summary="@string/notifications_dark_theme"
-            android:title="@string/notifications_dark_theme_title"/>
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:dependency="enable_notification_tweaks"
-            android:key="notification_dismiss_button"
-            android:summary="@string/notification_dismiss_button"
-            android:title="@string/notification_dismiss_button_title"/>
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:dependency="enable_notification_tweaks"
-            android:key="notification_allow_load_label_with_pm"
-            android:summary="@string/notification_allow_load_label_with_pm"
-            android:title="@string/notification_allow_load_label_with_pm_title"/>
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:dependency="enable_notification_tweaks"
-            android:key="notification_full_width_volume"
-            android:summary="@string/notification_full_width_volume"
-            android:title="@string/notification_full_width_volume_title"/>
-
-    </PreferenceCategory>
-
 
     <PreferenceCategory
         android:title="@string/header_app">
