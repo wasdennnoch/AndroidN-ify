@@ -23,7 +23,9 @@
     <string name="enable_settings">Включить твики настроек</string>
     <string name="fix_sound_notif_tile_title">Исправить пункт \"Звуки и Уведомления\"</string>
     <string name="fix_sound_notif_tile">Некоторые прошивки объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения.</string>
-
+    
+    <string name="header_tweaks">Твики</string>
+    
     <string name="enable_recents">Включить твики для недавних приложений</string>
     <string name="double_tap_speed_title">Скорость двойного нажатия</string>
 
@@ -68,6 +70,7 @@
     <!-- /RECENTS -->  
  
     <!-- NOTIFICATIONS -->
+    <string name="notifications_change_style">Уведомления в стиле Android N</string>
     <string name="notification_allow_load_label_with_pm_title">Разрешить загрузку названия приложения через PackageManager</string>  
     <string name="notification_allow_load_label_with_pm">Может вызвать проблемы с производительностью</string>  
     <string name="notification_full_width_volume_title">Растянуть диалог громкости</string>  
