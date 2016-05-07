@@ -60,19 +60,19 @@
         <PreferenceScreen
             android:title="@string/header_notifications">
 
-				<SwitchPreference
+            <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_notification_tweaks"
                 android:title="@string/enable_notifications"
                 android:summary="@string/enable_notifications_summ"/>
 
-			<SwitchPreference
+            <SwitchPreference
                 android:defaultValue="true"
 				android:dependency="enable_notification_tweaks"
                 android:key="notification_change_style"
                 android:title="@string/notifications_change_style"/>
 
-				<SwitchPreference
+            <SwitchPreference
                 android:defaultValue="false"
                 android:dependency="enable_notification_tweaks"
                 android:key="notification_dark_theme"
