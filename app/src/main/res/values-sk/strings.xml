@@ -22,12 +22,13 @@
     <string name="enable_settings">Povoliť úpravy nastavení</string>
     <string name="fix_sound_notif_tile_title">Opraviť "Zvuk a upozornenia"</string>
     <string name="fix_sound_notif_tile">Niektoré ROM kombinujú Zvuky a Upozornenia. Povoľte pre zobrazenie správneho zhrnutia</string>
+    <string name="header_tweaks">Úpravy</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
     <string name="header_recents">Nedávne aplikácie</string>
     <string name="no_previous_recents">Žiadna nedávna aplikácia</string>
-    <string name="enable_recents">Povoliť prepínač nedávnych aplikácií</string>
+    <string name="enable_recents">Povoliť úpravy nedávnych aplikácií</string>
     <string name="enable_recents_double_tap">Dvojitým poklepaním otvoriť predchádzajúcu apl.</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
     <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
