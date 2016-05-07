@@ -67,6 +67,7 @@
     <!-- /RECENTS -->
 
     <!-- NOTIFICATIONS -->
+    <string name="notifications_change_style">Bildirimler N stili</string>
     <string name="notification_allow_load_label_with_pm_title">Tum uygulamalarin yuklenmesi icin paket yoneticisi izni</string>
     <string name="notification_allow_load_label_with_pm">Performans sorunlarina yol acabilir</string>
     <string name="notification_full_width_volume_title">Tam boyutlu ses ayarlari</string>
