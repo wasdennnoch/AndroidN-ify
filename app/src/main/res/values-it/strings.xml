@@ -21,6 +21,7 @@
     <string name="enable_settings">Abilita modifiche alle impostazioni</string>
     <string name="fix_sound_notif_tile_title">Fix sezione "Suono &amp; Notifiche"</string>
     <string name="fix_sound_notif_tile">Alcune ROM uniscono la sezione Suono e Notifiche. Abilita per impostare il giusto sommario per questa sezione</string>
+    <string name="header_tweaks">Modifiche</string>
 
     <string name="enable_recents">Abilita modifiche al tasto recenti</string>
     <string name="double_tap_speed_title">Velocità doppio tap</string>
@@ -62,11 +63,12 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Nessuna app precedente</string>
+    <string name="enable_recents_double_tap">Doppio tap per cambiare all\'ultima app</string>
     <string name="enable_large_recents">Abilita grandi app recenti</string>
     <!-- /RECENTS -->
     
     <!-- NOTIFICATIONS -->
-    <string name="notification_allow_load_label_with_pm_title">Abilita il caricamento del nome dell\'applicazione con PackageManger</string>
+    <string name="notification_allow_load_label_with_pm_title">Abilita il caricamento del nome dell\'applicazione con PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Potrebbe causare riduzioni di prestazioni</string>
     <string name="notification_full_width_volume_title">Dialogo del volume per tutta la larghezza</string>
     <string name="notification_full_width_volume">Rimuovi i limiti di larghezza del dialogo del volume per dispositivi con display grandi</string>
