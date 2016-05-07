@@ -287,7 +287,7 @@ public class NotificationsHooks {
                 XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
 
                 // Notifications
-				if (prefs.getBoolean("notification_change_style", true)) {
+                if (prefs.getBoolean("notification_change_style", true)) {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", zero);
