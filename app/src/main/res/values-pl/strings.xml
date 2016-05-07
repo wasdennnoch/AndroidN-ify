@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Dodaje funkcje Androida N do Androida Lollipop i Marshmallow!</string>
+    <string name="xposed_description">Dodaje funkcje wprowadzone w Androida N do Androida Lollipop i Marshmallow!</string>
 
     <string name="activity_about">O Android N-ify</string>
     <string name="about_author">Stworzone przez \"MrWasdennnoch\"</string>
     <string name="about_version">Wersja %1$s (%2$d)</string>
-    
+
     <!-- prefs -->
     <string name="prefs_file_not_readable">Plik ustawień nie może być odczytany przez Xposed, zostaną użyte wartości domyślne. Może to być spowodowane statusem SELinux enforcing.</string>
 
@@ -30,7 +30,7 @@
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
     <string name="debug_log_title">Włącz debugowanie</string>
-    <string name="debug_log">Ostrzeżenie: Powoduje zalanie dziennika wpisami</string>
+    <string name="debug_log">Ostrzeżenie: Powoduje dużo wpisów w Logu</string>
     <!-- /prefs -->
 
 
@@ -58,6 +58,20 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Brak poprzedniej aplikacji</string>
+    <string name="enable_large_recents">Włącz duże okna ostatnich aplikacji</string>
+    <string name="enable_notifications_summ">Po każdej zmianie tych ustawień, zrestartuj SystemUI</string>
+    <string name="enable_recents_double_tap">Dotnij dwókrtonie aby zmienić na ostanio używaną aplikację</string>
+    <string name="header_tweaks">Ulepszenia</string>
+    <string name="notification_allow_load_label_with_pm">Może powodować problemy z wydajnością</string>
+    <string name="notification_allow_load_label_with_pm_title">Pozwól na ładowanie nazw aplikacji z PackageManager</string>
+    <string name="notification_dismiss_button">Pokaż \"WYCZYŚĆ WSZYSTKIE\" zamiast ikony czyszczenia</string>
+    <string name="notification_dismiss_button_title">Zmień ikonę czyszczenia</string>
+    <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
+    <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
+    <string name="notifications_dark_theme">Ciemne tło powiadomień dla użytkowników specificznych motywów</string>
+    <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
+    <string name="restart_systemui">Zrestartuj SystemUI</string>
+    <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
     <!-- /RECENTS -->
 
 </resources>
