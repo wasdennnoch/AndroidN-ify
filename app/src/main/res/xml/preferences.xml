@@ -67,6 +67,12 @@
                 android:summary="@string/enable_notifications_summ"/>
 
             <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_notification_tweaks"
+                android:key="notification_change_style"
+                android:title="@string/notifications_change_style"/>
+
+            <SwitchPreference
                 android:defaultValue="false"
                 android:dependency="enable_notification_tweaks"
                 android:key="notification_dark_theme"

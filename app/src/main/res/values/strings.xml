@@ -70,6 +70,7 @@
     <!-- /RECENTS -->
 
     <!-- NOTIFICATIONS -->
+    <string name="notifications_change_style">Notifications with N style</string>
     <string name="notification_allow_load_label_with_pm_title">Allow loading application name with PackageManager</string>
     <string name="notification_allow_load_label_with_pm">May cause performance issues</string>
     <string name="notification_full_width_volume_title">Full width volume dialog</string>
