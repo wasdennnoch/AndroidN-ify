@@ -40,7 +40,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_SETTINGS = "com.android.settings";
     public static final String PACKAGE_OWN = "tk.wasdennnoch.androidn_ify";
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
-    public static boolean debug = false;
+    private static boolean debug = false;
     private static String sModulePath;
 
     private static XSharedPreferences sPrefs;
@@ -117,7 +117,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 break;
         }
 
-        // Has too be hooked in every app too for some reason,probably
+        // Has too be hooked in every app too for some reason, probably
         // because every hook only applies to the current process
         NotificationsHooks.hookResAndroid(resparam, sPrefs);
 

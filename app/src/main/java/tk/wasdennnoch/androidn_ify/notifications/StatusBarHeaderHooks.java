@@ -41,9 +41,6 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
     private static final String CLASS_DETAIL_ADAPTER = "com.android.systemui.qs.QSTile$DetailAdapter";
 
-    private static byte sSetExpansionErrorCount = 0;
-    private static boolean sLogSetExpansionError = true;
-
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
     private static TouchAnimator mFirstHalfAnimator;
@@ -55,13 +52,8 @@ public class StatusBarHeaderHooks {
 
     private static View mSystemIconsSuperContainer;
     private static View mDateGroup;
-    private static View mClock;
-    private static TextView mTime;
-    private static TextView mAmPm;
     private static FrameLayout mMultiUserSwitch;
-    //private static ImageView mMultiUserAvatar;
     private static TextView mDateCollapsed;
-    //private static TextView mDateExpanded;
     private static View mSettingsButton;
     private static View mSettingsContainer;
     private static View mQsDetailHeader;
@@ -95,6 +87,9 @@ public class StatusBarHeaderHooks {
                 XposedHook.logE(TAG, "Couldn't change header background color", t);
             }
 
+            View mClock;
+            TextView mTime;
+            TextView mAmPm;
             try {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
                 mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
@@ -102,9 +97,7 @@ public class StatusBarHeaderHooks {
                 mTime = (TextView) XposedHelpers.getObjectField(param.thisObject, "mTime");
                 mAmPm = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAmPm");
                 mMultiUserSwitch = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mMultiUserSwitch");
-                //mMultiUserAvatar = (ImageView) XposedHelpers.getObjectField(param.thisObject, "mMultiUserAvatar");
                 mDateCollapsed = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateCollapsed");
-                //mDateExpanded = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateExpanded");
                 mSettingsButton = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsButton");
                 mQsDetailHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeader");
                 mQsDetailHeaderTitle = (TextView) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeaderTitle");
@@ -298,14 +291,7 @@ public class StatusBarHeaderHooks {
                 mHeaderQsPanel.setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable t) {
-                // Prevent log spam
-                if (sLogSetExpansionError) {
-                    XposedHook.logE(TAG, "Error setting expansion values", t);
-                    sSetExpansionErrorCount++;
-                    if (sSetExpansionErrorCount > 5) {
-                        sLogSetExpansionError = false;
-                    }
-                }
+                XposedHook.logE(TAG, "Error setting expansion values", t);
             }
         }
     };

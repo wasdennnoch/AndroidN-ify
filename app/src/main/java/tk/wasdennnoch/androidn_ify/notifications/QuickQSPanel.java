@@ -13,13 +13,13 @@ import java.util.ArrayList;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class QuickQSPanel extends LinearLayout {
 
     private static final String TAG = "QuickQSPanel";
 
-    //private View mHeader;
     private int mMaxTiles;
     protected HeaderTileLayout mTileLayout;
     private ResourceUtils res;
@@ -36,12 +36,13 @@ public class QuickQSPanel extends LinearLayout {
         addView(mTileLayout);
     }
 
-    public void setTiles(ArrayList<Object> tiles) {
+    public void setTiles(ArrayList<Object> tileRecords) {
+        XposedHook.logD(TAG, "setTiles tile record count: " + tileRecords.size());
         mTileLayout.removeTiles();
         mTileViews.clear();
         mRecords.clear();
-        for (int i = 0; i < mMaxTiles && i < tiles.size(); i++) {
-            Object tilerecord = tiles.get(i);
+        for (int i = 0; i < mMaxTiles && i < tileRecords.size(); i++) {
+            Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
             mTileLayout.addTile(tilerecord);
         }
@@ -51,12 +52,8 @@ public class QuickQSPanel extends LinearLayout {
         int i = mRecords.indexOf(tilerecord);
         if (i > -1) {
             XposedHelpers.callMethod(mTileViews.get(i), "onStateChanged", state);
+            XposedHook.logD(TAG, "drawTile #" + i); // Spam
         }
-    }
-
-    @SuppressWarnings("unused")
-    public void setMaxTiles(int max) {
-        mMaxTiles = max;
     }
 
     private class HeaderTileLayout extends LinearLayout {
@@ -77,8 +74,10 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         public void addTile(Object /*QSPanel.TileRecord*/ tilerecord) {
+            XposedHook.logD(TAG, "addTile: original tileView class: " + XposedHelpers.getObjectField(tilerecord, "tileView").getClass().getSimpleName());
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", getContext());
+            XposedHook.logD(TAG, "addTile: generated tileView class: " + tileView.getClass().getSimpleName());
 
             View.OnClickListener click = new View.OnClickListener() {
                 @Override
@@ -100,7 +99,12 @@ public class QuickQSPanel extends LinearLayout {
                 }
             };
             XposedHelpers.callMethod(tileView, "init", click, clickSecondary, longClick);
-            XposedHelpers.callMethod(tileView, "setDual", false);
+            try {
+                XposedHelpers.callMethod(tileView, "setDual", false);
+            } catch (Throwable t) {
+                // CM13
+                XposedHelpers.callMethod(tileView, "setDual", false, false);
+            }
             //XposedHelpers.callMethod(tileView, "handleStateChanged", XposedHelpers.callMethod(tile, "getState"));
             XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
 
@@ -116,11 +120,13 @@ public class QuickQSPanel extends LinearLayout {
             }
 
             mTileViews.add(tileView);
+            XposedHook.logD(TAG, "addTile: adding tile at #" + (getChildCount() - 1));
             addView(tileView, getChildCount() - 1, generateLayoutParams());
             addView(new Space(getContext()), getChildCount() - 1, generateSpaceParams());
         }
 
         public void removeTiles() {
+            XposedHook.logD(TAG, "Removing all tiles");
             for (int i = 0; i < mMaxTiles && i < mRecords.size(); i++) {
                 removeViewAt(0); // Tile
                 removeViewAt(0); // Space
