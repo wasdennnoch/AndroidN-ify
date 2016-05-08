@@ -81,7 +81,7 @@ public class ConfigUtils {
 
         public RecentsConfig(XSharedPreferences prefs) {
             double_tap = prefs.getBoolean("enable_recents_double_tap", true);
-            double_tap_speed = prefs.getInt("double_tap_speed", 180);
+            double_tap_speed = prefs.getInt("double_tap_speed", 400);
             large_recents = prefs.getBoolean("enable_large_recents", true);
             navigate_recents = false;
 

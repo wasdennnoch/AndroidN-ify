@@ -37,7 +37,7 @@
                 minimum="100"
                 monitorBoxEnabled="true"
                 monitorBoxUnit="ms"
-                android:defaultValue="180"
+                android:defaultValue="400"
                 android:dependency="enable_recents_double_tap"
                 android:key="double_tap_speed"
                 android:title="@string/double_tap_speed_title"/>
