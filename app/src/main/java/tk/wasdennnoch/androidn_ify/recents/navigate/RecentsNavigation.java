@@ -281,7 +281,6 @@ public class RecentsNavigation {
                 XposedHelpers.findAndHookMethod(classRecentsActivity, "onStart", recentsActivityOnStartHook);
                 XposedHelpers.findAndHookMethod(classRecentsActivity, "onBackPressed", onBackPressedHook);
                 XposedHelpers.findAndHookMethod(classRecentsActivity, "dismissRecentsToHomeRaw", boolean.class, resetNavigatingStatus);
-                XposedHelpers.findAndHookMethod(classRecentsActivity, "finish", resetNavigatingStatus);
                 XposedHelpers.findAndHookMethod(classRecentsActivity, "dismissRecentsToFocusedTaskOrHome", boolean.class, dismissRecentsToFocusedTaskOrHomeHook);
 
             }
