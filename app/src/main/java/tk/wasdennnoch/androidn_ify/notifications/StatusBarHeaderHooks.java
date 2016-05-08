@@ -30,6 +30,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class StatusBarHeaderHooks {
@@ -486,9 +487,9 @@ public class StatusBarHeaderHooks {
                 .start();
     }
 
-    public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
+    public static void hook(ClassLoader classLoader) {
         try {
-            if (prefs.getBoolean("enable_notification_tweaks", true)) {
+            if (ConfigUtils.notifications().header) {
 
                 Class<?> classStatusBarHeaderView = XposedHelpers.findClass(CLASS_STATUS_BAR_HEADER_VIEW, classLoader);
                 Class<?> classQSPanel = XposedHelpers.findClass(CLASS_QS_PANEL, classLoader);
@@ -543,9 +544,9 @@ public class StatusBarHeaderHooks {
         }
     }
 
-    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, XSharedPreferences prefs, String modulePath) {
+    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
-            if (prefs.getBoolean("enable_notification_tweaks", true)) {
+            if (ConfigUtils.notifications().header) {
 
                 XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
 

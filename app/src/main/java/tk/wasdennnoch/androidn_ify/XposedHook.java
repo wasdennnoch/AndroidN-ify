@@ -68,6 +68,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public void initZygote(StartupParam startupParam) throws Throwable {
         sModulePath = startupParam.modulePath;
         sPrefs = new XSharedPreferences(XposedHook.class.getPackage().getName());
+
         if (!sPrefs.getBoolean("can_read_prefs", false)) {
             // With SELinux enforcing, it might happen that we don't have access
             // to the prefs file. Test this by reading a test key that should be
@@ -83,17 +84,17 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
 
         switch (lpparam.packageName) {
             case PACKAGE_SETTINGS:
-                SettingsHooks.hook(lpparam.classLoader, sPrefs);
+                SettingsHooks.hook(lpparam.classLoader);
                 break;
             case PACKAGE_SYSTEMUI:
-                DoubleTapSwKeys.hook(lpparam.classLoader, sPrefs);
-                StatusBarHeaderHooks.hook(lpparam.classLoader, sPrefs);
-                NotificationPanelHooks.hook(lpparam.classLoader, sPrefs);
-                NotificationsHooks.hookSystemUI(lpparam.classLoader, sPrefs);
-                RecentsStackHooks.hookSystemUI(lpparam.classLoader, sPrefs);
+                DoubleTapSwKeys.hook(lpparam.classLoader);
+                StatusBarHeaderHooks.hook(lpparam.classLoader);
+                NotificationPanelHooks.hook(lpparam.classLoader);
+                NotificationsHooks.hookSystemUI(lpparam.classLoader);
+                RecentsStackHooks.hookSystemUI(lpparam.classLoader);
                 break;
             case PACKAGE_ANDROID:
-                DoubleTapHwKeys.hook(lpparam.classLoader, sPrefs);
+                DoubleTapHwKeys.hook(lpparam.classLoader);
                 break;
             case PACKAGE_OWN:
                 XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isActivated", XC_MethodReplacement.returnConstant(true));
@@ -103,7 +104,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         }
 
         // Has to be hooked in every app as every app creates own instances of the Notification.Builder
-        NotificationsHooks.hook(lpparam.classLoader, sPrefs);
+        NotificationsHooks.hook(lpparam.classLoader);
 
     }
 
@@ -112,14 +113,14 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
 
         switch (resparam.packageName) {
             case PACKAGE_SYSTEMUI:
-                NotificationsHooks.hookResSystemui(resparam, sPrefs, sModulePath);
-                StatusBarHeaderHooks.hookResSystemui(resparam, sPrefs, sModulePath);
+                NotificationsHooks.hookResSystemui(resparam, sModulePath);
+                StatusBarHeaderHooks.hookResSystemui(resparam, sModulePath);
                 break;
         }
 
         // Has too be hooked in every app too for some reason, probably
         // because every hook only applies to the current process
-        NotificationsHooks.hookResAndroid(resparam, sPrefs);
+        NotificationsHooks.hookResAndroid(resparam);
 
     }
 

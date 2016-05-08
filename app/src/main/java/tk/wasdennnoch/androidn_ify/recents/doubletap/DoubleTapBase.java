@@ -16,6 +16,7 @@ import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class DoubleTapBase {
@@ -41,8 +42,8 @@ public class DoubleTapBase {
         }
     };
 
-    protected static void loadPrefDoubleTapSpeed(XSharedPreferences prefs) {
-        mDoubletapSpeed = prefs.getInt("double_tap_speed", 180);
+    protected static void loadPrefDoubleTapSpeed() {
+        mDoubletapSpeed = ConfigUtils.recents().double_tap_speed;
     }
 
     protected static void registerReceiver(final Context context) {

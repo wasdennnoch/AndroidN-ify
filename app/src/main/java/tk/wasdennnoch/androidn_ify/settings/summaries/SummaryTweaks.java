@@ -14,6 +14,7 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.categories.PersonalTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.RomTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.SystemTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.WirelessAndNetworksTweaks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class SummaryTweaks {
@@ -80,11 +81,11 @@ public class SummaryTweaks {
         sHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
     }*/
 
-    public static void afterLoadCategoriesFromResource(XC_MethodHook.MethodHookParam param, XSharedPreferences prefs) {
+    public static void afterLoadCategoriesFromResource(XC_MethodHook.MethodHookParam param) {
         try {
             long startTime = System.currentTimeMillis();
 
-            sFixSoundNotifTile = prefs.getBoolean("fix_sound_notif_tile", false);
+            sFixSoundNotifTile = ConfigUtils.settings().fix_sound_notif_tile;
 
             Context context;
             if (Build.VERSION.SDK_INT >= 23)
@@ -192,9 +193,7 @@ public class SummaryTweaks {
                 DeviceTweaks.hookDisplayTile(tile, context);
             } else if (id == notification_settings) {
                 tileId = "notification_settings";
-                if (!sFixSoundNotifTile)
-                    DeviceTweaks.hookNotificationTile(tile, context);
-                else
+                if (sFixSoundNotifTile)
                     DeviceTweaks.hookSoundTile(tile, context);
             } else if (id == sound_settings) {
                 tileId = "sound_settings";
@@ -263,19 +262,6 @@ public class SummaryTweaks {
             } else if (id == display_and_lights_settings) {
                 tileId = "display_and_lights_settings";
                 RomTweaks.hookDisplayAndLightsTile(tile, context);
-            } else if (id == notification_manager) {
-                tileId = "notification_manager";
-                RomTweaks.hookNotificationManagerTile(tile, context);
-                //} else if (id == oclick) {
-                //    XposedHelpers.setObjectField(tile, "summary", "oclick");
-                //} else if (id == device_specific_gesture_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "device_specific_gesture_settings");
-                //} else if (id == profile_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "profile_settings");
-                //} else if (id == privacy_settings_cyanogenmod) {
-                //    XposedHelpers.setObjectField(tile, "summary", "privacy_settings_cyanogenmod");
-                //} else if (id == supersu_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "supersu_settings");
             }
 
             if (!tileId.equals(""))

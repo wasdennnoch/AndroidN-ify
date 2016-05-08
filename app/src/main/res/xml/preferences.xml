@@ -27,14 +27,8 @@
             android:key="settings_recents">
 
             <SwitchPreference
-                android:defaultValue="true"
-                android:key="enable_recents_tweaks"
-                android:title="@string/enable_recents"/>
-
-            <SwitchPreference
                 android:defaultValue="false"
                 android:key="enable_recents_double_tap"
-                android:dependency="enable_recents_tweaks"
                 android:title="@string/enable_recents_double_tap"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
@@ -51,7 +45,6 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_large_recents"
-                android:dependency="enable_recents_tweaks"
                 android:title="@string/enable_large_recents"/>
 
         </PreferenceScreen>
@@ -62,40 +55,34 @@
 
             <SwitchPreference
                 android:defaultValue="true"
-                android:key="enable_notification_tweaks"
-                android:title="@string/enable_notifications"
-                android:summary="@string/enable_notifications_summ"/>
+                android:key="enable_notification_header"
+                android:title="@string/enable_notification_header"/>
 
             <SwitchPreference
                 android:defaultValue="true"
-                android:dependency="enable_notification_tweaks"
                 android:key="notification_change_style"
                 android:title="@string/notifications_change_style"/>
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:dependency="enable_notification_tweaks"
                 android:key="notification_dark_theme"
                 android:summary="@string/notifications_dark_theme"
                 android:title="@string/notifications_dark_theme_title"/>
 
             <SwitchPreference
                 android:defaultValue="true"
-                android:dependency="enable_notification_tweaks"
                 android:key="notification_dismiss_button"
                 android:summary="@string/notification_dismiss_button"
                 android:title="@string/notification_dismiss_button_title"/>
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:dependency="enable_notification_tweaks"
                 android:key="notification_allow_load_label_with_pm"
                 android:summary="@string/notification_allow_load_label_with_pm"
                 android:title="@string/notification_allow_load_label_with_pm_title"/>
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:dependency="enable_notification_tweaks"
                 android:key="notification_full_width_volume"
                 android:summary="@string/notification_full_width_volume"
                 android:title="@string/notification_full_width_volume_title"/>
