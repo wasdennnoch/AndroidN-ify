@@ -27,8 +27,8 @@
     <string name="enable_recents">Activar ajustes del panel recientes</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
 
-    <string name="enable_notifications">Activar ajustes de notificación</string>
-    <string name="enable_notifications_summ">Depués de cada cambio reiniciar SystemUI</string>
+    <string name="enable_notifications_title">Activar ajustes de notificación</string>
+    <string name="enable_notifications">Depués de cada cambio reiniciar SystemUI</string>
     <string name="notifications_dark_theme_title">Tema oscuro de notificaciones</string>
     <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
 

@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="xposed_description">Bringt in Android N vorgestellte Features auf Geräte mit Lollipop und Marshmallow!</string>
+    <string name="xposed_description">Bringt in Android N eingeführte Features auf Geräte mit Lollipop und Marshmallow!</string>
 
+    <string name="restart_systemui">SystemUI neustarten</string>
+    <string name="restart_systemui_message">Bist du sicher, dass du die SystemUI neustarten möchtest?</string>
+    <string name="restart_broadcast_sent">Neustart-Broadcast gesendet</string>
     <string name="activity_about">Über Android N-ify</string>
     <string name="about_author">Entwickelt von \"MrWasdennnoch\"</string>
     <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">Xposed kann die Datei mit den Einstellungen nicht lesen, Standardwerte werden in hooks benutzt. Ein Grund könnte SELinux im \"enforcing\"-Modus sein.</string>
+    <string name="prefs_file_not_readable">Xposed kann die Datei mit den Einstellungen nicht lesen, Standardwerte werden in Hooks benutzt. Ein Grund könnte SELinux im \"enforcing\"-Modus sein.</string>
 
     <string name="header_settings">Einstellungen</string>
+    <string name="header_tweaks">Tweaks</string>
     <string name="header_recents">Recents</string>
     <string name="header_notifications">Benachrichtigungen</string>
     <string name="header_app">App</string>
-
-    <string name="enable_settings">Einstellungen tweaken</string>
-    <string name="fix_sound_notif_tile_title">"Töne &amp; Benachrichtigungen"-Kachel reparieren</string>
-    <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kachel. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
-
-    <string name="enable_recents">Recents tweaken</string>
-    <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
-
-    <string name="enable_notifications">Benachrichtigungen tweaken</string>
-    <string name="notifications_dark_theme_title">Dunkle Benachrichtigungen</string>
 
     <string name="hide_launcher_icon_title">Launcher-Icon verbergen</string>
     <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
@@ -33,6 +27,10 @@
 
 
     <!-- SETTINGS -->
+    <string name="enable_settings">Einstellungen tweaken</string>
+    <string name="fix_sound_notif_tile_title">"Töne &amp; Benachrichtigungen"-Kachel reparieren</string>
+    <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kachel. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
+
     <string name="disconnected">Getrennt</string>
     <string name="disabled">Deaktiviert</string>
     <string name="off">AUS</string>
@@ -55,7 +53,24 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
+    <string name="enable_recents_double_tap">Doppelklick, um zur letzten App zu wechseln</string>
+    <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
+    <string name="enable_large_recents">Große Recents</string>
+
     <string name="no_previous_recents">Keine zuletzt genutzten Apps</string>
     <!-- /RECENTS -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="enable_notification_header">Neuen Statusleisten-Header aktivieren</string>
+    <string name="notifications_change_style">Benachrichtigungen im N Stil</string>
+    <string name="notifications_dark_theme_title">Dunkle Benachrichtigungen</string>
+    <string name="notifications_dark_theme">Dunkler Benachrichtigungshintergrund für Nutzer von speziellen Layers-Themes</string>
+    <string name="notification_dismiss_button_title">Benachrichtigungs-Löschbutton ändern</string>
+    <string name="notification_dismiss_button">Zeige  \"ALLE LÖSCHEN\" anstatt des Icons</string>
+    <string name="notification_allow_load_label_with_pm_title">Alternative Methode, App-Namen zu laden</string>
+    <string name="notification_allow_load_label_with_pm">Erlaubt es, App-Namen mit dem PackageManager zu laden. Könnte Performanceprobleme verursachen</string>
+    <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
+    <string name="notification_full_width_volume">Entfernt das Breitenlimit des Lautstärkedialogs auf Geräten mit großem Bildschirm</string>
+    <!-- /NOTIFICATIONS -->
 
 </resources>

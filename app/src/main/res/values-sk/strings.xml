@@ -36,8 +36,8 @@
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Upozornenia</string>
-    <string name="enable_notifications">Povoliť úpravy upozornení</string>
-    <string name="enable_notifications_summ">Po každej zmene týchto nastavení reštartujte SystemUI</string>
+    <string name="enable_notifications_title">Povoliť úpravy upozornení</string>
+    <string name="enable_notifications">Po každej zmene týchto nastavení reštartujte SystemUI</string>
     <string name="notifications_change_style">Upozornenia v N štýle</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
     <string name="notifications_dark_theme">Tmavá téma pozadia upozornení pre používateľov špecifických Layers tém</string>

@@ -29,8 +29,8 @@
     <string name="enable_recents">启用最近任务调整</string>
     <string name="double_tap_speed_title">双击速度</string>
 
-    <string name="enable_notifications">启用通知区域调整</string>
-    <string name="enable_notifications_summ">每次更改设置后需重启系统界面</string>
+    <string name="enable_notifications_title">启用通知区域调整</string>
+    <string name="enable_notifications">每次更改设置后需重启系统界面</string>
     <string name="notifications_dark_theme_title">使用暗色主题的通知</string>
     <string name="notifications_dark_theme">针对某些特定层面主题的用户使用暗色调的通知背景</string>
 	

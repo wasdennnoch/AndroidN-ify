@@ -25,8 +25,8 @@
     <string name="enable_recents">Son uygulamalar geliştirmesi</string>
     <string name="double_tap_speed_title">Çift dokunma hızı</string>
 
-    <string name="enable_notifications">Bildirimler geliştirmesi</string>
-    <string name="enable_notifications_summ">Her değişiklikten sonra SystemUI yeniden başlatılması gerekir</string>
+    <string name="enable_notifications_title">Bildirimler geliştirmesi</string>
+    <string name="enable_notifications">Her değişiklikten sonra SystemUI yeniden başlatılması gerekir</string>
     <string name="notifications_dark_theme_title">Karanlık bildirimler teması</string>
     <string name="notifications_dark_theme">Kullanıcılar için karanlık bildirimler teması</string>
 

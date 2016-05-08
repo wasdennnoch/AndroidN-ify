@@ -26,7 +26,7 @@
     <string name="enable_recents">เปิดการปรับแต่งหน้า Recent apps</string>
     <string name="double_tap_speed_title">ความเร็ว Double tap</string>
 
-    <string name="enable_notifications">เปิดการปรับแต่งการแข้งเตือน</string>
+    <string name="enable_notifications_title">เปิดการปรับแต่งการแข้งเตือน</string>
     <string name="notifications_dark_theme_title">การแจ้งเตือนแบบมืด</string>
     <string name="notifications_dark_theme">สำหรับ layers themes</string>
 
