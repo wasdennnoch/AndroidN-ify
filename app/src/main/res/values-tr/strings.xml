@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="xposed_description">Lollipop ve Marshmallow uzerinde android N ozelliklerini deneyin!</string>
+    <string name="xposed_description">Lollipop ve Marshmallow üzerinde Android N özelliklerini deneyin!</string>
 
-    <string name="restart_systemui">SystemUI yeniden baslat</string>
-    <string name="restart_systemui_message">SystemUI yeniden baslatilacak eminmisiniz?</string>
-    <string name="restart_broadcast_sent">Yayını yeniden baslat</string>
-    <string name="activity_about">Android N-ify Hakkinda</string>
-    <string name="about_author">Gelistirici \"MrWasdennnoch\"</string>
+    <string name="restart_systemui">SystemUI yeniden başlat</string>
+    <string name="restart_systemui_message">SystemUI yeniden başlatılacak eminmisiniz?</string>
+    <string name="restart_broadcast_sent">Yayını yeniden başlat</string>
+    <string name="activity_about">Android N-ify Hakkında</string>
+    <string name="about_author">Geliştirici \"MrWasdennnoch\"</string>
     <string name="about_version">Versiyon %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -16,22 +16,22 @@
     <string name="header_notifications">Bildirimler</string>
     <string name="header_app">Uygulama</string>
 
-    <string name="enable_settings">Ayarlar gelistirmesini aktiflestir</string>
+    <string name="enable_settings">Ayarlar geliştirmesini aktifleştir</string>
     <string name="fix_sound_notif_tile_title">Fix "Ses &amp; bildirim" satırı</string>
-    <string name="fix_sound_notif_tile">Eger ses ve bildirim aciklamasi yanlis ise acin</string>
+    <string name="fix_sound_notif_tile">Eğer ses ve bildirim açıklaması yanlıs ise açın</string>
 
-    <string name="header_tweaks">Gelistirme</string>
+    <string name="header_tweaks">Geliştirme</string>
 
-    <string name="enable_recents">Son uygulamalar gelistirmesi</string>
-    <string name="double_tap_speed_title">Cift dokunma hizi</string>
+    <string name="enable_recents">Son uygulamalar geliştirmesi</string>
+    <string name="double_tap_speed_title">Çift dokunma hızı</string>
 
-    <string name="enable_notifications">Bildirimler gelistirmesi</string>
-    <string name="enable_notifications_summ">Her degisiklikten sonra SystemUI yeniden baslatilmasi gerekir</string>
-    <string name="notifications_dark_theme_title">Karanlik bildirimler temasi</string>
-    <string name="notifications_dark_theme">Kullanicilar icin karanlik bildirimler temasi</string>
+    <string name="enable_notifications">Bildirimler geliştirmesi</string>
+    <string name="enable_notifications_summ">Her değişiklikten sonra SystemUI yeniden başlatılması gerekir</string>
+    <string name="notifications_dark_theme_title">Karanlık bildirimler teması</string>
+    <string name="notifications_dark_theme">Kullanıcılar için karanlık bildirimler teması</string>
 
     <string name="hide_launcher_icon_title">Simgeyi gizle</string>
-    <string name="hide_launcher_icon">Launcher yeniden baslayabilir</string>
+    <string name="hide_launcher_icon">Launcher yeniden başlayabilir</string>
     <string name="debug_log_title">Debug logu</string>
     <string name="debug_log">Warning: Log-flooding</string>
     <!-- /prefs -->
@@ -62,19 +62,19 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Son uygulama yok</string>
-    <string name="enable_recents_double_tap">Cift tiklama ile son uygulamayi acma</string>
-    <string name="enable_large_recents">Buyuk son uygulamalar</string>
+    <string name="enable_recents_double_tap">Çift tıklama ile son uygulamayi açma</string>
+    <string name="enable_large_recents">N stili son uygulamalar</string>
     <!-- /RECENTS -->
 
     <!-- NOTIFICATIONS -->
-    <string name="notifications_change_style">Bildirimler N stili</string>
-    <string name="notification_allow_load_label_with_pm_title">Tum uygulamalarin yuklenmesi icin paket yoneticisi izni</string>
-    <string name="notification_allow_load_label_with_pm">Performans sorunlarina yol acabilir</string>
-    <string name="notification_full_width_volume_title">Tam boyutlu ses ayarlari</string>
-    <string name="notification_full_width_volume">Genis ekranli telefonlar icin ses ayarlari sinirini kaldirir</string>
-    <string name="notification_dismiss_button_title">Temizleme butonunu değistirme</string>
+    <string name="notifications_change_style">N stili bildirimler</string>
+    <string name="notification_allow_load_label_with_pm_title">Tum uygulamaların yüklenmesi için paket yöneticisi izni</string>
+    <string name="notification_allow_load_label_with_pm">Performans sorunlarına yol açabilir</string>
+    <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
+    <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır</string>
+    <string name="notification_dismiss_button_title">Temizleme butonunu değiştirme</string>
     <string name="notification_dismiss_button">Yerine \"TÜMÜNÜ TEMİZLE\" butonunu gösterir</string>
-    <string name="enable_notification_header">Yeni bildirimler gelistirmesi</string>
+    <string name="enable_notification_header">Yeni bildirimler geliştirmesi</string>
     <!-- /NOTIFICATIONS -->
 
 </resources>
