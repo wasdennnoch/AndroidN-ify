@@ -47,11 +47,28 @@
                 android:key="enable_large_recents"
                 android:title="@string/enable_large_recents"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="enable_recents_navigation"
+                android:title="@string/enable_recents_navigation"/>
+
+            <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+                interval="10"
+                maximum="10000"
+                minimum="500"
+                monitorBoxEnabled="true"
+                monitorBoxUnit="ms"
+                android:defaultValue="1000"
+                android:dependency="enable_recents_navigation"
+                android:key="recents_navigation_delay"
+                android:title="@string/recents_navigation_delay"/>
+
         </PreferenceScreen>
 
 
         <PreferenceScreen
-            android:title="@string/header_notifications">
+            android:title="@string/header_notifications"
+            android:key="settings_notifications">
 
             <SwitchPreference
                 android:defaultValue="true"

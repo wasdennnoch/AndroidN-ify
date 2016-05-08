@@ -17,10 +17,8 @@
     <string name="fix_sound_notif_tile_title">Correction "Son &amp; notifications" </string>
     <string name="fix_sound_notif_tile">Certaines ROMs combine les Sons et Notifications. Activer pour afficher le bon résumé</string>
 
-    <string name="enable_recents">Activer la modification des Applications Récentes</string>
     <string name="double_tap_speed_title">Vitesse de double-tap</string>
 
-    <string name="enable_notifications_title">Activer modification des notifications</string>
     <string name="notifications_dark_theme_title">Thème foncé pour les notifications</string>
 
     <string name="hide_launcher_icon_title">Cacher l\'icône dans le lanceur</string>

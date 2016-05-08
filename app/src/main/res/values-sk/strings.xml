@@ -28,7 +28,6 @@
     <!-- RECENTS -->
     <string name="header_recents">Nedávne aplikácie</string>
     <string name="no_previous_recents">Žiadna nedávna aplikácia</string>
-    <string name="enable_recents">Povoliť úpravy nedávnych aplikácií</string>
     <string name="enable_recents_double_tap">Dvojitým poklepaním otvoriť predchádzajúcu apl.</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
     <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
@@ -36,8 +35,6 @@
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Upozornenia</string>
-    <string name="enable_notifications_title">Povoliť úpravy upozornení</string>
-    <string name="enable_notifications">Po každej zmene týchto nastavení reštartujte SystemUI</string>
     <string name="notifications_change_style">Upozornenia v N štýle</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
     <string name="notifications_dark_theme">Tmavá téma pozadia upozornení pre používateľov špecifických Layers tém</string>

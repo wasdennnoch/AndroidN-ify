@@ -124,6 +124,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             case PACKAGE_SYSTEMUI:
                 NotificationsHooks.hookResSystemui(resparam, sModulePath);
                 StatusBarHeaderHooks.hookResSystemui(resparam, sModulePath);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    RecentsNavigation.hookResSystemui(resparam, sModulePath);
+                }
                 break;
         }
 
