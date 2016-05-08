@@ -193,9 +193,7 @@ public class SummaryTweaks {
                 DeviceTweaks.hookDisplayTile(tile, context);
             } else if (id == notification_settings) {
                 tileId = "notification_settings";
-                if (!sFixSoundNotifTile)
-                    DeviceTweaks.hookNotificationTile(tile, context);
-                else
+                if (sFixSoundNotifTile)
                     DeviceTweaks.hookSoundTile(tile, context);
             } else if (id == sound_settings) {
                 tileId = "sound_settings";
