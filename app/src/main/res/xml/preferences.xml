@@ -67,7 +67,8 @@
 
 
         <PreferenceScreen
-            android:title="@string/header_notifications">
+            android:title="@string/header_notifications"
+            android:key="settings_notifications">
 
             <SwitchPreference
                 android:defaultValue="true"
