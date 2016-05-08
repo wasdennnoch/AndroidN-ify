@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
@@ -41,7 +40,8 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_STATUS_BAR_HEADER_VIEW = "com.android.systemui.statusbar.phone.StatusBarHeaderView";
     private static final String CLASS_LAYOUT_VALUES = CLASS_STATUS_BAR_HEADER_VIEW + "$LayoutValues";
     private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
-    private static final String CLASS_DETAIL_ADAPTER = "com.android.systemui.qs.QSTile$DetailAdapter";
+    private static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
+    private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
 
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
@@ -348,6 +348,18 @@ public class StatusBarHeaderHooks {
             }
         }
     };
+    private static XC_MethodHook handleStateChangedHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHook.logD(TAG, "handleStateChangedHook PID: " + Process.myPid());
+            // This method gets called from two different processes,
+            // so we have to check if we are in the right one
+            // TODO this one from 2 processes?
+            if (mHeaderQsPanel != null) {
+                mHeaderQsPanel.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState")); // TODO no icon animation
+            }
+        }
+    };
 
 
     private static void updateResources(Context context) {
@@ -493,6 +505,7 @@ public class StatusBarHeaderHooks {
 
                 Class<?> classStatusBarHeaderView = XposedHelpers.findClass(CLASS_STATUS_BAR_HEADER_VIEW, classLoader);
                 Class<?> classQSPanel = XposedHelpers.findClass(CLASS_QS_PANEL, classLoader);
+                Class<?> classQSTile = XposedHelpers.findClass(CLASS_QS_TILE, classLoader);
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpansion", float.class, setExpansionHook);
@@ -501,7 +514,7 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateVisibilities", updateVisibilitiesHook);
 
                 Class<?> classLayoutValues = XposedHelpers.findClass(CLASS_LAYOUT_VALUES, classLoader);
-                // Yes, this is a typo. Not my typo though. A typo in the source code that nobody noticed and that got compiled. ("interpoloate")
+                // Every time you make a typo, the errorists win.
                 XposedHelpers.findAndHookMethod(classLayoutValues, "interpoloate", classLayoutValues, classLayoutValues, float.class, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "requestCaptureValues", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "applyLayoutValues", classLayoutValues, XC_MethodReplacement.DO_NOTHING);
@@ -534,9 +547,10 @@ public class StatusBarHeaderHooks {
                 });
 
 
-                //XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
+                //TODO hooking all methods necessary?
                 XposedBridge.hookAllMethods(classQSPanel, "setTiles", setTilesHook);
-                XposedBridge.hookAllMethods(classQSPanel, "drawTile", drawTileHook);
+                //XposedBridge.hookAllMethods(classQSPanel, "drawTile", drawTileHook); // Not in CM12(.1)
+                XposedBridge.hookAllMethods(classQSTile, "handleStateChanged", handleStateChangedHook);
 
             }
         } catch (Throwable t) {

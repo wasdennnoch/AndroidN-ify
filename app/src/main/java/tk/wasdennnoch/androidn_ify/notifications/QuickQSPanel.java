@@ -56,6 +56,17 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
+    public void handleStateChanged(Object qstile, Object state) {
+        for (int i = 0; i < mRecords.size(); i++) {
+            Object tilerecord = mRecords.get(i);
+            Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
+            if (tile == qstile) {
+                XposedHelpers.callMethod(mTileViews.get(i), "onStateChanged", state);
+                XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
+            }
+        }
+    }
+
     private class HeaderTileLayout extends LinearLayout {
 
         private final Space mEndSpacer;
