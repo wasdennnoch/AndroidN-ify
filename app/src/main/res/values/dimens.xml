@@ -56,6 +56,7 @@
     <dimen name="notification_actions_margin_top">16dp</dimen>
     <dimen name="notification_dismiss_button_padding">16dp</dimen>
     <dimen name="notification_dismiss_button_padding_top">14dp</dimen>
+    <dimen name="task_progress_height">2dp</dimen>
     <!-- /Notifications / Status bar header -->
 
 </resources>

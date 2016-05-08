@@ -9,8 +9,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,6 +75,22 @@ public class SettingsActivity extends Activity {
                     sendUpdateBroadcast(prefs, key);
                     break;
             }
+        }
+
+        @Override
+        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+            super.onPreferenceTreeClick(preferenceScreen, preference);
+
+            if (preference instanceof PreferenceScreen && preference.getKey().equals("settings_recents")) {
+                PreferenceScreen screen = (PreferenceScreen) preference;
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    Preference recentsNavigationPreference = screen.findPreference("enable_recents_navigation");
+                    recentsNavigationPreference.setEnabled(false);
+                    recentsNavigationPreference.setSummary(String.format(getString(R.string.requires_android_version), "Marshmallow"));
+                }
+            }
+
+            return false;
         }
 
         @Override
