@@ -1,6 +1,9 @@
 package tk.wasdennnoch.androidn_ify.notifications;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
@@ -29,6 +32,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -72,6 +76,19 @@ public class StatusBarHeaderHooks {
 
     private static QuickQSPanel mHeaderQsPanel;
 
+    private static BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            XposedHook.logD(TAG, "Broadcast received, action: " + intent.getAction());
+            switch (intent.getAction()) {
+                case SettingsActivity.ACTION_GENERAL:
+                    if (intent.hasExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG))
+                        XposedHook.debug = intent.getBooleanExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG, false);
+                    break;
+            }
+        }
+    };
+
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -81,6 +98,7 @@ public class StatusBarHeaderHooks {
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
             Context context = mStatusBarHeaderView.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
+            context.registerReceiver(sBroadcastReceiver, new IntentFilter(SettingsActivity.ACTION_GENERAL));
 
             try {
                 //noinspection deprecation
@@ -107,10 +125,6 @@ public class StatusBarHeaderHooks {
                 mEmergencyCallsOnly = (TextView) XposedHelpers.getObjectField(param.thisObject, "mEmergencyCallsOnly");
                 mAlarmStatus = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAlarmStatus");
             } catch (Throwable t) {
-                // try-catch for every single view would be overkill, I'll sort them by fail count after the release.
-                // TODO fail-count sorting in multiple try-catches
-                // Another problem would be that I can't move a view when I need the ID of another view that I couldn't find.
-                // That would efficiently break most of the repositioning.
                 XposedHook.logE(TAG, "Couldn't find required views, aborting", t);
                 return;
             }
@@ -337,24 +351,12 @@ public class StatusBarHeaderHooks {
             }
         }
     };
-    private static XC_MethodHook drawTileHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "drawTileHook PID: " + Process.myPid());
-            // This method gets called from two different processes,
-            // so we have to check if we are in the right one
-            if (mHeaderQsPanel != null) {
-                mHeaderQsPanel.drawTile(param.args[0], param.args[1]); // TODO no icon animation
-            }
-        }
-    };
     private static XC_MethodHook handleStateChangedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "handleStateChangedHook PID: " + Process.myPid());
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
-            // TODO this one from 2 processes?
             if (mHeaderQsPanel != null) {
                 mHeaderQsPanel.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState")); // TODO no icon animation
             }
@@ -546,10 +548,8 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-
                 //TODO hooking all methods necessary?
                 XposedBridge.hookAllMethods(classQSPanel, "setTiles", setTilesHook);
-                //XposedBridge.hookAllMethods(classQSPanel, "drawTile", drawTileHook); // Not in CM12(.1)
                 XposedBridge.hookAllMethods(classQSTile, "handleStateChanged", handleStateChangedHook);
 
             }
