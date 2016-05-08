@@ -12,29 +12,24 @@
 
     <!-- prefs -->
     <string name="header_settings">Ayarlar</string>
+    <string name="header_tweaks">Geliştirme</string>
     <string name="header_recents">Son uygulamalar</string>
     <string name="header_notifications">Bildirimler</string>
     <string name="header_app">Uygulama</string>
 
-    <string name="enable_settings">Ayarlar geliştirmesini aktifleştir</string>
-    <string name="fix_sound_notif_tile_title">Fix "Ses &amp; bildirim" satırı</string>
-    <string name="fix_sound_notif_tile">Eğer ses ve bildirim açıklaması yanlıs ise açın</string>
-
-    <string name="header_tweaks">Geliştirme</string>
-
-    <string name="double_tap_speed_title">Çift dokunma hızı</string>
-
-    <string name="notifications_dark_theme_title">Karanlık bildirimler teması</string>
-    <string name="notifications_dark_theme">Kullanıcılar için karanlık bildirimler teması</string>
-
     <string name="hide_launcher_icon_title">Simgeyi gizle</string>
     <string name="hide_launcher_icon">Launcher yeniden başlayabilir</string>
     <string name="debug_log_title">Debug logu</string>
-    <string name="debug_log">Warning: Log-flooding</string>
+    <string name="debug_log">Dikkat: Log-flooding</string>
+
+    <string name="requires_android_version">Bu sürüm gerekiyor Android %1$s</string>
     <!-- /prefs -->
 
-
     <!-- SETTINGS -->
+    <string name="enable_settings">Ayarlar geliştirmesini aktifleştirme</string>
+    <string name="fix_sound_notif_tile_title">Fix "Ses &amp; bildirim" satırı</string>
+    <string name="fix_sound_notif_tile">Eğer ses ve bildirim açıklaması yanlış ise açın</string>
+
     <string name="disconnected">Bağlı değil</string>
     <string name="disabled">Etkin değil</string>
     <string name="off">KAPALI</string>
@@ -58,20 +53,26 @@
 
 
     <!-- RECENTS -->
-    <string name="no_previous_recents">Son uygulama yok</string>
-    <string name="enable_recents_double_tap">Çift tıklama ile son uygulamayi açma</string>
+    <string name="enable_recents_double_tap">Çift tıklama ile son uygulamayı açma</string>
+    <string name="double_tap_speed_title">Çift dokunma hızı</string>
+    <string name="enable_recents_navigation">Son uygulamalar gezinmeyi aktifleştirme</string>
+    <string name="recents_navigation_delay">Son uygulamalar gezinme hızı</string>
     <string name="enable_large_recents">N stili son uygulamalar</string>
+
+    <string name="no_previous_recents">Son uygulama yok</string>
     <!-- /RECENTS -->
 
     <!-- NOTIFICATIONS -->
+    <string name="enable_notification_header">Yeni bildirimler geliştirmesi</string>
     <string name="notifications_change_style">N stili bildirimler</string>
-    <string name="notification_allow_load_label_with_pm_title">Tum uygulamaların yüklenmesi için paket yöneticisi izni</string>
-    <string name="notification_allow_load_label_with_pm">Performans sorunlarına yol açabilir</string>
-    <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
-    <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır</string>
+    <string name="notifications_dark_theme_title">Karanlık bildirimler teması</string>
+    <string name="notifications_dark_theme">Kullanıcılar için karanlık bildirimler teması</string>
     <string name="notification_dismiss_button_title">Temizleme butonunu değiştirme</string>
     <string name="notification_dismiss_button">Yerine \"TÜMÜNÜ TEMİZLE\" butonunu gösterir</string>
-    <string name="enable_notification_header">Yeni bildirimler geliştirmesi</string>
+    <string name="notification_allow_load_label_with_pm_title">Alternatif uygulamaların yüklenmesi için izin</string>
+    <string name="notification_allow_load_label_with_pm">Tüm uygulamaların yüklenmesi için paket yöneticisi izni</string>
+    <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
+    <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır</string>
     <!-- /NOTIFICATIONS -->
 
 </resources>
