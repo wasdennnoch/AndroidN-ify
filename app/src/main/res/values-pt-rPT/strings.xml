@@ -12,7 +12,6 @@
     <string name="fix_sound_notif_tile_title">Corrigir o módulo de "Sons &amp; Notificações</string>
     <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e Notificações. Activar para mostrar o sumário correcto para estes casos</string>
 
-    <string name="enable_recents">Activar modificações em recentes</string>
     <string name="double_tap_speed_title">Velocidade de duplo toque</string>
 
     <string name="hide_launcher_icon">Pode ser necessário reiniciar o launcher</string>

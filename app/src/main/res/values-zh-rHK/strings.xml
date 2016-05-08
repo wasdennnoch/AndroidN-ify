@@ -14,7 +14,6 @@
     <string name="fix_sound_notif_tile_title">修復 "聲音 &amp; 通知" 選項</string>
     <string name="fix_sound_notif_tile">有些ROM會組合聲音和通知選項，啟用此選項可修復。</string>
 
-    <string name="enable_recents">雙擊多工鍵切換應用程式速度</string>
     <string name="double_tap_speed_title">雙擊速度</string>
 
     <string name="hide_launcher_icon_title">隱藏啟動器圖標</string>

@@ -12,7 +12,6 @@
     <string name="fix_sound_notif_tile_title">Reglează titlu "Sunete &amp; notificări"</string>
     <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete şi notificări. Activează ca să setezi rezumatul optim pt. acest titlu</string>
 
-    <string name="enable_recents">Activare modificări aplicaţii recente</string>
     <string name="double_tap_speed_title">Viteză atingere dublă</string>
 
     <string name="hide_launcher_icon_title">Ascunde iconiţa din lansator</string>

@@ -23,11 +23,8 @@
     <string name="fix_sound_notif_tile">Alcune ROM uniscono la sezione Suono e Notifiche. Abilita per impostare il giusto sommario per questa sezione</string>
     <string name="header_tweaks">Modifiche</string>
 
-    <string name="enable_recents">Abilita modifiche al tasto recenti</string>
     <string name="double_tap_speed_title">Velocità doppio tap</string>
-    
-    <string name="enable_notifications_title">Abilita modifiche alle notifiche</string>
-    <string name="enable_notifications">Dopo ogni cambio di queste opzioni riavvia la SystemUI</string>
+
     <string name="notifications_dark_theme_title">Tema notifiche scuro</string>
     <string name="notifications_dark_theme">Background delle notifiche scuro per utenti con specifici temi Layers.</string>
 

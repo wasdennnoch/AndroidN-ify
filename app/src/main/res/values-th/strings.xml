@@ -23,10 +23,8 @@
     <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
     <string name="fix_sound_notif_tile">Some ROMs combine the Sounds- and Notifications tile. Enable to set the proper summary for this tile</string>
 
-    <string name="enable_recents">เปิดการปรับแต่งหน้า Recent apps</string>
     <string name="double_tap_speed_title">ความเร็ว Double tap</string>
 
-    <string name="enable_notifications_title">เปิดการปรับแต่งการแข้งเตือน</string>
     <string name="notifications_dark_theme_title">การแจ้งเตือนแบบมืด</string>
     <string name="notifications_dark_theme">สำหรับ layers themes</string>
 
