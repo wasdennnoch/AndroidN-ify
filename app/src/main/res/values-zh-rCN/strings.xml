@@ -13,32 +13,27 @@
     <string name="about_version">版本 %1$s (%2$d)</string>
     
     <!-- prefs -->
-    <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 所导致的。</string>
+    <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 而导致的。</string>
 
     <string name="header_settings">设置</string>
+    <string name="header_tweaks">调整</string>
     <string name="header_recents">最近任务</string>
     <string name="header_notifications">通知区域</string>
     <string name="header_app">应用程序</string>
     
-    <string name="enable_settings">启用设置调整</string>
-    <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
-    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 的设置中显示出正确的信息概要。</string>
-
-    <string name="header_tweaks">调整</string>
-
-    <string name="double_tap_speed_title">双击速度</string>
-
-    <string name="notifications_dark_theme_title">使用暗色主题的通知</string>
-    <string name="notifications_dark_theme">针对某些特定层面主题的用户使用暗色调的通知背景</string>
-	
     <string name="hide_launcher_icon_title">隐藏程序图标</string>
     <string name="hide_launcher_icon">或许需要重启桌面</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
+   
+    <string name="requires_android_version">Requires Android %1$s</string>
     <!-- /prefs -->
-
-
+    
     <!-- SETTINGS -->
+    <string name="enable_settings">启用设置调整</string>
+    <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
+    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 的设置中显示出正确的信息概要。</string>
+
     <string name="disconnected">未连接</string>
     <string name="disabled">已禁用</string>
     <string name="off">关闭</string>
@@ -59,20 +54,28 @@
     <string name="location_on_high">开启 / 高精确度</string>
     <string name="print_summary">%1$d 个打印任务</string>
     <!-- /SETTINGS -->
-
+    
     <!-- RECENTS -->
-    <string name="no_previous_recents">没有上一个应用</string>
     <string name="enable_recents_double_tap">双击切换至上一个应用</string>
-    <string name="enable_large_recents">启用更大尺寸的多任务卡片</string>
+    <string name="double_tap_speed_title">双击速度</string>
+    <string name="enable_recents_navigation">启用最近任务导航</string>
+    <string name="recents_navigation_delay">最近任务导航延迟时长</string>
+    <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
+	
+    <string name="no_previous_recents">没有上一个应用</string>
     <!-- /RECENTS -->
-
+    
     <!-- NOTIFICATIONS -->
-    <string name="notification_allow_load_label_with_pm_title">允许通过软件包安装程序获取应用名</string>
-    <string name="notification_allow_load_label_with_pm">可能会影响手机性能</string>
-    <string name="notification_full_width_volume_title">全宽度的音量控制栏</string>
-    <string name="notification_full_width_volume">针对大屏幕手机移除音量控制栏的宽度限制</string>
+    <string name="enable_notification_header">启用 Android N 风格下拉顶栏</string>
+    <string name="notifications_change_style">启用 Android N 风格通知</string>
+    <string name="notifications_dark_theme_title">启用暗色主题通知</string>
+    <string name="notifications_dark_theme">针对某些特定层面主题的用户使用暗色调的通知背景</string>
     <string name="notification_dismiss_button_title">更改清除按钮</string>
     <string name="notification_dismiss_button">使用 \"全部清除\" 字样替代原先的图标</string>
+    <string name="notification_allow_load_label_with_pm_title">备选的应用名称加载方案</string>
+    <string name="notification_allow_load_label_with_pm">允许通过软件包安装程序加载应用名称。可能会影响到手机性能</string>
+    <string name="notification_full_width_volume_title">全宽度的音量控制栏</string>
+    <string name="notification_full_width_volume">针对大屏幕手机移除音量控制栏的宽度限制</string>
     <!-- /NOTIFICATIONS -->
-
+	
 </resources>
