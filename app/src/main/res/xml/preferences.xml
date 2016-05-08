@@ -56,8 +56,7 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_notification_header"
-                android:title="@string/enable_notifications"
-                android:summary="@string/enable_notifications_summ"/>
+                android:title="@string/enable_notification_header"/>
 
             <SwitchPreference
                 android:defaultValue="true"
