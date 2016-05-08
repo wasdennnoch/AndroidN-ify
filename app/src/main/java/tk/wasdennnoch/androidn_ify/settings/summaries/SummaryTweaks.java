@@ -262,19 +262,6 @@ public class SummaryTweaks {
             } else if (id == display_and_lights_settings) {
                 tileId = "display_and_lights_settings";
                 RomTweaks.hookDisplayAndLightsTile(tile, context);
-            } else if (id == notification_manager) {
-                tileId = "notification_manager";
-                RomTweaks.hookNotificationManagerTile(tile, context);
-                //} else if (id == oclick) {
-                //    XposedHelpers.setObjectField(tile, "summary", "oclick");
-                //} else if (id == device_specific_gesture_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "device_specific_gesture_settings");
-                //} else if (id == profile_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "profile_settings");
-                //} else if (id == privacy_settings_cyanogenmod) {
-                //    XposedHelpers.setObjectField(tile, "summary", "privacy_settings_cyanogenmod");
-                //} else if (id == supersu_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "supersu_settings");
             }
 
             if (!tileId.equals(""))
