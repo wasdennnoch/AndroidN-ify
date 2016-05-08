@@ -74,6 +74,7 @@
     <string name="notification_full_width_volume">Genis ekranli telefonlar icin ses ayarlari sinirini kaldirir</string>
     <string name="notification_dismiss_button_title">Temizleme butonunu değistirme</string>
     <string name="notification_dismiss_button">Yerine \"TÜMÜNÜ TEMİZLE\" butonunu gösterir</string>
+    <string name="enable_notification_header">Yeni bildirimler gelistirmesi</string>
     <!-- /NOTIFICATIONS -->
 
 </resources>
