@@ -14,6 +14,7 @@ import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
 import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapSwKeys;
+import tk.wasdennnoch.androidn_ify.recents.navigate.RecentsNavigation;
 import tk.wasdennnoch.androidn_ify.recents.stack.RecentsStackHooks;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 
@@ -87,14 +88,15 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 SettingsHooks.hook(lpparam.classLoader);
                 break;
             case PACKAGE_SYSTEMUI:
-                DoubleTapSwKeys.hook(lpparam.classLoader);
+                //DoubleTapSwKeys.hook(lpparam.classLoader);
                 StatusBarHeaderHooks.hook(lpparam.classLoader);
                 NotificationPanelHooks.hook(lpparam.classLoader);
                 NotificationsHooks.hookSystemUI(lpparam.classLoader);
+                RecentsNavigation.hookSystemUI(lpparam.classLoader);
                 RecentsStackHooks.hookSystemUI(lpparam.classLoader);
                 break;
             case PACKAGE_ANDROID:
-                DoubleTapHwKeys.hook(lpparam.classLoader);
+                //DoubleTapHwKeys.hook(lpparam.classLoader);
                 break;
             case PACKAGE_OWN:
                 XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isActivated", XC_MethodReplacement.returnConstant(true));
