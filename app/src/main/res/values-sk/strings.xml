@@ -31,10 +31,13 @@
     <string name="enable_recents_double_tap">Dvojitým poklepaním otvoriť predchádzajúcu apl.</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
     <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
+    <string name="enable_recents_navigation">Povoliť navigáciu v nedávnych aplikáciách</string>
+    <string name="recents_navigation_delay">Oneskorenie navigácie</string>
     <!-- /RECENTS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Upozornenia</string>
+    <string name="enable_notification_header">Povoliť nové záhlavie stavovej lišty</string>
     <string name="notifications_change_style">Upozornenia v N štýle</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
     <string name="notifications_dark_theme">Tmavá téma pozadia upozornení pre používateľov špecifických Layers tém</string>
