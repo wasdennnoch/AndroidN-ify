@@ -4,11 +4,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class NotificationPanelHooks {
 
@@ -40,9 +40,9 @@ public class NotificationPanelHooks {
         }
     };
 
-    public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
+    public static void hook(ClassLoader classLoader) {
         try {
-            if (prefs.getBoolean("enable_notification_tweaks", true)) {
+            if (ConfigUtils.notifications().header) {
 
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
 

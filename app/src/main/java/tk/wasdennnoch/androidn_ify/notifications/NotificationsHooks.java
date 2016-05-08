@@ -34,6 +34,7 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.LayoutUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -279,32 +280,33 @@ public class NotificationsHooks {
         }
     };
 
-    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, XSharedPreferences prefs, String modulePath) {
+    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
-            if (prefs.getBoolean("enable_notification_tweaks", true)) {
+            ConfigUtils config = ConfigUtils.getInstance();
+            if (config.notifications.enable) {
 
                 XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
                 XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
 
                 // Notifications
-                if (prefs.getBoolean("notification_change_style", true)) {
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_min_height", modRes.fwd(R.dimen.notification_min_height));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_mid_height", modRes.fwd(R.dimen.notification_mid_height));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_max_height", modRes.fwd(R.dimen.notification_max_height));
+                if (config.notifications.change_style) {
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", zero);
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_min_height", modRes.fwd(R.dimen.notification_min_height));
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_mid_height", modRes.fwd(R.dimen.notification_mid_height));
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_max_height", modRes.fwd(R.dimen.notification_max_height));
 
-                // Drawables
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_header_bg", modRes.fwd(R.drawable.replacement_notification_header_bg));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_guts_bg", modRes.fwd(R.drawable.replacement_notification_guts_bg));
+                    // Drawables
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_header_bg", modRes.fwd(R.drawable.replacement_notification_header_bg));
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_guts_bg", modRes.fwd(R.drawable.replacement_notification_guts_bg));
 
-                // Layouts
-                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
+                    // Layouts
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
                 }
-                if (prefs.getBoolean("notification_dismiss_button", false)) {
+                if (config.notifications.dismiss_button) {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_dismiss_all", status_bar_notification_dismiss_all);
                     try {
                         resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_dismiss_button", status_bar_notification_dismiss_all);
@@ -313,11 +315,9 @@ public class NotificationsHooks {
                     }
                 }
 
-                fullWidthVolume = prefs.getBoolean("notification_full_width_volume", false);
-                allowLoadLabelWithPackageManager = prefs.getBoolean("notification_allow_load_label_with_pm", false);
-                if (prefs.getBoolean("notification_dark_theme", false)) {
+                if (config.notifications.dark_theme) {
                     darkTheme = true;
-                    if (prefs.getBoolean("notification_change_style", true)) {
+                    if (config.notifications.change_style) {
                         resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg_dark));
                         resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim_dark));
                     } else {
@@ -328,7 +328,7 @@ public class NotificationsHooks {
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_material_background_media_default_color", modRes.fwd(R.color.notification_material_background_media_default_color_dark));
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_ripple_color_low_priority", modRes.fwd(R.color.notification_ripple_color_low_priority_dark));
                 } else {
-                    if (prefs.getBoolean("notification_change_style", true)) {
+                    if (config.notifications.change_style) {
                         resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg));
                         resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim));
                     }
@@ -341,12 +341,12 @@ public class NotificationsHooks {
     }
 
     @SuppressWarnings("unused")
-    public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
+    public static void hook(ClassLoader classLoader) {
         Class classNotificationBuilder = Notification.Builder.class;
         Class classNotificationStyle = Notification.Style.class;
         Class classRemoteViews = RemoteViews.class;
 
-        if (prefs.getBoolean("notification_change_style", true)) {
+        if (ConfigUtils.notifications().change_style) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", Icon.class, classRemoteViews, processSmallIconAsLargeHook);
             } else {
@@ -361,26 +361,34 @@ public class NotificationsHooks {
         }
     }
 
-    public static void hookSystemUI(ClassLoader classLoader, XSharedPreferences prefs) {
+    public static void hookSystemUI(ClassLoader classLoader) {
         try {
-            if (prefs.getBoolean("enable_notification_tweaks", true)) {
+            ConfigUtils config = ConfigUtils.getInstance();
+            if (config.notifications.enable) {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
                 Class classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewButton", classLoader);
 
-                XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
-                XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
-                if (prefs.getBoolean("notification_dismiss_button", false)) {
+                if (config.notifications.change_style) {
+                    XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
+                    XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
+                }
+                if (config.notifications.dismiss_button) {
                     XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
                 }
 
-                try {
-                    Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
-                    XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
-                } catch (Throwable ignore) {
-                    // Not there in LP
-                    // TODO implementation for LP devices
+                fullWidthVolume = config.notifications.full_width_volume;
+                allowLoadLabelWithPackageManager = config.notifications.allow_load_label_with_pm;
+
+                if (fullWidthVolume) {
+                    try {
+                        Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
+                        XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
+                    } catch (Throwable ignore) {
+                        // Not there in LP
+                        // TODO implementation for LP devices
+                    }
                 }
             }
         } catch (Throwable t) {
@@ -388,9 +396,9 @@ public class NotificationsHooks {
         }
     }
 
-    public static void hookResAndroid(XC_InitPackageResources.InitPackageResourcesParam resparam, XSharedPreferences prefs) {
+    public static void hookResAndroid(XC_InitPackageResources.InitPackageResourcesParam resparam) {
         try {
-            if (prefs.getBoolean("notification_change_style", true)) {
+            if (ConfigUtils.notifications().change_style) {
 
                 //TODO More notification styling in the future
 

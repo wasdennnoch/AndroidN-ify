@@ -9,10 +9,10 @@ import android.os.Process;
 import android.view.View;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class DoubleTapSwKeys extends DoubleTapBase {
 
@@ -117,11 +117,12 @@ public class DoubleTapSwKeys extends DoubleTapBase {
         }
     };*/
 
-    public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
+    public static void hook(ClassLoader classLoader) {
         try {
-            prefs.reload();
-            loadPrefDoubleTapSpeed(prefs);
-            if (prefs.getBoolean("enable_recents_double_tap", true)) {
+            ConfigUtils config = ConfigUtils.getInstance();
+            config.reload();
+            loadPrefDoubleTapSpeed();
+            if (config.recents.double_tap) {
                 try {
                     XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", prepareNavigationBarViewHook);
                 } catch (NoSuchMethodError e) {

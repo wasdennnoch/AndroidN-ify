@@ -10,9 +10,9 @@ import android.view.KeyEvent;
 import android.view.WindowManagerPolicy;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class DoubleTapHwKeys extends DoubleTapBase {
 
@@ -81,16 +81,17 @@ public class DoubleTapHwKeys extends DoubleTapBase {
         }
     };
 
-    public static void hook(ClassLoader classLoader, XSharedPreferences prefs) {
+    public static void hook(ClassLoader classLoader) {
         try {
 
             Class<?> classPhoneWindowManager = XposedHelpers.findClass(CLASS_PHONE_WINDOW_MANAGER, classLoader);
 
             XposedHelpers.findAndHookMethod(classPhoneWindowManager, "init", Context.class, IWindowManager.class, WindowManagerPolicy.WindowManagerFuncs.class, initHook);
 
-            prefs.reload();
-            loadPrefDoubleTapSpeed(prefs);
-            if (prefs.getBoolean("enable_recents_double_tap", true)) {
+            ConfigUtils config = ConfigUtils.getInstance();
+            config.reload();
+            loadPrefDoubleTapSpeed();
+            if (config.recents.double_tap) {
 
                 XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching", WindowManagerPolicy.WindowState.class, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
 

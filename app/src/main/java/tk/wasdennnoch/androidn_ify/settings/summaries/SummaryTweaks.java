@@ -14,6 +14,7 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.categories.PersonalTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.RomTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.SystemTweaks;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.WirelessAndNetworksTweaks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class SummaryTweaks {
@@ -80,11 +81,11 @@ public class SummaryTweaks {
         sHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
     }*/
 
-    public static void afterLoadCategoriesFromResource(XC_MethodHook.MethodHookParam param, XSharedPreferences prefs) {
+    public static void afterLoadCategoriesFromResource(XC_MethodHook.MethodHookParam param) {
         try {
             long startTime = System.currentTimeMillis();
 
-            sFixSoundNotifTile = prefs.getBoolean("fix_sound_notif_tile", false);
+            sFixSoundNotifTile = ConfigUtils.settings().fix_sound_notif_tile;
 
             Context context;
             if (Build.VERSION.SDK_INT >= 23)
