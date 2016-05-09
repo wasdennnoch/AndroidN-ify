@@ -13,7 +13,8 @@
     <!-- prefs -->
     <string name="header_settings">Ayarlar</string>
     <string name="header_tweaks">Geliştirme</string>
-    <string name="header_recents">Son uygulamalar</string>
+    <string name="header_recents">Son Uygulamalar</string>
+    <string name="header_status_bar_header">Durum Çubuğu</string>
     <string name="header_notifications">Bildirimler</string>
     <string name="header_app">Uygulama</string>
 
@@ -26,9 +27,10 @@
     <!-- /prefs -->
 
     <!-- SETTINGS -->
-    <string name="enable_settings_summaries_title">Ayarlar geliştirmesini aktifleştirme</string>
+    <string name="enable_settings_summaries_title">Ayarlar geliştirmesi</string>
+    <string name="enable_settings_summaries">Gösterge tablosunda doğrudan en önemli bilgileri gösterir.</string>
     <string name="fix_sound_notif_tile_title">Fix "Ses &amp; bildirim" satırı</string>
-    <string name="fix_sound_notif_tile">Eğer ses ve bildirim açıklaması yanlış ise açın</string>
+    <string name="fix_sound_notif_tile">Eğer ses ve bildirim açıklaması yanlış ise açın.</string>
 
     <string name="disconnected">Bağlı değil</string>
     <string name="disabled">Etkin değil</string>
@@ -54,28 +56,32 @@
 
     <!-- RECENTS -->
     <string name="enable_recents_double_tap_title">Çift tıklama ile son uygulamayı açma</string>
+    <string name="enable_recents_double_tap">Çift tıklama ile son uygulamayı açar.</string>
     <string name="double_tap_speed_title">Çift dokunma hızı</string>
-    <string name="enable_recents_navigation_title">Son uygulamalar gezinmeyi aktifleştirme</string>
+    <string name="enable_recents_navigation_title">Son uygulamalar gezinmesi</string>
     <string name="recents_navigation_delay_title">Son uygulamalar gezinme hızı</string>
+    <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
     <string name="enable_large_recents">N stili son uygulamalar</string>
 
     <string name="no_previous_recents">Son uygulama yok</string>
     <!-- /RECENTS -->
 
-    <!-- NOTIFICATIONS -->
+    <!-- STATUS BAR HEADER -->
     <string name="enable_notification_header">Yeni bildirimler geliştirmesi</string>
-    <string name="enable_qs_in_header">Hızlı ayarlar geliştirmesini aktifleştirme</string>
-    <string name="notification_header_qs_tiles_count">Hızlı ayarları göstermek için gerekir</string>
-    <string name="notification_header_qs_tiles_count_monitor">Sayısı</string>
+    <string name="notification_header_qs_tiles_count">Hızlı ayarları göstermek için gerekir.</string>
+    <string name="notification_header_qs_tiles_count_monitor">Tane</string>
+    <!-- /STATUS BAR HEADER -->
+
+    <!-- NOTIFICATIONS --> 
     <string name="notifications_change_style">N stili bildirimler</string>
     <string name="notifications_dark_theme_title">Karanlık bildirimler teması</string>
-    <string name="notifications_dark_theme">Kullanıcılar için karanlık bildirimler teması</string>
+    <string name="notifications_dark_theme">Kullanıcılar için karanlık bildirimler temasını uygular.</string>
     <string name="notification_dismiss_button_title">Temizleme butonunu değiştirme</string>
-    <string name="notification_dismiss_button">Yerine \"TÜMÜNÜ TEMİZLE\" butonunu gösterir</string>
-    <string name="notification_allow_load_label_with_pm_title">Alternatif uygulamaların yüklenmesi için izin</string>
-    <string name="notification_allow_load_label_with_pm">Tüm uygulamaların yüklenmesi için paket yöneticisi izni</string>
+    <string name="notification_dismiss_button">Yerine \"TÜMÜNÜ TEMİZLE\" butonunu gösterir.</string>
+    <string name="notification_allow_load_label_with_pm_title">Alternatif uygulamaların yüklenmesi izni</string>
+    <string name="notification_allow_load_label_with_pm">Tüm uygulamaların yüklenmesi için paket yöneticisi izni verir.</string>
     <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
-    <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır</string>
+    <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <!-- /NOTIFICATIONS -->
 
 </resources>
