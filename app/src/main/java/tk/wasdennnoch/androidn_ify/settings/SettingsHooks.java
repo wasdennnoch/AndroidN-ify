@@ -6,7 +6,6 @@ import android.os.Build;
 import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.settings.summaries.SummaryTweaks;
@@ -33,7 +32,7 @@ public class SettingsHooks {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
             config.reload();
-            if (config.settings.enable) {
+            if (config.settings.enable_summaries) {
 
                 Class<?> classSettingsActivity = XposedHelpers.findClass("com.android.settings.SettingsActivity", classLoader);
 

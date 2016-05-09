@@ -30,7 +30,7 @@
     <!-- /prefs -->
     
     <!-- SETTINGS -->
-    <string name="enable_settings">Activar módulo</string>
+    <string name="enable_settings_summaries_title">Activar módulo</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
     <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. Activa esto para mostrar la información correctamente</string>
     
@@ -56,10 +56,10 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap">Doble toque para cambiar a la última aplicación usada</string>
+    <string name="enable_recents_double_tap_title">Doble toque para cambiar a la última aplicación usada</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
     <string name="enable_recents_navigation_title">Activar navegacion de aplicaciones recientes</string>
-    <string name="recents_navigation_delay">Retraso de navegación de aplicaciones recientes</string>
+    <string name="recents_navigation_delay_title">Retraso de navegación de aplicaciones recientes</string>
     <string name="enable_large_recents">Activar tajetas grandes en aplicaciones recientes</string>
     
     <string name="no_previous_recents">Ninguna aplicación reciente</string>

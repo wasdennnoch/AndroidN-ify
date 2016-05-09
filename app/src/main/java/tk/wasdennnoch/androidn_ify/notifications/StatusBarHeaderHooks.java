@@ -541,15 +541,15 @@ public class StatusBarHeaderHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
-            if (ConfigUtils.notifications().header) {
+            if (ConfigUtils.header().header) {
 
                 Class<?> classStatusBarHeaderView = XposedHelpers.findClass(CLASS_STATUS_BAR_HEADER_VIEW, classLoader);
                 Class<?> classQSPanel = XposedHelpers.findClass(CLASS_QS_PANEL, classLoader);
                 Class<?> classQSTile = XposedHelpers.findClass(CLASS_QS_TILE, classLoader);
 
                 try {
-                    mHasEditPanel = true;
                     XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setEditing", boolean.class, setEditingHook);
+                    mHasEditPanel = true;
                 } catch (NoSuchMethodError e) {
                     mHasEditPanel = false;
                 }
@@ -584,7 +584,6 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                // TODO find better way of managing header view transitions on showing detail
                 XposedHelpers.findAndHookMethod(classQSPanel, "fireShowingDetail", CLASS_DETAIL_ADAPTER, new XC_MethodReplacement() {
                     @Override
                     protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
@@ -610,7 +609,7 @@ public class StatusBarHeaderHooks {
 
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
-            if (ConfigUtils.notifications().header) {
+            if (ConfigUtils.header().header) {
 
                 XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
 

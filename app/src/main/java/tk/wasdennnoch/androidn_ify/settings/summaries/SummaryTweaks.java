@@ -6,7 +6,6 @@ import android.os.Build;
 import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.settings.summaries.categories.DeviceTweaks;
@@ -238,9 +237,9 @@ public class SummaryTweaks {
                 SystemTweaks.hookDateTimeTile(tile);
                 //} else if (id == accessibility_settings) {
                 //    XposedHelpers.setObjectField(tile, "summary", "accessibility_settings");
-            //} else if (id == print_settings) {
-            //    tileId = "print_settings";
-            //    SystemTweaks.hookPrintTile(tile, context);
+                //} else if (id == print_settings) {
+                //    tileId = "print_settings";
+                //    SystemTweaks.hookPrintTile(tile, context);
                 //} else if (id == development_settings) {
                 //    XposedHelpers.setObjectField(tile, "summary", "development_settings");
             } else if (id == about_settings) {

@@ -30,7 +30,7 @@
     <!-- /prefs -->
     
     <!-- SETTINGS -->
-    <string name="enable_settings">启用设置调整</string>
+    <string name="enable_settings_summaries_title">启用设置调整</string>
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
     <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 的设置中显示出正确的信息概要。</string>
 
@@ -56,10 +56,10 @@
     <!-- /SETTINGS -->
     
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap">双击切换至上一个应用</string>
+    <string name="enable_recents_double_tap_title">双击切换至上一个应用</string>
     <string name="double_tap_speed_title">双击速度</string>
     <string name="enable_recents_navigation_title">启用最近任务导航</string>
-    <string name="recents_navigation_delay">最近任务导航延迟时长</string>
+    <string name="recents_navigation_delay_title">最近任务导航延迟时长</string>
     <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
 	
     <string name="no_previous_recents">没有上一个应用</string>

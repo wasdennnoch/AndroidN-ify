@@ -8,7 +8,7 @@
     <string name="header_recents">Recente</string>
     <string name="header_app">App</string>
 
-    <string name="enable_settings">Activare modificări setări</string>
+    <string name="enable_settings_summaries_title">Activare modificări setări</string>
     <string name="fix_sound_notif_tile_title">Reglează titlu "Sunete &amp; notificări"</string>
     <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete şi notificări. Activează ca să setezi rezumatul optim pt. acest titlu</string>
 

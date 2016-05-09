@@ -18,7 +18,7 @@
     <string name="header_notifications">Notifiche</string>
     <string name="header_app">App</string>
 
-    <string name="enable_settings">Abilita modifiche alle impostazioni</string>
+    <string name="enable_settings_summaries_title">Abilita modifiche alle impostazioni</string>
     <string name="fix_sound_notif_tile_title">Fix sezione "Suono &amp; Notifiche"</string>
     <string name="fix_sound_notif_tile">Alcune ROM uniscono la sezione Suono e Notifiche. Abilita per impostare il giusto sommario per questa sezione</string>
     <string name="header_tweaks">Modifiche</string>
@@ -60,7 +60,7 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Nessuna app precedente</string>
-    <string name="enable_recents_double_tap">Doppio tap per cambiare all\'ultima app</string>
+    <string name="enable_recents_double_tap_title">Doppio tap per cambiare all\'ultima app</string>
     <string name="enable_large_recents">Abilita grandi app recenti</string>
     <!-- /RECENTS -->
     

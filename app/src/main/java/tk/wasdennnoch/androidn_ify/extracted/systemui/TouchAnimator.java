@@ -12,16 +12,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class TouchAnimator {
 
-    /*private static final FloatProperty<TouchAnimator2> POSITION = new FloatProperty("position") {
-        public Float get(TouchAnimator2 paramAnonymousTouchAnimator) {
-            return Float.valueOf(TouchAnimator2. - get1(paramAnonymousTouchAnimator));
-        }
-
-        public void setValue(TouchAnimator2 paramAnonymousTouchAnimator, float paramAnonymousFloat) {
-            paramAnonymousTouchAnimator.setPosition(paramAnonymousFloat);
-        }
-    };*/
-
     private static final FloatProperty POSITION = new FloatProperty("position") {
         public Float get(TouchAnimator touchanimator) {
             return touchanimator.mLastT;

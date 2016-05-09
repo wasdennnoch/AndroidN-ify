@@ -18,6 +18,7 @@
     <string name="header_settings">Settings</string>
     <string name="header_tweaks">Tweaks</string>
     <string name="header_recents">Recents</string>
+    <string name="header_status_bar_header">Status bar header</string>
     <string name="header_notifications">Notifications</string>
     <string name="header_app">App</string>
 
@@ -30,7 +31,8 @@
     <!-- /prefs -->
 
     <!-- SETTINGS -->
-    <string name="enable_settings">Enable settings tweaks</string>
+    <string name="enable_settings_summaries_title">Settings summaries</string>
+    <string name="enable_settings_summaries">Show the most important information directly in the dashboard</string>
     <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
     <string name="fix_sound_notif_tile">Some ROMs combine the Sounds- and Notifications tile. Enable to set the proper summary for this tile</string>
 
@@ -56,22 +58,26 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap">Double tap to switch to last app</string>
+    <string name="enable_recents_double_tap_title">Double-tap app switch</string>
+    <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
     <string name="double_tap_speed_title">Double tap speed</string>
     <string name="enable_recents_navigation_title">Enable recent apps navigation</string>
     <string name="enable_recents_navigation">Use the recents key to navigate through the recents</string>
-    <string name="recents_navigation_delay">Recent apps navigation delay</string>
+    <string name="recents_navigation_delay_title">Navigation delay</string>
+    <string name="recents_navigation_delay">Time until the selected app gets focused</string>
     <string name="enable_large_recents">Enable large recent apps</string>
 
     <string name="no_previous_recents">No previous app</string>
     <!-- /RECENTS -->
 
-    <!-- NOTIFICATIONS -->
-    <string name="enable_notification_header">Enable new status bar header</string>
-    <string name="enable_qs_in_header">Enable quick settings in header</string>
+    <!-- STATUS BAR HEADER -->
+    <string name="enable_notification_header">Style header</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
-    <string name="notifications_change_style">Notifications with N style</string>
+    <!-- /STATUS BAR HEADER -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="notifications_change_style">Style Notifications</string>
     <string name="notifications_dark_theme_title">Dark notification theme</string>
     <string name="notifications_dark_theme">Dark notification background for users of specific layers themes</string>
     <string name="notification_dismiss_button_title">Change dismiss button</string>

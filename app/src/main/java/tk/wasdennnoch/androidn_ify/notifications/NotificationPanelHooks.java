@@ -32,7 +32,7 @@ public class NotificationPanelHooks {
         }
     };
 
-    private static View.OnClickListener mExpandIndicatorListener = new View.OnClickListener(){
+    private static View.OnClickListener mExpandIndicatorListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
@@ -41,8 +41,8 @@ public class NotificationPanelHooks {
     };
 
     public static void expandIfNecessary() {
-        if(mExpandIndicator == null || mNotificationPanelView == null) return;
-        if(!mExpandIndicator.isExpanded()) flingSettings(true);
+        if (mExpandIndicator == null || mNotificationPanelView == null) return;
+        if (!mExpandIndicator.isExpanded()) flingSettings(true);
     }
 
     public static void flingSettings(boolean expanded) {
@@ -51,7 +51,7 @@ public class NotificationPanelHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
-            if (ConfigUtils.notifications().header) {
+            if (ConfigUtils.header().header) {
 
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
 

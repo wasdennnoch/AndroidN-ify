@@ -30,7 +30,7 @@
     <!-- /prefs -->
 
     <!-- SETTINGS -->
-    <string name="enable_settings">فعالسازی تغییرات به تنظیمات گوشی</string>
+    <string name="enable_settings_summaries_title">فعالسازی تغییرات به تنظیمات گوشی</string>
     <string name="fix_sound_notif_tile_title">حل کردن مشکل گزینه های تنظیمات</string>
     <string name="fix_sound_notif_tile">اگر توضیحات بعضی از گزینه ها درست نیستند انتخاب شود</string>
 
@@ -56,10 +56,10 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap">دوبار زدن دکمه ریسنت برای رفتن به برنامه قبلی</string>
+    <string name="enable_recents_double_tap_title">دوبار زدن دکمه ریسنت برای رفتن به برنامه قبلی</string>
     <string name="double_tap_speed_title">سرعت کلیک</string>
     <string name="enable_recents_navigation_title">فعالسازی تغییر برنامه</string>
-    <string name="recents_navigation_delay">فاصله زمانی بین برنامه ها</string>
+    <string name="recents_navigation_delay_title">فاصله زمانی بین برنامه ها</string>
     <string name="enable_large_recents">فعالسازی پنجره های بزرگتر</string>
 
     <string name="no_previous_recents">هیچ برنامه ای باز نیست</string>

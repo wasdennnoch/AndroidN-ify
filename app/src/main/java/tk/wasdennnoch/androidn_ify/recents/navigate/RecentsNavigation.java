@@ -95,7 +95,8 @@ public class RecentsNavigation {
         if (isRecentsTopMost(ssp, getTopMostTask(ssp))) {
             // If we currently have filtered stacks, then unfilter those first
             if (checkFilteredStackState &&
-                    (boolean) XposedHelpers.callMethod(mRecentsView, "unfilterFilteredStacks")) return true;
+                    (boolean) XposedHelpers.callMethod(mRecentsView, "unfilterFilteredStacks"))
+                return true;
             // If we have a focused Task, launch that Task now
             if (launchFocusedTask()) return true;
             // If we launched from Home, then return to Home
@@ -187,7 +188,8 @@ public class RecentsNavigation {
                     XposedHelpers.callMethod(mStackScroller, "setStackScroll", 10f);
                     mResetScroll = false;
                 }
-                if (anchorTask == null) anchorTask = XposedHelpers.callMethod(XposedHelpers.getObjectField(stackView, "mStack"), "getFrontMostTask");
+                if (anchorTask == null)
+                    anchorTask = XposedHelpers.callMethod(XposedHelpers.getObjectField(stackView, "mStack"), "getFrontMostTask");
                 Object mLayoutAlgorithm = XposedHelpers.getObjectField(stackView, "mLayoutAlgorithm");
                 float anchorTaskScroll = (float) XposedHelpers.callMethod(mLayoutAlgorithm, "getStackScrollForTask", anchorTask);
                 float curScroll = (float) XposedHelpers.callMethod(mStackScroller, "getStackScroll");
@@ -200,7 +202,7 @@ public class RecentsNavigation {
 
                 mCurrentProgress = new TaskProgress(taskView, stackView, stack, task);
                 mCurrentProgress.start();
-                
+
                 if (mSkipFirstApp) {
                     mSkipFirstApp = false;
                     navigateRecents(tasks, taskViews, stackView, stack);

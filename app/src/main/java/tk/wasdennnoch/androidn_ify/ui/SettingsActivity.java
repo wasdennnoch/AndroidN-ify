@@ -80,16 +80,25 @@ public class SettingsActivity extends Activity {
         @Override
         public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
             super.onPreferenceTreeClick(preferenceScreen, preference);
-
-            if (preference instanceof PreferenceScreen && preference.getKey().equals("settings_recents")) {
+            if (preference instanceof PreferenceScreen) {
                 PreferenceScreen screen = (PreferenceScreen) preference;
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    Preference recentsNavigationPreference = screen.findPreference("enable_recents_navigation");
-                    recentsNavigationPreference.setEnabled(false);
-                    recentsNavigationPreference.setSummary(String.format(getString(R.string.requires_android_version), "Marshmallow"));
+                switch (preference.getKey()) {
+                    case "settings_recents":
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                            Preference p = screen.findPreference("enable_recents_navigation");
+                            p.setEnabled(false);
+                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        }
+                        break;
+                    case "settings_status_bar_header":
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                            Preference p = screen.findPreference("notification_full_width_volume");
+                            p.setEnabled(false);
+                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        }
+                        break;
                 }
             }
-
             return false;
         }
 

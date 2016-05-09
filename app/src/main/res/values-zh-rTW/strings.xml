@@ -10,7 +10,7 @@
     <string name="header_recents">最近使用的應用程式</string>
     <string name="header_app">應用程式</string>
 
-    <string name="enable_settings">啟用設定調整</string>
+    <string name="enable_settings_summaries_title">啟用設定調整</string>
     <string name="fix_sound_notif_tile_title">修復 "聲音 和 通知" 的選項</string>
     <string name="fix_sound_notif_tile">有些系統會組合聲音和通知的選項，啟用本選項可修復。</string>
 

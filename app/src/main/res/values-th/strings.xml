@@ -19,7 +19,7 @@
     <string name="header_notifications">การแจ้งเตือน</string>
     <string name="header_app">แอพ</string>
 
-    <string name="enable_settings">เปิดการปรับแต่งหน้าการตั้งค่า</string>
+    <string name="enable_settings_summaries_title">เปิดการปรับแต่งหน้าการตั้งค่า</string>
     <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
     <string name="fix_sound_notif_tile">Some ROMs combine the Sounds- and Notifications tile. Enable to set the proper summary for this tile</string>
 

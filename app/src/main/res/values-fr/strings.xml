@@ -13,7 +13,7 @@
 
     <string name="prefs_file_not_readable">Le fichier des préférences n\'est pas lisible par Xposed, les valeurs par défaut seront utilisées. Cela peut être causé par SELinux en Enforcing.</string>
 
-    <string name="enable_settings">Activer la modification des paramètres</string>
+    <string name="enable_settings_summaries_title">Activer la modification des paramètres</string>
     <string name="fix_sound_notif_tile_title">Correction "Son &amp; notifications" </string>
     <string name="fix_sound_notif_tile">Certaines ROMs combine les Sons et Notifications. Activer pour afficher le bon résumé</string>
 

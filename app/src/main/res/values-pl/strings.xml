@@ -30,7 +30,7 @@
     <!-- /prefs -->
 
     <!-- SETTINGS -->
-    <string name="enable_settings">Włącz poprawki ustawień</string>
+    <string name="enable_settings_summaries_title">Włącz poprawki ustawień</string>
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
     <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
 
@@ -56,10 +56,10 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap">Podwójne kliknięcie, aby zmienić na ostatnio używaną aplikację</string>
+    <string name="enable_recents_double_tap_title">Podwójne kliknięcie, aby zmienić na ostatnio używaną aplikację</string>
     <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
     <string name="enable_recents_navigation_title">Włącz nawigację ostatnich aplikacji</string>
-    <string name="recents_navigation_delay">Opóźnienie nawigacji ostatnich aplikacji</string>
+    <string name="recents_navigation_delay_title">Opóźnienie nawigacji ostatnich aplikacji</string>
     <string name="enable_large_recents">Włącz duże okna ostatnich aplikacji</string>
 
     <string name="no_previous_recents">Brak poprzedniej aplikacji</string>

@@ -20,7 +20,7 @@
     <string name="header_notifications">Уведомления</string>
     <string name="header_app">Приложение</string>
     
-    <string name="enable_settings">Включить твики настроек</string>
+    <string name="enable_settings_summaries_title">Включить твики настроек</string>
     <string name="fix_sound_notif_tile_title">Исправить пункт \"Звуки и Уведомления\"</string>
     <string name="fix_sound_notif_tile">Некоторые прошивки объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения.</string>
     
@@ -62,7 +62,7 @@
 
     <!-- RECENTS -->
     <string name="no_previous_recents">Нет недавних приложений</string>
-    <string name="enable_recents_double_tap">Двойное нажатие для переключения к предыдущему приложению</string>
+    <string name="enable_recents_double_tap_title">Двойное нажатие для переключения к предыдущему приложению</string>
     <string name="enable_large_recents">Увеличение высоты недавних приложений</string> 
     <!-- /RECENTS -->  
  

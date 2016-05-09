@@ -9,6 +9,7 @@ public class RecentsStackHooks {
 
     private static final String TAG = "RecentsStackHooks";
 
+    // TODO remove obsolete code snippets?
     /*
     private static XC_MethodHook computeRectsHook = new XC_MethodHook() {
         @Override

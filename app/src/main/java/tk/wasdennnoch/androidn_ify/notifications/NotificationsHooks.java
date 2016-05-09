@@ -312,8 +312,7 @@ public class NotificationsHooks {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_dismiss_all", status_bar_notification_dismiss_all);
                     try {
                         resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_dismiss_button", status_bar_notification_dismiss_all);
-                    } catch (Exception e) {
-
+                    } catch (Exception ignored) {
                     }
                 }
 
@@ -462,7 +461,7 @@ public class NotificationsHooks {
             int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
 
             TextView bigText = (TextView) layout.findViewById(context.getResources().getIdentifier("big_text", "id", PACKAGE_ANDROID));
-            if(bigText != null) {
+            if (bigText != null) {
                 LinearLayout.LayoutParams bigTextLp = (LinearLayout.LayoutParams) bigText.getLayoutParams();
                 bigTextLp.rightMargin = notificationTextMarginEnd;
                 bigText.setLayoutParams(bigTextLp);

@@ -23,7 +23,6 @@ public class AboutActivity extends Activity {
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 

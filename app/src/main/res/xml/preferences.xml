@@ -4,24 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="@string/header_settings">
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="enable_settings_tweaks"
-            android:title="@string/enable_settings"/>
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:dependency="enable_settings_tweaks"
-            android:key="fix_sound_notif_tile"
-            android:summary="@string/fix_sound_notif_tile"
-            android:title="@string/fix_sound_notif_tile_title"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="@string/header_tweaks">
+
+        <PreferenceScreen
+            android:key="settings_recents"
+            android:title="@string/header_settings">
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_settings_summaries"
+                android:summary="@string/enable_settings_summaries"
+                android:title="@string/enable_settings_summaries_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_settings_summaries"
+                android:key="fix_sound_notif_tile"
+                android:summary="@string/fix_sound_notif_tile"
+                android:title="@string/fix_sound_notif_tile_title"/>
+
+        </PreferenceScreen>
+
 
         <PreferenceScreen
             android:key="settings_recents"
@@ -30,7 +33,8 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:key="enable_recents_double_tap"
-                android:title="@string/enable_recents_double_tap"/>
+                android:summary="@string/enable_recents_double_tap"
+                android:title="@string/enable_recents_double_tap_title"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="400"
@@ -58,9 +62,10 @@
                 android:defaultValue="1000"
                 android:dependency="enable_recents_navigation"
                 android:key="recents_navigation_delay"
-                android:title="@string/recents_navigation_delay"
+                android:summary="@string/recents_navigation_delay"
+                android:title="@string/recents_navigation_delay_title"
                 app:interval="10"
-                app:maximum="10000"
+                app:maximum="4000"
                 app:minimum="500"
                 app:monitorBoxEnabled="true"
                 app:monitorBoxUnit="ms"/>
@@ -69,13 +74,13 @@
 
 
         <PreferenceScreen
-            android:key="settings_notifications"
-            android:title="@string/header_notifications">
+            android:key="settings_status_bar_header"
+            android:title="@string/header_status_bar_header">
 
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_notification_header"
-                android:title="@string/enable_qs_in_header"/>
+                android:title="@string/enable_notification_header"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="5"
@@ -88,6 +93,19 @@
                 app:monitorBoxEnabled="true"
                 app:monitorBoxLeadingSpace="true"
                 app:monitorBoxUnit="@string/notification_header_qs_tiles_count_monitor"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="notification_full_width_volume"
+                android:summary="@string/notification_full_width_volume"
+                android:title="@string/notification_full_width_volume_title"/>
+
+        </PreferenceScreen>
+
+
+        <PreferenceScreen
+            android:key="settings_notifications"
+            android:title="@string/header_notifications">
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -108,15 +126,10 @@
 
             <SwitchPreference
                 android:defaultValue="false"
+                android:dependency="notification_change_style"
                 android:key="notification_allow_load_label_with_pm"
                 android:summary="@string/notification_allow_load_label_with_pm"
                 android:title="@string/notification_allow_load_label_with_pm_title"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
-                android:key="notification_full_width_volume"
-                android:summary="@string/notification_full_width_volume"
-                android:title="@string/notification_full_width_volume_title"/>
 
         </PreferenceScreen>
 

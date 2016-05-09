@@ -32,7 +32,7 @@ public class QuickQSPanel extends LinearLayout {
         ConfigUtils config = ConfigUtils.getInstance();
         config.reload();
         res = ResourceUtils.getInstance(context);
-        mMaxTiles = config.notifications.qs_tiles_count;
+        mMaxTiles = config.header.qs_tiles_count;
         setOrientation(VERTICAL);
         setPadding(0, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), 0, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         mTileLayout = new HeaderTileLayout(context);
@@ -56,8 +56,16 @@ public class QuickQSPanel extends LinearLayout {
             Object tilerecord = mRecords.get(i);
             Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             if (tile == qstile) {
-                XposedHelpers.callMethod(mTileViews.get(i), "onStateChanged", state);
+                ViewGroup tileView = mTileViews.get(i);
+                XposedHelpers.callMethod(tileView, "onStateChanged", state);
                 XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
+                /*View iconView = (View) XposedHelpers.getObjectField(tileView, "mIcon");
+                if (iconView instanceof ImageView) {
+                    Drawable icon = ((ImageView) iconView).getDrawable();
+                    if (icon instanceof Animatable) {
+                        ((Animatable) icon).start();
+                    }
+                }*/
             }
         }
     }
