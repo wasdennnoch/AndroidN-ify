@@ -32,6 +32,7 @@
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
     <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
     <string name="enable_recents_navigation_title">Povoliť navigáciu v nedávnych aplikáciách</string>
+    <string name="enable_recents_navigation">Použite tlačidlo nedávnych apl. pre navigáciu medzi apl.</string>
     <string name="recents_navigation_delay">Oneskorenie navigácie</string>
     <!-- /RECENTS -->
 
@@ -39,7 +40,8 @@
     <string name="header_notifications">Upozornenia</string>
     <string name="enable_notification_header">Povoliť nové záhlavie stavovej lišty</string>
     <string name="enable_qs_in_header">Povoliť rýchle nastavenia v záhlaví</string>
-    <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
+    <string name="notification_header_qs_tiles_count">Zobraziť</string>
+    <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
     <string name="notifications_change_style">Upozornenia v N štýle</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
     <string name="notifications_dark_theme">Tmavá téma pozadia upozornení pre používateľov špecifických Layers tém</string>
