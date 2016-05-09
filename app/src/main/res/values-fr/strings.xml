@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+
     <string name="xposed_description">Adapte les fonctions introduites dans Android N pour Lollipop et Marshmallow !</string>
 
-    <string name="about_author">Developpé par \"MrWasdennnoch\"</string>
+    <string name="restart_systemui">Redémarrer SystemUI</string>
+    <string name="restart_systemui_message">Etes-vous sûr de vouloir redémarrer SystemUI?</string>
+    <string name="restart_broadcast_sent">Demande de redémarrage envoyée</string>
     <string name="activity_about">À propos d\'Android N-ify</string>
+	<string name="about_author">Developpé par \"MrWasdennnoch\"</string>
+    <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="header_settings">Paramètres</string>
+	<string name="prefs_file_not_readable">Le fichier des préférences n\'est pas lisible par Xposed, les valeurs par défaut seront utilisées. Cela peut être causé par SELinux en Enforcing.</string>
+    
+	<string name="header_settings">Paramètres</string>
+    <string name="header_tweaks">Réglages</string>
     <string name="header_recents">Applications Récentes</string>
+	<string name="header_status_bar_header">Entête de la barre d'état</string>
+    <string name="header_notifications">Notifications</string>
     <string name="header_app">App</string>
-
-    <string name="prefs_file_not_readable">Le fichier des préférences n\'est pas lisible par Xposed, les valeurs par défaut seront utilisées. Cela peut être causé par SELinux en Enforcing.</string>
-
-    <string name="enable_settings_summaries_title">Activer la modification des paramètres</string>
-    <string name="fix_sound_notif_tile_title">Correction "Son &amp; notifications" </string>
-    <string name="fix_sound_notif_tile">Certaines ROMs combine les Sons et Notifications. Activer pour afficher le bon résumé</string>
-
-    <string name="double_tap_speed_title">Vitesse de double-tap</string>
-
-    <string name="notifications_dark_theme_title">Thème foncé pour les notifications</string>
 
     <string name="hide_launcher_icon_title">Cacher l\'icône dans le lanceur</string>
     <string name="hide_launcher_icon">Peut nécessiter un redémarrage du lanceur</string>
     <string name="debug_log_title">Log de Débogage</string>
     <string name="debug_log">Attention : Beaucoup de Log</string>
-    <!-- /prefs -->
 
+    <string name="requires_android_version">Nécessite Android %1$s</string>
+	<!-- /prefs -->
+	
+	<!-- SETTINGS -->
+    <string name="enable_settings_summaries_title">Activer la modification des paramètres</string>
+    <string name="enable_settings_summaries">Afficher les informations les plus importantes directement dans le tableau de bord</string>
+    <string name="fix_sound_notif_tile_title">Correction "Son &amp; notifications" </string>
+    <string name="fix_sound_notif_tile">Certaines ROMs combine les Sons et Notifications. Activer pour afficher le bon résumé</string>
 
-    <!-- SETTINGS -->
     <string name="disconnected">Déconnecté</string>
     <string name="disabled">Désactivé</string>
     <string name="off">DÉSACTIVÉ</string>
@@ -51,7 +58,34 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
+	<string name="enable_recents_double_tap_title">Changer d'app par double-tap</string>
+    <string name="enable_recents_double_tap">Double-tap sur la touche récents pour passer à la dernière app utilisée</string>
+    <string name="double_tap_speed_title">Vitesse de double-tap</string>
+    <string name="enable_recents_navigation_title">Activer la navigation des apps récentes</string>
+    <string name="enable_recents_navigation">Utiliser la touche récents pour naviguer à travers les apps récentes</string>
+    <string name="recents_navigation_delay_title">Délai de navigation</string>
+    <string name="recents_navigation_delay">Durée avant que l'app selectionnée soit agrandie</string>
+    <string name="enable_large_recents">Activer applications récentes larges</string>
+
     <string name="no_previous_recents">Aucune application récente</string>
     <!-- /RECENTS -->
 
+    <!-- STATUS BAR HEADER -->
+    <string name="enable_notification_header">Style entête</string>
+    <string name="notification_header_qs_tiles_count">Tuiles QS à afficher</string>
+    <string name="notification_header_qs_tiles_count_monitor">tuiles</string>
+    <!-- /STATUS BAR HEADER -->
+	
+	<!-- NOTIFICATIONS -->
+    <string name="notifications_change_style">Style Notifications</string>
+    <string name="notifications_dark_theme_title">Thème foncé pour les notifications</string>
+    <string name="notifications_dark_theme">Arrière-plan des notifications noir pour les utilisateurs de calques de thèmes spécifiques</string>
+    <string name="notification_dismiss_button_title">Changer bouton d'élimination</string>
+    <string name="notification_dismiss_button">Afficher \"TOUT EFFACER\" au lieu de l'icône d'élimination</string>
+    <string name="notification_allow_load_label_with_pm_title">Méthode alternative de chargement du nom d'app</string>
+    <string name="notification_allow_load_label_with_pm">Autoriser le chargement du nom de l'app avec PackageManager. Peut causer des problèmes de performance</string>
+    <string name="notification_full_width_volume_title">Largeur totale boîte de dialogue du volume</string>
+    <string name="notification_full_width_volume">Supprimer la limite de la largeur de la boîte de dialogue du volume pour les téléphones avec grand écran</string>
+    <!-- /NOTIFICATIONS -->
+	
 </resources>
