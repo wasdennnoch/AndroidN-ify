@@ -44,6 +44,7 @@ public class StatusBarHeaderHooks {
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_STATUS_BAR_HEADER_VIEW = "com.android.systemui.statusbar.phone.StatusBarHeaderView";
     private static final String CLASS_LAYOUT_VALUES = CLASS_STATUS_BAR_HEADER_VIEW + "$LayoutValues";
+    private static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
     private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
     private static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
@@ -483,6 +484,7 @@ public class StatusBarHeaderHooks {
         transition(mQsDetailHeader, showingDetail);
         XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
         if (showingDetail) {
+            NotificationPanelHooks.expandIfNecessary();
             mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
             final Boolean toggleState = (Boolean) XposedHelpers.callMethod(detail, "getToggleState");
             if (toggleState == null) {
@@ -580,7 +582,12 @@ public class StatusBarHeaderHooks {
                 });
 
                 //TODO hooking all methods necessary?
-                XposedBridge.hookAllMethods(classQSPanel, "setTiles", setTilesHook);
+                try {
+                    Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
+                    XposedBridge.hookAllMethods(classQSDragPanel, "setTiles", setTilesHook);
+                } catch (Throwable ignore) {
+                    XposedBridge.hookAllMethods(classQSPanel, "setTiles", setTilesHook);
+                }
                 XposedBridge.hookAllMethods(classQSTile, "handleStateChanged", handleStateChangedHook);
 
             }

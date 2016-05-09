@@ -36,9 +36,18 @@ public class NotificationPanelHooks {
 
         @Override
         public void onClick(View v) {
-            XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", 0, !mExpandIndicator.isExpanded());
+            flingSettings(!mExpandIndicator.isExpanded());
         }
     };
+
+    public static void expandIfNecessary() {
+        if(mExpandIndicator == null || mNotificationPanelView == null) return;
+        if(!mExpandIndicator.isExpanded()) flingSettings(true);
+    }
+
+    public static void flingSettings(boolean expanded) {
+        XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", 0, expanded);
+    }
 
     public static void hook(ClassLoader classLoader) {
         try {
