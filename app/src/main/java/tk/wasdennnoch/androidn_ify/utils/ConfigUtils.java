@@ -53,6 +53,7 @@ public class ConfigUtils {
         public boolean enable;
 
         public boolean header;
+        public int qs_tiles_count;
         public boolean change_style;
         public boolean dark_theme;
         public boolean dismiss_button;
@@ -61,13 +62,14 @@ public class ConfigUtils {
 
         public NotificationsConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
+            qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
             change_style = prefs.getBoolean("notification_change_style", true);
             dark_theme = prefs.getBoolean("notification_dark_theme", false);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             allow_load_label_with_pm = prefs.getBoolean("notification_allow_load_label_with_pm", false);
             full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
 
-            enable = (change_style || dark_theme || dismiss_button || full_width_volume);
+            enable = (header || change_style || dark_theme || dismiss_button || full_width_volume);
         }
     }
 

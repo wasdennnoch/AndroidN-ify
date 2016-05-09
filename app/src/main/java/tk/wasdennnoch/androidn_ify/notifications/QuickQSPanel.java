@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class QuickQSPanel extends LinearLayout {
@@ -28,8 +29,10 @@ public class QuickQSPanel extends LinearLayout {
 
     public QuickQSPanel(Context context) {
         super(context);
+        ConfigUtils config = ConfigUtils.getInstance();
+        config.reload();
         res = ResourceUtils.getInstance(context);
-        mMaxTiles = 5;
+        mMaxTiles = config.notifications.qs_tiles_count;
         setOrientation(VERTICAL);
         setPadding(0, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), 0, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         mTileLayout = new HeaderTileLayout(context);

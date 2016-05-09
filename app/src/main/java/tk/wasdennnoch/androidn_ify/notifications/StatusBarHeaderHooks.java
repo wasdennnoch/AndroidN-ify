@@ -48,6 +48,8 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
 
+    private static boolean mHasEditPanel = false;
+
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
     private static TouchAnimator mFirstHalfAnimator;
@@ -61,6 +63,7 @@ public class StatusBarHeaderHooks {
     private static View mDateGroup;
     private static FrameLayout mMultiUserSwitch;
     private static TextView mDateCollapsed;
+    private static TextView mDateExpanded;
     private static View mSettingsButton;
     private static View mSettingsContainer;
     private static View mQsDetailHeader;
@@ -68,6 +71,7 @@ public class StatusBarHeaderHooks {
     private static Switch mQsDetailHeaderSwitch;
     private static TextView mEmergencyCallsOnly;
     private static TextView mAlarmStatus;
+    private static TextView mEditTileDoneText;
 
     private static ExpandableIndicator mExpandIndicator;
     private static LinearLayout mDateTimeAlarmGroup;
@@ -111,20 +115,28 @@ public class StatusBarHeaderHooks {
             View mClock;
             TextView mTime;
             TextView mAmPm;
+            View mDummyClock;
             try {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
                 mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
                 mClock = (View) XposedHelpers.getObjectField(param.thisObject, "mClock");
+                mDummyClock = new View(context);
+                mDummyClock.setVisibility(View.GONE);
+                XposedHelpers.setObjectField(param.thisObject, "mClock", mDummyClock);
                 mTime = (TextView) XposedHelpers.getObjectField(param.thisObject, "mTime");
                 mAmPm = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAmPm");
                 mMultiUserSwitch = (FrameLayout) XposedHelpers.getObjectField(param.thisObject, "mMultiUserSwitch");
                 mDateCollapsed = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateCollapsed");
+                mDateExpanded = (TextView) XposedHelpers.getObjectField(param.thisObject, "mDateExpanded");
                 mSettingsButton = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsButton");
                 mQsDetailHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeader");
                 mQsDetailHeaderTitle = (TextView) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeaderTitle");
                 mQsDetailHeaderSwitch = (Switch) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeaderSwitch");
                 mEmergencyCallsOnly = (TextView) XposedHelpers.getObjectField(param.thisObject, "mEmergencyCallsOnly");
                 mAlarmStatus = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAlarmStatus");
+                if (mHasEditPanel) {
+                    mEditTileDoneText = (TextView) XposedHelpers.getObjectField(param.thisObject, "mEditTileDoneText");
+                }
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Couldn't find required views, aborting", t);
                 return;
@@ -329,12 +341,28 @@ public class StatusBarHeaderHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if (mSystemIconsSuperContainer != null) {
                 mSystemIconsSuperContainer.setVisibility(View.GONE);
+                mDateExpanded.setVisibility(View.GONE);
                 mDateGroup.setVisibility(View.GONE);
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(XposedHelpers.getBooleanField(param.thisObject, "mExpanded") ? View.VISIBLE : View.INVISIBLE);
             } else {
                 XposedHook.logD(TAG, "updateVisibilitiesHook: mSystemIconsSuperContainer is still null");
+            }
+        }
+    };
+    private static XC_MethodHook setEditingHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            boolean editing = (boolean) param.args[0];
+            boolean shouldShowViews = !editing && XposedHelpers.getBooleanField(param.thisObject, "mExpanded");
+            if (mDateTimeAlarmGroup != null) {
+                mDateTimeAlarmGroup.setVisibility(editing ? View.INVISIBLE : View.VISIBLE);
+                mMultiUserSwitch.setVisibility(shouldShowViews ? View.VISIBLE : View.INVISIBLE);
+                mSettingsContainer.setVisibility(shouldShowViews ? View.VISIBLE : View.INVISIBLE);
+                mExpandIndicator.setVisibility(editing ? View.INVISIBLE : View.VISIBLE);
+            } else {
+                XposedHook.logD(TAG, "setEditingHook: mDateTimeAlarmGroup is still null");
             }
         }
     };
@@ -472,6 +500,14 @@ public class StatusBarHeaderHooks {
                     }
                 });
             }
+            if (mHasEditPanel) {
+                if ((int) XposedHelpers.callMethod(detail, "getTitle")
+                        == mQsDetailHeader.getContext().getResources().getIdentifier("quick_settings_edit_label", "string", PACKAGE_SYSTEMUI)) {
+                    mEditTileDoneText.setVisibility(View.VISIBLE);
+                } else {
+                    mEditTileDoneText.setVisibility(View.GONE);
+                }
+            }
         } else {
             mQsDetailHeader.setClickable(false);
         }
@@ -510,6 +546,13 @@ public class StatusBarHeaderHooks {
                 Class<?> classStatusBarHeaderView = XposedHelpers.findClass(CLASS_STATUS_BAR_HEADER_VIEW, classLoader);
                 Class<?> classQSPanel = XposedHelpers.findClass(CLASS_QS_PANEL, classLoader);
                 Class<?> classQSTile = XposedHelpers.findClass(CLASS_QS_TILE, classLoader);
+
+                try {
+                    mHasEditPanel = true;
+                    XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setEditing", boolean.class, setEditingHook);
+                } catch (NoSuchMethodError e) {
+                    mHasEditPanel = false;
+                }
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpansion", float.class, setExpansionHook);
