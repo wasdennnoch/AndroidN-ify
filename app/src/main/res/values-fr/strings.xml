@@ -18,7 +18,7 @@
 	<string name="header_settings">Paramètres</string>
     <string name="header_tweaks">Réglages</string>
     <string name="header_recents">Applications Récentes</string>
-	<string name="header_status_bar_header">Entête de la barre d'état</string>
+	<string name="header_status_bar_header">Entête de la barre d\'état</string>
     <string name="header_notifications">Notifications</string>
     <string name="header_app">App</string>
 
@@ -58,13 +58,13 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-	<string name="enable_recents_double_tap_title">Changer d'app par double-tap</string>
+	<string name="enable_recents_double_tap_title">Changer d\'app par double-tap</string>
     <string name="enable_recents_double_tap">Double-tap sur la touche récents pour passer à la dernière app utilisée</string>
     <string name="double_tap_speed_title">Vitesse de double-tap</string>
     <string name="enable_recents_navigation_title">Activer la navigation des apps récentes</string>
     <string name="enable_recents_navigation">Utiliser la touche récents pour naviguer à travers les apps récentes</string>
     <string name="recents_navigation_delay_title">Délai de navigation</string>
-    <string name="recents_navigation_delay">Durée avant que l'app selectionnée soit agrandie</string>
+    <string name="recents_navigation_delay">Durée avant que l\'app selectionnée soit agrandie</string>
     <string name="enable_large_recents">Activer applications récentes larges</string>
 
     <string name="no_previous_recents">Aucune application récente</string>
@@ -80,10 +80,10 @@
     <string name="notifications_change_style">Style Notifications</string>
     <string name="notifications_dark_theme_title">Thème foncé pour les notifications</string>
     <string name="notifications_dark_theme">Arrière-plan des notifications noir pour les utilisateurs de calques de thèmes spécifiques</string>
-    <string name="notification_dismiss_button_title">Changer bouton d'élimination</string>
-    <string name="notification_dismiss_button">Afficher \"TOUT EFFACER\" au lieu de l'icône d'élimination</string>
-    <string name="notification_allow_load_label_with_pm_title">Méthode alternative de chargement du nom d'app</string>
-    <string name="notification_allow_load_label_with_pm">Autoriser le chargement du nom de l'app avec PackageManager. Peut causer des problèmes de performance</string>
+    <string name="notification_dismiss_button_title">Changer bouton d\'élimination</string>
+    <string name="notification_dismiss_button">Afficher \"TOUT EFFACER\" au lieu de l\'icône d\'élimination</string>
+    <string name="notification_allow_load_label_with_pm_title">Méthode alternative de chargement du nom d\'app</string>
+    <string name="notification_allow_load_label_with_pm">Autoriser le chargement du nom de l\'app avec PackageManager. Peut causer des problèmes de performance</string>
     <string name="notification_full_width_volume_title">Largeur totale boîte de dialogue du volume</string>
     <string name="notification_full_width_volume">Supprimer la limite de la largeur de la boîte de dialogue du volume pour les téléphones avec grand écran</string>
     <!-- /NOTIFICATIONS -->
