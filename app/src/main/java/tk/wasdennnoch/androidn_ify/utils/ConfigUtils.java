@@ -53,6 +53,7 @@ public class ConfigUtils {
         public boolean enable;
 
         public boolean header;
+        public int qs_tiles_count;
         public boolean change_style;
         public boolean dark_theme;
         public boolean dismiss_button;
@@ -61,6 +62,7 @@ public class ConfigUtils {
 
         public NotificationsConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
+            qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
             change_style = prefs.getBoolean("notification_change_style", true);
             dark_theme = prefs.getBoolean("notification_dark_theme", false);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
