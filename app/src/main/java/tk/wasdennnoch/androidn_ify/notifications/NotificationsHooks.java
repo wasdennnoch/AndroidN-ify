@@ -381,14 +381,12 @@ public class NotificationsHooks {
                 fullWidthVolume = config.notifications.full_width_volume;
                 allowLoadLabelWithPackageManager = config.notifications.allow_load_label_with_pm;
 
-                if (fullWidthVolume) {
-                    try {
-                        Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
-                        XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
-                    } catch (Throwable ignore) {
-                        // Not there in LP
-                        // TODO implementation for LP devices
-                    }
+                try {
+                    Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
+                    XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
+                } catch (Throwable ignore) {
+                    // Not there in LP
+                    // TODO implementation for LP devices
                 }
             }
         } catch (Throwable t) {
