@@ -2,7 +2,7 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
-    
+
     <string name="xposed_description">Niektoré funkcie z Android N pre Lollipop a Marshmallow!</string>
 
     <string name="restart_systemui">Reštartovať SystemUI</string>
@@ -15,31 +15,41 @@
     <!-- prefs -->
     <string name="prefs_file_not_readable">Xposed nevie čítať súbor nastavení, budú použité predvolené hodnoty. To môže byť spôsobené ak je SELinux v režime enforcing.</string>
 
-    <string name="header_app">Aplikácia</string>
+
+    <string name="header_tweaks">Úpravy</string>
 
     <!-- SETTINGS -->
     <string name="header_settings">Nastavenia</string>
-    <string name="enable_settings">Povoliť úpravy nastavení</string>
+    <string name="enable_settings_summaries_title">Súhrn nastavení</string>
+    <string name="enable_settings_summaries">Zobrazí najdôležitejšie informácie priamo na hlavnej ponuke</string>
     <string name="fix_sound_notif_tile_title">Opraviť "Zvuk a upozornenia"</string>
     <string name="fix_sound_notif_tile">Niektoré ROM kombinujú Zvuky a Upozornenia. Povoľte pre zobrazenie správneho zhrnutia</string>
-    <string name="header_tweaks">Úpravy</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
     <string name="header_recents">Nedávne aplikácie</string>
     <string name="no_previous_recents">Žiadna nedávna aplikácia</string>
-    <string name="enable_recents_double_tap">Dvojitým poklepaním otvoriť predchádzajúcu apl.</string>
+    <string name="enable_recents_double_tap_title">Prepínanie aplikácií dvojitým poklepaním</string>
+    <string name="enable_recents_double_tap">Dvojitým poklepaním otvorí predchádzajúcu aplikáciu</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
     <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
     <string name="enable_recents_navigation_title">Povoliť navigáciu v nedávnych aplikáciách</string>
-    <string name="recents_navigation_delay">Oneskorenie navigácie</string>
+    <string name="enable_recents_navigation">Použije tlačidlo nedávnych apl. pre navigáciu medzi apl.</string>
+    <string name="recents_navigation_delay_title">Oneskorenie navigácie</string>
+    <string name="recents_navigation_delay">Čas pokým sa zvolená aplikácia otvorí</string>
     <!-- /RECENTS -->
+
+    <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Záhlavie stavového riadku</string>
+    <string name="enable_notification_header">Upraviť záhlavie</string>
+    <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
+    <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
+    <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
+    <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
+    <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Upozornenia</string>
-    <string name="enable_notification_header">Povoliť nové záhlavie stavovej lišty</string>
-    <string name="enable_qs_in_header">Povoliť rýchle nastavenia v záhlaví</string>
-    <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notifications_change_style">Upozornenia v N štýle</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
     <string name="notifications_dark_theme">Tmavá téma pozadia upozornení pre používateľov špecifických Layers tém</string>
@@ -47,10 +57,9 @@
     <string name="notification_dismiss_button">Zobrazí \"VYMAZAŤ VŠETKO\" namiesto ikony</string>
     <string name="notification_allow_load_label_with_pm_title">Povoliť načítanie názvu apl. pomocou PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Môže spôsobiť problémy s výkonom</string>
-    <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
-    <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
     <!-- /NOTIFICATIONS -->
 
+    <string name="header_app">Aplikácia</string>
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
