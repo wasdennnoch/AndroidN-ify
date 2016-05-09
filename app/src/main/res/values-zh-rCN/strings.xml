@@ -18,6 +18,7 @@
     <string name="header_settings">设置</string>
     <string name="header_tweaks">调整</string>
     <string name="header_recents">最近任务</string>
+    <string name="header_status_bar_header">下拉顶栏</string>
     <string name="header_notifications">通知区域</string>
     <string name="header_app">应用程序</string>
     
@@ -26,11 +27,12 @@
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
    
-    <string name="requires_android_version">Requires Android %1$s</string>
+    <string name="requires_android_version">需要安卓版本 %1$s</string>
     <!-- /prefs -->
     
     <!-- SETTINGS -->
-    <string name="enable_settings_summaries_title">启用设置调整</string>
+    <string name="enable_settings_summaries_title">设置项摘要</string>
+    <string name="enable_settings_summaries">在设置内直接显示最重要的系统信息</string>
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
     <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 的设置中显示出正确的信息概要。</string>
 
@@ -56,18 +58,26 @@
     <!-- /SETTINGS -->
     
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap_title">双击切换至上一个应用</string>
+    <string name="enable_recents_double_tap">双击切换应用</string>
+    <string name="enable_recents_double_tap">双击多任务键时切换至上一个使用过的应用</string>
     <string name="double_tap_speed_title">双击速度</string>
-    <string name="enable_recents_navigation_title">启用最近任务导航</string>
-    <string name="recents_navigation_delay_title">最近任务导航延迟时长</string>
+    <string name="enable_recents_navigation_title">启用任务导航</string>
+    <string name="enable_recents_navigation">反复点击多任务键时依次显示各个任务</string>
+    <string name="recents_navigation_delay_title">任务导航延时</string>
+    <string name="recents_navigation_delay">所选应用被打开前的时间</string>
     <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
 	
     <string name="no_previous_recents">没有上一个应用</string>
     <!-- /RECENTS -->
+	
+    <!-- STATUS BAR HEADER -->
+    <string name="enable_notification_header">调整顶栏</string>
+    <string name="notification_header_qs_tiles_count">快捷操作磁贴数量</string>
+    <string name="notification_header_qs_tiles_count_monitor">个</string>
+    <!-- /STATUS BAR HEADER -->
     
     <!-- NOTIFICATIONS -->
-    <string name="enable_notification_header">启用 Android N 风格下拉顶栏</string>
-    <string name="notifications_change_style">启用 Android N 风格通知</string>
+    <string name="notifications_change_style">调整通知</string>
     <string name="notifications_dark_theme_title">启用暗色主题通知</string>
     <string name="notifications_dark_theme">针对某些特定层面主题的用户使用暗色调的通知背景</string>
     <string name="notification_dismiss_button_title">更改清除按钮</string>
@@ -77,5 +87,5 @@
     <string name="notification_full_width_volume_title">全宽度的音量控制栏</string>
     <string name="notification_full_width_volume">针对大屏幕手机移除音量控制栏的宽度限制</string>
     <!-- /NOTIFICATIONS -->
-	
+
 </resources>
