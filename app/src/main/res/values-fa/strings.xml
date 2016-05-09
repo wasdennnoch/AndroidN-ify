@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string name="xposed_description">قابلیت های اندروید 7 یا N را به اندروید 5 به بالا می آورد.</string>
+
+    <string name="restart_systemui">ریستارت کردن محیط</string>
+    <string name="restart_systemui_message">آیا مطمئن هستید؟</string>
+    <string name="restart_broadcast_sent">ریستارت</string>
+    <string name="activity_about">درباره N-ify</string>
+    <string name="about_author">برنامه نویس و سازنده \"MrWasdennnoch\"</string>
+    <string name="about_version">%1$s (%2$d) نسخه </string>
+
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">این فایل توسط اکسپوزد خواندنی نیست.</string>
+
+    <string name="header_settings">تنظیمات</string>
+    <string name="header_tweaks">تغییرات</string>
+    <string name="header_recents">صفحه ریسنتز یا Recents</string>
+    <string name="header_notifications">نوتیفیکیشن ها</string>
+    <string name="header_app">برنامه</string>
+
+    <string name="hide_launcher_icon_title">مخفی کردن آیکن برنامه</string>
+    <string name="hide_launcher_icon">ممکن است ریستارت لانچر لازم باشد</string>
+    <string name="debug_log_title">لوگ دیباگ</string>
+    <string name="debug_log">هشدار : ممکن است حجم زیادی گرفته شود</string>
+
+    <string name="requires_android_version"> %1$s متاسفانه به اندروید بالاتر نیاز است.</string>
+    <!-- /prefs -->
+
+    <!-- SETTINGS -->
+    <string name="enable_settings">فعالسازی تغییرات به تنظیمات گوشی</string>
+    <string name="fix_sound_notif_tile_title">حل کردن مشکل گزینه های تنظیمات</string>
+    <string name="fix_sound_notif_tile">اگر توضیحات بعضی از گزینه ها درست نیستند انتخاب شود</string>
+
+    <string name="disconnected">قطع شده</string>
+    <string name="disabled">غیر فعال شده</string>
+    <string name="off">خاموش</string>
+    <string name="on">روشن</string>
+    <string name="data_usage_summary">%1$s اطلاعات استفاده شده</string>
+    <string name="display_summary">%1$s وضعیت روشنایی اتوماتیک</string>
+    <string name="sound_summary">%1$s ولوم زنگ زدن گوشی</string>
+    <string name="apps_summary">%1$d تعداد برنامه های نصب شده </string>
+    <string name="storage_summary">استفاده شده %1$s ، %2$s از</string>
+    <string name="battery_summary">%1$s مانده %2$s تقریبا</string>
+    <string name="battery_charging_wireless">%1$s در حال شارژ بی سیم</string>
+    <string name="battery_charging_usb">%1$s در حال شارژ با یو اس بی</string>
+    <string name="battery_charging_ac">%1$s در حال شارژ با سیم</string>
+    <string name="memory_summary">استفاده شده %1$s از %2$s</string>
+    <string name="user_summary">%1$s وارد شده با</string>
+    <string name="location_on_power">روشن - کم مصرف</string>
+    <string name="location_on_device">روشن - جی پی اس</string>
+    <string name="location_on_high">روشن - حالت دقیق</string>
+    <string name="print_summary">%1$d تعداد پرینت ها</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="enable_recents_double_tap">دوبار زدن دکمه ریسنت برای رفتن به برنامه قبلی</string>
+    <string name="double_tap_speed_title">سرعت کلیک</string>
+    <string name="enable_recents_navigation">فعالسازی تغییر برنامه</string>
+    <string name="recents_navigation_delay">فاصله زمانی بین برنامه ها</string>
+    <string name="enable_large_recents">فعالسازی پنجره های بزرگتر</string>
+
+    <string name="no_previous_recents">هیچ برنامه ای باز نیست</string>
+    <!-- /RECENTS -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="enable_notification_header">فعالسازی دکمه های استاتوس بار</string>
+    <string name="notifications_change_style">فعال نوتیفیکیشن های اندروید 7</string>
+    <string name="notifications_dark_theme_title">نوتیفیکیشن های سیاه</string>
+    <string name="notifications_dark_theme">پیش زمینه سیاه برای پیغام ها</string>
+    <string name="notification_dismiss_button_title">تغییر دکمه حذف نوتیفیکیشن ها</string>
+    <string name="notification_dismiss_button">نشان دادن دکمه حذف همه</string>
+    <string name="notification_allow_load_label_with_pm_title">استفاده از اسم اصلی برنامه ها</string>
+    <string name="notification_allow_load_label_with_pm">ممکن است سرعت دستگاه کم شود</string>
+    <string name="notification_full_width_volume_title">دیالوگ ولوم جدید</string>
+    <string name="notification_full_width_volume">برای گوشی های صفحه بزرگ</string>
+    <!-- /NOTIFICATIONS -->
+
+</resources>
