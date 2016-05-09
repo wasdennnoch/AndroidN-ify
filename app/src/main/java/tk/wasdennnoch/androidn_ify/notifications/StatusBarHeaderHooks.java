@@ -1,9 +1,6 @@
 package tk.wasdennnoch.androidn_ify.notifications;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
@@ -20,10 +17,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -32,7 +29,6 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
-import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -81,19 +77,6 @@ public class StatusBarHeaderHooks {
 
     private static QuickQSPanel mHeaderQsPanel;
 
-    private static BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            XposedHook.logD(TAG, "Broadcast received, action: " + intent.getAction());
-            switch (intent.getAction()) {
-                case SettingsActivity.ACTION_GENERAL:
-                    if (intent.hasExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG))
-                        XposedHook.debug = intent.getBooleanExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG, false);
-                    break;
-            }
-        }
-    };
-
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -103,7 +86,6 @@ public class StatusBarHeaderHooks {
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
             Context context = mStatusBarHeaderView.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
-            context.registerReceiver(sBroadcastReceiver, new IntentFilter(SettingsActivity.ACTION_GENERAL));
 
             try {
                 //noinspection deprecation
@@ -592,14 +574,13 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                //TODO hooking all methods necessary?
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
-                    XposedBridge.hookAllMethods(classQSDragPanel, "setTiles", setTilesHook);
+                    XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                 } catch (Throwable ignore) {
-                    XposedBridge.hookAllMethods(classQSPanel, "setTiles", setTilesHook);
+                    XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
                 }
-                XposedBridge.hookAllMethods(classQSTile, "handleStateChanged", handleStateChangedHook);
+                XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
 
             }
         } catch (Throwable t) {

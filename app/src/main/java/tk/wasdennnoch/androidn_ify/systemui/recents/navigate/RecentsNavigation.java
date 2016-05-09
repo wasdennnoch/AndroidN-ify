@@ -1,12 +1,7 @@
-package tk.wasdennnoch.androidn_ify.recents.navigate;
+package tk.wasdennnoch.androidn_ify.systemui.recents.navigate;
 
 import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Handler;
-import android.os.Process;
 import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
@@ -25,14 +20,13 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class RecentsNavigation {
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
-    private static final String CLASS_PHONE_STATUS_BAR = "com.android.systemui.statusbar.phone.PhoneStatusBar";
+    //private static final String CLASS_PHONE_STATUS_BAR = "com.android.systemui.statusbar.phone.PhoneStatusBar";
 
     private static final String TAG = "RecentsNavigation";
     private static long mStartRecentsActivityTime = 0;
@@ -299,18 +293,18 @@ public class RecentsNavigation {
                 XposedHelpers.findAndHookMethod(classRecentsActivity, "dismissRecentsToFocusedTaskOrHome", boolean.class, dismissRecentsToFocusedTaskOrHomeHook);
             }
 
-            try {
+            /*try {
                 XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", prepareNavigationBarViewHook);
             } catch (NoSuchMethodError e) {
                 // CM takes a boolean parameter
                 XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "prepareNavigationBarView", boolean.class, prepareNavigationBarViewHook);
-            }
+            }*/
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI", t);
         }
     }
 
-    private static Context mContext;
+    /*private static Context mContext;
     private static Handler mHandler;
     private static XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
         @Override
@@ -333,7 +327,7 @@ public class RecentsNavigation {
                 }
             }, new IntentFilter(SettingsActivity.ACTION_KILL_SYSTEMUI));
         }
-    };
+    };*/
 
     private static XC_LayoutInflated recents_task_view_header = new XC_LayoutInflated() {
         @Override

@@ -14,11 +14,12 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
 import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
-import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapHwKeys;
-import tk.wasdennnoch.androidn_ify.recents.doubletap.DoubleTapSwKeys;
-import tk.wasdennnoch.androidn_ify.recents.navigate.RecentsNavigation;
-import tk.wasdennnoch.androidn_ify.recents.stack.RecentsStackHooks;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
+import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
+import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapHwKeys;
+import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
+import tk.wasdennnoch.androidn_ify.systemui.recents.navigate.RecentsNavigation;
+import tk.wasdennnoch.androidn_ify.systemui.recents.stack.RecentsStackHooks;
 
 /**
  * Right now it's impossible to explicitly use classes of the hooked package
@@ -90,6 +91,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 SettingsHooks.hook(lpparam.classLoader);
                 break;
             case PACKAGE_SYSTEMUI:
+                SystemUIHooks.hookSystemUI(lpparam.classLoader);
                 StatusBarHeaderHooks.hook(lpparam.classLoader);
                 NotificationPanelHooks.hook(lpparam.classLoader);
                 NotificationsHooks.hookSystemUI(lpparam.classLoader);

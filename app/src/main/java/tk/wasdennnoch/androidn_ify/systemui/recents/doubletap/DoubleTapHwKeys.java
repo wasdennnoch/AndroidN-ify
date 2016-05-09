@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.recents.doubletap;
+package tk.wasdennnoch.androidn_ify.systemui.recents.doubletap;
 
 import android.content.Context;
 import android.hardware.input.InputManager;
@@ -45,7 +45,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             mContext = (Context) XposedHelpers.getObjectField(mPhoneWindowManager, "mContext");
             mHandler = (Handler) XposedHelpers.getObjectField(mPhoneWindowManager, "mHandler");
             // No need to unregister this because the system process will last "forever"
-            registerReceiver(mContext);
+            registerReceiver(mContext, true);
         }
     };
     private static XC_MethodHook interceptKeyBeforeDispatchingHook = new XC_MethodHook() {

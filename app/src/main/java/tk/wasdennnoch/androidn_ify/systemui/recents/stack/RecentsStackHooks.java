@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.recents.stack;
+package tk.wasdennnoch.androidn_ify.systemui.recents.stack;
 
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
