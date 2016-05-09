@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
 
@@ -233,6 +234,7 @@ public class RecentsNavigation {
         public void start() {
             mScaleAnim = new ScaleAnimation(1, 0, 1, 1);
             mScaleAnim.setDuration(mConfig.recents.navigation_delay);
+            mScaleAnim.setInterpolator(new LinearInterpolator());
             mScaleAnim.setRepeatCount(0);
             mScaleAnim.setAnimationListener(this);
             mProgressView.setVisibility(View.VISIBLE);

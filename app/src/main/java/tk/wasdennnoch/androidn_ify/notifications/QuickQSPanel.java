@@ -51,14 +51,6 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
-    public void drawTile(Object tilerecord, Object state) {
-        int i = mRecords.indexOf(tilerecord);
-        if (i > -1) {
-            XposedHelpers.callMethod(mTileViews.get(i), "onStateChanged", state);
-            XposedHook.logD(TAG, "drawTile #" + i); // Spam
-        }
-    }
-
     public void handleStateChanged(Object qstile, Object state) {
         for (int i = 0; i < mRecords.size(); i++) {
             Object tilerecord = mRecords.get(i);
