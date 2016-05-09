@@ -452,6 +452,7 @@ public class StatusBarHeaderHooks {
         transition(mQsDetailHeader, showingDetail);
         XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
         if (showingDetail) {
+            NotificationPanelHooks.expandIfNecessary();
             mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
             final Boolean toggleState = (Boolean) XposedHelpers.callMethod(detail, "getToggleState");
             if (toggleState == null) {

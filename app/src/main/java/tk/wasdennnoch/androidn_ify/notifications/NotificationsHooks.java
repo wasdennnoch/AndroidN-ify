@@ -28,7 +28,6 @@ import android.widget.TextView;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -305,6 +304,7 @@ public class NotificationsHooks {
 
                     // Layouts
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_no_notifications", status_bar_no_notifications);
                 }
                 if (config.notifications.dismiss_button) {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_dismiss_all", status_bar_notification_dismiss_all);
@@ -454,6 +454,33 @@ public class NotificationsHooks {
             XposedHook.logE(TAG, "Error hooking framework resources", t);
         }
     }
+
+    private static XC_LayoutInflated status_bar_no_notifications = new XC_LayoutInflated() {
+
+        @Override
+        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+            FrameLayout layout = (FrameLayout) liparam.view;
+
+            Context context = layout.getContext();
+            ResourceUtils res = ResourceUtils.getInstance(context);
+
+            int height = res.getDimensionPixelSize(R.dimen.notification_min_height);
+            int paddingTop = res.getDimensionPixelSize(R.dimen.no_notifications_padding_top);
+            int textSize = res.getDimensionPixelSize(R.dimen.no_notifications_text_size);
+
+            TextView textView = (TextView) layout.findViewById(context.getResources().getIdentifier("no_notifications", "id", PACKAGE_SYSTEMUI));
+            FrameLayout.LayoutParams textViewLp = (FrameLayout.LayoutParams) textView.getLayoutParams();
+            textViewLp.height = height;
+
+            int paddingLeft = textView.getPaddingLeft();
+            int paddingRight = textView.getPaddingRight();
+            int paddingBottom = textView.getPaddingBottom();
+
+            textView.setLayoutParams(textViewLp);
+            textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        }
+    };
 
     private static XC_LayoutInflated status_bar_notification_dismiss_all = new XC_LayoutInflated() {
 
