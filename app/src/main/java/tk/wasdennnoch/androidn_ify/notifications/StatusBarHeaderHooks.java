@@ -35,6 +35,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class StatusBarHeaderHooks {
 
@@ -63,6 +64,7 @@ public class StatusBarHeaderHooks {
     private static View mSettingsButton;
     private static View mSettingsContainer;
     private static View mQsDetailHeader;
+    private static View mTaskManagerButton;
     private static TextView mQsDetailHeaderTitle;
     private static Switch mQsDetailHeaderSwitch;
     private static TextView mEmergencyCallsOnly;
@@ -124,6 +126,10 @@ public class StatusBarHeaderHooks {
                 mQsDetailHeaderSwitch = (Switch) XposedHelpers.getObjectField(param.thisObject, "mQsDetailHeaderSwitch");
                 mEmergencyCallsOnly = (TextView) XposedHelpers.getObjectField(param.thisObject, "mEmergencyCallsOnly");
                 mAlarmStatus = (TextView) XposedHelpers.getObjectField(param.thisObject, "mAlarmStatus");
+
+                if(RomUtils.isResurrectionRemix())
+                    mTaskManagerButton = (View) XposedHelpers.getObjectField(param.thisObject, "mTaskManagerButton");
+
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Couldn't find required views, aborting", t);
                 return;
@@ -139,6 +145,7 @@ public class StatusBarHeaderHooks {
 
                 int rippleRes = context.getResources().getIdentifier("ripple_drawable", "drawable", XposedHook.PACKAGE_SYSTEMUI);
                 int iconSize = res.getDimensionPixelSize(R.dimen.right_icon_size);
+                int iconSizeHeader = res.getDimensionPixelSize(R.dimen.right_icon_size_header);
                 int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
                 int quickQSHorizontalMargin = res.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
 
@@ -147,6 +154,9 @@ public class StatusBarHeaderHooks {
                 ((ViewGroup) mDateCollapsed.getParent()).removeView(mDateCollapsed);
                 ((ViewGroup) mSettingsContainer.getParent()).removeView(mSettingsContainer);
                 ((ViewGroup) mAlarmStatus.getParent()).removeView(mAlarmStatus);
+
+                if(RomUtils.isResurrectionRemix())
+                    ((ViewGroup) mTaskManagerButton.getParent()).removeView(mTaskManagerButton);
 
                 RelativeLayout.LayoutParams rightContainerLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.right_layout_height));
                 rightContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
@@ -158,13 +168,18 @@ public class StatusBarHeaderHooks {
                 mRightContainer.setOrientation(LinearLayout.HORIZONTAL);
                 mRightContainer.setClipChildren(false);
 
-                LinearLayout.LayoutParams multiUserSwitchLp = new LinearLayout.LayoutParams(iconSize, iconSize);
+                LinearLayout.LayoutParams multiUserSwitchLp = new LinearLayout.LayoutParams(iconSizeHeader, iconSize);
                 mMultiUserSwitch.setLayoutParams(multiUserSwitchLp);
 
-                LinearLayout.LayoutParams settingsContainerLp = new LinearLayout.LayoutParams(iconSize, iconSize);
+                LinearLayout.LayoutParams settingsContainerLp = new LinearLayout.LayoutParams(iconSizeHeader, iconSize);
                 mSettingsContainer.setLayoutParams(settingsContainerLp);
 
-                LinearLayout.LayoutParams expandIndicatorLp = new LinearLayout.LayoutParams(iconSize, iconSize);
+                if(RomUtils.isResurrectionRemix()){
+                    LinearLayout.LayoutParams taskmanagerContainerLp = new LinearLayout.LayoutParams(iconSizeHeader, iconSize);
+                    mTaskManagerButton.setLayoutParams(taskmanagerContainerLp);
+                }
+
+                LinearLayout.LayoutParams expandIndicatorLp = new LinearLayout.LayoutParams(iconSizeHeader, iconSize);
                 mExpandIndicator = new ExpandableIndicator(context);
                 mExpandIndicator.setLayoutParams(expandIndicatorLp);
                 mExpandIndicator.setPadding(expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding);
@@ -262,6 +277,9 @@ public class StatusBarHeaderHooks {
                 mHeaderQsPanel.setClipChildren(false);
                 mHeaderQsPanel.setClipToPadding(false);
 
+
+                if(RomUtils.isResurrectionRemix())
+                    mRightContainer.addView(mTaskManagerButton);
 
                 mRightContainer.addView(mMultiUserSwitch);
                 mRightContainer.addView(mSettingsContainer);
@@ -390,13 +408,26 @@ public class StatusBarHeaderHooks {
                 .addFloat(mAlarmStatus, "alpha", 0.0F, 1.0F)
                 .addFloat(mEmergencyCallsOnly, "alpha", 0.0F, 1.0F)
                 .setStartDelay(0.5F).build();
-        mSettingsAlpha = new TouchAnimator.Builder()
-                .addFloat(mSettingsContainer, "translationY", -gearTranslation, 0.0F)
-                .addFloat(mMultiUserSwitch, "translationY", -gearTranslation, 0.0F)
-                .addFloat(mSettingsButton, "rotation", -90F, 0.0F)
-                .addFloat(mSettingsContainer, "alpha", 0.0F, 1.0F)
-                .addFloat(mMultiUserSwitch, "alpha", 0.0F, 1.0F)
-                .setStartDelay(0.7F).build();
+        if(RomUtils.isResurrectionRemix()){
+            mSettingsAlpha = new TouchAnimator.Builder()
+                    .addFloat(mSettingsContainer, "translationY", -gearTranslation, 0.0F)
+                    .addFloat(mMultiUserSwitch, "translationY", -gearTranslation, 0.0F)
+                    .addFloat(mTaskManagerButton, "translationY", -gearTranslation, 0.0F)
+                    .addFloat(mSettingsButton, "rotation", -90F, 0.0F)
+                    .addFloat(mSettingsContainer, "alpha", 0.0F, 1.0F)
+                    .addFloat(mMultiUserSwitch, "alpha", 0.0F, 1.0F)
+                    .addFloat(mTaskManagerButton, "alpha", 0.0F, 1.0F)
+                    .setStartDelay(0.7F).build();
+        }else{
+            mSettingsAlpha = new TouchAnimator.Builder()
+                    .addFloat(mSettingsContainer, "translationY", -gearTranslation, 0.0F)
+                    .addFloat(mMultiUserSwitch, "translationY", -gearTranslation, 0.0F)
+                    .addFloat(mSettingsButton, "rotation", -90F, 0.0F)
+                    .addFloat(mSettingsContainer, "alpha", 0.0F, 1.0F)
+                    .addFloat(mMultiUserSwitch, "alpha", 0.0F, 1.0F)
+                    .setStartDelay(0.7F).build();
+        }
+
         mQuickQSAnimator = new TouchAnimator.Builder()
                 .addFloat(mHeaderQsPanel, "alpha", 1.0F, 0.0F)
                 .setEndDelay(0.64F).build();
