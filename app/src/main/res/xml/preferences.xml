@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--suppress AndroidUnknownAttribute -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:title="@string/header_settings">
@@ -23,8 +25,8 @@
         android:title="@string/header_tweaks">
 
         <PreferenceScreen
-            android:title="@string/header_recents"
-            android:key="settings_recents">
+            android:key="settings_recents"
+            android:title="@string/header_recents">
 
             <SwitchPreference
                 android:defaultValue="false"
@@ -32,15 +34,15 @@
                 android:title="@string/enable_recents_double_tap"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
-                interval="10"
-                maximum="1500"
-                minimum="100"
-                monitorBoxEnabled="true"
-                monitorBoxUnit="ms"
                 android:defaultValue="400"
                 android:dependency="enable_recents_double_tap"
                 android:key="double_tap_speed"
-                android:title="@string/double_tap_speed_title"/>
+                android:title="@string/double_tap_speed_title"
+                app:interval="10"
+                app:maximum="1500"
+                app:minimum="100"
+                app:monitorBoxEnabled="true"
+                app:monitorBoxUnit="ms"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -53,22 +55,22 @@
                 android:title="@string/enable_recents_navigation"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
-                interval="10"
-                maximum="10000"
-                minimum="500"
-                monitorBoxEnabled="true"
-                monitorBoxUnit="ms"
                 android:defaultValue="1000"
                 android:dependency="enable_recents_navigation"
                 android:key="recents_navigation_delay"
-                android:title="@string/recents_navigation_delay"/>
+                android:title="@string/recents_navigation_delay"
+                app:interval="10"
+                app:maximum="10000"
+                app:minimum="500"
+                app:monitorBoxEnabled="true"
+                app:monitorBoxUnit="ms"/>
 
         </PreferenceScreen>
 
 
         <PreferenceScreen
-            android:title="@string/header_notifications"
-            android:key="settings_notifications">
+            android:key="settings_notifications"
+            android:title="@string/header_notifications">
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -76,15 +78,16 @@
                 android:title="@string/enable_qs_in_header"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
-                interval="1"
-                maximum="10"
-                minimum="3"
-                monitorBoxEnabled="true"
-                monitorBoxUnit=" tiles"
                 android:defaultValue="5"
                 android:dependency="enable_notification_header"
                 android:key="notification_header_qs_tiles_count"
-                android:title="@string/notification_header_qs_tiles_count"/>
+                android:title="@string/notification_header_qs_tiles_count"
+                app:interval="1"
+                app:maximum="10"
+                app:minimum="3"
+                app:monitorBoxEnabled="true"
+                app:monitorBoxLeadingSpace="true"
+                app:monitorBoxUnit="@string/notification_header_qs_tiles_count_monitor"/>
 
             <SwitchPreference
                 android:defaultValue="true"

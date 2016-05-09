@@ -39,6 +39,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
     private int mDefaultValue = mMinimum;
     private boolean mMonitorBoxEnabled = false;
     private String mMonitorBoxUnit = null;
+    private boolean mMonitorBoxLeadingSpace = false;
 
     private TextView mMonitorBox;
     private SeekBar mBar;
@@ -62,12 +63,32 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
     public SeekBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        mMinimum = attrs.getAttributeIntValue(null, "minimum", 0);
-        mMaximum = attrs.getAttributeIntValue(null, "maximum", 100);
-        mInterval = attrs.getAttributeIntValue(null, "interval", 1);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeekBarPreference);
+        for (int i = a.getIndexCount() - 1; i >= 0; i--) {
+            int attr = a.getIndex(i);
+            switch (attr) {
+                case R.styleable.SeekBarPreference_minimum:
+                    mMinimum = a.getInt(attr, 0);
+                    break;
+                case R.styleable.SeekBarPreference_maximum:
+                    mMaximum = a.getInt(attr, 100);
+                    break;
+                case R.styleable.SeekBarPreference_interval:
+                    mInterval = a.getInt(attr, 1);
+                    break;
+                case R.styleable.SeekBarPreference_monitorBoxEnabled:
+                    mMonitorBoxEnabled = a.getBoolean(attr, false);
+                    break;
+                case R.styleable.SeekBarPreference_monitorBoxUnit:
+                    mMonitorBoxUnit = a.getString(attr);
+                    break;
+                case R.styleable.SeekBarPreference_monitorBoxLeadingSpace:
+                    mMonitorBoxLeadingSpace = a.getBoolean(attr, false);
+                    break;
+            }
+        }
+        a.recycle();
         mDefaultValue = mMinimum;
-        mMonitorBoxEnabled = attrs.getAttributeBooleanValue(null, "monitorBoxEnabled", false);
-        mMonitorBoxUnit = attrs.getAttributeValue(null, "monitorBoxUnit");
 
         mHandler = new Handler();
     }
@@ -132,7 +153,11 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
     private void setMonitorBoxText(int value) {
         if (mMonitorBoxEnabled) {
             String text = String.valueOf(value);
-            if (mMonitorBoxUnit != null) text += mMonitorBoxUnit;
+            if (mMonitorBoxUnit != null) {
+                if (mMonitorBoxLeadingSpace)
+                    text += " ";
+                text += mMonitorBoxUnit;
+            }
             mMonitorBox.setText(text);
         }
     }

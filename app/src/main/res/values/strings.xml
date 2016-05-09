@@ -69,6 +69,7 @@
     <string name="enable_notification_header">Enable new status bar header</string>
     <string name="enable_qs_in_header">Enable quicksettings in header</string>
     <string name="notification_header_qs_tiles_count">Maximum QS tiles to show</string>
+    <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="notifications_change_style">Notifications with N style</string>
     <string name="notifications_dark_theme_title">Dark notification theme</string>
     <string name="notifications_dark_theme">Dark notification background for users of specific layers themes</string>

@@ -10,4 +10,13 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
+    <declare-styleable name="SeekBarPreference">
+        <attr name="minimum" format="integer"/>
+        <attr name="maximum" format="integer"/>
+        <attr name="interval" format="integer"/>
+        <attr name="monitorBoxEnabled" format="boolean"/>
+        <attr name="monitorBoxUnit" format="string"/>
+        <attr name="monitorBoxLeadingSpace" format="boolean"/>
+    </declare-styleable>
+
 </resources>
