@@ -42,6 +42,7 @@ public class RecentsNavigation {
     private static int mCurrentIndex = 0;
     private static TaskProgress mCurrentProgress = null;
     private static boolean mBackPressed = false;
+    private static boolean mSkipFirstApp = false;
 
     private static XC_MethodHook startRecentsActivityHook = new XC_MethodHook() {
         @Override
@@ -133,6 +134,7 @@ public class RecentsNavigation {
                 mCurrentIndex = taskCount;
                 mIsNavigating = true;
                 mResetScroll = true;
+                mSkipFirstApp = !launchedFromHome;
             }
             if (isDoubleTap && taskViewCount > (doubleTapLaunchIndexBackward - 1)) {
                 Object tv = taskViews.get(taskViewCount - doubleTapLaunchIndexBackward);
@@ -164,6 +166,7 @@ public class RecentsNavigation {
         if (taskCount < 1) return false;
         if (mCurrentIndex == 0) {
             mCurrentIndex = tasks.size() - 1;
+            mResetScroll = true;
         } else {
             mCurrentIndex--;
         }
@@ -196,6 +199,11 @@ public class RecentsNavigation {
 
                 mCurrentProgress = new TaskProgress(taskView, stackView, stack, task);
                 mCurrentProgress.start();
+                
+                if (mSkipFirstApp) {
+                    mSkipFirstApp = false;
+                    navigateRecents(tasks, taskViews, stackView, stack);
+                }
 
                 return true;
             }
