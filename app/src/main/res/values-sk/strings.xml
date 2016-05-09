@@ -38,6 +38,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Upozornenia</string>
     <string name="enable_notification_header">Povoliť nové záhlavie stavovej lišty</string>
+    <string name="enable_qs_in_header">Povoliť rýchle nastavenia v záhlaví</string>
+    <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notifications_change_style">Upozornenia v N štýle</string>
     <string name="notifications_dark_theme_title">Tmavá téma upozornení</string>
     <string name="notifications_dark_theme">Tmavá téma pozadia upozornení pre používateľov špecifických Layers tém</string>
@@ -53,6 +55,8 @@
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
+
+    <string name="requires_android_version">Vyžaduje Android %1$s</string>
     <!-- /prefs -->
 
 
