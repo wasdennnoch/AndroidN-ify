@@ -67,7 +67,7 @@ public class ConfigUtils {
             allow_load_label_with_pm = prefs.getBoolean("notification_allow_load_label_with_pm", false);
             full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
 
-            enable = (change_style || dark_theme || dismiss_button || full_width_volume);
+            enable = (header || change_style || dark_theme || dismiss_button || full_width_volume);
         }
     }
 
