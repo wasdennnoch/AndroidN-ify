@@ -449,11 +449,33 @@ public class NotificationsHooks {
                         layout.removeViewAt(1);
                     }
                 });
+
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_base", notification_template_material_big_base);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking framework resources", t);
         }
     }
+
+    private static XC_LayoutInflated notification_template_material_big_base = new XC_LayoutInflated() {
+
+        @Override
+        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+            FrameLayout layout = (FrameLayout) liparam.view;
+
+            Context context = layout.getContext();
+            ResourceUtils res = ResourceUtils.getInstance(context);
+
+            int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
+
+            TextView bigText = (TextView) layout.findViewById(context.getResources().getIdentifier("big_text", "id", PACKAGE_ANDROID));
+            if(bigText != null) {
+                LinearLayout.LayoutParams bigTextLp = (LinearLayout.LayoutParams) bigText.getLayoutParams();
+                bigTextLp.rightMargin = notificationTextMarginEnd;
+                bigText.setLayoutParams(bigTextLp);
+            }
+        }
+    };
 
     private static XC_LayoutInflated status_bar_no_notifications = new XC_LayoutInflated() {
 
@@ -659,6 +681,9 @@ public class NotificationsHooks {
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             layout.setLayoutParams(params);
 
+            boolean isInboxLayout = liparam.resNames.fullName.contains("notification_template_material_inbox");
+            boolean isBigTextLayout = liparam.resNames.fullName.contains("notification_template_material_big_text");
+
             // Margins for every child except actions container
             int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
             int childCount = notificationMain.getChildCount();
@@ -674,7 +699,7 @@ public class NotificationsHooks {
                     // This only works on Marshmallow as notification templates don't have tag on Lollipop
                     //if (!layout.getTag().equals("inbox")) {
 
-                    if (!liparam.resNames.fullName.contains("notification_template_material_inbox")) {
+                    if (!isInboxLayout) {
                         childLp.topMargin += actionsMarginTop;
                     }
                     if (!darkTheme) {
@@ -688,7 +713,16 @@ public class NotificationsHooks {
                 }
             }
 
-            if (layout.getTag().equals("inbox") || layout.getTag().equals("bigText")) {
+            if (isInboxLayout || isBigTextLayout) {
+                int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_inbox_margin_end);
+                if (isInboxLayout) {
+                    View inboxText0 = notificationMain.findViewById(context.getResources().getIdentifier("inbox_text0", "id", PACKAGE_ANDROID));
+                    applyNotificationTextMarginEnd(inboxText0, notificationTextMarginEnd);
+                }
+                if (isBigTextLayout) {
+                    View bigText = notificationMain.findViewById(context.getResources().getIdentifier("big_text", "id", PACKAGE_ANDROID));
+                    applyNotificationTextMarginEnd(bigText, notificationTextMarginEnd);
+                }
                 // Remove divider
                 notificationMain.removeViewAt(notificationMain.getChildCount() - 2);
                 // Remove bottom line
@@ -696,6 +730,12 @@ public class NotificationsHooks {
             }
         }
     };
+
+    private static void applyNotificationTextMarginEnd(View text, int marginEnd) {
+        LinearLayout.LayoutParams textLp = (LinearLayout.LayoutParams) text.getLayoutParams();
+        textLp.rightMargin = marginEnd;
+        text.setLayoutParams(textLp);
+    }
 
     private static XC_LayoutInflated notification_material_action = new XC_LayoutInflated() {
         @Override
