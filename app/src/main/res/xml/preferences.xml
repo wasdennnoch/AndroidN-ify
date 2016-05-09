@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidUnknownAttribute -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -52,7 +51,8 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:key="enable_recents_navigation"
-                android:title="@string/enable_recents_navigation"/>
+                android:summary="@string/enable_recents_navigation"
+                android:title="@string/enable_recents_navigation_title"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="1000"

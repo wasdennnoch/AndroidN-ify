@@ -58,7 +58,7 @@
     <!-- RECENTS -->
     <string name="enable_recents_double_tap">Doble toque para cambiar a la última aplicación usada</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
-    <string name="enable_recents_navigation">Activar navegacion de aplicaciones recientes</string>
+    <string name="enable_recents_navigation_title">Activar navegacion de aplicaciones recientes</string>
     <string name="recents_navigation_delay">Retraso de navegación de aplicaciones recientes</string>
     <string name="enable_large_recents">Activar tajetas grandes en aplicaciones recientes</string>
     

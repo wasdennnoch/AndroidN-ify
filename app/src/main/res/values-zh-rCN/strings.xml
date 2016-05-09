@@ -58,7 +58,7 @@
     <!-- RECENTS -->
     <string name="enable_recents_double_tap">双击切换至上一个应用</string>
     <string name="double_tap_speed_title">双击速度</string>
-    <string name="enable_recents_navigation">启用最近任务导航</string>
+    <string name="enable_recents_navigation_title">启用最近任务导航</string>
     <string name="recents_navigation_delay">最近任务导航延迟时长</string>
     <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
 	

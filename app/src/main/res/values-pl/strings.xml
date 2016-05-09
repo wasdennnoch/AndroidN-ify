@@ -58,7 +58,7 @@
     <!-- RECENTS -->
     <string name="enable_recents_double_tap">Podwójne kliknięcie, aby zmienić na ostatnio używaną aplikację</string>
     <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
-    <string name="enable_recents_navigation">Włącz nawigację ostatnich aplikacji</string>
+    <string name="enable_recents_navigation_title">Włącz nawigację ostatnich aplikacji</string>
     <string name="recents_navigation_delay">Opóźnienie nawigacji ostatnich aplikacji</string>
     <string name="enable_large_recents">Włącz duże okna ostatnich aplikacji</string>
 

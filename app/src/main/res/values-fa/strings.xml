@@ -58,7 +58,7 @@
     <!-- RECENTS -->
     <string name="enable_recents_double_tap">دوبار زدن دکمه ریسنت برای رفتن به برنامه قبلی</string>
     <string name="double_tap_speed_title">سرعت کلیک</string>
-    <string name="enable_recents_navigation">فعالسازی تغییر برنامه</string>
+    <string name="enable_recents_navigation_title">فعالسازی تغییر برنامه</string>
     <string name="recents_navigation_delay">فاصله زمانی بین برنامه ها</string>
     <string name="enable_large_recents">فعالسازی پنجره های بزرگتر</string>
 

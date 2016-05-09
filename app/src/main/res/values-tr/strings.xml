@@ -55,7 +55,7 @@
     <!-- RECENTS -->
     <string name="enable_recents_double_tap">Çift tıklama ile son uygulamayı açma</string>
     <string name="double_tap_speed_title">Çift dokunma hızı</string>
-    <string name="enable_recents_navigation">Son uygulamalar gezinmeyi aktifleştirme</string>
+    <string name="enable_recents_navigation_title">Son uygulamalar gezinmeyi aktifleştirme</string>
     <string name="recents_navigation_delay">Son uygulamalar gezinme hızı</string>
     <string name="enable_large_recents">N stili son uygulamalar</string>
 

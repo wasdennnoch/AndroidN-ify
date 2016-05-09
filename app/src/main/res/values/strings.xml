@@ -58,7 +58,8 @@
     <!-- RECENTS -->
     <string name="enable_recents_double_tap">Double tap to switch to last app</string>
     <string name="double_tap_speed_title">Double tap speed</string>
-    <string name="enable_recents_navigation">Enable recent apps navigation</string>
+    <string name="enable_recents_navigation_title">Enable recent apps navigation</string>
+    <string name="enable_recents_navigation">Use the recents key to navigate through the recents</string>
     <string name="recents_navigation_delay">Recent apps navigation delay</string>
     <string name="enable_large_recents">Enable large recent apps</string>
 
@@ -67,8 +68,8 @@
 
     <!-- NOTIFICATIONS -->
     <string name="enable_notification_header">Enable new status bar header</string>
-    <string name="enable_qs_in_header">Enable quicksettings in header</string>
-    <string name="notification_header_qs_tiles_count">Maximum QS tiles to show</string>
+    <string name="enable_qs_in_header">Enable quick settings in header</string>
+    <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="notifications_change_style">Notifications with N style</string>
     <string name="notifications_dark_theme_title">Dark notification theme</string>

@@ -23,8 +23,9 @@
     <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
     <string name="debug_log_title">Debug-Log</string>
     <string name="debug_log">Warnung: Log-flutend</string>
-    <!-- /prefs -->
 
+    <string name="requires_android_version">Benötigt Android %1$s</string>
+    <!-- /prefs -->
 
     <!-- SETTINGS -->
     <string name="enable_settings">Einstellungen tweaken</string>
@@ -55,6 +56,9 @@
     <!-- RECENTS -->
     <string name="enable_recents_double_tap">Doppelklick, um zur letzten App zu wechseln</string>
     <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
+    <string name="enable_recents_navigation_title">Recents-Navigation aktivieren</string>
+    <string name="enable_recents_navigation">Die Recents-Taste benutzen, um durch die Recents zu navigieren</string>
+    <string name="recents_navigation_delay">Navigationsverzögerung</string>
     <string name="enable_large_recents">Große Recents</string>
 
     <string name="no_previous_recents">Keine zuletzt genutzten Apps</string>
@@ -62,6 +66,9 @@
 
     <!-- NOTIFICATIONS -->
     <string name="enable_notification_header">Neuen Statusleisten-Header aktivieren</string>
+    <string name="enable_qs_in_header">Schnelleinstellungen im Header</string>
+    <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
+    <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
     <string name="notifications_change_style">Benachrichtigungen im N Stil</string>
     <string name="notifications_dark_theme_title">Dunkle Benachrichtigungen</string>
     <string name="notifications_dark_theme">Dunkler Benachrichtigungshintergrund für Nutzer von speziellen Layers-Themes</string>

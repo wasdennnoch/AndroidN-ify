@@ -31,7 +31,7 @@
     <string name="enable_recents_double_tap">Dvojitým poklepaním otvoriť predchádzajúcu apl.</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
     <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
-    <string name="enable_recents_navigation">Povoliť navigáciu v nedávnych aplikáciách</string>
+    <string name="enable_recents_navigation_title">Povoliť navigáciu v nedávnych aplikáciách</string>
     <string name="recents_navigation_delay">Oneskorenie navigácie</string>
     <!-- /RECENTS -->
 
