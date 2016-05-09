@@ -18,6 +18,7 @@
     <string name="header_settings">Módulo</string>
     <string name="header_tweaks">Modificaciones</string>
     <string name="header_recents">Recientes</string>
+    <string name="header_status_bar_header">Barra de estado</string>  
     <string name="header_notifications">Notificaciones</string>
     <string name="header_app">Ajustes</string>
     
@@ -31,6 +32,7 @@
     
     <!-- SETTINGS -->
     <string name="enable_settings_summaries_title">Activar módulo</string>
+    <string name="enable_settings_summaries">Muetra la información más importante directamente en la barra de notificaciones</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
     <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. Activa esto para mostrar la información correctamente</string>
     
@@ -56,17 +58,25 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap_title">Doble toque para cambiar a la última aplicación usada</string>
+    <string name="enable_recents_double_tap_title">Doble pulsación</string>
+    <string name="enable_recents_double_tap">Doble pulsación al botón de recientes para volver a la última aplicación</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
-    <string name="enable_recents_navigation_title">Activar navegacion de aplicaciones recientes</string>
-    <string name="recents_navigation_delay_title">Retraso de navegación de aplicaciones recientes</string>
-    <string name="enable_large_recents">Activar tajetas grandes en aplicaciones recientes</string>
-    
+    <string name="enable_recents_navigation_title">Activar navegación de recientes</string>
+    <string name="enable_recents_navigation">Usar el botón de recientes para navegar entre las aplicaciones recientes</string>
+    <string name="recents_navigation_delay_title">Retraso de navegación</string>
+    <string name="recents_navigation_delay">Tiempo para que se abra la aplicación seleccionada</string>
+    <string name="enable_large_recents">Activar tajetas recientes grandes</string>
+
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
     <!-- /RECENTS -->
+    
+    <!-- STATUS BAR HEADER -->
+    <string name="enable_notification_header">Activar nueva barra de estado</string>
+    <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
+    <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
+    <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
-    <string name="enable_notification_header">Activar nueva barra de estado</string>
     <string name="notifications_change_style">Notificaciones con el estilo de Android N</string>
     <string name="notifications_dark_theme_title">Tema oscuro de notificaciones</string>
     <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
