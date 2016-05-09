@@ -815,7 +815,6 @@ public class NotificationsHooks {
     private static XC_LayoutInflated notification_template_material_big_picture = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-            XposedHook.logI(TAG, "notification_template_material_big_picture");
             FrameLayout layout = (FrameLayout) liparam.view;
             View pic = layout.getChildAt(0);
             View shadow = layout.getChildAt(1);
