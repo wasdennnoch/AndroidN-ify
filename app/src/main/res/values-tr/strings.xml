@@ -65,7 +65,8 @@
     <!-- NOTIFICATIONS -->
     <string name="enable_notification_header">Yeni bildirimler geliştirmesi</string>
     <string name="enable_qs_in_header">Hızlı ayarlar geliştirmesini aktifleştirme</string>
-    <string name="notification_header_qs_tiles_count">Maximum hızlı ayarlar göstermek için gerekir</string>
+    <string name="notification_header_qs_tiles_count">Hızlı ayarları göstermek için gerekir</string>
+    <string name="notification_header_qs_tiles_count_monitor">Sayısı</string>
     <string name="notifications_change_style">N stili bildirimler</string>
     <string name="notifications_dark_theme_title">Karanlık bildirimler teması</string>
     <string name="notifications_dark_theme">Kullanıcılar için karanlık bildirimler teması</string>
