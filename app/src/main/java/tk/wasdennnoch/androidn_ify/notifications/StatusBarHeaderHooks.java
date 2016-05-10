@@ -46,6 +46,7 @@ public class StatusBarHeaderHooks {
 
     private static boolean mHasEditPanel = false;
     private static boolean mCollapseAfterHideDatails = false;
+    private static boolean mHideTunerIcon = false;
 
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
@@ -69,6 +70,7 @@ public class StatusBarHeaderHooks {
     private static TextView mEmergencyCallsOnly;
     private static TextView mAlarmStatus;
     private static TextView mEditTileDoneText;
+    private static View mTunerIcon;
 
     private static ExpandableIndicator mExpandIndicator;
     private static LinearLayout mDateTimeAlarmGroup;
@@ -130,6 +132,8 @@ public class StatusBarHeaderHooks {
             } catch (Throwable t) {
                 mSettingsContainer = mSettingsButton;
             }
+            mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
+            mHideTunerIcon = ConfigUtils.header().hide_tuner_icon;
 
             try {
 
@@ -174,7 +178,6 @@ public class StatusBarHeaderHooks {
 
                 RelativeLayout.LayoutParams emergencyCallsOnlyLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 emergencyCallsOnlyLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                //emergencyCallsOnlyLp.leftMargin = res.getDimensionPixelSize(R.dimen.header_horizontal_margin);
                 emergencyCallsOnlyLp.topMargin = res.getDimensionPixelSize(R.dimen.emergency_calls_only_margin_top);
                 mEmergencyCallsOnly.setLayoutParams(emergencyCallsOnlyLp);
                 //noinspection deprecation
@@ -281,9 +284,6 @@ public class StatusBarHeaderHooks {
 
             updateResources(context);
 
-            mSystemIconsSuperContainer.setVisibility(View.GONE);
-            mDateGroup.setVisibility(View.GONE);
-
         }
     };
     private static XC_MethodHook setExpansionHook = new XC_MethodHook() {
@@ -329,6 +329,7 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(XposedHelpers.getBooleanField(param.thisObject, "mExpanded") ? View.VISIBLE : View.INVISIBLE);
+                if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
             } else {
                 XposedHook.logD(TAG, "updateVisibilitiesHook: mSystemIconsSuperContainer is still null");
             }

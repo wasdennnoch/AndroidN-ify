@@ -372,7 +372,7 @@ public class NotificationsHooks {
                     XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
                 }
 
-                fullWidthVolume = config.notifications.full_width_volume;
+                fullWidthVolume = config.header.full_width_volume;
                 allowLoadLabelWithPackageManager = config.notifications.allow_load_label_with_pm;
 
                 try {

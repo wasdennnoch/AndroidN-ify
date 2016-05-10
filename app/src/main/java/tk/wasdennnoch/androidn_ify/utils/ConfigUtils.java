@@ -5,8 +5,6 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 
 public class ConfigUtils {
 
-    private static final String TAG = "ConfigUtils";
-
     private static ConfigUtils mInstance;
 
     private XSharedPreferences mPrefs;
@@ -89,10 +87,14 @@ public class ConfigUtils {
     public class StatusBarHeaderConfig {
         public boolean header;
         public int qs_tiles_count;
+        public boolean hide_tuner_icon;
+        public boolean full_width_volume;
 
         public StatusBarHeaderConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
+            hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
+            full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
         }
     }
 
@@ -103,16 +105,14 @@ public class ConfigUtils {
         public boolean dark_theme;
         public boolean dismiss_button;
         public boolean allow_load_label_with_pm;
-        public boolean full_width_volume;
 
         public NotificationsConfig(XSharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
             dark_theme = prefs.getBoolean("notification_dark_theme", false);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             allow_load_label_with_pm = prefs.getBoolean("notification_allow_load_label_with_pm", false);
-            full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
 
-            enable = (change_style || dark_theme || dismiss_button || full_width_volume);
+            enable = (change_style || dark_theme || dismiss_button);
         }
     }
 
