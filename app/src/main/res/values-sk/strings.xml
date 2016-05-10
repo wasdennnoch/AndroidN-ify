@@ -58,6 +58,12 @@
     <string name="notification_allow_load_label_with_pm_title">Povoliť načítanie názvu apl. pomocou PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Môže spôsobiť problémy s výkonom</string>
     <!-- /NOTIFICATIONS -->
+  
+    <!-- UPDATE -->
+    <string name="update_notification_title">Je dostupná aktualizácia</string>
+    <string name="update_notification">Zostava %1$d je dostupná na stiahnutie.</string>
+    <string name="update_notification_download">Stiahnuť</string>
+    <!-- /UPDATE -->
 
     <string name="header_app">Aplikácia</string>
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
