@@ -40,9 +40,23 @@ public class NotificationPanelHooks {
         }
     };
 
+    @SuppressWarnings("unused")
+    public static boolean isExpanded() {
+        return (mExpandIndicator != null && mExpandIndicator.isExpanded());
+    }
+
+    public static boolean isCollapsed() {
+        return (mExpandIndicator != null && !mExpandIndicator.isExpanded());
+    }
+
     public static void expandIfNecessary() {
         if (mExpandIndicator == null || mNotificationPanelView == null) return;
         if (!mExpandIndicator.isExpanded()) flingSettings(true);
+    }
+
+    public static void collapseIfNecessary() {
+        if (mExpandIndicator == null || mNotificationPanelView == null) return;
+        if (mExpandIndicator.isExpanded()) flingSettings(false);
     }
 
     public static void flingSettings(boolean expanded) {

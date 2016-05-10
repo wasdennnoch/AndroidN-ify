@@ -45,6 +45,7 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
 
     private static boolean mHasEditPanel = false;
+    private static boolean mCollapseAfterHideDatails = false;
 
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
@@ -463,6 +464,7 @@ public class StatusBarHeaderHooks {
         transition(mQsDetailHeader, showingDetail);
         XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
         if (showingDetail) {
+            mCollapseAfterHideDatails = NotificationPanelHooks.isCollapsed();
             NotificationPanelHooks.expandIfNecessary();
             mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
             final Boolean toggleState = (Boolean) XposedHelpers.callMethod(detail, "getToggleState");
@@ -491,6 +493,7 @@ public class StatusBarHeaderHooks {
                 }
             }
         } else {
+            if (mCollapseAfterHideDatails) NotificationPanelHooks.collapseIfNecessary();
             mQsDetailHeader.setClickable(false);
         }
     }
