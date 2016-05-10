@@ -32,7 +32,7 @@
 
     <!-- SETTINGS -->
     <string name="enable_settings_summaries_title">Włącz poprawki ustawień</string>
-    <string name="enable_settings_summaries">Show the most important information directly in the dashboard</string>
+    <string name="enable_settings_summaries">Pokaż najważniejsze informacje bezpośrednio w menu ustawień</string>
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
     <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
 
@@ -56,10 +56,10 @@
     <string name="location_on_high">WŁ. / Wysoka dokładność</string>
     <string name="print_summary">%1$d zadań drukowania</string>
     <!-- /SETTINGS -->
-
+a
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap_title">Podwójne kliknięcie, aby zmienić na ostatnio używaną aplikację</string>
-    <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
+    <string name="enable_recents_double_tap_title">Podwójne dotknięcie, aby zmienić na ostatnio używaną aplikację</string>
+    <string name="enable_recents_double_tap">Podwójne dotknij klawisz ostatnio używanych aplikacji aby zmienić na ostatnio używaną aplikację</string>
     <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
     <string name="enable_recents_navigation_title">Włącz nawigację ostatnich aplikacji</string>
     <string name="enable_recents_navigation">Użyj klawisza ostanich aplikacji aby zmieniać wybraną aplikacje z ostatnich</string>
@@ -86,6 +86,10 @@
     <string name="notification_allow_load_label_with_pm">Może powodować problemy z wydajnością</string>
     <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
     <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
+    <string name="update_notification">Wersja %1$d jest teraz dostępna do pobrania!</string>
+    <string name="update_notification_download">Pobierz</string>
+    <string name="update_notification_title">Nowa wersja dostępna</string>
+    <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
     <!-- /NOTIFICATIONS -->
 
 </resources>
