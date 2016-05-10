@@ -56,6 +56,10 @@ public class QuickQSPanel extends LinearLayout {
             Object tilerecord = mRecords.get(i);
             Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             if (tile == qstile) {
+                if (i > mTileViews.size()) {
+                    XposedHook.logD(TAG, "handleStateChanged; tilerecord index greater than tileViews size; index :" + i + "; views: " + mTileViews.size());
+                    return;
+                }
                 ViewGroup tileView = mTileViews.get(i);
                 XposedHelpers.callMethod(tileView, "onStateChanged", state);
                 XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
