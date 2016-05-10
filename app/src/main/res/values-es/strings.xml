@@ -77,7 +77,7 @@
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
-    <string name="notifications_change_style">Notificaciones con el estilo de Android N</string>
+    <string name="notifications_change_style">Notificaciones de Android N</string>
     <string name="notifications_dark_theme_title">Tema oscuro de notificaciones</string>
     <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
     <string name="notification_dismiss_button_title">Cambiar botón descartar</string>
