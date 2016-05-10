@@ -58,6 +58,7 @@ public class StatusBarHeaderHooks {
     private static RelativeLayout mStatusBarHeaderView;
 
     private static View mSystemIconsSuperContainer;
+    private static View mWeatherContainer;
     private static View mDateGroup;
     private static FrameLayout mMultiUserSwitch;
     private static TextView mDateCollapsed;
@@ -134,6 +135,10 @@ public class StatusBarHeaderHooks {
             }
             mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
             mHideTunerIcon = ConfigUtils.header().hide_tuner_icon;
+            try {
+                mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
+            } catch (Throwable ignore) {
+            }
 
             try {
 
@@ -178,7 +183,7 @@ public class StatusBarHeaderHooks {
 
                 RelativeLayout.LayoutParams emergencyCallsOnlyLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 emergencyCallsOnlyLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                emergencyCallsOnlyLp.topMargin = res.getDimensionPixelSize(R.dimen.emergency_calls_only_margin_top);
+                emergencyCallsOnlyLp.topMargin = res.getDimensionPixelSize(R.dimen.header_items_margin_top);
                 mEmergencyCallsOnly.setLayoutParams(emergencyCallsOnlyLp);
                 //noinspection deprecation
                 mEmergencyCallsOnly.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.emergency_calls_only_text_size));
@@ -254,12 +259,21 @@ public class StatusBarHeaderHooks {
                 mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
 
 
-                LinearLayout.LayoutParams headerQsPanelLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams headerQsPanelLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 mHeaderQsPanel = new QuickQSPanel(context);
                 mHeaderQsPanel.setLayoutParams(headerQsPanelLp);
                 mHeaderQsPanel.setPadding(quickQSHorizontalMargin, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), quickQSHorizontalMargin, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
                 mHeaderQsPanel.setClipChildren(false);
                 mHeaderQsPanel.setClipToPadding(false);
+
+
+                if (mWeatherContainer != null) {
+                    RelativeLayout.LayoutParams weatherContainerLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    weatherContainerLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                    weatherContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
+                    weatherContainerLp.topMargin = res.getDimensionPixelSize(R.dimen.header_items_margin_top);
+                    mWeatherContainer.setLayoutParams(weatherContainerLp);
+                }
 
 
                 mRightContainer.addView(mMultiUserSwitch);
@@ -403,13 +417,19 @@ public class StatusBarHeaderHooks {
                 .addFloat(mAlarmStatus, "alpha", 0.0F, 1.0F)
                 .addFloat(mEmergencyCallsOnly, "alpha", 0.0F, 1.0F)
                 .setStartDelay(0.5F).build();
-        mSettingsAlpha = new TouchAnimator.Builder()
+        TouchAnimator.Builder settingsAlphaBuilder = new TouchAnimator.Builder()
                 .addFloat(mSettingsContainer, "translationY", -gearTranslation, 0.0F)
                 .addFloat(mMultiUserSwitch, "translationY", -gearTranslation, 0.0F)
                 .addFloat(mSettingsButton, "rotation", -90F, 0.0F)
                 .addFloat(mSettingsContainer, "alpha", 0.0F, 1.0F)
                 .addFloat(mMultiUserSwitch, "alpha", 0.0F, 1.0F)
-                .setStartDelay(0.7F).build();
+                .setStartDelay(0.7F);
+        if (mWeatherContainer != null) {
+            settingsAlphaBuilder
+                    .addFloat(mWeatherContainer, "translationY", -gearTranslation, 0.0F)
+                    .addFloat(mWeatherContainer, "alpha", 0.0F, 1.0F);
+        }
+        mSettingsAlpha = settingsAlphaBuilder.build();
         mQuickQSAnimator = new TouchAnimator.Builder()
                 .addFloat(mHeaderQsPanel, "alpha", 1.0F, 0.0F)
                 .setEndDelay(0.64F).build();
