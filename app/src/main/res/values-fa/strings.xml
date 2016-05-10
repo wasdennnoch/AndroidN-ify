@@ -18,6 +18,7 @@
     <string name="header_settings">تنظیمات</string>
     <string name="header_tweaks">تغییرات</string>
     <string name="header_recents">صفحه ریسنتز یا Recents</string>
+	 <string name="header_status_bar_header">استاتوس بار</string>
     <string name="header_notifications">نوتیفیکیشن ها</string>
     <string name="header_app">برنامه</string>
 
@@ -31,6 +32,7 @@
 
     <!-- SETTINGS -->
     <string name="enable_settings_summaries_title">فعالسازی تغییرات به تنظیمات گوشی</string>
+	<string name="enable_settings_summaries">نشان دادن اطلاعات مهم هر بخش از تنظیمات زیر عنوان در تنظیمات گوشی</string>
     <string name="fix_sound_notif_tile_title">حل کردن مشکل گزینه های تنظیمات</string>
     <string name="fix_sound_notif_tile">اگر توضیحات بعضی از گزینه ها درست نیستند انتخاب شود</string>
 
@@ -56,26 +58,40 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap_title">دوبار زدن دکمه ریسنت برای رفتن به برنامه قبلی</string>
+	<string name="enable_recents_double_tap_title">دابل کلیک</string>
+    <string name="enable_recents_double_tap">دوبار زدن دکمه ریسنت برای رفتن به برنامه قبلی</string>
     <string name="double_tap_speed_title">سرعت کلیک</string>
     <string name="enable_recents_navigation_title">فعالسازی تغییر برنامه</string>
+	<string name="enable_recents_navigation">استفاده از دکمه ریسنت برای انتخاب پنجره</string>
     <string name="recents_navigation_delay_title">فاصله زمانی بین برنامه ها</string>
+	<string name="recents_navigation_delay">فاصله زمانی بین انتخاب و باز شدن</string>
     <string name="enable_large_recents">فعالسازی پنجره های بزرگتر</string>
 
     <string name="no_previous_recents">هیچ برنامه ای باز نیست</string>
     <!-- /RECENTS -->
 
+    <!-- STATUS BAR HEADER -->
+    <string name="enable_notification_header">تغییر دادن استاتوس بار</string>
+    <string name="notification_header_qs_tiles_count">تعداد تنظیمات نشان داده شده</string>
+    <string name="notification_header_qs_tiles_count_monitor">تنظیمات</string>
+    <!-- /STATUS BAR HEADER -->
+
     <!-- NOTIFICATIONS -->
-    <string name="enable_notification_header">فعالسازی دکمه های استاتوس بار</string>
-    <string name="notifications_change_style">فعال نوتیفیکیشن های اندروید 7</string>
-    <string name="notifications_dark_theme_title">نوتیفیکیشن های سیاه</string>
-    <string name="notifications_dark_theme">پیش زمینه سیاه برای پیغام ها</string>
-    <string name="notification_dismiss_button_title">تغییر دکمه حذف نوتیفیکیشن ها</string>
-    <string name="notification_dismiss_button">نشان دادن دکمه حذف همه</string>
-    <string name="notification_allow_load_label_with_pm_title">استفاده از اسم اصلی برنامه ها</string>
-    <string name="notification_allow_load_label_with_pm">ممکن است سرعت دستگاه کم شود</string>
+    <string name="notifications_change_style">تغییر دادن نوتیفیکیشن ها</string>
+    <string name="notifications_dark_theme_title">تم سیاه</string>
+    <string name="notifications_dark_theme">زمینه سیاه برای نوتیفیکیشن ها</string>
+    <string name="notification_dismiss_button_title">تغییر دادن دکمه حذف همه</string>
+    <string name="notification_dismiss_button">نشان دادن حذف همه به جای آیکن</string>
+    <string name="notification_allow_load_label_with_pm_title">روش دوم برای نام گذاری نوتیفیکیشن ها</string>
+    <string name="notification_allow_load_label_with_pm">ممکن است از عملکرد بکاهد</string>
     <string name="notification_full_width_volume_title">دیالوگ ولوم جدید</string>
-    <string name="notification_full_width_volume">برای گوشی های صفحه بزرگ</string>
+    <string name="notification_full_width_volume">دیالوگ ولوم تمام صفحه</string>
     <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">آپدیت جدید موجود است</string>
+    <string name="update_notification">آماده برای دانلود است %1$d نسخه</string>
+    <string name="update_notification_download">دانلود</string>
+    <!-- /UPDATE -->
 
 </resources>
