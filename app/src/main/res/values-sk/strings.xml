@@ -28,7 +28,7 @@
 
     <!-- RECENTS -->
     <string name="header_recents">Nedávne aplikácie</string>
-    <string name="no_previous_recents">Žiadna nedávna aplikácia</string>
+    <string name="no_previous_recents">Žiadne nedávne položky</string>
     <string name="enable_recents_double_tap_title">Prepínanie aplikácií dvojitým poklepaním</string>
     <string name="enable_recents_double_tap">Dvojitým poklepaním otvorí predchádzajúcu aplikáciu</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
@@ -44,6 +44,7 @@
     <string name="enable_notification_header">Upraviť záhlavie</string>
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
+    <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
     <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
     <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
     <!-- /STATUS BAR HEADER -->
