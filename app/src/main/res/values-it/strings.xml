@@ -83,5 +83,12 @@
     <string name="notification_dismiss_button">Mostra \"CANCELLA TUTTO\" invece dell\'icona di rimozione</string>
     <string name="enable_notification_header">Abilita la nuova intestazione delle notificher</string>
      <!-- /NOTIFICATIONS -->
+     
+     <!-- UPDATE -->
+    <string name="update_notification_title">Nuovo aggiornamento disponibile</string>
+    <string name="update_notification">La Build %1$d è ora dispinibile per il download.</string>
+    <string name="update_notification_download">Download</string>
+     <!-- /UPDATE -->
+ 
 
 </resources>
