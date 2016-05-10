@@ -13,10 +13,7 @@
     <!-- prefs -->
     <string name="prefs_file_not_readable">Xposed tarafından okunabilir tercih dosyası,varsayılan değerler kullanılacaktır.SELİnux zorlanması nedeniyle olabilir.</string>
 
-    <string name="header_settings">Ayarlar</string>
     <string name="header_tweaks">Geliştirme</string>
-    <string name="header_recents">Son Uygulamalar</string>
-    <string name="header_status_bar_header">Durum Çubuğu</string>
     <string name="header_notifications">Bildirimler</string>
     <string name="header_app">Uygulama</string>
 
@@ -29,6 +26,7 @@
     <!-- /prefs -->
 
     <!-- SETTINGS -->
+    <string name="header_settings">Ayarlar</string>
     <string name="enable_settings_summaries_title">Ayarlar geliştirmesi</string>
     <string name="enable_settings_summaries">Gösterge tablosunda doğrudan en önemli bilgileri gösterir.</string>
     <string name="fix_sound_notif_tile_title">Fix "Ses &amp; bildirim" satırı</string>
@@ -57,6 +55,7 @@
 
 
     <!-- RECENTS -->
+    <string name="header_recents">Son Uygulamalar</string>
     <string name="enable_recents_double_tap_title">Çift tıklama ile son uygulamayı açma</string>
     <string name="enable_recents_double_tap">Çift tıklama ile son uygulamayı açar.</string>
     <string name="double_tap_speed_title">Çift dokunma hızı</string>
@@ -69,9 +68,13 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Durum Çubuğu</string>
     <string name="enable_notification_header">Yeni bildirimler geliştirmesi</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarları göstermek için gerekir.</string>
     <string name="notification_header_qs_tiles_count_monitor">Tane</string>
+    <string name="hide_tuner_icon_title">SystemUI düzenleyiciyi gizle</string>
+    <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
+    <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS --> 
@@ -82,13 +85,11 @@
     <string name="notification_dismiss_button">Yerine \"TÜMÜNÜ TEMİZLE\" butonunu gösterir.</string>
     <string name="notification_allow_load_label_with_pm_title">Alternatif uygulamaların yüklenmesi izni</string>
     <string name="notification_allow_load_label_with_pm">Tüm uygulamaların yüklenmesi için paket yöneticisi izni verir.</string>
-    <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
-    <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
     <string name="update_notification_title">Yeni güncelleme</string>
-    <string name="update_notification">Yapı %1$d indirilmeye hazır.</string>
+    <string name="update_notification">Yapı %1$d indirilmeye hazır!</string>
     <string name="update_notification_download">İndir</string>
     <!-- /UPDATE -->
 
