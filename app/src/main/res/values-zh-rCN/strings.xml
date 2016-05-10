@@ -58,6 +58,7 @@
     <!-- /SETTINGS -->
     
     <!-- RECENTS -->
+    <string name="enable_recents_double_tap_title">双击切换应用</string>
     <string name="enable_recents_double_tap">双击多任务键时切换至上一个使用过的应用</string>
     <string name="double_tap_speed_title">双击速度</string>
     <string name="enable_recents_navigation_title">启用任务导航</string>
