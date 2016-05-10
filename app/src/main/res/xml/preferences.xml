@@ -7,7 +7,7 @@
         android:title="@string/header_tweaks">
 
         <PreferenceScreen
-            android:key="settings_recents"
+            android:key="settings_settings"
             android:title="@string/header_settings">
 
             <SwitchPreference
