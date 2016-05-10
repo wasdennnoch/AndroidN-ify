@@ -36,7 +36,6 @@ import tk.wasdennnoch.androidn_ify.systemui.recents.stack.RecentsStackHooks;
  */
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookInitPackageResources {
 
-
     private static final String TAG = "XposedHook";
     private static final String LOG_FORMAT = "[Android N-ify] %1$s %2$s: %3$s";
     public static final String PACKAGE_ANDROID = "android";
@@ -44,9 +43,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_SETTINGS = "com.android.settings";
     public static final String PACKAGE_OWN = "tk.wasdennnoch.androidn_ify";
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
+
     public static boolean debug = false;
     private static String sModulePath;
-
     private static XSharedPreferences sPrefs;
 
     public static void logE(String tag, String msg, Throwable t) {
@@ -71,7 +70,15 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
         sModulePath = startupParam.modulePath;
-        sPrefs = new XSharedPreferences(XposedHook.class.getPackage().getName());
+        sPrefs = new XSharedPreferences("tk.wasdennnoch.androidn_ify");
+
+        logI(TAG, "Version " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
+        //noinspection ConstantConditions
+        if (BuildConst.BUILD_SERVER_VERSION == 0) {
+            logI(TAG, "WDN Build; Release: " + !BuildConfig.DEBUG + " (" + BuildConfig.BUILD_TYPE + ")");
+        } else {
+            logI(TAG, "Remote Build; Version: " + BuildConst.BUILD_SERVER_VERSION);
+        }
 
         if (!sPrefs.getBoolean("can_read_prefs", false)) {
             // With SELinux enforcing, it might happen that we don't have access

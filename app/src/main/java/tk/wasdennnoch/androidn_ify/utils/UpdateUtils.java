@@ -33,7 +33,7 @@ public class UpdateUtils {
         return true;
     }
 
-    public static boolean isConnected(Context context){
+    public static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
@@ -65,10 +65,9 @@ public class UpdateUtils {
                 while ((line = reader.readLine()) != null) {
                     result.append(line);
                 }
-            }catch( Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 urlConnection.disconnect();
             }
 
@@ -79,7 +78,8 @@ public class UpdateUtils {
         protected void onPostExecute(String s) {
             try {
                 UpdateData updateData = UpdateData.fromJson(new JSONObject(s));
-                if (updateData.getNumber() > mContext.getResources().getInteger(R.integer.version)) showNotification(updateData, mContext);
+                if (updateData.getNumber() > mContext.getResources().getInteger(R.integer.version))
+                    showNotification(updateData, mContext);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -94,8 +94,8 @@ public class UpdateUtils {
         PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Action downloadAction = new Notification.Action.Builder(R.drawable.arrow_down,
-                        context.getString(R.string.update_notification_download), pending)
-                        .build();
+                context.getString(R.string.update_notification_download), pending)
+                .build();
 
         Notification.Builder notificationBuider = new Notification.Builder(context)
                 .setSmallIcon(R.drawable.ic_launcher_big)
@@ -127,7 +127,7 @@ public class UpdateUtils {
             boolean hasArtifact = false;
             JSONArray artifacts = jsonObject.getJSONArray("artifacts");
             int artifactCount = artifacts.length();
-            if(artifactCount == 1) {
+            if (artifactCount == 1) {
                 hasArtifact = true;
                 JSONObject artifact = artifacts.getJSONObject(0);
                 artifactUrl = url + "artifact/" + artifact.getString("relativePath");
