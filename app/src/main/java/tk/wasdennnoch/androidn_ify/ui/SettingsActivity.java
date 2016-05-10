@@ -40,9 +40,10 @@ public class SettingsActivity extends Activity {
         if (isActivated() && !isPrefsFileReadable()) {
             findViewById(R.id.prefs_not_readable_warning).setVisibility(View.VISIBLE);
         }
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             UpdateUtils.check(this);
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
+        }
     }
 
     private boolean isActivated() {
@@ -88,8 +89,10 @@ public class SettingsActivity extends Activity {
                     case "settings_recents":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                             Preference p = screen.findPreference("enable_recents_navigation");
-                            p.setEnabled(false);
-                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                            if (p != null) { // Why is it null for some users?!
+                                p.setEnabled(false);
+                                p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                            }
                         }
                         break;
                     case "settings_status_bar_header":
