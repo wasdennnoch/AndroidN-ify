@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Traz funções introduzidas no Android N a dispositivos com Lollipop e Marshmallow!</string>
+    <string name="xposed_description">Traz funções introduzidas no Android N para dispositivos com Lollipop e Marshmallow!</string>
+	
+    <string name="restart_systemui">Reiniciar SystemUI</string>
+    <string name="restart_systemui_message">Tem a certeza de que deseja reiniciar a SystemUI?</string>
+    <string name="restart_broadcast_sent">Broadcast de reinício enviado</string>
+    <string name="activity_about">Acerca do Android N-ify</string>
+    <string name="about_author">Desenvolvido por \"MrWasdennnoch\"</string>
+    <string name="about_version">Versão %1$s (%2$d)</string>	
 
     <!-- prefs -->
-    <string name="header_settings">Definições</string>
-    <string name="header_recents">Recentes</string>
+    <string name="prefs_file_not_readable">O ficheiro de preferências não pode ser lido pelo Xposed, os valores padrão serão usados. Isto pode ser por conta do SELinux estar em modo \"Enforcing\".</string>
+	
+    <string name="header_tweaks">Ajustes</string>
     <string name="header_app">App</string>
-
-    <string name="enable_settings_summaries_title">Activar modificações nas definições</string>
-    <string name="fix_sound_notif_tile_title">Corrigir o módulo de "Sons &amp; Notificações</string>
-    <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e Notificações. Activar para mostrar o sumário correcto para estes casos</string>
-
-    <string name="double_tap_speed_title">Velocidade de duplo toque</string>
-
-    <string name="hide_launcher_icon">Pode ser necessário reiniciar o launcher</string>
-    <string name="hide_launcher_icon_title">Esconder ícone do launcher</string>
+    
+    <string name="hide_launcher_icon_title">Esconder ícone do lançador</string>
+    <string name="hide_launcher_icon">Pode ser necessário reiniciar o lançador</string>
     <string name="debug_log_title">Registos de depuração</string>
     <string name="debug_log">Atenção: Registo invasivo</string>
+	
+    <string name="requires_android_version">Requer Android %1$s</string>	
     <!-- /prefs -->
-
-
+    
     <!-- SETTINGS -->
+    <string name="header_settings">Definições</string>
+	<string name="enable_settings_summaries_title">Sumários de definições</string>
+    <string name="enable_settings_summaries">Mostrar as informações mais importantes diretamente no painel</string>
+    <string name="fix_sound_notif_tile_title">Corrigir o módulo de Sons &amp; Notificações</string>
+    <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Activar esta opção para que o sumário correcto seja mostrado.</string>
+	
     <string name="disabled">Desactivado</string>
     <string name="disconnected">Desconectado</string>
     <string name="off">DESACTIVADO</string>
@@ -44,7 +55,44 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="no_previous_recents">Nenhuma app recente</string>
+    <string name="header_recents">Recentes</string>
+    <string name="enable_recents_double_tap_title">Troca de aplicações com duplo toque</string>
+    <string name="enable_recents_double_tap">Toque duas vezes na tecla de Apps recentes para mudar para a última aplicação utilizada</string>
+    <string name="double_tap_speed_title">Velocidade do duplo toque</string>
+    <string name="enable_recents_navigation_title">Ativar navegação de apps recentes</string>
+    <string name="enable_recents_navigation">Use a tecla de recentes para navegar entre as aplicações recentes</string>
+    <string name="recents_navigation_delay_title">Intervalo de navegação</string>
+    <string name="recents_navigation_delay">Tempo até que a aplicação seleccionada seja trazida para a frente</string>
+    <string name="enable_large_recents">Ativar apps recentes grandes</string>
+
+    <string name="no_previous_recents">Nenhum item recente</string>
     <!-- /RECENTS -->
+
+    <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Cabeçalho da barra de status</string>
+    <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
+    <string name="notification_header_qs_tiles_count">Blocos de definições rápidas a mostrar</string>
+    <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
+    <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
+    <string name="notification_full_width_volume_title">Largura do painel de volume</string>
+    <string name="notification_full_width_volume">Remover o limite de largura do painel de volume em dispositivos com telas grandes</string>
+    <!-- /STATUS BAR HEADER -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Notificações</string>
+    <string name="notifications_change_style">Mudar o estilo das notificações</string>
+    <string name="notifications_dark_theme_title">Tema escuro para notificações</string>
+    <string name="notifications_dark_theme">Notificações com plano de fundo escuro (para utilizadores de certos temas Layers)</string>
+    <string name="notification_dismiss_button_title">Mudar o botão Limpar</string>
+    <string name="notification_dismiss_button">Mostrar \"LIMPAR TUDO\" ao invés do ícone de limpar</string>
+    <string name="notification_allow_load_label_with_pm_title">Método alternativo para carregar o nome dos apps</string>
+    <string name="notification_allow_load_label_with_pm">Permite que o nome do app seja carregado usando o PackageManager. Pode causar problemas de desempenho.</string>
+    <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">Nova actualização disponível</string>
+    <string name="update_notification">A compilação %1$d está disponível para download!</string>
+    <string name="update_notification_download">Transferir</string>
+    <!-- /UPDATE -->
 
 </resources>
