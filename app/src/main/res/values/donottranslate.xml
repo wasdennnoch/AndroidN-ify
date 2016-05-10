@@ -6,4 +6,9 @@
     <string name="notification_header_divider_symbol" translatable="false">•</string>
     <!-- /NOTIFICATIONS -->
 
+    <!-- UPDATER -->
+    <!-- Will be injected by build server. Don't touch it. -->
+    <string name="updater_url">null</string>
+    <!-- /UPDATER -->
+
 </resources>

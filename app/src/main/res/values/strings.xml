@@ -88,4 +88,10 @@
     <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
     <!-- /NOTIFICATIONS -->
 
+    <!-- UPDATE -->
+    <string name="update_notification_title">New update available</string>
+    <string name="update_notification">Build %1$d is now available to download.</string>
+    <string name="update_notification_download">Download</string>
+    <!-- /UPDATE -->
+
 </resources>

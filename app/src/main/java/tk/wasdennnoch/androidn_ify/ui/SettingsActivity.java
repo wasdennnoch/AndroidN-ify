@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.io.File;
 
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class SettingsActivity extends Activity {
 
@@ -40,6 +41,7 @@ public class SettingsActivity extends Activity {
             findViewById(R.id.prefs_not_readable_warning).setVisibility(View.VISIBLE);
         }
         if (savedInstanceState == null)
+            UpdateUtils.check(this);
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
     }
 
