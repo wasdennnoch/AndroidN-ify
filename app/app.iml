@@ -103,5 +103,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="android_hidden_api_23" level="project" />
     <orderEntry type="library" exported="" name="XposedBridgeApi-20150213" level="project" />
+    <orderEntry type="library" exported="" name="org.apache.http.legacy-android-23" level="project" />
   </component>
 </module>
