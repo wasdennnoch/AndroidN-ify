@@ -89,10 +89,8 @@ public class SettingsActivity extends Activity {
                     case "settings_recents":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                             Preference p = screen.findPreference("enable_recents_navigation");
-                            if (p != null) { // Why is it null for some users?!
-                                p.setEnabled(false);
-                                p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
-                            }
+                            p.setEnabled(false);
+                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         }
                         break;
                     case "settings_status_bar_header":
