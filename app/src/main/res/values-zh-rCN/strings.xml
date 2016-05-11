@@ -2,37 +2,37 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
-	
+
     <string name="xposed_description">将 Android N 内的特性移植到 Lollipop 和 Marshmallow 版本的 rom 中！</string>
-    
+
     <string name="restart_systemui">重启系统界面</string>
     <string name="restart_systemui_message">你确定要重启系统界面吗？</string>
     <string name="restart_broadcast_sent">已发送重启广播</string>
     <string name="activity_about">关于 Android N-ify</string>
     <string name="about_author">开发者 \"MrWasdennnoch\"</string>
-    <string name="about_version">版本号 %1$s (%2$d)</string>
+    <string name="about_version">版本 %1$s (%2$d)</string>
     
     <!-- prefs -->
     <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 而导致的。</string>
-    
+
     <string name="header_tweaks">调整</string>
     <string name="header_app">应用程序</string>
-    
+	
     <string name="hide_launcher_icon_title">隐藏应用图标</string>
     <string name="hide_launcher_icon">或许需要重启桌面</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
-    
+	
     <string name="requires_android_version">所需安卓版本 %1$s</string>
     <!-- /prefs -->
-    
+	
     <!-- SETTINGS -->
     <string name="header_settings">设置</string>
     <string name="enable_settings_summaries_title">设置项摘要</string>
     <string name="enable_settings_summaries">在设置内直接显示最重要的系统信息</string>
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
     <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 的设置中显示出正确的信息摘要。</string>
-    
+
     <string name="disconnected">未连接</string>
     <string name="disabled">已禁用</string>
     <string name="off">关闭</string>
@@ -53,7 +53,7 @@
     <string name="location_on_high">开启 / 高精确度</string>
     <string name="print_summary">%1$d 个打印任务</string>
     <!-- /SETTINGS -->
-    
+	
     <!-- RECENTS -->
     <string name="header_recents">最近任务</string>
     <string name="enable_recents_double_tap_title">双击切换应用</string>
@@ -62,10 +62,11 @@
     <string name="enable_recents_navigation_title">启用任务导航</string>
     <string name="enable_recents_navigation">反复点击多任务键时依次浏览各个任务</string>
     <string name="recents_navigation_delay_title">任务导航延时</string>
-    <string name="recents_navigation_delay">所选应用被打开前的时间</string>
+    <string name="recents_navigation_delay">所选任务被打开前的时间</string>
     <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
+    <string name="no_recents_image">更改最近任务为空时的界面样式</string>
     
-    <string name="no_previous_recents">没有上一个应用</string>
+    <string name="no_previous_recents">没有最近使用项目</string>
     <!-- /RECENTS -->
     
     <!-- STATUS BAR HEADER -->
@@ -74,25 +75,36 @@
     <string name="notification_header_qs_tiles_count">快速设置磁贴数量</string>
     <string name="notification_header_qs_tiles_count_monitor">个</string>
     <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
+    <string name="smaller_header_clock_title">更小的时钟</string>
+    <string name="smaller_header_clock">减小当展开顶栏时显示时钟的字体尺寸。对小屏幕手机有帮助</string>
     <string name="notification_full_width_volume_title">全宽度的音量控制条</string>
     <string name="notification_full_width_volume">针对大屏幕手机移除音量控制条的宽度限制</string>
     <!-- /STATUS BAR HEADER -->
-    
+       
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">通知区域</string>
     <string name="notifications_change_style">调整通知</string>
     <string name="notifications_dark_theme_title">启用暗色主题通知</string>
     <string name="notifications_dark_theme">针对某些特定层面主题的用户使用暗色调的通知背景</string>
     <string name="notification_dismiss_button_title">更改清除按钮</string>
-    <string name="notification_dismiss_button">使用 \"全部清除\" 字样替代原有的图标</string>
+    <string name="notification_dismiss_button">使用 \"全部清除\" 字样替换原有的图标</string>
     <string name="notification_allow_load_label_with_pm_title">备选的应用名称加载方案</string>
     <string name="notification_allow_load_label_with_pm">允许通过软件包安装程序加载应用名称。可能会影响手机性能</string>
     <!-- /NOTIFICATIONS -->
-    
+   
     <!-- UPDATE -->
     <string name="update_notification_title">有可用的更新</string>
-    <string name="update_notification">版本号为 %1$d 的更新已可供下载！</string>
-    <string name="update_notification_download">下载</string>
+    <string name="update_notification">版本为 %1$d 的更新现可供下载！</string>
+    <string name="update_notification_download">下载/string>
+    <string name="check_for_updates_title">检查更新</string>
+    <string name="check_for_updates">在启动应用时检查更新</string>
+    <string name="checking_for_update">正在检查更新…</string>
+    <string name="check_for_update_fail">无法检查更新</string>
+    <string name="no_updates">没有找到更新的版本</string>
+    <string name="update_notification_downloading">正在下载更新</string>
+    <string name="update_notification_downloading_details">正在下载版本为 %1$d 的更新</string>
+    <string name="update_notification_download_fail">下载失败</string>
+    <string name="update_notification_download_fail_details">无法下载版本为 %1$d 的更新</string>
     <!-- /UPDATE -->
-    
+	
 </resources>
