@@ -64,7 +64,7 @@
     <string name="recents_navigation_delay_title">Navigation delay</string>
     <string name="recents_navigation_delay">Time until the selected app gets focused</string>
     <string name="enable_large_recents">Large recent apps</string>
-    <string name="no_recents_image">Change "no recents" image</string>
+    <string name="no_recents_image">Change \"no recents\" image</string>
 
     <string name="no_previous_recents">No recent items</string>
     <!-- /RECENTS -->
