@@ -91,6 +91,11 @@
     <string name="update_notification_title">Yeni güncelleme</string>
     <string name="update_notification">Yapı %1$d indirilmeye hazır!</string>
     <string name="update_notification_download">İndir</string>
+    <string name="check_for_updates_title">Güncelle</string>
+    <string name="check_for_updates">Güncellemeyi kontrol eder.</string>
+    <string name="checking_for_update">Güncelleniyor…</string>
+    <string name="check_for_update_fail">Güncelleme kontrol edilemedi!</string>
+    <string name="no_updates">Yeni versiyon bulunamadı!</string>
     <!-- /UPDATE -->
 
 </resources>
