@@ -337,13 +337,20 @@ public class StatusBarHeaderHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if (mSystemIconsSuperContainer != null) {
+                boolean mExpanded = XposedHelpers.getBooleanField(param.thisObject, "mExpanded");
                 mSystemIconsSuperContainer.setVisibility(View.GONE);
                 mDateExpanded.setVisibility(View.GONE);
                 mDateGroup.setVisibility(View.GONE);
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
-                mMultiUserSwitch.setVisibility(XposedHelpers.getBooleanField(param.thisObject, "mExpanded") ? View.VISIBLE : View.INVISIBLE);
+                mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
+                if (mWeatherContainer != null) {
+                    try {
+                        mMultiUserSwitch.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather") ? View.VISIBLE : View.INVISIBLE);
+                    } catch (Throwable ignored) {
+                    }
+                }
             } else {
                 XposedHook.logD(TAG, "updateVisibilitiesHook: mSystemIconsSuperContainer is still null");
             }
@@ -486,8 +493,13 @@ public class StatusBarHeaderHooks {
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);
-        if (mWeatherContainer != null)
-            transition(mWeatherContainer, !showingDetail);
+        if (mWeatherContainer != null) {
+            try {
+                if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather"))
+                    transition(mWeatherContainer, !showingDetail);
+            } catch (Throwable ignored) {
+            }
+        }
         transition(mQsDetailHeader, showingDetail);
         XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
         if (showingDetail) {
