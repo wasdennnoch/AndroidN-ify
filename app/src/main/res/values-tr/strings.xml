@@ -63,6 +63,7 @@
     <string name="recents_navigation_delay_title">Son uygulamalar gezinme hızı</string>
     <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
     <string name="enable_large_recents">N stili son uygulamalar</string>
+    <string name="no_recents_image">"Son uygulamalar" resmi gösterme</string>
 
     <string name="no_previous_recents">Son uygulama yok</string>
     <!-- /RECENTS -->
@@ -73,6 +74,9 @@
     <string name="notification_header_qs_tiles_count">Hızlı ayarları göstermek için gerekir.</string>
     <string name="notification_header_qs_tiles_count_monitor">Tane</string>
     <string name="hide_tuner_icon_title">SystemUI düzenleyiciyi gizle</string>
+    <string name="smaller_header_clock_title">Küçük saat</string>
+    <string name="smaller_header_clock">Geliştirilmiş hızlı ayar başlığında saatin metin boyutunu küçültün.Küçük ekranlar için kullanışlıdır.</string>
+ 
     <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
     <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <!-- /STATUS BAR HEADER -->
@@ -96,6 +100,10 @@
     <string name="checking_for_update">Güncelleniyor…</string>
     <string name="check_for_update_fail">Güncelleme kontrol edilemedi!</string>
     <string name="no_updates">Yeni versiyon bulunamadı!</string>
+    <string name="update_notification_downloading">Güncelleme indiriliyor!</string>
+    <string name="update_notification_downloading_details">Yapı indiriliyor %1$d</string>
+    <string name="update_notification_download_fail">İndirme başarısız!</string>
+    <string name="update_notification_download_fail_details">Başarısız indirme yapı %1$d</string>
     <!-- /UPDATE -->
 
 </resources>
