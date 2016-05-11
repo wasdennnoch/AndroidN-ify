@@ -826,11 +826,13 @@ public class NotificationsHooks {
             View pic = layout.getChildAt(0);
             View shadow = layout.getChildAt(1);
             View base = layout.getChildAt(2);
+            View actions = layout.getChildAt(3);
 
             Context context = layout.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
 
             int notificationHeight = res.getDimensionPixelSize(R.dimen.notification_min_height);
+            int notificationActionsPadding = res.getDimensionPixelSize(R.dimen.notification_actions_margin_start);
 
             FrameLayout.LayoutParams picLParams = (FrameLayout.LayoutParams) pic.getLayoutParams();
             FrameLayout.LayoutParams shadowLParams = (FrameLayout.LayoutParams) shadow.getLayoutParams();
@@ -843,6 +845,7 @@ public class NotificationsHooks {
             pic.setLayoutParams(picLParams);
             shadow.setLayoutParams(shadowLParams);
             base.setLayoutParams(baseLParams);
+            actions.setPadding(notificationActionsPadding, 0, notificationActionsPadding, 0);
         }
     };
 
