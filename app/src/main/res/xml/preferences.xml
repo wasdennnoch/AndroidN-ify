@@ -49,11 +49,6 @@
 
             <SwitchPreference
                 android:defaultValue="true"
-                android:key="enable_large_recents"
-                android:title="@string/enable_large_recents"/>
-
-            <SwitchPreference
-                android:defaultValue="true"
                 android:key="enable_recents_navigation"
                 android:summary="@string/enable_recents_navigation"
                 android:title="@string/enable_recents_navigation_title"/>
@@ -69,6 +64,16 @@
                 app:minimum="500"
                 app:monitorBoxEnabled="true"
                 app:monitorBoxUnit="ms"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_large_recents"
+                android:title="@string/enable_large_recents"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="no_recents_image"
+                android:title="@string/no_recents_image"/>
 
         </PreferenceScreen>
 

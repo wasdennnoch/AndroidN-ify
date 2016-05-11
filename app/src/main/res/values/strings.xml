@@ -59,11 +59,12 @@
     <string name="enable_recents_double_tap_title">Double-tap app switch</string>
     <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
     <string name="double_tap_speed_title">Double tap speed</string>
-    <string name="enable_recents_navigation_title">Enable recent apps navigation</string>
+    <string name="enable_recents_navigation_title">Recent apps navigation</string>
     <string name="enable_recents_navigation">Use the recents key to navigate through the recents</string>
     <string name="recents_navigation_delay_title">Navigation delay</string>
     <string name="recents_navigation_delay">Time until the selected app gets focused</string>
-    <string name="enable_large_recents">Enable large recent apps</string>
+    <string name="enable_large_recents">Large recent apps</string>
+    <string name="no_recents_image">Change "no recents" image</string>
 
     <string name="no_previous_recents">No recent items</string>
     <!-- /RECENTS -->

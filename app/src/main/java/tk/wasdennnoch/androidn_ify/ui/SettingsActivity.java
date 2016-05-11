@@ -3,23 +3,18 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,8 +64,10 @@ public class SettingsActivity extends Activity {
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
             addPreferencesFromResource(R.xml.preferences);
             SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-            if (sharedPreferences.getBoolean("check_for_updates", true)) UpdateUtils.check(getActivity(), this);
-            if (!UpdateUtils.isEnabled(getActivity())) {
+            if (UpdateUtils.isEnabled(getActivity())) {
+                if (sharedPreferences.getBoolean("check_for_updates", true))
+                    UpdateUtils.check(getActivity(), this);
+            } else {
                 PreferenceCategory appCategory = (PreferenceCategory) findPreference("settings_app");
                 Preference updatePref = getPreferenceScreen().findPreference("check_for_updates");
                 appCategory.removePreference(updatePref);

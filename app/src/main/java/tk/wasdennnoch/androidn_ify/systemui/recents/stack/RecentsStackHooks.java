@@ -1,25 +1,13 @@
 package tk.wasdennnoch.androidn_ify.systemui.recents.stack;
 
-import android.content.Context;
 import android.content.res.XModuleResources;
-import android.content.res.XResources;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
-import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
-import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class RecentsStackHooks {
 
@@ -83,7 +71,7 @@ public class RecentsStackHooks {
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
-            if (config.recents.large_recents) {
+            if (config.recents.no_recents_image) {
                 XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "layout", "recents_empty", modRes.fwd(R.layout.recents_empty));
             }
