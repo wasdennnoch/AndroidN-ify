@@ -55,8 +55,8 @@ public class NotificationsHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Object entry = param.args[0];
             Object row = XposedHelpers.getObjectField(entry, "row");
-            Object contentContainer = XposedHelpers.callMethod(row, "getPrivateLayout");
-            Object contentContainerPublic = XposedHelpers.callMethod(row, "getPublicLayout");
+            Object contentContainer = XposedHelpers.getObjectField(row, "mPrivateLayout");
+            Object contentContainerPublic = XposedHelpers.getObjectField(row, "mPublicLayout");
 
             View privateView = (View) XposedHelpers.callMethod(contentContainer, "getContractedChild");
             View publicView = (View) XposedHelpers.callMethod(contentContainerPublic, "getContractedChild");
