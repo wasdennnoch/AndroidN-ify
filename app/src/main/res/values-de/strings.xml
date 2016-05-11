@@ -73,6 +73,8 @@
     <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
     <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
     <string name="hide_tuner_icon_title">SystemUI Tuner-Icon verstecken</string>
+    <string name="smaller_header_clock_title">Kleinere Uhr</string>
+    <string name="smaller_header_clock">Verringert die Textgröße der Uhr im ausgedehnten Header. Nützlich für kleine Bildschirme</string>
     <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
     <string name="notification_full_width_volume">Entfernt das Breitenlimit des Lautstärkedialogs auf Geräten mit großem Bildschirm</string>
     <!-- /STATUS BAR HEADER -->

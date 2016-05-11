@@ -399,7 +399,11 @@ public class StatusBarHeaderHooks {
 
         ResourceUtils res = ResourceUtils.getInstance(context);
         float timeCollapsed = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
-        float timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size);
+        float timeExpanded;
+        if (ConfigUtils.header().smaller_header_clock)
+            timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small);
+        else
+            timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size);
         float dateScaleFactor = timeExpanded / timeCollapsed;
         float gearTranslation = res.getDimension(R.dimen.settings_gear_translation);
 

@@ -106,6 +106,12 @@
 
             <SwitchPreference
                 android:defaultValue="false"
+                android:key="smaller_header_clock"
+                android:title="@string/smaller_header_clock_title"
+                android:summary="@string/smaller_header_clock"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
                 android:key="notification_full_width_volume"
                 android:summary="@string/notification_full_width_volume"
                 android:title="@string/notification_full_width_volume_title"/>
