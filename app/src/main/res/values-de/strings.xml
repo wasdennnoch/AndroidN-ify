@@ -13,11 +13,7 @@
     <!-- prefs -->
     <string name="prefs_file_not_readable">Xposed kann die Datei mit den Einstellungen nicht lesen, Standardwerte werden in Hooks benutzt. Ein Grund könnte SELinux im \"enforcing\"-Modus sein.</string>
 
-    <string name="header_settings">Einstellungen</string>
     <string name="header_tweaks">Tweaks</string>
-    <string name="header_recents">Recents</string>
-    <string name="header_status_bar_header">Statusleisten-Header</string>
-    <string name="header_notifications">Benachrichtigungen</string>
     <string name="header_app">App</string>
 
     <string name="hide_launcher_icon_title">Launcher-Icon verbergen</string>
@@ -29,6 +25,7 @@
     <!-- /prefs -->
 
     <!-- SETTINGS -->
+    <string name="header_settings">Einstellungen</string>
     <string name="enable_settings_summaries_title">Untertitel in Einstellungen</string>
     <string name="enable_settings_summaries">Zeige die wichtigsten Informationen direkt in der Übersicht</string>
     <string name="fix_sound_notif_tile_title">"Töne &amp; Benachrichtigungen"-Kachel reparieren</string>
@@ -56,6 +53,7 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
+    <string name="header_recents">Recents</string>
     <string name="enable_recents_double_tap_title">Doppelklick-Appwechsler</string>
     <string name="enable_recents_double_tap">Doppelt auf die Recents-Taste klicken, um zur zuletzt genutzten App zu gelangen</string>
     <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
@@ -64,17 +62,23 @@
     <string name="recents_navigation_delay_title">Navigationsverzögerung</string>
     <string name="recents_navigation_delay">Zeit, bis die ausgewählte App in den Vordergrund geht</string>
     <string name="enable_large_recents">Große Recents</string>
+    <string name="no_recents_image">"Keine Recents"-Bild ändern</string>
 
     <string name="no_previous_recents">Keine zuletzt genutzten Apps</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Statusleisten-Header</string>
     <string name="enable_notification_header">Header stylen</string>
     <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
     <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
+    <string name="hide_tuner_icon_title">SystemUI Tuner-Icon verstecken</string>
+    <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
+    <string name="notification_full_width_volume">Entfernt das Breitenlimit des Lautstärkedialogs auf Geräten mit großem Bildschirm</string>
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Benachrichtigungen</string>
     <string name="notifications_change_style">Benachrichtigungen stylen</string>
     <string name="notifications_dark_theme_title">Dunkle Benachrichtigungen</string>
     <string name="notifications_dark_theme">Dunkler Benachrichtigungshintergrund für Nutzer von speziellen Layers-Themes</string>
@@ -82,8 +86,17 @@
     <string name="notification_dismiss_button">Zeige  \"ALLE LÖSCHEN\" anstatt des Icons</string>
     <string name="notification_allow_load_label_with_pm_title">Alternative Methode, App-Namen zu laden</string>
     <string name="notification_allow_load_label_with_pm">Erlaubt es, App-Namen mit dem PackageManager zu laden. Könnte Performanceprobleme verursachen</string>
-    <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
-    <string name="notification_full_width_volume">Entfernt das Breitenlimit des Lautstärkedialogs auf Geräten mit großem Bildschirm</string>
     <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">Neues Update verfügbar</string>
+    <string name="update_notification">Build %1$d ist zum Download verfügbar!</string>
+    <string name="update_notification_download">Herunterladen</string>
+    <string name="check_for_updates_title">Nach Updates suchen</string>
+    <string name="check_for_updates">Bei jedem App-Start nach Updates suchen</string>
+    <string name="checking_for_update">Suche nach updates…</string>
+    <string name="check_for_update_fail">Konnte nicht nach Updates suchen</string>
+    <string name="no_updates">Keine neueren Versionen gefunden</string>
+    <!-- /UPDATE -->
 
 </resources>
