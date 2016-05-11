@@ -95,7 +95,7 @@
     <!-- UPDATE -->
     <string name="update_notification_title">有可用的更新</string>
     <string name="update_notification">版本为 %1$d 的更新现可供下载！</string>
-    <string name="update_notification_download">下载/string>
+    <string name="update_notification_download">下载</string>
     <string name="check_for_updates_title">检查更新</string>
     <string name="check_for_updates">在启动应用时检查更新</string>
     <string name="checking_for_update">正在检查更新…</string>
