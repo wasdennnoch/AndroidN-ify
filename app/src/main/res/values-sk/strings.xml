@@ -64,6 +64,11 @@
     <string name="update_notification_title">Je dostupná aktualizácia</string>
     <string name="update_notification">Zostava %1$d je dostupná na stiahnutie.</string>
     <string name="update_notification_download">Stiahnuť</string>
+    <string name="check_for_updates_title">Skontrolovať aktualizácie</string>
+    <string name="check_for_updates">Skontrolovať aktualizácie po spustení aplikácie</string>
+    <string name="checking_for_update">Kontrolujú sa aktualizácie…</string>
+    <string name="check_for_update_fail">Nie je možné skontrolovať aktualizácie</string>
+    <string name="no_updates">Nová verzia nebola nájdená</string>
     <!-- /UPDATE -->
 
     <string name="header_app">Aplikácia</string>
