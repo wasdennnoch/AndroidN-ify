@@ -99,6 +99,10 @@
     <string name="checking_for_update">Suche nach updates…</string>
     <string name="check_for_update_fail">Konnte nicht nach Updates suchen</string>
     <string name="no_updates">Keine neueren Versionen gefunden</string>
+    <string name="update_notification_downloading">Lade Update herunter</string>
+    <string name="update_notification_downloading_details">Lade Build %1$d herunter</string>
+    <string name="update_notification_download_fail">Download fehlgeschlagen</string>
+    <string name="update_notification_download_fail_details">Download von Build %1$d fehlgeschlagen</string>
     <!-- /UPDATE -->
 
 </resources>
