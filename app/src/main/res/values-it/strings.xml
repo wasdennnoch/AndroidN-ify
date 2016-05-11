@@ -23,7 +23,7 @@
     <string name="fix_sound_notif_tile_title">Fix sezione "Suono &amp; Notifiche"</string>
     <string name="hide_tuner_icon_title">Nascondi l\'icona del SystemUI Tuner</string>
     <string name="smaller_header_clock_title">Orologio più piccolo</string>
-    <string name="smaller_header_clock">Abbassa la grandezza del testo dell'orologio nell'intestazione. Utile per schermi piccoli.</string>
+    <string name="smaller_header_clock">Abbassa la grandezza del testo dell\'orologio nell\'intestazione. Utile per schermi piccoli.</string>
     <string name="fix_sound_notif_tile">Alcune ROM uniscono la sezione Suono e Notifiche. Abilita per impostare il giusto sommario per questa sezione</string>
     <string name="header_tweaks">Modifiche</string>
 
