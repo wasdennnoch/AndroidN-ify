@@ -22,6 +22,8 @@
     <string name="enable_settings_summaries_title">Abilita modifiche alle impostazioni</string>
     <string name="fix_sound_notif_tile_title">Fix sezione "Suono &amp; Notifiche"</string>
     <string name="hide_tuner_icon_title">Nascondi l\'icona del SystemUI Tuner</string>
+    <string name="smaller_header_clock_title">Orologio più piccolo</string>
+    <string name="smaller_header_clock">Abbassa la grandezza del testo dell'orologio nell'intestazione. Utile per schermi piccoli.</string>
     <string name="fix_sound_notif_tile">Alcune ROM uniscono la sezione Suono e Notifiche. Abilita per impostare il giusto sommario per questa sezione</string>
     <string name="header_tweaks">Modifiche</string>
 
@@ -88,13 +90,17 @@
      
      <!-- UPDATE -->
     <string name="update_notification_title">Nuovo aggiornamento disponibile</string>
-    <string name="update_notification">La Build %1$d è ora dispinibile per il download.</string>
-    <string name="update_notification_download">Download</string>
+    <string name="update_notification">La Build %1$d è ora disponibile per l\'aggiornamento.</string>
+    <string name="update_notification_download">Aggiorna</string>
     <string name="check_for_updates_title">Controlla per aggiornamenti</string>
     <string name="check_for_updates">Controlla per aggiornamenti all\'avvio dell\'app</string>
     <string name="checking_for_update">Controllo per aggiornamenti…</string>
     <string name="check_for_update_fail">Impossibile controllare per aggiornamenti</string>
     <string name="no_updates">Nessuna nuova versione trovata</string>
+    <string name="update_notification_downloading">Scarico aggiornamento</string>
+    <string name="update_notification_downloading_details">Scarico build %1$d</string>
+    <string name="update_notification_download_fail">Download fallito</string>
+    <string name="update_notification_download_fail_details">Impossibile scaricare la build %1$d</string>
      <!-- /UPDATE -->
  
 
