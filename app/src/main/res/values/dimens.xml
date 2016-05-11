@@ -39,6 +39,7 @@
     <dimen name="notification_icon_margin_end">3dp</dimen>
     <dimen name="notification_app_name_margin_start">3dp</dimen>
     <dimen name="notification_app_name_margin_end">3dp</dimen>
+    <dimen name="notification_actions_margin_start">8dp</dimen>
     <dimen name="notification_content_margin_start">16dp</dimen>
     <dimen name="notification_content_margin_top">24dp</dimen>
     <dimen name="notification_header_height">37.5dp</dimen>
