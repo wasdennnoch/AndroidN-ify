@@ -1,7 +1,7 @@
-<manifest
-    package="tk.wasdennnoch.androidn_ify"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    package="tk.wasdennnoch.androidn_ify"
     android:installLocation="internalOnly">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,24 +14,24 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
-
         <meta-data
             android:name="xposedmodule"
-            android:value="true"/>
+            android:value="true" />
         <meta-data
             android:name="xposedminversion"
-            android:value="60"/>
+            android:value="60" />
         <meta-data
             android:name="xposeddescription"
             android:value="@string/xposed_description"
-            tools:ignore="ManifestResource"/>
+            tools:ignore="ManifestResource" />
 
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
             </intent-filter>
         </activity>
 
@@ -41,15 +41,19 @@
             android:label="@string/app_name"
             android:targetActivity=".ui.SettingsActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
 
         <activity
             android:name=".ui.AboutActivity"
-            android:label="@string/activity_about"/>
+            android:label="@string/activity_about" />
 
+        <service
+            android:name=".utils.DownloadService"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -409,8 +409,12 @@ public class NotificationsHooks {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         LinearLayout layout = (LinearLayout) liparam.view;
-                        layout.removeViewAt(1);
-                        layout.removeViewAt(1);
+                        if (layout.getChildAt(1) != null) {
+                            layout.removeViewAt(1);
+                        }
+                        if (layout.getChildAt(1) != null) {
+                            layout.removeViewAt(1);
+                        }
 
                         Context context = layout.getContext();
                         ResourceUtils res = ResourceUtils.getInstance(context);
@@ -439,7 +443,9 @@ public class NotificationsHooks {
                         textLp.rightMargin = notificationTextMarginEnd;
                         text.setLayoutParams(textLp);
 
-                        layout.removeViewAt(1);
+                        if (layout.getChildAt(1) != null) {
+                            layout.removeViewAt(1);
+                        }
                     }
                 });
 
