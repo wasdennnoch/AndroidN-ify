@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,11 +25,15 @@ import tk.wasdennnoch.androidn_ify.R;
 
 public class UpdateUtils {
 
-    public static boolean check(Context context) {
-        if (!context.getResources().getBoolean(R.bool.enable_updater)) return false;
+    public static boolean check(Context context, UpdateListener listener) {
+        if (!isEnabled(context)) return false;
         if (!isConnected(context)) return false;
-        new CheckUpdateTask(context).execute(context.getString(R.string.updater_url));
+        new CheckUpdateTask(context).execute(context.getString(R.string.updater_url), listener);
         return true;
+    }
+
+    public static boolean isEnabled(Context context) {
+        return context.getResources().getBoolean(R.bool.enable_updater);
     }
 
     public static boolean isConnected(Context context) {
@@ -39,55 +42,13 @@ public class UpdateUtils {
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    public static class CheckUpdateTask extends AsyncTask<String, Void, String> {
-
-        HttpURLConnection urlConnection;
-        Context mContext;
-
-        public CheckUpdateTask(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            Log.d("update", "checking");
-
-            StringBuilder result = new StringBuilder();
-
-            try {
-                URL url = new URL(params[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                urlConnection.disconnect();
-            }
-
-            return result.toString();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            try {
-                UpdateData updateData = UpdateData.fromJson(new JSONObject(s));
-                if (updateData.getNumber() > mContext.getResources().getInteger(R.integer.version))
-                    showNotification(updateData, mContext);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+    public interface UpdateListener {
+        void onError(Exception e);
+        void onFinish(UpdateData data);
     }
 
     @SuppressWarnings("deprecation")
-    public static void showNotification(UpdateData updateData, Context context) {
+    public static void showNotification(UpdateUtils.UpdateData updateData, Context context) {
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
         viewIntent.setData(Uri.parse(updateData.getArtifactUrl()));
 
@@ -107,6 +68,58 @@ public class UpdateUtils {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuider.build());
+    }
+
+    public static class CheckUpdateTask extends AsyncTask<Object, Void, String> {
+
+        HttpURLConnection urlConnection;
+        Context mContext;
+        UpdateListener mListener;
+        Exception mException;
+
+        public CheckUpdateTask(Context context) {
+            mContext = context;
+        }
+
+        @Override
+        protected String doInBackground(Object... params) {
+            StringBuilder result = new StringBuilder();
+
+            if (params[1] != null && params[1] instanceof UpdateListener) mListener = (UpdateListener) params[1];
+
+            try {
+                URL url = new URL((String) params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+            } catch (Exception e) {
+                mException = e;
+            } finally {
+                urlConnection.disconnect();
+            }
+
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (mException != null) {
+                mListener.onError(mException);
+            } else {
+                try {
+                    UpdateData updateData = UpdateData.fromJson(new JSONObject(s));
+                    mListener.onFinish(updateData);
+                } catch (JSONException e) {
+                    mListener.onError(e);
+                }
+            }
+        }
     }
 
     public static class UpdateData {

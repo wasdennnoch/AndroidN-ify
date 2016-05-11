@@ -141,6 +141,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="settings_app"
         android:title="@string/header_app">
 
         <SwitchPreference
@@ -154,6 +155,12 @@
             android:key="debug_log"
             android:summary="@string/debug_log"
             android:title="@string/debug_log_title"/>
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="check_for_updates"
+            android:summary="@string/check_for_updates"
+            android:title="@string/check_for_updates_title"/>
 
     </PreferenceCategory>
 

@@ -3,17 +3,23 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,10 +46,8 @@ public class SettingsActivity extends Activity {
         if (isActivated() && !isPrefsFileReadable()) {
             findViewById(R.id.prefs_not_readable_warning).setVisibility(View.VISIBLE);
         }
-        if (savedInstanceState == null) {
-            UpdateUtils.check(this);
+        if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
-        }
     }
 
     private boolean isActivated() {
@@ -55,16 +59,24 @@ public class SettingsActivity extends Activity {
     }
 
 
-    public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+    public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
 
+        @SuppressLint("CommitPrefEdits")
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             //noinspection deprecation
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
             addPreferencesFromResource(R.xml.preferences);
+            SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
+            if (sharedPreferences.getBoolean("check_for_updates", true)) UpdateUtils.check(getActivity(), this);
+            if (!UpdateUtils.isEnabled(getActivity())) {
+                PreferenceCategory appCategory = (PreferenceCategory) findPreference("settings_app");
+                Preference updatePref = getPreferenceScreen().findPreference("check_for_updates");
+                appCategory.removePreference(updatePref);
+            }
             // SELinux test, see XposedHook
-            getPreferenceManager().getSharedPreferences().edit().putBoolean("can_read_prefs", true).commit();
+            sharedPreferences.edit().putBoolean("can_read_prefs", true).commit();
         }
 
         @Override
@@ -143,6 +155,17 @@ public class SettingsActivity extends Activity {
             }
         }
 
+        @Override
+        public void onError(Exception e) {
+            e.printStackTrace();
+        }
+
+        @Override
+        public void onFinish(UpdateUtils.UpdateData updateData) {
+            Context mContext = getActivity();
+            if (updateData.getNumber() > mContext.getResources().getInteger(R.integer.version) && updateData.hasArtifact())
+                UpdateUtils.showNotification(updateData, mContext);
+        }
     }
 
     @Override

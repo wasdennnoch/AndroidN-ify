@@ -93,6 +93,11 @@
     <string name="update_notification_title">New update available</string>
     <string name="update_notification">Build %1$d is now available to download!</string>
     <string name="update_notification_download">Download</string>
+    <string name="check_for_updates_title">Check for updates</string>
+    <string name="check_for_updates">Check for updates on app start</string>
+    <string name="checking_for_update">Checking for updates…</string>
+    <string name="check_for_update_fail">Couldn\'t check for updates</string>
+    <string name="no_updates">No newer versions found</string>
     <!-- /UPDATE -->
 
 </resources>
