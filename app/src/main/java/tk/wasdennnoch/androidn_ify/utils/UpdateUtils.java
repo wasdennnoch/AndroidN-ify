@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,8 +17,12 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -49,13 +54,14 @@ public class UpdateUtils {
 
     @SuppressWarnings("deprecation")
     public static void showNotification(UpdateUtils.UpdateData updateData, Context context) {
-        Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-        viewIntent.setData(Uri.parse(updateData.getArtifactUrl()));
-
-        PendingIntent pending = PendingIntent.getActivity(context, 0, viewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent downloadIntent = new Intent(context, DownloadService.class);
+        downloadIntent.putExtra("url", updateData.getArtifactUrl());
+        downloadIntent.putExtra("number", updateData.getNumber());
+        downloadIntent.putExtra("hasartifact", updateData.hasArtifact());
+        PendingIntent intent = PendingIntent.getService(context, 0, downloadIntent, 0);
 
         Notification.Action downloadAction = new Notification.Action.Builder(R.drawable.arrow_down,
-                context.getString(R.string.update_notification_download), pending)
+                context.getString(R.string.update_notification_download), intent)
                 .build();
 
         Notification.Builder notificationBuider = new Notification.Builder(context)
