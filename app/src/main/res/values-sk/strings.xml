@@ -32,11 +32,12 @@
     <string name="enable_recents_double_tap_title">Prepínanie aplikácií dvojitým poklepaním</string>
     <string name="enable_recents_double_tap">Dvojitým poklepaním otvorí predchádzajúcu aplikáciu</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
-    <string name="enable_large_recents">Povoliť veľké nedávne aplikácie</string>
-    <string name="enable_recents_navigation_title">Povoliť navigáciu v nedávnych aplikáciách</string>
+    <string name="enable_recents_navigation_title">Navigácia v nedávnych aplikáciách</string>
     <string name="enable_recents_navigation">Použije tlačidlo nedávnych apl. pre navigáciu medzi apl.</string>
     <string name="recents_navigation_delay_title">Oneskorenie navigácie</string>
     <string name="recents_navigation_delay">Čas pokým sa zvolená aplikácia otvorí</string>
+    <string name="enable_large_recents">Veľké nedávne aplikácie</string>
+    <string name="no_recents_image">Zmeniť obrázok \"Žiadne nedávne položky\"</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
@@ -45,6 +46,8 @@
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
     <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
+    <string name="smaller_header_clock_title">Menšie hodiny</string>
+    <string name="smaller_header_clock">Zmenší text pre hodiny v otvorenom záhlaví. Užitočné pre menšie obrazovky</string>
     <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
     <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
     <!-- /STATUS BAR HEADER -->
@@ -62,13 +65,17 @@
   
     <!-- UPDATE -->
     <string name="update_notification_title">Je dostupná aktualizácia</string>
-    <string name="update_notification">Zostava %1$d je dostupná na stiahnutie.</string>
-    <string name="update_notification_download">Stiahnuť</string>
+    <string name="update_notification">Zostava %1$d je dostupná na aktualizáciu.</string>
+    <string name="update_notification_download">Aktualizovať</string>
     <string name="check_for_updates_title">Skontrolovať aktualizácie</string>
     <string name="check_for_updates">Skontrolovať aktualizácie po spustení aplikácie</string>
     <string name="checking_for_update">Kontrolujú sa aktualizácie…</string>
     <string name="check_for_update_fail">Nie je možné skontrolovať aktualizácie</string>
     <string name="no_updates">Nová verzia nebola nájdená</string>
+    <string name="update_notification_downloading">Stiahnuť aktualizáciu</string>
+    <string name="update_notification_downloading_details">Sťahovanie zostavy %1$d</string>
+    <string name="update_notification_download_fail">Sťahovanie zlyhalo</string>
+    <string name="update_notification_download_fail_details">Chyba pri sťahovaní zostavy %1$d</string>
     <!-- /UPDATE -->
 
     <string name="header_app">Aplikácia</string>
