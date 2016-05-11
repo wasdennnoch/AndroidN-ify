@@ -410,6 +410,7 @@ public class NotificationsHooks {
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         LinearLayout layout = (LinearLayout) liparam.view;
                         layout.removeViewAt(1);
+                        layout.removeViewAt(1);
 
                         Context context = layout.getContext();
                         ResourceUtils res = ResourceUtils.getInstance(context);
@@ -619,6 +620,12 @@ public class NotificationsHooks {
             timeView.setId(context.getResources().getIdentifier("time", "id", "android"));
             timeView.setPadding(appNameMarginEnd, 0, 0, 0);
 
+            View chronometerView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_chronometer", "layout", "android"), null);
+            LinearLayout.LayoutParams chronometerViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            chronometerView.setLayoutParams(chronometerViewLParams);
+            chronometerView.setId(context.getResources().getIdentifier("chronometer", "id", "android"));
+            chronometerView.setPadding(appNameMarginEnd, 0, 0, 0);
+
             linearLayout.addView(fakeIcon);
             linearLayout.addView(icon);
             linearLayout.addView(textView);
@@ -628,6 +635,7 @@ public class NotificationsHooks {
             linearLayout.addView(infoText);
             linearLayout.addView(divider);
             linearLayout.addView(timeView);
+            linearLayout.addView(chronometerView);
 
             layout.addView(linearLayout);
         }

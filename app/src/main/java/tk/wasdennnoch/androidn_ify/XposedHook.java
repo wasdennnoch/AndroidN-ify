@@ -133,13 +133,14 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             case PACKAGE_SYSTEMUI:
                 NotificationsHooks.hookResSystemui(resparam, sModulePath);
                 StatusBarHeaderHooks.hookResSystemui(resparam, sModulePath);
+                RecentsStackHooks.hookResSystemui(resparam, sModulePath);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     RecentsNavigation.hookResSystemui(resparam, sModulePath);
                 }
                 break;
         }
 
-        // Has too be hooked in every app too for some reason, probably
+        // Has to be hooked in every app too for some reason, probably
         // because every hook only applies to the current process
         NotificationsHooks.hookResAndroid(resparam);
 
