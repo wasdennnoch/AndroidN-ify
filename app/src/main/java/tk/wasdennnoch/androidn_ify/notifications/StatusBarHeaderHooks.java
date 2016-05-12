@@ -622,7 +622,7 @@ public class StatusBarHeaderHooks {
                 try {
                     // Disable enlarge first row
                     XposedHelpers.findAndHookMethod(classQSTile, "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
-                } catch (Exception ignore) {
+                } catch (Throwable ignore) {
                     // CM doesn't have this method but have a config to disable this
                 }
 
