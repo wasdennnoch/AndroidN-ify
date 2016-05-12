@@ -38,8 +38,8 @@
 
     <string name="disconnected">Déconnecté</string>
     <string name="disabled">Désactivé</string>
-    <string name="off">Désactivé</string>
-    <string name="on">Activé</string>
+    <string name="off">Désactivé(e)</string>
+    <string name="on">Activé(e)</string>
     <string name="data_usage_summary">%1$s de données utilisés</string>
     <string name="display_summary">Adaptation de la luminosité est %1$sE</string>
     <string name="sound_summary">Volume de la sonnerie à %1$s</string>
@@ -51,9 +51,9 @@
     <string name="battery_charging_ac">%1$s - En charge sur secteur</string>
     <string name="memory_summary">%1$s sur %2$s de mémoire utilisée en moyenne</string>
     <string name="user_summary">Connecté en tant que %1$s</string>
-    <string name="location_on_power">ACTIVÉE / Économie de batterie</string>
-    <string name="location_on_device">ACTIVÉE / Appareil uniquement</string>
-    <string name="location_on_high">ACTIVÉE / Haute précision</string>
+    <string name="location_on_power">Activée / Économie de batterie</string>
+    <string name="location_on_device">Activée/ Appareil uniquement</string>
+    <string name="location_on_high">Activée / Haute précision</string>
     <string name="print_summary">%1$d impressions</string>
     <!-- /SETTINGS -->
 
