@@ -9,8 +9,8 @@
     <string name="restart_systemui_message">Ste si istý, že chcete reštartovať SystemUI?</string>
     <string name="restart_broadcast_sent">Žiadosť na reštartovanie odoslaná</string>
     <string name="activity_about">O aplikácii Android N-ify</string>
-    <string name="about_author">Vytvoril \"MrWasdennnoch\"</string>
-    <string name="about_version">Verzia %1$s (%2$d)</string>
+    <string name="about_author">Vytvoril: \"MrWasdennnoch\"</string>
+    <string name="about_version">Verzia: %1$s (%2$d)</string>
 
     <!-- prefs -->
     <string name="prefs_file_not_readable">Xposed nevie čítať súbor nastavení, budú použité predvolené hodnoty. To môže byť spôsobené ak je SELinux v režime enforcing.</string>
@@ -69,8 +69,8 @@
     <string name="update_notification_title">Je dostupná aktualizácia</string>
     <string name="update_notification">Zostava %1$d je dostupná na aktualizáciu.</string>
     <string name="update_notification_download">Aktualizovať</string>
-    <string name="check_for_updates_title">Skontrolovať aktualizácie</string>
-    <string name="check_for_updates">Skontrolovať aktualizácie po spustení aplikácie</string>
+    <string name="check_for_updates_title">Kontrolovať aktualizácie</string>
+    <string name="check_for_updates">Skontroluje aktualizácie po spustení aplikácie</string>
     <string name="checking_for_update">Kontrolujú sa aktualizácie…</string>
     <string name="check_for_update_fail">Nie je možné skontrolovať aktualizácie</string>
     <string name="no_updates">Nová verzia nebola nájdená</string>
