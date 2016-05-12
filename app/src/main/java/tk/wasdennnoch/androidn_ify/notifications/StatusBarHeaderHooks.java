@@ -682,6 +682,22 @@ public class StatusBarHeaderHooks {
                         params.height = ResourceUtils.getInstance(liparam.view.getContext()).getDimensionPixelSize(R.dimen.status_bar_header_height);
                     }
                 });
+                
+                // For Motorola stock roms only
+                try {
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "zz_moto_status_bar_expanded_header", new XC_LayoutInflated() {
+                        @Override
+                        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                            liparam.view.setElevation(0);
+                            liparam.view.setPadding(0, 0, 0, 0);
+                            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) liparam.view.getLayoutParams();
+                            params.height = ResourceUtils.getInstance(liparam.view.getContext()).getDimensionPixelSize(R.dimen.status_bar_header_height);
+                        }
+                    });
+                } catch (Throwable ignore) {
+                    // Don't do anything here
+                }
+                
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_panel", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
