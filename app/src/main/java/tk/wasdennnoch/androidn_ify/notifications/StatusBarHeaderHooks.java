@@ -619,13 +619,6 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                try {
-                    // Disable enlarge first row
-                    XposedHelpers.findAndHookMethod(classQSTile, "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
-                } catch (Throwable ignore) {
-                    // CM doesn't have this method but have a config to disable this
-                }
-
                 if (ConfigUtils.header().new_click_behavior) {
                     new WifiTileHook(classLoader);
                     new BluetoothTileHook(classLoader);
@@ -637,6 +630,7 @@ public class StatusBarHeaderHooks {
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                 } catch (Throwable ignore) {
                     XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
+                    XposedHelpers.findAndHookMethod(classQSTile, "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
                 }
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
 
