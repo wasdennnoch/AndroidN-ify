@@ -29,6 +29,9 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.BluetoothTileHook;
+import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.CellularTileHook;
+import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.WifiTileHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -615,6 +618,12 @@ public class StatusBarHeaderHooks {
                         return null;
                     }
                 });
+
+                if (ConfigUtils.header().new_click_behavior) {
+                    WifiTileHook.hook(classLoader);
+                    BluetoothTileHook.hook(classLoader);
+                    CellularTileHook.hook(classLoader);
+                }
 
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);

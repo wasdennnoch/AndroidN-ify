@@ -89,6 +89,7 @@ public class ConfigUtils {
     public class StatusBarHeaderConfig {
         public boolean header;
         public int qs_tiles_count;
+        public boolean new_click_behavior;
         public boolean hide_tuner_icon;
         public boolean smaller_header_clock;
         public boolean full_width_volume;
@@ -96,6 +97,7 @@ public class ConfigUtils {
         public StatusBarHeaderConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
+            new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
             smaller_header_clock = prefs.getBoolean("smaller_header_clock", false);
             full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
