@@ -12,11 +12,11 @@ public class BluetoothTileHook extends QSTileHook {
 
     private static final String CLASS_BLUETOOTH_TILE = "com.android.systemui.qs.tiles.BluetoothTile";
 
-    public BluetoothTileHook(ClassLoader classLoader, boolean isCm) {
+    public BluetoothTileHook(ClassLoader classLoader, boolean firstRowSmall) {
         super(classLoader, CLASS_BLUETOOTH_TILE);
         hookClick();
         hookLongClick();
-        if (!isCm) {
+        if (firstRowSmall) {
             try {
                 XposedHelpers.findAndHookMethod(getTileClass(), "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
             } catch (Throwable ignore) {

@@ -629,9 +629,10 @@ public class StatusBarHeaderHooks {
                     XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
                 }
 
+                boolean firstRowLarge = ConfigUtils.header().large_first_row;
                 if (ConfigUtils.header().new_click_behavior) {
-                    new WifiTileHook(classLoader, isCm);
-                    new BluetoothTileHook(classLoader, isCm);
+                    new WifiTileHook(classLoader, (!isCm && !firstRowLarge));
+                    new BluetoothTileHook(classLoader, (!isCm && !firstRowLarge));
                     new CellularTileHook(classLoader);
                 }
 
@@ -662,6 +663,10 @@ public class StatusBarHeaderHooks {
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", modRes.fwd(R.dimen.multi_user_avatar_size));
                 } catch (Throwable ignore) {
                     // Not in LP
+                }
+
+                if (!ConfigUtils.header().large_first_row) {
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height", resparam.res.getDimensionPixelSize(resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)));
                 }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);

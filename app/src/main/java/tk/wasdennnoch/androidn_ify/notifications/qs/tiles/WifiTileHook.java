@@ -12,11 +12,11 @@ public class WifiTileHook extends QSTileHook {
 
     private static final String CLASS_WIFI_TILE = "com.android.systemui.qs.tiles.WifiTile";
 
-    public WifiTileHook(ClassLoader classLoader, boolean isCm) {
+    public WifiTileHook(ClassLoader classLoader, boolean firstRowSmall) {
         super(classLoader, CLASS_WIFI_TILE);
         hookClick();
         hookLongClick();
-        if (!isCm) {
+        if (firstRowSmall) {
             try {
                 XposedHelpers.findAndHookMethod(getTileClass(), "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
             } catch (Throwable ignore) {
