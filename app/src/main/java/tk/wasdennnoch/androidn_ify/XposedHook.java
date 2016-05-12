@@ -124,6 +124,16 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         // Has to be hooked in every app as every app creates own instances of the Notification.Builder
         NotificationsHooks.hook(lpparam.classLoader);
 
+        // TODO make an option to specify if running on a CM ROM or not
+        /*
+        try {
+            Class<?> classCMStatusBarManager = XposedHelpers.findClass("cyanogenmod.app.CMStatusBarManager", lpparam.classLoader);
+            XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTile", XC_MethodReplacement.DO_NOTHING);
+            XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTileAsUser", XC_MethodReplacement.DO_NOTHING);
+        } catch (Throwable ignore) {
+            // Not a CM ROM
+        }
+        */
     }
 
     @Override
