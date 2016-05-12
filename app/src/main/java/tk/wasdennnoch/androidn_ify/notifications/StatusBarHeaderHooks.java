@@ -619,19 +619,22 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                if (ConfigUtils.header().new_click_behavior) {
-                    new WifiTileHook(classLoader);
-                    new BluetoothTileHook(classLoader);
-                    new CellularTileHook(classLoader);
-                }
+                boolean isCm = false;
 
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
+                    isCm = true;
                 } catch (Throwable ignore) {
                     XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
-                    XposedHelpers.findAndHookMethod(classQSTile, "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
                 }
+
+                if (ConfigUtils.header().new_click_behavior) {
+                    new WifiTileHook(classLoader, isCm);
+                    new BluetoothTileHook(classLoader, isCm);
+                    new CellularTileHook(classLoader);
+                }
+
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
 
             }

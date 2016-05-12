@@ -47,6 +47,10 @@ public class QSTileHook {
         return mThisObject;
     }
 
+    public Class<?> getTileClass() {
+        return mTileClass;
+    }
+
     public Object getObjectField(String name) {
         return XposedHelpers.getObjectField(getTile(), name);
     }

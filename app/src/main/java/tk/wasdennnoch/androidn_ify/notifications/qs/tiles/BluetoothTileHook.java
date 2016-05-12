@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.internal.logging.MetricsLogger;
 
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
 
@@ -11,10 +12,17 @@ public class BluetoothTileHook extends QSTileHook {
 
     private static final String CLASS_BLUETOOTH_TILE = "com.android.systemui.qs.tiles.BluetoothTile";
 
-    public BluetoothTileHook(ClassLoader classLoader) {
+    public BluetoothTileHook(ClassLoader classLoader, boolean isCm) {
         super(classLoader, CLASS_BLUETOOTH_TILE);
         hookClick();
         hookLongClick();
+        if (!isCm) {
+            try {
+                XposedHelpers.findAndHookMethod(getTileClass(), "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
+            } catch (Throwable ignore) {
+
+            }
+        }
     }
 
     @Override
