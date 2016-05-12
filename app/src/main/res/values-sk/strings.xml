@@ -45,6 +45,8 @@
     <string name="enable_notification_header">Upraviť záhlavie</string>
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
+    <string name="enable_new_tile_click_behavior">Android N správanie dlaždice po klepnutí</string>
+    <string name="enable_large_first_row">Zväčšiť prvý riadok</string>
     <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
     <string name="smaller_header_clock_title">Menšie hodiny</string>
     <string name="smaller_header_clock">Zmenší text pre hodiny v otvorenom záhlaví. Užitočné pre menšie obrazovky</string>
