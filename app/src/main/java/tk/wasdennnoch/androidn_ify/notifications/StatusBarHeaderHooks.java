@@ -620,9 +620,9 @@ public class StatusBarHeaderHooks {
                 });
 
                 if (ConfigUtils.header().new_click_behavior) {
-                    WifiTileHook.hook(classLoader);
-                    BluetoothTileHook.hook(classLoader);
-                    CellularTileHook.hook(classLoader);
+                    new WifiTileHook(classLoader);
+                    new BluetoothTileHook(classLoader);
+                    new CellularTileHook(classLoader);
                 }
 
                 try {

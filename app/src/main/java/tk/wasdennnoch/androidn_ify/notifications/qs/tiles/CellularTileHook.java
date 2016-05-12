@@ -4,45 +4,45 @@ import android.content.Context;
 
 import com.android.internal.logging.MetricsLogger;
 
-import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
 
-public class CellularTileHook {
+public class CellularTileHook extends QSTileHook {
 
     private static final String CLASS_CELLULAR_TILE = "com.android.systemui.qs.tiles.CellularTile";
-    private static Class<?> mClassCellularTile;
-    private static XC_MethodReplacement handleClickHook = new XC_MethodReplacement() {
-        @Override
-        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-            Context mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
-            Object mDataController = XposedHelpers.getObjectField(param.thisObject, "mDataController");
-            int metricsCategory = (int) XposedHelpers.callMethod(param.thisObject, "getMetricsCategory");
-            if (NotificationPanelHooks.isCollapsed()) {
-                Object mDetailAdapter = XposedHelpers.getObjectField(param.thisObject, "mDetailAdapter");
-                boolean enabled = (boolean) XposedHelpers.callMethod(mDetailAdapter, "getToggleState");
-                MetricsLogger.action(mContext, MetricsLogger.QS_CELLULAR_TOGGLE, !enabled);
-                XposedHelpers.callMethod(mDataController, "setMobileDataEnabled", !enabled);
+
+    public CellularTileHook(ClassLoader classLoader) {
+        super(classLoader, CLASS_CELLULAR_TILE);
+        hookClick();
+        hookLongClick();
+    }
+
+    @Override
+    public void handleClick() {
+        Context mContext = (Context) getObjectField("mContext");
+        Object mDataController = getObjectField("mDataController");
+        int metricsCategory = (int) XposedHelpers.callMethod(getTile(), "getMetricsCategory");
+        if (NotificationPanelHooks.isCollapsed()) {
+            Object mDetailAdapter = getObjectField("mDetailAdapter");
+            boolean enabled = (boolean) XposedHelpers.callMethod(mDetailAdapter, "getToggleState");
+            MetricsLogger.action(mContext, MetricsLogger.QS_CELLULAR_TOGGLE, !enabled);
+            XposedHelpers.callMethod(mDataController, "setMobileDataEnabled", !enabled);
+        } else {
+            MetricsLogger.action(mContext, metricsCategory);
+            if ((boolean) XposedHelpers.callMethod(mDataController, "isMobileDataSupported")) {
+                XposedHelpers.callMethod(getTile(), "showDetail", true);
             } else {
-                MetricsLogger.action(mContext, metricsCategory);
-                if ((boolean) XposedHelpers.callMethod(mDataController, "isMobileDataSupported")) {
-                    XposedHelpers.callMethod(param.thisObject, "showDetail", true);
-                } else {
-                    Object mHost = XposedHelpers.getObjectField(param.thisObject, "mHost");
-                    XposedHelpers.callMethod(mHost, "startActivityDismissingKeyguard", XposedHelpers.getStaticObjectField(mClassCellularTile, "DATA_USAGE_SETTINGS"));
-                }
+                startActivityDismissingKeyguard("DATA_USAGE_SETTINGS");
             }
-            return null;
         }
-    };
+    }
 
-    public static void hook(ClassLoader classLoader) {
+    @Override
+    public void handleLongClick() {
         try {
-            mClassCellularTile = XposedHelpers.findClass(CLASS_CELLULAR_TILE, classLoader);
-
-            XposedHelpers.findAndHookMethod(mClassCellularTile, "handleClick", handleClickHook);
-        } catch (Exception ignore) {
-
+            startActivityDismissingKeyguard(XposedHelpers.getObjectField(getTile(), "DATA_USAGE_SETTINGS"));
+        } catch (Throwable t) {
+            startActivityDismissingKeyguard(XposedHelpers.getObjectField(getTile(), "CELLULAR_SETTINGS"));
         }
     }
 }
