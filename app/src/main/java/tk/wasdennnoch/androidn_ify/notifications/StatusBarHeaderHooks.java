@@ -29,6 +29,10 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.notifications.qs.QSTileHostHooks;
+import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.BluetoothTileHook;
+import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.CellularTileHook;
+import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.WifiTileHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -616,12 +620,24 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
+                boolean isCm = false;
+
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
+                    isCm = true;
+                    //QSTileHostHooks.hook(classLoader);
                 } catch (Throwable ignore) {
                     XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
                 }
+
+                boolean firstRowLarge = ConfigUtils.header().large_first_row;
+                if (ConfigUtils.header().new_click_behavior) {
+                    new WifiTileHook(classLoader, (!isCm && !firstRowLarge));
+                    new BluetoothTileHook(classLoader, (!isCm && !firstRowLarge));
+                    new CellularTileHook(classLoader);
+                }
+
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
 
             }
@@ -649,6 +665,10 @@ public class StatusBarHeaderHooks {
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", modRes.fwd(R.dimen.multi_user_avatar_size));
                 } catch (Throwable ignore) {
                     // Not in LP
+                }
+
+                if (!ConfigUtils.header().large_first_row) {
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height", resparam.res.getDimensionPixelSize(resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)));
                 }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);

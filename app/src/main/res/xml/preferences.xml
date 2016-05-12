@@ -100,6 +100,18 @@
                 app:monitorBoxUnit="@string/notification_header_qs_tiles_count_monitor"/>
 
             <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_notification_header"
+                android:key="enable_new_tile_click_behavior"
+                android:title="@string/enable_new_tile_click_behavior"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_new_tile_click_behavior"
+                android:key="enable_large_first_row"
+                android:title="@string/enable_large_first_row"/>
+
+            <SwitchPreference
                 android:defaultValue="false"
                 android:key="hide_tuner_icon"
                 android:title="@string/hide_tuner_icon_title"/>
