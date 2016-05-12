@@ -15,11 +15,7 @@
     <!-- prefs -->
     <string name="prefs_file_not_readable">Plik ustawień nie może być odczytany przez Xposed, zostaną użyte wartości domyślne. Może to być spowodowane statusem SELinux enforcing.</string>
 
-    <string name="header_settings">Ustawienia</string>
     <string name="header_tweaks">Ulepszenia</string>
-    <string name="header_recents">Ostatnie aplikacje</string>
-    <string name="header_status_bar_header">Pasek statusu</string>
-    <string name="header_notifications">Powiadomienia</string>
     <string name="header_app">Aplikacja</string>
 
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
@@ -31,6 +27,7 @@
     <!-- /prefs -->
 
     <!-- SETTINGS -->
+    <string name="header_settings">Ustawienia</string>
     <string name="enable_settings_summaries_title">Włącz poprawki ustawień</string>
     <string name="enable_settings_summaries">Pokaż najważniejsze informacje bezpośrednio w menu ustawień</string>
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
@@ -56,40 +53,58 @@
     <string name="location_on_high">WŁ. / Wysoka dokładność</string>
     <string name="print_summary">%1$d zadań drukowania</string>
     <!-- /SETTINGS -->
-a
+
     <!-- RECENTS -->
-    <string name="enable_recents_double_tap_title">Podwójne dotknięcie, aby zmienić na ostatnio używaną aplikację</string>
-    <string name="enable_recents_double_tap">Podwójne dotknij klawisz ostatnio używanych aplikacji aby zmienić na ostatnio używaną aplikację</string>
+    <string name="header_recents">Poprzednie aplikacje</string>
+    <string name="enable_recents_double_tap_title">Podwójne dotknięcie, aby zmienić na poprzednio używaną aplikację</string>
+    <string name="enable_recents_double_tap">Podwójne dotknij klawisz poprzednio używanych aplikacji aby zmienić na poprzednio używaną aplikację</string>
     <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
-    <string name="enable_recents_navigation_title">Włącz nawigację ostatnich aplikacji</string>
-    <string name="enable_recents_navigation">Użyj klawisza ostanich aplikacji aby zmieniać wybraną aplikacje z ostatnich</string>
-    <string name="recents_navigation_delay_title">Opóźnienie nawigacji ostatnich aplikacji</string>
+    <string name="enable_recents_navigation_title">Włącz nawigację poprzednich aplikacji</string>
+    <string name="enable_recents_navigation">Użyj klawisza poprzednich aplikacji aby zmieniać wybraną aplikacje z poprzednich</string>
+    <string name="recents_navigation_delay_title">Opóźnienie nawigacji poprzednich aplikacji</string>
     <string name="recents_navigation_delay">Czas po jakim nastąpi przełączenie na wybraną aplikację</string>
-    <string name="enable_large_recents">Włącz duże okna ostatnich aplikacji</string>
+    <string name="enable_large_recents">Włącz duże okna poprzednich aplikacji</string>
+    <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
 
     <string name="no_previous_recents">Brak poprzedniej aplikacji</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Pasek statusu</string>
     <string name="enable_notification_header">Styl nagłówka</string>
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
+    <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
+    <string name="smaller_header_clock_title">Mniejszy zegarek</string>
+    <string name="smaller_header_clock">Zmniejsza rozmiar tekstu zegarka w rozwiniętym nagłówku. Przydatne dla małych ekranów</string>
+    <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
+    <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Powiadomienia</string>
     <string name="notifications_change_style">Powiadomienia w stylu N</string>
     <string name="notifications_dark_theme_title">Ciemny motyw powiadomień</string>
     <string name="notifications_dark_theme">Ciemne tło powiadomień dla użytkowników specificznych motywów</string>
     <string name="notification_dismiss_button_title">Zmień ikonę czyszczenia</string>
     <string name="notification_dismiss_button">Pokaż \"WYCZYŚĆ WSZYSTKIE\" zamiast ikony czyszczenia</string>
     <string name="notification_allow_load_label_with_pm_title">Pozwól na ładowanie nazw aplikacji z PackageManager</string>
-    <string name="notification_allow_load_label_with_pm">Może powodować problemy z wydajnością</string>
-    <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
-    <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
+    <string name="notification_allow_load_label_with_pm">Może powodować problemy z wydajnością</string>\
+    <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
     <string name="update_notification">Wersja %1$d jest teraz dostępna do pobrania!</string>
     <string name="update_notification_download">Pobierz</string>
     <string name="update_notification_title">Nowa wersja dostępna</string>
-    <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
-    <!-- /NOTIFICATIONS -->
+    <string name="check_for_updates_title">Sprawdź dostępność aktualizacji</string>
+    <string name="check_for_updates">Sprawdź dostępność aktualizacji przy starcie aplikacji</string>
+    <string name="checking_for_update">Sprawdzanie aktualizacji…</string>
+    <string name="check_for_update_fail">Nie można sprawdzić aktualizacji</string>
+    <string name="no_updates">Nie znaleziono nowszych wersji</string>
+    <string name="update_notification_downloading">Pobieranie aktualizacji</string>
+    <string name="update_notification_downloading_details">Pobieranie wersji %1$d</string>
+    <string name="update_notification_download_fail">Pobieranie nie udane</string>
+    <string name="update_notification_download_fail_details">Nie udało się pobrać wersji %1$d</string>
+    <!-- /UPDATE -->
 
 </resources>
