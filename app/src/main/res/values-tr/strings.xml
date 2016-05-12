@@ -73,10 +73,11 @@
     <string name="enable_notification_header">Yeni bildirimler geliştirmesi</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarları göstermek için gerekir.</string>
     <string name="notification_header_qs_tiles_count_monitor">Tane</string>
+    <string name="enable_new_tile_click_behavior">Android N tıklama davranışı</string>
+    <string name="enable_large_first_row">Ayrıntılı satır</string>
     <string name="hide_tuner_icon_title">SystemUI düzenleyiciyi gizle</string>
     <string name="smaller_header_clock_title">Küçük saat</string>
     <string name="smaller_header_clock">Geliştirilmiş hızlı ayar başlığında saatin metin boyutunu küçültün.Küçük ekranlar için kullanışlıdır.</string>
- 
     <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
     <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <!-- /STATUS BAR HEADER -->
