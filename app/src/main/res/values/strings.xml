@@ -75,6 +75,7 @@
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
+    <string name="enable_large_first_row">Enlarge first row</string>
     <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
     <string name="smaller_header_clock_title">Smaller clock</string>
     <string name="smaller_header_clock">Lower the text size of the clock in the expanded header. Useful for small screens</string>
