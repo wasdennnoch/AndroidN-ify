@@ -93,6 +93,15 @@
     <string name="update_notification_title">Nova atualização disponível</string>
     <string name="update_notification">A compilação %1$d está disponível para download!</string>
     <string name="update_notification_download">Baixar</string>
+    <string name="check_for_updates_title">Procurar por atualizações</string>
+    <string name="check_for_updates">Procurar por atualizações na inicialização</string>
+    <string name="checking_for_update">Procurando por atualizações…</string>
+    <string name="check_for_update_fail">Não foi possível procurar por atualizações</string>
+    <string name="no_updates">Nenhuma atualização foi encontrada</string>
+    <string name="update_notification_downloading">Baixando atualização</string>
+    <string name="update_notification_downloading_details">Baixando compilação %1$d</string>
+    <string name="update_notification_download_fail">Download falhou</string>
+    <string name="update_notification_download_fail_details">Download da compilação %1$d falhou</string>
     <!-- /UPDATE -->
 
 </resources>
