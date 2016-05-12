@@ -32,7 +32,7 @@ public class QSTileHook {
     }
 
     public void hookLongClick() {
-        XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
+        //XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
     }
 
     public void callSecondaryClick() {
