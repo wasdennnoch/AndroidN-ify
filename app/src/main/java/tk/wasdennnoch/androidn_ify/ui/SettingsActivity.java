@@ -95,6 +95,13 @@ public class SettingsActivity extends Activity {
             if (preference instanceof PreferenceScreen) {
                 PreferenceScreen screen = (PreferenceScreen) preference;
                 switch (preference.getKey()) {
+                    case "settings_recents":
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                            Preference p = screen.findPreference("enable_recents_navigation");
+                            p.setEnabled(false);
+                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        }
+                        break;
                     case "settings_status_bar_header":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                             Preference p = screen.findPreference("notification_full_width_volume");

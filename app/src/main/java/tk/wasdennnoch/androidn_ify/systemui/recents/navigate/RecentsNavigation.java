@@ -2,7 +2,6 @@ package tk.wasdennnoch.androidn_ify.systemui.recents.navigate;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.os.Build;
 import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
@@ -110,16 +109,11 @@ public class RecentsNavigation {
 
     @SuppressWarnings("unchecked")
     public static boolean launchFocusedTask() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return launchFocusedTaskMM();
-        } else {
-            return launchFocusedTaskLP();
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public static boolean launchFocusedTaskMM() {
         XposedHook.logD(TAG, "launchFocusedTask");
+        boolean isDoubleTap = isDoubleTap();
+        boolean navigateRecents = mConfig.recents.navigate_recents;
+        boolean launchedFromHome = XposedHelpers.getBooleanField(XposedHelpers.getObjectField(mRecentsActivity, "mConfig"), "launchedFromHome");
+        int doubleTapLaunchIndexBackward = (launchedFromHome) ? 1 : 2;
         Object mRecentsView = XposedHelpers.getObjectField(mRecentsActivity, "mRecentsView");
         // Get the first stack view
         List<Object> stackViews = (List<Object>) XposedHelpers.callMethod(mRecentsView, "getTaskStackViews");
@@ -127,82 +121,34 @@ public class RecentsNavigation {
         for (int i = 0; i < stackCount; i++) {
             Object stackView = stackViews.get(i);
             Object stack = XposedHelpers.callMethod(stackView, "getStack");
-            boolean success = launchFocusedTaskImpl((FrameLayout) stackView, stack);
-            if (success) return true;
-        }
-        return false;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static boolean launchFocusedTaskLP() {
-        XposedHook.logD(TAG, "launchFocusedTask");
-        FrameLayout mRecentsView = (FrameLayout) XposedHelpers.getObjectField(mRecentsActivity, "mRecentsView");
-        // Get the first stack view
-        int childCount = mRecentsView.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View child = mRecentsView.getChildAt(i);
-            if (child != XposedHelpers.getObjectField(mRecentsView, "mSearchBar")) {
-                Object stack = XposedHelpers.getObjectField(child, "mStack");
-                boolean success = launchFocusedTaskImpl((FrameLayout) child, stack);
-                if (success) return true;
+            // Iterate the stack views and try and find the focused task
+            List<Object> taskViews = (List<Object>) XposedHelpers.callMethod(stackView, "getTaskViews");
+            List<Object> tasks = (List<Object>) XposedHelpers.callMethod(stack, "getTasks");
+            int taskViewCount = taskViews.size();
+            int taskCount = tasks.size();
+            if (!mIsNavigating && !mBackPressed) {
+                mCurrentIndex = taskCount;
+                mIsNavigating = true;
+                mResetScroll = true;
+                mSkipFirstApp = !launchedFromHome;
             }
-        }
-        return false;
-    }
-
-    @SuppressWarnings("unchecked")
-    private static boolean launchFocusedTaskImpl(FrameLayout stackView, Object stack) {
-        XposedHook.logD(TAG, "launchFocusedTask");
-        boolean isMarshmallow = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-        boolean isDoubleTap = isDoubleTap();
-        boolean navigateRecents = mConfig.recents.navigate_recents;
-        boolean launchedFromHome = XposedHelpers.getBooleanField(XposedHelpers.getObjectField(mRecentsActivity, "mConfig"), "launchedFromHome");
-        int doubleTapLaunchIndexBackward = (launchedFromHome) ? 1 : 2;
-        Object mRecentsView = XposedHelpers.getObjectField(mRecentsActivity, "mRecentsView");
-        // Iterate the stack views and try and find the focused task
-        List<Object> taskViews = null;
-        List<Object> tasks;
-        int taskViewCount;
-        if (isMarshmallow) {
-            taskViews = (List<Object>) XposedHelpers.callMethod(stackView, "getTaskViews");
-            taskViewCount = taskViews.size();
-        } else {
-            taskViewCount = stackView.getChildCount();
-        }
-        tasks = (List<Object>) XposedHelpers.callMethod(stack, "getTasks");
-        int taskCount = tasks.size();
-        if (!mIsNavigating && !mBackPressed) {
-            mCurrentIndex = taskCount;
-            mIsNavigating = true;
-            mResetScroll = true;
-            mSkipFirstApp = !launchedFromHome;
-        }
-        if (isDoubleTap && taskViewCount > (doubleTapLaunchIndexBackward - 1)) {
-            Object tv;
-            if (isMarshmallow) {
-                tv = taskViews.get(taskViewCount - doubleTapLaunchIndexBackward);
+            if (isDoubleTap && taskViewCount > (doubleTapLaunchIndexBackward - 1)) {
+                Object tv = taskViews.get(taskViewCount - doubleTapLaunchIndexBackward);
+                Object task = XposedHelpers.callMethod(tv, "getTask");
+                XposedHelpers.callMethod(mRecentsView, "onTaskViewClicked", stackView, tv, stack, task, false);
+                return true;
             } else {
-                tv = stackView.getChildAt(taskViewCount - doubleTapLaunchIndexBackward);
-            }
-            Object task = XposedHelpers.callMethod(tv, "getTask");
-            XposedHelpers.callMethod(mRecentsView, "onTaskViewClicked", stackView, tv, stack, task, false);
-            return true;
-        } else {
-            if (!mBackPressed && navigateRecents) {
-                return navigateRecents(tasks, taskViews, stackView, stack);
-            } else {
-                mBackPressed = false;
-                for (int j = 0; j < taskViewCount; j++) {
-                    Object tv;
-                    if (isMarshmallow) {
-                        tv = taskViews.get(j);
-                    } else {
-                        tv = stackView.getChildAt(j);
-                    }
-                    Object task = XposedHelpers.callMethod(tv, "getTask");
-                    if ((boolean) XposedHelpers.callMethod(tv, "isFocusedTask")) {
-                        XposedHelpers.callMethod(mRecentsView, "onTaskViewClicked", stackView, tv, stack, task, false);
-                        return true;
+                if (!mBackPressed && navigateRecents) {
+                    return navigateRecents(tasks, taskViews, stackView, stack);
+                } else {
+                    mBackPressed = false;
+                    for (int j = 0; j < taskViewCount; j++) {
+                        Object tv = taskViews.get(j);
+                        Object task = XposedHelpers.callMethod(tv, "getTask");
+                        if ((boolean) XposedHelpers.callMethod(tv, "isFocusedTask")) {
+                            XposedHelpers.callMethod(mRecentsView, "onTaskViewClicked", stackView, tv, stack, task, false);
+                            return true;
+                        }
                     }
                 }
             }
@@ -213,7 +159,7 @@ public class RecentsNavigation {
     private static boolean navigateRecents(List<Object> tasks, List<Object> taskViews, Object stackView, Object stack) {
         int taskCount = tasks.size();
         int taskViewCount = taskViews.size();
-        if (taskCount < 1) return true;
+        if (taskCount < 1) return false;
         if (mCurrentIndex == 0) {
             mCurrentIndex = tasks.size() - 1;
             mResetScroll = true;
