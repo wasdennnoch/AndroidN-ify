@@ -78,6 +78,9 @@
   <!--  <string name="enable_qs_in_header">Abilita i quicksettings nell\'intestazioner</string> -->
     <string name="notification_header_qs_tiles_count">Numero massimo di quicksettings da mostrare</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
+    <string name="enable_new_tile_click_behavior">Click del tile in stile Android N</string>
+    <string name="enable_new_tile_click_behavior_summary">Cliccando un tile nell\'intestazione lo farà attivare e cliccando un tile nel pannello farà aprire una finestra estesa</string>
+    <string name="enable_large_first_row">Ingrandisci la prima riga</string>
     <string name="notifications_change_style">Notifiche con lo stile di Android N</string>
     <string name="notification_allow_load_label_with_pm_title">Abilita il caricamento del nome dell\'applicazione con PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Potrebbe causare riduzioni di prestazioni</string>
@@ -86,6 +89,9 @@
     <string name="notification_dismiss_button_title">Cambia pulsante di rimozione</string>
     <string name="notification_dismiss_button">Mostra \"CANCELLA TUTTO\" invece dell\'icona di rimozione</string>
     <string name="enable_notification_header">Abilita la nuova intestazione delle notifiche</string>
+    <string name="action_search">Cerca</string>
+    <string name="notification_blacklisted_apps_title">App disabilitate</string>
+    <string name="notification_blacklisted_apps">Usa il vecchio stile delle notifiche per queste app</string>
      <!-- /NOTIFICATIONS -->
      
      <!-- UPDATE -->
