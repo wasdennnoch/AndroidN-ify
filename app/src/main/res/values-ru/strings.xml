@@ -74,6 +74,8 @@
     <string name="enable_notification_header">Изменить стиль шапки статус-бара</string>
     <string name="notification_header_qs_tiles_count">Количество значков в верхней панели</string>
     <string name="notification_header_qs_tiles_count_monitor">значков</string>
+    <string name="enable_new_tile_click_behavior">Переключать быстрые настройки одним кликом</string>  
+    <string name="enable_large_first_row">Увеличить первую строку</string>
     <string name="hide_tuner_icon_title">Скрыть иконку SystemUI Tuner</string>
     <string name="smaller_header_clock_title">Уменьшить часы</string>  
     <string name="smaller_header_clock">Уменьшает размер часов при раскрытой шапке статус-бара. Удобно для маленьких экранов</string>  
