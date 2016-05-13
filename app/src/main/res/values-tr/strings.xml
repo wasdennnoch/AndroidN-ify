@@ -91,6 +91,9 @@
     <string name="notification_dismiss_button">Yerine \"TÜMÜNÜ TEMİZLE\" butonunu gösterir.</string>
     <string name="notification_allow_load_label_with_pm_title">Alternatif uygulamaların yüklenmesi izni</string>
     <string name="notification_allow_load_label_with_pm">Tüm uygulamaların yüklenmesi için paket yöneticisi izni verir.</string>
+    <string name="action_search">Ara</string>
+    <string name="notification_blacklisted_apps_title">Engellenmiş Uygulamalar</string>
+    <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullanın.</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
