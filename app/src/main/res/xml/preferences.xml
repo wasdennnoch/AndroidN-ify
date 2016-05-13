@@ -103,6 +103,7 @@
                 android:defaultValue="true"
                 android:dependency="enable_notification_header"
                 android:key="enable_new_tile_click_behavior"
+                android:summary="@string/enable_new_tile_click_behavior_summary"
                 android:title="@string/enable_new_tile_click_behavior"/>
 
             <SwitchPreference
