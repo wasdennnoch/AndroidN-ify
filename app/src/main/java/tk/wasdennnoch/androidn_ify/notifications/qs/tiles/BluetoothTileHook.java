@@ -1,9 +1,5 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs.tiles;
 
-import android.content.Context;
-
-import com.android.internal.logging.MetricsLogger;
-
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
@@ -26,16 +22,12 @@ public class BluetoothTileHook extends QSTileHook {
     }
 
     @Override
-    public void handleClick() {
-        if (NotificationPanelHooks.isCollapsed()) {
-            Object mState = getState();
-            Object mController = getObjectField("mController");
-            boolean enabled = XposedHelpers.getBooleanField(mState, "value");
-            MetricsLogger.action((Context) getObjectField("mContext"), (int) XposedHelpers.callMethod(getTile(), "getMetricsCategory"), !enabled);
-            XposedHelpers.callMethod(mController, "setBluetoothEnabled", !enabled);
-        } else {
-            XposedHelpers.callMethod(getTile(), "handleSecondaryClick");
+    public boolean handleClick() {
+        if (!NotificationPanelHooks.isCollapsed()) {
+            callSecondaryClick();
+            return true;
         }
+        return false;
     }
 
     @Override

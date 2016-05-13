@@ -18,23 +18,14 @@ public class CellularTileHook extends QSTileHook {
     }
 
     @Override
-    public void handleClick() {
-        Context mContext = (Context) getObjectField("mContext");
-        Object mDataController = getObjectField("mDataController");
-        int metricsCategory = (int) XposedHelpers.callMethod(getTile(), "getMetricsCategory");
+    public boolean handleClick() {
         if (NotificationPanelHooks.isCollapsed()) {
             Object mDetailAdapter = getObjectField("mDetailAdapter");
             boolean enabled = (boolean) XposedHelpers.callMethod(mDetailAdapter, "getToggleState");
-            MetricsLogger.action(mContext, MetricsLogger.QS_CELLULAR_TOGGLE, !enabled);
-            XposedHelpers.callMethod(mDataController, "setMobileDataEnabled", !enabled);
-        } else {
-            MetricsLogger.action(mContext, metricsCategory);
-            if ((boolean) XposedHelpers.callMethod(mDataController, "isMobileDataSupported")) {
-                XposedHelpers.callMethod(getTile(), "showDetail", true);
-            } else {
-                startActivityDismissingKeyguard("DATA_USAGE_SETTINGS");
-            }
+            XposedHelpers.callMethod(mDetailAdapter, "setToggleState", !enabled);
+            return true;
         }
+        return false;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs.tiles;
 
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 
@@ -19,8 +20,8 @@ public class QSTileHook {
         XposedHelpers.callMethod(XposedHelpers.getObjectField(getTile(), "mHost"), "startActivityDismissingKeyguard", intent);
     }
 
-    public void handleClick() {
-
+    public boolean handleClick() {
+        return false;
     }
 
     public void handleLongClick() {
@@ -55,12 +56,11 @@ public class QSTileHook {
         return XposedHelpers.getObjectField(getTile(), name);
     }
 
-    private XC_MethodReplacement handleClickHook = new XC_MethodReplacement() {
+    private XC_MethodHook handleClickHook = new XC_MethodHook() {
         @Override
-        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             mThisObject = param.thisObject;
-            handleClick();
-            return null;
+            if (handleClick()) param.setResult(null);
         }
     };
 

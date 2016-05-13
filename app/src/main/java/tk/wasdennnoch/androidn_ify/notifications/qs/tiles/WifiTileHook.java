@@ -26,17 +26,12 @@ public class WifiTileHook extends QSTileHook {
     }
 
     @Override
-    public void handleClick() {
-        if (NotificationPanelHooks.isCollapsed()) {
-            Object mState = getState();
-            Object mController = getObjectField("mController");
-            boolean enabled = XposedHelpers.getBooleanField(mState, "enabled");
-            XposedHelpers.callMethod(mState, "copyTo", getObjectField("mStateBeforeClick"));
-            MetricsLogger.action((Context) getObjectField("mContext"), (int) XposedHelpers.callMethod(getTile(), "getMetricsCategory"), !enabled);
-            XposedHelpers.callMethod(mController, "setWifiEnabled", !enabled);
-        } else {
+    public boolean handleClick() {
+        if (!NotificationPanelHooks.isCollapsed()) {
             callSecondaryClick();
+            return true;
         }
+        return false;
     }
 
     @Override
