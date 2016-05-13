@@ -74,6 +74,7 @@
     <string name="notification_header_qs_tiles_count">Hızlı ayarları göstermek için gerekir.</string>
     <string name="notification_header_qs_tiles_count_monitor">Tane</string>
     <string name="enable_new_tile_click_behavior">Android N tıklama davranışı</string>
+    <string name="enable_new_tile_click_behavior_summary">Hızlı ayarlarda tıklanılan seçeneğe ait olan bilgileri gösterir.</string>
     <string name="enable_large_first_row">Ayrıntılı satır</string>
     <string name="hide_tuner_icon_title">SystemUI düzenleyiciyi gizle</string>
     <string name="smaller_header_clock_title">Küçük saat</string>
