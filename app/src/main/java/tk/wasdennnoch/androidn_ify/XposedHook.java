@@ -20,6 +20,7 @@ import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.navigate.RecentsNavigation;
 import tk.wasdennnoch.androidn_ify.systemui.recents.stack.RecentsStackHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 /**
  * Right now it's impossible to explicitly use classes of the hooked package
@@ -152,8 +153,10 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
 
         // Has to be hooked in every app too for some reason, probably
         // because every hook only applies to the current process
-        NotificationsHooks.hookResAndroid(resparam);
-
+        ConfigUtils.notifications().loadBlacklistedApps();
+        if (!ConfigUtils.notifications().blacklistedApps.contains(resparam.packageName)) {
+            NotificationsHooks.hookResAndroid(resparam);
+        }
     }
 
 }

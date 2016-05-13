@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.os.Build;
+import android.service.notification.StatusBarNotification;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -57,6 +58,10 @@ public class NotificationsHooks {
             Object row = XposedHelpers.getObjectField(entry, "row");
             Object contentContainer = XposedHelpers.getObjectField(row, "mPrivateLayout");
             Object contentContainerPublic = XposedHelpers.getObjectField(row, "mPublicLayout");
+
+            ConfigUtils.notifications().loadBlacklistedApps();
+            StatusBarNotification sbn = (StatusBarNotification) XposedHelpers.callMethod(row, "getStatusBarNotification");
+            if (ConfigUtils.notifications().blacklistedApps.contains(sbn.getPackageName())) return;
 
             View privateView = (View) XposedHelpers.callMethod(contentContainer, "getContractedChild");
             View publicView = (View) XposedHelpers.callMethod(contentContainerPublic, "getContractedChild");
@@ -132,13 +137,20 @@ public class NotificationsHooks {
             RemoteViews contentView = (RemoteViews) param.getResult();
             int mColor = (int) XposedHelpers.callMethod(param.thisObject, "resolveColor");
             contentView.setInt(R.id.notification_icon, "setColorFilter", mColor);
+            String appname = context.getPackageName();
             try {
-                contentView.setTextViewText(R.id.app_name_text, context.getString(context.getApplicationInfo().labelRes));
-            } catch (Exception e) {
-                if (allowLoadLabelWithPackageManager) {
-                    context.getApplicationInfo().loadLabel(context.getPackageManager());
-                }
+                appname = context.getString(context.getApplicationInfo().labelRes);
+            } catch (Exception ignore) {
+
             }
+            try {
+                if (allowLoadLabelWithPackageManager && appname.equals(context.getPackageName())) {
+                    appname = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+                }
+            } catch (Exception ignore) {
+
+            }
+            contentView.setTextViewText(R.id.app_name_text, appname);
             contentView.setTextColor(R.id.app_name_text, mColor);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Icon mSmallIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mSmallIcon");
