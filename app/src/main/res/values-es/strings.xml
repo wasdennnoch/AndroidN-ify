@@ -74,8 +74,8 @@
     <string name="enable_notification_header">Activar nueva barra de estado</string>
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
-    <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N tile click behavior</string>
-    <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva /ny pulsarlo en el panel lo expande</string>
+    <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N</string>
+    <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
     <string name="enable_large_first_row">Alargar la primera fila</string>
     <string name="hide_tuner_icon_title">Esconder icono de SystemUI Tuner</string>
     <string name="smaller_header_clock_title">Reloj pequeño</string>
