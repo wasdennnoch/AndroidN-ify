@@ -64,6 +64,9 @@
     <string name="notification_dismiss_button">Zobrazí \"VYMAZAŤ VŠETKO\" namiesto ikony</string>
     <string name="notification_allow_load_label_with_pm_title">Povoliť načítanie názvu apl. pomocou PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Môže spôsobiť problémy s výkonom</string>
+    <string name="action_search">Hľadať</string>
+    <string name="notification_blacklisted_apps_title">Zakázané aplikácie</string>
+    <string name="notification_blacklisted_apps">Použije starý štýl upozornení pre vybrané aplikácie</string>
     <!-- /NOTIFICATIONS -->
   
     <!-- UPDATE -->
