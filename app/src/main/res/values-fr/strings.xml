@@ -38,10 +38,10 @@
 
     <string name="disconnected">Déconnecté</string>
     <string name="disabled">Désactivé</string>
-    <string name="off">Désactivé(e)</string>
-    <string name="on">Activé(e)</string>
+    <string name="off">désactivé</string>
+    <string name="on">activé</string>
     <string name="data_usage_summary">%1$s de données utilisés</string>
-    <string name="display_summary">Adaptation de la luminosité est %1$sE</string>
+    <string name="display_summary">Adaptation de la luminosité est %1$se</string>
     <string name="sound_summary">Volume de la sonnerie à %1$s</string>
     <string name="apps_summary">%1$d applications installées</string>
     <string name="storage_summary">%1$s sur %2$s utilisé</string>
