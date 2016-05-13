@@ -6,7 +6,7 @@
     <string name="xposed_description">Porta funciones introducidas en Android N para dispositivos con Lollipop y Marshmallow!</string>
 
     <string name="restart_systemui">Reiniciar SystemUI</string>
-    <string name="restart_systemui_message">¿Estas seguro que quieres reiniciar SystemUI?</string>
+    <string name="restart_systemui_message">¿Estas seguro de que quieres reiniciar SystemUI?</string>
     <string name="restart_broadcast_sent">Petición de reinicio enviada</string>
     <string name="activity_about">Sobre Android N-ify</string>
     <string name="about_author">Desarrollado por \"MrWasdennnoch\"</string>
@@ -15,11 +15,7 @@
     <!-- prefs -->
     <string name="prefs_file_not_readable">Xposed no puede leer el archivo de preferencias, los valores por defecto seran usados en hooks. Puede ser debido a imponer SELinux.</string>
     
-    <string name="header_settings">Módulo</string>
     <string name="header_tweaks">Modificaciones</string>
-    <string name="header_recents">Recientes</string>
-    <string name="header_status_bar_header">Barra de estado</string>  
-    <string name="header_notifications">Notificaciones</string>
     <string name="header_app">Ajustes</string>
     
     <string name="hide_launcher_icon">Puede requerir reiniciar el lanzador</string>
@@ -31,6 +27,7 @@
     <!-- /prefs -->
     
     <!-- SETTINGS -->
+    <string name="header_settings">Módulo</string>
     <string name="enable_settings_summaries_title">Activar módulo</string>
     <string name="enable_settings_summaries">Muetra la información más importante directamente en la barra de notificaciones</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
@@ -58,6 +55,7 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
+    <string name="header_recents">Recientes</string>
     <string name="enable_recents_double_tap_title">Doble pulsación</string>
     <string name="enable_recents_double_tap">Doble pulsación al botón de recientes para volver a la última aplicación</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
@@ -66,17 +64,28 @@
     <string name="recents_navigation_delay_title">Retraso de navegación</string>
     <string name="recents_navigation_delay">Tiempo para que se abra la aplicación seleccionada</string>
     <string name="enable_large_recents">Activar tajetas recientes grandes</string>
+    <string name="no_recents_image">Cambiar imagen de \"Ninguna aplicación reciente\"</string>
 
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
     <!-- /RECENTS -->
     
     <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Barra de estado</string>  
     <string name="enable_notification_header">Activar nueva barra de estado</string>
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
+    <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N tile click behavior</string>
+    <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva /ny pulsarlo en el panel lo expande</string>
+    <string name="enable_large_first_row">Alargar la primera fila</string>
+    <string name="hide_tuner_icon_title">Esconder icono de SystemUI Tuner</string>
+    <string name="smaller_header_clock_title">Reloj pequeño</string>
+    <string name="smaller_header_clock">Reduce el tamaño del reloj en la barra de estado expandida. Útil para pantallas pequeñas</string>
+    <string name="notification_full_width_volume_title">Diálogo de volumen con ancho completo</string>
+    <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Notificaciones</string>
     <string name="notifications_change_style">Notificaciones de Android N</string>
     <string name="notifications_dark_theme_title">Tema oscuro de notificaciones</string>
     <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
@@ -84,8 +93,21 @@
     <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
     <string name="notification_allow_load_label_with_pm_title">Permitir cargar el nombre de la aplicación con PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Puede causar problemas de rendimiento</string>
-    <string name="notification_full_width_volume_title">Diálogo de volumen con ancho completo</string>
-    <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
     <!-- /NOTIFICATIONS -->
     
+    <!-- UPDATE -->
+    <string name="update_notification_title">Nueva actualización disponible</string>
+    <string name="update_notification">Versión %1$d disponible para actualizar!</string>
+    <string name="update_notification_download">Actualización</string>
+    <string name="check_for_updates_title">Buscar actualizaciones</string>
+    <string name="check_for_updates">Busca actualizaciones al iniciar la aplicación</string>
+    <string name="checking_for_update">Buscando actualizaciones…</string>
+    <string name="check_for_update_fail">Error al buscar actualizaciones</string>
+    <string name="no_updates">No hay versiones nuevas</string>
+    <string name="update_notification_downloading">Descargando actualización</string>
+    <string name="update_notification_downloading_details">Descargando versión %1$d</string>
+    <string name="update_notification_download_fail">Descarga fallida</string>
+    <string name="update_notification_download_fail_details">Fallo al descargar versión %1$d</string>
+    <!-- /UPDATE -->
+
 </resources>
