@@ -1,5 +1,13 @@
 package tk.wasdennnoch.androidn_ify.utils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
@@ -114,6 +122,8 @@ public class ConfigUtils {
         public boolean dismiss_button;
         public boolean allow_load_label_with_pm;
 
+        public List<String> blacklistedApps;
+
         public NotificationsConfig(XSharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
             dark_theme = prefs.getBoolean("notification_dark_theme", false);
@@ -121,6 +131,22 @@ public class ConfigUtils {
             allow_load_label_with_pm = prefs.getBoolean("notification_allow_load_label_with_pm", false);
 
             enable = (change_style || dark_theme || dismiss_button);
+        }
+
+        public void loadBlacklistedApps() {
+            List<String> apps = new ArrayList<>();
+            try {
+                String jsonString = mPrefs.getString("notification_blacklist_apps", "{}");
+                JSONArray jsonArray = new JSONArray(jsonString);
+                int appCount = jsonArray.length();
+                for (int i = 0; i < appCount; i++) {
+                    String app = jsonArray.getString(i);
+                    apps.add(app);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            blacklistedApps = apps;
         }
     }
 

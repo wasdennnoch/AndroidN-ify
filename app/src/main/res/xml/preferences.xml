@@ -154,6 +154,14 @@
                 android:summary="@string/notification_allow_load_label_with_pm"
                 android:title="@string/notification_allow_load_label_with_pm_title"/>
 
+            <PreferenceScreen
+                android:title="@string/notification_blacklisted_apps_title"
+                android:summary="@string/notification_blacklisted_apps"
+                android:dependency="notification_change_style"
+                android:key="notification_blacklisted_apps">
+                <intent android:action="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity"/>
+            </PreferenceScreen>
+
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="notification_dismiss_button"

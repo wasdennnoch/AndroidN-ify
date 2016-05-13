@@ -54,6 +54,15 @@
         <service
             android:name=".utils.DownloadService"
             android:exported="false" />
+
+        <activity android:name=".ui.BlacklistAppActivity"
+            android:parentActivityName=".ui.SettingsActivity"
+            android:label="@string/notification_blacklisted_apps_title">
+            <intent-filter>
+                <action android:name="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
