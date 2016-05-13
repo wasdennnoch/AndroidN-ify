@@ -103,16 +103,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 NotificationPanelHooks.hook(lpparam.classLoader);
                 NotificationsHooks.hookSystemUI(lpparam.classLoader);
                 RecentsStackHooks.hookSystemUI(lpparam.classLoader);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    RecentsNavigation.hookSystemUI(lpparam.classLoader);
-                } else {
-                    DoubleTapSwKeys.hook(lpparam.classLoader);
-                }
-                break;
-            case PACKAGE_ANDROID:
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    DoubleTapHwKeys.hook(lpparam.classLoader);
-                }
+                RecentsNavigation.hookSystemUI(lpparam.classLoader);
                 break;
             case PACKAGE_OWN:
                 XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isActivated", XC_MethodReplacement.returnConstant(true));
@@ -144,9 +135,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 NotificationsHooks.hookResSystemui(resparam, sModulePath);
                 StatusBarHeaderHooks.hookResSystemui(resparam, sModulePath);
                 RecentsStackHooks.hookResSystemui(resparam, sModulePath);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    RecentsNavigation.hookResSystemui(resparam, sModulePath);
-                }
+                RecentsNavigation.hookResSystemui(resparam, sModulePath);
                 break;
         }
 
