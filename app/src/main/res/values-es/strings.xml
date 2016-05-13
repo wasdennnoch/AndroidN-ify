@@ -80,7 +80,7 @@
     <string name="hide_tuner_icon_title">Esconder icono de SystemUI Tuner</string>
     <string name="smaller_header_clock_title">Reloj pequeño</string>
     <string name="smaller_header_clock">Reduce el tamaño del reloj en la barra de estado expandida. Útil para pantallas pequeñas</string>
-    <string name="notification_full_width_volume_title">Diálogo de volumen con ancho completo</string>
+    <string name="notification_full_width_volume_title">Volumen con ancho completo</string>
     <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
     <!-- /STATUS BAR HEADER -->
 
@@ -93,6 +93,9 @@
     <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
     <string name="notification_allow_load_label_with_pm_title">Permitir cargar el nombre de la aplicación con PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Puede causar problemas de rendimiento</string>
+    <string name="action_search">Buscar</string>
+    <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
+    <string name="notification_blacklisted_apps">Usar el estilo antigüo para estas aplicaciones</string>
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->
