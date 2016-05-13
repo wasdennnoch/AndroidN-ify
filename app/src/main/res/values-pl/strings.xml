@@ -74,6 +74,8 @@
     <string name="enable_notification_header">Styl nagłówka</string>
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
+    <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
+    <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
     <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
     <string name="smaller_header_clock_title">Mniejszy zegarek</string>
     <string name="smaller_header_clock">Zmniejsza rozmiar tekstu zegarka w rozwiniętym nagłówku. Przydatne dla małych ekranów</string>
