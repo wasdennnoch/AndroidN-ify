@@ -73,6 +73,9 @@
     <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
     <string name="notification_header_qs_tiles_count">Blocos de configurações rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
+    <string name="enable_new_tile_click_behavior">Ativar novo estilo de clique no bloco</string>
+    <string name="enable_new_tile_click_behavior_summary">Clicar em um bloco no cabeçalho o ativa/desativa e clicar em um bloco no painel o expande</string>
+    <string name="enable_large_first_row">Alargar a primeira fileira</string>
     <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
     <string name="notification_full_width_volume_title">Largura do painel de volume</string>
     <string name="notification_full_width_volume">Remover o limite de largura do painel de volume em dispositivos com telas grandes</string>
@@ -87,6 +90,9 @@
     <string name="notification_dismiss_button">Mostrar \"LIMPAR TUDO\" ao invés do ícone de limpar</string>
     <string name="notification_allow_load_label_with_pm_title">Método alternativo para carregar o nome dos apps</string>
     <string name="notification_allow_load_label_with_pm">Permite que o nome do app seja carregado usando o PackageManager. Pode causar problemas de desempenho.</string>
+    <string name="action_search">Buscar</string>
+    <string name="notification_blacklisted_apps_title">Apps excluídos</string>
+    <string name="notification_blacklisted_apps">Não usar o novo estilo de notificações para estes apps</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
