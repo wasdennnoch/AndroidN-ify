@@ -36,6 +36,7 @@ public class NotificationPanelHooks {
 
         @Override
         public void onClick(View v) {
+            mExpandIndicator.setLayerType(View.LAYER_TYPE_NONE, null);
             flingSettings(!mExpandIndicator.isExpanded());
         }
     };

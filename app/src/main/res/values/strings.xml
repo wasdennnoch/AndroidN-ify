@@ -94,8 +94,8 @@
     <string name="notification_allow_load_label_with_pm_title">Alternative app name loading method</string>
     <string name="notification_allow_load_label_with_pm">Allow loading application name with PackageManager. May cause performance issues</string>
     <string name="action_search">Search</string>
-    <string name="notification_blacklisted_apps_title">Disabled apps</string>
-    <string name="notification_blacklisted_apps">Use old style notifications for these apps</string>
+    <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
+    <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->

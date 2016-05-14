@@ -2,16 +2,16 @@ package tk.wasdennnoch.androidn_ify.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
 public class ConfigUtils {
+
+    private static final String TAG = "ConfigUtils";
 
     private static ConfigUtils mInstance;
 
@@ -144,7 +144,7 @@ public class ConfigUtils {
                     apps.add(app);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                XposedHook.logE(TAG, "Error loading blacklisted apps", e);
             }
             blacklistedApps = apps;
         }
