@@ -12,7 +12,7 @@
     <!-- Notifications / Status bar header -->
     <color name="alarm_status_text_color">#64FFFFFF</color>
     <color name="emergency_calls_only_text_color">#66FFFFFF</color>
-    <color name="clock_date_text_color">#FFFFFFFF</color>
+    <color name="date_time_text_color">#FFFFFFFF</color>
 
     <color name="system_primary_color">#FF263238</color>
     <color name="system_secondary_color">#FF384248</color>

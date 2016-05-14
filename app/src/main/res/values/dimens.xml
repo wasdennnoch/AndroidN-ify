@@ -8,6 +8,7 @@
     <dimen name="right_layout_margin_top">28.0dp</dimen>
     <dimen name="right_layout_margin_right">12.0dp</dimen>
     <dimen name="right_icon_size">48.0dp</dimen>
+    <dimen name="right_icon_width_small">38.0dp</dimen>
     <dimen name="expand_indicator_padding">12.0dp</dimen>
 
     <dimen name="qs_quick_panel_margin_horizontal">12dp</dimen>

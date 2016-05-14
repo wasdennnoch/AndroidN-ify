@@ -1,6 +1,7 @@
 package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.app.Notification;
+import android.app.RemoteInput;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XModuleResources;
@@ -11,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -400,11 +402,26 @@ public class NotificationsHooks {
         }
     }
 
+    private boolean hasValidRemoteInput(Notification.Action action) {
+        if ((TextUtils.isEmpty(action.title)) || (action.actionIntent == null)) {
+            return false;
+        }
+        RemoteInput[] remoteInputs = action.getRemoteInputs();
+        if (remoteInputs == null || remoteInputs.length == 0) {
+            return false;
+        }
+        for (RemoteInput input : remoteInputs) {
+            CharSequence[] choices = input.getChoices();
+            if (input.getAllowFreeFormInput() || (choices != null && choices.length != 0)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void hookResAndroid(XC_InitPackageResources.InitPackageResourcesParam resparam) {
         try {
             if (ConfigUtils.notifications().change_style) {
-
-                //TODO More notification styling in the future
 
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action", notification_material_action);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_icon_group", notification_template_icon_group);
