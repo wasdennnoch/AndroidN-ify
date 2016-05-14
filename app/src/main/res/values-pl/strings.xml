@@ -75,6 +75,7 @@
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
     <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
+    <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go \na dotknięcie kafelka w panelu rozszerzy go</string>
     <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
     <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
     <string name="smaller_header_clock_title">Mniejszy zegarek</string>
@@ -92,6 +93,9 @@
     <string name="notification_dismiss_button">Pokaż \"WYCZYŚĆ WSZYSTKIE\" zamiast ikony czyszczenia</string>
     <string name="notification_allow_load_label_with_pm_title">Pozwól na ładowanie nazw aplikacji z PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Może powodować problemy z wydajnością</string>\
+    <string name="action_search">Szukaj</string>
+    <string name="notification_blacklisted_apps_title">Wyłączone aplikacje</string>
+    <string name="notification_blacklisted_apps">Użyj starego stylu powiadomień dla tych aplikacji</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
