@@ -309,6 +309,7 @@ public class NotificationsHooks {
                 // Drawables
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_header_bg", modRes.fwd(R.drawable.replacement_notification_header_bg));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_guts_bg", modRes.fwd(R.drawable.replacement_notification_guts_bg));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "qs_background_primary", modRes.fwd(R.drawable.replacement_qs_background_primary));
 
                 if (config.notifications.change_style) {
                     // Notifications
