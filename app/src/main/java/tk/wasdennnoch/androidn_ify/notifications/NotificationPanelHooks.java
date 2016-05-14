@@ -27,18 +27,12 @@ public class NotificationPanelHooks {
             mNotificationPanelView.setClipToPadding(false);
             View mHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mHeader");
             mHeader.setOnClickListener(null);
-            mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
-            mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
         }
     };
 
-    private static View.OnClickListener mExpandIndicatorListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            flingSettings(!mExpandIndicator.isExpanded());
-        }
-    };
+    public static void setExpandIndicator(ExpandableIndicator indicator) {
+        mExpandIndicator = indicator;
+    }
 
     @SuppressWarnings("unused")
     public static boolean isExpanded() {

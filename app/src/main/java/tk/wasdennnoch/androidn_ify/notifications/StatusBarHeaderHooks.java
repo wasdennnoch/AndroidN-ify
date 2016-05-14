@@ -173,17 +173,7 @@ public class StatusBarHeaderHooks {
                 LinearLayout.LayoutParams settingsContainerLp = new LinearLayout.LayoutParams(iconSize, iconSize);
                 mSettingsContainer.setLayoutParams(settingsContainerLp);
 
-                LinearLayout.LayoutParams expandIndicatorLp = new LinearLayout.LayoutParams(iconSize, iconSize);
-                mExpandIndicator = new ExpandableIndicator(context);
-                mExpandIndicator.setLayoutParams(expandIndicatorLp);
-                mExpandIndicator.setPadding(expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding);
-                mExpandIndicator.setClickable(true);
-                mExpandIndicator.setFocusable(true);
-                mExpandIndicator.setFocusableInTouchMode(false);
-                mExpandIndicator.setCropToPadding(false);
-                mExpandIndicator.setBackgroundResource(rippleRes);
-                mExpandIndicator.setId(R.id.statusbar_header_expand_indicator);
-
+                generateExpandIndicator(context);
 
                 RelativeLayout.LayoutParams emergencyCallsOnlyLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 emergencyCallsOnlyLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -538,7 +528,40 @@ public class StatusBarHeaderHooks {
         } else {
             if (mCollapseAfterHideDatails) NotificationPanelHooks.collapseIfNecessary();
             mQsDetailHeader.setClickable(false);
+
+            // Nasty hack to fix weird double ripple for expand indicator
+            mRightContainer.removeView(mExpandIndicator);
+            generateExpandIndicator(mStatusBarHeaderView.getContext());
+            mRightContainer.addView(mExpandIndicator);
+            mExpandIndicator.setExpanded(true);
         }
+    }
+
+    private static View.OnClickListener mExpandIndicatorListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            NotificationPanelHooks.flingSettings(!mExpandIndicator.isExpanded());
+        }
+    };
+
+    private static void generateExpandIndicator(Context context) {
+        ResourceUtils res = ResourceUtils.getInstance(context);
+        int rippleRes = context.getResources().getIdentifier("ripple_drawable", "drawable", XposedHook.PACKAGE_SYSTEMUI);
+        int iconSize = res.getDimensionPixelSize(R.dimen.right_icon_size);
+        int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
+
+        LinearLayout.LayoutParams expandIndicatorLp = new LinearLayout.LayoutParams(iconSize, iconSize);
+        mExpandIndicator = new ExpandableIndicator(context);
+        NotificationPanelHooks.setExpandIndicator(mExpandIndicator);
+        mExpandIndicator.setLayoutParams(expandIndicatorLp);
+        mExpandIndicator.setPadding(expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding);
+        mExpandIndicator.setClickable(true);
+        mExpandIndicator.setFocusable(true);
+        mExpandIndicator.setFocusableInTouchMode(false);
+        mExpandIndicator.setCropToPadding(false);
+        mExpandIndicator.setBackgroundResource(rippleRes);
+        mExpandIndicator.setId(R.id.statusbar_header_expand_indicator);
+        mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
     }
 
     private static void transition(final View v, final boolean in) {
