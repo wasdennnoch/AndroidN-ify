@@ -541,6 +541,8 @@ public class StatusBarHeaderHooks {
 
     private static void handleShowingDetail(final Object detail) {
         final boolean showingDetail = detail != null;
+        // Fixes an issue with the indicator having two backgrounds when layer type is hardware
+        mExpandIndicator.setLayerType(View.LAYER_TYPE_NONE, null);
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);

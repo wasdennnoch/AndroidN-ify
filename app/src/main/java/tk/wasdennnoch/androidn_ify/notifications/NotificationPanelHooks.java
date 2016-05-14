@@ -48,7 +48,7 @@ public class NotificationPanelHooks {
 
         @Override
         public void onClick(View v) {
-            // Fixes an issue with two backgrounds
+            // Fixes an issue with the indicator having two backgrounds when layer type is hardware
             mExpandIndicator.setLayerType(View.LAYER_TYPE_NONE, null);
             flingSettings(!mExpandIndicator.isExpanded());
         }
