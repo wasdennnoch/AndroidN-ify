@@ -95,8 +95,6 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) mSearchMenu.getActionView();
         mSearchView.setOnQueryTextListener(this);
-        mSearchView.setIconifiedByDefault(true);
-        mSearchView.setIconified(false);
         mSearchView.setMaxWidth(Integer.MAX_VALUE);
         return true;
     }
