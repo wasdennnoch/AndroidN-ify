@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">آیا مطمئن هستید؟</string>
     <string name="restart_broadcast_sent">ریستارت</string>
     <string name="activity_about">درباره N-ify</string>
-    <string name="about_author">برنامه نویس و سازنده \"MrWasdennnoch\"</string>
+    <string name="about_author">سازنده و برنامه نویس MrWasdennnoch مترجم علی حسنی</string>
     <string name="about_version">%1$s (%2$d) نسخه </string>
 
     <!-- prefs -->
@@ -66,14 +66,25 @@
     <string name="recents_navigation_delay_title">فاصله زمانی بین برنامه ها</string>
 	<string name="recents_navigation_delay">فاصله زمانی بین انتخاب و باز شدن</string>
     <string name="enable_large_recents">فعالسازی پنجره های بزرگتر</string>
+	<string name="no_recents_image">آیکن جدید صفحه ریسنتز خالی</string>
 
     <string name="no_previous_recents">هیچ برنامه ای باز نیست</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="enable_notification_header">تغییر دادن استاتوس بار</string>
+	<string name="header_status_bar_header">استاتوس بار</string>
+    <string name="enable_notification_header">Style header</string>
     <string name="notification_header_qs_tiles_count">تعداد تنظیمات نشان داده شده</string>
-    <string name="notification_header_qs_tiles_count_monitor">تنظیمات</string>
+    <string name="notification_header_qs_tiles_count_monitor">دکمه</string>
+    <string name="enable_new_tile_click_behavior">کلیک های اندروید 7</string>
+    <string name="enable_new_tile_click_behavior_summary">قابلیت جدید اندروید 7</string>
+    <string name="enable_large_first_row">بزرگ کردن ردیف اول</string>
+    <string name="hide_tuner_icon_title">غیر فعال کردن آیکن سیستم یو آی</string>
+    <string name="hide_edit_tiles_title">غیر فعال کردن دکمه ویرایش دکمه ها</string>
+    <string name="smaller_header_clock_title">ساعت کوچک</string>
+    <string name="smaller_header_clock">برای صفحه های کوچک بهتر است</string>
+    <string name="notification_full_width_volume_title">دیالوگ ولوم جدید</string>
+    <string name="notification_full_width_volume">دیالوگ ولوم تمام صفحه</string>
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -84,14 +95,24 @@
     <string name="notification_dismiss_button">نشان دادن حذف همه به جای آیکن</string>
     <string name="notification_allow_load_label_with_pm_title">روش دوم برای نام گذاری نوتیفیکیشن ها</string>
     <string name="notification_allow_load_label_with_pm">ممکن است از عملکرد بکاهد</string>
-    <string name="notification_full_width_volume_title">دیالوگ ولوم جدید</string>
-    <string name="notification_full_width_volume">دیالوگ ولوم تمام صفحه</string>
+	<string name="action_search">جست و جو</string>
+    <string name="notification_blacklisted_apps_title">برنامه های خاص</string>
+    <string name="notification_blacklisted_apps">استفاده از طرح قدیمی برای برنامه های خاص</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
-    <string name="update_notification_title">آپدیت جدید موجود است</string>
-    <string name="update_notification">آماده برای دانلود است %1$d نسخه</string>
+    <string name="update_notification_title">نسخه جدید موجود است!</string>
+    <string name="update_notification">موجود است %1$d نسخه</string>
     <string name="update_notification_download">دانلود</string>
+    <string name="check_for_updates_title">بروزرسانی</string>
+    <string name="check_for_updates">چک کردن نسخه های جدید اتوماتیک</string>
+    <string name="checking_for_update">در حال جست و جو برای آپدیت</string>
+    <string name="check_for_update_fail">خطا</string>
+    <string name="no_updates">شما آخرین نسخه را دارید</string>
+    <string name="update_notification_downloading">در حال دانلود</string>
+    <string name="update_notification_downloading_details">نسخه %1$d</string>
+    <string name="update_notification_download_fail">خطا دانلود</string>
+    <string name="update_notification_download_fail_details">نسخه %1$d</string>
     <!-- /UPDATE -->
 
 </resources>
