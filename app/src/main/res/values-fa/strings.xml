@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">آیا مطمئن هستید؟</string>
     <string name="restart_broadcast_sent">ریستارت</string>
     <string name="activity_about">درباره N-ify</string>
-    <string name="about_author">برنامه نویس و سازنده \"MrWasdennnoch\" مترجم علی حسنی</string>
+    <string name="about_author">سازنده و برنامه نویس MrWasdennnoch مترجم علی حسنی</string>
     <string name="about_version">%1$s (%2$d) نسخه </string>
 
     <!-- prefs -->
