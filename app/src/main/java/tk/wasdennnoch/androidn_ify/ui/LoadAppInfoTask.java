@@ -7,6 +7,7 @@ import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import tk.wasdennnoch.androidn_ify.utils.CachedResolveInfo;
@@ -14,7 +15,6 @@ import tk.wasdennnoch.androidn_ify.utils.CachedResolveInfo;
 public class LoadAppInfoTask extends AsyncTask<Object, Void, List<CachedResolveInfo>> {
 
     private OnFinishListener mListener;
-    private PackageManager mPackageManager;
 
     @Override
     protected void onPreExecute() {
@@ -24,18 +24,19 @@ public class LoadAppInfoTask extends AsyncTask<Object, Void, List<CachedResolveI
     @SuppressWarnings("unchecked")
     @Override
     protected List<CachedResolveInfo> doInBackground(Object... args) {
-        Context context = (Context) args[1];
-        mPackageManager = context.getPackageManager();
         mListener = (OnFinishListener) args[1];
+        Context context = (Context) args[1];
+        PackageManager packageManager = context.getPackageManager();
         List<CachedResolveInfo> mCachedAppsInfo = new ArrayList<>();
         List<ResolveInfo> mAppsInfo;
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        mAppsInfo = mPackageManager.queryIntentActivities(mainIntent, 0);
+        mAppsInfo = packageManager.queryIntentActivities(mainIntent, 0);
+        Collections.sort(mAppsInfo, new ResolveInfo.DisplayNameComparator(packageManager));
         for (ResolveInfo app : mAppsInfo) {
             CachedResolveInfo cachedResolveInfo = new CachedResolveInfo();
-            cachedResolveInfo.setIcon(app.loadIcon(mPackageManager));
-            cachedResolveInfo.setLabel(app.loadLabel(mPackageManager));
+            cachedResolveInfo.setIcon(app.loadIcon(packageManager));
+            cachedResolveInfo.setLabel(app.loadLabel(packageManager));
             cachedResolveInfo.setResolveInfo(app);
             mCachedAppsInfo.add(cachedResolveInfo);
         }
@@ -47,7 +48,6 @@ public class LoadAppInfoTask extends AsyncTask<Object, Void, List<CachedResolveI
     }
 
     public interface OnFinishListener {
-
         void onFinish(List<CachedResolveInfo> apps);
     }
 }

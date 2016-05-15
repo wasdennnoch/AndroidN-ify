@@ -48,7 +48,6 @@ public class CachedResolveInfo {
     }
 
     public boolean search(String query) {
-        query = query.toLowerCase();
         return labelSearch.contains(query) || packageNameSearch.contains(query);
     }
 }
