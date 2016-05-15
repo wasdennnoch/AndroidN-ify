@@ -138,7 +138,7 @@ public class ConfigUtils {
         public void loadBlacklistedApps() {
             List<String> apps = new ArrayList<>();
             try {
-                String jsonString = mPrefs.getString("notification_blacklist_apps", "{}");
+                String jsonString = mPrefs.getString("notification_blacklist_apps", "[]");
                 JSONArray jsonArray = new JSONArray(jsonString);
                 int appCount = jsonArray.length();
                 for (int i = 0; i < appCount; i++) {
