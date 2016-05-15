@@ -90,7 +90,7 @@
     <string name="header_notifications">Notificaties</string>
     <string name="notifications_change_style">Notificatie stijl</string>
     <string name="notifications_dark_theme_title">Zwart notificatie thema</string>
-    <string name="notifications_dark_theme">Zwarte notificatie achtergrond voor gebruikers met specifieke lagen thema's</string>
+    <string name="notifications_dark_theme">Zwarte notificatie achtergrond voor gebruikers met specifieke lagen thema\'s</string>
     <string name="notification_dismiss_button_title">Afwijsknop veranderen</string>
     <string name="notification_dismiss_button">Show \"WIS ALLES\" in plaats van het afwijsicoon</string>
     <string name="notification_allow_load_label_with_pm_title">Alternatieve appnaam laad methode.</string>
