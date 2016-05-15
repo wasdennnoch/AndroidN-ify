@@ -11,6 +11,7 @@
     <string name="activity_about">Об Android N-ify</string>
     <string name="about_author">Разработчик: \"MrWasdennnoch\"</string>
     <string name="about_version">Версия %1$s (%2$d)</string>
+    <string name="about_translator">Перевёл @vl_w</string>
 
     <!-- prefs -->
     <string name="prefs_file_not_readable">Xposed не может прочитать файл конфигурации, будут использованы стандартные значения. Это может быть связано с блокирующим режимом SELinux.</string>
@@ -78,6 +79,7 @@
     <string name="enable_new_tile_click_behavior_summary">Нажатие на плитку в строке быстрого доступа переключит состояние, не открыв меню парамера</string>
     <string name="enable_large_first_row">Увеличить первую строку</string>
     <string name="hide_tuner_icon_title">Скрыть иконку SystemUI Tuner</string>
+    <string name="hide_edit_tiles_title">Скрыть кнопку редактирования плиток</string> 
     <string name="smaller_header_clock_title">Уменьшить часы</string>
     <string name="smaller_header_clock">Уменьшает размер часов при раскрытой шапке статус-бара. Удобно для маленьких экранов</string>
     <string name="notification_full_width_volume_title">Растянуть диалог громкости</string>
@@ -94,8 +96,8 @@
     <string name="notification_allow_load_label_with_pm_title">Альтернативный метод загрузки названия приложения</string>
     <string name="notification_allow_load_label_with_pm">Разрешить загрузку названия приложения через PackageManager. Может вызвать проблемы с производительностью</string>
     <string name="action_search">Поиск</string>
-    <string name="notification_blacklisted_apps_title">Отключенные приложения</string>
-    <string name="notification_blacklisted_apps">Использовать старый тип уведомлений для этих приложений</string>
+    <string name="notification_blacklisted_apps_title">Черный список приложений</string>
+    <string name="notification_blacklisted_apps">Использовать старый стиль уведомлений для этих приложений</string>
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->
