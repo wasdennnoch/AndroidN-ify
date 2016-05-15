@@ -8,6 +8,7 @@
     <string name="restart_broadcast_sent">Inviata una richiesta per riavviare</string>
     <string name="activity_about">Informazioni Android N-ify</string>
     <string name="about_author">Sviluppato da \"MrWasdennnoch\"</string>
+    <string name="about_translator">Translated by @SlimShady\'s</string>
     <string name="about_version">Versione %1$s (%2$d)</string>
     
     <!-- prefs -->
@@ -35,8 +36,7 @@
 
     <string name="notifications_dark_theme_title">Tema notifiche scuro</string>
     <string name="notifications_dark_theme">Background delle notifiche scuro per utenti con specifici temi Layers.</string>
-
-    
+    <string name="hide_edit_tiles_title">Nascondi il tile "Edit Tiles"</string>
     <string name="hide_launcher_icon">Potrebbe richiedere il riavvio del launcher</string>
     <string name="hide_launcher_icon_title">Nascondi icona launcher</string>
     <string name="debug_log_title">Log di debug</string>
