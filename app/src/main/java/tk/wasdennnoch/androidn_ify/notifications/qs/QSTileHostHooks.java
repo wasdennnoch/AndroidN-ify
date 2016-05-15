@@ -91,7 +91,7 @@ public class QSTileHostHooks {
             Class<?> classTileHost = XposedHelpers.findClass(CLASS_TILE_HOST, classLoader);
 
             //XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
-            if (ConfigUtils.header().hide_cm13_edit_tiles) {
+            if (ConfigUtils.header().hide_edit_tiles) {
                 XposedHelpers.findAndHookMethod(classTileHost, "loadTileSpecs", String.class, loadTileSpecsHook);
             }
         } catch (Throwable t) {
