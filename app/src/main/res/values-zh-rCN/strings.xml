@@ -10,6 +10,7 @@
     <string name="restart_broadcast_sent">已发送重启广播</string>
     <string name="activity_about">关于 Android N-ify</string>
     <string name="about_author">开发者 \"MrWasdennnoch\"</string>
+    <string name="about_translator">翻译 @haseoxth</string>
     <string name="about_version">版本 %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -78,6 +79,7 @@
     <string name="enable_new_tile_click_behavior_summary">点击顶栏内的磁贴时直接切换状态\n点击快速设置面板内的磁贴时展开设置项</string>
     <string name="enable_large_first_row">扩大首行磁贴</string>
     <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
+    <string name="hide_edit_tiles_title">隐藏编辑磁贴按钮</string>
     <string name="smaller_header_clock_title">更小的时钟</string>
     <string name="smaller_header_clock">减小当展开下拉顶栏时显示时钟的尺寸。对小屏幕手机有帮助</string>
     <string name="notification_full_width_volume_title">全宽度的音量控制条</string>
@@ -94,8 +96,8 @@
     <string name="notification_allow_load_label_with_pm_title">备选的应用名称加载方案</string>
     <string name="notification_allow_load_label_with_pm">允许通过软件包安装程序加载应用名称。可能会影响手机性能</string>
     <string name="action_search">搜索</string>
-    <string name="notification_blacklisted_apps_title">禁用的应用</string>
-    <string name="notification_blacklisted_apps">选择过的应用将使用旧风格的通知</string>
+    <string name="notification_blacklisted_apps_title">黑名单应用</string>
+    <string name="notification_blacklisted_apps">选中的应用将使用旧风格的通知</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
