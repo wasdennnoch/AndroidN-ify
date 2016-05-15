@@ -165,9 +165,15 @@ public class StatusBarHeaderHooks {
 
             try {
 
+                boolean mShowTaskManager = true;
+                try {
+                    mShowTaskManager = XposedHelpers.getBooleanField(param.thisObject, "mShowTaskManager");
+                } catch (Throwable ignore) {
+                }
+
                 int rippleRes = context.getResources().getIdentifier("ripple_drawable", "drawable", XposedHook.PACKAGE_SYSTEMUI);
                 int rightIconHeight = res.getDimensionPixelSize(R.dimen.right_icon_size);
-                int rightIconWidth = mTaskManagerButton != null && XposedHelpers.getBooleanField(param.thisObject, "mShowTaskManager") ? res.getDimensionPixelSize(R.dimen.right_icon_width_small) : rightIconHeight;
+                int rightIconWidth = mTaskManagerButton != null && mShowTaskManager ? res.getDimensionPixelSize(R.dimen.right_icon_width_small) : rightIconHeight;
                 int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
                 int quickQSHorizontalMargin = res.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
                 int headerItemsMarginTop = res.getDimensionPixelSize(R.dimen.header_items_margin_top);
@@ -374,8 +380,8 @@ public class StatusBarHeaderHooks {
                 }
                 mHeaderQsPanel.setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
                 mExpandIndicator.setExpanded(f > 0.93F);
-            } catch (Throwable t) {
-                XposedHook.logE(TAG, "Error setting expansion values", t);
+            } catch (Throwable ignore) {
+                // Oh god, a massive spam wall coming right at you, quick, hide!
             }
         }
     };
@@ -403,7 +409,8 @@ public class StatusBarHeaderHooks {
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
-                if (mHideEditTiles && mSomcQuickSettings != null) mSomcQuickSettings.setVisibility(View.INVISIBLE);
+                if (mHideEditTiles && mSomcQuickSettings != null)
+                    mSomcQuickSettings.setVisibility(View.INVISIBLE);
                 if (mWeatherContainer != null) {
                     try {
                         mWeatherContainer.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather") ? View.VISIBLE : View.INVISIBLE);
