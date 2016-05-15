@@ -101,6 +101,7 @@ public class ConfigUtils {
         public boolean large_first_row;
         public boolean hide_tuner_icon;
         public boolean hide_edit_tiles;
+        public boolean hide_cm13_edit_tiles;
         public boolean smaller_header_clock;
         public boolean full_width_volume;
 
@@ -111,6 +112,7 @@ public class ConfigUtils {
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
             hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
+            hide_cm13_edit_tiles = prefs.getBoolean("hide_cm13_edit_tiles", false);
             smaller_header_clock = prefs.getBoolean("smaller_header_clock", false);
             full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
         }
