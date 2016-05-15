@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DateTimeView;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -283,13 +284,15 @@ public class NotificationsHooks {
     private static XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            Button button = (Button) param.thisObject;
+            if (param.thisObject instanceof Button) {
+                Button button = (Button) param.thisObject;
 
-            Drawable mAnimatedDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mAnimatedDismissDrawable");
-            mAnimatedDismissDrawable.setBounds(0, 0, 0, 0);
-            Drawable mStaticDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mStaticDismissDrawable");
-            mStaticDismissDrawable.setBounds(0, 0, 0, 0);
-            button.setVisibility(View.VISIBLE);
+                Drawable mAnimatedDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mAnimatedDismissDrawable");
+                mAnimatedDismissDrawable.setBounds(0, 0, 0, 0);
+                Drawable mStaticDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mStaticDismissDrawable");
+                mStaticDismissDrawable.setBounds(0, 0, 0, 0);
+                button.setVisibility(View.VISIBLE);
+            }
         }
     };
 
@@ -376,13 +379,18 @@ public class NotificationsHooks {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
-                Class classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewButton", classLoader);
 
                 if (config.notifications.change_style) {
                     XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                     XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
                 }
                 if (config.notifications.dismiss_button) {
+                    Class classDismissViewButton;
+                    try {
+                        classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewButton", classLoader);
+                    } catch (Throwable t) {
+                        classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewImageButton", classLoader);
+                    }
                     XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
                 }
 
@@ -544,7 +552,20 @@ public class NotificationsHooks {
             int dismissButtonPadding = res.getDimensionPixelSize(R.dimen.notification_dismiss_button_padding);
             int dismissButtonPaddingTop = res.getDimensionPixelSize(R.dimen.notification_dismiss_button_padding_top);
 
-            Button button = (Button) layout.getChildAt(0);
+            View buttonView = layout.getChildAt(0);
+            if (buttonView instanceof ImageButton) {
+                layout.removeView(buttonView);
+                buttonView = new Button(context);
+                buttonView.setFocusable(true);
+                //noinspection deprecation
+                buttonView.setBackground(context.getResources().getDrawable(context.getResources().getIdentifier("ripple_drawable", "drawable", PACKAGE_SYSTEMUI)));
+                buttonView.setContentDescription(context.getResources().getString(context.getResources().getIdentifier("accessibility_clear_all", "string", PACKAGE_SYSTEMUI)));
+                layout.addView(buttonView);
+            }
+            Button button = (Button) buttonView;
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.gravity = Gravity.END;
+            button.setLayoutParams(lp);
             button.setTextColor(res.getColor(android.R.color.white));
             button.setText(context.getString(context.getResources().getIdentifier("clear_all_notifications_text", "string", PACKAGE_SYSTEMUI)));
             button.setAllCaps(true);
