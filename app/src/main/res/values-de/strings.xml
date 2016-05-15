@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
 
     <string name="xposed_description">Bringt in Android N eingeführte Features auf Geräte mit Lollipop und Marshmallow!</string>
 
@@ -8,6 +10,7 @@
     <string name="restart_broadcast_sent">Neustart-Broadcast gesendet</string>
     <string name="activity_about">Über Android N-ify</string>
     <string name="about_author">Entwickelt von \"MrWasdennnoch\"</string>
+    <string name="about_translator">Übersetzt von @MrWasdennnoch</string> <!-- Insert your (preferably) XDA username here -->
     <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -28,7 +31,7 @@
     <string name="header_settings">Einstellungen</string>
     <string name="enable_settings_summaries_title">Untertitel in Einstellungen</string>
     <string name="enable_settings_summaries">Zeige die wichtigsten Informationen direkt in der Übersicht</string>
-    <string name="fix_sound_notif_tile_title">"Töne &amp; Benachrichtigungen"-Kachel reparieren</string>
+    <string name="fix_sound_notif_tile_title">\"Töne &amp; Benachrichtigungen\"-Kachel reparieren</string>
     <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kachel. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
 
     <string name="disconnected">Getrennt</string>
@@ -62,7 +65,7 @@
     <string name="recents_navigation_delay_title">Navigationsverzögerung</string>
     <string name="recents_navigation_delay">Zeit, bis die ausgewählte App in den Vordergrund geht</string>
     <string name="enable_large_recents">Große Recents</string>
-    <string name="no_recents_image">"Keine Recents"-Bild ändern</string>
+    <string name="no_recents_image">\"Keine Recents\"-Bild ändern</string>
 
     <string name="no_previous_recents">Keine zuletzt genutzten Apps</string>
     <!-- /RECENTS -->
@@ -72,7 +75,11 @@
     <string name="enable_notification_header">Header stylen</string>
     <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
     <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
+    <string name="enable_new_tile_click_behavior">Android N Kachel-Klick-Verhalten</string>
+    <string name="enable_new_tile_click_behavior_summary">Eine Kachel im Header klicken, um sie zu (de)aktivieren, im Panel, um Details zu zeigen</string>
+    <string name="enable_large_first_row">Erste Reihe vergrößern</string>
     <string name="hide_tuner_icon_title">SystemUI Tuner-Icon verstecken</string>
+    <string name="hide_edit_tiles_title">\"Kacheln Bearbeiten\" Button verstecken</string>
     <string name="smaller_header_clock_title">Kleinere Uhr</string>
     <string name="smaller_header_clock">Verringert die Textgröße der Uhr im ausgedehnten Header. Nützlich für kleine Bildschirme</string>
     <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
@@ -85,9 +92,12 @@
     <string name="notifications_dark_theme_title">Dunkle Benachrichtigungen</string>
     <string name="notifications_dark_theme">Dunkler Benachrichtigungshintergrund für Nutzer von speziellen Layers-Themes</string>
     <string name="notification_dismiss_button_title">Benachrichtigungs-Löschbutton ändern</string>
-    <string name="notification_dismiss_button">Zeige  \"ALLE LÖSCHEN\" anstatt des Icons</string>
+    <string name="notification_dismiss_button">Zeige \"ALLE LÖSCHEN\" anstatt des Icons</string>
     <string name="notification_allow_load_label_with_pm_title">Alternative Methode, App-Namen zu laden</string>
     <string name="notification_allow_load_label_with_pm">Erlaubt es, App-Namen mit dem PackageManager zu laden. Könnte Performanceprobleme verursachen</string>
+    <string name="action_search">Suchen</string>
+    <string name="notification_blacklisted_apps_title">Ausgeschlossene Apps</string>
+    <string name="notification_blacklisted_apps">Alten Benachrichtigungs-Stil für diese Apps verwenden</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->

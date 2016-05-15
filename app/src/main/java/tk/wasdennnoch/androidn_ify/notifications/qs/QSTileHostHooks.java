@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class QSTileHostHooks {
     public static final String TAG = "QSTileHostHooks";
@@ -54,6 +55,17 @@ public class QSTileHostHooks {
         }
     };
 
+    private static XC_MethodHook loadTileSpecsHook = new XC_MethodHook() {
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            List<String> tiles = (List<String>) param.getResult();
+            if (tiles.contains("edit")) {
+                tiles.remove("edit");
+            }
+        }
+    };
+
     public static List<String> getTileSpecs() {
         // TODO make this customizable
 
@@ -78,7 +90,10 @@ public class QSTileHostHooks {
         try {
             Class<?> classTileHost = XposedHelpers.findClass(CLASS_TILE_HOST, classLoader);
 
-            XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
+            //XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
+            if (ConfigUtils.header().hide_edit_tiles) {
+                XposedHelpers.findAndHookMethod(classTileHost, "loadTileSpecs", String.class, loadTileSpecsHook);
+            }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
         }

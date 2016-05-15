@@ -1,6 +1,8 @@
 package tk.wasdennnoch.androidn_ify.notifications;
 
+import android.app.Dialog;
 import android.app.Notification;
+import android.app.RemoteInput;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XModuleResources;
@@ -11,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -18,9 +21,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DateTimeView;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -261,7 +267,7 @@ public class NotificationsHooks {
         }
     };
 
-    private static XC_MethodHook updateWindowWidthH = new XC_MethodHook() {
+    private static XC_MethodHook updateWindowWidthHHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             ViewGroup mDialogView = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mDialogView");
@@ -277,17 +283,41 @@ public class NotificationsHooks {
             mDialogView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
         }
     };
+    private static XC_MethodHook updateWidthHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            Dialog mDialog = (Dialog) XposedHelpers.getObjectField(param.thisObject, "mDialog");
+            Resources res = mDialog.getContext().getResources();
+            Window window = mDialog.getWindow();
+            if (fullWidthVolume) {
+                WindowManager.LayoutParams lp = window.getAttributes();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                lp.width = dm.widthPixels;
+                window.setAttributes(lp);
+            }
+
+            ViewGroup mContentParent = (ViewGroup) XposedHelpers.getObjectField(window, "mContentParent");
+            ViewGroup panel = (ViewGroup) mContentParent.findViewById(res.getIdentifier("visible_panel", "id", PACKAGE_SYSTEMUI));
+            ViewGroup dialogView = (ViewGroup) panel.getParent();
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) dialogView.getLayoutParams();
+            params.leftMargin = params.rightMargin = 0;
+            //noinspection deprecation
+            dialogView.setBackgroundColor(res.getColor(res.getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+        }
+    };
 
     private static XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            Button button = (Button) param.thisObject;
+            if (param.thisObject instanceof Button) {
+                Button button = (Button) param.thisObject;
 
-            Drawable mAnimatedDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mAnimatedDismissDrawable");
-            mAnimatedDismissDrawable.setBounds(0, 0, 0, 0);
-            Drawable mStaticDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mStaticDismissDrawable");
-            mStaticDismissDrawable.setBounds(0, 0, 0, 0);
-            button.setVisibility(View.VISIBLE);
+                Drawable mAnimatedDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mAnimatedDismissDrawable");
+                mAnimatedDismissDrawable.setBounds(0, 0, 0, 0);
+                Drawable mStaticDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mStaticDismissDrawable");
+                mStaticDismissDrawable.setBounds(0, 0, 0, 0);
+                button.setVisibility(View.VISIBLE);
+            }
         }
     };
 
@@ -374,25 +404,30 @@ public class NotificationsHooks {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
-                Class classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewButton", classLoader);
 
                 if (config.notifications.change_style) {
                     XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                     XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
                 }
                 if (config.notifications.dismiss_button) {
+                    Class classDismissViewButton;
+                    try {
+                        classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewButton", classLoader);
+                    } catch (Throwable t) {
+                        classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewImageButton", classLoader);
+                    }
                     XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
                 }
 
                 fullWidthVolume = config.header.full_width_volume;
                 allowLoadLabelWithPackageManager = config.notifications.allow_load_label_with_pm;
 
-                try {
+                if (Build.VERSION.SDK_INT >= 23) {
                     Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
-                    XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
-                } catch (Throwable ignore) {
-                    // Not there in LP
-                    // TODO implementation for LP devices
+                    XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthHHook);
+                } else {
+                    Class classVolumePanel = XposedHelpers.findClass("com.android.systemui.volume.VolumePanel", classLoader);
+                    XposedHelpers.findAndHookMethod(classVolumePanel, "updateWidth", updateWidthHook);
                 }
             }
         } catch (Throwable t) {
@@ -400,11 +435,26 @@ public class NotificationsHooks {
         }
     }
 
+    private boolean hasValidRemoteInput(Notification.Action action) {
+        if ((TextUtils.isEmpty(action.title)) || (action.actionIntent == null)) {
+            return false;
+        }
+        RemoteInput[] remoteInputs = action.getRemoteInputs();
+        if (remoteInputs == null || remoteInputs.length == 0) {
+            return false;
+        }
+        for (RemoteInput input : remoteInputs) {
+            CharSequence[] choices = input.getChoices();
+            if (input.getAllowFreeFormInput() || (choices != null && choices.length != 0)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void hookResAndroid(XC_InitPackageResources.InitPackageResourcesParam resparam) {
         try {
             if (ConfigUtils.notifications().change_style) {
-
-                //TODO More notification styling in the future
 
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action", notification_material_action);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_icon_group", notification_template_icon_group);
@@ -527,7 +577,20 @@ public class NotificationsHooks {
             int dismissButtonPadding = res.getDimensionPixelSize(R.dimen.notification_dismiss_button_padding);
             int dismissButtonPaddingTop = res.getDimensionPixelSize(R.dimen.notification_dismiss_button_padding_top);
 
-            Button button = (Button) layout.getChildAt(0);
+            View buttonView = layout.getChildAt(0);
+            if (buttonView instanceof ImageButton) {
+                layout.removeView(buttonView);
+                buttonView = new Button(context);
+                buttonView.setFocusable(true);
+                //noinspection deprecation
+                buttonView.setBackground(context.getResources().getDrawable(context.getResources().getIdentifier("ripple_drawable", "drawable", PACKAGE_SYSTEMUI)));
+                buttonView.setContentDescription(context.getResources().getString(context.getResources().getIdentifier("accessibility_clear_all", "string", PACKAGE_SYSTEMUI)));
+                layout.addView(buttonView);
+            }
+            Button button = (Button) buttonView;
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.gravity = Gravity.END;
+            button.setLayoutParams(lp);
             button.setTextColor(res.getColor(android.R.color.white));
             button.setText(context.getString(context.getResources().getIdentifier("clear_all_notifications_text", "string", PACKAGE_SYSTEMUI)));
             button.setAllCaps(true);

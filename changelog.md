@@ -5,9 +5,10 @@
 - New notification design
 - New status bar header design
 - More double-tap fixes
+- Use recents button to navigate
 - Dark and orange app theme
 - About screen in app
-- Turkish, Chinese, Russian, Polish and French translation
+- Turkish, Russian, Polish, French, Farsi (Iran) and Thai  translation
 
 
 ### v0.1.2:

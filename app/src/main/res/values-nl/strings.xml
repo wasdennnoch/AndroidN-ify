@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string name="xposed_description">Stopt de nieuwe Android N functies in Marshmallow</string>
+
+    <string name="restart_systemui">Herstart SystemUI</string>
+    <string name="restart_systemui_message">Weet je zeker dat je SystemUI wil herstarten?</string>
+    <string name="restart_broadcast_sent">Herstart commando verzonden</string>
+    <string name="activity_about">Over Android N-ify</string>
+    <string name="about_author">Ontwikkeld door \"MrWasdennnoch\"</string>
+    <string name="about_translator">Translated by @wardpieters</string> <!-- Insert your (preferably) XDA username here -->
+    <string name="about_version">Version %1$s (%2$d)</string>
+
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">Het voorkeuren bestand is niet toegankelijk voor Xposed, standaard waarden worden gebruikt. Dit kan komen door het afdwingen van SELinux.</string>
+
+    <string name="header_tweaks">Aanpassingen</string>
+    <string name="header_app">App</string>
+
+    <string name="hide_launcher_icon_title">Verberg launcher icoon</string>
+    <string name="hide_launcher_icon">Vereist misschien herstart van launcher</string>
+    <string name="debug_log_title">Debug log</string>
+    <string name="debug_log">Waarschuwing: Log-overstromingen</string>
+
+    <string name="requires_android_version">Vereist Android %1$s</string>
+    <!-- /prefs -->
+
+    <!-- SETTINGS -->
+    <string name="header_settings">Instellingen</string>
+    <string name="enable_settings_summaries_title">Ondertitel in instellingen</string>
+    <string name="enable_settings_summaries">Laat de meest belangrijke informatie direct zien in het dashboard</string>
+    <string name="fix_sound_notif_tile_title">Los "Sound &amp; notification" op tegel</string>
+    <string name="fix_sound_notif_tile">Sommige ROMs combineren de geluids en notificatie tegel. Schakel in om een juist overzicht voor de tegel te hebben</string>
+
+    <string name="disconnected">Losgekoppeld</string>
+    <string name="disabled">Uitgeschakeld</string>
+    <string name="off">UIT</string>
+    <string name="on">AAN</string>
+    <string name="data_usage_summary">%1$s van de data gebruikt</string>
+    <string name="display_summary">Aangepaste helderheid is %1$s</string>
+    <string name="sound_summary">Beltoon volume op %1$s</string>
+    <string name="apps_summary">%1$d apps geïnstalleerd</string>
+    <string name="storage_summary">%1$s van %2$s gebruikt</string>
+    <string name="battery_summary">%1$s - ongeveer %2$s over</string>
+    <string name="battery_charging_wireless">%1$s - Draadloos oploaden</string>
+    <string name="battery_charging_usb">%1$s - Oploaden via USB</string>
+    <string name="battery_charging_ac">%1$s - Opladen via AC</string>
+    <string name="memory_summary">Momenteel %1$s van %2$s geheugen gebruikt</string>
+    <string name="user_summary">Ingelogd als %1$s</string>
+    <string name="location_on_power">AAN / Besparingsstand</string>
+    <string name="location_on_device">AAN / Alleen apparaat</string>
+    <string name="location_on_high">AAN / Hoge nauwkeurigheid</string>
+    <string name="print_summary">%1$d print taken</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="header_recents">Recent</string>
+    <string name="enable_recents_double_tap_title">Dubbel tik voor apps schakelen</string>
+    <string name="enable_recents_double_tap">Dubbel tik op de recent toest om te schakelen tussen de laatst gebruikte apps.</string>
+    <string name="double_tap_speed_title">Dubbel tik snelheid</string>
+    <string name="enable_recents_navigation_title">Recente apps navigatie</string>
+    <string name="enable_recents_navigation">Gebruik de recent toets om te schakelen tussen apps.</string>
+    <string name="recents_navigation_delay_title">Navigatie vertraging</string>
+    <string name="recents_navigation_delay">Tijd tot geselecteerde app wordt gefocust</string>
+    <string name="enable_large_recents">Grote recente apps</string>
+    <string name="no_recents_image">Verander \"geen recente apps\" afbeelding</string>
+
+    <string name="no_previous_recents">Hier worden uw recente apps weergegeven</string>
+    <!-- /RECENTS -->
+
+    <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Statusbalk header</string>
+    <string name="enable_notification_header">Header stijlen</string>
+    <string name="notification_header_qs_tiles_count">QS tegels tonen</string>
+    <string name="notification_header_qs_tiles_count_monitor">tegels</string>
+    <string name="enable_new_tile_click_behavior">Android N tegel klik gedrag</string>
+    <string name="enable_new_tile_click_behavior_summary">Klikken op een tegel die zich in de header bevindt zal schakelen en in het paneel zal uitbreiden</string>
+    <string name="enable_large_first_row">Vouw eerste rij uit</string>
+    <string name="hide_tuner_icon_title">SystemUI Tuner knop verbergen</string>
+    <string name="hide_edit_tiles_title">Pas tegels aan knop verbergen </string>
+    <string name="smaller_header_clock_title">Kleinere klok</string>
+    <string name="smaller_header_clock">Maak het lettertype van de klok kleiner in de uitvouwbare header. Handig voor kleine schermens</string>
+    <string name="notification_full_width_volume_title">Brede geluidsdialoog</string>
+    <string name="notification_full_width_volume">Zet de beperking voor de groote van de geluidsdialoog uit voor telefoons met grote schermen</string>
+    <!-- /STATUS BAR HEADER -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Notificaties</string>
+    <string name="notifications_change_style">Notificatie stijl</string>
+    <string name="notifications_dark_theme_title">Zwart notificatie thema</string>
+    <string name="notifications_dark_theme">Zwarte notificatie achtergrond voor gebruikers met specifieke lagen thema\'s</string>
+    <string name="notification_dismiss_button_title">Afwijsknop veranderen</string>
+    <string name="notification_dismiss_button">Show \"WIS ALLES\" in plaats van het afwijsicoon</string>
+    <string name="notification_allow_load_label_with_pm_title">Alternatieve appnaam laad methode.</string>
+    <string name="notification_allow_load_label_with_pm">Sta toe dat app wordt gestart met applicatiebeheer. Kan voor prestatie problemen zorgen</string>
+    <string name="action_search">Zoeken</string>
+    <string name="notification_blacklisted_apps_title">Apps op zwartelijst</string>
+    <string name="notification_blacklisted_apps">Gebruik de oude notificatie stijl voor deze apps</string>
+    <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">Nieuwe update beschikbaar</string>
+    <string name="update_notification">Build %1$d is nu beschikbaar om te updaten!</string>
+    <string name="update_notification_download">Update</string>
+    <string name="check_for_updates_title">Controleer voor updates</string>
+    <string name="check_for_updates">Controleer voor updates tijdens starten van app</string>
+    <string name="checking_for_update">Controleer voor updates…</string>
+    <string name="check_for_update_fail">Controleer voor updates mislukt!</string>
+    <string name="no_updates">Geen nieuwere versie gevonden</string>
+    <string name="update_notification_downloading">Update downloaden</string>
+    <string name="update_notification_downloading_details">Build %1$d downloaden</string>
+    <string name="update_notification_download_fail">Downloaden mislukt</string>
+    <string name="update_notification_download_fail_details">Downloaden van build  %1$d is mislukt</string>
+    <!-- /UPDATE -->
+
+</resources>

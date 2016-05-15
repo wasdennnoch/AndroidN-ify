@@ -10,6 +10,7 @@
     <string name="restart_broadcast_sent">Restart broadcast sent</string>
     <string name="activity_about">About Android N-ify</string>
     <string name="about_author">Developed by \"MrWasdennnoch\"</string>
+    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably) XDA username here -->
     <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -75,9 +76,10 @@
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
-    <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it \nand clicking a tile in the panel will expand it</string>
+    <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
     <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
+    <string name="hide_edit_tiles_title">Hide edit tiles button</string>
     <string name="smaller_header_clock_title">Smaller clock</string>
     <string name="smaller_header_clock">Lower the text size of the clock in the expanded header. Useful for small screens</string>
     <string name="notification_full_width_volume_title">Full width volume dialog</string>
@@ -94,8 +96,8 @@
     <string name="notification_allow_load_label_with_pm_title">Alternative app name loading method</string>
     <string name="notification_allow_load_label_with_pm">Allow loading application name with PackageManager. May cause performance issues</string>
     <string name="action_search">Search</string>
-    <string name="notification_blacklisted_apps_title">Disabled apps</string>
-    <string name="notification_blacklisted_apps">Use old style notifications for these apps</string>
+    <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
+    <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->

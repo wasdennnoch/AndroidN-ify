@@ -16,17 +16,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.CachedResolveInfo;
-import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class BlacklistAppActivity extends Activity implements SearchView.OnQueryTextListener, AppsAdapter.AppsAdapterListener, LoadAppInfoTask.OnFinishListener {
 
-    private MenuItem mSearchMenu;
-    private SearchView mSearchView;
     private String mSearchQuery;
     private RecyclerView mRecyclerView;
     private List<CachedResolveInfo> mApps;
@@ -60,7 +56,7 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
     public void loadBlacklistedApps() {
         List<String> apps = new ArrayList<>();
         try {
-            String jsonString = mSharedPrefs.getString("notification_blacklist_apps", "{}");
+            String jsonString = mSharedPrefs.getString("notification_blacklist_apps", "[]");
             JSONArray jsonArray = new JSONArray(jsonString);
             int appCount = jsonArray.length();
             for (int i = 0; i < appCount; i++) {
@@ -92,12 +88,9 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_blacklist_app, menu);
-        mSearchMenu = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) mSearchMenu.getActionView();
-        mSearchView.setOnQueryTextListener(this);
-        mSearchView.setIconifiedByDefault(true);
-        mSearchView.setIconified(false);
-        mSearchView.setMaxWidth(Integer.MAX_VALUE);
+        MenuItem searchMenu = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchMenu.getActionView();
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -113,9 +106,9 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
     }
 
     private boolean onSearch(String newText) {
-        if(mIsLoading) return false;
-        if(newText.length() < 1) {
-            if(mAdapter.getApps().size() != mApps.size()) {
+        if (mIsLoading) return false;
+        if (newText.length() < 1) {
+            if (mAdapter.getApps().size() != mApps.size()) {
                 mAdapter.setApps(mApps);
                 mAdapter.notifyDataSetChanged();
                 return true;
@@ -128,6 +121,7 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
     }
 
     public static List<CachedResolveInfo> search(List<CachedResolveInfo> apps, String query) {
+        query = query.toLowerCase();
         List<CachedResolveInfo> searchApps = new ArrayList<>();
         for (CachedResolveInfo app : apps) {
             if (app.search(query)) searchApps.add(app);

@@ -102,13 +102,6 @@ public class SettingsActivity extends Activity {
                             p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         }
                         break;
-                    case "settings_status_bar_header":
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference p = screen.findPreference("notification_full_width_volume");
-                            p.setEnabled(false);
-                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
-                        }
-                        break;
                 }
             }
             return false;

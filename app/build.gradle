@@ -33,5 +33,5 @@ dependencies {
     provided files('libs-provide/XposedBridgeApi-20150213.jar')
     provided files('libs-provide/android_hidden_api_23.jar')
     // This thing adds ~700KB, but it's needed
-    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
 }
