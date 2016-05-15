@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.notifications;
 
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.RemoteInput;
 import android.content.Context;
@@ -20,6 +21,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DateTimeView;
 import android.widget.FrameLayout;
@@ -264,7 +267,7 @@ public class NotificationsHooks {
         }
     };
 
-    private static XC_MethodHook updateWindowWidthH = new XC_MethodHook() {
+    private static XC_MethodHook updateWindowWidthHHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             ViewGroup mDialogView = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mDialogView");
@@ -278,6 +281,28 @@ public class NotificationsHooks {
             mDialogView.setLayoutParams(lp);
             //noinspection deprecation
             mDialogView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+        }
+    };
+    private static XC_MethodHook updateWidthHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            Dialog mDialog = (Dialog) XposedHelpers.getObjectField(param.thisObject, "mDialog");
+            Resources res = mDialog.getContext().getResources();
+            Window window = mDialog.getWindow();
+            if (fullWidthVolume) {
+                WindowManager.LayoutParams lp = window.getAttributes();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                lp.width = dm.widthPixels;
+                window.setAttributes(lp);
+            }
+
+            ViewGroup mContentParent = (ViewGroup) XposedHelpers.getObjectField(window, "mContentParent");
+            ViewGroup panel = (ViewGroup) mContentParent.findViewById(res.getIdentifier("visible_panel", "id", PACKAGE_SYSTEMUI));
+            ViewGroup dialogView = (ViewGroup) panel.getParent();
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) dialogView.getLayoutParams();
+            params.leftMargin = params.rightMargin = 0;
+            //noinspection deprecation
+            dialogView.setBackgroundColor(res.getColor(res.getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
         }
     };
 
@@ -397,12 +422,12 @@ public class NotificationsHooks {
                 fullWidthVolume = config.header.full_width_volume;
                 allowLoadLabelWithPackageManager = config.notifications.allow_load_label_with_pm;
 
-                try {
+                if (Build.VERSION.SDK_INT >= 23) {
                     Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
-                    XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthH);
-                } catch (Throwable ignore) {
-                    // Not there in LP
-                    // TODO implementation for LP devices
+                    XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthHHook);
+                } else {
+                    Class classVolumePanel = XposedHelpers.findClass("com.android.systemui.volume.VolumePanel", classLoader);
+                    XposedHelpers.findAndHookMethod(classVolumePanel, "updateWidth", updateWidthHook);
                 }
             }
         } catch (Throwable t) {
