@@ -77,6 +77,7 @@
     <string name="enable_new_tile_click_behavior_summary">Hızlı ayarlarda tıklanılan seçeneğe ait olan bilgileri gösterir.</string>
     <string name="enable_large_first_row">Ayrıntılı satır</string>
     <string name="hide_tuner_icon_title">SystemUI düzenleyiciyi gizle</string>
+    <string name="hide_edit_tiles_title">Düzenleme butonunu gizle</string>
     <string name="smaller_header_clock_title">Küçük saat</string>
     <string name="smaller_header_clock">Geliştirilmiş hızlı ayar başlığında saatin metin boyutunu küçültün.Küçük ekranlar için kullanışlıdır.</string>
     <string name="notification_full_width_volume_title">Tam boyutlu ses ayarları</string>
@@ -109,6 +110,7 @@
     <string name="update_notification_downloading_details">Yapı indiriliyor %1$d</string>
     <string name="update_notification_download_fail">İndirme başarısız!</string>
     <string name="update_notification_download_fail_details">Başarısız indirme yapı %1$d</string>
+    <string name="hide_cm13_edit_tiles_title">CM13 için düzenleyici butonunu gizle</string>
     <!-- /UPDATE -->
 
 </resources>
