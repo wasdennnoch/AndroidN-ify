@@ -49,6 +49,8 @@
     <string name="enable_new_tile_click_behavior_summary">Klepnutie na dlaždicu v záhlaví ju prepne\na klepnutie na dlaždicu v panely ju rozbalí</string>
     <string name="enable_large_first_row">Zväčšiť prvý riadok</string>
     <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
+    <string name="hide_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc</string>
+    <string name="hide_cm13_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc v CM13</string>
     <string name="smaller_header_clock_title">Menšie hodiny</string>
     <string name="smaller_header_clock">Zmenší text pre hodiny v otvorenom záhlaví. Užitočné pre menšie obrazovky</string>
     <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
