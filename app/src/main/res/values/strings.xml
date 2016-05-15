@@ -112,6 +112,7 @@
     <string name="update_notification_downloading_details">Downloading build %1$d</string>
     <string name="update_notification_download_fail">Download failed</string>
     <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
+    <string name="hide_cm13_edit_tiles_title">Hide CM13 edit tiles button</string>
     <!-- /UPDATE -->
 
 </resources>

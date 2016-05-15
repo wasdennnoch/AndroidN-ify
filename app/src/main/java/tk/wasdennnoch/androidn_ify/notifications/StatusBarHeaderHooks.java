@@ -30,6 +30,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.notifications.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.BluetoothTileHook;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.WifiTileHook;
@@ -674,8 +675,8 @@ public class StatusBarHeaderHooks {
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
+                    QSTileHostHooks.hook(classLoader);
                     isCm = true;
-                    //QSTileHostHooks.hook(classLoader);
                 } catch (Throwable ignore) {
                     XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
                 }
