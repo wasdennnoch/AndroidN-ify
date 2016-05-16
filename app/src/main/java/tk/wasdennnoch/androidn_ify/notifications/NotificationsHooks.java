@@ -579,12 +579,14 @@ public class NotificationsHooks {
 
             View buttonView = layout.getChildAt(0);
             if (buttonView instanceof ImageButton) {
+                View.OnClickListener oldListener = (View.OnClickListener) XposedHelpers.getObjectField(XposedHelpers.callMethod(buttonView, "getListenerInfo"), "mOnClickListener");
                 layout.removeView(buttonView);
                 buttonView = new Button(context);
                 buttonView.setFocusable(true);
                 //noinspection deprecation
                 buttonView.setBackground(context.getResources().getDrawable(context.getResources().getIdentifier("ripple_drawable", "drawable", PACKAGE_SYSTEMUI)));
                 buttonView.setContentDescription(context.getResources().getString(context.getResources().getIdentifier("accessibility_clear_all", "string", PACKAGE_SYSTEMUI)));
+                buttonView.setOnClickListener(oldListener);
                 layout.addView(buttonView);
             }
             Button button = (Button) buttonView;
