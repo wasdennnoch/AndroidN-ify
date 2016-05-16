@@ -102,9 +102,9 @@
     
     <!-- UPDATE -->
     <string name="update_notification_title">Обновление доступно</string>
-    <string name="update_notification">Билд %1$d доступен для обновления!</string>
+    <string name="update_notification">Билд %1$d доступен!</string>
     <string name="update_notification_download">Обновить</string>
-    <string name="check_for_updates_title">Проверить обновления</string>
+    <string name="check_for_updates_title">Проверка обновлений</string>
     <string name="check_for_updates">Проверять обновления при старте приложения</string>
     <string name="checking_for_update">Поиск обновлений…</string>
     <string name="check_for_update_fail">Не удалось проверить обновления</string>
