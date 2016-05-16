@@ -103,7 +103,7 @@
     <!-- UPDATE -->
     <string name="update_notification_title">Yeni güncelleme</string>
     <string name="update_notification">Yapı %1$d indirilmeye hazır!</string>
-    <string name="update_notification_download">Güncellemeler</string>
+    <string name="update_notification_download">Güncelle</string>
     <string name="check_for_updates_title">Güncellemeleri kontrol et</string>
     <string name="check_for_updates">Uygulama başlatıldığında güncellemeleri kontrol eder.</string>
     <string name="checking_for_update">Güncellemeler kontrol ediliyor ...</string>
