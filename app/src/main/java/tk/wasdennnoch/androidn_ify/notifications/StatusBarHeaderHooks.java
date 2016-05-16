@@ -321,6 +321,7 @@ public class StatusBarHeaderHooks {
                     mWeatherContainer.setLayoutParams(weatherContainerLp);
                 }
                 if (mCarrierText != null) {
+                    ((ViewGroup) mCarrierText.getParent()).removeView(mCarrierText);
                     RelativeLayout.LayoutParams carrierTextLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                     mCarrierText.setLayoutParams(carrierTextLp);
                     mCarrierText.setPadding(0, 0, 0, 0);
