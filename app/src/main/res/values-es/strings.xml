@@ -93,7 +93,7 @@
     <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
     <string name="notification_dismiss_button_title">Cambiar botón descartar</string>
     <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
-    <string name="notification_allow_load_label_with_pm_title">Permitir cargar el nombre de la aplicación con PackageManager</string>
+    <string name="notification_allow_load_label_with_pm_title">Cargar nombre de app con PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Puede causar problemas de rendimiento</string>
     <string name="action_search">Buscar</string>
     <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
@@ -103,7 +103,7 @@
     <!-- UPDATE -->
     <string name="update_notification_title">Nueva actualización disponible</string>
     <string name="update_notification">Versión %1$d disponible para actualizar!</string>
-    <string name="update_notification_download">Actualización</string>
+    <string name="update_notification_download">Actualizar</string>
     <string name="check_for_updates_title">Buscar actualizaciones</string>
     <string name="check_for_updates">Busca actualizaciones al iniciar la aplicación</string>
     <string name="checking_for_update">Buscando actualizaciones…</string>
