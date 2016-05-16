@@ -10,6 +10,7 @@
     <string name="restart_broadcast_sent">Petición de reinicio enviada</string>
     <string name="activity_about">Sobre Android N-ify</string>
     <string name="about_author">Desarrollado por \"MrWasdennnoch\"</string>
+    <string name="about_translator">Traducido por @Raikem</string>
     <string name="about_version">Versión %1$s (%2$d)</string>
     
     <!-- prefs -->
@@ -78,6 +79,7 @@
     <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
     <string name="enable_large_first_row">Alargar la primera fila</string>
     <string name="hide_tuner_icon_title">Esconder icono de SystemUI Tuner</string>
+    <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
     <string name="smaller_header_clock_title">Reloj pequeño</string>
     <string name="smaller_header_clock">Reduce el tamaño del reloj en la barra de estado expandida. Útil para pantallas pequeñas</string>
     <string name="notification_full_width_volume_title">Volumen con ancho completo</string>
