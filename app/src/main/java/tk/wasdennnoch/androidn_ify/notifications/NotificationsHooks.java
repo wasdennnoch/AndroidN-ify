@@ -741,6 +741,9 @@ public class NotificationsHooks {
 
             FrameLayout headerLayout = (FrameLayout) layout.getChildAt(0);
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
+            if (notificationMain == null) { // Some ROMs completely removed the ID
+                notificationMain = (LinearLayout) layout.getChildAt(layout.getChildCount() - 1);
+            }
             ImageView rightIcon = new ImageView(context);
 
             FrameLayout.LayoutParams headerLayoutLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, headerHeight);
