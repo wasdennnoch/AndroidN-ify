@@ -6,7 +6,7 @@
     <string name="xposed_description">Lollipop ve Marshmallow üzerinde Android N özelliklerini deneyin!</string>
 
     <string name="restart_systemui">SystemUI yeniden başlat</string>
-    <string name="restart_systemui_message">Sistem UI yeniden başlatmak istediğinizden emin misiniz?</string>
+    <string name="restart_systemui_message">SistemUI yeniden başlatmak istediğinizden emin misiniz?</string>
     <string name="restart_broadcast_sent">Yayını yeniden başlat</string>
     <string name="activity_about">Android N-ify Hakkında</string>
     <string name="about_author">Geliştirici \"MrWasdennnoch\"</string>
@@ -20,7 +20,7 @@
     <string name="header_app">Uygulama</string>
 
     <string name="hide_launcher_icon_title">Simgeyi gizle</string>
-    <string name="hide_launcher_icon">başlatıcının yeniden başlatılması gerekebilir</string>
+    <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
     <string name="debug_log">Dikkat: Log-flooding</string>
 
@@ -55,13 +55,13 @@
     <string name="print_summary">Bekleyen işlemler%1$d</string>
     <!-- /SETTINGS -->
 
-
     <!-- RECENTS -->
     <string name="header_recents">Son Uygulamalar</string>
     <string name="enable_recents_double_tap_title">Çift tıklama ile uygulamalar arası geçiş</string>
-    <string name="enable_recents_double_tap">Son uygulamalara tuşuna çift tıklayarak son kullanılan uygulamayı açar.</string>
+    <string name="enable_recents_double_tap">Son uygulamalar tuşuna çift tıklamak son kullanılan uygulamayı açar</string>
     <string name="double_tap_speed_title">Çift tıklama hızı</string>
     <string name="enable_recents_navigation_title">Son uygulamalar gezinme</string>
+    <string name="enable_recents_navigation">Son uygulamalar arasında gezinmek için son uygulamalar tuşunu kullanın</string>
     <string name="recents_navigation_delay_title">Gezinme gecikmesi</string>
     <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
     <string name="enable_large_recents">Büyük son uygulamalar</string>
@@ -74,11 +74,11 @@
     <string name="header_status_bar_header">Durum Çubuğu Başlığı</string>
     <string name="enable_notification_header">Başlık stili</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
-    <string name="notification_header_qs_tiles_count_monitor">kareler</string>
+    <string name="notification_header_qs_tiles_count_monitor">kare</string>
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
-    <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp - kapatabilir ve bir kareye tıklanarak panel genişletilecektir</string>
+    <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
     <string name="enable_large_first_row">İlk satırı büyüt</string>
-    <string name="hide_tuner_icon_title">Sistem UI Ayar simgesini gizlemek</string>
+    <string name="hide_tuner_icon_title">SistemUI Ayar simgesini gizle</string>
     <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
     <string name="smaller_header_clock_title">Küçük saat</string>
     <string name="smaller_header_clock">Genişletilmiş başlıkta saatin metin boyutunu düşürün. Küçük ekranlar için kullanışlıdır.</string>
@@ -91,7 +91,7 @@
     <string name="notifications_change_style">Bildirimler Stili</string>
     <string name="notifications_dark_theme_title">Karanlık bildirimler teması</string>
     <string name="notifications_dark_theme">Belirli Layers temaları kullanıcıları için karanlık bildirim arka planı</string>
-    <string name="notification_dismiss_button_title">Temizleme tuşunu değiştirme</string>
+    <string name="notification_dismiss_button_title">Temizleme tuşunu değiştir</string>
     <string name="notification_dismiss_button">Temizle tuşu yerine \"TÜMÜNÜ TEMİZLE\" yazısını gösterir.</string>
     <string name="notification_allow_load_label_with_pm_title">Alternatif uygulama adı yükleme yöntemi</string>
     <string name="notification_allow_load_label_with_pm">Paket Yöneticisine uygulama adı yükleme izni verir. Performans sorunlarına neden olabilir</string>
