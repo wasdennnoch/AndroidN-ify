@@ -69,6 +69,10 @@
     <string name="no_recents_image">\"Son uygulama yok\" görüntüsünü değiştir</string>
 
     <string name="no_previous_recents">Son uygulama yok</string>
+
+    <string name="recents_button_behavior_previous">Bir önceki uygulamaya dön</string>
+    <string name="recents_button_behavior_current">Geçerli uygulamaya dön</string>
+    <string name="recents_button_behavior_cycle">Uygulamalar arası geçiş</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
@@ -79,6 +83,7 @@
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
     <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
     <string name="enable_large_first_row">İlk satırı büyüt</string>
+    <string name="enable_large_first_row_summary"></string>
     <string name="hide_tuner_icon_title">SistemUI Ayar simgesini gizle</string>
     <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
     <string name="smaller_header_clock_title">Küçük saat</string>
