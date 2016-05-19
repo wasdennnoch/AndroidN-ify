@@ -19,6 +19,7 @@
     <string name="header_tweaks">Geliştirme</string>
     <string name="header_app">Uygulama</string>
 
+    <string name="app_dark_theme_title">Karanlık uygulama teması</string>  
     <string name="hide_launcher_icon_title">Simgeyi gizle</string>
     <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
