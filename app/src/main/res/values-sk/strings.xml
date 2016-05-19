@@ -29,16 +29,22 @@
 
     <!-- RECENTS -->
     <string name="header_recents">Nedávne aplikácie</string>
-    <string name="no_previous_recents">Žiadne nedávne položky</string>
     <string name="enable_recents_double_tap_title">Prepínanie aplikácií dvojitým poklepaním</string>
     <string name="enable_recents_double_tap">Dvojitým poklepaním otvorí predchádzajúcu aplikáciu</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
+    <string name="recents_button_behavior_title">Správanie tlačidla nedávnych aplikácií</string>
     <string name="enable_recents_navigation_title">Navigácia v nedávnych aplikáciách</string>
     <string name="enable_recents_navigation">Použije tlačidlo nedávnych apl. pre navigáciu medzi apl.</string>
     <string name="recents_navigation_delay_title">Oneskorenie navigácie</string>
     <string name="recents_navigation_delay">Čas pokým sa zvolená aplikácia otvorí</string>
     <string name="enable_large_recents">Veľké nedávne aplikácie</string>
     <string name="no_recents_image">Zmeniť obrázok \"Žiadne nedávne položky\"</string>
+    
+    <string name="no_previous_recents">Žiadne nedávne položky</string>
+
+    <string name="recents_button_behavior_previous">Vrátiť sa k predchádzajúcej aplikácii</string>
+    <string name="recents_button_behavior_current">Vrátiť sa k súčasnej aplikácii</string>
+    <string name="recents_button_behavior_cycle">Prechádzať cez aplikácie</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
