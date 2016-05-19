@@ -71,14 +71,18 @@ public class RecentsStackHooks {
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
+            XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
             if (config.recents.no_recents_image) {
-                XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "recents_stack_top_padding", modRes.fwd(R.dimen.recents_stack_top_padding));
                 try {
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "layout", "recents_empty", modRes.fwd(R.layout.recents_empty));
                 } catch (Throwable t) {
                     // AICP
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "layout", "no_recents_holder", modRes.fwd(R.layout.recents_empty));
                 }
+            }
+            if (config.recents.large_recents) {
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "recents_stack_top_padding", modRes.fwd(R.dimen.recents_stack_top_padding));
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
