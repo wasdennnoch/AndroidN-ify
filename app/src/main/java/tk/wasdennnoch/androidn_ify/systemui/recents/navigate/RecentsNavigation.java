@@ -58,7 +58,7 @@ public class RecentsNavigation {
     private static boolean mResetScroll;
 
     public static boolean isDoubleTap() {
-        return (mConfig.recents.double_tap && ((SystemClock.elapsedRealtime() - mStartRecentsActivityTime) < mConfig.recents.double_tap_speed));
+        return (mConfig.recents.force_double_tap || (mConfig.recents.double_tap && ((SystemClock.elapsedRealtime() - mStartRecentsActivityTime) < mConfig.recents.double_tap_speed)));
     }
 
     private static XC_MethodHook onBackPressedHook = new XC_MethodHook() {
@@ -132,7 +132,7 @@ public class RecentsNavigation {
                 mResetScroll = true;
                 mSkipFirstApp = !launchedFromHome;
             }
-            if (isDoubleTap && taskViewCount > (doubleTapLaunchIndexBackward - 1)) {
+            if (!mBackPressed && isDoubleTap && taskViewCount > (doubleTapLaunchIndexBackward - 1)) {
                 Object tv = taskViews.get(taskViewCount - doubleTapLaunchIndexBackward);
                 Object task = XposedHelpers.callMethod(tv, "getTask");
                 XposedHelpers.callMethod(mRecentsView, "onTaskViewClicked", stackView, tv, stack, task, false);

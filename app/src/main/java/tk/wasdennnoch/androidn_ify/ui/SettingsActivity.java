@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import java.io.File;
 
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class SettingsActivity extends Activity {
@@ -101,7 +103,18 @@ public class SettingsActivity extends Activity {
                             p.setEnabled(false);
                             p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         }
-                        break;
+                        final SeekBarPreference delayPref = (SeekBarPreference) screen.findPreference("recents_navigation_delay");
+                        ListPreference behaviorPref = (ListPreference) screen.findPreference("recents_button_behavior");
+                        if (behaviorPref.getValue().equals("2")) {
+                            delayPref.setEnabled(true);
+                        }
+                        behaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                            @Override
+                            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                delayPref.setEnabled(Integer.parseInt((String) newValue) == 2);
+                                return true;
+                            }
+                        });
                 }
             }
             return false;
