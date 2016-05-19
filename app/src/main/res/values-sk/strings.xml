@@ -55,6 +55,7 @@
     <string name="enable_new_tile_click_behavior">Android N správanie dlaždice po klepnutí</string>
     <string name="enable_new_tile_click_behavior_summary">Klepnutie na dlaždicu v záhlaví ju prepne a klepnutie na dlaždicu v panely ju rozbalí</string>
     <string name="enable_large_first_row">Zväčšiť prvý riadok</string>
+    <string name="enable_large_first_row_summary">Na CM radšej použite menu pre nastavenie dlaždíc</string>
     <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
     <string name="hide_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc</string>
     <string name="smaller_header_clock_title">Menšie hodiny</string>
@@ -93,6 +94,7 @@
     <!-- /UPDATE -->
 
     <string name="header_app">Aplikácia</string>
+    <string name="app_dark_theme_title">Tmavá téma aplikácie</string>
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
