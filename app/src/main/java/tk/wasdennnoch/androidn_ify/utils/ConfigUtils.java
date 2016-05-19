@@ -73,11 +73,10 @@ public class ConfigUtils {
     }
 
     public class RecentsConfig {
-        public boolean enable;
-
         public boolean double_tap;
         public int double_tap_speed;
         public boolean navigate_recents;
+        public boolean force_double_tap;
         public int navigation_delay;
         public boolean large_recents;
         public boolean no_recents_image;
@@ -85,12 +84,22 @@ public class ConfigUtils {
         public RecentsConfig(XSharedPreferences prefs) {
             double_tap = prefs.getBoolean("enable_recents_double_tap", true);
             double_tap_speed = prefs.getInt("double_tap_speed", 400);
-            navigate_recents = prefs.getBoolean("enable_recents_navigation", true);
             navigation_delay = prefs.getInt("recents_navigation_delay", 1000);
             large_recents = prefs.getBoolean("enable_large_recents", true);
             no_recents_image = prefs.getBoolean("no_recents_image", true);
+            force_double_tap = false;
 
-            enable = (double_tap || large_recents);
+            int recents_button_behavior = Integer.parseInt(prefs.getString("recents_button_behavior", "0"));
+            switch (recents_button_behavior) {
+                case 1:
+                    navigate_recents = false;
+                    break;
+                case 0:
+                    force_double_tap = true;
+                case 2:
+                    navigate_recents = true;
+                    break;
+            }
         }
     }
 
