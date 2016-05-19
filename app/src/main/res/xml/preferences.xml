@@ -186,6 +186,11 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="app_dark_theme"
+            android:title="@string/app_dark_theme_title"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="hide_launcher_icon"
             android:summary="@string/hide_launcher_icon"
             android:title="@string/hide_launcher_icon_title"/>

@@ -15,6 +15,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +38,9 @@ public class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("app_dark_theme", false))
+            setTheme(R.style.DarkTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         //noinspection ConstantConditions
@@ -81,6 +85,9 @@ public class SettingsActivity extends Activity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             switch (key) {
+                case "app_dark_theme":
+                    getActivity().recreate();
+                    break;
                 case "hide_launcher_icon":
                     int mode = prefs.getBoolean("hide_launcher_icon", false) ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
                     getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getActivity(), "tk.wasdennnoch.androidn_ify.SettingsAlias"), mode, PackageManager.DONT_KILL_APP);
