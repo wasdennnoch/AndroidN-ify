@@ -25,7 +25,7 @@
     <string name="hide_launcher_icon">ممکن است ریستارت لانچر لازم باشد</string>
     <string name="debug_log_title">گرفتن گزارش</string>
     <string name="debug_log">هشدار : ممکن است حجم زیادی گرفته شود</string>
-    <string name="requires_android_version">متاسفانه به اندروید بالاتر نیاز است.</string>
+    <string name="requires_android_version">متاسفانه به اندروید بالاتر نیاز است. %1$s</string> <!-- TODO implement this identifier somewhere! -->
     <!-- /prefs -->
 
     <!-- SETTINGS -->

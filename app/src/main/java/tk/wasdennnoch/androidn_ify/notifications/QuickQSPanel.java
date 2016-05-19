@@ -119,9 +119,12 @@ public class QuickQSPanel extends LinearLayout {
             try {
                 XposedHelpers.callMethod(tileView, "init", click, clickSecondary, longClick);
             } catch (Throwable t) {
-                // Mediatek
-                XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
-                XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
+                try {
+                    XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
+                    XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
+                } catch (Throwable t2) {
+                    XposedHelpers.callMethod(tileView, "init", click, longClick);
+                }
             }
             try {
                 XposedHelpers.callMethod(tileView, "setDual", false);

@@ -115,6 +115,7 @@ public class SettingsActivity extends Activity {
                                 return true;
                             }
                         });
+                        break;
                 }
             }
             return false;
