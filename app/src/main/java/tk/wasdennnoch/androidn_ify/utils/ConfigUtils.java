@@ -65,10 +65,12 @@ public class ConfigUtils {
         public boolean enable_summaries;
 
         public boolean fix_sound_notif_tile;
+        public boolean enable_n_platlogo;
 
         public SettingsConfig(XSharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
             fix_sound_notif_tile = prefs.getBoolean("fix_sound_notif_tile", false);
+            enable_n_platlogo = prefs.getBoolean("enable_n_platlogo", true);
         }
     }
 

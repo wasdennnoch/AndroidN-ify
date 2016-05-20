@@ -51,6 +51,10 @@
             android:name=".ui.AboutActivity"
             android:label="@string/activity_about" />
 
+        <activity
+            android:name=".ui.PlatLogoActivity"
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"/>
+
         <service
             android:name=".utils.DownloadService"
             android:exported="false" />

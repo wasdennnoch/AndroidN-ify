@@ -23,6 +23,11 @@
                 android:summary="@string/fix_sound_notif_tile"
                 android:title="@string/fix_sound_notif_tile_title"/>
 
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_n_platlogo"
+                android:title="@string/enable_n_platlogo_title"/>
+
         </PreferenceScreen>
 
 
