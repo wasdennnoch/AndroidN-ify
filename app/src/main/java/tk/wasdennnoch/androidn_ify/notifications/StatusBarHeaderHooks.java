@@ -111,7 +111,7 @@ public class StatusBarHeaderHooks {
             TextView mTime;
             TextView mAmPm;
             TextView mEmergencyCallsOnly;
-            TextView mCarrierText = null;
+            View mCarrierText = null;
             try {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
                 mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
@@ -138,6 +138,7 @@ public class StatusBarHeaderHooks {
             try {
                 mSettingsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsContainer");
             } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mSettingsContainer container (" + t.getClass().getSimpleName() + ")");
                 mSettingsContainer = mSettingsButton;
             }
             mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
@@ -148,19 +149,23 @@ public class StatusBarHeaderHooks {
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
             try {
                 mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mWeatherContainer container (" + t.getClass().getSimpleName() + ")");
             }
             try {
-                mCarrierText = (TextView) XposedHelpers.getObjectField(param.thisObject, "mCarrierText");
-            } catch (Throwable ignore) {
+                mCarrierText = (View) XposedHelpers.getObjectField(param.thisObject, "mCarrierText");
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mCarrierText container (" + t.getClass().getSimpleName() + ")");
             }
             try {
                 mTaskManagerButton = (View) XposedHelpers.getObjectField(param.thisObject, "mTaskManagerButton");
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mTaskManagerButton container (" + t.getClass().getSimpleName() + ")");
             }
             try {
                 mSomcQuickSettings = (View) XposedHelpers.getObjectField(param.thisObject, "mSomcQuickSettings");
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mSomcQuickSettings container (" + t.getClass().getSimpleName() + ")");
             }
 
             try {
@@ -325,8 +330,8 @@ public class StatusBarHeaderHooks {
                     RelativeLayout.LayoutParams carrierTextLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                     mCarrierText.setLayoutParams(carrierTextLp);
                     mCarrierText.setPadding(0, 0, 0, 0);
-                    mCarrierText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mEmergencyCallsOnly.getTextSize());
-                    mCarrierText.setTextColor(mEmergencyCallsOnly.getCurrentTextColor());
+                    //mCarrierText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mEmergencyCallsOnly.getTextSize());
+                    //mCarrierText.setTextColor(mEmergencyCallsOnly.getCurrentTextColor());
                 }
                 if (mTaskManagerButton != null) {
                     ((ViewGroup) mTaskManagerButton.getParent()).removeView(mTaskManagerButton);

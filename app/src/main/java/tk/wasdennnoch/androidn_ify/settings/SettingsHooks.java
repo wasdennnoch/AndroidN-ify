@@ -75,7 +75,7 @@ public class SettingsHooks {
                     if (Build.VERSION.SDK_INT >= 23) {
                         UserManager um = (UserManager) fragment.getActivity().getSystemService(Context.USER_SERVICE);
                         if (um.hasUserRestriction(UserManager.DISALLOW_FUN)) {
-                            XposedHook.logI(LOG_TAG, "Sorry, no fun for you!");
+                            Log.d(LOG_TAG, "Sorry, no fun for you!");
                             param.setResult(false);
                         }
                     }
