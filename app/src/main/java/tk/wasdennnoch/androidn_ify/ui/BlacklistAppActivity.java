@@ -34,6 +34,9 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean("app_dark_theme", false))
+            setTheme(R.style.DarkTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blacklist_app);
 
