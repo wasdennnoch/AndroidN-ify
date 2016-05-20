@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
     <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
     <string name="activity_about">O Android N-ify</string>
-    <string name="about_author">Stworzone przez \"MrWasdennnoch\"</string>
+    <string name="about_author">Stworzone przez @MrWasdennnoch</string>
     <string name="about_translator">Przetłumaczone przez @ziggynlp</string> <!-- Insert your (preferably) XDA username here -->
     <string name="about_version">Wersja %1$s (%2$d)</string>
 
@@ -87,13 +87,17 @@
     <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go \na dotknięcie kafelka w panelu rozszerzy go</string>
     <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
     <string name="enable_large_first_row_summary">Na CM użyj menu konfiguracji aby edytować kafelki</string>
-    <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
-    <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
     <string name="smaller_header_clock_title">Mniejszy zegarek</string>
     <string name="smaller_header_clock">Zmniejsza rozmiar tekstu zegarka w rozwiniętym nagłówku. Przydatne dla małych ekranów</string>
     <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
     <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
-    <!-- /STATUS BAR HEADER -->
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Ukryj elementy nagłówka</string>
+    <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
+    <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
+    <string name="hide_carrier_label_title">Ukryj nazwę dostawcy</string>
+    <!-- /Hide header icons -->
+	<!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Powiadomienia</string>
