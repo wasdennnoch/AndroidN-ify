@@ -36,6 +36,7 @@ public class SettingsActivity extends Activity {
     public static final String EXTRA_GENERAL_DEBUG_LOG = "extra.general.DEBUG_LOG";
     public static final String ACTION_KILL_SYSTEMUI = "tk.wasdennnoch.androidn_ify.action.ACTION_KILL_SYSTEMUI";
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -43,8 +44,9 @@ public class SettingsActivity extends Activity {
             setTheme(R.style.DarkTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        //noinspection ConstantConditions
-        if (isActivated() && !isPrefsFileReadable()) {
+        if (!isActivated()) {
+            getActionBar().setSubtitle(R.string.not_activated);
+        } else if (!isPrefsFileReadable()) {
             findViewById(R.id.prefs_not_readable_warning).setVisibility(View.VISIBLE);
         }
         if (savedInstanceState == null)
@@ -106,22 +108,23 @@ public class SettingsActivity extends Activity {
                 switch (preference.getKey()) {
                     case "settings_recents":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference p = screen.findPreference("enable_recents_navigation");
+                            Preference p = screen.findPreference("recents_button_behavior");
                             p.setEnabled(false);
                             p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
-                        }
-                        final SeekBarPreference delayPref = (SeekBarPreference) screen.findPreference("recents_navigation_delay");
-                        ListPreference behaviorPref = (ListPreference) screen.findPreference("recents_button_behavior");
-                        if (behaviorPref.getValue().equals("2")) {
-                            delayPref.setEnabled(true);
-                        }
-                        behaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                delayPref.setEnabled(Integer.parseInt((String) newValue) == 2);
-                                return true;
+                        } else {
+                            final SeekBarPreference delayPref = (SeekBarPreference) screen.findPreference("recents_navigation_delay");
+                            ListPreference behaviorPref = (ListPreference) screen.findPreference("recents_button_behavior");
+                            if (behaviorPref.getValue().equals("2")) {
+                                delayPref.setEnabled(true);
                             }
-                        });
+                            behaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                                @Override
+                                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                    delayPref.setEnabled(Integer.parseInt((String) newValue) == 2);
+                                    return true;
+                                }
+                            });
+                        }
                         break;
                 }
             }

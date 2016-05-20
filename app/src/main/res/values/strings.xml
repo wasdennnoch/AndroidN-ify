@@ -26,6 +26,8 @@
     <string name="debug_log">Warning: Log-flooding</string>
 
     <string name="requires_android_version">Requires Android %1$s</string>
+    
+    <string name="not_activated">Module not activated</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->

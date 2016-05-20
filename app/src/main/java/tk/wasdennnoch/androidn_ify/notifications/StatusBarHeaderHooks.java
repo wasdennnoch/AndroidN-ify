@@ -581,7 +581,13 @@ public class StatusBarHeaderHooks {
         if (showingDetail) {
             mCollapseAfterHideDatails = NotificationPanelHooks.isCollapsed();
             NotificationPanelHooks.expandIfNecessary();
-            mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle")); // TODO crashing for theme tile for some users
+            try {
+                mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
+            } catch (Throwable t) {
+                Context context = mQsDetailHeaderTitle.getContext();
+                Class<?> classQSTile = XposedHelpers.findClass(CLASS_QS_TILE, context.getClassLoader());
+                mQsDetailHeaderTitle.setText((String) XposedHelpers.callStaticMethod(classQSTile, "getDetailAdapterTitle", context, detail));
+            }
             final Boolean toggleState = (Boolean) XposedHelpers.callMethod(detail, "getToggleState");
             if (toggleState == null) {
                 mQsDetailHeaderSwitch.setVisibility(View.INVISIBLE);
