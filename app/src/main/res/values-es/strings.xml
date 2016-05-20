@@ -19,12 +19,15 @@
     <string name="header_tweaks">Modificaciones</string>
     <string name="header_app">Ajustes</string>
     
+    <string name="app_dark_theme_title">Tema oscuro</string>
     <string name="hide_launcher_icon">Puede requerir reiniciar el lanzador</string>
     <string name="hide_launcher_icon_title">Esconder icono en el lanzador</string>
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     
     <string name="requires_android_version">Requiere Android %1$s</string>
+    
+    <string name="not_activated">Módulo no activo</string>
     <!-- /prefs -->
     
     <!-- SETTINGS -->
@@ -60,6 +63,7 @@
     <string name="enable_recents_double_tap_title">Doble pulsación</string>
     <string name="enable_recents_double_tap">Doble pulsación al botón de recientes para volver a la última aplicación</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
+    <string name="recents_button_behavior_title">Comportamiento del botón recientes</string>
     <string name="enable_recents_navigation_title">Activar navegación de recientes</string>
     <string name="enable_recents_navigation">Usar el botón de recientes para navegar entre las aplicaciones recientes</string>
     <string name="recents_navigation_delay_title">Retraso de navegación</string>
@@ -68,6 +72,10 @@
     <string name="no_recents_image">Cambiar imagen de \"Ninguna aplicación reciente\"</string>
 
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
+    
+    <string name="recents_button_behavior_previous">Volver a la última alicación</string>
+    <string name="recents_button_behavior_current">Volver a la aplicación actual</string>
+    <string name="recents_button_behavior_cycle">Cambiar entre aplicaciones</string>
     <!-- /RECENTS -->
     
     <!-- STATUS BAR HEADER -->
@@ -78,6 +86,7 @@
     <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N</string>
     <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
     <string name="enable_large_first_row">Alargar la primera fila</string>
+    <string name="enable_large_first_row_summary">En CM usar el menú de configuración de ajustes rápidos propio</string>
     <string name="hide_tuner_icon_title">Esconder icono de SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
     <string name="smaller_header_clock_title">Reloj pequeño</string>
