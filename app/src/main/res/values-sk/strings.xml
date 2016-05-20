@@ -101,6 +101,8 @@
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
 
     <string name="requires_android_version">Vyžaduje Android %1$s</string>
+    
+    <string name="not_activated">Modul nie je aktivovaný</string>
     <!-- /prefs -->
 
 
