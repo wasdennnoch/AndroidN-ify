@@ -36,6 +36,7 @@ public class SettingsActivity extends Activity {
     public static final String EXTRA_GENERAL_DEBUG_LOG = "extra.general.DEBUG_LOG";
     public static final String ACTION_KILL_SYSTEMUI = "tk.wasdennnoch.androidn_ify.action.ACTION_KILL_SYSTEMUI";
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -43,8 +44,9 @@ public class SettingsActivity extends Activity {
             setTheme(R.style.DarkTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        //noinspection ConstantConditions
-        if (isActivated() && !isPrefsFileReadable()) {
+        if (!isActivated()) {
+            getActionBar().setSubtitle(R.string.not_activated);
+        } else if (!isPrefsFileReadable()) {
             findViewById(R.id.prefs_not_readable_warning).setVisibility(View.VISIBLE);
         }
         if (savedInstanceState == null)
