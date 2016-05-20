@@ -86,6 +86,34 @@
     <string name="notification_allow_load_label_with_pm">Autoriser le chargement du nom de l\'app avec PackageManager. Peut causer des problèmes de performance</string>
     <string name="notification_full_width_volume_title">Largeur totale boîte de dialogue du volume</string>
     <string name="notification_full_width_volume">Supprimer la limite de la largeur de la boîte de dialogue du volume pour les téléphones avec grand écran</string>
+    <string name="action_search">Rechercher</string>
+    <string name="app_dark_theme_title">Thème sombre</string>
+    <string name="check_for_update_fail">Impossible de récupérer les mises à jour</string>
+    <string name="check_for_updates">Vérifier les mises à jours au démarrage de l\'appli</string>
+    <string name="check_for_updates_title">Vérifier les mises à jours</string>
+    <string name="checking_for_update">Vérification de mises à jour...</string>
+    <string name="enable_large_first_row">Aggrandir la première rangée</string>
+    <string name="enable_large_first_row_summary">Sur CM utilisez à la place le menu de configuration du mode d\'édition</string>
+    <string name="enable_new_tile_click_behavior">Comportement d\'Android N à l\'appui.</string>
+    <string name="enable_new_tile_click_behavior_summary">Un click sur une tuile de l\'entête la basculeras et un appui sur une tuile du panneau ouvrira directement ses paramètres</string>
+    <string name="hide_edit_tiles_title">Cacher le bouton d\'édition des tuiles</string>
+    <string name="hide_tuner_icon_title">Cacher l\'icone de SystemUI Tuner</string>
+    <string name="no_recents_image">Changer l\'image de \"aucun récent\"</string>
+    <string name="no_updates">Pas de nouvelles versions trouvées</string>
+    <string name="notification_blacklisted_apps">Utilisation de l\'ancienne notification pour ces applis.</string>
+    <string name="notification_blacklisted_apps_title">Liste noire des applis.</string>
+    <string name="recents_button_behavior_current">Retourner à l\'application actuelle</string>
+    <string name="recents_button_behavior_cycle">Tourner dans les applis</string>
+    <string name="recents_button_behavior_previous">Retourner à l\'appli précédente</string>
+    <string name="recents_button_behavior_title">Comportement à l\'appui du bouton récent</string>
+    <string name="smaller_header_clock">Réduit la taille de l\'horloge dans la vue étendue. Utile pour les petits écrans</string>
+    <string name="smaller_header_clock_title">Petite horloge</string>
+    <string name="update_notification">Le build %1$d est prêt à être installé !</string>
+    <string name="update_notification_download">Mise à jour</string>
+    <string name="update_notification_download_fail">Echec du téléchargement</string>
+    <string name="update_notification_download_fail_details">Echec du téléchargement du build %1$d</string>
+    <string name="update_notification_downloading">Téléchargement de la mise à jour</string>
+    <string name="update_notification_downloading_details">Téléchargement du build %1$d</string>
     <!-- /NOTIFICATIONS -->
 	
 </resources>
