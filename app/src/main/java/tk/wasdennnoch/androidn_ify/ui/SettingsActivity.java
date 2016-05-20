@@ -111,19 +111,20 @@ public class SettingsActivity extends Activity {
                             Preference p = screen.findPreference("recents_button_behavior");
                             p.setEnabled(false);
                             p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
-                        }
-                        final SeekBarPreference delayPref = (SeekBarPreference) screen.findPreference("recents_navigation_delay");
-                        ListPreference behaviorPref = (ListPreference) screen.findPreference("recents_button_behavior");
-                        if (behaviorPref.getValue().equals("2")) {
-                            delayPref.setEnabled(true);
-                        }
-                        behaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                delayPref.setEnabled(Integer.parseInt((String) newValue) == 2);
-                                return true;
+                        } else {
+                            final SeekBarPreference delayPref = (SeekBarPreference) screen.findPreference("recents_navigation_delay");
+                            ListPreference behaviorPref = (ListPreference) screen.findPreference("recents_button_behavior");
+                            if (behaviorPref.getValue().equals("2")) {
+                                delayPref.setEnabled(true);
                             }
-                        });
+                            behaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                                @Override
+                                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                    delayPref.setEnabled(Integer.parseInt((String) newValue) == 2);
+                                    return true;
+                                }
+                            });
+                        }
                         break;
                 }
             }
