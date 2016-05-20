@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">¿Estas seguro de que quieres reiniciar SystemUI?</string>
     <string name="restart_broadcast_sent">Petición de reinicio enviada</string>
     <string name="activity_about">Sobre Android N-ify</string>
-    <string name="about_author">Desarrollado por \"MrWasdennnoch\"</string>
+    <string name="about_author">Desarrollado por @MrWasdennnoch</string>
     <string name="about_translator">Traducido por @Raikem</string>
     <string name="about_version">Versión %1$s (%2$d)</string>
     

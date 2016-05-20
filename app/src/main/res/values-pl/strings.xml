@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
     <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
     <string name="activity_about">O Android N-ify</string>
-    <string name="about_author">Stworzone przez \"MrWasdennnoch\"</string>
+    <string name="about_author">Stworzone przez @MrWasdennnoch</string>
     <string name="about_translator">Przetłumaczone przez @ziggynlp</string>
     <string name="about_version">Wersja %1$s (%2$d)</string>
 

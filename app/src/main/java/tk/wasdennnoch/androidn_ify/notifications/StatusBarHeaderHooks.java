@@ -54,6 +54,7 @@ public class StatusBarHeaderHooks {
     private static boolean mCollapseAfterHideDatails = false;
     private static boolean mHideTunerIcon = false;
     private static boolean mHideEditTiles = false;
+    private static boolean mHideCarrierLabel = false;
 
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
@@ -80,6 +81,7 @@ public class StatusBarHeaderHooks {
     private static View mWeatherContainer;
     private static View mTaskManagerButton;
     private static View mSomcQuickSettings;
+    private static View mCarrierText = null;
 
     private static ExpandableIndicator mExpandIndicator;
     private static LinearLayout mDateTimeAlarmGroup;
@@ -99,6 +101,7 @@ public class StatusBarHeaderHooks {
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
             Context context = mStatusBarHeaderView.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
+            ConfigUtils config = ConfigUtils.getInstance();
 
             try {
                 //noinspection deprecation
@@ -111,7 +114,6 @@ public class StatusBarHeaderHooks {
             TextView mTime;
             TextView mAmPm;
             TextView mEmergencyCallsOnly;
-            View mCarrierText = null;
             try {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
                 mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
@@ -142,8 +144,9 @@ public class StatusBarHeaderHooks {
                 mSettingsContainer = mSettingsButton;
             }
             mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
-            mHideTunerIcon = ConfigUtils.header().hide_tuner_icon;
-            mHideEditTiles = ConfigUtils.header().hide_edit_tiles;
+            mHideTunerIcon = config.header.hide_tuner_icon;
+            mHideEditTiles = config.header.hide_edit_tiles;
+            mHideCarrierLabel = config.header.hide_carrier_label;
             View dummyClock = new View(context);
             dummyClock.setVisibility(View.GONE);
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
@@ -417,6 +420,7 @@ public class StatusBarHeaderHooks {
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
                 if (mHideEditTiles && mSomcQuickSettings != null)
                     mSomcQuickSettings.setVisibility(View.INVISIBLE);
+                if (mHideCarrierLabel && mCarrierText != null) mCarrierText.setVisibility(View.GONE);
                 if (mWeatherContainer != null) {
                     try {
                         mWeatherContainer.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather") ? View.VISIBLE : View.INVISIBLE);

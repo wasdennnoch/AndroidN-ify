@@ -110,20 +110,22 @@ public class ConfigUtils {
         public int qs_tiles_count;
         public boolean new_click_behavior;
         public boolean large_first_row;
-        public boolean hide_tuner_icon;
-        public boolean hide_edit_tiles;
         public boolean smaller_header_clock;
         public boolean full_width_volume;
+        public boolean hide_tuner_icon;
+        public boolean hide_edit_tiles;
+        public boolean hide_carrier_label;
 
         public StatusBarHeaderConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
-            hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
-            hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             smaller_header_clock = prefs.getBoolean("smaller_header_clock", false);
             full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
+            hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
+            hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
+            hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
         }
     }
 

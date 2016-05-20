@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">你确定要重启系统界面吗？</string>
     <string name="restart_broadcast_sent">已发送重启广播</string>
     <string name="activity_about">关于 Android N-ify</string>
-    <string name="about_author">开发者 \"MrWasdennnoch\"</string>
+    <string name="about_author">开发者 @MrWasdennnoch</string>
     <string name="about_translator">翻译 @haseoxth</string>
     <string name="about_version">版本 %1$s (%2$d)</string>
 

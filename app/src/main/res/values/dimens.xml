@@ -69,4 +69,5 @@
     <dimen name="recents_empty_drawable_padding">25dp</dimen>
     <dimen name="recents_stack_top_padding">32dp</dimen>
     <!-- /Recents -->
+
 </resources>

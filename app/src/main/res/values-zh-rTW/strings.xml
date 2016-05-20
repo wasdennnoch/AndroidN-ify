@@ -9,8 +9,8 @@
     <string name="restart_systemui_message">你確定要重新啟動 SystemUI 嗎？</string>
     <string name="restart_broadcast_sent">重新啟動廣播推送</string>
     <string name="activity_about">關於 Android N-ify</string>
-    <string name="about_author">程式開發 來自 \"MrWasdennnoch\"</string>
-    <string name="about_translator">繁體中文翻譯 來自 ㄚ龍@阿榮中文化俱樂部</string> <!-- Insert your (preferably) XDA username here -->
+    <string name="about_author">程式開發 來自 @MrWasdennnoch</string>
+    <string name="about_translator">繁體中文翻譯 來自 ㄚ龍@阿榮中文化俱樂部</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">版本 %1$s (%2$d)</string>
 
     <!-- prefs -->

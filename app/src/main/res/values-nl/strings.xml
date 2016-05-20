@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">Weet je zeker dat je SystemUI wil herstarten?</string>
     <string name="restart_broadcast_sent">Herstart commando verzonden</string>
     <string name="activity_about">Over Android N-ify</string>
-    <string name="about_author">Ontwikkeld door \"MrWasdennnoch\"</string>
+    <string name="about_author">Ontwikkeld door @MrWasdennnoch</string>
     <string name="about_translator">Translated by @wardpieters</string> <!-- Insert your (preferably) XDA username here -->
     <string name="about_version">Version %1$s (%2$d)</string>
 

@@ -54,17 +54,19 @@
 
             <ListPreference
                 android:defaultValue="0"
-                android:key="recents_button_behavior"
-                android:title="@string/recents_button_behavior_title"
                 android:entries="@array/recents_button_behaviors"
-                android:entryValues="@array/recents_button_behaviors_values"/>
+                android:entryValues="@array/recents_button_behaviors_values"
+                android:key="recents_button_behavior"
+                android:summary="%s"
+                android:title="@string/recents_button_behavior_title"/>
+            <!-- Isn't the "%s" nifty? -->
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="1000"
+                android:enabled="false"
                 android:key="recents_navigation_delay"
                 android:summary="@string/recents_navigation_delay"
                 android:title="@string/recents_navigation_delay_title"
-                android:enabled="false"
                 app:interval="10"
                 app:maximum="4000"
                 app:minimum="500"
@@ -121,20 +123,35 @@
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:key="hide_tuner_icon"
-                android:title="@string/hide_tuner_icon_title"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
                 android:dependency="enable_notification_header"
-                android:key="hide_edit_tiles"
-                android:title="@string/hide_edit_tiles_title"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
                 android:key="smaller_header_clock"
                 android:summary="@string/smaller_header_clock"
                 android:title="@string/smaller_header_clock_title"/>
+
+            <PreferenceScreen
+                android:dependency="enable_notification_header"
+                android:key="settings_hide_header_icons"
+                android:title="@string/hide_icons_title">
+
+                <SwitchPreference
+                    android:defaultValue="false"
+                    android:dependency="enable_notification_header"
+                    android:key="hide_tuner_icon"
+                    android:title="@string/hide_tuner_icon_title"/>
+
+                <SwitchPreference
+                    android:defaultValue="false"
+                    android:dependency="enable_notification_header"
+                    android:key="hide_edit_tiles"
+                    android:title="@string/hide_edit_tiles_title"/>
+
+                <SwitchPreference
+                    android:defaultValue="false"
+                    android:dependency="enable_notification_header"
+                    android:key="hide_carrier_label"
+                    android:title="@string/hide_carrier_label_title"/>
+
+            </PreferenceScreen>
 
             <SwitchPreference
                 android:defaultValue="false"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="recents_button_behaviors">
         <item>@string/recents_button_behavior_previous</item>
         <item>@string/recents_button_behavior_current</item>
@@ -11,4 +12,5 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+
 </resources>

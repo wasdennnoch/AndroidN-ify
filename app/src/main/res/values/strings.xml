@@ -9,8 +9,8 @@
     <string name="restart_systemui_message">Are you sure you want to restart the SystemUI?</string>
     <string name="restart_broadcast_sent">Restart broadcast sent</string>
     <string name="activity_about">About Android N-ify</string>
-    <string name="about_author">Developed by \"MrWasdennnoch\"</string>
-    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably) XDA username here -->
+    <string name="about_author">Developed by @MrWasdennnoch</string>
+    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -87,12 +87,16 @@
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
     <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
-    <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
-    <string name="hide_edit_tiles_title">Hide edit tiles button</string>
     <string name="smaller_header_clock_title">Smaller clock</string>
     <string name="smaller_header_clock">Lower the text size of the clock in the expanded header. Useful for small screens</string>
     <string name="notification_full_width_volume_title">Full width volume dialog</string>
     <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Hide header items</string>
+    <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
+    <string name="hide_edit_tiles_title">Hide edit tiles button</string>
+    <string name="hide_carrier_label_title">Hide carrier label</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
