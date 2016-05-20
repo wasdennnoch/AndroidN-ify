@@ -35,7 +35,7 @@
     <string name="enable_settings_summaries_title">设置项摘要</string>
     <string name="enable_settings_summaries">在设置内直接显示最重要的系统信息</string>
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
-    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 的设置中显示出正确的信息摘要。</string>
+    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 中显示出正确的信息摘要。</string>
 
     <string name="disconnected">未连接</string>
     <string name="disabled">已禁用</string>
@@ -75,7 +75,7 @@
 
     <string name="recents_button_behavior_previous">返回到上一个应用</string>
     <string name="recents_button_behavior_current">返回到当前应用</string>
-    <string name="recents_button_behavior_cycle">依次浏览近期任务</string>
+    <string name="recents_button_behavior_cycle">依次浏览最近任务</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
@@ -87,12 +87,16 @@
     <string name="enable_new_tile_click_behavior_summary">点击顶栏内的磁贴时直接切换状态\n点击快速设置面板内的磁贴时展开设置项</string>
     <string name="enable_large_first_row">扩大首行磁贴</string>
     <string name="enable_large_first_row_summary">使用 CM 的用户请选择通过编辑磁贴模式中的配置菜单项进行该设置</string>
-    <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
-    <string name="hide_edit_tiles_title">隐藏编辑磁贴按钮</string>
     <string name="smaller_header_clock_title">更小的时钟</string>
     <string name="smaller_header_clock">减小当展开下拉顶栏时显示时钟的尺寸。对小屏幕手机有帮助</string>
     <string name="notification_full_width_volume_title">全宽度的音量控制条</string>
     <string name="notification_full_width_volume">针对大屏幕手机移除音量控制条的宽度限制</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">隐藏顶栏内的项目</string>
+    <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
+    <string name="hide_edit_tiles_title">隐藏编辑磁贴按钮</string>
+    <string name="hide_carrier_label_title">隐藏运营商名称</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
