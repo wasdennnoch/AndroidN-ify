@@ -26,6 +26,8 @@
     <string name="debug_log">Dikkat: Log-flooding</string>
 
     <string name="requires_android_version">Android %1$s sürümü gerekir</string>
+
+    <string name="not_activated">Modül aktif değil</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -118,6 +120,7 @@
     <string name="update_notification_downloading_details">Yapı %1$d indiriliyor</string>
     <string name="update_notification_download_fail">İndirme başarısız!</string>
     <string name="update_notification_download_fail_details">Yapı %1$d indirme başarısız oldu</string>
+    <string name="enable_n_platlogo_title">Süprizli N logosu</string>
     <!-- /UPDATE -->
 
 </resources>
