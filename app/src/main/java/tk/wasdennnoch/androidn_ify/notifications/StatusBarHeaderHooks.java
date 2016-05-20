@@ -607,7 +607,7 @@ public class StatusBarHeaderHooks {
             }
             if (mHasEditPanel) {
                 if ((int) XposedHelpers.callMethod(detail, "getTitle")
-                        == mQsDetailHeader.getContext().getResources().getIdentifier("quick_settings_edit_label", "string", PACKAGE_SYSTEMUI)) {
+                        == mQsDetailHeader.getResources().getIdentifier("quick_settings_edit_label", "string", PACKAGE_SYSTEMUI)) {
                     mEditTileDoneText.setVisibility(View.VISIBLE);
                 } else {
                     mEditTileDoneText.setVisibility(View.GONE);

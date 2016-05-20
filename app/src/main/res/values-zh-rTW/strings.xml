@@ -3,50 +3,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">將 Android N 的特色移植到 Lollipop(5.0/5.1) 或者 Marshmallow(6.0) 版本的系統(ROM)中！</string>
+    <string name="xposed_description">把 Android N 的功能移植到 Android 5.x(Lollipop) 和 Android 6.x(Marshmallow)！</string>
+
+    <string name="restart_systemui">重新啟動 SystemUI</string>
+    <string name="restart_systemui_message">你確定要重新啟動 SystemUI 嗎？</string>
+    <string name="restart_broadcast_sent">重新啟動廣播推送</string>
+    <string name="activity_about">關於 Android N-ify</string>
+    <string name="about_author">程式開發 來自 \"MrWasdennnoch\"</string>
+    <string name="about_translator">繁體中文翻譯 來自 ㄚ龍@阿榮中文化俱樂部</string> <!-- Insert your (preferably) XDA username here -->
+    <string name="about_version">版本 %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="header_settings">設定</string>
-    <string name="header_recents">最近使用的應用程式</string>
+    <string name="prefs_file_not_readable">偏好設定檔案無法被 Xposed 讀取，將使用預設值的掛勾。 這可能是因為 SELinux 目前處於 強制執行(Enforceing)中</string>
+
+    <string name="app_dark_theme_title">暗色主題</string>
+    <string name="header_tweaks">調整</string>
     <string name="header_app">應用程式</string>
 
-    <string name="enable_settings_summaries_title">啟用設定調整</string>
-    <string name="fix_sound_notif_tile_title">修復 "聲音 和 通知" 的選項</string>
-    <string name="fix_sound_notif_tile">有些系統會組合聲音和通知的選項，啟用本選項可修復。</string>
+    <string name="hide_launcher_icon_title">隱藏啟動器的圖示</string>
+    <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
+    <string name="debug_log_title">除錯紀錄</string>
+    <string name="debug_log">警告：紀錄如洪水</string>
 
-    <string name="double_tap_speed_title">雙擊速度</string>
+    <string name="requires_android_version">建議執行於 Android %1$s 以上</string>
 
-    <string name="hide_launcher_icon_title">隱藏啟動器圖示</string>
-    <string name="hide_launcher_icon">可能需要重新啟動</string>
-	<string name="debug_log_title">除錯日誌</string>
-    <string name="debug_log">警告:將會產生大量的日誌</string>
+    <string name="not_activated">模組尚未啟用！</string>
     <!-- /prefs -->
 
-
     <!-- SETTINGS -->
+    <string name="header_settings">設定</string>
+    <string name="enable_settings_summaries_title">設定 摘要資訊</string>
+    <string name="enable_settings_summaries">直接在儀表板上面顯示最重要的資訊</string>
+    <string name="fix_sound_notif_tile_title">修復 "音效和通知" 的資訊顯示錯誤</string>
+    <string name="fix_sound_notif_tile">有些系統會結合"音效"和"通知"的選項。啟用它使摘要正確的顯示</string>
+
     <string name="disconnected">未連線</string>
     <string name="disabled">已關閉</string>
     <string name="off">關閉</string>
     <string name="on">開啟</string>
-    <string name="data_usage_summary">已使用行動數據 %1$s</string>
-    <string name="display_summary">自動調節亮度已 %1$s</string>
+    <string name="data_usage_summary">數據用量已使用 %1$s </string>
+    <string name="display_summary">自動調整亮度 已%1$s</string>
     <string name="sound_summary">鈴聲音量 %1$s</string>
-    <string name="apps_summary">已安裝了 %1$d 個應用程式</string>
-    <string name="storage_summary">已使用 %1$s / %2$s</string>
-    <string name="battery_summary">%1$s - 還可用大約 %2$s </string>
-    <string name="battery_charging_wireless">%1$s - 正在通過 無線 充電</string>
-    <string name="battery_charging_usb">%1$s - 正在通過 USB 充電</string>
-    <string name="battery_charging_ac">%1$s - 正在通過 AC變壓器 充電</string>
-    <string name="memory_summary">目前已使用 %1$s / %2$s 的記憶體</string>
-    <string name="user_summary">已透過 %1$s 登入</string>
-    <string name="location_on_power">開啟/節約耗電量</string>
-    <string name="location_on_device">開啟/僅限裝置</string>
-    <string name="location_on_high">開啟/高精確度</string>
-    <string name="print_summary">%1$d 個列印任務</string>
+    <string name="apps_summary">含系統應用程式，一共安裝了 %1$d 個</string>
+    <string name="storage_summary">已使用 %1$s，共 %2$s </string>
+    <string name="battery_summary">目前電量百分比：%1$s - 還可用大約 %2$s </string>
+    <string name="battery_charging_wireless">%1$s - 正在透過無線模組充電</string>
+    <string name="battery_charging_usb">%1$s - 正在透過 USB 充電</string>
+    <string name="battery_charging_ac">%1$s - 正在透過 AC 變壓器充電</string>
+    <string name="memory_summary">目前已使用 %1$s 的記憶體空間，共 %2$s</string>
+    <string name="user_summary">目前的使用者：%1$s</string>
+    <string name="location_on_power">開啟 / 節約耗電量</string>
+    <string name="location_on_device">開啟 / 僅限裝置</string>
+    <string name="location_on_high">開啟 / 高精度</string>
+    <string name="print_summary">%1$d 個列印工作</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="no_previous_recents">沒有其他應用程式</string>
+    <string name="header_recents">最近使用的應用程式</string>
+    <string name="enable_recents_double_tap_title">雙擊應用程式 開關</string>
+    <string name="enable_recents_double_tap">雙擊多工鍵來開啟或關閉最近使用的應用程式</string>
+    <string name="double_tap_speed_title">雙擊速度</string>
+    <string name="recents_button_behavior_title">多工鍵 點擊的行為</string>
+    <string name="enable_recents_navigation_title">最近使用的應用程式 導航</string>
+    <string name="enable_recents_navigation">使用多工鍵導航到最近使用的應用程式</string>
+    <string name="recents_navigation_delay_title">導航延遲</string>
+    <string name="recents_navigation_delay">所選的應用程式被打開的時間</string>
+    <string name="enable_large_recents">顯示更多最近使用的應用程式</string>
+    <string name="no_recents_image">變更 \"沒有最近使用的應用程式\" 圖像</string>
+
+    <string name="no_previous_recents">你最近的螢幕會顯示在這裡</string>
+
+    <string name="recents_button_behavior_previous">回到上一個應用程式</string>
+    <string name="recents_button_behavior_current">回到目前的應用程式</string>
+    <string name="recents_button_behavior_cycle">應用程式的循環週期</string>
     <!-- /RECENTS -->
+
+    <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">下拉式狀態列</string>
+    <string name="enable_notification_header">調整狀態列</string>
+    <string name="notification_header_qs_tiles_count">狀態列內瓷磚的數量</string>
+    <string name="notification_header_qs_tiles_count_monitor">個</string>
+    <string name="enable_new_tile_click_behavior">Android N 瓷磚的點擊行為</string>
+    <string name="enable_new_tile_click_behavior_summary">點擊下拉式狀態列內的瓷磚時直接切換狀態\n點擊快速設定内的顯示項目时展開設定項目</string>
+    <string name="enable_large_first_row">首行瓷磚強制放大</string>
+    <string name="enable_large_first_row_summary">使用 CyanogenMod 的使用者請透過編輯瓷磚模式中的設定選單進行設定</string>
+    <string name="hide_tuner_icon_title">隱藏 系統介面調整 的圖示</string>
+    <string name="hide_edit_tiles_title">隱藏 編輯瓷磚 的按鈕</string>
+    <string name="smaller_header_clock_title">更小的時鐘</string>
+    <string name="smaller_header_clock">縮小時鐘在展開下拉式狀態列時的文字大小。有助於小螢幕的裝置</string>
+    <string name="notification_full_width_volume_title">最大化音量對話框的寬度</string>
+    <string name="notification_full_width_volume">在較大螢幕的手機上移除音量對話框的寬度限制</string>
+    <!-- /STATUS BAR HEADER -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">通知</string>
+    <string name="notifications_change_style">通知的風格</string>
+    <string name="notifications_dark_theme_title">暗色通知主題</string>
+    <string name="notifications_dark_theme">針對一些使用特定主題的使用者使用黑色通知背景</string>
+    <string name="notification_dismiss_button_title">更改 清除 按鈕</string>
+    <string name="notification_dismiss_button">顯示\"全部清除\" 取代原本的圖示</string>
+    <string name="notification_allow_load_label_with_pm_title">取代讀取應用程式名稱的方法</string>
+    <string name="notification_allow_load_label_with_pm">允許從 安裝包管理(PackageManager) 讀取應用程式名稱。可能會引響手機的效能</string>
+    <string name="action_search">搜尋</string>
+    <string name="notification_blacklisted_apps_title">黑名單</string>
+    <string name="notification_blacklisted_apps">給這些應用程式使用舊式的通知風格</string>
+    <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">發現新大陸&#8230;呃，不對是發現新版本！</string>
+    <string name="update_notification">發現可用的組建 %1$d 可以更新！</string>
+    <string name="update_notification_download">更新</string>
+    <string name="check_for_updates_title">檢查更新</string>
+    <string name="check_for_updates">啟動應用程式時檢查更新</string>
+    <string name="checking_for_update">正在檢查更新&#8230;</string>
+    <string name="check_for_update_fail">無法檢查更新！</string>
+    <string name="no_updates">目前為最新版本！</string>
+    <string name="update_notification_downloading">正在下載更新&#8230;</string>
+    <string name="update_notification_downloading_details">正在下載組建 %1$d &#8230;</string>
+    <string name="update_notification_download_fail">下載失敗</string>
+    <string name="update_notification_download_fail_details">下載組建 %1$d 失敗！</string>
+    <!-- /UPDATE -->
 
 </resources>
