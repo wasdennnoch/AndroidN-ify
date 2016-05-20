@@ -106,7 +106,7 @@ public class SettingsActivity extends Activity {
                 switch (preference.getKey()) {
                     case "settings_recents":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference p = screen.findPreference("enable_recents_navigation");
+                            Preference p = screen.findPreference("recents_button_behavior");
                             p.setEnabled(false);
                             p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         }
