@@ -122,6 +122,7 @@
     <string name="update_notification_downloading_details">Downloading build %1$d</string>
     <string name="update_notification_download_fail">Download failed</string>
     <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
+    <string name="enable_n_platlogo_title">N logo in easter egg</string>
     <!-- /UPDATE -->
 
 </resources>
