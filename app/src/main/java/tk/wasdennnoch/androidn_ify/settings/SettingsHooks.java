@@ -2,6 +2,7 @@ package tk.wasdennnoch.androidn_ify.settings;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.SystemClock;
 import android.os.UserManager;
 import android.preference.Preference;
@@ -14,7 +15,6 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.settings.summaries.SummaryTweaks;
 import tk.wasdennnoch.androidn_ify.ui.PlatLogoActivity;
-import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class SettingsHooks {
@@ -72,9 +72,12 @@ public class SettingsHooks {
                 System.arraycopy(mHits, 1, mHits, 0, mHits.length-1);
                 mHits[mHits.length-1] = SystemClock.uptimeMillis();
                 if (mHits[0] >= (SystemClock.uptimeMillis()-500)) {
-                    UserManager um = (UserManager) fragment.getActivity().getSystemService(Context.USER_SERVICE);
-                    if (um.hasUserRestriction(UserManager.DISALLOW_FUN)) {
-                        param.setResult(false);
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        UserManager um = (UserManager) fragment.getActivity().getSystemService(Context.USER_SERVICE);
+                        if (um.hasUserRestriction(UserManager.DISALLOW_FUN)) {
+                            XposedHook.logI(LOG_TAG, "Sorry, no fun for you!");
+                            param.setResult(false);
+                        }
                     }
 
                     Intent intent = new Intent(Intent.ACTION_MAIN);
