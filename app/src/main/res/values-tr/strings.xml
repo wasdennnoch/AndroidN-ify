@@ -30,6 +30,8 @@
     <string name="not_activated">Modül aktif değil</string>
 
     <string name="theme_colorPrimary">Ana renk</string>
+
+    <string name="header_lockscreen">Kilit ekranı</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -132,5 +134,28 @@
     <string name="update_notification_download_fail_details">Yapı %1$d indirme başarısız oldu</string>
     <string name="enable_n_platlogo_title">Süprizli N logosu</string>
     <!-- /UPDATE -->
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Acil Durum Bilgisi</string>
+    <string name="enable_emergency_info_title">Acil durum bilgisini etkinleştirme</string>
+    <string name="edit_emergency_info_title">Acil durum bilgisini düzenle</string>
+
+    <string name="header_personal">Kişisel</string>
+    <string name="info_fullname">Tam isim</string>
+    <string name="info_address">Adres</string>
+    <string name="info_birthdate">Doğum tarihi</string>
+
+    <string name="header_medical">Medikal</string>
+    <string name="info_bloodtype">Kan grubu</string>
+    <string name="info_allergies">Alerjiler</string>
+    <string name="info_medications">İlaçlar</string>
+    <string name="info_medicalnotes">Tıbbi durumlar ve notlar</string>
+    <string name="info_organdonor">Organ Bağışı</string>
+
+    <string name="info_unspecified">Belirtilmemiş</string>
+    <!-- /EMERGENCY -->
+ 
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
 
 </resources>
