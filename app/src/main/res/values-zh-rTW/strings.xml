@@ -147,7 +147,7 @@
     <string name="info_birthdate">出生日期</string>
 
     <string name="header_medical">就醫</string>
-    <string name="info_bloodtype">血型</string>
+    <string name="info_bloodtype">血型(台灣常見血型為 Rh+)</string>
     <string name="info_allergies">過敏</string>
     <string name="info_medications">藥物治療</string>
     <string name="info_medicalnotes">就醫治療和注意事項</string>
@@ -155,14 +155,14 @@
 
     <string name="info_unspecified">無</string>
 
-    <string name="info_bloodtype_op">O+</string>
-    <string name="info_bloodtype_on">O-</string>
-    <string name="info_bloodtype_ap">A+</string>
-    <string name="info_bloodtype_an">A-</string>
-    <string name="info_bloodtype_bp">B+</string>
-    <string name="info_bloodtype_bn">B-</string>
-    <string name="info_bloodtype_abp">AB+</string>
-    <string name="info_bloodtype_abn">AB-</string>
+    <string name="info_bloodtype_op">O 型 Rh+</string>
+    <string name="info_bloodtype_on">O 型 Rh-</string>
+    <string name="info_bloodtype_ap">A 型 Rh+</string>
+    <string name="info_bloodtype_an">A 型 Rh-</string>
+    <string name="info_bloodtype_bp">B 型 Rh+</string>
+    <string name="info_bloodtype_bn">B 型 Rh-</string>
+    <string name="info_bloodtype_abp">AB 型 Rh+</string>
+    <string name="info_bloodtype_abn">AB 型 Rh-</string>
     <!-- /EMERGENCY -->
 
     <string name="yes">是</string>
