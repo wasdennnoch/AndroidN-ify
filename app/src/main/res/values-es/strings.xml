@@ -28,6 +28,8 @@
     <string name="requires_android_version">Requiere Android %1$s</string>
     
     <string name="not_activated">Módulo no activo</string>
+    
+    <string name="theme_colorPrimary">Color primario</string>
     <!-- /prefs -->
     
     <!-- SETTINGS -->
@@ -36,6 +38,7 @@
     <string name="enable_settings_summaries">Muetra la información más importante directamente en la barra de notificaciones</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
     <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. Activa esto para mostrar la información correctamente</string>
+    <string name="enable_n_platlogo_title">N logo en el heuvo de pascua</string>
     
     <string name="disconnected">Desconectado</string>
     <string name="disabled">Desactivado</string>
@@ -87,12 +90,16 @@
     <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
     <string name="enable_large_first_row">Alargar la primera fila</string>
     <string name="enable_large_first_row_summary">En CM usar el menú de configuración de ajustes rápidos propio</string>
-    <string name="hide_tuner_icon_title">Esconder icono de SystemUI Tuner</string>
-    <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
     <string name="smaller_header_clock_title">Reloj pequeño</string>
     <string name="smaller_header_clock">Reduce el tamaño del reloj en la barra de estado expandida. Útil para pantallas pequeñas</string>
     <string name="notification_full_width_volume_title">Volumen con ancho completo</string>
     <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Ocultar información</string>
+    <string name="hide_tuner_icon_title">Ocultar icono de SystemUI Tuner</string>
+    <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
+    <string name="hide_carrier_label_title">Ocultar operador de red</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -107,6 +114,10 @@
     <string name="action_search">Buscar</string>
     <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
     <string name="notification_blacklisted_apps">Usar el estilo antigüo para estas aplicaciones</string>
+    <string name="notifications_custom_color_title">Usar color de acento personalizado</string>
+    <string name="notifications_accent_color_title">Color de acento</string>
+    <string name="notifications_custom_actions_color_title">Usar color personalizado para fondo</string>
+    <string name="notifications_actions_color_title">Color de fondo de acciones</string>
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->
