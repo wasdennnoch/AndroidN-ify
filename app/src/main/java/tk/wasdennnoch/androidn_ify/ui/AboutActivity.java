@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class AboutActivity extends Activity implements UpdateUtils.UpdateListener {
@@ -23,8 +24,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("app_dark_theme", false))
-            setTheme(R.style.DarkTheme);
+        ThemeUtils.applyTheme(this, prefs);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);

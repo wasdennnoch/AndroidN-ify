@@ -55,7 +55,6 @@ public class NotificationsHooks {
 
     private static final String TAG = "NotificationsHooks";
 
-    private static boolean darkTheme = false;
     private static boolean fullWidthVolume = false;
     private static boolean allowLoadLabelWithPackageManager = false;
 
@@ -264,6 +263,16 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_MethodReplacement resolveColorHook = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            int mColor = XposedHelpers.getIntField(param.thisObject, "mColor");
+            if (mColor == 0)
+                return ConfigUtils.notifications().appname_color;
+            return mColor;
+        }
+    };
+
     private static XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -362,9 +371,6 @@ public class NotificationsHooks {
                     }
                 }
 
-                if (config.notifications.dark_theme) {
-                    darkTheme = true;
-                }
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", new XResources.DrawableLoader() {
                     @Override
                     public Drawable newDrawable(XResources xResources, int i) throws Throwable {
@@ -427,6 +433,8 @@ public class NotificationsHooks {
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplateWithActions", int.class, applyStandardTemplateWithActionsHook);
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
+            if (ConfigUtils.notifications().custom_appname_color)
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
             XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
         }
     }
@@ -816,14 +824,18 @@ public class NotificationsHooks {
                     child.setLayoutParams(childLp);
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
-                    // This only works on Marshmallow as notification templates don't have tag on Lollipop
-                    //if (!layout.getTag().equals("inbox")) {
+
+                    int separatorSize = res.getDimensionPixelSize(R.dimen.notification_separator_size);
+
+                    childLp.bottomMargin += separatorSize;
 
                     if (!isInboxLayout) {
                         childLp.topMargin += actionsMarginTop;
                     }
-                    if (!darkTheme) {
+                    if (!ConfigUtils.notifications().custom_actions_color) {
                         child.setBackgroundColor(res.getColor(R.color.notification_action_list));
+                    } else {
+                        child.setBackgroundColor(ConfigUtils.notifications().actions_color);
                     }
                     child.setLayoutParams(childLp);
                     child.setPadding(child.getPaddingLeft() + notificationContentPadding,

@@ -173,12 +173,6 @@
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:key="notification_dark_theme"
-                android:summary="@string/notifications_dark_theme"
-                android:title="@string/notifications_dark_theme_title"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
                 android:dependency="notification_change_style"
                 android:key="notification_allow_load_label_with_pm"
                 android:summary="@string/notification_allow_load_label_with_pm"
@@ -198,6 +192,32 @@
                 android:summary="@string/notification_dismiss_button"
                 android:title="@string/notification_dismiss_button_title"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="notifications_custom_color"
+                android:dependency="notification_change_style"
+                android:title="@string/notifications_custom_color_title"/>
+
+            <com.thebluealliance.spectrum.SpectrumPreference
+                android:key="notifications_appname_color"
+                android:title="@string/notifications_accent_color_title"
+                android:dependency="notifications_custom_color"
+                android:defaultValue="0"
+                app:spectrum_colors="@array/appname_colors"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="notifications_custom_actions_color"
+                android:dependency="notification_change_style"
+                android:title="@string/notifications_custom_actions_color_title"/>
+
+            <com.thebluealliance.spectrum.SpectrumPreference
+                android:key="notifications_appname_color"
+                android:title="@string/notifications_actions_color_title"
+                android:dependency="notifications_custom_actions_color"
+                android:defaultValue="0"
+                app:spectrum_colors="@array/actions_background_colors"/>
+
         </PreferenceScreen>
 
     </PreferenceCategory>
@@ -210,6 +230,12 @@
             android:defaultValue="false"
             android:key="app_dark_theme"
             android:title="@string/app_dark_theme_title"/>
+
+        <com.thebluealliance.spectrum.SpectrumPreference
+            android:key="theme_colorPrimary"
+            android:title="@string/theme_colorPrimary"
+            android:defaultValue="@color/colorPrimary"
+            app:spectrum_colors="@array/theme_colors"/>
 
         <SwitchPreference
             android:defaultValue="false"

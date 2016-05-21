@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -26,6 +28,7 @@ import java.io.File;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference;
+import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class SettingsActivity extends Activity {
@@ -40,8 +43,7 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("app_dark_theme", false))
-            setTheme(R.style.DarkTheme);
+        ThemeUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         if (!isActivated()) {
@@ -88,6 +90,7 @@ public class SettingsActivity extends Activity {
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             switch (key) {
                 case "app_dark_theme":
+                case "theme_colorPrimary":
                     getActivity().recreate();
                     break;
                 case "hide_launcher_icon":
@@ -105,6 +108,8 @@ public class SettingsActivity extends Activity {
             super.onPreferenceTreeClick(preferenceScreen, preference);
             if (preference instanceof PreferenceScreen) {
                 PreferenceScreen screen = (PreferenceScreen) preference;
+                if (screen.getDialog() != null)
+                    ThemeUtils.applyTheme(screen.getDialog(), getActivity(), preference.getSharedPreferences());
                 switch (preference.getKey()) {
                     case "settings_recents":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {

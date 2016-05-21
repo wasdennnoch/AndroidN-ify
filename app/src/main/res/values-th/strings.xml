@@ -9,7 +9,8 @@
     <string name="restart_systemui_message">ต้องการที่จะรีสตาร์ท SystemUI หรือไม่?</string>
     <string name="restart_broadcast_sent">Restart broadcast sent</string>
     <string name="activity_about">เกี่ยวกับ Android N-ify</string>
-    <string name="about_author">พัฒนาโดย @MrWasdennnoch</string>
+    <string name="about_author">พัฒนาโดย \"MrWasdennnoch\"</string>
+    <string name="about_translator">แปลโดย @paphonb</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">เวอร์ชั่น %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -18,12 +19,15 @@
     <string name="header_tweaks">ปรับแต่ง</string>
     <string name="header_app">แอพ</string>
 
+    <string name="app_dark_theme_title">Dark app theme</string>
     <string name="hide_launcher_icon_title">ซ่อนไอคอนแอพ</string>
     <string name="hide_launcher_icon">อาจต้องการรีสตาร์ท Launcher</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
 
     <string name="requires_android_version">ต้องการ Android %1$s</string>
+
+    <string name="not_activated">โมดูลไม่ทำงาน</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -32,6 +36,7 @@
     <string name="enable_settings_summaries">แสดงข้อมูลสำคัญในหน้าแรกของการตั้งค่า</string>
     <string name="fix_sound_notif_tile_title">แก้ไข "เสียงและการแจ้งเตือน"</string>
     <string name="fix_sound_notif_tile">ROM บางตัวรวมเสียงและการแจ้งเตือนเข้าด้วยกัน เปิดเพื่อแสดงข้อมูลที่ถูกต้อง</string>
+    <string name="enable_n_platlogo_title">N logo in easter egg</string>
 
     <string name="disconnected">ไม่ได้เชื่อมต่อ</string>
     <string name="disabled">ปิด</string>
@@ -59,13 +64,18 @@
     <string name="enable_recents_double_tap_title">แตะปุ่ม recents สองครั้งเพื่อสลับไปแอพก่อนหน้า</string>
     <string name="enable_recents_double_tap" />
     <string name="double_tap_speed_title">ความเร็วการแตะสองครั้ง</string>
-    <string name="enable_recents_navigation_title">แตะปุ่ม recents เพื่อเลือกแอพใน recents</string>
-    <string name="enable_recents_navigation" />
-    <string name="recents_navigation_delay_title">เวลาก่อนแอพถูกเลือก</string>
-    <string name="recents_navigation_delay" />
+    <string name="recents_button_behavior_title">การแตะปุ่ม Recents</string>
+    <string name="enable_recents_navigation_title">Recent apps navigation</string>
+    <string name="enable_recents_navigation">Use the recents key to navigate through the recents</string>
+    <string name="recents_navigation_delay_title">เวลาในการเลือกแอพ</string>
     <string name="enable_large_recents">Recent apps ขนาดใหญ่</string>
+    <string name="no_recents_image">เปลี่ยนรูป \"no recents\"</string>
 
     <string name="no_previous_recents">ไม่มีรายการก่อนหน้า</string>
+
+    <string name="recents_button_behavior_previous">กลับไปแพก่อนหน้า</string>
+    <string name="recents_button_behavior_current">กลับไปแอพปัจจุบัน</string>
+    <string name="recents_button_behavior_cycle">เลือกแอพ</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
@@ -73,9 +83,20 @@
     <string name="enable_notification_header">ปรับแต่งส่วน header</string>
     <string name="notification_header_qs_tiles_count">จำนวนปุ่ม Quick Settings ที่แสดง</string>
     <string name="notification_header_qs_tiles_count_monitor">ปุ่ม</string>
-    <string name="hide_tuner_icon_title">ซ่อนไอคอน SystemUI Tuner</string>
+    <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
+    <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
+    <string name="enable_large_first_row">Enlarge first row</string>
+    <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
+    <string name="smaller_header_clock_title">นาฬิกาขนาดเล็ก</string>
+    <string name="smaller_header_clock">สำหรับหน้าจอขนาดเล็ก</string>
     <string name="notification_full_width_volume_title">Volume dialog แบบเต็มหน้าจอ</string>
     <string name="notification_full_width_volume">สำหรับหน้าจอขนาดใหญ่</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Hide header items</string>
+    <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
+    <string name="hide_edit_tiles_title">Hide edit tiles button</string>
+    <string name="hide_carrier_label_title">Hide carrier label</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -87,6 +108,9 @@
     <string name="notification_dismiss_button">แสดง \"ลบทั้งหมด\" แทนที่ไอคอน</string>
     <string name="notification_allow_load_label_with_pm_title">Alternative app name loading method</string>
     <string name="notification_allow_load_label_with_pm">Allow loading application name with PackageManager. May cause performance issues</string>
+    <string name="action_search">ค้นหา</string>
+    <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
+    <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -98,6 +122,10 @@
     <string name="checking_for_update">กำลังตรวจสอบการอัพเดต…</string>
     <string name="check_for_update_fail">ไม่สามารถตรวจสอบการอัพเดต</string>
     <string name="no_updates">ไม่พบเวอร์ชั่นใหม่</string>
+    <string name="update_notification_downloading">กำลังดาวน์โหลดอัพเดต</string>
+    <string name="update_notification_downloading_details">กำลังดาวน์โหลด build %1$d</string>
+    <string name="update_notification_download_fail">ดาวน์โหลดไม่สำเร็จ</string>
+    <string name="update_notification_download_fail_details">ไม่สามารถดาวน์โหลด build %1$d</string>
     <!-- /UPDATE -->
 
 </resources>
