@@ -40,6 +40,7 @@
     <string name="enable_settings_summaries">Gösterge panelinde doğrudan en önemli bilgileri gösterir.</string>
     <string name="fix_sound_notif_tile_title">"Ses &amp; bildirim" karesini düzelt</string>
     <string name="fix_sound_notif_tile">Bazı ROM\'lar Sesler ve Bildirimler karesini birleştirir. Kareye uygun kısaltmayı ayarlamak için etkinleştirin.</string>
+    <string name="enable_n_platlogo_title">Süprizli N logosu</string>
 
     <string name="disconnected">Bağlı değil</string>
     <string name="disabled">Etkin değil</string>
@@ -132,7 +133,6 @@
     <string name="update_notification_downloading_details">Yapı %1$d indiriliyor</string>
     <string name="update_notification_download_fail">İndirme başarısız!</string>
     <string name="update_notification_download_fail_details">Yapı %1$d indirme başarısız oldu</string>
-    <string name="enable_n_platlogo_title">Süprizli N logosu</string>
     <!-- /UPDATE -->
 
     <!-- EMERGENCY -->
