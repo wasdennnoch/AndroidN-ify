@@ -72,4 +72,6 @@
     <dimen name="recents_stack_top_padding">32dp</dimen>
     <!-- /Recents -->
 
+    <dimen name="status_bar_icon_size">24dip</dimen>
+
 </resources>
