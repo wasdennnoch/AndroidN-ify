@@ -25,6 +25,7 @@
     <string name="enable_settings_summaries">Zobrazí najdôležitejšie informácie priamo na hlavnej ponuke</string>
     <string name="fix_sound_notif_tile_title">Opraviť "Zvuk a upozornenia"</string>
     <string name="fix_sound_notif_tile">Niektoré ROM kombinujú Zvuky a Upozornenia. Povoľte pre zobrazenie správneho zhrnutia</string>
+    <string name="enable_n_platlogo_title">N logo v easter egg</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -56,12 +57,16 @@
     <string name="enable_new_tile_click_behavior_summary">Klepnutie na dlaždicu v záhlaví ju prepne a klepnutie na dlaždicu v panely ju rozbalí</string>
     <string name="enable_large_first_row">Zväčšiť prvý riadok</string>
     <string name="enable_large_first_row_summary">Na CM radšej použite menu pre nastavenie dlaždíc</string>
-    <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
-    <string name="hide_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc</string>
     <string name="smaller_header_clock_title">Menšie hodiny</string>
     <string name="smaller_header_clock">Zmenší text pre hodiny v otvorenom záhlaví. Užitočné pre menšie obrazovky</string>
     <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
     <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Skryť položky záhlavia</string>
+    <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
+    <string name="hide_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc</string>
+    <string name="hide_carrier_label_title">Skryť operátora</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
