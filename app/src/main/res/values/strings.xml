@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
 
@@ -135,4 +133,8 @@
     <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
     <!-- /UPDATE -->
 
+    <!-- BATTERY -->
+    <string name="charged">Charged</string>
+    <string name="charging">Charging, %1$s</string>
+    <!-- /BATTERY -->
 </resources>

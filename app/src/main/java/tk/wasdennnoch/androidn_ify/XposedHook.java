@@ -125,14 +125,12 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         // Has to be hooked in every app as every app creates own instances of the Notification.Builder
         NotificationsHooks.hook(lpparam.classLoader);
 
-        /*
         try {
             Class<?> classCMStatusBarManager = XposedHelpers.findClass("cyanogenmod.app.CMStatusBarManager", lpparam.classLoader);
             XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTile", XC_MethodReplacement.DO_NOTHING);
             XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTileAsUser", XC_MethodReplacement.DO_NOTHING);
         } catch (Throwable ignore) {
         }
-        */
     }
 
     @Override

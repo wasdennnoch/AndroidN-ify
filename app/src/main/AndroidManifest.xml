@@ -50,23 +50,26 @@
         <activity
             android:name=".ui.AboutActivity"
             android:label="@string/activity_about" />
-
         <activity
             android:name=".ui.PlatLogoActivity"
-            android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"/>
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen" />
 
         <service
             android:name=".utils.DownloadService"
             android:exported="false" />
 
-        <activity android:name=".ui.BlacklistAppActivity"
-            android:parentActivityName=".ui.SettingsActivity"
-            android:label="@string/notification_blacklisted_apps_title">
+        <activity
+            android:name=".ui.BlacklistAppActivity"
+            android:label="@string/notification_blacklisted_apps_title"
+            android:parentActivityName=".ui.SettingsActivity">
             <intent-filter>
                 <action android:name="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.EditQSActivity"
+            android:theme="@android:style/Theme.Material.Light.DarkActionBar"/>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
@@ -34,6 +36,9 @@ import tk.wasdennnoch.androidn_ify.notifications.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.BluetoothTileHook;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.WifiTileHook;
+import tk.wasdennnoch.androidn_ify.ui.EditQSActivity;
+import tk.wasdennnoch.androidn_ify.ui.PlatLogoActivity;
+import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -47,6 +52,7 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_LAYOUT_VALUES = CLASS_STATUS_BAR_HEADER_VIEW + "$LayoutValues";
     private static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
     private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
+    private static final String CLASS_QS_CONTAINER = "com.android.systemui.qs.QSContainer";
     private static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
 
@@ -91,6 +97,7 @@ public class StatusBarHeaderHooks {
     private static Button mAlarmStatusCollapsed;
 
     private static QuickQSPanel mHeaderQsPanel;
+    private static ViewGroup mQsPanel;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -454,6 +461,7 @@ public class StatusBarHeaderHooks {
             XposedHook.logD(TAG, "setTilesHook PID: " + Process.myPid());
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
+            mQsPanel = (ViewGroup) param.thisObject;
             if (mHeaderQsPanel != null) {
                 //noinspection unchecked
                 final ArrayList<Object> mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
@@ -654,11 +662,29 @@ public class StatusBarHeaderHooks {
                 .start();
     }
 
+    private static View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.qs_edit:
+                    showEdit();
+                    break;
+            }
+        }
+    };
+
+    private static void showEdit() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setClassName("tk.wasdennnoch.androidn_ify", EditQSActivity.class.getName());
+        XposedHelpers.callMethod(XposedHelpers.getObjectField(mQsPanel, "mHost"), "startActivityDismissingKeyguard", intent);
+    }
+
     public static void hook(ClassLoader classLoader) {
         try {
             if (ConfigUtils.header().header) {
 
                 Class<?> classStatusBarHeaderView = XposedHelpers.findClass(CLASS_STATUS_BAR_HEADER_VIEW, classLoader);
+                Class<?> classQSContainer = XposedHelpers.findClass(CLASS_QS_CONTAINER, classLoader);
                 Class<?> classQSPanel = XposedHelpers.findClass(CLASS_QS_PANEL, classLoader);
                 Class<?> classQSTile = XposedHelpers.findClass(CLASS_QS_TILE, classLoader);
 
@@ -827,6 +853,24 @@ public class StatusBarHeaderHooks {
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) liparam.view.getLayoutParams();
                         params.setMarginStart(0);
                         params.setMarginEnd(0);
+
+                        /*
+                        FrameLayout layout = (FrameLayout) liparam.view;
+                        Context context = layout.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        FrameLayout.LayoutParams buttonLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        buttonLp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+                        Button editBtn = new Button(context);
+                        editBtn.setGravity(Gravity.CENTER);
+                        editBtn.setLayoutParams(buttonLp);
+                        editBtn.setText("Edit");
+                        editBtn.setAllCaps(true);
+                        editBtn.setId(R.id.qs_edit);
+                        editBtn.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
+                        editBtn.setOnClickListener(onClickListener);
+                        layout.addView(editBtn);
+                        */
                     }
                 });
 

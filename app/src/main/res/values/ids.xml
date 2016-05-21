@@ -10,4 +10,5 @@
     <item name="notification_summary_divider" type="id">false</item>
     <item name="notification_info_divider" type="id">false</item>
     <item name="task_progress" type="id">false</item>
+    <item name="qs_edit" type="id">false</item>
 </resources>
