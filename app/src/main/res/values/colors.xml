@@ -55,6 +55,7 @@
         <item>@color/md_brown_500</item>
         <item>@color/md_grey_500</item>
         <item>@color/md_blue_grey_500</item>
+        <item>@color/colorPrimary</item>
     </array>
 
     <array name="appname_colors">
@@ -70,6 +71,22 @@
         <item>@color/md_grey_800</item>
         <item>@color/md_grey_900</item>
         <item>@color/md_black_1000</item>
+    </array>
+
+    <array name="actions_background_colors">
+        <item>@color/md_white_1000</item>
+        <item>@color/md_grey_50</item>
+        <item>@color/md_grey_100</item>
+        <item>@color/md_grey_200</item>
+        <item>@color/md_grey_300</item>
+        <item>@color/md_grey_400</item>
+        <item>@color/md_grey_500</item>
+        <item>@color/md_grey_600</item>
+        <item>@color/md_grey_700</item>
+        <item>@color/md_grey_800</item>
+        <item>@color/md_grey_900</item>
+        <item>@color/md_black_1000</item>
+        <item>#00000000</item>
     </array>
 
 </resources>
