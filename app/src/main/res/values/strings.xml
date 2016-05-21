@@ -63,7 +63,7 @@
 
     <!-- RECENTS -->
     <string name="header_recents">Recents</string>
-    <string name="enable_recents_double_tap_title">Double-tap app switch</string>
+    <string name="enable_recents_double_tap_title">Quick switch</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
     <string name="double_tap_speed_title">Double tap speed</string>
     <string name="recents_button_behavior_title">Recents button click behavior</string>
