@@ -28,6 +28,8 @@
     <string name="requires_android_version">Android %1$s sürümü gerekir</string>
 
     <string name="not_activated">Modül aktif değil</string>
+
+    <string name="theme_colorPrimary">Ana renk</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -85,12 +87,16 @@
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
     <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
     <string name="enable_large_first_row">İlk satırı büyüt</string>
-    <string name="hide_tuner_icon_title">SistemUI Ayar simgesini gizle</string>
-    <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
     <string name="smaller_header_clock_title">Küçük saat</string>
     <string name="smaller_header_clock">Genişletilmiş başlıkta saatin metin boyutunu düşürün. Küçük ekranlar için kullanışlıdır.</string>
     <string name="notification_full_width_volume_title">Tam genişlikte ses ayarları</string>
     <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Başlık öğelerini gizle</string>
+    <string name="hide_tuner_icon_title">SistemUI Ayar simgesini gizle</string>
+    <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
+    <string name="hide_carrier_label_title">Sim durumunu gizle</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -105,6 +111,10 @@
     <string name="action_search">Ara</string>
     <string name="notification_blacklisted_apps_title">Kara listeye alınan uygulamalar</string>
     <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullanın.</string>
+    <string name="notifications_custom_color_title">Özel vurgu rengi kullan</string>
+    <string name="notifications_accent_color_title">Vurgu rengi</string>
+    <string name="notifications_custom_actions_color_title">Özelleştirilmiş arkaplan rengini kullan.</string>
+    <string name="notifications_actions_color_title">Arkaplan renk eylemi</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
