@@ -82,6 +82,7 @@ public class StatusBarHeaderHooks {
     private static View mTaskManagerButton;
     private static View mSomcQuickSettings;
     private static View mCarrierText = null;
+    private static TextView mBatteryText;
 
     private static ExpandableIndicator mExpandIndicator;
     private static LinearLayout mDateTimeAlarmGroup;
@@ -170,7 +171,11 @@ public class StatusBarHeaderHooks {
             } catch (Throwable t) {
                 XposedHook.logD(TAG, "No mSomcQuickSettings container (" + t.getClass().getSimpleName() + ")");
             }
-
+            try {
+                mBatteryText = (TextView) XposedHelpers.getObjectField(param.thisObject, "mBatteryLevel");
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No battery text (" + t.getClass().getSimpleName() + ")");
+            }
             try {
 
                 boolean mShowTaskManager = true;
@@ -296,7 +301,7 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.header_dot), null, null, null);
                 mDateCollapsed.setCompoundDrawablePadding(dateCollapsedDrawablePadding);
 
-                LinearLayout.LayoutParams alarmStatusCollapsedLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+                LinearLayout.LayoutParams alarmStatusCollapsedLp = new LinearLayout.LayoutParams(res.getDimensionPixelSize(R.dimen.status_bar_icon_size), WRAP_CONTENT);
                 mAlarmStatusCollapsed = new AlphaOptimizedButton(context);
                 mAlarmStatusCollapsed.setLayoutParams(alarmStatusCollapsedLp);
                 mAlarmStatusCollapsed.setId(View.generateViewId());
@@ -311,7 +316,6 @@ public class StatusBarHeaderHooks {
                 mAlarmStatusCollapsed.setCompoundDrawablesWithIntrinsicBounds(alarmSmall, null, null, null);
                 mAlarmStatusCollapsed.setBackgroundResource(0);
                 mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
-
 
                 RelativeLayout.LayoutParams headerQsPanelLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
                 mHeaderQsPanel = new QuickQSPanel(context);
@@ -342,6 +346,14 @@ public class StatusBarHeaderHooks {
                     mTaskManagerButton.setLayoutParams(taskManagerButtonLp);
                 }
 
+                if (mBatteryText != null) {
+                    ((ViewGroup) mBatteryText.getParent()).removeView(mBatteryText);
+                    LinearLayout.LayoutParams batteryTextLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+                    mBatteryText.setLayoutParams(batteryTextLp);
+                    mBatteryText.setGravity(Gravity.TOP);
+                    mBatteryText.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
+                }
+
 
                 if (mCarrierText != null)
                     mLeftContainer.addView(mCarrierText);
@@ -354,6 +366,7 @@ public class StatusBarHeaderHooks {
                 mDateTimeGroup.addView(mClock);
                 mDateTimeGroup.addView(mDateCollapsed);
                 mDateTimeGroup.addView(mAlarmStatusCollapsed);
+                mDateTimeGroup.addView(mBatteryText);
                 mDateTimeAlarmGroup.addView(mDateTimeGroup);
                 mDateTimeAlarmGroup.addView(mAlarmStatus);
                 mStatusBarHeaderView.addView(mLeftContainer);
@@ -499,6 +512,7 @@ public class StatusBarHeaderHooks {
                 .build();
         mFirstHalfAnimator = new TouchAnimator.Builder()
                 .addFloat(mAlarmStatusCollapsed, "alpha", 1.0F, 0.0F)
+                .addFloat(mBatteryText, "alpha", 1.0F, 0.0F)
                 .setEndDelay(0.5F).build();
         mSecondHalfAnimator = new TouchAnimator.Builder()
                 .addFloat(mAlarmStatus, "alpha", 0.0F, 1.0F)
