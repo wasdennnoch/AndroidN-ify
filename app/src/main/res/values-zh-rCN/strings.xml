@@ -28,6 +28,8 @@
     <string name="requires_android_version">所需安卓版本 %1$s</string>
 	
     <string name="not_activated">模块尚未激活</string>
+	
+    <string name="theme_colorPrimary">主色调</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -36,6 +38,7 @@
     <string name="enable_settings_summaries">在设置内直接显示最重要的系统信息</string>
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
     <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 中显示出正确的信息摘要。</string>
+    <string name="enable_n_platlogo_title">在系统彩蛋内显示 Android N 的标志</string>
 
     <string name="disconnected">未连接</string>
     <string name="disabled">已禁用</string>
@@ -65,7 +68,7 @@
     <string name="double_tap_speed_title">双击速度</string>
     <string name="recents_button_behavior_title">多任务键点击行为</string>
     <string name="enable_recents_navigation_title">启用最近任务导航</string>
-    <string name="enable_recents_navigation">反复点击多任务键时依次浏览近期任务</string>
+    <string name="enable_recents_navigation">反复点击多任务键时依次浏览最近任务</string>
     <string name="recents_navigation_delay_title">最近任务导航延时</string>
     <string name="recents_navigation_delay">所选任务被打开的时间</string>
     <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
@@ -111,6 +114,10 @@
     <string name="action_search">搜索</string>
     <string name="notification_blacklisted_apps_title">黑名单应用</string>
     <string name="notification_blacklisted_apps">所选应用将使用旧风格的通知</string>
+    <string name="notifications_custom_color_title">使用自定义的通知强调色</string>
+    <string name="notifications_accent_color_title">通知强调色</string>
+    <string name="notifications_custom_actions_color_title">使用自定义的通知操作背景色</string>
+    <string name="notifications_actions_color_title">通知操作背景色</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -126,7 +133,6 @@
     <string name="update_notification_downloading_details">正在下载版本 %1$d 的更新</string>
     <string name="update_notification_download_fail">下载失败</string>
     <string name="update_notification_download_fail_details">无法下载版本 %1$d 的更新</string>
-    <string name="enable_n_platlogo_title">在系统彩蛋中显示 Android N 的标志</string>
     <!-- /UPDATE -->
 
 </resources>
