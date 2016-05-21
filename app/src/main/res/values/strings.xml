@@ -26,8 +26,10 @@
     <string name="debug_log">Warning: Log-flooding</string>
 
     <string name="requires_android_version">Requires Android %1$s</string>
-    
+
     <string name="not_activated">Module not activated</string>
+
+    <string name="theme_colorPrimary">Primary color</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -112,6 +114,8 @@
     <string name="action_search">Search</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
+    <string name="notifications_custom_color_title">Use custom accent color</string>
+    <string name="notifications_accent_color_title">Accent color</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->

@@ -136,6 +136,8 @@ public class ConfigUtils {
         public boolean dark_theme;
         public boolean dismiss_button;
         public boolean allow_load_label_with_pm;
+        public int appname_color;
+        public boolean custom_appname_color;
 
         public List<String> blacklistedApps;
 
@@ -144,6 +146,8 @@ public class ConfigUtils {
             dark_theme = prefs.getBoolean("notification_dark_theme", false);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             allow_load_label_with_pm = prefs.getBoolean("notification_allow_load_label_with_pm", false);
+            appname_color = prefs.getInt("notifications_appname_color", 0);
+            custom_appname_color = prefs.getBoolean("notifications_custom_color", false);
 
             enable = (change_style || dark_theme || dismiss_button);
         }

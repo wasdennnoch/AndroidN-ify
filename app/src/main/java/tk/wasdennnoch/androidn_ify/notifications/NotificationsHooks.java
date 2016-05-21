@@ -264,6 +264,16 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_MethodReplacement resolveColorHook = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            int mColor = XposedHelpers.getIntField(param.thisObject, "mColor");
+            if (mColor == 0)
+                return ConfigUtils.notifications().appname_color;
+            return mColor;
+        }
+    };
+
     private static XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -427,6 +437,8 @@ public class NotificationsHooks {
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplateWithActions", int.class, applyStandardTemplateWithActionsHook);
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
+            if (ConfigUtils.notifications().custom_appname_color)
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
             XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
         }
     }

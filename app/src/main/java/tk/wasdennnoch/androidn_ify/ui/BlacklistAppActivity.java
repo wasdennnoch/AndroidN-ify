@@ -20,6 +20,7 @@ import java.util.List;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.CachedResolveInfo;
+import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 
 public class BlacklistAppActivity extends Activity implements SearchView.OnQueryTextListener, AppsAdapter.AppsAdapterListener, LoadAppInfoTask.OnFinishListener {
 
@@ -35,8 +36,7 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("app_dark_theme", false))
-            setTheme(R.style.DarkTheme);
+        ThemeUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blacklist_app);
 
