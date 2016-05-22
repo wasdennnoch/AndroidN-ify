@@ -245,6 +245,11 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="force_english"
+            android:title="@string/force_english_title"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="debug_log"
             android:summary="@string/debug_log"
             android:title="@string/debug_log_title"/>
