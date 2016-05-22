@@ -147,7 +147,7 @@ public class QuickQSPanel extends LinearLayout {
                     iconView.setPadding(p, p, p, p);
                     iconView.setOnClickListener(click);
                     iconView.setOnLongClickListener(longClick);
-                    iconView.setBackground((Drawable) XposedHelpers.getObjectField(tileView, "mTileBackground"));
+                    iconView.setBackground((Drawable) XposedHelpers.getObjectField(tileView, "mRipple"));
                 } else {
                     child.setVisibility(GONE);
                 }
