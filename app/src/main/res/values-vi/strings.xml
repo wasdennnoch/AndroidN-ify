@@ -40,7 +40,7 @@
     <string name="header_app">Ứng dụng</string>
     <string name="header_notifications">Thông báo</string>
     <string name="header_recents">Ứng dụng gần đây</string>
-    <string name="header_settings">Thiết đặt</string>
+    <string name="header_settings">Cài đặt</string>
     <string name="header_status_bar_header">Thanh tiêu đề của Cài đặt nhanh</string>
     <string name="header_tweaks">Tinh chỉnh</string>
     <string name="hide_carrier_label_title">Ẩn tên nhà mạng</string>
