@@ -4,13 +4,17 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.RemoteInput;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
@@ -51,7 +55,6 @@ public class NotificationsHooks {
 
     private static final String TAG = "NotificationsHooks";
 
-    private static boolean darkTheme = false;
     private static boolean fullWidthVolume = false;
     private static boolean allowLoadLabelWithPackageManager = false;
 
@@ -260,6 +263,16 @@ public class NotificationsHooks {
         }
     };
 
+    private static XC_MethodReplacement resolveColorHook = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            int mColor = XposedHelpers.getIntField(param.thisObject, "mColor");
+            if (mColor == 0)
+                return ConfigUtils.notifications().appname_color;
+            return mColor;
+        }
+    };
+
     private static XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -326,7 +339,7 @@ public class NotificationsHooks {
             ConfigUtils config = ConfigUtils.getInstance();
             if (config.notifications.enable) {
 
-                XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
+                final XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
                 XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
 
                 // Notifications
@@ -358,22 +371,49 @@ public class NotificationsHooks {
                     }
                 }
 
-                if (config.notifications.dark_theme) {
-                    darkTheme = true;
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg_dark));
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim_dark));
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_material_background_low_priority_color", modRes.fwd(R.color.notification_material_background_low_priority_color_dark));
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_material_background_media_default_color", modRes.fwd(R.color.notification_material_background_media_default_color_dark));
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_ripple_color_low_priority", modRes.fwd(R.color.notification_ripple_color_low_priority_dark));
-                } else {
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", modRes.fwd(R.drawable.replacement_notification_material_bg));
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", modRes.fwd(R.drawable.replacement_notification_material_bg_dim));
-                }
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", new XResources.DrawableLoader() {
+                    @Override
+                    public Drawable newDrawable(XResources xResources, int i) throws Throwable {
+                        return getNotificationBackground(xResources, modRes);
+                    }
+                });
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", new XResources.DrawableLoader() {
+                    @Override
+                    public Drawable newDrawable(XResources xResources, int i) throws Throwable {
+                        return getNotificationBackgroundDimmed(xResources, modRes);
+                    }
+                });
 
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
         }
+    }
+
+    private static RippleDrawable getNotificationBackground(XResources xRes, XModuleResources modRes) {
+        return new RippleDrawable(
+                new ColorStateList(
+                        new int[][] { new int[]{} }, new int[] { xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI)) }
+                ),
+                getBackgroundRippleContent(modRes, xRes.getColor(xRes.getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI))),
+                null);
+    }
+
+    private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes, XModuleResources modRes) {
+        return new RippleDrawable(
+                new ColorStateList(
+                        new int[][] { new int[]{} }, new int[] { xRes.getColor(android.R.color.transparent) }
+                ),
+                getBackgroundRippleContent(modRes, xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI))),
+                null);
+    }
+
+    @SuppressWarnings({"deprecation", "ConstantConditions"})
+    private static LayerDrawable getBackgroundRippleContent(XModuleResources modRes, int color) {
+        LayerDrawable layerDrawable = (LayerDrawable) modRes.getDrawable(R.drawable.notification_background_template);
+        Drawable bg = new ColorDrawable(color);
+        layerDrawable.setDrawableByLayerId(R.id.notification_background, bg);
+        return layerDrawable;
     }
 
     @SuppressWarnings("unused")
@@ -393,6 +433,8 @@ public class NotificationsHooks {
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplateWithActions", int.class, applyStandardTemplateWithActionsHook);
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
             XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
+            if (ConfigUtils.notifications().custom_appname_color)
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
             XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
         }
     }
@@ -579,8 +621,10 @@ public class NotificationsHooks {
 
             View buttonView = layout.getChildAt(0);
             if (buttonView instanceof ImageButton) {
+                int oldId = buttonView.getId();
                 layout.removeView(buttonView);
                 buttonView = new Button(context);
+                buttonView.setId(oldId);
                 buttonView.setFocusable(true);
                 //noinspection deprecation
                 buttonView.setBackground(context.getResources().getDrawable(context.getResources().getIdentifier("ripple_drawable", "drawable", PACKAGE_SYSTEMUI)));
@@ -739,6 +783,9 @@ public class NotificationsHooks {
 
             FrameLayout headerLayout = (FrameLayout) layout.getChildAt(0);
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
+            if (notificationMain == null) { // Some ROMs completely removed the ID
+                notificationMain = (LinearLayout) layout.getChildAt(layout.getChildCount() - 1);
+            }
             ImageView rightIcon = new ImageView(context);
 
             FrameLayout.LayoutParams headerLayoutLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, headerHeight);
@@ -777,14 +824,18 @@ public class NotificationsHooks {
                     child.setLayoutParams(childLp);
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
-                    // This only works on Marshmallow as notification templates don't have tag on Lollipop
-                    //if (!layout.getTag().equals("inbox")) {
+
+                    int separatorSize = res.getDimensionPixelSize(R.dimen.notification_separator_size);
+
+                    childLp.bottomMargin += separatorSize;
 
                     if (!isInboxLayout) {
                         childLp.topMargin += actionsMarginTop;
                     }
-                    if (!darkTheme) {
+                    if (!ConfigUtils.notifications().custom_actions_color) {
                         child.setBackgroundColor(res.getColor(R.color.notification_action_list));
+                    } else {
+                        child.setBackgroundColor(ConfigUtils.notifications().actions_color);
                     }
                     child.setLayoutParams(childLp);
                     child.setPadding(child.getPaddingLeft() + notificationContentPadding,

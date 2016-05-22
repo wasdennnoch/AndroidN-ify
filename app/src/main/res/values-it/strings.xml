@@ -7,7 +7,7 @@
     <string name="restart_systemui_message">Sei sicuro di voler riavviare la SystemUI?</string>
     <string name="restart_broadcast_sent">Inviata una richiesta per riavviare</string>
     <string name="activity_about">Informazioni Android N-ify</string>
-    <string name="about_author">Sviluppato da \"MrWasdennnoch\"</string>
+    <string name="about_author">Sviluppato da @MrWasdennnoch</string>
     <string name="about_translator">Tradotto da @SlimShady\'s</string>
     <string name="about_version">Versione %1$s (%2$d)</string>
     
@@ -19,6 +19,11 @@
     <string name="header_status_bar_header">Intestazione barra di stato</string>
     <string name="header_notifications">Notifiche</string>
     <string name="header_app">App</string>
+    <string name="app_dark_theme_title">Tema app scuro</string>
+    <string name="recents_button_behavior_title">Comportamento click pulsante recenti</string>
+    <string name="recents_button_behavior_previous">Ritorna all\'app precedente</string>
+    <string name="recents_button_behavior_current">Ritorna all\'app corrente</string>
+    <string name="recents_button_behavior_cycle">Naviga attraverso le apps</string>
 
     <string name="enable_settings_summaries_title">Abilita modifiche alle impostazioni</string>
     <string name="fix_sound_notif_tile_title">Fix sezione "Suono &amp; Notifiche"</string>
@@ -39,6 +44,7 @@
     <string name="hide_edit_tiles_title">Nascondi il tile "Edit Tiles"</string>
     <string name="hide_launcher_icon">Potrebbe richiedere il riavvio del launcher</string>
     <string name="hide_launcher_icon_title">Nascondi icona launcher</string>
+    <string name="enable_large_first_row_summary">Nella CM usa invece la configurazione data da "Edit Tiles"</string>
     <string name="debug_log_title">Log di debug</string>
     <string name="debug_log">Attenzione: Log invasivo</string>
     <string name="requires_android_version">Richiede Android %1$s</string>

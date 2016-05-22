@@ -45,7 +45,7 @@ public class DownloadService extends IntentService {
         UpdateUtils.UpdateData updateData = new UpdateUtils.UpdateData(number, hasArtifact, url);
 
         Notification.Builder mNotificationBuider = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.ic_launcher_big)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(getString(R.string.update_notification_downloading))
                 .setContentText(String.format(getString(R.string.update_notification_downloading_details), updateData.getNumber()))
                 .setColor(getResources().getColor(R.color.colorAccent))
@@ -67,7 +67,7 @@ public class DownloadService extends IntentService {
             startActivity(installIntent);
         } else {
             Notification.Builder builder = new Notification.Builder(this)
-                    .setSmallIcon(R.drawable.ic_launcher_big)
+                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(getString(R.string.update_notification_download_fail))
                     .setContentText(String.format(getString(R.string.update_notification_download_fail_details), updateData.getNumber()))
                     .setColor(getResources().getColor(R.color.colorAccent));

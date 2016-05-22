@@ -54,6 +54,7 @@ public class StatusBarHeaderHooks {
     private static boolean mCollapseAfterHideDatails = false;
     private static boolean mHideTunerIcon = false;
     private static boolean mHideEditTiles = false;
+    private static boolean mHideCarrierLabel = false;
 
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
@@ -80,6 +81,7 @@ public class StatusBarHeaderHooks {
     private static View mWeatherContainer;
     private static View mTaskManagerButton;
     private static View mSomcQuickSettings;
+    private static View mCarrierText = null;
 
     private static ExpandableIndicator mExpandIndicator;
     private static LinearLayout mDateTimeAlarmGroup;
@@ -99,6 +101,7 @@ public class StatusBarHeaderHooks {
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
             Context context = mStatusBarHeaderView.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
+            ConfigUtils config = ConfigUtils.getInstance();
 
             try {
                 //noinspection deprecation
@@ -111,7 +114,6 @@ public class StatusBarHeaderHooks {
             TextView mTime;
             TextView mAmPm;
             TextView mEmergencyCallsOnly;
-            TextView mCarrierText = null;
             try {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
                 mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
@@ -138,29 +140,35 @@ public class StatusBarHeaderHooks {
             try {
                 mSettingsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsContainer");
             } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mSettingsContainer container (" + t.getClass().getSimpleName() + ")");
                 mSettingsContainer = mSettingsButton;
             }
             mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
-            mHideTunerIcon = ConfigUtils.header().hide_tuner_icon;
-            mHideEditTiles = ConfigUtils.header().hide_edit_tiles;
+            mHideTunerIcon = config.header.hide_tuner_icon;
+            mHideEditTiles = config.header.hide_edit_tiles;
+            mHideCarrierLabel = config.header.hide_carrier_label;
             View dummyClock = new View(context);
             dummyClock.setVisibility(View.GONE);
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
             try {
                 mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mWeatherContainer container (" + t.getClass().getSimpleName() + ")");
             }
             try {
-                mCarrierText = (TextView) XposedHelpers.getObjectField(param.thisObject, "mCarrierText");
-            } catch (Throwable ignore) {
+                mCarrierText = (View) XposedHelpers.getObjectField(param.thisObject, "mCarrierText");
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mCarrierText container (" + t.getClass().getSimpleName() + ")");
             }
             try {
                 mTaskManagerButton = (View) XposedHelpers.getObjectField(param.thisObject, "mTaskManagerButton");
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mTaskManagerButton container (" + t.getClass().getSimpleName() + ")");
             }
             try {
                 mSomcQuickSettings = (View) XposedHelpers.getObjectField(param.thisObject, "mSomcQuickSettings");
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                XposedHook.logD(TAG, "No mSomcQuickSettings container (" + t.getClass().getSimpleName() + ")");
             }
 
             try {
@@ -321,11 +329,12 @@ public class StatusBarHeaderHooks {
                     mWeatherContainer.setLayoutParams(weatherContainerLp);
                 }
                 if (mCarrierText != null) {
+                    ((ViewGroup) mCarrierText.getParent()).removeView(mCarrierText);
                     RelativeLayout.LayoutParams carrierTextLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                     mCarrierText.setLayoutParams(carrierTextLp);
                     mCarrierText.setPadding(0, 0, 0, 0);
-                    mCarrierText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mEmergencyCallsOnly.getTextSize());
-                    mCarrierText.setTextColor(mEmergencyCallsOnly.getCurrentTextColor());
+                    //mCarrierText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mEmergencyCallsOnly.getTextSize());
+                    //mCarrierText.setTextColor(mEmergencyCallsOnly.getCurrentTextColor());
                 }
                 if (mTaskManagerButton != null) {
                     ((ViewGroup) mTaskManagerButton.getParent()).removeView(mTaskManagerButton);
@@ -408,9 +417,11 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
+                mAlarmStatus.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
                 if (mHideEditTiles && mSomcQuickSettings != null)
                     mSomcQuickSettings.setVisibility(View.INVISIBLE);
+                if (mHideCarrierLabel && mCarrierText != null) mCarrierText.setVisibility(View.GONE);
                 if (mWeatherContainer != null) {
                     try {
                         mWeatherContainer.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather") ? View.VISIBLE : View.INVISIBLE);
@@ -580,7 +591,13 @@ public class StatusBarHeaderHooks {
         if (showingDetail) {
             mCollapseAfterHideDatails = NotificationPanelHooks.isCollapsed();
             NotificationPanelHooks.expandIfNecessary();
-            mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
+            try {
+                mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
+            } catch (Throwable t) {
+                Context context = mQsDetailHeaderTitle.getContext();
+                Class<?> classQSTile = XposedHelpers.findClass(CLASS_QS_TILE, context.getClassLoader());
+                mQsDetailHeaderTitle.setText((String) XposedHelpers.callStaticMethod(classQSTile, "getDetailAdapterTitle", context, detail));
+            }
             final Boolean toggleState = (Boolean) XposedHelpers.callMethod(detail, "getToggleState");
             if (toggleState == null) {
                 mQsDetailHeaderSwitch.setVisibility(View.INVISIBLE);
@@ -600,7 +617,7 @@ public class StatusBarHeaderHooks {
             }
             if (mHasEditPanel) {
                 if ((int) XposedHelpers.callMethod(detail, "getTitle")
-                        == mQsDetailHeader.getContext().getResources().getIdentifier("quick_settings_edit_label", "string", PACKAGE_SYSTEMUI)) {
+                        == mQsDetailHeader.getResources().getIdentifier("quick_settings_edit_label", "string", PACKAGE_SYSTEMUI)) {
                     mEditTileDoneText.setVisibility(View.VISIBLE);
                 } else {
                     mEditTileDoneText.setVisibility(View.GONE);
@@ -652,6 +669,41 @@ public class StatusBarHeaderHooks {
                 } catch (NoSuchMethodError e) {
                     mHasEditPanel = false;
                 }
+
+                // Tests for QSTileView initialization for QuickQS row
+                /*XposedHook.logI(TAG, "TEST START");
+                try {
+                    try {
+                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class);
+                        XposedHook.logI(TAG, "Found " + methods.length + " matches with one parameter");
+                        for (int i = 0; i < methods.length; i++) {
+                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
+                        }
+                    } catch (Throwable t5) {
+                        XposedHook.logE(TAG, "Error test one", t5);
+                    }
+                    try {
+                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class, View.OnClickListener.class);
+                        XposedHook.logI(TAG, "Found " + methods.length + " matches with two parameters");
+                        for (int i = 0; i < methods.length; i++) {
+                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
+                        }
+                    } catch (Throwable t5) {
+                        XposedHook.logE(TAG, "Error test two", t5);
+                    }
+                    try {
+                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class, View.OnClickListener.class, View.OnClickListener.class);
+                        XposedHook.logI(TAG, "Found " + methods.length + " matches with three parameters");
+                        for (int i = 0; i < methods.length; i++) {
+                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
+                        }
+                    } catch (Throwable t5) {
+                        XposedHook.logE(TAG, "Error test three", t5);
+                    }
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Error test", t);
+                }
+                XposedHook.logI(TAG, "TEST END");*/
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpansion", float.class, setExpansionHook);

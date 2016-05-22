@@ -9,8 +9,8 @@
     <string name="restart_systemui_message">Are you sure you want to restart the SystemUI?</string>
     <string name="restart_broadcast_sent">Restart broadcast sent</string>
     <string name="activity_about">About Android N-ify</string>
-    <string name="about_author">Developed by \"MrWasdennnoch\"</string>
-    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably) XDA username here -->
+    <string name="about_author">Developed by @MrWasdennnoch</string>
+    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -19,12 +19,18 @@
     <string name="header_tweaks">Tweaks</string>
     <string name="header_app">App</string>
 
+    <string name="app_dark_theme_title">Dark app theme</string>
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>
+    <string name="force_english_title">Force english language</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
 
     <string name="requires_android_version">Requires Android %1$s</string>
+
+    <string name="not_activated">Module not activated</string>
+
+    <string name="theme_colorPrimary">Primary color</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -33,6 +39,7 @@
     <string name="enable_settings_summaries">Show the most important information directly in the dashboard</string>
     <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
     <string name="fix_sound_notif_tile">Some ROMs combine the Sounds and Notifications tile. Enable to set the proper summary for this tile</string>
+    <string name="enable_n_platlogo_title">N logo in easter egg</string>
 
     <string name="disconnected">Disconnected</string>
     <string name="disabled">Disabled</string>
@@ -57,9 +64,10 @@
 
     <!-- RECENTS -->
     <string name="header_recents">Recents</string>
-    <string name="enable_recents_double_tap_title">Double-tap app switch</string>
+    <string name="enable_recents_double_tap_title">Quick switch</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
     <string name="double_tap_speed_title">Double tap speed</string>
+    <string name="recents_button_behavior_title">Recents button click behavior</string>
     <string name="enable_recents_navigation_title">Recent apps navigation</string>
     <string name="enable_recents_navigation">Use the recents key to navigate through the recents</string>
     <string name="recents_navigation_delay_title">Navigation delay</string>
@@ -68,6 +76,10 @@
     <string name="no_recents_image">Change \"no recents\" image</string>
 
     <string name="no_previous_recents">No recent items</string>
+
+    <string name="recents_button_behavior_previous">Return to previous app</string>
+    <string name="recents_button_behavior_current">Return to current app</string>
+    <string name="recents_button_behavior_cycle">Cycle through apps</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
@@ -78,12 +90,17 @@
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
-    <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
-    <string name="hide_edit_tiles_title">Hide edit tiles button</string>
+    <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
     <string name="smaller_header_clock_title">Smaller clock</string>
     <string name="smaller_header_clock">Lower the text size of the clock in the expanded header. Useful for small screens</string>
     <string name="notification_full_width_volume_title">Full width volume dialog</string>
     <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Hide header items</string>
+    <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
+    <string name="hide_edit_tiles_title">Hide edit tiles button</string>
+    <string name="hide_carrier_label_title">Hide carrier label</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -98,6 +115,10 @@
     <string name="action_search">Search</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
+    <string name="notifications_custom_color_title">Use custom accent color</string>
+    <string name="notifications_accent_color_title">Accent color</string>
+    <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
+    <string name="notifications_actions_color_title">Actions background color</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->

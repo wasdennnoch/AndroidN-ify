@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">你确定要重启系统界面吗？</string>
     <string name="restart_broadcast_sent">已发送重启广播</string>
     <string name="activity_about">关于 Android N-ify</string>
-    <string name="about_author">开发者 \"MrWasdennnoch\"</string>
+    <string name="about_author">开发者 @MrWasdennnoch</string>
     <string name="about_translator">翻译 @haseoxth</string>
     <string name="about_version">版本 %1$s (%2$d)</string>
 
@@ -19,12 +19,17 @@
     <string name="header_tweaks">调整</string>
     <string name="header_app">应用</string>
 
+    <string name="app_dark_theme_title">使用暗色主题</string>
     <string name="hide_launcher_icon_title">隐藏应用图标</string>
     <string name="hide_launcher_icon">或许需要重启桌面</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
 
     <string name="requires_android_version">所需安卓版本 %1$s</string>
+	
+    <string name="not_activated">模块尚未激活</string>
+	
+    <string name="theme_colorPrimary">主色调</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -32,7 +37,8 @@
     <string name="enable_settings_summaries_title">设置项摘要</string>
     <string name="enable_settings_summaries">在设置内直接显示最重要的系统信息</string>
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
-    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 的设置中显示出正确的信息摘要。</string>
+    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 中显示出正确的信息摘要。</string>
+    <string name="enable_n_platlogo_title">在系统彩蛋内显示 Android N 的标志</string>
 
     <string name="disconnected">未连接</string>
     <string name="disabled">已禁用</string>
@@ -60,30 +66,40 @@
     <string name="enable_recents_double_tap_title">双击切换应用</string>
     <string name="enable_recents_double_tap">双击多任务键时切换至上一个使用过的应用</string>
     <string name="double_tap_speed_title">双击速度</string>
-    <string name="enable_recents_navigation_title">启用任务导航</string>
-    <string name="enable_recents_navigation">反复点击多任务键时依次浏览各个任务</string>
-    <string name="recents_navigation_delay_title">任务导航延时</string>
+    <string name="recents_button_behavior_title">多任务键点击行为</string>
+    <string name="enable_recents_navigation_title">启用最近任务导航</string>
+    <string name="enable_recents_navigation">反复点击多任务键时依次浏览最近任务</string>
+    <string name="recents_navigation_delay_title">最近任务导航延时</string>
     <string name="recents_navigation_delay">所选任务被打开的时间</string>
     <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
     <string name="no_recents_image">更改没有最近任务时的界面样式</string>
 
-    <string name="no_previous_recents">没有最近使用项目</string>
+    <string name="no_previous_recents">没有最近使用的项目</string>
+
+    <string name="recents_button_behavior_previous">返回到上一个应用</string>
+    <string name="recents_button_behavior_current">返回到当前应用</string>
+    <string name="recents_button_behavior_cycle">依次浏览最近任务</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">下拉顶栏</string>
     <string name="enable_notification_header">调整顶栏</string>
-    <string name="notification_header_qs_tiles_count">快速设置磁贴数量</string>
+    <string name="notification_header_qs_tiles_count">顶栏内的磁贴数量</string>
     <string name="notification_header_qs_tiles_count_monitor">个</string>
-    <string name="enable_new_tile_click_behavior">启用安卓 N 内的磁贴点击行为</string>
+    <string name="enable_new_tile_click_behavior">启用安卓 N 式磁贴点击行为</string>
     <string name="enable_new_tile_click_behavior_summary">点击顶栏内的磁贴时直接切换状态\n点击快速设置面板内的磁贴时展开设置项</string>
     <string name="enable_large_first_row">扩大首行磁贴</string>
-    <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
-    <string name="hide_edit_tiles_title">隐藏编辑磁贴按钮</string>
+    <string name="enable_large_first_row_summary">使用 CM 的用户请选择通过编辑磁贴模式中的配置菜单项进行该设置</string>
     <string name="smaller_header_clock_title">更小的时钟</string>
     <string name="smaller_header_clock">减小当展开下拉顶栏时显示时钟的尺寸。对小屏幕手机有帮助</string>
     <string name="notification_full_width_volume_title">全宽度的音量控制条</string>
     <string name="notification_full_width_volume">针对大屏幕手机移除音量控制条的宽度限制</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">隐藏顶栏内的项目</string>
+    <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
+    <string name="hide_edit_tiles_title">隐藏编辑磁贴按钮</string>
+    <string name="hide_carrier_label_title">隐藏运营商名称</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -97,7 +113,11 @@
     <string name="notification_allow_load_label_with_pm">允许通过软件包安装程序加载应用名称。可能会影响手机性能</string>
     <string name="action_search">搜索</string>
     <string name="notification_blacklisted_apps_title">黑名单应用</string>
-    <string name="notification_blacklisted_apps">选中的应用将使用旧风格的通知</string>
+    <string name="notification_blacklisted_apps">所选应用将使用旧风格的通知</string>
+    <string name="notifications_custom_color_title">使用自定义的通知强调色</string>
+    <string name="notifications_accent_color_title">通知强调色</string>
+    <string name="notifications_custom_actions_color_title">使用自定义的通知操作背景色</string>
+    <string name="notifications_actions_color_title">通知操作背景色</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -108,7 +128,7 @@
     <string name="check_for_updates">在启动应用时检查更新</string>
     <string name="checking_for_update">正在检查更新…</string>
     <string name="check_for_update_fail">检查更新失败</string>
-    <string name="no_updates">当前没有新版本更新</string>
+    <string name="no_updates">已为最新版本</string>
     <string name="update_notification_downloading">正在下载更新</string>
     <string name="update_notification_downloading_details">正在下载版本 %1$d 的更新</string>
     <string name="update_notification_download_fail">下载失败</string>

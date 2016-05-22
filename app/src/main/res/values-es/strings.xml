@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">¿Estas seguro de que quieres reiniciar SystemUI?</string>
     <string name="restart_broadcast_sent">Petición de reinicio enviada</string>
     <string name="activity_about">Sobre Android N-ify</string>
-    <string name="about_author">Desarrollado por \"MrWasdennnoch\"</string>
+    <string name="about_author">Desarrollado por @MrWasdennnoch</string>
     <string name="about_translator">Traducido por @Raikem</string>
     <string name="about_version">Versión %1$s (%2$d)</string>
     
@@ -19,12 +19,17 @@
     <string name="header_tweaks">Modificaciones</string>
     <string name="header_app">Ajustes</string>
     
+    <string name="app_dark_theme_title">Tema oscuro</string>
     <string name="hide_launcher_icon">Puede requerir reiniciar el lanzador</string>
     <string name="hide_launcher_icon_title">Esconder icono en el lanzador</string>
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     
     <string name="requires_android_version">Requiere Android %1$s</string>
+    
+    <string name="not_activated">Módulo no activo</string>
+    
+    <string name="theme_colorPrimary">Color primario</string>
     <!-- /prefs -->
     
     <!-- SETTINGS -->
@@ -33,6 +38,7 @@
     <string name="enable_settings_summaries">Muetra la información más importante directamente en la barra de notificaciones</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
     <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. Activa esto para mostrar la información correctamente</string>
+    <string name="enable_n_platlogo_title">N logo en el heuvo de pascua</string>
     
     <string name="disconnected">Desconectado</string>
     <string name="disabled">Desactivado</string>
@@ -60,6 +66,7 @@
     <string name="enable_recents_double_tap_title">Doble pulsación</string>
     <string name="enable_recents_double_tap">Doble pulsación al botón de recientes para volver a la última aplicación</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
+    <string name="recents_button_behavior_title">Comportamiento del botón recientes</string>
     <string name="enable_recents_navigation_title">Activar navegación de recientes</string>
     <string name="enable_recents_navigation">Usar el botón de recientes para navegar entre las aplicaciones recientes</string>
     <string name="recents_navigation_delay_title">Retraso de navegación</string>
@@ -68,6 +75,10 @@
     <string name="no_recents_image">Cambiar imagen de \"Ninguna aplicación reciente\"</string>
 
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
+    
+    <string name="recents_button_behavior_previous">Volver a la última alicación</string>
+    <string name="recents_button_behavior_current">Volver a la aplicación actual</string>
+    <string name="recents_button_behavior_cycle">Cambiar entre aplicaciones</string>
     <!-- /RECENTS -->
     
     <!-- STATUS BAR HEADER -->
@@ -78,12 +89,17 @@
     <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N</string>
     <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
     <string name="enable_large_first_row">Alargar la primera fila</string>
-    <string name="hide_tuner_icon_title">Esconder icono de SystemUI Tuner</string>
-    <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
+    <string name="enable_large_first_row_summary">En CM usar el menú de configuración de ajustes rápidos propio</string>
     <string name="smaller_header_clock_title">Reloj pequeño</string>
     <string name="smaller_header_clock">Reduce el tamaño del reloj en la barra de estado expandida. Útil para pantallas pequeñas</string>
     <string name="notification_full_width_volume_title">Volumen con ancho completo</string>
     <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Ocultar información</string>
+    <string name="hide_tuner_icon_title">Ocultar icono de SystemUI Tuner</string>
+    <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
+    <string name="hide_carrier_label_title">Ocultar operador de red</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -93,17 +109,21 @@
     <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
     <string name="notification_dismiss_button_title">Cambiar botón descartar</string>
     <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
-    <string name="notification_allow_load_label_with_pm_title">Permitir cargar el nombre de la aplicación con PackageManager</string>
+    <string name="notification_allow_load_label_with_pm_title">Cargar nombre de app con PackageManager</string>
     <string name="notification_allow_load_label_with_pm">Puede causar problemas de rendimiento</string>
     <string name="action_search">Buscar</string>
     <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
     <string name="notification_blacklisted_apps">Usar el estilo antigüo para estas aplicaciones</string>
+    <string name="notifications_custom_color_title">Usar color de acento personalizado</string>
+    <string name="notifications_accent_color_title">Color de acento</string>
+    <string name="notifications_custom_actions_color_title">Usar color personalizado para fondo</string>
+    <string name="notifications_actions_color_title">Color de fondo de acciones</string>
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->
     <string name="update_notification_title">Nueva actualización disponible</string>
     <string name="update_notification">Versión %1$d disponible para actualizar!</string>
-    <string name="update_notification_download">Actualización</string>
+    <string name="update_notification_download">Actualizar</string>
     <string name="check_for_updates_title">Buscar actualizaciones</string>
     <string name="check_for_updates">Busca actualizaciones al iniciar la aplicación</string>
     <string name="checking_for_update">Buscando actualizaciones…</string>

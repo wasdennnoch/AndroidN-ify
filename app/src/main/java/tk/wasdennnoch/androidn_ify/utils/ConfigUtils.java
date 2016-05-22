@@ -65,19 +65,20 @@ public class ConfigUtils {
         public boolean enable_summaries;
 
         public boolean fix_sound_notif_tile;
+        public boolean enable_n_platlogo;
 
         public SettingsConfig(XSharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
             fix_sound_notif_tile = prefs.getBoolean("fix_sound_notif_tile", false);
+            enable_n_platlogo = prefs.getBoolean("enable_n_platlogo", true);
         }
     }
 
     public class RecentsConfig {
-        public boolean enable;
-
         public boolean double_tap;
         public int double_tap_speed;
         public boolean navigate_recents;
+        public boolean force_double_tap;
         public int navigation_delay;
         public boolean large_recents;
         public boolean no_recents_image;
@@ -85,12 +86,22 @@ public class ConfigUtils {
         public RecentsConfig(XSharedPreferences prefs) {
             double_tap = prefs.getBoolean("enable_recents_double_tap", true);
             double_tap_speed = prefs.getInt("double_tap_speed", 400);
-            navigate_recents = prefs.getBoolean("enable_recents_navigation", true);
             navigation_delay = prefs.getInt("recents_navigation_delay", 1000);
             large_recents = prefs.getBoolean("enable_large_recents", true);
             no_recents_image = prefs.getBoolean("no_recents_image", true);
+            force_double_tap = false;
 
-            enable = (double_tap || large_recents);
+            int recents_button_behavior = Integer.parseInt(prefs.getString("recents_button_behavior", "0"));
+            switch (recents_button_behavior) {
+                case 1:
+                    navigate_recents = false;
+                    break;
+                case 0:
+                    force_double_tap = true;
+                case 2:
+                    navigate_recents = true;
+                    break;
+            }
         }
     }
 
@@ -99,20 +110,22 @@ public class ConfigUtils {
         public int qs_tiles_count;
         public boolean new_click_behavior;
         public boolean large_first_row;
-        public boolean hide_tuner_icon;
-        public boolean hide_edit_tiles;
         public boolean smaller_header_clock;
         public boolean full_width_volume;
+        public boolean hide_tuner_icon;
+        public boolean hide_edit_tiles;
+        public boolean hide_carrier_label;
 
         public StatusBarHeaderConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
-            hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
-            hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             smaller_header_clock = prefs.getBoolean("smaller_header_clock", false);
             full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
+            hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
+            hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
+            hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
         }
     }
 
@@ -120,19 +133,25 @@ public class ConfigUtils {
         public boolean enable;
 
         public boolean change_style;
-        public boolean dark_theme;
         public boolean dismiss_button;
         public boolean allow_load_label_with_pm;
+        public boolean custom_appname_color;
+        public int appname_color;
+        public boolean custom_actions_color;
+        public int actions_color;
 
         public List<String> blacklistedApps;
 
         public NotificationsConfig(XSharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
-            dark_theme = prefs.getBoolean("notification_dark_theme", false);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             allow_load_label_with_pm = prefs.getBoolean("notification_allow_load_label_with_pm", false);
+            custom_appname_color = prefs.getBoolean("notifications_custom_color", false);
+            appname_color = prefs.getInt("notifications_appname_color", 0);
+            custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
+            actions_color = prefs.getInt("actions_background_colors", 0);
 
-            enable = (change_style || dark_theme || dismiss_button);
+            enable = (change_style || dismiss_button);
         }
 
         public void loadBlacklistedApps() {

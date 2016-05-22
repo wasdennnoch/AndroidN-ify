@@ -11,9 +11,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,8 @@ import android.widget.Toast;
 import java.io.File;
 
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference;
+import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class SettingsActivity extends Activity {
@@ -33,12 +37,16 @@ public class SettingsActivity extends Activity {
     public static final String EXTRA_GENERAL_DEBUG_LOG = "extra.general.DEBUG_LOG";
     public static final String ACTION_KILL_SYSTEMUI = "tk.wasdennnoch.androidn_ify.action.ACTION_KILL_SYSTEMUI";
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ThemeUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        //noinspection ConstantConditions
-        if (isActivated() && !isPrefsFileReadable()) {
+        if (!isActivated()) {
+            getActionBar().setSubtitle(R.string.not_activated);
+        } else if (!isPrefsFileReadable()) {
             findViewById(R.id.prefs_not_readable_warning).setVisibility(View.VISIBLE);
         }
         if (savedInstanceState == null)
@@ -79,6 +87,11 @@ public class SettingsActivity extends Activity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             switch (key) {
+                case "app_dark_theme":
+                case "theme_colorPrimary":
+                case "force_english":
+                    getActivity().recreate();
+                    break;
                 case "hide_launcher_icon":
                     int mode = prefs.getBoolean("hide_launcher_icon", false) ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
                     getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getActivity(), "tk.wasdennnoch.androidn_ify.SettingsAlias"), mode, PackageManager.DONT_KILL_APP);
@@ -94,12 +107,27 @@ public class SettingsActivity extends Activity {
             super.onPreferenceTreeClick(preferenceScreen, preference);
             if (preference instanceof PreferenceScreen) {
                 PreferenceScreen screen = (PreferenceScreen) preference;
+                if (screen.getDialog() != null)
+                    ThemeUtils.applyTheme(screen.getDialog(), getActivity(), preference.getSharedPreferences());
                 switch (preference.getKey()) {
                     case "settings_recents":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference p = screen.findPreference("enable_recents_navigation");
+                            Preference p = screen.findPreference("recents_button_behavior");
                             p.setEnabled(false);
                             p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        } else {
+                            final SeekBarPreference delayPref = (SeekBarPreference) screen.findPreference("recents_navigation_delay");
+                            ListPreference behaviorPref = (ListPreference) screen.findPreference("recents_button_behavior");
+                            if (behaviorPref.getValue().equals("2")) {
+                                delayPref.setEnabled(true);
+                            }
+                            behaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                                @Override
+                                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                    delayPref.setEnabled(Integer.parseInt((String) newValue) == 2);
+                                    return true;
+                                }
+                            });
                         }
                         break;
                 }

@@ -23,6 +23,11 @@
                 android:summary="@string/fix_sound_notif_tile"
                 android:title="@string/fix_sound_notif_tile_title"/>
 
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_n_platlogo"
+                android:title="@string/enable_n_platlogo_title"/>
+
         </PreferenceScreen>
 
 
@@ -47,15 +52,18 @@
                 app:monitorBoxEnabled="true"
                 app:monitorBoxUnit="ms"/>
 
-            <SwitchPreference
-                android:defaultValue="true"
-                android:key="enable_recents_navigation"
-                android:summary="@string/enable_recents_navigation"
-                android:title="@string/enable_recents_navigation_title"/>
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/recents_button_behaviors"
+                android:entryValues="@array/recents_button_behaviors_values"
+                android:key="recents_button_behavior"
+                android:summary="%s"
+                android:title="@string/recents_button_behavior_title"/>
+            <!-- Isn't the "%s" nifty? -->
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="1000"
-                android:dependency="enable_recents_navigation"
+                android:enabled="false"
                 android:key="recents_navigation_delay"
                 android:summary="@string/recents_navigation_delay"
                 android:title="@string/recents_navigation_delay_title"
@@ -110,24 +118,40 @@
                 android:defaultValue="false"
                 android:dependency="enable_new_tile_click_behavior"
                 android:key="enable_large_first_row"
+                android:summary="@string/enable_large_first_row_summary"
                 android:title="@string/enable_large_first_row"/>
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:key="hide_tuner_icon"
-                android:title="@string/hide_tuner_icon_title"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
                 android:dependency="enable_notification_header"
-                android:key="hide_edit_tiles"
-                android:title="@string/hide_edit_tiles_title"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
                 android:key="smaller_header_clock"
                 android:summary="@string/smaller_header_clock"
                 android:title="@string/smaller_header_clock_title"/>
+
+            <PreferenceScreen
+                android:dependency="enable_notification_header"
+                android:key="settings_hide_header_icons"
+                android:title="@string/hide_icons_title">
+
+                <SwitchPreference
+                    android:defaultValue="false"
+                    android:dependency="enable_notification_header"
+                    android:key="hide_tuner_icon"
+                    android:title="@string/hide_tuner_icon_title"/>
+
+                <SwitchPreference
+                    android:defaultValue="false"
+                    android:dependency="enable_notification_header"
+                    android:key="hide_edit_tiles"
+                    android:title="@string/hide_edit_tiles_title"/>
+
+                <SwitchPreference
+                    android:defaultValue="false"
+                    android:dependency="enable_notification_header"
+                    android:key="hide_carrier_label"
+                    android:title="@string/hide_carrier_label_title"/>
+
+            </PreferenceScreen>
 
             <SwitchPreference
                 android:defaultValue="false"
@@ -146,12 +170,6 @@
                 android:defaultValue="true"
                 android:key="notification_change_style"
                 android:title="@string/notifications_change_style"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
-                android:key="notification_dark_theme"
-                android:summary="@string/notifications_dark_theme"
-                android:title="@string/notifications_dark_theme_title"/>
 
             <SwitchPreference
                 android:defaultValue="false"
@@ -174,6 +192,32 @@
                 android:summary="@string/notification_dismiss_button"
                 android:title="@string/notification_dismiss_button_title"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="notifications_custom_color"
+                android:dependency="notification_change_style"
+                android:title="@string/notifications_custom_color_title"/>
+
+            <com.thebluealliance.spectrum.SpectrumPreference
+                android:key="notifications_appname_color"
+                android:title="@string/notifications_accent_color_title"
+                android:dependency="notifications_custom_color"
+                android:defaultValue="0"
+                app:spectrum_colors="@array/appname_colors"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="notifications_custom_actions_color"
+                android:dependency="notification_change_style"
+                android:title="@string/notifications_custom_actions_color_title"/>
+
+            <com.thebluealliance.spectrum.SpectrumPreference
+                android:key="notifications_appname_color"
+                android:title="@string/notifications_actions_color_title"
+                android:dependency="notifications_custom_actions_color"
+                android:defaultValue="0"
+                app:spectrum_colors="@array/actions_background_colors"/>
+
         </PreferenceScreen>
 
     </PreferenceCategory>
@@ -184,9 +228,25 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="app_dark_theme"
+            android:title="@string/app_dark_theme_title"/>
+
+        <com.thebluealliance.spectrum.SpectrumPreference
+            android:key="theme_colorPrimary"
+            android:title="@string/theme_colorPrimary"
+            android:defaultValue="@color/colorPrimary"
+            app:spectrum_colors="@array/theme_colors"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="hide_launcher_icon"
             android:summary="@string/hide_launcher_icon"
             android:title="@string/hide_launcher_icon_title"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="force_english"
+            android:title="@string/force_english_title"/>
 
         <SwitchPreference
             android:defaultValue="false"

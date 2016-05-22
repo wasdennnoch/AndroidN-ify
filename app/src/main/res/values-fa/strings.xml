@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">آیا مطمئن هستید؟</string>
     <string name="restart_broadcast_sent">ریستارت</string>
     <string name="activity_about">درباره N-ify</string>
-    <string name="about_author">MrWasdennnoch برنامه نویس و سازنده</string>
+    <string name="about_author">\@MrWasdennnoch برنامه نویس و سازنده</string>
     <string name="about_translator">ترجمه فارسی توسط علی حسنی</string>
     <string name="about_version">%1$s (%2$d) نسخه</string>
 
@@ -25,7 +25,7 @@
     <string name="hide_launcher_icon">ممکن است ریستارت لانچر لازم باشد</string>
     <string name="debug_log_title">گرفتن گزارش</string>
     <string name="debug_log">هشدار : ممکن است حجم زیادی گرفته شود</string>
-    <string name="requires_android_version">متاسفانه به اندروید بالاتر نیاز است.</string>
+    <string name="requires_android_version">متاسفانه به اندروید بالاتر نیاز است. %1$s</string> <!-- TODO implement this identifier somewhere! -->
     <!-- /prefs -->
 
     <!-- SETTINGS -->

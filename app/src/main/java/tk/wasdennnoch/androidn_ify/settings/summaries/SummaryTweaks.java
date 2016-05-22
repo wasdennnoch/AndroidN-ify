@@ -1,8 +1,13 @@
 package tk.wasdennnoch.androidn_ify.settings.summaries;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
+import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -68,7 +73,7 @@ public class SummaryTweaks {
     //private static int theme_settings;
     //private static int kernel_adiutor;
     private static int display_and_lights_settings;
-    private static int notification_manager;
+    //private static int notification_manager;
 
     //private static int oclick;
     //private static int device_specific_gesture_settings;
@@ -80,9 +85,82 @@ public class SummaryTweaks {
         sHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
     }*/
 
+    private static XC_MethodHook loadCategoriesFromResourceHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            afterLoadCategoriesFromResource(param);
+        }
+    };
+
+    private static XC_MethodHook updateTileViewHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            beforeUpdateTileView(param);
+        }
+    };
+
+    public static void hookMethods(ClassLoader classLoader) {
+
+        Class<?> classSettingsActivity = XposedHelpers.findClass("com.android.settings.SettingsActivity", classLoader);
+        Class<?> classDashboardSummary = XposedHelpers.findClass("com.android.settings.dashboard.DashboardSummary", classLoader);
+
+        //XposedHelpers.findAndHookMethod(classSettingsActivity, "onCreate", Bundle.class, onCreateHook);
+
+        if (Build.VERSION.SDK_INT >= 23)
+            XposedHelpers.findAndHookMethod(classSettingsActivity, "loadCategoriesFromResource", int.class, List.class, Context.class, loadCategoriesFromResourceHook);
+        else
+            XposedHelpers.findAndHookMethod(classSettingsActivity, "loadCategoriesFromResource", int.class, List.class, loadCategoriesFromResourceHook);
+
+
+        try {
+            // Stock Android
+            XposedHelpers.findAndHookMethod(classDashboardSummary, "updateTileView", Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, TextView.class, updateTileViewHook);
+        } catch (Throwable t) {
+            // CyanogenMod
+            try {
+                XposedHelpers.findAndHookMethod(classDashboardSummary, "updateTileView", Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, TextView.class, Switch.class, updateTileViewHook);
+            } catch (Throwable t1) {
+                // Touchwiz
+                try {
+                    XposedHelpers.findAndHookMethod(classDashboardSummary, "updateTileView", Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, TextView.class, int.class, updateTileViewHook);
+                    XposedHelpers.findAndHookMethod(classSettingsActivity, "updateTileView", Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, TextView.class, int.class, updateTileViewHook);
+                } catch (Throwable t2) {
+                    // Touchwiz
+                    try {
+                        XposedHelpers.findAndHookMethod(classDashboardSummary, "updateTileView", Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, int.class, updateTileViewHook);
+                        XposedHelpers.findAndHookMethod(classSettingsActivity, "updateTileView", Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, int.class, updateTileViewHook);
+                    } catch (Throwable t3) {
+                        // Sony
+                        try {
+                            XposedHelpers.findAndHookMethod(classDashboardSummary, "updateTileView", Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, updateTileViewHook);
+                        } catch (Throwable t4) {
+                            // Other method name
+                            try {
+                                Method[] updateTileView = XposedHelpers.findMethodsByExactParameters(classDashboardSummary, void.class, Context.class, Resources.class, XposedHelpers.findClass("com.android.settings.dashboard.DashboardTile", classLoader), ImageView.class, TextView.class, TextView.class);
+                                XposedHook.logI(TAG, "Found " + updateTileView.length + " matches using findMethodsByExactParameters to find updateTileView");
+                                if (updateTileView.length == 1) {
+                                    XposedHook.logI(TAG, "Hooking method with name " + updateTileView[0].getName());
+                                    XposedHelpers.findAndHookMethod(classDashboardSummary, updateTileView[0].getName(), Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, TextView.class, updateTileViewHook);
+                                }
+                            } catch (Throwable t5) {
+                                XposedHook.logE(TAG, "Error hooking updateTileView", t5);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void beforeUpdateTileView(XC_MethodHook.MethodHookParam param) {
+        Context context = (Context) param.args[0];
+        Object tile = param.args[2];
+        setSummary(tile, context);
+    }
+
     public static void afterLoadCategoriesFromResource(XC_MethodHook.MethodHookParam param) {
         try {
-            long startTime = System.currentTimeMillis();
 
             sFixSoundNotifTile = ConfigUtils.settings().fix_sound_notif_tile;
 
@@ -92,16 +170,9 @@ public class SummaryTweaks {
             else
                 context = (Context) param.thisObject; // Surrounding activity
 
-            List target = (List) param.args[1];
-
             setupIds(context);
             ResourceUtils.getInstance(context); // Setup instance
 
-            for (Object category : target) {
-                setSummaries((List) XposedHelpers.getObjectField(category, "tiles"), context);
-            }
-
-            XposedHook.logD(TAG, "Total afterLoadCategoriesFromResource hook took " + (System.currentTimeMillis() - startTime) + "ms");
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in afterLoadCategoriesFromResource", t);
         }
@@ -148,7 +219,7 @@ public class SummaryTweaks {
         //theme_settings = getId(context, "theme_settings");
         //kernel_adiutor = getId(context, "kernel_adiutor");
         display_and_lights_settings = getId(context, "display_and_lights_settings");
-        notification_manager = getId(context, "notification_manager");
+        //notification_manager = getId(context, "notification_manager");
         //oclick = getId(context, "oclick");
         //device_specific_gesture_settings = getId(context, "device_specific_gesture_settings");
         //profile_settings = getId(context, "profile_settings");
@@ -158,115 +229,115 @@ public class SummaryTweaks {
         XposedHook.logD(TAG, "Fetching ids took " + (System.currentTimeMillis() - startTime) + "ms");
     }
 
-    private static void setSummaries(List tiles, Context context) {
+    private static void setSummary(Object tile, Context context) {
         int id;
         String tileId;
         long startTime;
-        for (Object tile : tiles) {
-            id = (int) XposedHelpers.getLongField(tile, "id");
-            if (id == -1)
-                continue;
-            startTime = System.currentTimeMillis();
-            tileId = "";
+        id = (int) XposedHelpers.getLongField(tile, "id");
+        if (id == -1)
+            return;
+        startTime = System.currentTimeMillis();
+        tileId = "";
 
-            if (id == wifi_settings) {
-                tileId = "wifi_settings";
-                WirelessAndNetworksTweaks.hookWifiTile(tile, context);
-            } else if (id == bluetooth_settings) {
-                tileId = "bluetooth_settings";
-                WirelessAndNetworksTweaks.hookBluetoothTile(tile);
-                //} else if (id == sim_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "sim_settings");
-            } else if (id == data_usage_settings) {
-                tileId = "data_usage_settings";
-                WirelessAndNetworksTweaks.hookDataUsageTile(tile, context);
-                //} else if (id == operator_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "operator_settings");
-                //} else if (id == wireless_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "wireless_settings");
+        if (id == wifi_settings) {
+            tileId = "wifi_settings";
+            WirelessAndNetworksTweaks.hookWifiTile(tile, context);
+        } else if (id == bluetooth_settings) {
+            tileId = "bluetooth_settings";
+            WirelessAndNetworksTweaks.hookBluetoothTile(tile);
+            //} else if (id == sim_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "sim_settings");
+        } else if (id == data_usage_settings) {
+            tileId = "data_usage_settings";
+            WirelessAndNetworksTweaks.hookDataUsageTile(tile, context);
+            //} else if (id == operator_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "operator_settings");
+            //} else if (id == wireless_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "wireless_settings");
 
-                //} else if (id == home_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "home_settings");
-            } else if (id == display_settings) {
-                tileId = "display_settings";
-                DeviceTweaks.hookDisplayTile(tile, context);
-            } else if (id == notification_settings) {
-                tileId = "notification_settings";
-                if (sFixSoundNotifTile)
-                    DeviceTweaks.hookSoundTile(tile, context);
-            } else if (id == sound_settings) {
-                tileId = "sound_settings";
+            //} else if (id == home_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "home_settings");
+        } else if (id == display_settings) {
+            tileId = "display_settings";
+            DeviceTweaks.hookDisplayTile(tile, context);
+        } else if (id == notification_settings) {
+            tileId = "notification_settings";
+            if (sFixSoundNotifTile)
                 DeviceTweaks.hookSoundTile(tile, context);
-            } else if (id == application_settings) {
-                tileId = "application_settings";
-                DeviceTweaks.hookApplicationTile(tile, context);
-            } else if (id == storage_settings) {
-                tileId = "storage_settings";
-                DeviceTweaks.hookStorageTile(tile, context);
-            } else if (id == battery_settings) {
-                tileId = "battery_settings";
-                DeviceTweaks.hookBatteryTile(tile, context);
-            } else if (id == manage_memory) {
-                tileId = "manage_memory";
-                DeviceTweaks.hookMemoryTile(tile, context);
-            } else if (id == user_settings) {
-                tileId = "user_settings";
-                DeviceTweaks.hookUserTile(tile, context);
-                //} else if (id == nfc_payment_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "nfc_payment_settings");
-                //} else if (id == manufacturer_settings) { // In Bliss: last position in wireless and networks
-                //    XposedHelpers.setObjectField(tile, "summary", "manufacturer_settings");
+        } else if (id == sound_settings) {
+            tileId = "sound_settings";
+            DeviceTweaks.hookSoundTile(tile, context);
+        } else if (id == application_settings) {
+            tileId = "application_settings";
+            DeviceTweaks.hookApplicationTile(tile, context);
+        } else if (id == storage_settings) {
+            tileId = "storage_settings";
+            DeviceTweaks.hookStorageTile(tile, context);
+        } else if (id == battery_settings) {
+            tileId = "battery_settings";
+            DeviceTweaks.hookBatteryTile(tile, context);
+        } else if (id == manage_memory) {
+            tileId = "manage_memory";
+            DeviceTweaks.hookMemoryTile(tile, context);
+        } else if (id == user_settings) {
+            tileId = "user_settings";
+            DeviceTweaks.hookUserTile(tile, context);
+            //} else if (id == nfc_payment_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "nfc_payment_settings");
+            //} else if (id == manufacturer_settings) { // In Bliss: last position in wireless and networks
+            //    XposedHelpers.setObjectField(tile, "summary", "manufacturer_settings");
 
-            } else if (id == location_settings) {
-                tileId = "location_settings";
-                PersonalTweaks.hookLocationTile(tile, context);
-                //} else if (id == security_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "security_settings");
-                //} else if (id == account_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "account_settings");
-            } else if (id == language_settings) {
-                tileId = "language_settings";
-                PersonalTweaks.hookLanguageTile(tile);
-                //} else if (id == privacy_settings) {
-                //    tileId = "privacy_settings";
-                //    XposedHelpers.setObjectField(tile, "summary", "privacy_settings");
-                // When backup is enabled, it shows the email of the backup account. That's all I know.
+        } else if (id == location_settings) {
+            tileId = "location_settings";
+            PersonalTweaks.hookLocationTile(tile, context);
+            //} else if (id == security_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "security_settings");
+            //} else if (id == account_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "account_settings");
+        } else if (id == language_settings) {
+            tileId = "language_settings";
+            PersonalTweaks.hookLanguageTile(tile);
+            //} else if (id == privacy_settings) {
+            //    tileId = "privacy_settings";
+            //    XposedHelpers.setObjectField(tile, "summary", "privacy_settings");
+            // When backup is enabled, it shows the email of the backup account. That's all I know.
 
-            } else if (id == date_time_settings) {
-                tileId = "date_time_settings";
-                SystemTweaks.hookDateTimeTile(tile);
-                //} else if (id == accessibility_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "accessibility_settings");
-                //} else if (id == print_settings) {
-                //    tileId = "print_settings";
-                //    SystemTweaks.hookPrintTile(tile, context);
-                //} else if (id == development_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "development_settings");
-            } else if (id == about_settings) {
-                tileId = "about_settings";
-                SystemTweaks.hookAboutTile(tile);
+        } else if (id == date_time_settings) {
+            tileId = "date_time_settings";
+            SystemTweaks.hookDateTimeTile(tile);
+            //} else if (id == accessibility_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "accessibility_settings");
+            //} else if (id == print_settings) {
+            //    tileId = "print_settings";
+            //    SystemTweaks.hookPrintTile(tile, context);
+            //} else if (id == development_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "development_settings");
+        } else if (id == about_settings) {
+            tileId = "about_settings";
+            SystemTweaks.hookAboutTile(tile);
 
-                //} else if (id == mobile_networks) {
-                //    XposedHelpers.setObjectField(tile, "summary", "mobile_networks");
-                //} else if (id == main_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "main_settings");
-                //} else if (id == audiofx_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "audiofx_settings");
-                //} else if (id == viper_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "viper_settings");
-                //} else if (id == theme_settings) {
-                //    XposedHelpers.setObjectField(tile, "summary", "theme_settings");
-                //} else if (id == kernel_adiutor) {
-                //    XposedHelpers.setObjectField(tile, "summary", "kernel_adiutor");
-            } else if (id == display_and_lights_settings) {
-                tileId = "display_and_lights_settings";
-                RomTweaks.hookDisplayAndLightsTile(tile, context);
-            }
-
-            if (!tileId.equals(""))
-                XposedHook.logD(TAG, "Hooking tile '" + tileId + "' took " + (System.currentTimeMillis() - startTime) + "ms");
-
+            //} else if (id == mobile_networks) {
+            //    XposedHelpers.setObjectField(tile, "summary", "mobile_networks");
+            //} else if (id == main_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "main_settings");
+            //} else if (id == audiofx_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "audiofx_settings");
+            //} else if (id == viper_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "viper_settings");
+            //} else if (id == theme_settings) {
+            //    XposedHelpers.setObjectField(tile, "summary", "theme_settings");
+            //} else if (id == kernel_adiutor) {
+            //    XposedHelpers.setObjectField(tile, "summary", "kernel_adiutor");
+        } else if (id == display_and_lights_settings) {
+            tileId = "display_and_lights_settings";
+            RomTweaks.hookDisplayAndLightsTile(tile, context);
+            //} else if (id == notification_manager) {
+            //    XposedHelpers.setObjectField(tile, "summary", "notification_manager");
         }
+
+        if (!tileId.equals(""))
+            XposedHook.logD(TAG, "Hooking tile '" + tileId + "' took " + (System.currentTimeMillis() - startTime) + "ms");
+
     }
 
     private static int getId(Context context, String name) {

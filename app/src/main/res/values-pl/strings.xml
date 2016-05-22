@@ -9,21 +9,25 @@
     <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
     <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
     <string name="activity_about">O Android N-ify</string>
-    <string name="about_author">Stworzone przez \"MrWasdennnoch\"</string>
+    <string name="about_author">Stworzone przez @MrWasdennnoch</string>
+    <string name="about_translator">Przetłumaczone przez @ziggynlp</string> <!-- Insert your (preferably) XDA username here -->
     <string name="about_version">Wersja %1$s (%2$d)</string>
 
     <!-- prefs -->
     <string name="prefs_file_not_readable">Plik ustawień nie może być odczytany przez Xposed, zostaną użyte wartości domyślne. Może to być spowodowane statusem SELinux enforcing.</string>
-
+	
     <string name="header_tweaks">Ulepszenia</string>
     <string name="header_app">Aplikacja</string>
 
+	<string name="app_dark_theme_title">Ciemny motyw aplikacji</string>
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
     <string name="debug_log_title">Włącz debugowanie</string>
     <string name="debug_log">Ostrzeżenie: powoduje dużo wpisów w dzienniku debugowania</string>
 
     <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
+	
+	<string name="not_activated">Moduł nieaktywny</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -59,15 +63,20 @@
     <string name="enable_recents_double_tap_title">Podwójne dotknięcie, aby zmienić na poprzednio używaną aplikację</string>
     <string name="enable_recents_double_tap">Podwójne dotknij klawisz poprzednio używanych aplikacji aby zmienić na poprzednio używaną aplikację</string>
     <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
-    <string name="enable_recents_navigation_title">Włącz nawigację poprzednich aplikacji</string>
-    <string name="enable_recents_navigation">Użyj klawisza poprzednich aplikacji aby zmieniać wybraną aplikacje z poprzednich</string>
+    <string name="recents_button_behavior_title">Zachowanie przyciski ostanich aplikacji</string>
+	<string name="enable_recents_navigation_title">Włącz nawigację poprzednich aplikacji</string>
+    <string name="enable_recents_navigation">Użyj klawisza poprzednich aplikacji aby przełączać między aplikacjami</string>
     <string name="recents_navigation_delay_title">Opóźnienie nawigacji poprzednich aplikacji</string>
     <string name="recents_navigation_delay">Czas po jakim nastąpi przełączenie na wybraną aplikację</string>
     <string name="enable_large_recents">Włącz duże okna poprzednich aplikacji</string>
     <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
 
     <string name="no_previous_recents">Brak poprzedniej aplikacji</string>
-    <!-- /RECENTS -->
+	
+	<string name="recents_button_behavior_previous">Wróc do poprzedniej aplikacji</string>
+    <string name="recents_button_behavior_current">Wróc do obecnej aplikacji</string>
+    <string name="recents_button_behavior_cycle">Przełączaj między aplikacjami</string>
+	<!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Pasek statusu</string>
@@ -77,12 +86,18 @@
     <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
     <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go \na dotknięcie kafelka w panelu rozszerzy go</string>
     <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
-    <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
+    <string name="enable_large_first_row_summary">Na CM użyj menu konfiguracji aby edytować kafelki</string>
     <string name="smaller_header_clock_title">Mniejszy zegarek</string>
     <string name="smaller_header_clock">Zmniejsza rozmiar tekstu zegarka w rozwiniętym nagłówku. Przydatne dla małych ekranów</string>
     <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
     <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
-    <!-- /STATUS BAR HEADER -->
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Ukryj elementy nagłówka</string>
+    <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
+    <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
+    <string name="hide_carrier_label_title">Ukryj nazwę dostawcy</string>
+    <!-- /Hide header icons -->
+	<!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Powiadomienia</string>
@@ -111,6 +126,7 @@
     <string name="update_notification_downloading_details">Pobieranie wersji %1$d</string>
     <string name="update_notification_download_fail">Pobieranie nie udane</string>
     <string name="update_notification_download_fail_details">Nie udało się pobrać wersji %1$d</string>
-    <!-- /UPDATE -->
+    <string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
+	<!-- /UPDATE -->
 
 </resources>
