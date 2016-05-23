@@ -96,6 +96,7 @@ public class QuickQSPanel extends LinearLayout {
             XposedHook.logD(TAG, "addTile: original tileView class: " + XposedHelpers.getObjectField(tilerecord, "tileView").getClass().getSimpleName());
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", getContext());
+            XposedHelpers.setAdditionalInstanceField(tileView, "headerTileRowItem", true);
 
             View.OnClickListener click = new View.OnClickListener() {
                 @Override
