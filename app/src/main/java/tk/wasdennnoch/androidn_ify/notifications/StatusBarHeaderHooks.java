@@ -140,7 +140,7 @@ public class StatusBarHeaderHooks {
             try {
                 mSettingsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsContainer");
             } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mSettingsContainer container (" + t.getClass().getSimpleName() + ")");
+                XposedHook.logD(TAG, "No mSettingsContainer view (" + t.getClass().getSimpleName() + ")");
                 mSettingsContainer = mSettingsButton;
             }
             mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
@@ -153,22 +153,22 @@ public class StatusBarHeaderHooks {
             try {
                 mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
             } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mWeatherContainer container (" + t.getClass().getSimpleName() + ")");
+                XposedHook.logD(TAG, "No mWeatherContainer view (" + t.getClass().getSimpleName() + ")");
             }
             try {
                 mCarrierText = (View) XposedHelpers.getObjectField(param.thisObject, "mCarrierText");
             } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mCarrierText container (" + t.getClass().getSimpleName() + ")");
+                XposedHook.logD(TAG, "No mCarrierText view (" + t.getClass().getSimpleName() + ")");
             }
             try {
                 mTaskManagerButton = (View) XposedHelpers.getObjectField(param.thisObject, "mTaskManagerButton");
             } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mTaskManagerButton container (" + t.getClass().getSimpleName() + ")");
+                XposedHook.logD(TAG, "No mTaskManagerButton view (" + t.getClass().getSimpleName() + ")");
             }
             try {
                 mSomcQuickSettings = (View) XposedHelpers.getObjectField(param.thisObject, "mSomcQuickSettings");
             } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mSomcQuickSettings container (" + t.getClass().getSimpleName() + ")");
+                XposedHook.logD(TAG, "No mSomcQuickSettings view (" + t.getClass().getSimpleName() + ")");
             }
 
             try {

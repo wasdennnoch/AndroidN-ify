@@ -87,12 +87,12 @@ public class QuickQSPanel extends LinearLayout {
             setClipChildren(false);
             setClipToPadding(false);
             mEndSpacer = new Space(context);
-            mEndSpacer.setLayoutParams(generateLayoutParams());
+            mEndSpacer.setLayoutParams(generateSpacerLayoutParams());
             updateDownArrowMargin();
             addView(mEndSpacer);
         }
 
-        public void addTile(Object /*QSPanel.TileRecord*/ tilerecord) {
+        public void addTile(Object tilerecord) {
             XposedHook.logD(TAG, "addTile: original tileView class: " + XposedHelpers.getObjectField(tilerecord, "tileView").getClass().getSimpleName());
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", getContext());
@@ -143,8 +143,6 @@ public class QuickQSPanel extends LinearLayout {
                 if (child.getId() == android.R.id.icon || child instanceof FrameLayout) {
                     child.setVisibility(VISIBLE);
                     iconView = child;
-                    int p = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding);
-                    iconView.setPadding(p, p, p, p);
                     iconView.setOnClickListener(click);
                     iconView.setOnLongClickListener(longClick);
                     iconView.setBackground((Drawable) XposedHelpers.getObjectField(tileView, "mRipple"));
@@ -158,11 +156,19 @@ public class QuickQSPanel extends LinearLayout {
             XposedHook.logD(TAG, "addTile: adding tile at #" + position);
             if (iconView != null) {
                 ((ViewGroup) iconView.getParent()).removeView(iconView);
-                addView(iconView, position, generateLayoutParams());
+                addViewToLayout(iconView, position);
             } else {
-                addView(tileView, position, generateLayoutParams());
+                addViewToLayout(tileView, position);
             }
             addView(new Space(getContext()), position, generateSpaceParams());
+        }
+
+        private void addViewToLayout(View view, int position) {
+            int p = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding);
+            FrameLayout container = new FrameLayout(view.getContext());
+            view.setPadding(p, p, p, p);
+            container.addView(view, generateLayoutParams());
+            addView(container, position, generateContainerLayoutParams());
         }
 
         public void removeTiles() {
@@ -173,7 +179,18 @@ public class QuickQSPanel extends LinearLayout {
             }
         }
 
-        private LayoutParams generateLayoutParams() {
+        private FrameLayout.LayoutParams generateLayoutParams() {
+            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        }
+
+        private LayoutParams generateSpacerLayoutParams() {
+            int i = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size);
+            LayoutParams layoutparams = new LayoutParams(i, i);
+            layoutparams.gravity = Gravity.CENTER;
+            return layoutparams;
+        }
+
+        private LayoutParams generateContainerLayoutParams() {
             int i = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size);
             LayoutParams layoutparams = new LayoutParams(i, i);
             layoutparams.gravity = Gravity.CENTER;
