@@ -1,12 +1,19 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -17,14 +24,21 @@ public class QSTileHostHooks {
 
     public static final String CLASS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
     public static final String TILES_SETTING = "sysui_qs_tiles";
+    public static final String TILE_SPEC_NAME = "tileSpec";
 
     private static TilesManager mTilesManager = null;
+    public static List<String> mTileSpecs = null;
+
+    private static Object mTileHost = null;
 
     private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             // Thanks to GravityBox for this
+
+            if (mTileHost == null)
+                mTileHost = param.thisObject;
 
             if (!TILES_SETTING.equals(param.args[0])) return;
 
@@ -57,13 +71,14 @@ public class QSTileHostHooks {
             List<String> tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
 
+            Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
+
             tileSpecs.clear();
-            tileSpecs.addAll(getTileSpecs());
+            tileSpecs.addAll(getTileSpecs(context));
             tileMap.clear();
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
                 String spec = tileSpecs.get(i);
-                XposedHook.logI(TAG, "adding tile: " + spec);
                 tileMap.put(spec, createTile(param.thisObject, spec));
             }
 
@@ -83,9 +98,10 @@ public class QSTileHostHooks {
         }
     };
 
-    public static List<String> getTileSpecs() {
+    public static List<String> getTileSpecs(Context context) {
         // TODO make this customizable
 
+        /*
         List<String> tileSpecs = new ArrayList<>();
         tileSpecs.add("wifi");
         tileSpecs.add("bt");
@@ -96,18 +112,21 @@ public class QSTileHostHooks {
         tileSpecs.add("airplane");
         tileSpecs.add("cast");
         tileSpecs.add("location");
-        return tileSpecs;
+        */
+
+        loadTileSpecs(context);
+        return mTileSpecs;
     }
 
     public static Object createTile(Object tileHost, String tileSpec) {
-        XposedHook.logI(TAG, mTilesManager.getCustomTileSpecs().get(0));
-        XposedHook.logI(TAG, tileSpec);
+        Object tile;
         if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
-            XposedHook.logI(TAG, "custom tile");
-            return mTilesManager.createTile(tileSpec).getTile();
+            tile = mTilesManager.createTile(tileSpec).getTile();
         } else {
-            return XposedHelpers.callMethod(tileHost, "createTile", tileSpec);
+            tile = XposedHelpers.callMethod(tileHost, "createTile", tileSpec);
         }
+        XposedHelpers.setAdditionalInstanceField(tile, TILE_SPEC_NAME, tileSpec);
+        return tile;
     }
 
     public static void hook(ClassLoader classLoader) {
@@ -120,6 +139,52 @@ public class QSTileHostHooks {
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
+        }
+    }
+
+    public static void loadTileSpecs(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        List<String> specs = new ArrayList<>();
+        try {
+            String jsonString = prefs.getString("qs_tiles", getDefaultTilesPref());
+            JSONArray jsonArray = new JSONArray(jsonString);
+            int appCount = jsonArray.length();
+            for (int i = 0; i < appCount; i++) {
+                String spec = jsonArray.getString(i);
+                specs.add(spec);
+            }
+        } catch (JSONException e) {
+            XposedHook.logE(TAG, "Error loading blacklisted apps", e);
+        }
+        mTileSpecs = specs;
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    public static void saveTileSpecs(Context context, List<String> specs) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putString("qs_tiles", new JSONArray(specs).toString());
+        editor.commit();
+    }
+
+    public static String getDefaultTilesPref() {
+        List<String> specs = new ArrayList<>();
+        specs.add("wifi");
+        specs.add("bt");
+        specs.add("cell");
+        specs.add("battery");
+        specs.add("flashlight");
+        specs.add("rotation");
+        specs.add("airplane");
+        specs.add("cast");
+        specs.add("location");
+        return new JSONArray(specs).toString();
+    }
+
+    public static void recreateTiles() {
+        try {
+            XposedHelpers.callMethod(mTileHost, "onTuningChanged", TILES_SETTING, "");
+        } catch (Throwable t) {
+            XposedBridge.log(t);
         }
     }
 }

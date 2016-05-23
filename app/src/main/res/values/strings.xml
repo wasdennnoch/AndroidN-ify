@@ -137,4 +137,9 @@
     <string name="charged">Charged</string>
     <string name="charging">Charging, %1$s</string>
     <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Edit</string>
+    <string name="qs_edit_detail">Edit tiles</string>
+    <!-- /QS -->
 </resources>

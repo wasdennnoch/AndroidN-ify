@@ -22,28 +22,31 @@ import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 
 public class BatteryTile extends QSTile implements BatteryInfoManager.BatteryStatusListener {
 
-    private BatteryInfoManager.BatteryData mBatteryData;
+    private BatteryInfoManager.BatteryData mTileBatteryData;
     private BatteryView mBatteryView;
 
     public BatteryTile(TilesManager tilesManager, Object host, String key) {
         super(tilesManager, host, key);
+        SystemUIHooks.batteryInfoManager.registerListener(this);
     }
 
     @Override
     public void handleUpdateState(Object state, Object arg) {
         mState.label = "Battery";
-        if (mBatteryData != null) {
-            if (mBatteryData.charging) {
-                if (mBatteryData.level == 100) {
+        if (mTileBatteryData != null) {
+            if (mTileBatteryData.charging) {
+                if (mTileBatteryData.level == 100) {
                     mState.label = mResUtils.getString(R.string.charged);
                 } else {
-                    mState.label = String.format(mResUtils.getString(R.string.charging), mBatteryData.level + "%");
+                    mState.label = String.format(mResUtils.getString(R.string.charging), mTileBatteryData.level + "%");
                 }
             } else {
-                mState.label = mBatteryData.level + "%";
+                mState.label = mTileBatteryData.level + "%";
             }
         }
-        SystemUIHooks.batteryInfoManager.registerListener(this);
+        if (mBatteryView != null) {
+            mBatteryView.postInvalidate();
+        }
         super.handleUpdateState(state, arg);
     }
 
@@ -55,7 +58,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public void onBatteryStatusChanged(BatteryInfoManager.BatteryData batteryData) {
-        mBatteryData = batteryData;
+        mTileBatteryData = batteryData;
         refreshState();
     }
 
@@ -69,12 +72,12 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     public void handleDestroy() {
         super.handleDestroy();
         SystemUIHooks.batteryInfoManager.unregisterListener(this);
-        mBatteryData = null;
+        mTileBatteryData = null;
         mBatteryView = null;
     }
 
     // GB BatteryView
-    private class BatteryView extends ImageView {
+    private class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener {
         private final int[] LEVELS = new int[] { 4, 15, 100 };
         private final int[] COLORS = new int[] { 0xFFFF3300, 0xFFFF3300, 0xFFFFFFFF };
         private static final int BOLT_COLOR = 0xB2000000;
@@ -101,8 +104,12 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         private final RectF mClipFrame = new RectF();
         private final Rect mBoltFrame = new Rect();
 
+        private BatteryInfoManager.BatteryData mBatteryData;
+
         public BatteryView(Context context) {
             super(context);
+
+            SystemUIHooks.batteryInfoManager.registerListener(this);
 
             mWarningString = "!";
 
@@ -281,6 +288,12 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
                 final float y = (mHeight + mWarningTextHeight) * 0.48f;
                 c.drawText(mWarningString, x, y, mWarningTextPaint);
             }
+        }
+
+        @Override
+        public void onBatteryStatusChanged(BatteryInfoManager.BatteryData batteryData) {
+            mBatteryData = batteryData;
+            postInvalidate();
         }
     }
 }

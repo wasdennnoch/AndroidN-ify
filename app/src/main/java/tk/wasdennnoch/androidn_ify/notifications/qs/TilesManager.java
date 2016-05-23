@@ -74,11 +74,8 @@ public class TilesManager {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            XposedHook.logI(TAG, "handleUpdateState");
-                            XposedHook.logI(TAG, (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null) {
-                                XposedHook.logI(TAG, "tile != null");
                                 tile.handleUpdateState(param.args[0], param.args[1]);
                                 param.setResult(null);
                             }
