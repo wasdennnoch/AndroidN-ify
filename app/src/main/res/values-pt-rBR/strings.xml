@@ -19,12 +19,18 @@
     <string name="header_tweaks">Ajustes</string>
     <string name="header_app">App</string>
     
+    <string name="app_dark_theme_title">Usar tema escuro</string>
     <string name="hide_launcher_icon_title">Esconder ícone do launcher</string>
     <string name="hide_launcher_icon">Pode ser preciso reiniciar o launcher</string>
+    <string name="force_english_title">Forçar idioma inglês</string>
     <string name="debug_log_title">Registros de depuração</string>
     <string name="debug_log">Atenção: Registro invasivo</string>
 	
-    <string name="requires_android_version">Requer Android %1$s</string>	
+    <string name="requires_android_version">Requer Android %1$s</string>
+    
+    <string name="not_activated">Módulo não ativado</string>
+
+    <string name="theme_colorPrimary">Cor primária</string>    
     <!-- /prefs -->
     
     <!-- SETTINGS -->
@@ -33,6 +39,7 @@
     <string name="enable_settings_summaries">Mostrar as informações mais importantes diretamente no painel</string>
     <string name="fix_sound_notif_tile_title">Corrigir o módulo de Sons &amp; Notificações</string>
     <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Ative esta opção para que o sumário correto seja mostrado.</string>
+    <string name="enable_n_platlogo_title">Logo do Android N no easter egg</string>
 
     <string name="disabled">Desativado</string>
     <string name="disconnected">Desconectado</string>
@@ -56,17 +63,23 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="header_recents">Recentes</string>
-    <string name="enable_recents_double_tap_title">Troca de apps com duplo toque</string>
-    <string name="enable_recents_double_tap">Toque duas vezes na tecla de Apps recentes para mudar para o último app usado</string>
+    <string name="header_recents">Apps recentes</string>
+    <string name="enable_recents_double_tap_title">Troca rápida</string>
+    <string name="enable_recents_double_tap">Toque duas vezes na tecla de apps recentes para mudar para o último app usado</string>
     <string name="double_tap_speed_title">Velocidade do duplo toque</string>
-    <string name="enable_recents_navigation_title">Ativar navegação de apps recentes</string>
-    <string name="enable_recents_navigation">Use a tecla de recentes para navegar entre os apps recentes</string>
+    <string name="recents_button_behavior_title">Ação do botão de apps recentes</string>
+    <string name="enable_recents_navigation_title">Navegação entre apps</string>
+    <string name="enable_recents_navigation">Use o botão de apps recentes para navegar entre os apps</string>
     <string name="recents_navigation_delay_title">Intervalo de navegação</string>
-    <string name="recents_navigation_delay">Tempo até que o app selecionado seja trazido para a frente</string>
-    <string name="enable_large_recents">Ativar apps recentes grandes</string>
+    <string name="recents_navigation_delay">Tempo até que o app selecionado seja colocado em foco</string>
+    <string name="enable_large_recents">Apps recentes grandes</string>
+    <string name="no_recents_image">Mudar a imagem de \"sem itens recentes\"</string>
 
-    <string name="no_previous_recents">Nenhum item recente</string>
+    <string name="no_previous_recents">Sem itens recentes</string>
+    
+    <string name="recents_button_behavior_previous">Voltar para o app anterior</string>
+    <string name="recents_button_behavior_current">Voltar para o app atual</string>
+    <string name="recents_button_behavior_cycle">Alternar entre apps</string>    
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
@@ -77,10 +90,17 @@
     <string name="enable_new_tile_click_behavior">Ativar novo estilo de clique no bloco</string>
     <string name="enable_new_tile_click_behavior_summary">Clicar em um bloco no cabeçalho o ativa/desativa e clicar em um bloco no painel o expande</string>
     <string name="enable_large_first_row">Alargar a primeira fileira</string>
-    <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
-    <string name="hide_edit_tiles_title">Esconder o botão de editar blocos</string>
+    <string name="enable_large_first_row_summary">Na CM use o menu de configuração do modo Editar blocos ao invés desta opção</string>
+    <string name="smaller_header_clock_title">Relógio menor</string>
+    <string name="smaller_header_clock">Diminuir o tamanho do texto do relógio no cabeçalho expandido. Útil para telas pequenas</string>
     <string name="notification_full_width_volume_title">Largura do painel de volume</string>
     <string name="notification_full_width_volume">Remover o limite de largura do painel de volume em dispositivos com telas grandes</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Esconder itens do cabeçalho</string>    
+    <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
+    <string name="hide_edit_tiles_title">Esconder o botão de editar blocos</string>
+    <string name="hide_carrier_label_title">Esconder o nome da operadora</string>
+    <!-- /Hide header icons -->    
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -93,8 +113,12 @@
     <string name="notification_allow_load_label_with_pm_title">Método alternativo para carregar o nome dos apps</string>
     <string name="notification_allow_load_label_with_pm">Permite que o nome do app seja carregado usando o PackageManager. Pode causar problemas de desempenho.</string>
     <string name="action_search">Buscar</string>
-    <string name="notification_blacklisted_apps_title">Apps excluídos</string>
+    <string name="notification_blacklisted_apps_title">Lista negra</string>
     <string name="notification_blacklisted_apps">Não usar o novo estilo de notificações para estes apps</string>
+    <string name="notifications_custom_color_title">Usar cor de destaque personalizada</string>
+    <string name="notifications_accent_color_title">Cor de destaque</string>
+    <string name="notifications_custom_actions_color_title">Usar cor de plano de fundo das ações personalizada</string>
+    <string name="notifications_actions_color_title">Cor de plano de fundo das ações</string>    
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
