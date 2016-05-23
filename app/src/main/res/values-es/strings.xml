@@ -77,7 +77,7 @@
 
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
     
-    <string name="recents_button_behavior_previous">Volver a la última alicación</string>
+    <string name="recents_button_behavior_previous">Volver a la última aplicación</string>
     <string name="recents_button_behavior_current">Volver a la aplicación actual</string>
     <string name="recents_button_behavior_cycle">Cambiar entre aplicaciones</string>
     <!-- /RECENTS -->
