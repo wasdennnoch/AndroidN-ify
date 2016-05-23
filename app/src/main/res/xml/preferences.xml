@@ -194,28 +194,28 @@
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:key="notifications_custom_color"
                 android:dependency="notification_change_style"
+                android:key="notifications_custom_color"
                 android:title="@string/notifications_custom_color_title"/>
 
             <com.thebluealliance.spectrum.SpectrumPreference
+                android:defaultValue="0"
+                android:dependency="notifications_custom_color"
                 android:key="notifications_appname_color"
                 android:title="@string/notifications_accent_color_title"
-                android:dependency="notifications_custom_color"
-                android:defaultValue="0"
                 app:spectrum_colors="@array/appname_colors"/>
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:key="notifications_custom_actions_color"
                 android:dependency="notification_change_style"
+                android:key="notifications_custom_actions_color"
                 android:title="@string/notifications_custom_actions_color_title"/>
 
             <com.thebluealliance.spectrum.SpectrumPreference
-                android:key="notifications_appname_color"
-                android:title="@string/notifications_actions_color_title"
-                android:dependency="notifications_custom_actions_color"
                 android:defaultValue="0"
+                android:dependency="notifications_custom_actions_color"
+                android:key="actions_background_colors"
+                android:title="@string/notifications_actions_color_title"
                 app:spectrum_colors="@array/actions_background_colors"/>
 
         </PreferenceScreen>
@@ -232,9 +232,9 @@
             android:title="@string/app_dark_theme_title"/>
 
         <com.thebluealliance.spectrum.SpectrumPreference
+            android:defaultValue="@color/colorPrimary"
             android:key="theme_colorPrimary"
             android:title="@string/theme_colorPrimary"
-            android:defaultValue="@color/colorPrimary"
             app:spectrum_colors="@array/theme_colors"/>
 
         <SwitchPreference
