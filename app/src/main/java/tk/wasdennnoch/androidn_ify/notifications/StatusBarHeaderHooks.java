@@ -169,6 +169,11 @@ public class StatusBarHeaderHooks {
                 mSomcQuickSettings = (View) XposedHelpers.getObjectField(param.thisObject, "mSomcQuickSettings");
             } catch (Throwable t) {
                 XposedHook.logD(TAG, "No mSomcQuickSettings view (" + t.getClass().getSimpleName() + ")");
+                try { // OOS2
+                    mSomcQuickSettings = (View) XposedHelpers.getObjectField(param.thisObject, "mEditModeButton");
+                } catch (Throwable t2) {
+                    XposedHook.logD(TAG, "No mEditModeButton view (" + t2.getClass().getSimpleName() + ")");
+                }
             }
 
             try {
