@@ -6,6 +6,7 @@ import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Process;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -775,31 +776,34 @@ public class StatusBarHeaderHooks {
 
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
 
-                XposedHelpers.findAndHookMethod(classQSTileView, "setIcon", ImageView.class, CLASS_QS_STATE, new XC_MethodHook() {
-                    boolean forceAnim = false;
+                if (Build.VERSION.SDK_INT >= 23) {
+                    XposedHelpers.findAndHookMethod(classQSTileView, "setIcon", ImageView.class, CLASS_QS_STATE, new XC_MethodHook() {
+                        boolean forceAnim = false;
 
-                    @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        View iv = (View) param.args[0];
-                        Object headerItem = XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowItem");
-                        forceAnim = headerItem != null && (boolean) headerItem &&
-                                !Objects.equals(XposedHelpers.getObjectField(param.args[1], "icon"),
-                                        iv.getTag(iv.getResources().getIdentifier("qs_icon_tag", "id", PACKAGE_SYSTEMUI)));
-                    }
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            View iv = (View) param.args[0];
+                            Object headerItem = XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowItem");
+                            forceAnim = headerItem != null && (boolean) headerItem &&
+                                    !Objects.equals(XposedHelpers.getObjectField(param.args[1], "icon"),
+                                            iv.getTag(iv.getResources().getIdentifier("qs_icon_tag", "id", PACKAGE_SYSTEMUI)));
+                        }
 
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        if (forceAnim) {
-                            View iconView = (View) XposedHelpers.getObjectField(param.thisObject, "mIcon");
-                            if (iconView instanceof ImageView) {
-                                Drawable icon = ((ImageView) iconView).getDrawable();
-                                if (icon instanceof Animatable) {
-                                    ((Animatable) icon).start();
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim);
+                            if (forceAnim) {
+                                View iconView = (View) XposedHelpers.getObjectField(param.thisObject, "mIcon");
+                                if (iconView instanceof ImageView) {
+                                    Drawable icon = ((ImageView) iconView).getDrawable();
+                                    if (icon instanceof Animatable) {
+                                        ((Animatable) icon).start();
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                }
 
             }
         } catch (Throwable t) {

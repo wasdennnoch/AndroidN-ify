@@ -121,10 +121,14 @@ public class QuickQSPanel extends LinearLayout {
                 XposedHelpers.callMethod(tileView, "init", click, clickSecondary, longClick);
             } catch (Throwable t) {
                 try {
-                    XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
                     XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
                 } catch (Throwable t2) {
-                    XposedHelpers.callMethod(tileView, "init", click, longClick);
+                    try {
+                        XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
+                        XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
+                    } catch (Throwable t3) {
+                        XposedHelpers.callMethod(tileView, "init", click, longClick);
+                    }
                 }
             }
             try {
