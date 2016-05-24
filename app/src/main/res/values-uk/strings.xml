@@ -14,7 +14,7 @@
     <string name="about_version">Версія %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">Xposed не може прочитати файл конфігурації, будуть використані стандартні значення. Це може бути пов'язано з блокуючим режимом SELinux.</string>
+    <string name="prefs_file_not_readable">Xposed не може прочитати файл конфігурації, будуть використані стандартні значення. Це може бути пов\'язано з блокуючим режимом SELinux.</string>
 
     <string name="header_tweaks">Твіки</string>
     <string name="header_app">Додатки</string>
@@ -38,10 +38,10 @@
     <string name="enable_settings_summaries_title">Увімкнути твіки налаштування</string>
     <string name="enable_settings_summaries">Показує найважливішу інформацію в панелі управління</string>
     <string name="fix_sound_notif_tile_title">Виправити пункт \"Звуки і сповіщення\"</string>
-    <string name="fix_sound_notif_tile">Деякі прошивки об'єднують налаштування звуку і сповіщення. Ввімкніть цю опцію для коректного відображення.</string>
+    <string name="fix_sound_notif_tile">Деякі прошивки об\'єднують налаштування звуку і сповіщення. Ввімкніть цю опцію для коректного відображення.</string>
     <string name="enable_n_platlogo_title">Логотип пасхалки в стилі N</string>
     
-    <string name="disconnected">Від'єднано</string>
+    <string name="disconnected">Від\'єднано</string>
     <string name="disabled">Вимкнено</string>
     <string name="off">Вимк</string>
     <string name="on">Увімк</string>
