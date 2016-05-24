@@ -107,6 +107,7 @@ public class ConfigUtils {
 
     public class StatusBarHeaderConfig {
         public boolean header;
+        public boolean keep_qs_panel_background;
         public int qs_tiles_count;
         public boolean new_click_behavior;
         public boolean large_first_row;
@@ -118,6 +119,7 @@ public class ConfigUtils {
 
         public StatusBarHeaderConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
+            keep_qs_panel_background = prefs.getBoolean("keep_qs_panel_background", false);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);

@@ -34,12 +34,14 @@ public class NotificationPanelHooks {
             mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
             mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
 
-            View mQsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mQsContainer");
-            try {
-                //noinspection deprecation
-                mQsContainer.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
-            } catch (Throwable t) {
-                XposedHook.logE(TAG, "Couldn't change QS container background color", t);
+            if (!ConfigUtils.header().keep_qs_panel_background) {
+                View mQsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mQsContainer");
+                try {
+                    //noinspection deprecation
+                    mQsContainer.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Couldn't change QS container background color", t);
+                }
             }
         }
     };
@@ -84,6 +86,31 @@ public class NotificationPanelHooks {
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
+
+                /*XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingIn", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        XposedHook.logI("androidn_ify", "after animateHeaderSlidingIn");
+                    }
+                });
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingOut", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        XposedHook.logI("androidn_ify", "after animateHeaderSlidingOut");
+                    }
+                });*/
+                /*XposedHelpers.findAndHookMethod(classNotificationPanelView, "setVerticalPanelTranslation", float.class, new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        XposedHook.logI("androidn_ify", "after setVerticalPanelTranslation " + (float) param.args[0]);
+                    }
+                });
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "setListening", boolean.class, new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        XposedHook.logI("androidn_ify", "after setListening " + (boolean) param.args[0]);
+                    }
+                });*/
 
             }
         } catch (Throwable t) {
