@@ -14,7 +14,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import tk.wasdennnoch.androidn_ify.R;
@@ -52,8 +55,13 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public View onCreateIcon() {
+        FrameLayout iconFrame = new FrameLayout(mContext);
+        FrameLayout.LayoutParams batteryLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        batteryLp.gravity = Gravity.CENTER;
         mBatteryView = new BatteryView(mContext);
-        return mBatteryView;
+        mBatteryView.setLayoutParams(batteryLp);
+        iconFrame.addView(mBatteryView);
+        return iconFrame;
     }
 
     @Override
