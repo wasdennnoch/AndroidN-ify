@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
+
+    <string name="restart_systemui">시스템UI 재시작</string>
+    <string name="restart_systemui_message">시스템UI를 재시작 하시겠습니까?</string>
+    <string name="restart_broadcast_sent">재시작 명령을 보냈습니다</string>
+    <string name="activity_about">Android N-ify에 대하여</string>
+    <string name="about_author">@MrWasdennnoch 이(가) 개발하였습니다</string>
+    <string name="about_translator">@CNBLACK 이(가) 번역하였습니다</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_version">버전 %1$s (%2$d)</string>
+
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">The preference file isn\'t readable by Xposed, default values will be used in hooks. This could be due to enforcing SELinux.</string>
+
+    <string name="header_tweaks">트윅</string>
+    <string name="header_app">앱</string>
+
+    <string name="app_dark_theme_title">어두운 앱 테마</string>
+    <string name="hide_launcher_icon_title">바로가기 아이콘 숨기기</string>
+    <string name="hide_launcher_icon">홈 런처를 재시작 해야할 수도 있습니다</string>
+    <string name="force_english_title">영어 강제 사용</string>
+    <string name="debug_log_title">디버그 로그</string>
+    <string name="debug_log">경고: 로그 플러딩</string>
+
+    <string name="requires_android_version">안드로이드 %1$s 이상 버전이 필요합니다</string>
+
+    <string name="not_activated">모듈이 활성화 되지 않았습니다</string>
+
+    <string name="theme_colorPrimary">기본 색상</string>
+    <!-- /prefs -->
+
+    <!-- SETTINGS -->
+    <string name="header_settings">설정</string>
+    <string name="enable_settings_summaries_title">설정 정보</string>
+    <string name="enable_settings_summaries">중요한 설정 정보를 설정앱 대시보드에 보여줍니다</string>
+    <string name="fix_sound_notif_tile_title">"소리 &amp; 알림" 타일 수정</string>
+    <string name="fix_sound_notif_tile">몇몇의 롬은 소리와 알림 타일을 결합하였습니다. 이 타일을 위해 적절한 정보를 표시합니다</string>
+    <string name="enable_n_platlogo_title">이스터에그에 N로고 사용</string>
+
+    <string name="disconnected">연결 해제됨</string>
+    <string name="disabled">사용 안함</string>
+    <string name="off">사용 중지되었습니다.</string>
+    <string name="on">사용 설정되었습니다.</string>
+    <string name="data_usage_summary">데이터 %1$s 사용됨</string>
+    <string name="display_summary">밝기 자동 조절이 %1$s</string>
+    <string name="sound_summary">벨소리 장치 볼륨 %1$s</string>
+    <string name="apps_summary">앱 %1$d개 설치됨</string>
+    <string name="storage_summary">%1$s 중 %2$s 사용됨</string>
+    <string name="battery_summary">%1$s - 대략 %2$s시간 남음</string>
+    <string name="battery_charging_wireless">%1$s - 충전 중(무선 충전)</string>
+    <string name="battery_charging_usb">%1$s - 충전 중(USB)</string>
+    <string name="battery_charging_ac">%1$s - 충전 중(AC 전원)</string>
+    <string name="memory_summary">평균 %1$s/%2$s 저장용량 사용됨</string>
+    <string name="user_summary">%1$s(으)로 로그인했습니다.</string>
+    <string name="location_on_power">사용함 / 배터리 절약</string>
+    <string name="location_on_device">사용함 / 기기 전용</string>
+    <string name="location_on_high">사용함 / 높은 정확성</string>
+    <string name="print_summary">인쇄 작업 %1$d개</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="header_recents">최근 실행</string>
+    <string name="enable_recents_double_tap_title">빠른 전환</string> <!-- That's how Google calls it -->
+    <string name="enable_recents_double_tap">최근 실행 키를 두번 누를 경우 최근에 사용한 앱으로 전환합니다.</string>
+    <string name="double_tap_speed_title">더블 탭 속도</string>
+    <string name="recents_button_behavior_title">최근 실행 버튼 클릭시 행동</string>
+    <string name="enable_recents_navigation_title">최근 실행 앱 네비게이션</string>
+    <string name="enable_recents_navigation">Use the recents key to navigate through the recents</string>
+    <string name="recents_navigation_delay_title">네비게이션 딜레이</string>
+    <string name="recents_navigation_delay">Time until the selected app gets focused</string>
+    <string name="enable_large_recents">큰 최근 실행 앱</string>
+    <string name="no_recents_image">"최근 실행 앱 없음" 이미지 교체</string>
+
+    <string name="no_previous_recents">최근 실행한 앱 없음</string>
+
+    <string name="recents_button_behavior_previous">이전 앱으로 돌아감</string>
+    <string name="recents_button_behavior_current">최근 앱으로 돌아감</string>
+    <string name="recents_button_behavior_cycle">Cycle through apps</string>
+    <!-- /RECENTS -->
+
+    <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">상단바 헤더</string>
+    <string name="enable_notification_header">헤더 스타일</string>
+    <string name="notification_header_qs_tiles_count">QS tiles to show</string>
+    <string name="notification_header_qs_tiles_count_monitor">타일</string>
+    <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
+    <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
+    <string name="enable_large_first_row">Enlarge first row</string>
+    <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
+    <string name="smaller_header_clock_title">작은 시계</string>
+    <string name="smaller_header_clock">확장 헤더의 시계의 텍스트의 크기를 줄입니다. 화면이 작은 디바이스들에게 유용합니다</string>
+    <string name="notification_full_width_volume_title">볼륨 다이아로그 길이 제한 해제</string>
+    <string name="notification_full_width_volume">큰 화면을 사용하는 디바이스들을 위해 볼륨 다이아로그 길이 제한을 해제합니다</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">헤더 아이템 숨기기</string>
+    <string name="hide_tuner_icon_title">시스템UI 튜너 아이콘 숨기기</string>
+    <string name="hide_edit_tiles_title">타일 수정 버튼 숨기기</string>
+    <string name="hide_carrier_label_title">통신사 라벨 숨기기</string>
+    <!-- /Hide header icons -->
+    <!-- /STATUS BAR HEADER -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">알림</string>
+    <string name="notifications_change_style">알림 스타일 활성화</string>
+    <string name="notifications_dark_theme_title">어두운 알림 테마</string>
+    <string name="notifications_dark_theme">사용자만의 레이어 테마를 위해 어두운 알림 배경을 사용합니다</string>
+    <string name="notification_dismiss_button_title">모두 지우기 버튼 교체</string>
+    <string name="notification_dismiss_button">모두 지우기 아이콘 대신 "모두 지우기" 문구를 사용합니다</string>
+    <string name="notification_allow_load_label_with_pm_title">앱 이름 불러오는 방식 대체</string>
+    <string name="notification_allow_load_label_with_pm">패키지 매니저에서 애플리케이션 이름을 불러오는 것을 허용합니다. 성능 이슈가 발생할 수 있습니다</string>
+    <string name="action_search">검색</string>
+    <string name="notification_blacklisted_apps_title">앱 블랙리스트</string>
+    <string name="notification_blacklisted_apps">이 앱에 대해서는 오래된 알림 스타일을 사용합니다</string>
+    <string name="notifications_custom_color_title">커스텀 강조 색상 사용</string>
+    <string name="notifications_accent_color_title">강조 색상</string>
+    <string name="notifications_custom_actions_color_title">커스텀 액션 배경 색상 사용</string>
+    <string name="notifications_actions_color_title">액션 배경 색상</string>
+    <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">새로운 업데이트가 있습니다</string>
+    <string name="update_notification">빌드 %1$d 로 업데이트 할 수 있습니다</string>
+    <string name="update_notification_download">업데이트</string>
+    <string name="check_for_updates_title">업데이트 확인</string>
+    <string name="check_for_updates">앱을 실행할 경우 업데이트를 자동으로 확인합니다</string>
+    <string name="checking_for_update">업데이트 확인 중…</string>
+    <string name="check_for_update_fail">업데이트를 확인할 수 없습니다</string>
+    <string name="no_updates">새로운 버전 없음</string>
+    <string name="update_notification_downloading">업데이트 다운로드 중</string>
+    <string name="update_notification_downloading_details">빌드 %1$d 다운로드 중</string>
+    <string name="update_notification_download_fail">다운로드 실패</string>
+    <string name="update_notification_download_fail_details">빌드 %1$d 를 받는 도중 오류가 발생하였습니다</string>
+    <!-- /UPDATE -->
+
+</resources>
