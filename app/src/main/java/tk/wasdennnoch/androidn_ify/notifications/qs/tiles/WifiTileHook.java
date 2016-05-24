@@ -1,9 +1,5 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs.tiles;
 
-import android.content.Context;
-
-import com.android.internal.logging.MetricsLogger;
-
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;

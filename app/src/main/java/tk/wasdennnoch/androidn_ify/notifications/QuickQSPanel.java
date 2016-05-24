@@ -2,6 +2,7 @@ package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,8 @@ public class QuickQSPanel extends LinearLayout {
     private static final String TAG = "QuickQSPanel";
 
     private int mMaxTiles;
-    protected HeaderTileLayout mTileLayout;
-    private ResourceUtils res;
+    private HeaderTileLayout mTileLayout;
+    private ResourceUtils mRes;
     private ArrayList<Object> mRecords = new ArrayList<>();
     private ArrayList<ViewGroup> mTileViews = new ArrayList<>();
 
@@ -31,10 +32,10 @@ public class QuickQSPanel extends LinearLayout {
         super(context);
         ConfigUtils config = ConfigUtils.getInstance();
         config.reload();
-        res = ResourceUtils.getInstance(context);
+        mRes = ResourceUtils.getInstance(context);
         mMaxTiles = config.header.qs_tiles_count;
         setOrientation(VERTICAL);
-        setPadding(0, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), 0, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
+        setPadding(0, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), 0, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         mTileLayout = new HeaderTileLayout(context);
         addView(mTileLayout);
     }
@@ -86,16 +87,16 @@ public class QuickQSPanel extends LinearLayout {
             setClipChildren(false);
             setClipToPadding(false);
             mEndSpacer = new Space(context);
-            mEndSpacer.setLayoutParams(generateLayoutParams());
+            mEndSpacer.setLayoutParams(generateSpacerLayoutParams());
             updateDownArrowMargin();
             addView(mEndSpacer);
         }
 
-        public void addTile(Object /*QSPanel.TileRecord*/ tilerecord) {
+        public void addTile(Object tilerecord) {
             XposedHook.logD(TAG, "addTile: original tileView class: " + XposedHelpers.getObjectField(tilerecord, "tileView").getClass().getSimpleName());
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", getContext());
-            XposedHook.logD(TAG, "addTile: generated tileView class: " + tileView.getClass().getSimpleName());
+            XposedHelpers.setAdditionalInstanceField(tileView, "headerTileRowItem", true);
 
             View.OnClickListener click = new View.OnClickListener() {
                 @Override
@@ -120,10 +121,14 @@ public class QuickQSPanel extends LinearLayout {
                 XposedHelpers.callMethod(tileView, "init", click, clickSecondary, longClick);
             } catch (Throwable t) {
                 try {
-                    XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
                     XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
                 } catch (Throwable t2) {
-                    XposedHelpers.callMethod(tileView, "init", click, longClick);
+                    try {
+                        XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
+                        XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
+                    } catch (Throwable t3) {
+                        XposedHelpers.callMethod(tileView, "init", click, longClick);
+                    }
                 }
             }
             try {
@@ -132,24 +137,43 @@ public class QuickQSPanel extends LinearLayout {
                 // CM13
                 XposedHelpers.callMethod(tileView, "setDual", false, false);
             }
-            //XposedHelpers.callMethod(tileView, "handleStateChanged", XposedHelpers.callMethod(tile, "getState"));
             XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
 
+            View iconView = null;
             int children = tileView.getChildCount();
             for (int i = 0; i < children; i++) {
                 View child = tileView.getChildAt(i);
                 // no complex "getResources().getIdenifier("blah", "blah", "blah")"? I love it!
                 // FrameLayout is the container of the signal state icons
-                if (child.getId() == android.R.id.icon || child instanceof FrameLayout)
+                if (child.getId() == android.R.id.icon || child instanceof FrameLayout) {
                     child.setVisibility(VISIBLE);
-                else
+                    iconView = child;
+                    iconView.setOnClickListener(click);
+                    iconView.setOnLongClickListener(longClick);
+                    iconView.setBackground((Drawable) XposedHelpers.getObjectField(tileView, "mRipple"));
+                } else {
                     child.setVisibility(GONE);
+                }
             }
 
             mTileViews.add(tileView);
-            XposedHook.logD(TAG, "addTile: adding tile at #" + (getChildCount() - 1));
-            addView(tileView, getChildCount() - 1, generateLayoutParams());
-            addView(new Space(getContext()), getChildCount() - 1, generateSpaceParams());
+            int position = getChildCount() - 1;
+            XposedHook.logD(TAG, "addTile: adding tile at #" + position);
+            if (iconView != null) {
+                ((ViewGroup) iconView.getParent()).removeView(iconView);
+                addViewToLayout(iconView, position);
+            } else {
+                addViewToLayout(tileView, position);
+            }
+            addView(new Space(getContext()), position, generateSpaceParams());
+        }
+
+        private void addViewToLayout(View view, int position) {
+            int p = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding);
+            FrameLayout container = new FrameLayout(view.getContext());
+            view.setPadding(p, p, p, p);
+            container.addView(view, generateLayoutParams());
+            addView(container, position, generateContainerLayoutParams());
         }
 
         public void removeTiles() {
@@ -160,15 +184,26 @@ public class QuickQSPanel extends LinearLayout {
             }
         }
 
-        private LayoutParams generateLayoutParams() {
-            int i = res.getDimensionPixelSize(R.dimen.qs_quick_tile_size);
+        private FrameLayout.LayoutParams generateLayoutParams() {
+            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        }
+
+        private LayoutParams generateSpacerLayoutParams() {
+            int i = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size);
+            LayoutParams layoutparams = new LayoutParams(i, i);
+            layoutparams.gravity = Gravity.CENTER;
+            return layoutparams;
+        }
+
+        private LayoutParams generateContainerLayoutParams() {
+            int i = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size);
             LayoutParams layoutparams = new LayoutParams(i, i);
             layoutparams.gravity = Gravity.CENTER;
             return layoutparams;
         }
 
         private LayoutParams generateSpaceParams() {
-            LayoutParams layoutparams = new LayoutParams(0, res.getDimensionPixelSize(R.dimen.qs_quick_tile_size));
+            LayoutParams layoutparams = new LayoutParams(0, mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size));
             layoutparams.weight = 1.0F;
             layoutparams.gravity = Gravity.CENTER;
             return layoutparams;
@@ -176,7 +211,7 @@ public class QuickQSPanel extends LinearLayout {
 
         private void updateDownArrowMargin() {
             LayoutParams layoutparams = (LayoutParams) mEndSpacer.getLayoutParams();
-            layoutparams.setMarginStart(res.getDimensionPixelSize(R.dimen.qs_quick_tile_padding));
+            layoutparams.setMarginStart(mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding));
             mEndSpacer.setLayoutParams(layoutparams);
         }
 
