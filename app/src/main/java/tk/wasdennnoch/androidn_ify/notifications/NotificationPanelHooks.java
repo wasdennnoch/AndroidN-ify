@@ -17,6 +17,7 @@ public class NotificationPanelHooks {
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
+    private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
 
     private static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
@@ -76,7 +77,7 @@ public class NotificationPanelHooks {
     }
 
     public static void flingSettings(boolean expanded) {
-        XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", 0, expanded);
+        XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", new Class[]{float.class, boolean.class, Runnable.class, boolean.class}, 0, expanded, null, true);
     }
 
     public static void hook(ClassLoader classLoader) {
@@ -84,33 +85,16 @@ public class NotificationPanelHooks {
             if (ConfigUtils.header().header) {
 
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
+                Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
 
-                /*XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingIn", new XC_MethodHook() {
+                XposedHelpers.findAndHookMethod(classPanelView, "schedulePeek", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        XposedHook.logI("androidn_ify", "after animateHeaderSlidingIn");
+                        XposedHelpers.callMethod(mNotificationPanelView, "setListening", true);
                     }
                 });
-                XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingOut", new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        XposedHook.logI("androidn_ify", "after animateHeaderSlidingOut");
-                    }
-                });*/
-                /*XposedHelpers.findAndHookMethod(classNotificationPanelView, "setVerticalPanelTranslation", float.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        XposedHook.logI("androidn_ify", "after setVerticalPanelTranslation " + (float) param.args[0]);
-                    }
-                });
-                XposedHelpers.findAndHookMethod(classNotificationPanelView, "setListening", boolean.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        XposedHook.logI("androidn_ify", "after setListening " + (boolean) param.args[0]);
-                    }
-                });*/
 
             }
         } catch (Throwable t) {

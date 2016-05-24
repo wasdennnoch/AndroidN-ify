@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -65,13 +66,6 @@ public class QuickQSPanel extends LinearLayout {
                 ViewGroup tileView = mTileViews.get(i);
                 XposedHelpers.callMethod(tileView, "onStateChanged", state);
                 XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
-                /*View iconView = (View) XposedHelpers.getObjectField(tileView, "mIcon");
-                if (iconView instanceof ImageView) {
-                    Drawable icon = ((ImageView) iconView).getDrawable();
-                    if (icon instanceof Animatable) {
-                        ((Animatable) icon).start();
-                    }
-                }*/
             }
         }
     }
@@ -153,9 +147,10 @@ public class QuickQSPanel extends LinearLayout {
                     iconView.setOnLongClickListener(longClick);
                     iconView.setBackground(newTileBackground());
                     final View finalIconView = iconView;
-                    iconView.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+                    iconView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
-                        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                        public void onGlobalLayout() {
+                            finalIconView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                             finalIconView.getBackground().setHotspot(finalIconView.getWidth() / 2, finalIconView.getHeight() / 2);
                         }
                     });
