@@ -2,6 +2,7 @@ package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
@@ -150,7 +151,14 @@ public class QuickQSPanel extends LinearLayout {
                     iconView = child;
                     iconView.setOnClickListener(click);
                     iconView.setOnLongClickListener(longClick);
-                    iconView.setBackground((Drawable) XposedHelpers.getObjectField(tileView, "mRipple"));
+                    iconView.setBackground(newTileBackground());
+                    final View finalIconView = iconView;
+                    iconView.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+                        @Override
+                        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                            finalIconView.getBackground().setHotspot(finalIconView.getWidth() / 2, finalIconView.getHeight() / 2);
+                        }
+                    });
                 } else {
                     child.setVisibility(GONE);
                 }
@@ -213,6 +221,14 @@ public class QuickQSPanel extends LinearLayout {
             LayoutParams layoutparams = (LayoutParams) mEndSpacer.getLayoutParams();
             layoutparams.setMarginStart(mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding));
             mEndSpacer.setLayoutParams(layoutparams);
+        }
+
+        private Drawable newTileBackground() {
+            final int[] attrs = new int[]{android.R.attr.selectableItemBackgroundBorderless};
+            final TypedArray ta = getContext().obtainStyledAttributes(attrs);
+            final Drawable d = ta.getDrawable(0);
+            ta.recycle();
+            return d;
         }
 
         @Override
