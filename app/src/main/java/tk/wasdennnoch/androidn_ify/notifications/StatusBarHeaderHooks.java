@@ -468,8 +468,14 @@ public class StatusBarHeaderHooks {
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
             if (mHeaderQsPanel != null) {
-                //noinspection unchecked
-                final ArrayList<Object> mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
+                ArrayList<Object> mRecords;
+                try {
+                    //noinspection unchecked
+                    mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
+                } catch (Throwable t) {
+                    //noinspection unchecked
+                    mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
+                }
                 mHeaderQsPanel.setTiles(mRecords);
             }
         }
@@ -481,7 +487,7 @@ public class StatusBarHeaderHooks {
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
             if (mHeaderQsPanel != null) {
-                mHeaderQsPanel.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState")); // TODO no icon animation
+                mHeaderQsPanel.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState"));
             }
         }
     };
