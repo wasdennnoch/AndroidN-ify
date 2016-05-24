@@ -9,8 +9,8 @@
     <string name="restart_systemui_message">시스템UI를 재시작 하시겠습니까?</string>
     <string name="restart_broadcast_sent">재시작 명령을 보냈습니다</string>
     <string name="activity_about">Android N-ify에 대하여</string>
-    <string name="about_author">@MrWasdennnoch 이(가) 개발하였습니다</string>
-    <string name="about_translator">@CNBLACK 이(가) 번역하였습니다</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_author">\@MrWasdennnoch 이(가) 개발하였습니다</string>
+    <string name="about_translator">\@CNBLACK 이(가) 번역하였습니다</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">버전 %1$s (%2$d)</string>
 
     <!-- prefs -->
