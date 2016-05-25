@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="@android:color/transparent">
-    <!-- We don't want a ripple, but the SystemUI crashes in onFinishInflate
-     when there is no ripple, so just hide it by making it the same color as
-     the background. We'll replace the background after that method call. -->
-    <item android:drawable="@color/system_primary_color"/>
-</ripple>

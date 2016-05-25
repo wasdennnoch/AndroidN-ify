@@ -350,7 +350,6 @@ public class NotificationsHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
 
                 // Drawables
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_header_bg", modRes.fwd(R.drawable.replacement_notification_header_bg));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_guts_bg", modRes.fwd(R.drawable.replacement_notification_guts_bg));
 
                 if (config.notifications.change_style) {
@@ -626,8 +625,6 @@ public class NotificationsHooks {
                 buttonView = new Button(context);
                 buttonView.setId(oldId);
                 buttonView.setFocusable(true);
-                //noinspection deprecation
-                buttonView.setBackground(context.getResources().getDrawable(context.getResources().getIdentifier("ripple_drawable", "drawable", PACKAGE_SYSTEMUI)));
                 buttonView.setContentDescription(context.getResources().getString(context.getResources().getIdentifier("accessibility_clear_all", "string", PACKAGE_SYSTEMUI)));
                 layout.addView(buttonView);
             }
