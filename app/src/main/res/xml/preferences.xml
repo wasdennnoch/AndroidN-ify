@@ -177,13 +177,6 @@
                 android:key="notification_change_style"
                 android:title="@string/notifications_change_style"/>
 
-            <SwitchPreference
-                android:defaultValue="false"
-                android:dependency="notification_change_style"
-                android:key="notification_allow_load_label_with_pm"
-                android:summary="@string/notification_allow_load_label_with_pm"
-                android:title="@string/notification_allow_load_label_with_pm_title"/>
-
             <PreferenceScreen
                 android:dependency="notification_change_style"
                 android:key="notification_blacklisted_apps"

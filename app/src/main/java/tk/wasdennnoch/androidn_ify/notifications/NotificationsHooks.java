@@ -58,7 +58,6 @@ public class NotificationsHooks {
     private static final String TAG = "NotificationsHooks";
 
     private static boolean fullWidthVolume = false;
-    private static boolean allowLoadLabelWithPackageManager = false;
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -151,15 +150,11 @@ public class NotificationsHooks {
             String appname = context.getPackageName();
             try {
                 appname = context.getString(context.getApplicationInfo().labelRes);
-            } catch (Exception ignore) {
-
-            }
-            try {
-                if (allowLoadLabelWithPackageManager && appname.equals(context.getPackageName())) {
+            } catch (Throwable t) {
+                try {
                     appname = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+                } catch (Throwable ignore) {
                 }
-            } catch (Exception ignore) {
-
             }
             contentView.setTextViewText(R.id.app_name_text, appname);
             contentView.setTextColor(R.id.app_name_text, mColor);
@@ -390,18 +385,14 @@ public class NotificationsHooks {
 
     private static RippleDrawable getNotificationBackground(XResources xRes, XModuleResources modRes) {
         return new RippleDrawable(
-                new ColorStateList(
-                        new int[][]{new int[]{}}, new int[]{xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI))}
-                ),
+                ColorStateList.valueOf(xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI))),
                 getBackgroundRippleContent(modRes, xRes.getColor(xRes.getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI))),
                 null);
     }
 
     private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes, XModuleResources modRes) {
         return new RippleDrawable(
-                new ColorStateList(
-                        new int[][]{new int[]{}}, new int[]{xRes.getColor(android.R.color.transparent)}
-                ),
+                ColorStateList.valueOf(xRes.getColor(android.R.color.transparent)),
                 getBackgroundRippleContent(modRes, xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI))),
                 null);
     }
@@ -477,7 +468,6 @@ public class NotificationsHooks {
                 }
 
                 fullWidthVolume = config.header.full_width_volume;
-                allowLoadLabelWithPackageManager = config.notifications.allow_load_label_with_pm;
 
                 if (Build.VERSION.SDK_INT >= 23) {
                     Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
