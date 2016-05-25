@@ -65,8 +65,6 @@
     <string name="enable_recents_double_tap" />
     <string name="double_tap_speed_title">ความเร็วการแตะสองครั้ง</string>
     <string name="recents_button_behavior_title">การแตะปุ่ม Recents</string>
-    <string name="enable_recents_navigation_title">Recent apps navigation</string>
-    <string name="enable_recents_navigation">Use the recents key to navigate through the recents</string>
     <string name="recents_navigation_delay_title">เวลาในการเลือกแอพ</string>
     <string name="enable_large_recents">Recent apps ขนาดใหญ่</string>
     <string name="no_recents_image">เปลี่ยนรูป \"no recents\"</string>
@@ -102,12 +100,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">การแจ้งเตือน</string>
     <string name="notifications_change_style">ปรับแต่งการแจ้งเตือน</string>
-    <string name="notifications_dark_theme_title">การแจ้งเตือนแบบมืด</string>
-    <string name="notifications_dark_theme">สำหรับ layers themes</string>
     <string name="notification_dismiss_button_title">เปลี่ยนปุ่มลบการแจ้งเตือน</string>
     <string name="notification_dismiss_button">แสดง \"ลบทั้งหมด\" แทนที่ไอคอน</string>
-    <string name="notification_allow_load_label_with_pm_title">Alternative app name loading method</string>
-    <string name="notification_allow_load_label_with_pm">Allow loading application name with PackageManager. May cause performance issues</string>
     <string name="action_search">ค้นหา</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>

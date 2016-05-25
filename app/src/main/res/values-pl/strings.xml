@@ -64,8 +64,6 @@
     <string name="enable_recents_double_tap">Podwójne dotknij klawisz poprzednio używanych aplikacji aby zmienić na poprzednio używaną aplikację</string>
     <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
     <string name="recents_button_behavior_title">Zachowanie przyciski ostanich aplikacji</string>
-	<string name="enable_recents_navigation_title">Włącz nawigację poprzednich aplikacji</string>
-    <string name="enable_recents_navigation">Użyj klawisza poprzednich aplikacji aby przełączać między aplikacjami</string>
     <string name="recents_navigation_delay_title">Opóźnienie nawigacji poprzednich aplikacji</string>
     <string name="recents_navigation_delay">Czas po jakim nastąpi przełączenie na wybraną aplikację</string>
     <string name="enable_large_recents">Włącz duże okna poprzednich aplikacji</string>
@@ -102,12 +100,9 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Powiadomienia</string>
     <string name="notifications_change_style">Powiadomienia w stylu N</string>
-    <string name="notifications_dark_theme_title">Ciemny motyw powiadomień</string>
-    <string name="notifications_dark_theme">Ciemne tło powiadomień dla użytkowników specificznych motywów</string>
     <string name="notification_dismiss_button_title">Zmień ikonę czyszczenia</string>
     <string name="notification_dismiss_button">Pokaż \"WYCZYŚĆ WSZYSTKIE\" zamiast ikony czyszczenia</string>
-    <string name="notification_allow_load_label_with_pm_title">Pozwól na ładowanie nazw aplikacji z PackageManager</string>
-    <string name="notification_allow_load_label_with_pm">Może powodować problemy z wydajnością</string>\
+    \
     <string name="action_search">Szukaj</string>
     <string name="notification_blacklisted_apps_title">Wyłączone aplikacje</string>
     <string name="notification_blacklisted_apps">Użyj starego stylu powiadomień dla tych aplikacji</string>
