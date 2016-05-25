@@ -136,7 +136,6 @@ public class ConfigUtils {
 
         public boolean change_style;
         public boolean dismiss_button;
-        public boolean allow_load_label_with_pm;
         public boolean custom_appname_color;
         public int appname_color;
         public boolean custom_actions_color;
@@ -147,7 +146,6 @@ public class ConfigUtils {
         public NotificationsConfig(XSharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
-            allow_load_label_with_pm = prefs.getBoolean("notification_allow_load_label_with_pm", false);
             custom_appname_color = prefs.getBoolean("notifications_custom_color", false);
             appname_color = prefs.getInt("notifications_appname_color", 0);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
