@@ -51,7 +51,7 @@ public class TestUtils {
             XposedHook.logI(TAG, "QSTile getState() search");
             try {
                 Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTile", classLoader), null);
-                logSearchResult(methods, "without any parameters");
+                logSearchResult(methods, "without any parameters and ignoring return type");
             } catch (Throwable t5) {
                 XposedHook.logE(TAG, "Error getState() search", t5);
             }
