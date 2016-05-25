@@ -33,7 +33,6 @@ public class QuickQSPanel extends LinearLayout {
     public QuickQSPanel(Context context) {
         super(context);
         ConfigUtils config = ConfigUtils.getInstance();
-        config.reload();
         mRes = ResourceUtils.getInstance(context);
         mMaxTiles = config.header.qs_tiles_count;
         setOrientation(VERTICAL);
@@ -78,7 +77,8 @@ public class QuickQSPanel extends LinearLayout {
             super(context);
             setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             setOrientation(HORIZONTAL);
-            setGravity(16);
+            setGravity(16); // I have no idea which Gravity this is, it's taken straight from the decompiled source
+            // TODO    ^ replace when N source gets released
             setClipChildren(false);
             setClipToPadding(false);
             mEndSpacer = new Space(context);
@@ -113,23 +113,8 @@ public class QuickQSPanel extends LinearLayout {
                 }
             };
             try {
-                XposedHelpers.callMethod(tileView, "init", click, clickSecondary, longClick);
-            } catch (Throwable t) {
-                try {
-                    XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
-                } catch (Throwable t2) {
-                    try {
-                        XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
-                        XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
-                    } catch (Throwable t3) {
-                        XposedHelpers.callMethod(tileView, "init", click, longClick);
-                    }
-                }
-            }
-            try {
                 XposedHelpers.callMethod(tileView, "setDual", false);
-            } catch (Throwable t) {
-                // CM13
+            } catch (Throwable t) { // CM13
                 XposedHelpers.callMethod(tileView, "setDual", false, false);
             }
             XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
@@ -156,6 +141,20 @@ public class QuickQSPanel extends LinearLayout {
                     });
                 } else {
                     child.setVisibility(GONE);
+                    try {
+                        XposedHelpers.callMethod(tileView, "init", click, clickSecondary, longClick);
+                    } catch (Throwable t) {
+                        try {
+                            XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
+                        } catch (Throwable t2) {
+                            try {
+                                XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
+                                XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
+                            } catch (Throwable t3) {
+                                XposedHelpers.callMethod(tileView, "init", click, longClick);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -168,7 +167,7 @@ public class QuickQSPanel extends LinearLayout {
             } else {
                 addViewToLayout(tileView, position);
             }
-            addView(new Space(getContext()), position, generateSpaceParams());
+            addView(new Space(getContext()), position + 1, generateSpaceParams());
         }
 
         private void addViewToLayout(View view, int position) {
