@@ -40,6 +40,7 @@ import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.WifiTileHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
+import tk.wasdennnoch.androidn_ify.utils.TestUtils;
 
 public class StatusBarHeaderHooks {
 
@@ -690,40 +691,8 @@ public class StatusBarHeaderHooks {
                     mHasEditPanel = false;
                 }
 
-                // Tests for QSTileView initialization for QuickQS row
-                /*XposedHook.logI(TAG, "TEST START");
-                try {
-                    try {
-                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class);
-                        XposedHook.logI(TAG, "Found " + methods.length + " matches with one parameter");
-                        for (int i = 0; i < methods.length; i++) {
-                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
-                        }
-                    } catch (Throwable t5) {
-                        XposedHook.logE(TAG, "Error test one", t5);
-                    }
-                    try {
-                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class, View.OnClickListener.class);
-                        XposedHook.logI(TAG, "Found " + methods.length + " matches with two parameters");
-                        for (int i = 0; i < methods.length; i++) {
-                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
-                        }
-                    } catch (Throwable t5) {
-                        XposedHook.logE(TAG, "Error test two", t5);
-                    }
-                    try {
-                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class, View.OnClickListener.class, View.OnClickListener.class);
-                        XposedHook.logI(TAG, "Found " + methods.length + " matches with three parameters");
-                        for (int i = 0; i < methods.length; i++) {
-                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
-                        }
-                    } catch (Throwable t5) {
-                        XposedHook.logE(TAG, "Error test three", t5);
-                    }
-                } catch (Throwable t) {
-                    XposedHook.logE(TAG, "Error test", t);
-                }
-                XposedHook.logI(TAG, "TEST END");*/
+                TestUtils.searchQSTileView_Init(classLoader);
+                TestUtils.searchQSTile_GetState(classLoader);
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpansion", float.class, setExpansionHook);
