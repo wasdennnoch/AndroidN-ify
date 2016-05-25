@@ -39,6 +39,8 @@
     <string name="enable_recents_navigation_title">Navigazione app recenti</string>
     <string name="recents_navigation_delay_title">Velocità navigazione</string>
     <string name="enable_recents_navigation">Utilizza i pulsanti per le app recenti per navigare in esse</string>
+    <string name="keep_qs_panel_bg_title">Background QuickSettings inalterato</string>
+    <string name="keep_qs_panel_bg">Utile per temi che applicano un background personalizzato nel pannello dei QuickSettings</string>
 
 
     <string name="notifications_dark_theme_title">Tema notifiche scuro</string>
