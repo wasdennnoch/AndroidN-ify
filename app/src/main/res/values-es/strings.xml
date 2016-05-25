@@ -68,8 +68,6 @@
     <string name="enable_recents_double_tap">Doble pulsación al botón de recientes para volver a la última aplicación</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
     <string name="recents_button_behavior_title">Comportamiento del botón recientes</string>
-    <string name="enable_recents_navigation_title">Activar navegación de recientes</string>
-    <string name="enable_recents_navigation">Usar el botón de recientes para navegar entre las aplicaciones recientes</string>
     <string name="recents_navigation_delay_title">Retraso de navegación</string>
     <string name="recents_navigation_delay">Tiempo para que se abra la aplicación seleccionada</string>
     <string name="enable_large_recents">Activar tajetas recientes grandes</string>
@@ -106,12 +104,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notificaciones</string>
     <string name="notifications_change_style">Notificaciones de Android N</string>
-    <string name="notifications_dark_theme_title">Tema oscuro de notificaciones</string>
-    <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
     <string name="notification_dismiss_button_title">Cambiar botón descartar</string>
     <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
-    <string name="notification_allow_load_label_with_pm_title">Cargar nombre con PackageManager</string>
-    <string name="notification_allow_load_label_with_pm">Puede causar problemas de rendimiento</string>
     <string name="action_search">Buscar</string>
     <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
     <string name="notification_blacklisted_apps">Usar el estilo antigüo para estas aplicaciones</string>

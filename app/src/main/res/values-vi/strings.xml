@@ -31,8 +31,6 @@
     <string name="enable_notification_header">Tùy chỉnh thanh tiêu đề</string>
     <string name="enable_recents_double_tap">Nhấn hai lần nút chuyển ứ.dụng để trở về ứ.dụng trước đó</string>
     <string name="enable_recents_double_tap_title">Chuyển ứng dụng nhanh</string>
-    <string name="enable_recents_navigation">Dùng nút chuyển ứ.dụng để điều hướng bộ chuyển ứ.dụng</string>
-    <string name="enable_recents_navigation_title">Điều hướng bộ chuyển ứ.dụng</string>
     <string name="enable_settings_summaries">Hiện những thông tin quan trọng trực tiếp lên màn hình Cài đặt</string>
     <string name="enable_settings_summaries_title">Tóm tắt cài đặt</string>
     <string name="fix_sound_notif_tile">Một vài ROM gộp cài đặt Âm thanh và Thông báo. Bật để hiển thị tóm tắt phù hợp cho mục này</string>
@@ -57,8 +55,6 @@
     <string name="no_recents_image">Đổi ảnh \"không có ứ.dụng gần đây\"</string>
     <string name="no_updates">Không có phiên bản mới</string>
     <string name="not_activated">Module chưa được kích hoạt</string>
-    <string name="notification_allow_load_label_with_pm">Cho phép nạp tên ứng dụng bằng PackageManager. Có thể ảnh hưởng hiệu năng</string>
-    <string name="notification_allow_load_label_with_pm_title">Nạp tên ứng dụng kiểu khác</string>
     <string name="notification_blacklisted_apps">Sử dụng thông báo kiểu cũ cho các ứng dụng này</string>
     <string name="notification_blacklisted_apps_title">Danh sách loại trừ</string>
     <string name="notification_dismiss_button">Hện \"XÓA TẤT CẢ\" thay cho biểu tượng bỏ qua</string>
@@ -72,8 +68,6 @@
     <string name="notifications_change_style">Tùy chỉnh Thông báo</string>
     <string name="notifications_custom_actions_color_title">Tùy chỉnh màu nền vùng hành động</string>
     <string name="notifications_custom_color_title">Tùy chỉnh màu nhấn mạnh</string>
-    <string name="notifications_dark_theme">Nền thông báo màu tối dành cho một số chủ đề đặc biệt</string>
-    <string name="notifications_dark_theme_title">Giao diện thông báo tối</string>
     <string name="off">TẮT</string>
     <string name="on">BẬT</string>
     <string name="prefs_file_not_readable">Xposed không thể đọc tệp thiết đặt, giá trị mặc định sẽ được sử dụng. Điều này có thể do SELinux đang ở trạng thái thực thi.</string>

@@ -59,8 +59,6 @@
     <string name="enable_recents_double_tap_title">Troca de aplicações com duplo toque</string>
     <string name="enable_recents_double_tap">Toque duas vezes na tecla de Apps recentes para mudar para a última aplicação utilizada</string>
     <string name="double_tap_speed_title">Velocidade do duplo toque</string>
-    <string name="enable_recents_navigation_title">Ativar navegação de apps recentes</string>
-    <string name="enable_recents_navigation">Use a tecla de recentes para navegar entre as aplicações recentes</string>
     <string name="recents_navigation_delay_title">Intervalo de navegação</string>
     <string name="recents_navigation_delay">Tempo até que a aplicação seleccionada seja trazida para a frente</string>
     <string name="enable_large_recents">Ativar apps recentes grandes</string>
@@ -81,12 +79,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notificações</string>
     <string name="notifications_change_style">Mudar o estilo das notificações</string>
-    <string name="notifications_dark_theme_title">Tema escuro para notificações</string>
-    <string name="notifications_dark_theme">Notificações com plano de fundo escuro (para utilizadores de certos temas Layers)</string>
     <string name="notification_dismiss_button_title">Mudar o botão Limpar</string>
     <string name="notification_dismiss_button">Mostrar \"LIMPAR TUDO\" ao invés do ícone de limpar</string>
-    <string name="notification_allow_load_label_with_pm_title">Método alternativo para carregar o nome dos apps</string>
-    <string name="notification_allow_load_label_with_pm">Permite que o nome do app seja carregado usando o PackageManager. Pode causar problemas de desempenho.</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
