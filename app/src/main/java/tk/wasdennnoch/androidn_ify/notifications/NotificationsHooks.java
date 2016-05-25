@@ -12,9 +12,11 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.Icon;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.RippleDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
@@ -349,9 +351,6 @@ public class NotificationsHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
 
-                // Drawables
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_guts_bg", modRes.fwd(R.drawable.replacement_notification_guts_bg));
-
                 if (config.notifications.change_style) {
                     // Notifications
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_min_height", modRes.fwd(R.dimen.notification_min_height));
@@ -392,7 +391,7 @@ public class NotificationsHooks {
     private static RippleDrawable getNotificationBackground(XResources xRes, XModuleResources modRes) {
         return new RippleDrawable(
                 new ColorStateList(
-                        new int[][] { new int[]{} }, new int[] { xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI)) }
+                        new int[][]{new int[]{}}, new int[]{xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI))}
                 ),
                 getBackgroundRippleContent(modRes, xRes.getColor(xRes.getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI))),
                 null);
@@ -401,7 +400,7 @@ public class NotificationsHooks {
     private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes, XModuleResources modRes) {
         return new RippleDrawable(
                 new ColorStateList(
-                        new int[][] { new int[]{} }, new int[] { xRes.getColor(android.R.color.transparent) }
+                        new int[][]{new int[]{}}, new int[]{xRes.getColor(android.R.color.transparent)}
                 ),
                 getBackgroundRippleContent(modRes, xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI))),
                 null);
@@ -417,24 +416,28 @@ public class NotificationsHooks {
 
     @SuppressWarnings("unused")
     public static void hook(ClassLoader classLoader) {
-        Class classNotificationBuilder = Notification.Builder.class;
-        Class classNotificationStyle = Notification.Style.class;
-        Class classRemoteViews = RemoteViews.class;
+        try {
+            Class classNotificationBuilder = Notification.Builder.class;
+            Class classNotificationStyle = Notification.Style.class;
+            Class classRemoteViews = RemoteViews.class;
 
-        if (ConfigUtils.notifications().change_style) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", Icon.class, classRemoteViews, processSmallIconAsLargeHook);
-            } else {
-                XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", int.class, classRemoteViews, processSmallIconAsLargeHook);
+            if (ConfigUtils.notifications().change_style) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", Icon.class, classRemoteViews, processSmallIconAsLargeHook);
+                } else {
+                    XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", int.class, classRemoteViews, processSmallIconAsLargeHook);
+                }
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyLargeIconBackground", classRemoteViews, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplate", int.class, boolean.class, applyStandardTemplateHook);
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplateWithActions", int.class, applyStandardTemplateWithActionsHook);
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
+                if (ConfigUtils.notifications().custom_appname_color)
+                    XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
+                XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
             }
-            XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyLargeIconBackground", classRemoteViews, XC_MethodReplacement.DO_NOTHING);
-            XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplate", int.class, boolean.class, applyStandardTemplateHook);
-            XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplateWithActions", int.class, applyStandardTemplateWithActionsHook);
-            XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
-            XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
-            if (ConfigUtils.notifications().custom_appname_color)
-                XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
-            XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error hooking app", t);
         }
     }
 
@@ -445,10 +448,23 @@ public class NotificationsHooks {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
+                Class classNotificationGuts = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationGuts", classLoader);
 
                 if (config.notifications.change_style) {
                     XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                     XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
+                    XposedHelpers.findAndHookMethod(classNotificationGuts, "onFinishInflate", new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            Drawable bg = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mBackground");
+                            try {
+                                ((ShapeDrawable) bg).getPaint().setPathEffect(null);
+                            } catch (ClassCastException e) {
+                                //noinspection ConstantConditions
+                                ((GradientDrawable) bg).setCornerRadius(0);
+                            }
+                        }
+                    });
                 }
                 if (config.notifications.dismiss_button) {
                     Class classDismissViewButton;

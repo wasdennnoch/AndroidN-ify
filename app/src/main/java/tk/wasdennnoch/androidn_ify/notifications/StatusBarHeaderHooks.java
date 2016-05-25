@@ -839,7 +839,10 @@ public class StatusBarHeaderHooks {
                 }
 
                 if (!ConfigUtils.header().large_first_row) {
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height", resparam.res.getDimensionPixelSize(resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)));
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height",
+                            new XResources.DimensionReplacement(resparam.res.getDimensionPixelSize(
+                                    resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)),
+                                    TypedValue.COMPLEX_UNIT_PX));
                 }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);

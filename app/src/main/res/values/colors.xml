@@ -14,10 +14,6 @@
     <color name="emergency_calls_only_text_color">#66FFFFFF</color>
     <color name="date_time_text_color">#FFFFFFFF</color>
 
-    <color name="system_secondary_color">#FF384248</color>
-
-    <color name="notification_guts_bg_color">@color/system_secondary_color</color> <!-- TODO fetch color from SystemUI -->
-
     <color name="notification_action_list">#FFEEEEEE</color>
     <!-- /Notifications / Status bar header -->
 
