@@ -783,6 +783,8 @@ public class NotificationsHooks {
             int rightIconMarginTop = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_top);
             int rightIconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_end);
             int actionsMarginTop = res.getDimensionPixelSize(R.dimen.notification_actions_margin_top);
+            int height = res.getDimensionPixelSize(R.dimen.notification_min_height);
+            layout.setMinimumHeight(height);
 
             FrameLayout headerLayout = (FrameLayout) layout.getChildAt(0);
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
@@ -823,7 +825,7 @@ public class NotificationsHooks {
                 if (child.getId() != actionsId) {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
                     childLp.leftMargin += notificationContentPadding;
-                    childLp.rightMargin += notificationContentPadding;
+                    childLp.rightMargin += notificationContentPadding + rightIconSize;
                     child.setLayoutParams(childLp);
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
@@ -849,15 +851,6 @@ public class NotificationsHooks {
             }
 
             if (isInboxLayout || isBigTextLayout) {
-                int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_inbox_margin_end);
-                if (isInboxLayout) {
-                    View inboxText0 = notificationMain.findViewById(context.getResources().getIdentifier("inbox_text0", "id", PACKAGE_ANDROID));
-                    applyNotificationTextMarginEnd(inboxText0, notificationTextMarginEnd);
-                }
-                if (isBigTextLayout) {
-                    View bigText = notificationMain.findViewById(context.getResources().getIdentifier("big_text", "id", PACKAGE_ANDROID));
-                    applyNotificationTextMarginEnd(bigText, notificationTextMarginEnd);
-                }
                 // Remove divider
                 notificationMain.removeViewAt(notificationMain.getChildCount() - 2);
                 // Remove bottom line
