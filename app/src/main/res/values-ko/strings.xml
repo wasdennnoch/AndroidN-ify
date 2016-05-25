@@ -49,8 +49,8 @@
     <string name="display_summary">밝기 자동 조절이 %1$s</string>
     <string name="sound_summary">벨소리 장치 볼륨 %1$s</string>
     <string name="apps_summary">앱 %1$d개 설치됨</string>
-    <string name="storage_summary">%1$s 중 %2$s 사용됨</string>
-    <string name="battery_summary">%1$s - 대략 %2$s시간 남음</string>
+    <string name="storage_summary">%2$s 중 %1$s 사용됨</string>
+    <string name="battery_summary">%1$s - 대략 %2$s 남음</string>
     <string name="battery_charging_wireless">%1$s - 충전 중(무선 충전)</string>
     <string name="battery_charging_usb">%1$s - 충전 중(USB)</string>
     <string name="battery_charging_ac">%1$s - 충전 중(AC 전원)</string>
@@ -73,7 +73,7 @@
     <string name="recents_navigation_delay_title">네비게이션 딜레이</string>
     <string name="recents_navigation_delay">Time until the selected app gets focused</string>
     <string name="enable_large_recents">큰 최근 실행 앱</string>
-    <string name="no_recents_image">"최근 실행 앱 없음" 이미지 교체</string>
+    <string name="no_recents_image">"최근 실행한 앱 없음" 이미지 교체</string>
 
     <string name="no_previous_recents">최근 실행한 앱 없음</string>
 

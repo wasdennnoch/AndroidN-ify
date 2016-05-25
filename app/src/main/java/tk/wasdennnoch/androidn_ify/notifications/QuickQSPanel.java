@@ -2,10 +2,12 @@ package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -64,13 +66,6 @@ public class QuickQSPanel extends LinearLayout {
                 ViewGroup tileView = mTileViews.get(i);
                 XposedHelpers.callMethod(tileView, "onStateChanged", state);
                 XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
-                /*View iconView = (View) XposedHelpers.getObjectField(tileView, "mIcon");
-                if (iconView instanceof ImageView) {
-                    Drawable icon = ((ImageView) iconView).getDrawable();
-                    if (icon instanceof Animatable) {
-                        ((Animatable) icon).start();
-                    }
-                }*/
             }
         }
     }
@@ -150,7 +145,15 @@ public class QuickQSPanel extends LinearLayout {
                     iconView = child;
                     iconView.setOnClickListener(click);
                     iconView.setOnLongClickListener(longClick);
-                    iconView.setBackground((Drawable) XposedHelpers.getObjectField(tileView, "mRipple"));
+                    iconView.setBackground(newTileBackground());
+                    final View finalIconView = iconView;
+                    iconView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            finalIconView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            finalIconView.getBackground().setHotspot(finalIconView.getWidth() / 2, finalIconView.getHeight() / 2);
+                        }
+                    });
                 } else {
                     child.setVisibility(GONE);
                 }
@@ -213,6 +216,14 @@ public class QuickQSPanel extends LinearLayout {
             LayoutParams layoutparams = (LayoutParams) mEndSpacer.getLayoutParams();
             layoutparams.setMarginStart(mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding));
             mEndSpacer.setLayoutParams(layoutparams);
+        }
+
+        private Drawable newTileBackground() {
+            final int[] attrs = new int[]{android.R.attr.selectableItemBackgroundBorderless};
+            final TypedArray ta = getContext().obtainStyledAttributes(attrs);
+            final Drawable d = ta.getDrawable(0);
+            ta.recycle();
+            return d;
         }
 
         @Override

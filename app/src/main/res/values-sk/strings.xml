@@ -51,6 +51,8 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Záhlavie stavového riadku</string>
     <string name="enable_notification_header">Upraviť záhlavie</string>
+    <string name="keep_qs_panel_bg_title">Nemeniť pozadie rýchlych nastavení</string>
+    <string name="keep_qs_panel_bg">Užitočné pre témy, ktoré používajú vlastné pozadie panela rýchlych nastavení</string>
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
     <string name="enable_new_tile_click_behavior">Android N správanie dlaždice po klepnutí</string>

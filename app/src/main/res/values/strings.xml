@@ -83,6 +83,8 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Status bar header</string>
     <string name="enable_notification_header">Style header</string>
+    <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
+    <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>

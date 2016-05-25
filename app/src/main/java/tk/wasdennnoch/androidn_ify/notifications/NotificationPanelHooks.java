@@ -17,6 +17,7 @@ public class NotificationPanelHooks {
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
+    private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
 
     private static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
@@ -34,12 +35,14 @@ public class NotificationPanelHooks {
             mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
             mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
 
-            View mQsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mQsContainer");
-            try {
-                //noinspection deprecation
-                mQsContainer.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
-            } catch (Throwable t) {
-                XposedHook.logE(TAG, "Couldn't change QS container background color", t);
+            if (!ConfigUtils.header().keep_qs_panel_background) {
+                View mQsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mQsContainer");
+                try {
+                    //noinspection deprecation
+                    mQsContainer.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Couldn't change QS container background color", t);
+                }
             }
         }
     };
@@ -74,7 +77,7 @@ public class NotificationPanelHooks {
     }
 
     public static void flingSettings(boolean expanded) {
-        XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", 0, expanded);
+        XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", new Class[]{float.class, boolean.class, Runnable.class, boolean.class}, 0, expanded, null, true);
     }
 
     public static void hook(ClassLoader classLoader) {
@@ -82,8 +85,16 @@ public class NotificationPanelHooks {
             if (ConfigUtils.header().header) {
 
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
+                Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
+
+                XposedHelpers.findAndHookMethod(classPanelView, "schedulePeek", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        XposedHelpers.callMethod(mNotificationPanelView, "setListening", true);
+                    }
+                });
 
             }
         } catch (Throwable t) {
