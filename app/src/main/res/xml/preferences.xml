@@ -97,9 +97,10 @@
 
             <SwitchPreference
                 android:defaultValue="false"
+                android:dependency="enable_notification_header"
                 android:key="keep_qs_panel_background"
-                android:title="@string/keep_qs_panel_bg_title"
-                android:summary="@string/keep_qs_panel_bg"/>
+                android:summary="@string/keep_qs_panel_bg"
+                android:title="@string/keep_qs_panel_bg_title"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="5"
