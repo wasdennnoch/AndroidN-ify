@@ -9,7 +9,7 @@
     <string name="restart_systemui_message">Вы действительно хотите перезапустить SystemUI?</string>
     <string name="restart_broadcast_sent">Запрос на перезапуск отправлен</string>
     <string name="activity_about">Об Android N-ify</string>
-    <string name="about_author">Разработчик: @MrWasdennnoch</string>
+    <string name="about_author">Разработчик @MrWasdennnoch</string>
     <string name="about_version">Версия %1$s (%2$d)</string>
     <string name="about_translator">Перевёл @vl_w</string>
 
@@ -19,12 +19,18 @@
     <string name="header_tweaks">Твики</string>
     <string name="header_app">Приложение</string>
 
+    <string name="app_dark_theme_title">Тёмная тема приложения</string>
     <string name="hide_launcher_icon_title">Скрыть иконку приложения</string>
     <string name="hide_launcher_icon">Может потребоватся перезагрузка рабочего стола</string>
+    <string name="force_english_title">Принудительно использовать английский язык</string>
     <string name="debug_log_title">Лог для отладки</string>
     <string name="debug_log">Внимание: Лог может занимать много места</string>
     
     <string name="requires_android_version">Требуется Android %1$s</string>
+    
+    <string name="not_activated">Модуль не активирован</string>
+    
+    <string name="theme_colorPrimary">Главный цвет</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -33,6 +39,7 @@
     <string name="enable_settings_summaries">Показывает самую важную информацию под пунктами настроек</string>
     <string name="fix_sound_notif_tile_title">Исправить пункт \"Звуки и Уведомления\"</string>
     <string name="fix_sound_notif_tile">Некоторые прошивки объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения.</string>
+    <string name="enable_n_platlogo_title">Логотип пасхалки в стиле N</string>
     
     <string name="disconnected">Разъединено</string>
     <string name="disabled">Отключено</string>
@@ -57,17 +64,20 @@
 
     <!-- RECENTS -->
     <string name="header_recents">Недавние</string>
-    <string name="enable_recents_double_tap_title">Двойное нажатие для переключения к предыдущему приложению</string>
+    <string name="enable_recents_double_tap_title">Быстрое переключение</string>
     <string name="enable_recents_double_tap">Двойное нажатие на кнопку "Недавние" переключает к предыдущему приложению</string>
     <string name="double_tap_speed_title">Скорость двойного нажатия</string>
-    <string name="enable_recents_navigation_title">Переключение недавних приложений</string>
-    <string name="enable_recents_navigation">Использовать кнопку "Недавние" для переключения между недавними приложениями</string>
+    <string name="recents_button_behavior_title">Переключение кнопкой \"Недавние\"</string>
     <string name="recents_navigation_delay_title">Задержка навигации</string>
     <string name="recents_navigation_delay">Время, за которое выделенное приложение получит фокус</string>
     <string name="enable_large_recents">Большие недавние приложения</string>
     <string name="no_recents_image">Изменить изображение \"Нет недавних уведомлений\"</string>
     
     <string name="no_previous_recents">Нет недавних приложений</string>
+    
+    <string name="recents_button_behavior_previous">Возврат к предыдущему приложению</string>  
+    <string name="recents_button_behavior_current">Возврат к текущему приложению</string>  
+    <string name="recents_button_behavior_cycle">Переключение между приложениями</string> 
     <!-- /RECENTS -->
     
     <!-- STATUS BAR HEADER -->
@@ -78,26 +88,31 @@
     <string name="enable_new_tile_click_behavior">Переключать быстрые настройки одним кликом</string>
     <string name="enable_new_tile_click_behavior_summary">Нажатие на плитку в строке быстрого доступа переключит состояние, не открыв меню парамера</string>
     <string name="enable_large_first_row">Увеличить первую строку</string>
-    <string name="hide_tuner_icon_title">Скрыть иконку SystemUI Tuner</string>
-    <string name="hide_edit_tiles_title">Скрыть кнопку редактирования плиток</string> 
+    <string name="enable_large_first_row_summary">На CM используйте меню конфигурации в режиме редактирования плиток вместо этого переключателя</string>
     <string name="smaller_header_clock_title">Уменьшить часы</string>
     <string name="smaller_header_clock">Уменьшает размер часов при раскрытой шапке статус-бара. Удобно для маленьких экранов</string>
     <string name="notification_full_width_volume_title">Растянуть диалог громкости</string>
     <string name="notification_full_width_volume">Убрать ограничение ширины диалога громкости для телефонов с большими дисплеями</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Спрятать элементы шапки статус-бара</string>
+    <string name="hide_tuner_icon_title">Скрыть иконку SystemUI Tuner</string>
+    <string name="hide_edit_tiles_title">Скрыть кнопку редактирования плиток</string>
+    <string name="hide_carrier_label_title">Скрыть carrier надпись</string> 
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
  
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Уведомления</string>
     <string name="notifications_change_style">Изменить стиль уведомлений</string>
-    <string name="notifications_dark_theme_title">Тёмная тема уведомлений</string>
-    <string name="notifications_dark_theme">Тёмный фон уведомлений для пользователей с данным цветом слоёв</string>
     <string name="notification_dismiss_button_title">Изменить кнопку очистки</string>
     <string name="notification_dismiss_button">Показывать \"ОЧИСТИТЬ ВСЕ\" вместо значка очистки</string>
-    <string name="notification_allow_load_label_with_pm_title">Альтернативный метод загрузки названия приложения</string>
-    <string name="notification_allow_load_label_with_pm">Разрешить загрузку названия приложения через PackageManager. Может вызвать проблемы с производительностью</string>
     <string name="action_search">Поиск</string>
     <string name="notification_blacklisted_apps_title">Черный список приложений</string>
     <string name="notification_blacklisted_apps">Использовать старый стиль уведомлений для этих приложений</string>
+    <string name="notifications_custom_color_title">Изменить оттенок</string>  
+    <string name="notifications_accent_color_title">Цвет оттенка</string>  
+    <string name="notifications_custom_actions_color_title">Изменить цвет фона панели действий</string>  
+    <string name="notifications_actions_color_title">Цвет фона панели действий</string> 
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->

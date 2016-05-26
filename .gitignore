@@ -1,8 +1,22 @@
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+# Generated files
+*build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Gradle
+/.gradle/
+
+# Gedit save files
+*.*~
+
+# Other
 .DS_Store
-/build
 /captures
 /app/app-release.apk

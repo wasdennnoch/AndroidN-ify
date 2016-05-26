@@ -19,12 +19,18 @@
     <string name="header_tweaks">Tweaks</string>
     <string name="header_app">App</string>
 
+    <string name="app_dark_theme_title">Dunkles App-Design</string>
     <string name="hide_launcher_icon_title">Launcher-Icon verbergen</string>
     <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
+    <string name="force_english_title">Englisch erzwingen</string>
     <string name="debug_log_title">Debug-Log</string>
     <string name="debug_log">Warnung: Log-flutend</string>
 
     <string name="requires_android_version">Benötigt Android %1$s</string>
+
+    <string name="not_activated">Modul nicht aktiviert</string>
+
+    <string name="theme_colorPrimary">Hauptfarbe</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -33,6 +39,7 @@
     <string name="enable_settings_summaries">Zeige die wichtigsten Informationen direkt in der Übersicht</string>
     <string name="fix_sound_notif_tile_title">\"Töne &amp; Benachrichtigungen\"-Kachel reparieren</string>
     <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kachel. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
+    <string name="enable_n_platlogo_title">N logo in Easter Egg</string>
 
     <string name="disconnected">Getrennt</string>
     <string name="disabled">Deaktiviert</string>
@@ -60,44 +67,54 @@
     <string name="enable_recents_double_tap_title">Doppelklick-Appwechsler</string>
     <string name="enable_recents_double_tap">Doppelt auf die Recents-Taste klicken, um zur zuletzt genutzten App zu gelangen</string>
     <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
-    <string name="enable_recents_navigation_title">Recents-Navigation aktivieren</string>
-    <string name="enable_recents_navigation">Die Recents-Taste benutzen, um durch die Recents zu navigieren</string>
+    <string name="recents_button_behavior_title">Recents-Button Klickverhalten</string>
     <string name="recents_navigation_delay_title">Navigationsverzögerung</string>
     <string name="recents_navigation_delay">Zeit, bis die ausgewählte App in den Vordergrund geht</string>
     <string name="enable_large_recents">Große Recents</string>
     <string name="no_recents_image">\"Keine Recents\"-Bild ändern</string>
 
     <string name="no_previous_recents">Keine zuletzt genutzten Apps</string>
+
+    <string name="recents_button_behavior_previous">Zur letzten App zurückkehren</string>
+    <string name="recents_button_behavior_current">Zur aktuellen App zurückkehren</string>
+    <string name="recents_button_behavior_cycle">Durch Apps wechseln</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Statusleisten-Header</string>
     <string name="enable_notification_header">Header stylen</string>
+    <string name="keep_qs_panel_bg_title">Unveränderter QS Hintergrund</string>
+    <string name="keep_qs_panel_bg">Nützlich für Designs, die einen eigenen Hintergrund nutzen</string>
     <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
     <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
     <string name="enable_new_tile_click_behavior">Android N Kachel-Klick-Verhalten</string>
     <string name="enable_new_tile_click_behavior_summary">Eine Kachel im Header klicken, um sie zu (de)aktivieren, im Panel, um Details zu zeigen</string>
     <string name="enable_large_first_row">Erste Reihe vergrößern</string>
-    <string name="hide_tuner_icon_title">SystemUI Tuner-Icon verstecken</string>
-    <string name="hide_edit_tiles_title">\"Kacheln Bearbeiten\" Button verstecken</string>
+    <string name="enable_large_first_row_summary">In CM das Konfigurationsmenü im Kachel-Bearbeitungs-Modus benutzen</string>
     <string name="smaller_header_clock_title">Kleinere Uhr</string>
     <string name="smaller_header_clock">Verringert die Textgröße der Uhr im ausgedehnten Header. Nützlich für kleine Bildschirme</string>
     <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
     <string name="notification_full_width_volume">Entfernt das Breitenlimit des Lautstärkedialogs auf Geräten mit großem Bildschirm</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Header-Items verstecken</string>
+    <string name="hide_tuner_icon_title">SystemUI Tuner-Icon verstecken</string>
+    <string name="hide_edit_tiles_title">\"Kacheln Bearbeiten\" Button verstecken</string>
+    <string name="hide_carrier_label_title">Anbietertext verstecken</string>
+    <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Benachrichtigungen</string>
     <string name="notifications_change_style">Benachrichtigungen stylen</string>
-    <string name="notifications_dark_theme_title">Dunkle Benachrichtigungen</string>
-    <string name="notifications_dark_theme">Dunkler Benachrichtigungshintergrund für Nutzer von speziellen Layers-Themes</string>
     <string name="notification_dismiss_button_title">Benachrichtigungs-Löschbutton ändern</string>
     <string name="notification_dismiss_button">Zeige \"ALLE LÖSCHEN\" anstatt des Icons</string>
-    <string name="notification_allow_load_label_with_pm_title">Alternative Methode, App-Namen zu laden</string>
-    <string name="notification_allow_load_label_with_pm">Erlaubt es, App-Namen mit dem PackageManager zu laden. Könnte Performanceprobleme verursachen</string>
     <string name="action_search">Suchen</string>
     <string name="notification_blacklisted_apps_title">Ausgeschlossene Apps</string>
     <string name="notification_blacklisted_apps">Alten Benachrichtigungs-Stil für diese Apps verwenden</string>
+    <string name="notifications_custom_color_title">Eigene Akzentfarbe nutzen</string>
+    <string name="notifications_accent_color_title">Akzentfarbe</string>
+    <string name="notifications_custom_actions_color_title">Eigene Actions-Hintergrundfarbe nutzen</string>
+    <string name="notifications_actions_color_title">Actions-Hintergrundfarbe</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->

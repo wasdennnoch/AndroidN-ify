@@ -24,7 +24,9 @@
     <string name="recents_button_behavior_previous">Ritorna all\'app precedente</string>
     <string name="recents_button_behavior_current">Ritorna all\'app corrente</string>
     <string name="recents_button_behavior_cycle">Naviga attraverso le apps</string>
-
+    <string name="force_english_title">Forza la lingua Inglese</string>
+    
+    <string name="enable_settings_summaries">Mostra le informazioni più importanti direttamente nella sezione Impostazioni</string>
     <string name="enable_settings_summaries_title">Abilita modifiche alle impostazioni</string>
     <string name="fix_sound_notif_tile_title">Fix sezione "Suono &amp; Notifiche"</string>
     <string name="hide_tuner_icon_title">Nascondi l\'icona del SystemUI Tuner</string>
@@ -34,14 +36,15 @@
     <string name="header_tweaks">Modifiche</string>
 
     <string name="double_tap_speed_title">Velocità doppio tap</string>
-    <string name="enable_recents_navigation_title">Navigazione app recenti</string>
     <string name="recents_navigation_delay_title">Velocità navigazione</string>
-    <string name="enable_recents_navigation">Utilizza i pulsanti per le app recenti per navigare in esse</string>
+    <string name="keep_qs_panel_bg_title">Background QuickSettings inalterato</string>
+    <string name="keep_qs_panel_bg">Utile per temi che applicano un background personalizzato nel pannello dei QuickSettings</string>
 
 
-    <string name="notifications_dark_theme_title">Tema notifiche scuro</string>
-    <string name="notifications_dark_theme">Background delle notifiche scuro per utenti con specifici temi Layers.</string>
     <string name="hide_edit_tiles_title">Nascondi il tile "Edit Tiles"</string>
+    <string name="hide_icons_title">Nascondi elementi intestazione</string>
+    <string name="hide_carrier_label_title">Nascondi carrier label</string>
+    <string name="theme_colorPrimary">Colore primario</string>
     <string name="hide_launcher_icon">Potrebbe richiedere il riavvio del launcher</string>
     <string name="hide_launcher_icon_title">Nascondi icona launcher</string>
     <string name="enable_large_first_row_summary">Nella CM usa invece la configurazione data da "Edit Tiles"</string>
@@ -71,6 +74,7 @@
     <string name="location_on_device">ON / Solo dispositivo</string>
     <string name="location_on_high">ON / Alta precisione</string>
     <string name="print_summary">%1$d processi di stampa</string>
+    <string name="enable_n_platlogo_title">Logo di N nell\' easter egg</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -82,14 +86,16 @@
     
     <!-- NOTIFICATIONS -->
   <!--  <string name="enable_qs_in_header">Abilita i quicksettings nell\'intestazioner</string> -->
+    <string name="notifications_custom_color_title">Usa colore personalizzato</string>
+    <string name="notifications_accent_color_title">Colore</string>
+    <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
+    <string name="notifications_actions_color_title">Colore sfondo azioni</string>
     <string name="notification_header_qs_tiles_count">Numero massimo di quicksettings da mostrare</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="enable_new_tile_click_behavior">Click del tile in stile Android N</string>
     <string name="enable_new_tile_click_behavior_summary">Cliccando un tile nell\'intestazione lo farà attivare e cliccando un tile nel pannello farà aprire una finestra estesa</string>
     <string name="enable_large_first_row">Ingrandisci la prima riga</string>
     <string name="notifications_change_style">Notifiche con lo stile di Android N</string>
-    <string name="notification_allow_load_label_with_pm_title">Abilita il caricamento del nome dell\'applicazione con PackageManager</string>
-    <string name="notification_allow_load_label_with_pm">Potrebbe causare riduzioni di prestazioni</string>
     <string name="notification_full_width_volume_title">Dialogo del volume per tutta la larghezza</string>
     <string name="notification_full_width_volume">Rimuovi i limiti di larghezza del dialogo del volume per dispositivi con display grandi</string>
     <string name="notification_dismiss_button_title">Cambia pulsante di rimozione</string>

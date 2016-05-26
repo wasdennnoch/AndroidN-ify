@@ -22,6 +22,7 @@
     <string name="app_dark_theme_title">Dark app theme</string>
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>
+    <string name="force_english_title">Force english language</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
 
@@ -67,8 +68,6 @@
     <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
     <string name="double_tap_speed_title">Double tap speed</string>
     <string name="recents_button_behavior_title">Recents button click behavior</string>
-    <string name="enable_recents_navigation_title">Recent apps navigation</string>
-    <string name="enable_recents_navigation">Use the recents key to navigate through the recents</string>
     <string name="recents_navigation_delay_title">Navigation delay</string>
     <string name="recents_navigation_delay">Time until the selected app gets focused</string>
     <string name="enable_large_recents">Large recent apps</string>
@@ -84,6 +83,8 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Status bar header</string>
     <string name="enable_notification_header">Style header</string>
+    <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
+    <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
@@ -105,12 +106,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notifications</string>
     <string name="notifications_change_style">Style Notifications</string>
-    <string name="notifications_dark_theme_title">Dark notification theme</string>
-    <string name="notifications_dark_theme">Dark notification background for users of specific layers themes</string>
     <string name="notification_dismiss_button_title">Change dismiss button</string>
     <string name="notification_dismiss_button">Show \"CLEAR ALL\" instead of dismiss icon</string>
-    <string name="notification_allow_load_label_with_pm_title">Alternative app name loading method</string>
-    <string name="notification_allow_load_label_with_pm">Allow loading application name with PackageManager. May cause performance issues</string>
     <string name="action_search">Search</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>

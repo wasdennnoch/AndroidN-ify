@@ -22,6 +22,7 @@
     <string name="app_dark_theme_title">Karanlık uygulama teması</string>  
     <string name="hide_launcher_icon_title">Simgeyi gizle</string>
     <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
+    <string name="force_english_title">İngilizceye zorla</string>
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
     <string name="debug_log">Dikkat: Log-flooding</string>
 
@@ -38,6 +39,7 @@
     <string name="enable_settings_summaries">Gösterge panelinde doğrudan en önemli bilgileri gösterir.</string>
     <string name="fix_sound_notif_tile_title">"Ses &amp; bildirim" karesini düzelt</string>
     <string name="fix_sound_notif_tile">Bazı ROM\'lar Sesler ve Bildirimler karesini birleştirir. Kareye uygun kısaltmayı ayarlamak için etkinleştirin.</string>
+    <string name="enable_n_platlogo_title">Süprizli N logosu</string>
 
     <string name="disconnected">Bağlı değil</string>
     <string name="disabled">Etkin değil</string>
@@ -65,8 +67,6 @@
     <string name="enable_recents_double_tap_title">Çift tıklama ile uygulamalar arası geçiş</string>
     <string name="enable_recents_double_tap">Son uygulamalar tuşuna çift tıklamak son kullanılan uygulamayı açar</string>
     <string name="double_tap_speed_title">Çift tıklama hızı</string>
-    <string name="enable_recents_navigation_title">Son uygulamalar gezinme</string>
-    <string name="enable_recents_navigation">Son uygulamalar arasında gezinmek için son uygulamalar tuşunu kullanın</string>
     <string name="recents_navigation_delay_title">Gezinme gecikmesi</string>
     <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
     <string name="enable_large_recents">Büyük son uygulamalar</string>
@@ -82,6 +82,8 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Durum Çubuğu Başlığı</string>
     <string name="enable_notification_header">Başlık stili</string>
+    <string name="keep_qs_panel_bg_title">Değiştirilmemiş Hızlı Ayarlar paneli</string>
+    <string name="keep_qs_panel_bg">Özel bir Hızlı Ayarlar paneli arka planı uygulamak temalar için faydalıdır.</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
     <string name="notification_header_qs_tiles_count_monitor">kare</string>
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
@@ -102,12 +104,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Bildirimler</string>	
     <string name="notifications_change_style">Bildirimler Stili</string>
-    <string name="notifications_dark_theme_title">Karanlık bildirimler teması</string>
-    <string name="notifications_dark_theme">Belirli Layers temaları kullanıcıları için karanlık bildirim arka planı</string>
     <string name="notification_dismiss_button_title">Temizleme tuşunu değiştir</string>
     <string name="notification_dismiss_button">Temizle tuşu yerine \"TÜMÜNÜ TEMİZLE\" yazısını gösterir.</string>
-    <string name="notification_allow_load_label_with_pm_title">Alternatif uygulama adı yükleme yöntemi</string>
-    <string name="notification_allow_load_label_with_pm">Paket Yöneticisine uygulama adı yükleme izni verir. Performans sorunlarına neden olabilir</string>
     <string name="action_search">Ara</string>
     <string name="notification_blacklisted_apps_title">Kara listeye alınan uygulamalar</string>
     <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullanın.</string>
@@ -130,7 +128,6 @@
     <string name="update_notification_downloading_details">Yapı %1$d indiriliyor</string>
     <string name="update_notification_download_fail">İndirme başarısız!</string>
     <string name="update_notification_download_fail_details">Yapı %1$d indirme başarısız oldu</string>
-    <string name="enable_n_platlogo_title">Süprizli N logosu</string>
     <!-- /UPDATE -->
 
 </resources>

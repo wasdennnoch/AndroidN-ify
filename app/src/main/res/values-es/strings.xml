@@ -22,6 +22,7 @@
     <string name="app_dark_theme_title">Tema oscuro</string>
     <string name="hide_launcher_icon">Puede requerir reiniciar el lanzador</string>
     <string name="hide_launcher_icon_title">Esconder icono en el lanzador</string>
+    <string name="force_english_title">Forzar el idioma al Inglés</string>
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     
@@ -38,7 +39,7 @@
     <string name="enable_settings_summaries">Muetra la información más importante directamente en la barra de notificaciones</string>
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
     <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. Activa esto para mostrar la información correctamente</string>
-    <string name="enable_n_platlogo_title">N logo en el heuvo de pascua</string>
+    <string name="enable_n_platlogo_title">N logo en el huevo de pascua</string>
     
     <string name="disconnected">Desconectado</string>
     <string name="disabled">Desactivado</string>
@@ -67,8 +68,6 @@
     <string name="enable_recents_double_tap">Doble pulsación al botón de recientes para volver a la última aplicación</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
     <string name="recents_button_behavior_title">Comportamiento del botón recientes</string>
-    <string name="enable_recents_navigation_title">Activar navegación de recientes</string>
-    <string name="enable_recents_navigation">Usar el botón de recientes para navegar entre las aplicaciones recientes</string>
     <string name="recents_navigation_delay_title">Retraso de navegación</string>
     <string name="recents_navigation_delay">Tiempo para que se abra la aplicación seleccionada</string>
     <string name="enable_large_recents">Activar tajetas recientes grandes</string>
@@ -76,7 +75,7 @@
 
     <string name="no_previous_recents">Ninguna aplicación reciente</string>
     
-    <string name="recents_button_behavior_previous">Volver a la última alicación</string>
+    <string name="recents_button_behavior_previous">Volver a la última aplicación</string>
     <string name="recents_button_behavior_current">Volver a la aplicación actual</string>
     <string name="recents_button_behavior_cycle">Cambiar entre aplicaciones</string>
     <!-- /RECENTS -->
@@ -105,12 +104,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notificaciones</string>
     <string name="notifications_change_style">Notificaciones de Android N</string>
-    <string name="notifications_dark_theme_title">Tema oscuro de notificaciones</string>
-    <string name="notifications_dark_theme">Fondo oscuro de notificaciones para usuarios con capa personalizada</string>
     <string name="notification_dismiss_button_title">Cambiar botón descartar</string>
     <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
-    <string name="notification_allow_load_label_with_pm_title">Cargar nombre de app con PackageManager</string>
-    <string name="notification_allow_load_label_with_pm">Puede causar problemas de rendimiento</string>
     <string name="action_search">Buscar</string>
     <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
     <string name="notification_blacklisted_apps">Usar el estilo antigüo para estas aplicaciones</string>
@@ -125,7 +120,7 @@
     <string name="update_notification">Versión %1$d disponible para actualizar!</string>
     <string name="update_notification_download">Actualizar</string>
     <string name="check_for_updates_title">Buscar actualizaciones</string>
-    <string name="check_for_updates">Busca actualizaciones al iniciar la aplicación</string>
+    <string name="check_for_updates">Buscar actualizaciones al iniciar la aplicación</string>
     <string name="checking_for_update">Buscando actualizaciones…</string>
     <string name="check_for_update_fail">Error al buscar actualizaciones</string>
     <string name="no_updates">No hay versiones nuevas</string>

@@ -95,6 +95,13 @@
                 android:key="enable_notification_header"
                 android:title="@string/enable_notification_header"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_notification_header"
+                android:key="keep_qs_panel_background"
+                android:summary="@string/keep_qs_panel_bg"
+                android:title="@string/keep_qs_panel_bg_title"/>
+
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="5"
                 android:dependency="enable_notification_header"
@@ -171,13 +178,6 @@
                 android:key="notification_change_style"
                 android:title="@string/notifications_change_style"/>
 
-            <SwitchPreference
-                android:defaultValue="false"
-                android:dependency="notification_change_style"
-                android:key="notification_allow_load_label_with_pm"
-                android:summary="@string/notification_allow_load_label_with_pm"
-                android:title="@string/notification_allow_load_label_with_pm_title"/>
-
             <PreferenceScreen
                 android:dependency="notification_change_style"
                 android:key="notification_blacklisted_apps"
@@ -194,28 +194,28 @@
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:key="notifications_custom_color"
                 android:dependency="notification_change_style"
+                android:key="notifications_custom_color"
                 android:title="@string/notifications_custom_color_title"/>
 
             <com.thebluealliance.spectrum.SpectrumPreference
+                android:defaultValue="0"
+                android:dependency="notifications_custom_color"
                 android:key="notifications_appname_color"
                 android:title="@string/notifications_accent_color_title"
-                android:dependency="notifications_custom_color"
-                android:defaultValue="0"
                 app:spectrum_colors="@array/appname_colors"/>
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:key="notifications_custom_actions_color"
                 android:dependency="notification_change_style"
+                android:key="notifications_custom_actions_color"
                 android:title="@string/notifications_custom_actions_color_title"/>
 
             <com.thebluealliance.spectrum.SpectrumPreference
-                android:key="notifications_appname_color"
-                android:title="@string/notifications_actions_color_title"
-                android:dependency="notifications_custom_actions_color"
                 android:defaultValue="0"
+                android:dependency="notifications_custom_actions_color"
+                android:key="actions_background_colors"
+                android:title="@string/notifications_actions_color_title"
                 app:spectrum_colors="@array/actions_background_colors"/>
 
         </PreferenceScreen>
@@ -232,9 +232,9 @@
             android:title="@string/app_dark_theme_title"/>
 
         <com.thebluealliance.spectrum.SpectrumPreference
+            android:defaultValue="@color/colorPrimary"
             android:key="theme_colorPrimary"
             android:title="@string/theme_colorPrimary"
-            android:defaultValue="@color/colorPrimary"
             app:spectrum_colors="@array/theme_colors"/>
 
         <SwitchPreference
@@ -242,6 +242,11 @@
             android:key="hide_launcher_icon"
             android:summary="@string/hide_launcher_icon"
             android:title="@string/hide_launcher_icon_title"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="force_english"
+            android:title="@string/force_english_title"/>
 
         <SwitchPreference
             android:defaultValue="false"

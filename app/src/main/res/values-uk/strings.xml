@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string name="xposed_description">Функції Android N на пристроях Lollipop і Marshmallow!</string>
+
+    <string name="restart_systemui">Перезавантаження SystemUI</string>
+    <string name="restart_systemui_message">Ви дійсно хочете перезавантажити SystemUI?</string>
+    <string name="restart_broadcast_sent">Запит на перезавантаження надіслано</string>
+    <string name="activity_about">Про Android N-ify</string>
+    <string name="about_author">Розробник @MrWasdennnoch</string>
+    <string name="about_translator">Переклад @Electroz</string>
+    <string name="about_version">Версія %1$s (%2$d)</string>
+
+    <!-- prefs -->
+    <string name="prefs_file_not_readable">Xposed не може прочитати файл конфігурації, будуть використані стандартні значення. Це може бути пов\'язано з блокуючим режимом SELinux.</string>
+
+    <string name="header_tweaks">Твіки</string>
+    <string name="header_app">Додатки</string>
+
+    <string name="app_dark_theme_title">Темна тема додатку</string>
+    <string name="hide_launcher_icon_title">Приховати значок в лаунчері</string>
+    <string name="hide_launcher_icon">Може знадобитися перезавантаження робочого столу</string>
+    <string name="force_english_title">Примусово використовувати англійську мову</string>
+    <string name="debug_log_title">Журнал для налагодження</string>
+    <string name="debug_log">Увага: Журнал може займати багато місця</string>
+    
+    <string name="requires_android_version">Потрібно Android %1$s</string>
+    
+    <string name="not_activated">Модуль не активовано</string>
+    
+    <string name="theme_colorPrimary">Основний колір</string>
+    <!-- /prefs -->
+
+    <!-- SETTINGS -->
+    <string name="header_settings">Налаштування</string>
+    <string name="enable_settings_summaries_title">Увімкнути твіки налаштування</string>
+    <string name="enable_settings_summaries">Показує найважливішу інформацію в панелі управління</string>
+    <string name="fix_sound_notif_tile_title">Виправити пункт \"Звуки і сповіщення\"</string>
+    <string name="fix_sound_notif_tile">Деякі прошивки об\'єднують налаштування звуку і сповіщення. Ввімкніть цю опцію для коректного відображення.</string>
+    <string name="enable_n_platlogo_title">Логотип пасхалки в стилі N</string>
+    
+    <string name="disconnected">Від\'єднано</string>
+    <string name="disabled">Вимкнено</string>
+    <string name="off">Вимк</string>
+    <string name="on">Увімк</string>
+    <string name="data_usage_summary">%1$s даних використано</string>
+    <string name="display_summary">Адаптивна яскравість %1$s</string>
+    <string name="sound_summary">Гучність %1$s</string>
+    <string name="apps_summary">%1$d додатків встановлено</string>
+    <string name="storage_summary">%1$s із %2$s використано</string>
+    <string name="battery_summary">%1$s - залишилося. Приблизно %2$s</string>
+    <string name="battery_charging_wireless">%1$s - Бездротова зарядка</string>
+    <string name="battery_charging_usb">%1$s - Зарядка від USB</string>
+    <string name="battery_charging_ac">%1$s - Зарядка від мережі</string>
+    <string name="memory_summary">Використовується %1$s з %2$s</string>
+    <string name="user_summary">Ви увійшли як %1$s</string>
+    <string name="location_on_power">Увімк / Економія батареї</string>
+    <string name="location_on_device">Увімк / По датчиках пристрою</string>
+    <string name="location_on_high">Увімк / Висока точність</string>
+    <string name="print_summary">%1$d завдання на друк</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="header_recents">Нещодавні</string>
+    <string name="enable_recents_double_tap_title">Швидке перемикання</string>
+    <string name="enable_recents_double_tap">Подвійне натискання на кнопку "Нещодавні" перемикає до попереднього додатку</string>
+    <string name="double_tap_speed_title">Швидкість подвійного натискання</string>
+    <string name="recents_button_behavior_title">Перемикання кнопкою \"Нещодавні\"</string>
+    <string name="recents_navigation_delay_title">Затримка навігації</string>
+    <string name="recents_navigation_delay">Час, за який виділений додаток отримає фокус</string>
+    <string name="enable_large_recents">Великі нещодавні програми</string>
+    <string name="no_recents_image">Змінити зображення \"Немає нещодавних сповіщень\"</string>
+    
+    <string name="no_previous_recents">Немає нещодавних додатків</string>
+    
+    <string name="recents_button_behavior_previous">Повернення до попереднього додатка</string>  
+    <string name="recents_button_behavior_current">Повернення до поточного додатка</string>  
+    <string name="recents_button_behavior_cycle">Перемикання між додатками</string> 
+    <!-- /RECENTS -->
+    
+    <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Шапка статус-бару</string>
+    <string name="enable_notification_header">Змінити стиль шапки статус-бару</string>
+    <string name="notification_header_qs_tiles_count">Кількість значків у верхній панелі</string>
+    <string name="notification_header_qs_tiles_count_monitor">значків</string>
+    <string name="enable_new_tile_click_behavior">Перемикати швидкі налаштування одним натисканням</string>
+    <string name="enable_new_tile_click_behavior_summary">При натисканні на плитку у рядку швидкого доступу перемкне стан, і натисніть плитку на панелі, щоб розширити</string>
+    <string name="enable_large_first_row">Збільшити перший рядок</string>
+    <string name="enable_large_first_row_summary">На CM використовуйте меню конфігурації в режимі редагування плиток замість цього перемикача</string>
+    <string name="smaller_header_clock_title">Зменшити годинник</string>
+    <string name="smaller_header_clock">Зменшує розмір годинника при перегляді шапки статус-бару. Зручно для маленьких екранів</string>
+    <string name="notification_full_width_volume_title">Розтягнути діалог гучності</string>
+    <string name="notification_full_width_volume">Прибрати обмеження ширини діалогу гучності для телефонів з великими дисплеями</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Приховати елементи шапки статус-бару</string>
+    <string name="hide_tuner_icon_title">Приховати значок SystemUI Tuner</string>
+    <string name="hide_edit_tiles_title">Приховати кнопку редагування плиток</string>
+    <string name="hide_carrier_label_title">Приховати напис мережі</string> 
+    <!-- /Hide header icons -->
+    <!-- /STATUS BAR HEADER -->
+ 
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Сповіщення</string>
+    <string name="notifications_change_style">Стиль сповіщення</string>
+    <string name="notification_dismiss_button_title">Змінити кнопку очищення</string>
+    <string name="notification_dismiss_button">Показувати \"ОЧИСТИТИ ВСІ\" замість значка очищення</string>
+    <string name="action_search">Пошук</string>
+    <string name="notification_blacklisted_apps_title">Чорний список додатків</string>
+    <string name="notification_blacklisted_apps">Використовувати старий стиль сповіщень для цих додатків</string>
+    <string name="notifications_custom_color_title">Змінити відтінок</string>  
+    <string name="notifications_accent_color_title">Колір відтінку</string>  
+    <string name="notifications_custom_actions_color_title">Змінити колір фону панелі дій</string>  
+    <string name="notifications_actions_color_title">Колір фону панелі дій</string> 
+    <!-- /NOTIFICATIONS -->
+    
+    <!-- UPDATE -->
+    <string name="update_notification_title">Доступно нове оновлення</string>
+    <string name="update_notification">Збірка %1$d доступна для оновлення!</string>
+    <string name="update_notification_download">Оновити</string>
+    <string name="check_for_updates_title">Перевірити оновлення</string>
+    <string name="check_for_updates">Перевіряти оновлення при запуску додатка</string>
+    <string name="checking_for_update">Пошук оновлення…</string>
+    <string name="check_for_update_fail">Не вдалося перевірити оновлення</string>
+    <string name="no_updates">Ви використовуєте останню версію</string>
+    <string name="update_notification_downloading">Завантаження оновлення</string>
+    <string name="update_notification_downloading_details">Завантажується збірка %1$d</string>
+    <string name="update_notification_download_fail">Помилка завантаження</string>
+    <string name="update_notification_download_fail_details">Не вдалося завантажити збірку %1$d</string>
+    <!-- /UPDATE -->
+    
+</resources>

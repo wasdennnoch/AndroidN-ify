@@ -22,6 +22,7 @@
     <string name="app_dark_theme_title">使用暗色主题</string>
     <string name="hide_launcher_icon_title">隐藏应用图标</string>
     <string name="hide_launcher_icon">或许需要重启桌面</string>
+    <string name="force_english_title">强制显示英文</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
 
@@ -67,9 +68,7 @@
     <string name="enable_recents_double_tap">双击多任务键时切换至上一个使用过的应用</string>
     <string name="double_tap_speed_title">双击速度</string>
     <string name="recents_button_behavior_title">多任务键点击行为</string>
-    <string name="enable_recents_navigation_title">启用最近任务导航</string>
-    <string name="enable_recents_navigation">反复点击多任务键时依次浏览最近任务</string>
-    <string name="recents_navigation_delay_title">最近任务导航延时</string>
+    <string name="recents_navigation_delay_title">任务导航延时</string>
     <string name="recents_navigation_delay">所选任务被打开的时间</string>
     <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
     <string name="no_recents_image">更改没有最近任务时的界面样式</string>
@@ -84,6 +83,8 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">下拉顶栏</string>
     <string name="enable_notification_header">调整顶栏</string>
+    <string name="keep_qs_panel_bg_title">不更改快速设置面板背景</string>
+    <string name="keep_qs_panel_bg">对所用主题内包含有自定义快速设置面板背景的用户有帮助</string>
     <string name="notification_header_qs_tiles_count">顶栏内的磁贴数量</string>
     <string name="notification_header_qs_tiles_count_monitor">个</string>
     <string name="enable_new_tile_click_behavior">启用安卓 N 式磁贴点击行为</string>
@@ -105,12 +106,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">通知区域</string>
     <string name="notifications_change_style">调整通知</string>
-    <string name="notifications_dark_theme_title">启用暗色主题通知</string>
-    <string name="notifications_dark_theme">针对某些特定层面主题的用户使用暗色调的通知背景</string>
     <string name="notification_dismiss_button_title">更改清除按钮</string>
     <string name="notification_dismiss_button">使用 \"全部清除\" 字样替换原有的图标</string>
-    <string name="notification_allow_load_label_with_pm_title">备选的应用名称加载方案</string>
-    <string name="notification_allow_load_label_with_pm">允许通过软件包安装程序加载应用名称。可能会影响手机性能</string>
     <string name="action_search">搜索</string>
     <string name="notification_blacklisted_apps_title">黑名单应用</string>
     <string name="notification_blacklisted_apps">所选应用将使用旧风格的通知</string>

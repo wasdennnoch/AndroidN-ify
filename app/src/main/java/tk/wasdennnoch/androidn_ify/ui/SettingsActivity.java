@@ -9,8 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -91,6 +89,7 @@ public class SettingsActivity extends Activity {
             switch (key) {
                 case "app_dark_theme":
                 case "theme_colorPrimary":
+                case "force_english":
                     getActivity().recreate();
                     break;
                 case "hide_launcher_icon":
