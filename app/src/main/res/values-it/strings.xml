@@ -104,6 +104,8 @@
     <string name="action_search">Cerca</string>
     <string name="notification_blacklisted_apps_title">App disabilitate</string>
     <string name="notification_blacklisted_apps">Usa il vecchio stile delle notifiche per queste app</string>
+    <string name="alternative_header_qs_method_title">Metodo alternativo caricamento QS</string>
+    <string name="alternative_header_qs_method">Abilitalo quando ci sono problemi di posizionamento cone le icone dei QS</string>
      <!-- /NOTIFICATIONS -->
      
      <!-- UPDATE -->
