@@ -36,7 +36,7 @@ public class RomUtils {
             sPrefs.edit().putString("rom", "rr").commit();
             return;
         }
-        int cmSdkVersion = SystemProperties.getInt("ro.build.version.sdk", 0);
+        int cmSdkVersion = SystemProperties.getInt("ro.cm.build.version.plat.sdk", 0);
         if (cmSdkVersion != 0) {
             sPrefs.edit().putString("rom", "cm").commit();
             return;
