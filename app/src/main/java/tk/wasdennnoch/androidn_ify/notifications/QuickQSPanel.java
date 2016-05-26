@@ -105,15 +105,15 @@ public class QuickQSPanel extends LinearLayout {
             getRelativePosition(ai, tileView, StatusBarHeaderHooks.mStatusBarHeaderView);
             getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
             int k = ai1[0] - ai[0];
-            int i2 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2);
-            int i1 = i2 + getHeight();
+            int i1 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2) + getHeight();
+            int i2 = (int) (i1 * 0.8f);
 
             j = ai[0] - j;
             builder.addFloat(tileView, "translationX", 0f, (float) k);
             builder1.addFloat(tileView, "translationY", 0f, (float) i1);
 
             builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
-            builder1.addFloat(qsTileView, "translationY", (float) -i1 + StatusBarHeaderHooks.mQsPanel.getHeight(), 0f);
+            builder1.addFloat(qsTileView, "translationY", (float) -i2 + StatusBarHeaderHooks.mQsPanel.getHeight(), 0f);
 
             mTopFiveQs.add(findIcon(qsTileView));
         }
@@ -129,19 +129,24 @@ public class QuickQSPanel extends LinearLayout {
         if (mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null) {
             setupAnimators();
         }
-        mTranslationXAnimator.setPosition(f);
-        mTranslationYAnimator.setPosition(f);
-        mFirstPageDelayedAnimator.setPosition(f);
-        if (oldPosition == 1 && f != oldPosition) {
-            onAnimationStarted();
+        if (!StatusBarHeaderHooks.mShowingDetail || f == 0) {
+            mTranslationXAnimator.setPosition(f);
+            mTranslationYAnimator.setPosition(f);
+            mFirstPageDelayedAnimator.setPosition(f);
+            if (oldPosition == 1 && f != oldPosition) {
+                onAnimationStarted();
+            }
+            if (oldPosition != 1 && f == 1) {
+                onAnimationAtEnd();
+            }
+            if (oldPosition == 0 && f != oldPosition) {
+                onAnimationStarted();
+            }
+            oldPosition = f;
+        } else {
+            if (getVisibility() != INVISIBLE)
+                setVisibility(INVISIBLE);
         }
-        if (oldPosition != 1 && f == 1) {
-            onAnimationAtEnd();
-        }
-        if (oldPosition == 0 && f != oldPosition) {
-            onAnimationStarted();
-        }
-        oldPosition = f;
     }
 
     private void getRelativePosition(int ai[], View view, View view1)

@@ -131,6 +131,7 @@ public class StatusBarHeaderHooks {
     private static int mBarState = 2;
 
     private static boolean mEditing;
+    public static boolean mShowingDetail;
 
     private static ArrayList<Object> mRecords;
 
@@ -652,6 +653,7 @@ public class StatusBarHeaderHooks {
             }
         }
         transition(mQsDetailHeader, showingDetail);
+        mShowingDetail = showingDetail;
         XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
         if (showingDetail) {
             mCollapseAfterHideDatails = NotificationPanelHooks.isCollapsed();
