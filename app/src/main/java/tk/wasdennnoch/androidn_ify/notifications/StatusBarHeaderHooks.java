@@ -40,7 +40,6 @@ import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.WifiTileHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
-import tk.wasdennnoch.androidn_ify.utils.TestUtils;
 
 public class StatusBarHeaderHooks {
 
@@ -195,7 +194,6 @@ public class StatusBarHeaderHooks {
                 int rightIconHeight = res.getDimensionPixelSize(R.dimen.right_icon_size);
                 int rightIconWidth = mTaskManagerButton != null && mShowTaskManager ? res.getDimensionPixelSize(R.dimen.right_icon_width_small) : rightIconHeight;
                 int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
-                int quickQSHorizontalMargin = res.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
                 int headerItemsMarginTop = res.getDimensionPixelSize(R.dimen.header_items_margin_top);
                 int alarmStatusTextColor = res.getColor(R.color.alarm_status_text_color);
                 int dateTimeCollapsedSize = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
@@ -328,7 +326,6 @@ public class StatusBarHeaderHooks {
                 RelativeLayout.LayoutParams headerQsPanelLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
                 mHeaderQsPanel = new QuickQSPanel(context);
                 mHeaderQsPanel.setLayoutParams(headerQsPanelLp);
-                mHeaderQsPanel.setPadding(quickQSHorizontalMargin, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), quickQSHorizontalMargin, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
                 mHeaderQsPanel.setClipChildren(false);
                 mHeaderQsPanel.setClipToPadding(false);
 
@@ -345,8 +342,6 @@ public class StatusBarHeaderHooks {
                     RelativeLayout.LayoutParams carrierTextLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                     mCarrierText.setLayoutParams(carrierTextLp);
                     mCarrierText.setPadding(0, 0, 0, 0);
-                    //mCarrierText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mEmergencyCallsOnly.getTextSize());
-                    //mCarrierText.setTextColor(mEmergencyCallsOnly.getCurrentTextColor());
                 }
                 if (mTaskManagerButton != null) {
                     ((ViewGroup) mTaskManagerButton.getParent()).removeView(mTaskManagerButton);
@@ -474,8 +469,20 @@ public class StatusBarHeaderHooks {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
                 } catch (Throwable t) {
-                    //noinspection unchecked
-                    mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
+                    try {
+                        //noinspection unchecked
+                        mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
+                    } catch (Throwable t2) {
+                        XposedHook.logE(TAG, "No tile record field found (" + t.getClass().getSimpleName() + " and " + t2.getClass().getSimpleName() + ")", null);
+                        return;
+                    }
+                }
+                if (mRecords.size() == 0) {
+                    try {
+                        //noinspection unchecked
+                        mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
+                    } catch (Throwable ignore) {
+                    }
                 }
                 mHeaderQsPanel.setTiles(mRecords);
             }
@@ -691,9 +698,6 @@ public class StatusBarHeaderHooks {
                     mHasEditPanel = false;
                 }
 
-                TestUtils.searchQSTileView_Init(classLoader);
-                TestUtils.searchQSTile_GetState(classLoader);
-
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpansion", float.class, setExpansionHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onConfigurationChanged", Configuration.class, onConfigurationChangedHook);
@@ -808,10 +812,14 @@ public class StatusBarHeaderHooks {
                 }
 
                 if (!ConfigUtils.header().large_first_row) {
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height",
-                            new XResources.DimensionReplacement(resparam.res.getDimensionPixelSize(
-                                    resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)),
-                                    TypedValue.COMPLEX_UNIT_PX));
+                    try {
+                        resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height",
+                                new XResources.DimensionReplacement(resparam.res.getDimensionPixelSize(
+                                        resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)),
+                                        TypedValue.COMPLEX_UNIT_PX));
+                    } catch (Throwable t) {
+                        XposedHook.logE(TAG, "Couldn't change qs_dual_tile_height (" + t.getClass().getSimpleName() + ")", null);
+                    }
                 }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);

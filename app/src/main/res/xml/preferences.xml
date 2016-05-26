@@ -115,6 +115,13 @@
                 app:monitorBoxUnit="@string/notification_header_qs_tiles_count_monitor"/>
 
             <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_notification_header"
+                android:key="alternative_quick_qs_method"
+                android:summary="@string/alternative_header_qs_method"
+                android:title="@string/alternative_header_qs_method_title"/>
+
+            <SwitchPreference
                 android:defaultValue="true"
                 android:dependency="enable_notification_header"
                 android:key="enable_new_tile_click_behavior"
