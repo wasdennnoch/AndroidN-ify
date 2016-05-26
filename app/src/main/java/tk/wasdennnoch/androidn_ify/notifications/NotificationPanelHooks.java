@@ -19,6 +19,7 @@ public class NotificationPanelHooks {
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
 
+    public static final int STATE_SHADE = 0;
     public static final int STATE_KEYGUARD = 1;
 
     private static ViewGroup mNotificationPanelView;
@@ -46,6 +47,13 @@ public class NotificationPanelHooks {
                     XposedHook.logE(TAG, "Couldn't change QS container background color", t);
                 }
             }
+        }
+    };
+
+    private static XC_MethodHook setBarStateHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
         }
     };
 
@@ -94,6 +102,7 @@ public class NotificationPanelHooks {
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
 
                 XposedHelpers.findAndHookMethod(classPanelView, "schedulePeek", new XC_MethodHook() {
                     @Override

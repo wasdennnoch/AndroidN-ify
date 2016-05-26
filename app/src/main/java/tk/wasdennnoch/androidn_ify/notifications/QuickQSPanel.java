@@ -38,6 +38,7 @@ public class QuickQSPanel extends LinearLayout {
     private ArrayList<View> mTopFiveQs = new ArrayList<>();
     private TouchAnimator mTranslationXAnimator;
     private TouchAnimator mTranslationYAnimator;
+    private TouchAnimator mFirstPageDelayedAnimator;
     private float oldPosition = 0;
 
     public QuickQSPanel(Context context) {
@@ -63,6 +64,7 @@ public class QuickQSPanel extends LinearLayout {
         mIconViews.clear();
         mTranslationXAnimator = null;
         mTranslationYAnimator = null;
+        mFirstPageDelayedAnimator = null;
         for (int i = 0; i < mMaxTiles && i < tileRecords.size(); i++) {
             Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
@@ -91,6 +93,7 @@ public class QuickQSPanel extends LinearLayout {
         int j = 0;
         TouchAnimator.Builder builder = new TouchAnimator.Builder();
         TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
+        TouchAnimator.Builder builder2 = new TouchAnimator.Builder();
         for (int i = 0; i < mIconViews.size(); i++) {
             Object tilerecord = mRecords.get(i);
             View tileView = mIconViews.get(i);
@@ -102,24 +105,33 @@ public class QuickQSPanel extends LinearLayout {
             getRelativePosition(ai, tileView, StatusBarHeaderHooks.mStatusBarHeaderView);
             getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
             int k = ai1[0] - ai[0];
-            int i1 = ai1[1] - ai[1] + getHeight() + (tileView.getPaddingTop() / 2);
+            int i2 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2);
+            int i1 = i2 + getHeight();
 
             j = ai[0] - j;
-            builder.addFloat(tileView, "translationX", 0.0F, (float) k);
-            builder1.addFloat(tileView, "translationY", 0.0F, (float) i1);
+            builder.addFloat(tileView, "translationX", 0f, (float) k);
+            builder1.addFloat(tileView, "translationY", 0f, (float) i1);
+
+            builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
+            builder1.addFloat(qsTileView, "translationY", (float) -i1 + StatusBarHeaderHooks.mQsPanel.getHeight(), 0f);
 
             mTopFiveQs.add(findIcon(qsTileView));
         }
+        builder2.setStartDelay(0.7F);
+        builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
+        builder2.addFloat(StatusBarHeaderHooks.mEditButton, "alpha", 0f, 1f);
         mTranslationXAnimator = builder.build();
         mTranslationYAnimator = builder1.build();
+        mFirstPageDelayedAnimator = builder2.build();
     }
 
     public void setPosition(float f) {
-        if (mTranslationXAnimator == null || mTranslationYAnimator == null) {
+        if (mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null) {
             setupAnimators();
         }
         mTranslationXAnimator.setPosition(f);
         mTranslationYAnimator.setPosition(f);
+        mFirstPageDelayedAnimator.setPosition(f);
         if (oldPosition == 1 && f != oldPosition) {
             onAnimationStarted();
         }

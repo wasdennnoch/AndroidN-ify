@@ -122,11 +122,13 @@ public class StatusBarHeaderHooks {
     private static NestedScrollView mEditView;
     private static RecyclerView mRecyclerView;
     private static RecyclerView mSecondRecyclerView;
-    private static Button mEditButton;
+    public static Button mEditButton;
     public static TileAdapter mTileAdapter;
     public static AvailableTileAdapter mAvailableTileAdapter;
     private static ItemTouchHelper mItemTouchHelper;
     private static ResourceUtils mResUtils;
+
+    private static int mBarState = 2;
 
     private static boolean mEditing;
 
@@ -641,7 +643,7 @@ public class StatusBarHeaderHooks {
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);
-        mEditButton.setVisibility((showingDetail) ? View.GONE : View.VISIBLE);
+        mEditButton.setVisibility((showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE) ? View.GONE : View.VISIBLE);
         if (mWeatherContainer != null) {
             try {
                 if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather"))
@@ -830,6 +832,14 @@ public class StatusBarHeaderHooks {
 
         linearLayout.addView(mRecyclerView);
         linearLayout.addView(mSecondRecyclerView);
+    }
+
+    public static void onSetBarState(int state) {
+        mBarState = state;
+        if (mEditButton != null) {
+            int visibility = (state == NotificationPanelHooks.STATE_SHADE) ? View.VISIBLE : View.GONE;
+            mEditButton.setVisibility(visibility);
+        }
     }
 
     private static class CustomItemTouchHelper extends ItemTouchHelper {
