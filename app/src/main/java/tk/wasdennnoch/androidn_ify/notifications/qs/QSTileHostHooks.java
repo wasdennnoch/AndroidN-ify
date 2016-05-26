@@ -199,10 +199,15 @@ public class QSTileHostHooks {
 
     @SuppressWarnings("unchecked")
     public static List<String> getAvailableTiles(Context context) {
-        List<String> specs;
+        List<String> specs = null;
         if (RomUtils.isCmBased()) {
-            specs = (List<String>) XposedHelpers.callStaticMethod(classQSUtils, "getAvailableTiles", context);
-        } else {
+            try {
+                specs = (List<String>) XposedHelpers.callStaticMethod(classQSUtils, "getAvailableTiles", context);
+            } catch (Throwable ignore) {
+
+            }
+        }
+        if (specs == null) {
             specs = new ArrayList<>();
             specs.add("wifi");
             specs.add("bt");
