@@ -12,23 +12,33 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Space;
 
+import java.net.CookieStore;
 import java.util.ArrayList;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.notifications.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class QuickQSPanel extends LinearLayout {
 
     private static final String TAG = "QuickQSPanel";
+    private final int mCellHeight;
+    private final int mCellWidth;
 
     private int mMaxTiles;
     private HeaderTileLayout mTileLayout;
     private ResourceUtils mRes;
     private ArrayList<Object> mRecords = new ArrayList<>();
     private ArrayList<ViewGroup> mTileViews = new ArrayList<>();
+    private ArrayList<View> mIconViews = new ArrayList<>();
+    private ArrayList<View> mTopFiveQs = new ArrayList<>();
+    private TouchAnimator mTranslationXAnimator;
+    private TouchAnimator mTranslationYAnimator;
+    private float oldPosition = 0;
 
     public QuickQSPanel(Context context) {
         super(context);
@@ -40,6 +50,9 @@ public class QuickQSPanel extends LinearLayout {
         setPadding(0, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), 0, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         mTileLayout = new HeaderTileLayout(context);
         addView(mTileLayout);
+
+        mCellHeight = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_tile_height", "dimen", XposedHook.PACKAGE_SYSTEMUI));
+        mCellWidth = (int) (mCellHeight * TileAdapter.TILE_ASPECT);
     }
 
     public void setTiles(ArrayList<Object> tileRecords) {
@@ -47,6 +60,9 @@ public class QuickQSPanel extends LinearLayout {
         mTileLayout.removeTiles();
         mTileViews.clear();
         mRecords.clear();
+        mIconViews.clear();
+        mTranslationXAnimator = null;
+        mTranslationYAnimator = null;
         for (int i = 0; i < mMaxTiles && i < tileRecords.size(); i++) {
             Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
@@ -68,6 +84,97 @@ public class QuickQSPanel extends LinearLayout {
                 XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
             }
         }
+    }
+
+    public void setupAnimators() {
+        mTopFiveQs.clear();
+        int j = 0;
+        TouchAnimator.Builder builder = new TouchAnimator.Builder();
+        TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
+        for (int i = 0; i < mIconViews.size(); i++) {
+            Object tilerecord = mRecords.get(i);
+            View tileView = mIconViews.get(i);
+            final ViewGroup qsTileView = (ViewGroup) XposedHelpers.getObjectField(tilerecord, "tileView");
+
+            int ai[] = new int[2];
+            int ai1[] = new int[2];
+
+            getRelativePosition(ai, tileView, StatusBarHeaderHooks.mStatusBarHeaderView);
+            getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
+            int k = ai1[0] - ai[0];
+            int i1 = ai1[1] - ai[1] + getHeight() + (tileView.getPaddingTop() / 2);
+
+            j = ai[0] - j;
+            builder.addFloat(tileView, "translationX", 0.0F, (float) k);
+            builder1.addFloat(tileView, "translationY", 0.0F, (float) i1);
+
+            mTopFiveQs.add(findIcon(qsTileView));
+        }
+        mTranslationXAnimator = builder.build();
+        mTranslationYAnimator = builder1.build();
+    }
+
+    public void setPosition(float f) {
+        if (mTranslationXAnimator == null || mTranslationYAnimator == null) {
+            setupAnimators();
+        }
+        mTranslationXAnimator.setPosition(f);
+        mTranslationYAnimator.setPosition(f);
+        if (oldPosition == 1 && f != oldPosition) {
+            onAnimationStarted();
+        }
+        if (oldPosition != 1 && f == 1) {
+            onAnimationAtEnd();
+        }
+        if (oldPosition == 0 && f != oldPosition) {
+            onAnimationStarted();
+        }
+        oldPosition = f;
+    }
+
+    private void getRelativePosition(int ai[], View view, View view1)
+    {
+        ai[0] = view.getWidth() / 2;
+        ai[1] = 0;
+        getRelativePositionInt(ai, view, view1);
+    }
+
+    private void getRelativePositionInt(int ai[], View view, View view1)
+    {
+        if (view != null && view != view1) {
+            ai[0] = (int)((float)ai[0] + view.getX());
+            ai[1] = ai[1] + view.getTop();
+            getRelativePositionInt(ai, (View)view.getParent(), view1);
+        }
+    }
+
+    public void onAnimationAtEnd() {
+        setVisibility(INVISIBLE);
+        int j = mTopFiveQs.size();
+        for (int i = 0; i < j; i++)
+        {
+            mTopFiveQs.get(i).setVisibility(VISIBLE);
+        }
+    }
+
+    public void onAnimationStarted() {
+        setVisibility(VISIBLE);
+        int j = mTopFiveQs.size();
+        for (int i = 0; i < j; i++)
+        {
+            mTopFiveQs.get(i).setVisibility(INVISIBLE);
+        }
+    }
+
+    private View findIcon(ViewGroup view) {
+        int children = view.getChildCount();
+        for (int i = 0; i < children; i++) {
+            View child = view.getChildAt(i);
+            if (child.getId() == android.R.id.icon || child instanceof FrameLayout) {
+                return child;
+            }
+        }
+        return view;
     }
 
     private class HeaderTileLayout extends LinearLayout {
@@ -177,6 +284,7 @@ public class QuickQSPanel extends LinearLayout {
             view.setPadding(p, p, p, p);
             container.addView(view, generateLayoutParams());
             addView(container, position, generateContainerLayoutParams());
+            mIconViews.add(view);
         }
 
         public void removeTiles() {

@@ -18,18 +18,22 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class QSTileHostHooks {
     public static final String TAG = "QSTileHostHooks";
 
     public static final String CLASS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
+    public static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
     public static final String TILES_SETTING = "sysui_qs_tiles";
     public static final String TILE_SPEC_NAME = "tileSpec";
 
     private static TilesManager mTilesManager = null;
     public static List<String> mTileSpecs = null;
 
-    private static Object mTileHost = null;
+    private static Class<?> classQSUtils;
+
+    protected static Object mTileHost = null;
 
     private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
@@ -133,7 +137,20 @@ public class QSTileHostHooks {
         try {
             Class<?> classTileHost = XposedHelpers.findClass(CLASS_TILE_HOST, classLoader);
 
+            if (RomUtils.isCmBased()) {
+                classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
+            }
+
             XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
+            XposedHelpers.findAndHookMethod(classTileHost, "createTile", String.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    String tileSpec = (String) param.args[0];
+                    if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
+                        param.setResult(mTilesManager.createTile(tileSpec).getTile());
+                    }
+                }
+            });
             if (ConfigUtils.header().hide_edit_tiles) {
                 XposedHelpers.findAndHookMethod(classTileHost, "loadTileSpecs", String.class, loadTileSpecsHook);
             }
@@ -178,6 +195,30 @@ public class QSTileHostHooks {
         specs.add("cast");
         specs.add("location");
         return new JSONArray(specs).toString();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<String> getAvailableTiles(Context context) {
+        List<String> specs;
+        if (RomUtils.isCmBased()) {
+            specs = (List<String>) XposedHelpers.callStaticMethod(classQSUtils, "getAvailableTiles", context);
+        } else {
+            specs = new ArrayList<>();
+            specs.add("wifi");
+            specs.add("bt");
+            specs.add("inversion");
+            specs.add("cell");
+            specs.add("airplane");
+            specs.add("dnd");
+            specs.add("rotation");
+            specs.add("flashlight");
+            specs.add("location");
+            specs.add("cast");
+            specs.add("hotspot");
+        }
+        specs.add("battery");
+        specs.remove("edit");
+        return specs;
     }
 
     public static void recreateTiles() {

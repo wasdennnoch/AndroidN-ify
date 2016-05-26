@@ -26,6 +26,7 @@ import java.io.File;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
@@ -43,6 +44,7 @@ public class SettingsActivity extends Activity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         ThemeUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
+        RomUtils.init(this);
         setContentView(R.layout.activity_settings);
         if (!isActivated()) {
             getActionBar().setSubtitle(R.string.not_activated);

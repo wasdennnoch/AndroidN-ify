@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
+import android.graphics.Canvas;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Process;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -22,6 +25,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -44,6 +48,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.notifications.qs.AvailableTileAdapter;
 import tk.wasdennnoch.androidn_ify.notifications.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.notifications.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.BluetoothTileHook;
@@ -81,7 +86,7 @@ public class StatusBarHeaderHooks {
     private static TouchAnimator mSettingsAlpha;
     private static TouchAnimator mQuickQSAnimator;
 
-    private static RelativeLayout mStatusBarHeaderView;
+    public static RelativeLayout mStatusBarHeaderView;
 
     private static View mSystemIconsSuperContainer;
     private static View mDateGroup;
@@ -109,15 +114,17 @@ public class StatusBarHeaderHooks {
     private static Button mAlarmStatusCollapsed;
 
     private static QuickQSPanel mHeaderQsPanel;
-    private static ViewGroup mQsPanel;
+    public static ViewGroup mQsPanel;
 
     private static Context mContext;
 
     private static Object mEditAdapter;
-    private static LinearLayout mEditView;
+    private static NestedScrollView mEditView;
     private static RecyclerView mRecyclerView;
+    private static RecyclerView mSecondRecyclerView;
     private static Button mEditButton;
-    private static TileAdapter mTileAdapter;
+    public static TileAdapter mTileAdapter;
+    public static AvailableTileAdapter mAvailableTileAdapter;
     private static ItemTouchHelper mItemTouchHelper;
     private static ResourceUtils mResUtils;
 
@@ -425,9 +432,10 @@ public class StatusBarHeaderHooks {
                     mFirstHalfAnimator.setPosition(f);
                     mSecondHalfAnimator.setPosition(f);
                     mSettingsAlpha.setPosition(f);
-                    mQuickQSAnimator.setPosition(f);
+                    //mQuickQSAnimator.setPosition(f);
+                    mHeaderQsPanel.setPosition(f);
                 }
-                mHeaderQsPanel.setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
+                //mHeaderQsPanel.setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable ignore) {
                 // Oh god, a massive spam wall coming right at you, quick, hide!
@@ -498,13 +506,16 @@ public class StatusBarHeaderHooks {
             // so we have to check if we are in the right one
             mQsPanel = (ViewGroup) param.thisObject;
             if (mHeaderQsPanel != null) {
-                ArrayList<Object> mRecords;
                 try {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
                 } catch (Throwable t) {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
+                }
+                if (mTileAdapter != null) {
+                    mTileAdapter.setRecords(mRecords);
+                    mTileAdapter.notifyDataSetChanged();
                 }
                 mHeaderQsPanel.setTiles(mRecords);
             }
@@ -780,26 +791,45 @@ public class StatusBarHeaderHooks {
 
     private static void createEditView() {
         ResourceUtils res = ResourceUtils.getInstance(mContext);
-        mEditView = new LinearLayout(mContext);
 
+        LinearLayout linearLayout = new LinearLayout(mContext);
+        linearLayout.setLayoutParams(new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setClipChildren(false);
+
+        mEditView = new NestedScrollView(mContext);
+        mEditView.addView(linearLayout);
+        mEditView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mEditView.setFillViewport(true);
+
+        // Init tiles list
         mTileAdapter = new TileAdapter(mRecords, mContext, mQsPanel);
-
         TileTouchCallback callback = new TileTouchCallback();
         mItemTouchHelper = new CustomItemTouchHelper(callback);
-
         XposedHelpers.setIntField(callback, "mCachedMaxScrollSpeed", res.getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
-
         // With this, it's very easy to deal with drag & drop
         mRecyclerView = new RecyclerView(mContext);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         mRecyclerView.setAdapter(mTileAdapter);
-        mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+        mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setClipChildren(false);
         mTileAdapter.setOnStartDragListener(callback);
+
+        // Init available tiles list
+        mAvailableTileAdapter = new AvailableTileAdapter(mRecords, mContext, mQsPanel);
+        mSecondRecyclerView = new RecyclerView(mContext);
+        mSecondRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
+        mSecondRecyclerView.setAdapter(mAvailableTileAdapter);
+        mSecondRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mSecondRecyclerView.setNestedScrollingEnabled(false);
+        mSecondRecyclerView.setBackground(new ColorDrawable(0xFF384248));
+        mRecyclerView.setClipChildren(false);
 
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-        mEditView.addView(mRecyclerView);
+        linearLayout.addView(mRecyclerView);
+        linearLayout.addView(mSecondRecyclerView);
     }
 
     private static class CustomItemTouchHelper extends ItemTouchHelper {
@@ -874,6 +904,35 @@ public class StatusBarHeaderHooks {
         @Override
         public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
             mItemTouchHelper.startDrag(viewHolder);
+        }
+
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+                float scale = 1.1f;
+                viewHolder.itemView.setScaleX(scale);
+                viewHolder.itemView.setScaleY(scale);
+                try {
+                    ((View) XposedHelpers.callMethod(((RelativeLayout) viewHolder.itemView).getChildAt(0), "labelView")).setVisibility(View.GONE);
+                } catch (Throwable ignore) {
+                    // Not an important thing
+                }
+            }
+            super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+
+            float scale = 1f;
+            viewHolder.itemView.setScaleX(scale);
+            viewHolder.itemView.setScaleY(scale);
+            try {
+                ((View) XposedHelpers.callMethod(((RelativeLayout) viewHolder.itemView).getChildAt(0), "labelView")).setVisibility(View.VISIBLE);
+            } catch (Throwable ignore) {
+                // Not an important thing
+            }
         }
     }
 
@@ -950,6 +1009,7 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateAmPmTranslation", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockLp", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateMultiUserSwitch", XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setClipping", float.class, XC_MethodReplacement.DO_NOTHING);
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
                     @Override

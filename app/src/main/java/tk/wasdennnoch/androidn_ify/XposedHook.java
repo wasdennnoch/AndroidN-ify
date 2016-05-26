@@ -21,6 +21,7 @@ import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.navigate.RecentsNavigation;
 import tk.wasdennnoch.androidn_ify.systemui.recents.stack.RecentsStackHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 /**
  * Right now it's impossible to explicitly use classes of the hooked package
@@ -72,6 +73,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public void initZygote(StartupParam startupParam) throws Throwable {
         sModulePath = startupParam.modulePath;
         sPrefs = new XSharedPreferences("tk.wasdennnoch.androidn_ify");
+        RomUtils.init(sPrefs);
 
         logI(TAG, "Version " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
         //noinspection ConstantConditions
@@ -80,6 +82,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         } else {
             logI(TAG, "Remote Build; Version: " + BuildConst.BUILD_SERVER_VERSION);
         }
+
+        XposedHook.logI(TAG, "ROM type: " + sPrefs.getString("rom", "undefined"));
 
         if (!sPrefs.getBoolean("can_read_prefs", false)) {
             // With SELinux enforcing, it might happen that we don't have access

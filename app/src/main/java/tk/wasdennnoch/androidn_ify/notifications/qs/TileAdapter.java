@@ -1,11 +1,11 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -18,43 +18,58 @@ import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
 
 public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder> {
 
-    private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
-    private static final float TILE_ASPECT = 1.2f;
+    protected static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
+    public static final float TILE_ASPECT = 1.2f;
 
     public static final String TAG = "TileAdapter";
-    private ArrayList<Object> mRecords;
-    private ViewGroup mQsPanel;
-    private ArrayList<ViewGroup> mTileViews;
-    private Context mContext;
-    private int mCellHeight;
-    private int mCellWidth;
+    protected ArrayList<Object> mRecords;
+    protected ViewGroup mQsPanel;
+    protected ArrayList<ViewGroup> mTileViews;
+    protected Context mContext;
+    protected int mCellHeight;
+    protected int mCellWidth;
     private StatusBarHeaderHooks.OnStartDragListener mOnStartDragListener;
 
-    public TileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
-        mRecords = records;
+    public TileAdapter(Context context, ViewGroup qsPanel) {
         mContext = context;
         mQsPanel = qsPanel;
-        mTileViews = new ArrayList<>();
 
         mCellHeight = mContext.getResources().getDimensionPixelSize(mContext.getResources().getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI));
         mCellWidth = (int)(mCellHeight * TILE_ASPECT);
+    }
+
+    public TileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
+        this(context, qsPanel);
+        mTileViews = new ArrayList<>();
+
+        setRecords(records);
+    }
+
+    public void setRecords(ArrayList<Object> records) {
+        mTileViews = new ArrayList<>();
+        mRecords = new ArrayList<>();
 
         for (int i = 0; i < records.size(); i++) {
-            Object tilerecord = mRecords.get(i);
+            Object tilerecord = records.get(i);
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
-            RelativeLayout.LayoutParams tileViewLp = new RelativeLayout.LayoutParams(mCellWidth, mCellHeight);
-            tileViewLp.addRule(RelativeLayout.CENTER_IN_PARENT);
-            ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", mContext);
-            tileView.setLayoutParams(tileViewLp);
-            try {
-                XposedHelpers.callMethod(tileView, "setDual", false);
-            } catch (Throwable t) {
-                // CM13
-                XposedHelpers.callMethod(tileView, "setDual", false, false);
-            }
-            XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
-            mTileViews.add(i, tileView);
+            addTile(i, tile);
+            mRecords.add(tilerecord);
         }
+    }
+
+    private void addTile(int i, Object tile) {
+        RelativeLayout.LayoutParams tileViewLp = new RelativeLayout.LayoutParams(mCellWidth, mCellHeight);
+        tileViewLp.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", mContext);
+        tileView.setLayoutParams(tileViewLp);
+        try {
+            XposedHelpers.callMethod(tileView, "setDual", false);
+        } catch (Throwable t) {
+            // CM13
+            XposedHelpers.callMethod(tileView, "setDual", false, false);
+        }
+        XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
+        mTileViews.add(i, tileView);
     }
 
     public void handleStateChanged(Object qstile, Object state) {
@@ -90,7 +105,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     public TileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = new RelativeLayout(parent.getContext());
         itemView.setLayoutParams(generateLayoutParams());
-        itemView.setBackgroundColor(0xFF0000);
         return new TileViewHolder(itemView);
     }
 
@@ -99,8 +113,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         ViewGroup tileView = mTileViews.get(position);
         if (tileView.getParent() != null)
             ((ViewGroup) tileView.getParent()).removeView(tileView);
-        holder.mItemView.removeAllViews();
-        holder.mItemView.addView(tileView);
+        holder.setTileView(tileView);
     }
 
     @Override
@@ -124,7 +137,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         return true;
     }
 
-    protected class TileViewHolder extends RecyclerView.ViewHolder {
+    protected class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected RelativeLayout mItemView;
 
@@ -133,20 +146,80 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
             mItemView = (RelativeLayout) itemView;
         }
+
+        private void setTileView(ViewGroup tileView) {
+            mItemView.removeAllViews();
+            mItemView.addView(tileView);
+            tileView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onItemClick(getAdapterPosition());
+        }
+    }
+
+    public void onItemClick(int position) {
+        Object tilerecord = mRecords.get(position);
+        String spec;
+        if (tilerecord instanceof Record) {
+            spec = ((Record) tilerecord).spec;
+        } else {
+            Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
+            spec = (String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME);
+        }
+        StatusBarHeaderHooks.mAvailableTileAdapter.addAdditionalSpec(spec);
+
+        mRecords.remove(position);
+        mTileViews.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void addRecord(Record record) {
+        /*
+        int addPosition = mTileViews.size();
+
+        Object tile = QSTileHostHooks.createTile(QSTileHostHooks.mTileHost, record.spec);
+        XposedHelpers.callMethod(tile, "refreshState");
+        addTile(addPosition, tile);
+        mRecords.add(record);
+        notifyItemInserted(addPosition);
+        */
+
+        List<String> tileSpecs = convertToSpecs();
+        tileSpecs.add(tileSpecs.size(), record.spec);
+        if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
+            QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
+            QSTileHostHooks.recreateTiles();
+        }
     }
 
     public boolean saveChanges() {
-        List<String> tileSpecs = new ArrayList<>();
-        for (int i = 0; i < mRecords.size(); i++) {
-            Object tilerecord = mRecords.get(i);
-            Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
-            tileSpecs.add((String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME));
-        }
+        List<String> tileSpecs = convertToSpecs();
         if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
             return true;
         } else {
             return false;
         }
+    }
+
+    @NonNull
+    private List<String> convertToSpecs() {
+        List<String> tileSpecs = new ArrayList<>();
+        for (int i = 0; i < mRecords.size(); i++) {
+            Object tilerecord = mRecords.get(i);
+            if (tilerecord instanceof Record) {
+                tileSpecs.add(((Record) tilerecord).spec);
+            } else {
+                Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
+                tileSpecs.add((String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME));
+            }
+        }
+        return tileSpecs;
+    }
+
+    public class Record {
+        public String spec;
     }
 }
