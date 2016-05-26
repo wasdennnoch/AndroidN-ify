@@ -19,6 +19,8 @@ public class NotificationPanelHooks {
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
 
+    public static final int STATE_KEYGUARD = 1;
+
     private static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
 
@@ -78,6 +80,10 @@ public class NotificationPanelHooks {
 
     public static void flingSettings(boolean expanded) {
         XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", new Class[]{float.class, boolean.class, Runnable.class, boolean.class}, 0, expanded, null, true);
+    }
+
+    public static int getStatusBarState() {
+        return XposedHelpers.getIntField(mNotificationPanelView, "mStatusBarState");
     }
 
     public static void hook(ClassLoader classLoader) {
