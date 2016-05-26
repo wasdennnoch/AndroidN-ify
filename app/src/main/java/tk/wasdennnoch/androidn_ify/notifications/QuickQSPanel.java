@@ -22,6 +22,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.notifications.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class QuickQSPanel extends LinearLayout {
 
@@ -39,6 +40,7 @@ public class QuickQSPanel extends LinearLayout {
     private TouchAnimator mTranslationXAnimator;
     private TouchAnimator mTranslationYAnimator;
     private TouchAnimator mFirstPageDelayedAnimator;
+    private TouchAnimator mTopFiveQsAnimator;
     private float oldPosition = 0;
 
     public QuickQSPanel(Context context) {
@@ -65,6 +67,7 @@ public class QuickQSPanel extends LinearLayout {
         mTranslationXAnimator = null;
         mTranslationYAnimator = null;
         mFirstPageDelayedAnimator = null;
+        mTopFiveQsAnimator = null;
         for (int i = 0; i < mMaxTiles && i < tileRecords.size(); i++) {
             Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
@@ -94,6 +97,7 @@ public class QuickQSPanel extends LinearLayout {
         TouchAnimator.Builder builder = new TouchAnimator.Builder();
         TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
         TouchAnimator.Builder builder2 = new TouchAnimator.Builder();
+        TouchAnimator.Builder builder3 = new TouchAnimator.Builder();
         for (int i = 0; i < mIconViews.size(); i++) {
             Object tilerecord = mRecords.get(i);
             View tileView = mIconViews.get(i);
@@ -106,33 +110,45 @@ public class QuickQSPanel extends LinearLayout {
             getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
             int k = ai1[0] - ai[0];
             int i1 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2) + getHeight();
-            int i2 = (int) (i1 * 0.8f);
+
+            // If it doesn't look good then just hide it
+            //int i2 = (int) (i1 * 0.94f);
+            //int i2 = -i1 - StatusBarHeaderHooks.mEditButton.getHeight() + (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight")
+            //        + StatusBarHeaderHooks.mQsContainer.getPaddingBottom();
+
+            //if (!RomUtils.isCmBased())
+            //    i2 += StatusBarHeaderHooks.mQsContainer.getPaddingTop();
 
             j = ai[0] - j;
             builder.addFloat(tileView, "translationX", 0f, (float) k);
             builder1.addFloat(tileView, "translationY", 0f, (float) i1);
 
-            builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
-            builder1.addFloat(qsTileView, "translationY", (float) -i2 + StatusBarHeaderHooks.mQsPanel.getHeight(), 0f);
+            builder3.addFloat(qsTileView, "alpha", 0f, 1f);
+
+            //builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
+            //builder1.addFloat(qsTileView, "translationY", (float) i2, 0f);
 
             mTopFiveQs.add(findIcon(qsTileView));
         }
-        builder2.setStartDelay(0.7F);
+        builder2.setStartDelay(0.7f);
         builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
         builder2.addFloat(StatusBarHeaderHooks.mEditButton, "alpha", 0f, 1f);
+        builder3.setStartDelay(0.9f);
         mTranslationXAnimator = builder.build();
         mTranslationYAnimator = builder1.build();
         mFirstPageDelayedAnimator = builder2.build();
+        mTopFiveQsAnimator = builder3.build();
     }
 
     public void setPosition(float f) {
-        if (mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null) {
+        if (mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null) {
             setupAnimators();
         }
         if (!StatusBarHeaderHooks.mShowingDetail || f == 0) {
             mTranslationXAnimator.setPosition(f);
             mTranslationYAnimator.setPosition(f);
             mFirstPageDelayedAnimator.setPosition(f);
+            mTopFiveQsAnimator.setPosition(f);
             if (oldPosition == 1 && f != oldPosition) {
                 onAnimationStarted();
             }

@@ -115,6 +115,7 @@ public class StatusBarHeaderHooks {
 
     private static QuickQSPanel mHeaderQsPanel;
     public static ViewGroup mQsPanel;
+    public static ViewGroup mQsContainer;
 
     private static Context mContext;
 
@@ -1156,6 +1157,8 @@ public class StatusBarHeaderHooks {
                         FrameLayout layout = (FrameLayout) liparam.view;
                         Context context = layout.getContext();
                         ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        mQsContainer = layout;
 
                         View qsPanel = layout.getChildAt(0);
                         FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) qsPanel.getLayoutParams();
