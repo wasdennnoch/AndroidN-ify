@@ -83,8 +83,12 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Barra de estado</string>  
     <string name="enable_notification_header">Activar nueva barra de estado</string>
+    <string name="keep_qs_panel_bg_title">Mantener fondo de ajustes rápidos</string>
+    <string name="keep_qs_panel_bg">Útil para temas que cambian el fondo de los ajustes rápidos</string>
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
+    <string name="alternative_header_qs_method_title">Alternativa de ajustes rápidos</string>
+    <string name="alternative_header_qs_method">Activar cuando hay errores en la posición de los ajustes rápidos</string>
     <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N</string>
     <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
     <string name="enable_large_first_row">Alargar la primera fila</string>
