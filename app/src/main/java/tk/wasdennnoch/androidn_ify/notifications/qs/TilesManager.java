@@ -19,9 +19,15 @@ public class TilesManager {
     private Object mQSTileHost;
     private Context mContext;
 
-    private List<String> mCustomTileSpecs;
+    public static List<String> mCustomTileSpecs;
     private Map<String, QSTile> mTiles;
     private String mCreateTileViewTileKey;
+
+    static {
+        mCustomTileSpecs = new ArrayList<>();
+        mCustomTileSpecs.add("test");
+        mCustomTileSpecs.add("battery");
+    }
 
     public TilesManager(Object qsTileHost) {
         mQSTileHost = qsTileHost;
@@ -31,11 +37,6 @@ public class TilesManager {
     }
 
     public List<String> getCustomTileSpecs() {
-        if (mCustomTileSpecs == null) {
-            mCustomTileSpecs = new ArrayList<>();
-            mCustomTileSpecs.add("test");
-            mCustomTileSpecs.add("battery");
-        }
         return mCustomTileSpecs;
     }
 

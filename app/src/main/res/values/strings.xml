@@ -87,6 +87,7 @@
     <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
+    <string name="battery_tile_show_percentage">Show percentage in battery tile</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>

@@ -85,7 +85,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     }
 
     // GB BatteryView
-    private class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener {
+    public class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener {
         private final int[] LEVELS = new int[] { 4, 15, 100 };
         private final int[] COLORS = new int[] { 0xFFFF3300, 0xFFFF3300, 0xFFFFFFFF };
         private static final int BOLT_COLOR = 0xB2000000;
@@ -94,11 +94,15 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
         private static final float SUBPIXEL = 0.4f;  // inset rects for softer edges
 
+        private static final boolean SINGLE_DIGIT_PERCENT = false;
+        private static final float BOLT_LEVEL_THRESHOLD = 0.3f;  // opaque bolt below this fraction
+        private final int mCriticalLevel;
+
         private int[] mColors;
 
-        private Paint mFramePaint, mBatteryPaint, mWarningTextPaint, mBoltPaint;
+        private Paint mFramePaint, mBatteryPaint, mWarningTextPaint, mTextPaint, mBoltPaint;
         private int mButtonHeight;
-        private float mWarningTextHeight;
+        private float mTextHeight, mWarningTextHeight;
 
         private int mHeight;
         private int mWidth;
@@ -110,9 +114,14 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         private final RectF mFrame = new RectF();
         private final RectF mButtonFrame = new RectF();
         private final RectF mClipFrame = new RectF();
-        private final Rect mBoltFrame = new Rect();
+        private final RectF mBoltFrame = new RectF();
+
+        private final Path mShapePath = new Path();
+        private final Path mClipPath = new Path();
+        private final Path mTextPath = new Path();
 
         private BatteryInfoManager.BatteryData mBatteryData;
+        private boolean mShowPercent = false;
 
         public BatteryView(Context context) {
             super(context);
@@ -120,6 +129,8 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             SystemUIHooks.batteryInfoManager.registerListener(this);
 
             mWarningString = "!";
+            mCriticalLevel = mContext.getResources().getInteger(
+                    com.android.internal.R.integer.config_criticalBatteryWarningLevel);
 
             mFramePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mFramePaint.setDither(true);
@@ -132,8 +143,13 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             mBatteryPaint.setStrokeWidth(0);
             mBatteryPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
+            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            Typeface font = Typeface.create("sans-serif-condensed", Typeface.BOLD);
+            mTextPaint.setTypeface(font);
+            mTextPaint.setTextAlign(Paint.Align.CENTER);
+
             mWarningTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            Typeface font = Typeface.create("sans-serif", Typeface.BOLD);
+            font = Typeface.create("sans-serif", Typeface.BOLD);
             mWarningTextPaint.setTypeface(font);
             mWarningTextPaint.setTextAlign(Paint.Align.CENTER);
 
@@ -166,6 +182,10 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             mBoltPaint.setColor(BOLT_COLOR);
             mChargeColor = mainColor;
             invalidate();
+        }
+
+        public void setShowPercent(boolean showPercent) {
+            mShowPercent = showPercent;
         }
 
         private float[] loadBoltPoints() {
@@ -221,6 +241,8 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             int height = mHeight - pt - pb;
             int width = mWidth - pl - pr;
 
+            int level = mBatteryData.level;
+
             mButtonHeight = (int) (height * 0.12f);
 
             mFrame.set(0, 0, width, height);
@@ -242,38 +264,41 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             mFrame.right -= SUBPIXEL;
             mFrame.bottom -= SUBPIXEL;
 
-            // first, draw the battery shape
             mFramePaint.setColor(COLORS[COLORS.length-1]);
             mFramePaint.setAlpha(102);
-            c.drawRect(mFrame, mFramePaint);
 
-            // fill 'er up
+            // set the battery charging color
             final int color = mBatteryData.charging ?
                     mChargeColor : getColorForLevel(mBatteryData.level);
             mBatteryPaint.setColor(color);
 
-            if (mBatteryData.level >= FULL) {
+            if (level >= FULL) {
                 drawFrac = 1f;
-            } else if (mBatteryData.level <= EMPTY) {
+            } else if (level <= mCriticalLevel) {
                 drawFrac = 0f;
             }
 
-            c.drawRect(mButtonFrame, drawFrac == 1f ? mBatteryPaint : mFramePaint);
+            final float levelTop = drawFrac == 1f ? mButtonFrame.top
+                    : (mFrame.top + (mFrame.height() * (1f - drawFrac)));
 
-            mClipFrame.set(mFrame);
-            mClipFrame.top += (mFrame.height() * (1f - drawFrac));
-
-            c.save(Canvas.CLIP_SAVE_FLAG);
-            c.clipRect(mClipFrame);
-            c.drawRect(mFrame, mBatteryPaint);
-            c.restore();
+            // define the battery shape
+            mShapePath.reset();
+            mShapePath.moveTo(mButtonFrame.left, mButtonFrame.top);
+            mShapePath.lineTo(mButtonFrame.right, mButtonFrame.top);
+            mShapePath.lineTo(mButtonFrame.right, mFrame.top);
+            mShapePath.lineTo(mFrame.right, mFrame.top);
+            mShapePath.lineTo(mFrame.right, mFrame.bottom);
+            mShapePath.lineTo(mFrame.left, mFrame.bottom);
+            mShapePath.lineTo(mFrame.left, mFrame.top);
+            mShapePath.lineTo(mButtonFrame.left, mFrame.top);
+            mShapePath.lineTo(mButtonFrame.left, mButtonFrame.top);
 
             if (mBatteryData.charging) {
-                // draw the bolt
-                final int bl = (int)(mFrame.left + mFrame.width() / 4.5f);
-                final int bt = (int)(mFrame.top + mFrame.height() / 6f);
-                final int br = (int)(mFrame.right - mFrame.width() / 7f);
-                final int bb = (int)(mFrame.bottom - mFrame.height() / 10f);
+                // define the bolt shape
+                final float bl = mFrame.left + mFrame.width() / 4.5f;
+                final float bt = mFrame.top + mFrame.height() / 6f;
+                final float br = mFrame.right - mFrame.width() / 7f;
+                final float bb = mFrame.bottom - mFrame.height() / 10f;
                 if (mBoltFrame.left != bl || mBoltFrame.top != bt
                         || mBoltFrame.right != br || mBoltFrame.bottom != bb) {
                     mBoltFrame.set(bl, bt, br, bb);
@@ -290,11 +315,60 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
                             mBoltFrame.left + mBoltPoints[0] * mBoltFrame.width(),
                             mBoltFrame.top + mBoltPoints[1] * mBoltFrame.height());
                 }
-                c.drawPath(mBoltPath, mBoltPaint);
-            } else if (mBatteryData.level <= EMPTY) {
-                final float x = mWidth * 0.5f;
-                final float y = (mHeight + mWarningTextHeight) * 0.48f;
-                c.drawText(mWarningString, x, y, mWarningTextPaint);
+
+                float boltPct = (mBoltFrame.bottom - levelTop) / (mBoltFrame.bottom - mBoltFrame.top);
+                boltPct = Math.min(Math.max(boltPct, 0), 1);
+                if (boltPct <= BOLT_LEVEL_THRESHOLD) {
+                    // draw the bolt if opaque
+                    c.drawPath(mBoltPath, mBoltPaint);
+                } else {
+                    // otherwise cut the bolt out of the overall shape
+                    mShapePath.op(mBoltPath, Path.Op.DIFFERENCE);
+                }
+            }
+
+            // compute percentage text
+            boolean pctOpaque = false;
+            float pctX = 0, pctY = 0;
+            String pctText = null;
+            if (!mBatteryData.charging && level > mCriticalLevel && mShowPercent) {
+                mTextPaint.setColor(getColorForLevel(level));
+                mTextPaint.setTextSize(height *
+                        (SINGLE_DIGIT_PERCENT ? 0.75f
+                                : (mBatteryData.level == 100 ? 0.38f : 0.5f)));
+                mTextHeight = -mTextPaint.getFontMetrics().ascent;
+                pctText = String.valueOf(SINGLE_DIGIT_PERCENT ? (level/10) : level);
+                pctX = mWidth * 0.5f;
+                pctY = (mHeight + mTextHeight) * 0.47f;
+                pctOpaque = levelTop > pctY;
+                if (!pctOpaque) {
+                    mTextPath.reset();
+                    mTextPaint.getTextPath(pctText, 0, pctText.length(), pctX, pctY, mTextPath);
+                    // cut the percentage text out of the overall shape
+                    mShapePath.op(mTextPath, Path.Op.DIFFERENCE);
+                }
+            }
+
+            // draw the battery shape background
+            c.drawPath(mShapePath, mFramePaint);
+
+            // draw the battery shape, clipped to charging level
+            mFrame.top = levelTop;
+            mClipPath.reset();
+            mClipPath.addRect(mFrame,  Path.Direction.CCW);
+            mShapePath.op(mClipPath, Path.Op.INTERSECT);
+            c.drawPath(mShapePath, mBatteryPaint);
+
+            if (!mBatteryData.charging) {
+                if (level <= mCriticalLevel) {
+                    // draw the warning text
+                    final float x = mWidth * 0.5f;
+                    final float y = (mHeight + mWarningTextHeight) * 0.48f;
+                    c.drawText(mWarningString, x, y, mWarningTextPaint);
+                } else if (pctOpaque) {
+                    // draw the percentage text
+                    c.drawText(pctText, pctX, pctY, mTextPaint);
+                }
             }
         }
 

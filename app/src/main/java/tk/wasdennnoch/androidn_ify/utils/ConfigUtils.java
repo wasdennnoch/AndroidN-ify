@@ -109,6 +109,7 @@ public class ConfigUtils {
         public boolean header;
         public boolean keep_qs_panel_background;
         public int qs_tiles_count;
+        public boolean battery_tile_show_percentage;
         public boolean new_click_behavior;
         public boolean large_first_row;
         public boolean smaller_header_clock;
@@ -121,6 +122,7 @@ public class ConfigUtils {
             header = prefs.getBoolean("enable_notification_header", true);
             keep_qs_panel_background = prefs.getBoolean("keep_qs_panel_background", false);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
+            battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", true);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
             smaller_header_clock = prefs.getBoolean("smaller_header_clock", false);

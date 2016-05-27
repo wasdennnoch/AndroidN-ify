@@ -146,7 +146,7 @@ public class QSTileHostHooks {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     String tileSpec = (String) param.args[0];
-                    if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
+                    if (TilesManager.mCustomTileSpecs.contains(tileSpec)) {
                         param.setResult(mTilesManager.createTile(tileSpec).getTile());
                     }
                 }

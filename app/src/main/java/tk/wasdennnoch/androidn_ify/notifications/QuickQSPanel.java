@@ -19,6 +19,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.notifications.qs.BatteryTile;
 import tk.wasdennnoch.androidn_ify.notifications.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -123,10 +124,11 @@ public class QuickQSPanel extends LinearLayout {
             builder.addFloat(tileView, "translationX", 0f, (float) k);
             builder1.addFloat(tileView, "translationY", 0f, (float) i1);
 
-            builder3.addFloat(qsTileView, "alpha", 0f, 1f);
+            //builder3.addFloat(qsTileView, "alpha", 0f, 1f);
 
-            //builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
-            //builder1.addFloat(qsTileView, "translationY", (float) i2, 0f);
+            builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
+            builder1.addFloat(qsTileView, "translationY", (float) -i1 + (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight")
+                            + StatusBarHeaderHooks.mQsContainer.getPaddingBottom(), 0f);
 
             mTopFiveQs.add(findIcon(qsTileView));
         }
@@ -141,14 +143,11 @@ public class QuickQSPanel extends LinearLayout {
     }
 
     public void setPosition(float f) {
-        if (mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null) {
+        boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null);
+        if (!readyToAnimate && (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD)) {
             setupAnimators();
         }
         if (!StatusBarHeaderHooks.mShowingDetail || f == 0) {
-            mTranslationXAnimator.setPosition(f);
-            mTranslationYAnimator.setPosition(f);
-            mFirstPageDelayedAnimator.setPosition(f);
-            mTopFiveQsAnimator.setPosition(f);
             if (oldPosition == 1 && f != oldPosition) {
                 onAnimationStarted();
             }
@@ -157,6 +156,12 @@ public class QuickQSPanel extends LinearLayout {
             }
             if (oldPosition == 0 && f != oldPosition) {
                 onAnimationStarted();
+            }
+            if (readyToAnimate) {
+                mTranslationXAnimator.setPosition(f);
+                mTranslationYAnimator.setPosition(f);
+                mFirstPageDelayedAnimator.setPosition(f);
+                mTopFiveQsAnimator.setPosition(f);
             }
             oldPosition = f;
         } else {
@@ -298,6 +303,13 @@ public class QuickQSPanel extends LinearLayout {
                             finalIconView.getBackground().setHotspot(finalIconView.getWidth() / 2, finalIconView.getHeight() / 2);
                         }
                     });
+                    if (ConfigUtils.header().battery_tile_show_percentage && iconView instanceof FrameLayout) {
+                        if (((FrameLayout) iconView).getChildAt(0) != null) {
+                            View frameChild = ((FrameLayout) iconView).getChildAt(0);
+                            if (frameChild instanceof BatteryTile.BatteryView)
+                                ((BatteryTile.BatteryView) frameChild).setShowPercent(true);
+                        }
+                    }
                 } else {
                     child.setVisibility(GONE);
                 }
