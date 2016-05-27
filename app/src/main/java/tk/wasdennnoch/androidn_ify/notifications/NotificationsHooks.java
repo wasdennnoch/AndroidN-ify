@@ -52,10 +52,10 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class NotificationsHooks {
 
+    private static final String TAG = "NotificationsHooks";
+
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
-
-    private static final String TAG = "NotificationsHooks";
 
     private static boolean fullWidthVolume = false;
 
@@ -79,10 +79,10 @@ public class NotificationsHooks {
             Context context = publicView.getContext();
 
             // Try to find app label for notifications without public version
-            TextView textView = (TextView) publicView.findViewById(R.id.public_app_name_text);
-            if (textView == null) {
+            TextView appName = (TextView) publicView.findViewById(R.id.public_app_name_text);
+            if (appName == null) {
                 // For notifications with public version
-                textView = (TextView) publicView.findViewById(R.id.app_name_text);
+                appName = (TextView) publicView.findViewById(R.id.app_name_text);
             }
 
             View time = publicView.findViewById(context.getResources().getIdentifier("time", "id", PACKAGE_SYSTEMUI));
@@ -105,19 +105,46 @@ public class NotificationsHooks {
                 icon.setPadding(0, 0, 0, 0);
             }
 
-            TextView privateTextView = (TextView) privateView.findViewById(R.id.app_name_text);
-            if (privateTextView != null) {
-                int color = privateTextView.getTextColors().getDefaultColor();
-
-                if (textView != null) {
-                    textView.setTextColor(privateTextView.getTextColors());
-                    textView.setText(privateTextView.getText());
+            TextView privateAppName = (TextView) privateView.findViewById(R.id.app_name_text);
+            if (privateAppName != null) {
+                int color = privateAppName.getTextColors().getDefaultColor();
+                if (appName != null) {
+                    appName.setTextColor(privateAppName.getTextColors());
+                    appName.setText(privateAppName.getText());
                 }
-
                 if (icon != null) {
                     icon.setColorFilter(color);
                 }
             }
+
+            // TODO automatically determine actions background
+
+            // in row sind (NotificationBackgroundView) mBackgroundNormal / mBackgroundDimmed, darin jeweils mBackground
+
+            /*int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
+            View actionsPublic = publicView.findViewById(actionsId);
+            View actionsPrivate = privateView.findViewById(actionsId);
+
+            if (actionsPublic != null || actionsPrivate != null) {
+                Drawable origNormalBg = (Drawable) XposedHelpers.getObjectField(XposedHelpers.getObjectField(row, "mBackgroundNormal"), "mBackground");
+                Drawable origDimmedBg = (Drawable) XposedHelpers.getObjectField(XposedHelpers.getObjectField(row, "mBackgroundDimmed"), "mBackground");
+                int origNormalBgColor = -1;
+                int origDimmedBgColor = -1;
+                if (origNormalBg instanceof LayerDrawable) {
+                    origNormalBgColor = ((ColorDrawable) ((LayerDrawable) origNormalBg).findDrawableByLayerId(R.id.notification_background)).getColor();
+                }
+                if (origDimmedBg instanceof LayerDrawable) {
+                    origDimmedBgColor = ((ColorDrawable) ((LayerDrawable) origDimmedBg).findDrawableByLayerId(R.id.notification_background)).getColor();
+                }
+                // TODO determine if dimmed
+                if (actionsPublic != null) {
+                    actionsPublic.setBackgroundColor(origNormalBgColor);
+                }
+                if (actionsPrivate != null) {
+                    actionsPrivate.setBackgroundColor(origDimmedBgColor);
+                }
+            }*/
+
         }
     };
 
