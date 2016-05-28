@@ -38,18 +38,21 @@ public class QuickQSPanel extends LinearLayout {
     private ArrayList<ViewGroup> mTileViews = new ArrayList<>();
     private ArrayList<View> mIconViews = new ArrayList<>();
     private ArrayList<View> mTopFiveQs = new ArrayList<>();
+    private BatteryTile.BatteryView mBatteryView;
     private TouchAnimator mTranslationXAnimator;
     private TouchAnimator mTranslationYAnimator;
     private TouchAnimator mFirstPageDelayedAnimator;
     private TouchAnimator mTopFiveQsAnimator;
     private float oldPosition = 0;
     private boolean mAlternativeQSMethod;
+    private boolean mShowPercent;
 
     public QuickQSPanel(Context context) {
         super(context);
         ConfigUtils config = ConfigUtils.getInstance();
         mRes = ResourceUtils.getInstance(context);
         mMaxTiles = config.header.qs_tiles_count;
+        mShowPercent = config.header.battery_tile_show_percentage;
         mAlternativeQSMethod = config.header.alternative_quick_qs_method;
         setOrientation(VERTICAL);
         int m = mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
@@ -171,6 +174,14 @@ public class QuickQSPanel extends LinearLayout {
                 mTranslationYAnimator.setPosition(f);
                 mFirstPageDelayedAnimator.setPosition(f);
                 mTopFiveQsAnimator.setPosition(f);
+                if (mShowPercent && oldPosition < 0.7f && f >= 0.7f) {
+                    mBatteryView.setShowPercent(false);
+                    mBatteryView.postInvalidate();
+                }
+                if (mShowPercent && oldPosition >= 0.7f && f < 0.7f) {
+                    mBatteryView.setShowPercent(true);
+                    mBatteryView.postInvalidate();
+                }
             }
             oldPosition = f;
         } else {
@@ -320,11 +331,13 @@ public class QuickQSPanel extends LinearLayout {
                             finalIconView.getBackground().setHotspot(finalIconView.getWidth() / 2, finalIconView.getHeight() / 2);
                         }
                     });
-                    if (ConfigUtils.header().battery_tile_show_percentage && iconView instanceof FrameLayout) {
+                    if (mShowPercent && iconView instanceof FrameLayout) {
                         if (((FrameLayout) iconView).getChildAt(0) != null) {
                             View frameChild = ((FrameLayout) iconView).getChildAt(0);
-                            if (frameChild instanceof BatteryTile.BatteryView)
-                                ((BatteryTile.BatteryView) frameChild).setShowPercent(true);
+                            if (frameChild instanceof BatteryTile.BatteryView) {
+                                mBatteryView = (BatteryTile.BatteryView) frameChild;
+                                mBatteryView.setShowPercent(true);
+                            }
                         }
                     }
                 } else {

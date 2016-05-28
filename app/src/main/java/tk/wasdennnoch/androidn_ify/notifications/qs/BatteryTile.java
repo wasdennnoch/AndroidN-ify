@@ -84,7 +84,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         mBatteryView = null;
     }
 
-    // GB BatteryView
+    // A mix of GB BatteryView and AOSP BatteryMeterView
     public class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener {
         private final int[] LEVELS = new int[] { 4, 15, 100 };
         private final int[] COLORS = new int[] { 0xFFFF3300, 0xFFFF3300, 0xFFFFFFFF };
@@ -331,7 +331,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             boolean pctOpaque = false;
             float pctX = 0, pctY = 0;
             String pctText = null;
-            if (!mBatteryData.charging && level > mCriticalLevel && mShowPercent) {
+            if (!mBatteryData.charging && level > mCriticalLevel && mShowPercent && level < 100) {
                 mTextPaint.setColor(getColorForLevel(level));
                 mTextPaint.setTextSize(height *
                         (SINGLE_DIGIT_PERCENT ? 0.75f
