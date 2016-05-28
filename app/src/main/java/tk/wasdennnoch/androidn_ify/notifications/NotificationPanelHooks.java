@@ -87,7 +87,11 @@ public class NotificationPanelHooks {
     }
 
     public static void flingSettings(boolean expanded) {
-        XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", new Class[]{float.class, boolean.class, Runnable.class, boolean.class}, 0, expanded, null, true);
+        try {
+            XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", new Class[]{float.class, boolean.class, Runnable.class, boolean.class}, 0, expanded, null, true);
+        } catch (Throwable t) {
+            XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", 0, expanded);
+        }
     }
 
     public static int getStatusBarState() {

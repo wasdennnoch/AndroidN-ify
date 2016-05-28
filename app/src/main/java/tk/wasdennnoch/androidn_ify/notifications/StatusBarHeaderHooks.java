@@ -234,7 +234,6 @@ public class StatusBarHeaderHooks {
                 int rightIconHeight = res.getDimensionPixelSize(R.dimen.right_icon_size);
                 int rightIconWidth = mTaskManagerButton != null && mShowTaskManager ? res.getDimensionPixelSize(R.dimen.right_icon_width_small) : rightIconHeight;
                 int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
-                int quickQSHorizontalMargin = res.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
                 int headerItemsMarginTop = res.getDimensionPixelSize(R.dimen.header_items_margin_top);
                 int alarmStatusTextColor = res.getColor(R.color.alarm_status_text_color);
                 int dateTimeCollapsedSize = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
@@ -367,7 +366,6 @@ public class StatusBarHeaderHooks {
                 RelativeLayout.LayoutParams headerQsPanelLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
                 mHeaderQsPanel = new QuickQSPanel(context);
                 mHeaderQsPanel.setLayoutParams(headerQsPanelLp);
-                mHeaderQsPanel.setPadding(quickQSHorizontalMargin, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), quickQSHorizontalMargin, res.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
                 mHeaderQsPanel.setClipChildren(false);
                 mHeaderQsPanel.setClipToPadding(false);
 
@@ -384,8 +382,6 @@ public class StatusBarHeaderHooks {
                     RelativeLayout.LayoutParams carrierTextLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                     mCarrierText.setLayoutParams(carrierTextLp);
                     mCarrierText.setPadding(0, 0, 0, 0);
-                    //mCarrierText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mEmergencyCallsOnly.getTextSize());
-                    //mCarrierText.setTextColor(mEmergencyCallsOnly.getCurrentTextColor());
                 }
                 if (mTaskManagerButton != null) {
                     ((ViewGroup) mTaskManagerButton.getParent()).removeView(mTaskManagerButton);
@@ -514,8 +510,20 @@ public class StatusBarHeaderHooks {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
                 } catch (Throwable t) {
-                    //noinspection unchecked
-                    mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
+                    try {
+                        //noinspection unchecked
+                        mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
+                    } catch (Throwable t2) {
+                        XposedHook.logE(TAG, "No tile record field found (" + t.getClass().getSimpleName() + " and " + t2.getClass().getSimpleName() + ")", null);
+                        return;
+                    }
+                }
+                if (mRecords.size() == 0) {
+                    try {
+                        //noinspection unchecked
+                        mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
+                    } catch (Throwable ignore) {
+                    }
                 }
                 if (mTileAdapter != null) {
                     mTileAdapter.setRecords(mRecords);
@@ -966,41 +974,6 @@ public class StatusBarHeaderHooks {
                     mHasEditPanel = false;
                 }
 
-                // Tests for QSTileView initialization for QuickQS row
-                /*XposedHook.logI(TAG, "TEST START");
-                try {
-                    try {
-                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class);
-                        XposedHook.logI(TAG, "Found " + methods.length + " matches with one parameter");
-                        for (int i = 0; i < methods.length; i++) {
-                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
-                        }
-                    } catch (Throwable t5) {
-                        XposedHook.logE(TAG, "Error test one", t5);
-                    }
-                    try {
-                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class, View.OnClickListener.class);
-                        XposedHook.logI(TAG, "Found " + methods.length + " matches with two parameters");
-                        for (int i = 0; i < methods.length; i++) {
-                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
-                        }
-                    } catch (Throwable t5) {
-                        XposedHook.logE(TAG, "Error test two", t5);
-                    }
-                    try {
-                        java.lang.reflect.Method[] methods = XposedHelpers.findMethodsByExactParameters(XposedHelpers.findClass("com.android.systemui.qs.QSTileView", classLoader), void.class, View.OnClickListener.class, View.OnClickListener.class, View.OnClickListener.class);
-                        XposedHook.logI(TAG, "Found " + methods.length + " matches with three parameters");
-                        for (int i = 0; i < methods.length; i++) {
-                            XposedHook.logI(TAG, "  " + i + ". - " + methods[i].getName());
-                        }
-                    } catch (Throwable t5) {
-                        XposedHook.logE(TAG, "Error test three", t5);
-                    }
-                } catch (Throwable t) {
-                    XposedHook.logE(TAG, "Error test", t);
-                }
-                XposedHook.logI(TAG, "TEST END");*/
-
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpansion", float.class, setExpansionHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onConfigurationChanged", Configuration.class, onConfigurationChangedHook);
@@ -1116,7 +1089,14 @@ public class StatusBarHeaderHooks {
                 }
 
                 if (!ConfigUtils.header().large_first_row) {
-                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height", resparam.res.getDimensionPixelSize(resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)));
+                    try {
+                        resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height",
+                                new XResources.DimensionReplacement(resparam.res.getDimensionPixelSize(
+                                        resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)),
+                                        TypedValue.COMPLEX_UNIT_PX));
+                    } catch (Throwable t) {
+                        XposedHook.logE(TAG, "Couldn't change qs_dual_tile_height (" + t.getClass().getSimpleName() + ")", null);
+                    }
                 }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);

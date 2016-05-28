@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="app_name_text" type="id">false</item>
-    <item name="time_divider" type="id">false</item>
-    <item name="public_app_name_text" type="id">false</item>
-    <item name="notification_icon" type="id">false</item>
-    <item name="public_time_divider" type="id">false</item>
-    <item name="statusbar_header_expand_indicator" type="id">false</item>
-    <item name="notification_summary" type="id">false</item>
-    <item name="notification_summary_divider" type="id">false</item>
-    <item name="notification_info_divider" type="id">false</item>
-    <item name="task_progress" type="id">false</item>
-    <item name="qs_edit" type="id">false</item>
+    <item name="app_name_text" type="id"/>
+    <item name="time_divider" type="id"/>
+    <item name="public_app_name_text" type="id"/>
+    <item name="notification_icon" type="id"/>
+    <item name="public_time_divider" type="id"/>
+    <item name="statusbar_header_expand_indicator" type="id"/>
+    <item name="notification_summary" type="id"/>
+    <item name="notification_summary_divider" type="id"/>
+    <item name="notification_info_divider" type="id"/>
+    <item name="task_progress" type="id"/>
 </resources>

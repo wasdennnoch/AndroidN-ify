@@ -68,8 +68,6 @@
     <string name="enable_recents_double_tap">Doppelt auf die Recents-Taste klicken, um zur zuletzt genutzten App zu gelangen</string>
     <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
     <string name="recents_button_behavior_title">Recents-Button Klickverhalten</string>
-    <string name="enable_recents_navigation_title">Recents-Navigation aktivieren</string>
-    <string name="enable_recents_navigation">Die Recents-Taste benutzen, um durch die Recents zu navigieren</string>
     <string name="recents_navigation_delay_title">Navigationsverzögerung</string>
     <string name="recents_navigation_delay">Zeit, bis die ausgewählte App in den Vordergrund geht</string>
     <string name="enable_large_recents">Große Recents</string>
@@ -89,6 +87,8 @@
     <string name="keep_qs_panel_bg">Nützlich für Designs, die einen eigenen Hintergrund nutzen</string>
     <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
     <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
+    <string name="alternative_header_qs_method_title">Alternative QS Lademethode</string>
+    <string name="alternative_header_qs_method">Aktivieren, wenn Positionierungsprobleme der QS Icons auftreten</string>
     <string name="enable_new_tile_click_behavior">Android N Kachel-Klick-Verhalten</string>
     <string name="enable_new_tile_click_behavior_summary">Eine Kachel im Header klicken, um sie zu (de)aktivieren, im Panel, um Details zu zeigen</string>
     <string name="enable_large_first_row">Erste Reihe vergrößern</string>
@@ -108,12 +108,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Benachrichtigungen</string>
     <string name="notifications_change_style">Benachrichtigungen stylen</string>
-    <string name="notifications_dark_theme_title">Dunkle Benachrichtigungen</string>
-    <string name="notifications_dark_theme">Dunkler Benachrichtigungshintergrund für Nutzer von speziellen Layers-Themes</string>
     <string name="notification_dismiss_button_title">Benachrichtigungs-Löschbutton ändern</string>
     <string name="notification_dismiss_button">Zeige \"ALLE LÖSCHEN\" anstatt des Icons</string>
-    <string name="notification_allow_load_label_with_pm_title">Alternative Methode, App-Namen zu laden</string>
-    <string name="notification_allow_load_label_with_pm">Erlaubt es, App-Namen mit dem PackageManager zu laden. Könnte Performanceprobleme verursachen</string>
     <string name="action_search">Suchen</string>
     <string name="notification_blacklisted_apps_title">Ausgeschlossene Apps</string>
     <string name="notification_blacklisted_apps">Alten Benachrichtigungs-Stil für diese Apps verwenden</string>

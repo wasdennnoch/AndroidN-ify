@@ -78,7 +78,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         logI(TAG, "Version " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
         //noinspection ConstantConditions
         if (BuildConst.BUILD_SERVER_VERSION == 0) {
-            logI(TAG, "WDN Build; Release: " + !BuildConfig.DEBUG + " (" + BuildConfig.BUILD_TYPE + ")");
+            logI(TAG, "Official Build; Release: " + !BuildConfig.DEBUG + " (" + BuildConfig.BUILD_TYPE + ")");
         } else {
             logI(TAG, "Remote Build; Version: " + BuildConst.BUILD_SERVER_VERSION);
         }
@@ -151,8 +151,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 break;
         }
 
-        // Has to be hooked in every app too for some reason, probably
-        // because every hook only applies to the current process
+        // Has to be hooked in every app because every hook only applies to the current process
         ConfigUtils.notifications().loadBlacklistedApps();
         if (!ConfigUtils.notifications().blacklistedApps.contains(resparam.packageName)) {
             NotificationsHooks.hookResAndroid(resparam);

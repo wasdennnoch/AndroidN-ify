@@ -68,8 +68,6 @@
     <string name="enable_recents_double_tap">Подвійне натискання на кнопку "Нещодавні" перемикає до попереднього додатку</string>
     <string name="double_tap_speed_title">Швидкість подвійного натискання</string>
     <string name="recents_button_behavior_title">Перемикання кнопкою \"Нещодавні\"</string>
-    <string name="enable_recents_navigation_title">Перемикання нещодавних додатків</string>
-    <string name="enable_recents_navigation">Використовувати кнопку "Нещодавні" для перемикання між нещодавними додатками</string>
     <string name="recents_navigation_delay_title">Затримка навігації</string>
     <string name="recents_navigation_delay">Час, за який виділений додаток отримає фокус</string>
     <string name="enable_large_recents">Великі нещодавні програми</string>
@@ -106,12 +104,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Сповіщення</string>
     <string name="notifications_change_style">Стиль сповіщення</string>
-    <string name="notifications_dark_theme_title">Темна тема сповіщення</string>
-    <string name="notifications_dark_theme">Темний фон сповіщень для користувачів з даними кольором шарів</string>
     <string name="notification_dismiss_button_title">Змінити кнопку очищення</string>
     <string name="notification_dismiss_button">Показувати \"ОЧИСТИТИ ВСІ\" замість значка очищення</string>
-    <string name="notification_allow_load_label_with_pm_title">Альтернативний метод завантаження назви додатків</string>
-    <string name="notification_allow_load_label_with_pm">Дозволити завантаження назви програми через PackageManager. Може викликати проблеми з продуктивністю</string>
     <string name="action_search">Пошук</string>
     <string name="notification_blacklisted_apps_title">Чорний список додатків</string>
     <string name="notification_blacklisted_apps">Використовувати старий стиль сповіщень для цих додатків</string>

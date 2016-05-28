@@ -68,8 +68,6 @@
     <string name="enable_recents_double_tap">Двойное нажатие на кнопку "Недавние" переключает к предыдущему приложению</string>
     <string name="double_tap_speed_title">Скорость двойного нажатия</string>
     <string name="recents_button_behavior_title">Переключение кнопкой \"Недавние\"</string>
-    <string name="enable_recents_navigation_title">Переключение недавних приложений</string>
-    <string name="enable_recents_navigation">Использовать кнопку "Недавние" для переключения между недавними приложениями</string>
     <string name="recents_navigation_delay_title">Задержка навигации</string>
     <string name="recents_navigation_delay">Время, за которое выделенное приложение получит фокус</string>
     <string name="enable_large_recents">Большие недавние приложения</string>
@@ -106,12 +104,8 @@
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Уведомления</string>
     <string name="notifications_change_style">Изменить стиль уведомлений</string>
-    <string name="notifications_dark_theme_title">Тёмная тема уведомлений</string>
-    <string name="notifications_dark_theme">Тёмный фон уведомлений для пользователей с данным цветом слоёв</string>
     <string name="notification_dismiss_button_title">Изменить кнопку очистки</string>
     <string name="notification_dismiss_button">Показывать \"ОЧИСТИТЬ ВСЕ\" вместо значка очистки</string>
-    <string name="notification_allow_load_label_with_pm_title">Альтернативный метод загрузки названия приложения</string>
-    <string name="notification_allow_load_label_with_pm">Разрешить загрузку названия приложения через PackageManager. Может вызвать проблемы с производительностью</string>
     <string name="action_search">Поиск</string>
     <string name="notification_blacklisted_apps_title">Черный список приложений</string>
     <string name="notification_blacklisted_apps">Использовать старый стиль уведомлений для этих приложений</string>

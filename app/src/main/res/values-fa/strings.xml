@@ -58,8 +58,6 @@
 	<string name="enable_recents_double_tap_title">دابل کلیک</string>
     <string name="enable_recents_double_tap">دوبار زدن دکمه ریسنت برای رفتن به برنامه قبلی</string>
     <string name="double_tap_speed_title">سرعت کلیک</string>
-    <string name="enable_recents_navigation_title">فعالسازی تغییر برنامه</string>
-    <string name="enable_recents_navigation">استفاده از دکمه ریسنت برای انتخاب پنجره</string>
     <string name="recents_navigation_delay_title">فاصله زمانی بین برنامه ها</string>
     <string name="recents_navigation_delay">فاصله زمانی بین انتخاب و باز شدن</string>
     <string name="enable_large_recents">فعالسازی پنجره های بزرگتر</string>
@@ -85,12 +83,8 @@
 
     <!-- NOTIFICATIONS -->
     <string name="notifications_change_style">تغییر دادن نوتیفیکیشن ها</string>
-    <string name="notifications_dark_theme_title">تم سیاه</string>
-    <string name="notifications_dark_theme">زمینه سیاه برای نوتیفیکیشن ها</string>
     <string name="notification_dismiss_button_title">تغییر دادن دکمه حذف همه</string>
     <string name="notification_dismiss_button">نشان دادن حذف همه به جای آیکن</string>
-    <string name="notification_allow_load_label_with_pm_title">روش دوم برای نام گذاری نوتیفیکیشن ها</string>
-    <string name="notification_allow_load_label_with_pm">ممکن است از عملکرد بکاهد</string>
     <string name="action_search">جست و جو</string>
     <string name="notification_blacklisted_apps_title">برنامه های خاص</string>
     <string name="notification_blacklisted_apps">استفاده از طرح قدیمی برای برنامه های خاص</string>

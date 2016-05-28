@@ -14,24 +14,6 @@
     <color name="emergency_calls_only_text_color">#66FFFFFF</color>
     <color name="date_time_text_color">#FFFFFFFF</color>
 
-    <color name="system_primary_color">#FF263238</color>
-    <color name="system_secondary_color">#FF384248</color>
-
-    <color name="notification_guts_bg_color">@color/system_secondary_color</color>
-    <color name="notification_material_background_color">#FFFFFFFF</color>
-    <color name="notification_material_background_dimmed_color">#D4FFFFFF</color>
-    <color name="notification_material_background_low_priority_color">#FFF5F5F5</color>
-    <color name="notification_material_background_media_default_color">#FF424242</color>
-    <color name="notification_ripple_untinted_color">#28000000</color>
-    <color name="notification_ripple_color_low_priority">#30000000</color>
-
-    <color name="notification_material_background_color_dark">#FF263238</color>
-    <color name="notification_material_background_dimmed_color_dark">#FF212C31</color>
-    <color name="notification_material_background_low_priority_color_dark">#FF202D30</color>
-    <color name="notification_material_background_media_default_color_dark">#FF3A3A3A</color>
-    <color name="notification_ripple_untinted_color_dark">#28FFFFFF</color>
-    <color name="notification_ripple_color_low_priority_dark">#30FFFFFF</color>
-
     <color name="notification_action_list">#FFEEEEEE</color>
     <!-- /Notifications / Status bar header -->
 

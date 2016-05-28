@@ -4,15 +4,16 @@
     <!-- Notifications / Status bar header -->
     <dimen name="status_bar_header_height">80dp</dimen>
 
-    <dimen name="right_layout_height">48.0dp</dimen>
-    <dimen name="right_layout_margin_top">28.0dp</dimen>
-    <dimen name="right_layout_margin_right">12.0dp</dimen>
-    <dimen name="right_icon_size">48.0dp</dimen>
-    <dimen name="right_icon_width_small">38.0dp</dimen>
-    <dimen name="expand_indicator_padding">12.0dp</dimen>
+    <dimen name="right_layout_height">48dp</dimen>
+    <dimen name="right_layout_margin_top">28dp</dimen>
+    <dimen name="right_layout_margin_right">12dp</dimen>
+    <dimen name="right_icon_size">48dp</dimen>
+    <dimen name="right_icon_width_small">38dp</dimen>
+    <dimen name="expand_indicator_padding">12dp</dimen>
 
     <dimen name="qs_quick_panel_margin_horizontal">12dp</dimen>
     <dimen name="qs_quick_panel_padding_top">32dp</dimen>
+    <dimen name="qs_quick_panel_padding_top_alternative">22dp</dimen>
     <dimen name="qs_quick_panel_padding_bottom">8dp</dimen>
     <dimen name="qs_quick_tile_size">48dip</dimen>
     <dimen name="qs_quick_tile_padding">12dip</dimen>
@@ -21,25 +22,25 @@
     <dimen name="lib_item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
     <dimen name="qs_panel_margin_bottom">40dp</dimen>
 
-    <dimen name="header_items_margin_top">8.0dp</dimen>
+    <dimen name="header_items_margin_top">8dp</dimen>
     <dimen name="brightness_slider_padding_top">-12dp</dimen>
-    <dimen name="emergency_calls_only_text_size">12.0sp</dimen>
+    <dimen name="emergency_calls_only_text_size">12sp</dimen>
     <dimen name="multi_user_avatar_size">24dp</dimen>
-    <dimen name="settings_gear_translation">16.0dp</dimen>
+    <dimen name="settings_gear_translation">16dp</dimen>
 
-    <dimen name="date_time_alarm_group_margin_left">16.0dp</dimen>
-    <dimen name="date_time_alarm_group_margin_top">8.0dp</dimen>
-    <dimen name="date_time_group_height">19.0dp</dimen>
-    <dimen name="date_collapsed_drawable_padding">6.0dp</dimen>
-    <dimen name="date_time_collapsed_size">14.0sp</dimen>
-    <dimen name="date_time_expanded_size_small">15.0sp</dimen>
-    <dimen name="date_time_expanded_size">16.0sp</dimen>
-    <dimen name="date_anim_translation">32.0dp</dimen>
-    <dimen name="date_alarm_anim_translation">22.0dp</dimen>
-    <dimen name="alarm_status_height">20.0dp</dimen>
-    <dimen name="alarm_status_padding_top">3.0dp</dimen>
-    <dimen name="alarm_status_drawable_padding">6.0dp</dimen>
-    <dimen name="alarm_status_collapsed_drawable_padding">6.0dp</dimen>
+    <dimen name="date_time_alarm_group_margin_left">16dp</dimen>
+    <dimen name="date_time_alarm_group_margin_top">8dp</dimen>
+    <dimen name="date_time_group_height">19dp</dimen>
+    <dimen name="date_collapsed_drawable_padding">6dp</dimen>
+    <dimen name="date_time_collapsed_size">14sp</dimen>
+    <dimen name="date_time_expanded_size_small">15sp</dimen>
+    <dimen name="date_time_expanded_size">16sp</dimen>
+    <dimen name="date_anim_translation">32dp</dimen>
+    <dimen name="date_alarm_anim_translation">22dp</dimen>
+    <dimen name="alarm_status_height">20dp</dimen>
+    <dimen name="alarm_status_padding_top">3dp</dimen>
+    <dimen name="alarm_status_drawable_padding">6dp</dimen>
+    <dimen name="alarm_status_collapsed_drawable_padding">6dp</dimen>
 
     <dimen name="notification_icon_size">18dp</dimen>
     <dimen name="notification_icon_margin_end">3dp</dimen>

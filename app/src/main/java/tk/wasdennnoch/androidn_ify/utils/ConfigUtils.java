@@ -110,6 +110,7 @@ public class ConfigUtils {
         public boolean keep_qs_panel_background;
         public int qs_tiles_count;
         public boolean battery_tile_show_percentage;
+        public boolean alternative_quick_qs_method;
         public boolean new_click_behavior;
         public boolean large_first_row;
         public boolean smaller_header_clock;
@@ -123,6 +124,7 @@ public class ConfigUtils {
             keep_qs_panel_background = prefs.getBoolean("keep_qs_panel_background", false);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
             battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", true);
+            alternative_quick_qs_method = prefs.getBoolean("alternative_quick_qs_method", false);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
             smaller_header_clock = prefs.getBoolean("smaller_header_clock", false);
@@ -138,7 +140,6 @@ public class ConfigUtils {
 
         public boolean change_style;
         public boolean dismiss_button;
-        public boolean allow_load_label_with_pm;
         public boolean custom_appname_color;
         public int appname_color;
         public boolean custom_actions_color;
@@ -149,7 +150,6 @@ public class ConfigUtils {
         public NotificationsConfig(XSharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
-            allow_load_label_with_pm = prefs.getBoolean("notification_allow_load_label_with_pm", false);
             custom_appname_color = prefs.getBoolean("notifications_custom_color", false);
             appname_color = prefs.getInt("notifications_appname_color", 0);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
