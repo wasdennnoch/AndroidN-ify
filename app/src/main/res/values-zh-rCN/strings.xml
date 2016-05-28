@@ -87,6 +87,8 @@
     <string name="keep_qs_panel_bg">对所用主题内包含有自定义快速设置面板背景的用户有帮助</string>
     <string name="notification_header_qs_tiles_count">顶栏内的磁贴数量</string>
     <string name="notification_header_qs_tiles_count_monitor">个</string>
+    <string name="alternative_header_qs_method_title">备选的快速设置加载方案</string>
+    <string name="alternative_header_qs_method">当快速设置磁贴出现位置错误时启用该选项</string>
     <string name="enable_new_tile_click_behavior">启用安卓 N 式磁贴点击行为</string>
     <string name="enable_new_tile_click_behavior_summary">点击顶栏内的磁贴时直接切换状态\n点击快速设置面板内的磁贴时展开设置项</string>
     <string name="enable_large_first_row">扩大首行磁贴</string>

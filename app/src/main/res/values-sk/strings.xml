@@ -53,6 +53,8 @@
     <string name="keep_qs_panel_bg">Užitočné pre témy, ktoré používajú vlastné pozadie panela rýchlych nastavení</string>
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
+    <string name="alternative_header_qs_method_title">Alternatívna metóda načítania dlaždíc</string>
+    <string name="alternative_header_qs_method">Povoľte, ak máte problémy s pozíciou ikon rýchlych nastavení</string>
     <string name="enable_new_tile_click_behavior">Android N správanie dlaždice po klepnutí</string>
     <string name="enable_new_tile_click_behavior_summary">Klepnutie na dlaždicu v záhlaví ju prepne a klepnutie na dlaždicu v panely ju rozbalí</string>
     <string name="enable_large_first_row">Zväčšiť prvý riadok</string>

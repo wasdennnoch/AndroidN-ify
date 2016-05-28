@@ -29,20 +29,30 @@ public class QuickQSPanel extends LinearLayout {
     private ResourceUtils mRes;
     private ArrayList<Object> mRecords = new ArrayList<>();
     private ArrayList<ViewGroup> mTileViews = new ArrayList<>();
+    private boolean mAlternativeQSMethod;
 
     public QuickQSPanel(Context context) {
         super(context);
         ConfigUtils config = ConfigUtils.getInstance();
         mRes = ResourceUtils.getInstance(context);
         mMaxTiles = config.header.qs_tiles_count;
+        mAlternativeQSMethod = config.header.alternative_quick_qs_method;
         setOrientation(VERTICAL);
-        setPadding(0, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), 0, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
+        int m = mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
+        if (config.header.alternative_quick_qs_method)
+            setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top_alternative), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
+        else
+            setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         mTileLayout = new HeaderTileLayout(context);
         addView(mTileLayout);
     }
 
     public void setTiles(ArrayList<Object> tileRecords) {
         XposedHook.logD(TAG, "setTiles tile record count: " + tileRecords.size());
+        if (tileRecords.size() == 0) {
+            XposedHook.logW(TAG, "setTiles: Empty tileRecord list!");
+            return;
+        }
         mTileLayout.removeTiles();
         mTileViews.clear();
         mRecords.clear();
@@ -113,11 +123,33 @@ public class QuickQSPanel extends LinearLayout {
                 }
             };
             try {
+                XposedHelpers.callMethod(tileView, "init", click, clickSecondary, longClick);
+            } catch (Throwable t) {
+                try {
+                    XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
+                } catch (Throwable t2) {
+                    try {
+                        XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
+                        XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
+                    } catch (Throwable t3) {
+                        try {
+                            XposedHelpers.callMethod(tileView, "init", click, longClick);
+                        } catch (Throwable t4) {
+                            XposedHook.logE(TAG, "Couldn't init click listeners", null);
+                        }
+                    }
+                }
+            }
+            try {
                 XposedHelpers.callMethod(tileView, "setDual", false);
             } catch (Throwable t) { // CM13
                 XposedHelpers.callMethod(tileView, "setDual", false, false);
             }
-            XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
+            try {
+                XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
+            } catch (Throwable t) {
+                XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.getObjectField(tile, "mState"));
+            }
 
             View iconView = null;
             int children = tileView.getChildCount();
@@ -141,31 +173,17 @@ public class QuickQSPanel extends LinearLayout {
                     });
                 } else {
                     child.setVisibility(GONE);
-                    try {
-                        XposedHelpers.callMethod(tileView, "init", click, clickSecondary, longClick);
-                    } catch (Throwable t) {
-                        try {
-                            XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
-                        } catch (Throwable t2) {
-                            try {
-                                XposedHelpers.callMethod(tileView, "initlongClickListener", longClick);
-                                XposedHelpers.callMethod(tileView, "init", click, clickSecondary);
-                            } catch (Throwable t3) {
-                                XposedHelpers.callMethod(tileView, "init", click, longClick);
-                            }
-                        }
-                    }
                 }
             }
 
             mTileViews.add(tileView);
             int position = getChildCount() - 1;
             XposedHook.logD(TAG, "addTile: adding tile at #" + position);
-            if (iconView != null) {
+            if (!mAlternativeQSMethod && iconView != null) {
                 ((ViewGroup) iconView.getParent()).removeView(iconView);
                 addViewToLayout(iconView, position);
             } else {
-                addViewToLayout(tileView, position);
+                addView(tileView, position, generateOriginalLayoutParams());
             }
             addView(new Space(getContext()), position + 1, generateSpaceParams());
         }
@@ -188,6 +206,13 @@ public class QuickQSPanel extends LinearLayout {
 
         private FrameLayout.LayoutParams generateLayoutParams() {
             return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        }
+
+        private LayoutParams generateOriginalLayoutParams() {
+            int i = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size);
+            LayoutParams layoutparams = new LayoutParams(i, i);
+            layoutparams.gravity = Gravity.CENTER;
+            return layoutparams;
         }
 
         private LayoutParams generateSpacerLayoutParams() {

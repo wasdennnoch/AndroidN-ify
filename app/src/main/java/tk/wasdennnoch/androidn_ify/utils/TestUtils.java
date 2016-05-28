@@ -12,11 +12,7 @@ public class TestUtils {
 
     private static final String TAG = "TestUtils";
 
-    private static final boolean QSTILEVIEW_INIT_SEARCH = false;
-    private static final boolean QSTILE_GETSTATE_SEARCH = false;
-
     public static void searchQSTileView_Init(ClassLoader classLoader) {
-        if (!QSTILEVIEW_INIT_SEARCH) return;
         XposedHook.logI(TAG, "TEST START");
         try {
             XposedHook.logI(TAG, "QSTileView init() search");
@@ -45,7 +41,6 @@ public class TestUtils {
     }
 
     public static void searchQSTile_GetState(ClassLoader classLoader) {
-        if (!QSTILE_GETSTATE_SEARCH) return;
         XposedHook.logI(TAG, "TEST START");
         try {
             XposedHook.logI(TAG, "QSTile getState() search");
