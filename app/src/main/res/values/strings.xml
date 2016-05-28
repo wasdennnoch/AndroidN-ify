@@ -134,6 +134,7 @@
     <!-- /UPDATE -->
 
     <!-- BATTERY -->
+    <string name="battery">Battery</string>
     <string name="charged">Charged</string>
     <string name="charging">Charging, %1$s</string>
     <!-- /BATTERY -->

@@ -35,7 +35,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public void handleUpdateState(Object state, Object arg) {
-        mState.label = "Battery";
+        mState.label = mResUtils.getString(R.string.battery);
         if (mTileBatteryData != null) {
             if (mTileBatteryData.charging) {
                 if (mTileBatteryData.level == 100) {
@@ -90,11 +90,9 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         private final int[] COLORS = new int[] { 0xFFFF3300, 0xFFFF3300, 0xFFFFFFFF };
         private static final int BOLT_COLOR = 0xB2000000;
         private static final int FULL = 96;
-        private static final int EMPTY = 4;
 
         private static final float SUBPIXEL = 0.4f;  // inset rects for softer edges
 
-        private static final boolean SINGLE_DIGIT_PERCENT = false;
         private static final float BOLT_LEVEL_THRESHOLD = 0.3f;  // opaque bolt below this fraction
         private final int mCriticalLevel;
 
@@ -113,7 +111,6 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
         private final RectF mFrame = new RectF();
         private final RectF mButtonFrame = new RectF();
-        private final RectF mClipFrame = new RectF();
         private final RectF mBoltFrame = new RectF();
 
         private final Path mShapePath = new Path();
@@ -334,10 +331,9 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             if (!mBatteryData.charging && level > mCriticalLevel && mShowPercent && level < 100) {
                 mTextPaint.setColor(getColorForLevel(level));
                 mTextPaint.setTextSize(height *
-                        (SINGLE_DIGIT_PERCENT ? 0.75f
-                                : (mBatteryData.level == 100 ? 0.38f : 0.5f)));
+                        (mBatteryData.level == 100 ? 0.38f : 0.5f));
                 mTextHeight = -mTextPaint.getFontMetrics().ascent;
-                pctText = String.valueOf(SINGLE_DIGIT_PERCENT ? (level/10) : level);
+                pctText = String.valueOf(level);
                 pctX = mWidth * 0.5f;
                 pctY = (mHeight + mTextHeight) * 0.47f;
                 pctOpaque = levelTop > pctY;
