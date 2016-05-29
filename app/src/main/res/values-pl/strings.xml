@@ -22,12 +22,15 @@
 	<string name="app_dark_theme_title">Ciemny motyw aplikacji</string>
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
-    <string name="debug_log_title">Włącz debugowanie</string>
+    <string name="force_english_title">Wymuś język angielski</string>
+	<string name="debug_log_title">Włącz debugowanie</string>
     <string name="debug_log">Ostrzeżenie: powoduje dużo wpisów w dzienniku debugowania</string>
 
     <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
 	
 	<string name="not_activated">Moduł nieaktywny</string>
+	
+	<string name="theme_colorPrimary">Główny kolor</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -36,8 +39,9 @@
     <string name="enable_settings_summaries">Pokaż najważniejsze informacje bezpośrednio w menu ustawień</string>
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
     <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
-
-    <string name="disconnected">Rozłączone</string>
+	<string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
+    
+	<string name="disconnected">Rozłączone</string>
     <string name="disabled">Wyłączone</string>
     <string name="off">WYŁ.</string>
     <string name="on">WŁ.</string>
@@ -79,9 +83,13 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Pasek statusu</string>
     <string name="enable_notification_header">Styl nagłówka</string>
+    <string name="keep_qs_panel_bg_title">Nie zmieniaj tła szybkich ustawień</string>
+    <string name="keep_qs_panel_bg">Użyteczne dla stylów, które zmieniają tło panelu szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
-    <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
+    <string name="alternative_header_qs_method_title">Alternatywna metoda ładowania szybich ustawień</string>
+    <string name="alternative_header_qs_method">Włącz kiedy są problemy z pozycjonowaniem kafelków szybkich ustawień</string>
+	<string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
     <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go \na dotknięcie kafelka w panelu rozszerzy go</string>
     <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
     <string name="enable_large_first_row_summary">Na CM użyj menu konfiguracji aby edytować kafelki</string>
@@ -95,7 +103,7 @@
     <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
     <string name="hide_carrier_label_title">Ukryj nazwę dostawcy</string>
     <!-- /Hide header icons -->
-	<!-- /STATUS BAR HEADER -->
+    <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Powiadomienia</string>
@@ -105,6 +113,10 @@
     <string name="action_search">Szukaj</string>
     <string name="notification_blacklisted_apps_title">Wyłączone aplikacje</string>
     <string name="notification_blacklisted_apps">Użyj starego stylu powiadomień dla tych aplikacji</string>
+    <string name="notifications_custom_color_title">Użyj niestandardowego koloru akcentu</string>
+    <string name="notifications_accent_color_title">Kolor akcentu</string>
+    <string name="notifications_custom_actions_color_title">Użyj niestandardowego koloru tła akcji</string>
+    <string name="notifications_actions_color_title">Kolor tła akcji</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -120,7 +132,6 @@
     <string name="update_notification_downloading_details">Pobieranie wersji %1$d</string>
     <string name="update_notification_download_fail">Pobieranie nie udane</string>
     <string name="update_notification_download_fail_details">Nie udało się pobrać wersji %1$d</string>
-    <string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
 	<!-- /UPDATE -->
 
 </resources>

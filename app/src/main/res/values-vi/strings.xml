@@ -96,4 +96,9 @@
     <string name="update_notification_title">Có bản cập nhật mới</string>
     <string name="user_summary">Đăng nhập với tên %1$s</string>
     <string name="xposed_description">Mang tính năng mới từ Android N đến Lollipop và Marshmallow!</string>
+    <string name="alternative_header_qs_method">Bật khi gặp vấn đề vị trí các icon Cài đặt nhanh</string>
+    <string name="alternative_header_qs_method_title">Nạp icon Cài đặt nhanh kiểu khác</string>
+    <string name="force_english_title">Ép dùng tiếng Anh</string>
+    <string name="keep_qs_panel_bg">Hữu ích khi dùng Giao diện có tùy chỉnh màu nền Cài đặt nhanh</string>
+    <string name="keep_qs_panel_bg_title">Không thay đổi nền C.đặt nhanh</string>
 </resources>
