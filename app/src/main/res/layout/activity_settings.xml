@@ -9,11 +9,8 @@
         android:id="@+id/prefs_not_readable_warning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        android:paddingTop="4dp"
-        android:text="@string/prefs_file_not_readable"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="8dp"
         android:textColor="?android:attr/colorAccent"
         android:visibility="gone"/>
 

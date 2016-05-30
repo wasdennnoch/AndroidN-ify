@@ -14,7 +14,6 @@
     <string name="about_version">版本 %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">偏好設定檔案無法被 Xposed 讀取，將使用預設值的掛勾。 這可能是因為 SELinux 目前處於 強制執行(Enforceing)中</string>
 
     <string name="app_dark_theme_title">暗色主題</string>
     <string name="header_tweaks">調整</string>

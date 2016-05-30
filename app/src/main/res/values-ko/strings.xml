@@ -14,7 +14,6 @@
     <string name="about_version">버전 %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">The preference file isn\'t readable by Xposed, default values will be used in hooks. This could be due to enforcing SELinux.</string>
 
     <string name="header_tweaks">트윅</string>
     <string name="header_app">앱</string>

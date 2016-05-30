@@ -1,5 +1,9 @@
 # Changelog
 
+### Next version (v0.2.1):
+
+- Improved "prefs not reabable" warning message
+
 ### v0.2.0 (5):
 
 - New notification design
