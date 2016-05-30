@@ -34,7 +34,7 @@
     <string name="app_dark_theme_title">Dark app theme</string>
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>
-    <string name="force_english_title">Force english language</string>
+    <string name="force_english_title">Force English language</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
 
