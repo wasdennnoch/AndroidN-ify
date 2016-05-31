@@ -124,19 +124,9 @@ public class QuickQSPanel extends LinearLayout {
             int k = ai1[0] - ai[0];
             int i1 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2) + getHeight();
 
-            // If it doesn't look good then just hide it
-            //int i2 = (int) (i1 * 0.94f);
-            //int i2 = -i1 - StatusBarHeaderHooks.mEditButton.getHeight() + (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight")
-            //        + StatusBarHeaderHooks.mQsContainer.getPaddingBottom();
-
-            //if (!RomUtils.isCmBased())
-            //    i2 += StatusBarHeaderHooks.mQsContainer.getPaddingTop();
-
             j = ai[0] - j;
             builder.addFloat(tileView, "translationX", 0f, (float) k);
             builder1.addFloat(tileView, "translationY", 0f, (float) i1);
-
-            //builder3.addFloat(qsTileView, "alpha", 0f, 1f);
 
             builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
             builder1.addFloat(qsTileView, "translationY", (float) -i1 + (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight")

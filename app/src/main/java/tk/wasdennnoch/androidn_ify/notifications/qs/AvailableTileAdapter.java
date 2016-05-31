@@ -51,6 +51,8 @@ public class AvailableTileAdapter extends TileAdapter {
     }
 
     private void addSpec(String spec) {
+        if (spec == null) return;
+
         RelativeLayout.LayoutParams tileViewLp = new RelativeLayout.LayoutParams(mCellWidth, mCellHeight);
         tileViewLp.addRule(RelativeLayout.CENTER_IN_PARENT);
 
