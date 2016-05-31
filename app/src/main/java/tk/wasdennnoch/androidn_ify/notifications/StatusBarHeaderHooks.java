@@ -1016,12 +1016,13 @@ public class StatusBarHeaderHooks {
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
-                    QSTileHostHooks.hook(classLoader);
                     isCm = true;
                 } catch (Throwable ignore) {
                     XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
                 }
 
+                QSTileHostHooks.hook(classLoader);
+                
                 boolean firstRowLarge = ConfigUtils.header().large_first_row;
                 if (ConfigUtils.header().new_click_behavior) {
                     new WifiTileHook(classLoader, (!isCm && !firstRowLarge));
