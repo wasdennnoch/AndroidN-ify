@@ -824,7 +824,6 @@ public class NotificationsHooks {
 
             FrameLayout.LayoutParams notificationMainLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             notificationMainLParams.setMargins(0, notificationContentPaddingTop, 0, 0);
-            //notificationMainLParams.setMargins(notificationContentPadding, notificationContentPaddingTop, notificationContentPadding, 0);
             notificationMain.setLayoutParams(notificationMainLParams);
 
             //noinspection SuspiciousNameCombination
