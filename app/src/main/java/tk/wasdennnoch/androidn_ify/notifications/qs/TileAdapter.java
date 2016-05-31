@@ -46,10 +46,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     public void setRecords(ArrayList<Object> records) {
-        setRecords(records, false);
-    }
-
-    public void setRecords(ArrayList<Object> records, boolean update) {
         mTileViews = new ArrayList<>();
         mRecords = new ArrayList<>();
 
@@ -58,10 +54,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             addTile(i, tile);
             mRecords.add(tilerecord);
-        }
-
-        if (update) {
-            notifyDataSetChanged();
         }
     }
 
@@ -184,18 +176,27 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     public void addRecord(Record record) {
+        /*
+        int addPosition = mTileViews.size();
+
+        Object tile = QSTileHostHooks.createTile(QSTileHostHooks.mTileHost, record.spec);
+        XposedHelpers.callMethod(tile, "refreshState");
+        addTile(addPosition, tile);
+        mRecords.add(record);
+        notifyItemInserted(addPosition);
+        */
+
         List<String> tileSpecs = convertToSpecs();
         tileSpecs.add(tileSpecs.size(), record.spec);
-        QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
-        QSTileHostHooks.recreateTiles();
+        if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
+            QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
+            QSTileHostHooks.recreateTiles();
+        }
     }
 
     public boolean saveChanges() {
         List<String> tileSpecs = convertToSpecs();
-        List<String> oldTileSpecs = QSTileHostHooks.mTileSpecs;
-        if (oldTileSpecs == null)
-            oldTileSpecs = QSTileHostHooks.getTileSpecs(mContext);
-        if (!oldTileSpecs.equals(tileSpecs)) {
+        if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
             return true;
         } else {
