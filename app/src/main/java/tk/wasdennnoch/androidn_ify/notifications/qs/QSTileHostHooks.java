@@ -103,21 +103,6 @@ public class QSTileHostHooks {
     };
 
     public static List<String> getTileSpecs(Context context) {
-        // TODO make this customizable
-
-        /*
-        List<String> tileSpecs = new ArrayList<>();
-        tileSpecs.add("wifi");
-        tileSpecs.add("bt");
-        tileSpecs.add("cell");
-        tileSpecs.add("battery");
-        tileSpecs.add("flashlight");
-        tileSpecs.add("rotation");
-        tileSpecs.add("airplane");
-        tileSpecs.add("cast");
-        tileSpecs.add("location");
-        */
-
         loadTileSpecs(context);
         return mTileSpecs;
     }
@@ -171,7 +156,7 @@ public class QSTileHostHooks {
                 specs.add(spec);
             }
         } catch (JSONException e) {
-            XposedHook.logE(TAG, "Error loading blacklisted apps", e);
+            XposedHook.logE(TAG, "Error loading tile specs", e);
         }
         mTileSpecs = specs;
     }

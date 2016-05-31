@@ -526,8 +526,7 @@ public class StatusBarHeaderHooks {
                     }
                 }
                 if (mTileAdapter != null) {
-                    mTileAdapter.setRecords(mRecords);
-                    mTileAdapter.notifyDataSetChanged();
+                    mTileAdapter.setRecords(mRecords, true);
                 }
                 mHeaderQsPanel.setTiles(mRecords);
             }
