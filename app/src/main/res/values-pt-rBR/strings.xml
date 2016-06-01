@@ -14,7 +14,20 @@
     <string name="about_version">Versão %1$s (%2$d)</string>	
 
     <!-- prefs -->
-
+    <string name="prefs_not_readable"><![CDATA[<b>Aviso:</b> O arquivo de preferências não pode ser lido pelo Xposed. Clique para mais informações&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        O Xposed não pode ler o arquivo de preferências deste módulo, os valores padrão serão usados.
+        Há várias maneiras de resolver este problema. Note também que esse erro aparece se você nunca
+        abriu o app antes.<br><br>
+        Primeiramente, reinicie o dispositivo (Sem reinício rápido!).<br>
+        Se isso não ajudar, tente reinstalar o módulo.<br>
+        Se ambas as tentativas falharem, certifique-se de que o seu modo de SELinux esteja como <i>Permissivo</i>.
+        O SELinux em modo <i>Enforcing/Impondo</i> pode bloquear o acesso ao arquivo de preferências. Para mudar o modo,
+        use este app <tt>SELinuxModeChanger</tt> o qual você pode baixar
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">neste tópico do XDA</a>.<br>
+        Se até isso falhar, você terá que ficar com os valores padrão, desculpas :(
+        ]]></string>    
+    
     <string name="header_tweaks">Ajustes</string>
     <string name="header_app">App</string>
     
@@ -34,7 +47,7 @@
     
     <!-- SETTINGS -->
     <string name="header_settings">Configurações</string>
-	<string name="enable_settings_summaries_title">Sumários de configurações</string>
+    <string name="enable_settings_summaries_title">Sumários de configurações</string>
     <string name="enable_settings_summaries">Mostrar as informações mais importantes diretamente no painel</string>
     <string name="fix_sound_notif_tile_title">Corrigir o módulo de Sons &amp; Notificações</string>
     <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Ative esta opção para que o sumário correto seja mostrado.</string>
@@ -84,6 +97,9 @@
     <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
     <string name="notification_header_qs_tiles_count">Blocos de configurações rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
+    <string name="battery_tile_show_percentage">Mostrar porcentagem no bloco de bateria</string>
+    <string name="alternative_header_qs_method_title">Método alternativo de carregamento de QS</string>
+    <string name="alternative_header_qs_method">Ative se houver problemas de posicionamento com os blocos de QS</string>    
     <string name="enable_new_tile_click_behavior">Ativar novo estilo de clique no bloco</string>
     <string name="enable_new_tile_click_behavior_summary">Clicar em um bloco no cabeçalho o ativa/desativa e clicar em um bloco no painel o expande</string>
     <string name="enable_large_first_row">Alargar a primeira fileira</string>
@@ -128,5 +144,16 @@
     <string name="update_notification_download_fail">Download falhou</string>
     <string name="update_notification_download_fail_details">Download da compilação %1$d falhou</string>
     <!-- /UPDATE -->
+
+    <!-- BATTERY -->
+    <string name="battery">Bateria</string>
+    <string name="charged">Carregado</string>
+    <string name="charging">Carregando, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Editar</string>
+    <string name="qs_edit_detail">Editar blocos</string>
+    <!-- /QS -->
 
 </resources>
