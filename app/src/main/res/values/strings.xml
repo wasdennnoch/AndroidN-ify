@@ -3,147 +3,146 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
+    <string name="xposed_description">Aduce caracteristicile din Android N pe Lollipop și Marshmallow!</string>
 
-    <string name="restart_systemui">Restart SystemUI</string>
-    <string name="restart_systemui_message">Are you sure you want to restart the SystemUI?</string>
-    <string name="restart_broadcast_sent">Restart broadcast sent</string>
-    <string name="activity_about">About Android N-ify</string>
-    <string name="about_author">Developed by @MrWasdennnoch</string>
-    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably XDA) username here -->
-    <string name="about_version">Version %1$s (%2$d)</string>
+    <string name="restart_systemui">Repornire interfața System?</string>
+    <string name="restart_systemui_message">Esti sigur ca vrei sa repornesti interfața System?</string>
+    <string name="restart_broadcast_sent">Repornire interfața sistem</string>
+    <string name="activity_about">Despre Android N-ify</string>
+    <string name="about_author">Dezvoltată de @MrWasdennnoch</string>
+    <string name="about_translator">Tradusă de @IonutGherman</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_version">Versiunea %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> The preference file isn\'t readable by Xposed. Click for more info&#8230;]]></string>
+    <string name="prefs_not_readable"><![CDATA[<b>Atenție:</b> Fișierul de preferință nu este citit de către Xposed. Click pt. mai multe informații&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
-        Xposed can\'t read the preference file of this module, default values will be used in hooks.
-        There are several ways to fix this problem. Also note that this error pops up if you\'ve never
-        opened the app before.<br><br>
-        First, reboot the device (No soft reboot!).<br>
-        If that doesn\'t help, try reinstalling the module.<br>
-        If both attempts fail, ensure that your SELinux mode is set to <i>permissive</i>.
-        <i>Enforcing</i> SELinux might block access to the preference file. In order to change the mode,
-        use the app <tt>SELinuxModeChanger</tt> that you can download
-        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">in this XDA thread</a>.<br>
-        If even that fails, you probably have to live with the default values, sorry :(
+        Xposed nu poate citi fișiere de preferință ale acestui modul, valorile prestabilite vor fi folosite.
+        Există câteva metode de rezolvare a problemelor. Totodata această eroare va apărea dacă nu ați deschis aplicația niciodată.<br><br>
+        Prima dată repornește dispozitivul (Nu repornire sistem!).<br>
+        Dacă nu ajută, încearcă reinstalarea modulului.<br>
+        Dacă ambele metode eșuează, verifică dacă modulul tău SELinux este setat pe<i>facultativ</i>.
+        <i>Impunerea</i> SELinux-ului poate bloca accesul la fișierul cu setările preferențiale. Ca să schimbi modul,
+        folosește aplicația <tt>SELinuxModeChanger</tt> care o poți descărca
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">din acest topic XDA</a>.<br>
+        Dacă și această metodă eșuează, probabil v-a trebui să rămâi cu setările inițiale. Scuze :(
         ]]></string>
 
-    <string name="header_tweaks">Tweaks</string>
-    <string name="header_app">App</string>
+    <string name="header_tweaks">Setări</string>
+    <string name="header_app">Aplicație</string>
 
-    <string name="app_dark_theme_title">Dark app theme</string>
-    <string name="hide_launcher_icon_title">Hide launcher icon</string>
-    <string name="hide_launcher_icon">May require launcher restart</string>
-    <string name="force_english_title">Force English language</string>
-    <string name="debug_log_title">Debug log</string>
-    <string name="debug_log">Warning: Log-flooding</string>
+    <string name="app_dark_theme_title">Temă intunecată</string>
+    <string name="hide_launcher_icon_title">Ascunde iconita în lansator</string>
+    <string name="hide_launcher_icon">Poate necesita repornirea lansatorului</string>
+    <string name="force_english_title">Forțează limba engleză</string>
+    <string name="debug_log_title">Log depanare</string>
+    <string name="debug_log">Atentie: încărcare log</string>
 
-    <string name="requires_android_version">Requires Android %1$s</string>
+    <string name="requires_android_version">Necesită Android %1$s</string>
 
-    <string name="not_activated">Module not activated</string>
+    <string name="not_activated">Modulul nu este activat</string>
 
-    <string name="theme_colorPrimary">Primary color</string>
+    <string name="theme_colorPrimary">Culoare primară</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
-    <string name="header_settings">Settings</string>
-    <string name="enable_settings_summaries_title">Settings summaries</string>
-    <string name="enable_settings_summaries">Show the most important information directly in the dashboard</string>
-    <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
-    <string name="fix_sound_notif_tile">Some ROMs combine the Sounds and Notifications tile. Enable to set the proper summary for this tile</string>
-    <string name="enable_n_platlogo_title">N logo in easter egg</string>
+    <string name="header_settings">Setări</string>
+    <string name="enable_settings_summaries_title">Sumar Setări</string>
+    <string name="enable_settings_summaries">Afișează cele mai importante caracteristici în pagina principală</string>
+    <string name="fix_sound_notif_tile_title">Fixează titlul "Sunete &amp; Notificări"</string>
+    <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete & Notificări. Activează această setare pentru a afișa corect titlul!</string>
+    <string name="enable_n_platlogo_title">Logo-ul N în versiune Android</string>
 
-    <string name="disconnected">Disconnected</string>
-    <string name="disabled">Disabled</string>
-    <string name="off">OFF</string>
-    <string name="on">ON</string>
-    <string name="data_usage_summary">%1$s of data used</string>
-    <string name="display_summary">Adaptive brightness is %1$s</string>
-    <string name="sound_summary">Ringer volume at %1$s</string>
-    <string name="apps_summary">%1$d apps installed</string>
-    <string name="storage_summary">%1$s of %2$s used</string>
-    <string name="battery_summary">%1$s - approx. %2$s left</string>
-    <string name="battery_charging_wireless">%1$s - Charging on WIRELESS</string>
-    <string name="battery_charging_usb">%1$s - Charging on USB</string>
-    <string name="battery_charging_ac">%1$s - Charging on AC</string>
-    <string name="memory_summary">Currently %1$s of %2$s memory used</string>
-    <string name="user_summary">Signed in as %1$s</string>
-    <string name="location_on_power">ON / Power saving</string>
-    <string name="location_on_device">ON / Device only</string>
-    <string name="location_on_high">ON / High accuracy</string>
-    <string name="print_summary">%1$d print jobs</string>
+    <string name="disconnected">Deconectat/ă</string>
+    <string name="disabled">Dezactivat/ă</string>
+    <string name="off">oprită</string>
+    <string name="on">pornită</string>
+    <string name="data_usage_summary">%1$s din datele mobile utilizate</string>
+    <string name="display_summary">Luminozitatea adaptivă este %1$s</string>
+    <string name="sound_summary">Volum sunet apel la %1$s</string>
+    <string name="apps_summary">%1$d aplicații instalate</string>
+    <string name="storage_summary">%1$s din %2$s utilizați</string>
+    <string name="battery_summary">%1$s - aproximativ %2$s ramase</string>
+    <string name="battery_charging_wireless">%1$s - încărcare pe WIRELESS</string>
+    <string name="battery_charging_usb">%1$s - Încărcare la USB</string>
+    <string name="battery_charging_ac">%1$s - Încărcare la AC</string>
+    <string name="memory_summary">%1$s din %2$s memorie RAM utilizată</string>
+    <string name="user_summary">Logat ca %1$s</string>
+    <string name="location_on_power">Pornită / Salvare energie</string>
+    <string name="location_on_device">Pornită / Doar GPS</string>
+    <string name="location_on_high">Pornită / Acuritate ridicată</string>
+    <string name="print_summary">%1$d sarcini printate</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="header_recents">Recents</string>
-    <string name="enable_recents_double_tap_title">Quick switch</string> <!-- That's how Google calls it -->
-    <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
-    <string name="double_tap_speed_title">Double tap speed</string>
-    <string name="recents_button_behavior_title">Recents button click behavior</string>
-    <string name="recents_navigation_delay_title">Navigation delay</string>
-    <string name="recents_navigation_delay">Time until the selected app gets focused</string>
-    <string name="enable_large_recents">Large recent apps</string>
-    <string name="no_recents_image">Change \"no recents\" image</string>
+    <string name="header_recents">Recente</string>
+    <string name="enable_recents_double_tap_title">Schimbare rapidă</string> <!-- That's how Google calls it -->
+    <string name="enable_recents_double_tap">Apasă dublu butonul de ap. recente pentru a schimba aplicațiile</string>
+    <string name="double_tap_speed_title">Viteză apăsare dublă</string>
+    <string name="recents_button_behavior_title">Comportament ap. recente</string>
+    <string name="recents_navigation_delay_title">Întârziere navigare</string>
+    <string name="recents_navigation_delay">Timpul în care aplicațiile devin concentrate</string>
+    <string name="enable_large_recents">Aplicații recente mari</string>
+    <string name="no_recents_image">Schimbă imaginea \"nici o aplicație recentă\" </string>
 
-    <string name="no_previous_recents">No recent items</string>
+    <string name="no_previous_recents">Nu sunt aplicații recente</string>
 
-    <string name="recents_button_behavior_previous">Return to previous app</string>
-    <string name="recents_button_behavior_current">Return to current app</string>
-    <string name="recents_button_behavior_cycle">Cycle through apps</string>
+    <string name="recents_button_behavior_previous">Revino la aplicația anterioară</string>
+    <string name="recents_button_behavior_current">Revino la aplicația curentă</string>
+    <string name="recents_button_behavior_cycle">Ciclul prin aplicații</string>
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Status bar header</string>
-    <string name="enable_notification_header">Style header</string>
-    <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
-    <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
-    <string name="notification_header_qs_tiles_count">QS tiles to show</string>
-    <string name="notification_header_qs_tiles_count_monitor">tiles</string>
-    <string name="alternative_header_qs_method_title">Alternative QS loading method</string>
-    <string name="alternative_header_qs_method">Enable when there are positioning issues with the QS icons</string>
-    <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
-    <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
-    <string name="enable_large_first_row">Enlarge first row</string>
-    <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
-    <string name="smaller_header_clock_title">Smaller clock</string>
-    <string name="smaller_header_clock">Lower the text size of the clock in the expanded header. Useful for small screens</string>
-    <string name="notification_full_width_volume_title">Full width volume dialog</string>
-    <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
+    <string name="header_status_bar_header">Antet bară de stare</string>
+    <string name="enable_notification_header">Stil antet</string>
+    <string name="keep_qs_panel_bg_title">Fundal SR nealterat</string>
+    <string name="keep_qs_panel_bg">Folositor pentru temele care aplică propriul fundal pt. SR</string>
+    <string name="notification_header_qs_tiles_count">Afișare titluri SR</string>
+    <string name="notification_header_qs_tiles_count_monitor">titluri</string>
+    <string name="alternative_header_qs_method_title">Metodă alternativă de încărcare a SR</string>
+    <string name="alternative_header_qs_method"Activează când sunt probleme cu poziționarea SR</string>
+    <string name="enable_new_tile_click_behavior">Comportament click Android N</string>
+    <string name="enable_new_tile_click_behavior_summary">Apăsând un chenar în antet îl vei comuta și apăsând un chenar în panou îl vei extinde</string>
+    <string name="enable_large_first_row">Lărgeste primul rând</string>
+    <string name="enable_large_first_row_summary">Pe CM folosește meniul de modificare a SR în schimb</string>
+    <string name="smaller_header_clock_title">Ceas mai mic</string>
+    <string name="smaller_header_clock">Micșorează dimensiunea ceasului în antetul extins. Folositor pentru ecranele mici</string>
+    <string name="notification_full_width_volume_title">Dialog volum lățime completă</string>
+    <string name="notification_full_width_volume">Dezactivează limita lațimei dialogului de volum pt. ecranele mari</string>
     <!-- Hide header icons -->
-    <string name="hide_icons_title">Hide header items</string>
-    <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
-    <string name="hide_edit_tiles_title">Hide edit tiles button</string>
-    <string name="hide_carrier_label_title">Hide carrier label</string>
+    <string name="hide_icons_title">Ascunde elemente antet</string>
+    <string name="hide_tuner_icon_title">Ascunde acordorul SystemUI</string>
+    <string name="hide_edit_tiles_title">Ascunde butonul editare chenare</string>
+    <string name="hide_carrier_label_title">Ascunde nume operator</string>
     <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
-    <string name="header_notifications">Notifications</string>
-    <string name="notifications_change_style">Style Notifications</string>
-    <string name="notification_dismiss_button_title">Change dismiss button</string>
-    <string name="notification_dismiss_button">Show \"CLEAR ALL\" instead of dismiss icon</string>
-    <string name="action_search">Search</string>
-    <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
-    <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
-    <string name="notifications_custom_color_title">Use custom accent color</string>
-    <string name="notifications_accent_color_title">Accent color</string>
-    <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
-    <string name="notifications_actions_color_title">Actions background color</string>
+    <string name="header_notifications">Notificări</string>
+    <string name="notifications_change_style">Stil notificări</string>
+    <string name="notification_dismiss_button_title">Schimbă butonul de stergere a notificărilor</string>
+    <string name="notification_dismiss_button">Arată \"ȘTERGEȚI TOATE NOTIFICĂRILE\" în schimbul butonului</string>
+    <string name="action_search">Caută</string>
+    <string name="notification_blacklisted_apps_title">Aplicații pe lista neagră</string>
+    <string name="notification_blacklisted_apps">Folosește stilul vechi al notificărilor pt. aceste aplicații</string>
+    <string name="notifications_custom_color_title">Folosește culoare de accent personalizat</string>
+    <string name="notifications_accent_color_title">Culoare accent</string>
+    <string name="notifications_custom_actions_color_title">Utilizați acțiuni personalizate de culoare fundal</string>
+    <string name="notifications_actions_color_title">Culoare fundal acțiuni</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
-    <string name="update_notification_title">New update available</string>
-    <string name="update_notification">Build %1$d is now available to update!</string>
-    <string name="update_notification_download">Update</string>
-    <string name="check_for_updates_title">Check for updates</string>
-    <string name="check_for_updates">Check for updates on app start</string>
-    <string name="checking_for_update">Checking for updates…</string>
-    <string name="check_for_update_fail">Couldn\'t check for updates</string>
-    <string name="no_updates">No newer versions found</string>
-    <string name="update_notification_downloading">Downloading update</string>
-    <string name="update_notification_downloading_details">Downloading build %1$d</string>
-    <string name="update_notification_download_fail">Download failed</string>
-    <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
+    <string name="update_notification_title">O versiune nouă este disponibilă</string>
+    <string name="update_notification">Versiunea %1$d este acum disponibilă pentru actualizare!</string>
+    <string name="update_notification_download">Actualizare</string>
+    <string name="check_for_updates_title">Verifică pentru actualizări</string>
+    <string name="check_for_updates">Verifică pentru actualizări la pornire</string>
+    <string name="checking_for_update">Verific pt. actualizari…</string>
+    <string name="check_for_update_fail">Nu pot verifica pt. actualizări</string>
+    <string name="no_updates">Nu s-a găsit nici o versiune nouă</string>
+    <string name="update_notification_downloading">Descărcare actualizare</string>
+    <string name="update_notification_downloading_details">Descărcare actualizare %1$d</string>
+    <string name="update_notification_download_fail">Descărcare eșuată</string>
+    <string name="update_notification_download_fail_details">Nu s-a putut descărca actualizarea %1$d</string>
     <!-- /UPDATE -->
 
 </resources>
