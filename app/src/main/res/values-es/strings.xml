@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-
     <string name="xposed_description">Porta funciones introducidas en Android N para dispositivos con Lollipop y Marshmallow!</string>
 
     <string name="restart_systemui">Reiniciar SystemUI</string>
@@ -14,6 +12,19 @@
     <string name="about_version">Versión %1$s (%2$d)</string>
     
     <!-- prefs -->
+    <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> Xposed no puede leer el archivo de preferencias. Pulsar para más información&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed no puede leer las preferencias de este módulo, se usarán los valores por defecto.
+        Hay varias formas de arreglar este problema. Éste mensaje puede aparecer si no has abierto 
+        antes la aplicación.<br><br>
+        Primero, reinicia el dispositivo (No hacer un reinicio suave!).<br>
+        Si no lo arregla, reinstala el módulo.<br>
+        Si sigue aparecendo, asegurate de que SELinux está en modo <i>permisivo</i>.
+        <i>Forzar</i> SELinux puede bloquear el acceso al archivo de preferencias. Para cambiar el modo,
+        usa la app <tt>SELinuxModeChanger</tt> que puedes descargar
+        a href="http://forum.xda-developers.com/showthread.php?t=2524485">en este hilo de XDA</a>.<br>
+        Si nada de esto funciona, tendras que conformarte con los valores por defecto :(
+        ]]></string>
 
     <string name="header_tweaks">Modificaciones</string>
     <string name="header_app">Ajustes</string>
@@ -132,5 +143,16 @@
     <string name="update_notification_download_fail">Descarga fallida</string>
     <string name="update_notification_download_fail_details">Fallo al descargar versión %1$d</string>
     <!-- /UPDATE -->
+    
+    <!-- BATTERY -->
+    <string name="battery">Batería</string>
+    <string name="charged">Cargada</string>
+    <string name="charging">Cargando, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Editar</string>
+    <string name="qs_edit_detail">Editar ajustes</string>
+    <!-- /QS -->
 
 </resources>
