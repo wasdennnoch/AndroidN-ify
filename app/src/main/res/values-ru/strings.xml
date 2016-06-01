@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="xposed_description">Функции Android N на устройствах Lollipop и Marshmallow!</string>
 
@@ -139,5 +137,4 @@
     <string name="qs_edit">Редактировать</string>
     <string name="qs_edit_detail">Редактировать плитки</string>
     <!-- /QS -->
-</resources>
 </resources>
