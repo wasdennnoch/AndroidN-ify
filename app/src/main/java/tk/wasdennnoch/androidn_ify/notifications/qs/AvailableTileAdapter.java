@@ -46,6 +46,7 @@ public class AvailableTileAdapter extends TileAdapter {
                 }
             } catch (Throwable ignore) {
                 // TODO crashing although the CMSDK is clearly there?
+                // Catching is better than crashing the system server (for some reason...)
             }
         }
 
