@@ -12,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Space;
 
-import java.net.CookieStore;
 import java.util.ArrayList;
 
 import de.robv.android.xposed.XposedHelpers;
@@ -20,16 +19,12 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.notifications.qs.BatteryTile;
-import tk.wasdennnoch.androidn_ify.notifications.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
-import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class QuickQSPanel extends LinearLayout {
 
     private static final String TAG = "QuickQSPanel";
-    private final int mCellHeight;
-    private final int mCellWidth;
 
     private int mMaxTiles;
     private HeaderTileLayout mTileLayout;
@@ -62,9 +57,6 @@ public class QuickQSPanel extends LinearLayout {
             setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         mTileLayout = new HeaderTileLayout(context);
         addView(mTileLayout);
-
-        mCellHeight = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_tile_height", "dimen", XposedHook.PACKAGE_SYSTEMUI));
-        mCellWidth = (int) (mCellHeight * TileAdapter.TILE_ASPECT);
     }
 
     public void setTiles(ArrayList<Object> tileRecords) {

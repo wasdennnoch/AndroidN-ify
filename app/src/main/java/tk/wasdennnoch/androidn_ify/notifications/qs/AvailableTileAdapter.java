@@ -37,11 +37,15 @@ public class AvailableTileAdapter extends TileAdapter {
         }
 
         if (RomUtils.isCmBased()) {
-            Class<?> classQSUtils = XposedHelpers.findClass(QSTileHostHooks.CLASS_QS_UTILS, mContext.getClassLoader());
-            for (String spec : availableTiles) {
-                if (!(boolean) XposedHelpers.callStaticMethod(classQSUtils, "isStaticQsTile", spec)) {
-                    availableTiles.remove(spec);
+            try {
+                Class<?> classQSUtils = XposedHelpers.findClass(QSTileHostHooks.CLASS_QS_UTILS, mContext.getClassLoader());
+                for (String spec : availableTiles) {
+                    if (!(boolean) XposedHelpers.callStaticMethod(classQSUtils, "isStaticQsTile", spec)) {
+                        availableTiles.remove(spec);
+                    }
                 }
+            } catch (Throwable ignore) {
+                // TODO crashing although the CMSDK is clearly there?
             }
         }
 

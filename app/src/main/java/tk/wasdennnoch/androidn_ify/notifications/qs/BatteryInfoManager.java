@@ -19,20 +19,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 
 import java.util.ArrayList;
 
-import de.robv.android.xposed.XSharedPreferences;
-
 public class BatteryInfoManager extends BroadcastReceiver {
     private BatteryData mBatteryData;
     private ArrayList<BatteryStatusListener> mListeners;
-    private Context mContext;
-    private Uri[] mSounds;
-    private PowerManager mPowerManager;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -50,6 +44,7 @@ public class BatteryInfoManager extends BroadcastReceiver {
         public int voltage;
         public boolean isPowerSaving;
 
+        @SuppressWarnings("CloneDoesntCallSuperClone")
         public BatteryData clone() {
             BatteryData bd = new BatteryData();
             bd.charging = this.charging;
@@ -76,12 +71,10 @@ public class BatteryInfoManager extends BroadcastReceiver {
     }
 
     public BatteryInfoManager(Context context) {
-        mContext = context;
         mBatteryData = new BatteryData();
-        mListeners = new ArrayList<BatteryStatusListener>();
-        mSounds = new Uri[3];
-        mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-        mBatteryData.isPowerSaving = mPowerManager.isPowerSaveMode();
+        mListeners = new ArrayList<>();
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        mBatteryData.isPowerSaving = pm.isPowerSaveMode();
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);

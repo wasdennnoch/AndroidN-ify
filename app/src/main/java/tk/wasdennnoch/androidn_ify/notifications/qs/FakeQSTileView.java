@@ -17,7 +17,6 @@
 
 package tk.wasdennnoch.androidn_ify.notifications.qs;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;

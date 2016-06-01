@@ -14,7 +14,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 
 public class TilesManager {
 
-    private static String TAG = "TilesManager";
+    private static final String TAG = "TilesManager";
 
     private Object mQSTileHost;
     private Context mContext;

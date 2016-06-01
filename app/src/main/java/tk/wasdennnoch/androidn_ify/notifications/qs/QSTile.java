@@ -86,7 +86,7 @@ public class QSTile {
         try {
             XposedHelpers.callMethod(mHost, "startActivityDismissingKeyguard", intent);
         } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error in startSettingsActivity: ", t);
+            XposedHook.logE(TAG, "Error in startActivityDismissingKeyguard: ", t);
         }
     }
 

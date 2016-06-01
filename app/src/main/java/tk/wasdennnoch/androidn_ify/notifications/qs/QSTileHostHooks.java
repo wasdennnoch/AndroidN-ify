@@ -171,7 +171,7 @@ public class QSTileHostHooks {
                 specs.add(spec);
             }
         } catch (JSONException e) {
-            XposedHook.logE(TAG, "Error loading blacklisted apps", e);
+            XposedHook.logE(TAG, "Error loading tile specs", e);
         }
         mTileSpecs = specs;
     }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
-import android.graphics.Canvas;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -84,7 +83,6 @@ public class StatusBarHeaderHooks {
     private static TouchAnimator mFirstHalfAnimator;
     private static TouchAnimator mSecondHalfAnimator;
     private static TouchAnimator mSettingsAlpha;
-    private static TouchAnimator mQuickQSAnimator;
 
     public static RelativeLayout mStatusBarHeaderView;
 
@@ -432,7 +430,6 @@ public class StatusBarHeaderHooks {
                     mFirstHalfAnimator.setPosition(f);
                     mSecondHalfAnimator.setPosition(f);
                     mSettingsAlpha.setPosition(f);
-                    //mQuickQSAnimator.setPosition(f);
                     mHeaderQsPanel.setPosition(f);
                 }
                 //mHeaderQsPanel.setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
@@ -599,9 +596,6 @@ public class StatusBarHeaderHooks {
         if (mSomcQuickSettings != null)
             settingsAlphaBuilder.addFloat(mSomcQuickSettings, "alpha", 0.0F, 1.0F);
         mSettingsAlpha = settingsAlphaBuilder.build();
-        mQuickQSAnimator = new TouchAnimator.Builder()
-                .addFloat(mHeaderQsPanel, "alpha", 1.0F, 0.0F)
-                .setEndDelay(0.64F).build();
 
         boolean rtl = (boolean) XposedHelpers.callMethod(mStatusBarHeaderView.getLayoutParams(), "isLayoutRtl");
         if (rtl && mDateTimeGroup.getWidth() == 0) {
@@ -1147,7 +1141,7 @@ public class StatusBarHeaderHooks {
                         qsPanel.setLayoutParams(qsPanelLp);
 
                         FrameLayout.LayoutParams buttonLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        buttonLp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+                        buttonLp.gravity = Gravity.BOTTOM | Gravity.END;
                         Button editBtn = new Button(context);
                         editBtn.setGravity(Gravity.CENTER);
                         editBtn.setLayoutParams(buttonLp);
