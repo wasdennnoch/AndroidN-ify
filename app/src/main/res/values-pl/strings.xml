@@ -20,7 +20,7 @@
         Po pierwsze, zrestartuj swoję urządzenie (Pełny restart wymagany!).<br>
         Jeśli to nie pomoże, spróbuj zreinstalować moduł.<br>
         Jeśli oba sposoby nie zadziałają, sprawdź czy SELinux jądra jest ustawiony na <i>permisywny</i>.
-        <i>Wymuszony</i> SELinux może powodować zablokowanie dostępu do plików konfiguracji. Aby zmienić
+        SELinux w trybie <i>wymuszony</i> może powodować zablokowanie dostępu do plików konfiguracji.<br> Aby zmienić
         tryb, użyj aplikacji <tt>SELinuxModeChanger</tt>, którą możesz pobrać
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">w tym wątku na XDA</a>.<br>
         Jeśli nawet to nie przyniesie rezultatu, będziesz musiał się obyć z domyślnymi ustawieniami, przepraszamy :(
@@ -97,7 +97,7 @@
     <string name="keep_qs_panel_bg">Użyteczne dla stylów, które zmieniają tło panelu szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
-    <string name="battery_tile_show_percentage">Pokaż procent załadowania baterii w kafelku</string>
+    <string name="battery_tile_show_percentage">Pokaż procent naładowania baterii w kafelku</string>
     <string name="alternative_header_qs_method_title">Alternatywna metoda ładowania szybich ustawień</string>
     <string name="alternative_header_qs_method">Włącz kiedy są problemy z pozycjonowaniem kafelków szybkich ustawień</string>
     <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
@@ -146,13 +146,13 @@
     <!-- /UPDATE -->
     
     <!-- BATTERY -->
-    <string name="battery">Batteria</string>
+    <string name="battery">Bateria</string>
     <string name="charged">Naładowana</string>
     <string name="charging">Ładowanie, %1$s</string>
     <!-- /BATTERY -->
 
     <!-- QS -->
-    <string name="qs_edit">Edytuj</string>
+    <string name="qs_edit">Edycja</string>
     <string name="qs_edit_detail">Edytuj kafelki</string>
     <!-- /QS -->
 </resources>
