@@ -12,8 +12,7 @@
     <string name="about_version">Versione %1$s (%2$d)</string>
     
     <!-- prefs -->
-    <string name="prefs_file_not_readable">Il file delle preferenze non è leggibile da Xposed,saranno utilizzati i valori di default negli hooks. Questo potrebbe causato dal SELinux in modalità Enforcing.</string>
-    
+
     <string name="header_settings">Impostazioni</string>
     <string name="header_recents">Recenti</string>
     <string name="header_status_bar_header">Intestazione barra di stato</string>

@@ -14,15 +14,27 @@
     <string name="about_version">版本 %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">首选项文件无法被 Xposed 读取，在勾取方法时将使用默认的值。这可能是由于系统的 SELinux 状态为 enforcing 而导致的。</string>
-
+    <string name="prefs_not_readable"><![CDATA[<b>警告：</b>首选项文件无法被 Xposed 读取。点击查看详细信息&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed 无法读取该模块的首选项文件，在钩取资源时将使用默认的值。
+        有几种方法可以用来修复此问题。另外需注意这条错误信息仅当用户先前从未
+        打开过应用时弹出。<br><br>
+        首先，重启你的设备（请勿使用软重启！）。<br>
+        如果没有帮助，尝试重新安装此模块。<br>
+        如果上述方法均无效，请确保设备的 SELinux 模式为 <i>permissive</i>.
+        <i>Enforcing</i> SELinux 可能会阻止 Xposed 接入模块的首选项文件。要修改模式，
+        请使用应用 <tt>SELinuxModeChanger</tt> 你可以在
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">XDA 上的相关话题帖</a>内下载该应用。<br>
+        如果即便如此依旧无效的话，你将可能需要继续忍受此问题了，在此深感抱歉 :(
+        ]]></string>
+    
     <string name="header_tweaks">调整</string>
     <string name="header_app">应用</string>
 
     <string name="app_dark_theme_title">使用暗色主题</string>
     <string name="hide_launcher_icon_title">隐藏应用图标</string>
     <string name="hide_launcher_icon">或许需要重启桌面</string>
-    <string name="force_english_title">强制显示英文</string>
+    <string name="force_english_title">强制显示英语</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
 

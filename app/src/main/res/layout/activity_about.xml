@@ -16,7 +16,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:contentDescription="@null"
-            android:src="@drawable/ic_launcher_big"/>
+            android:src="@drawable/platlogo"/>
 
         <TextView
             android:layout_width="wrap_content"

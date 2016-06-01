@@ -17,9 +17,12 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -30,7 +33,7 @@ import tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference;
 import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public static final String ACTION_RECENTS_CHANGED = "tk.wasdennnoch.androidn_ify.action.ACTION_RECENTS_CHANGED";
     public static final String EXTRA_RECENTS_DOUBLE_TAP_SPEED = "extra.recents.DOUBLE_TAP_SPEED";
@@ -48,7 +51,10 @@ public class SettingsActivity extends Activity {
         if (!isActivated()) {
             getActionBar().setSubtitle(R.string.not_activated);
         } else if (!isPrefsFileReadable()) {
-            findViewById(R.id.prefs_not_readable_warning).setVisibility(View.VISIBLE);
+            TextView warning = (TextView) findViewById(R.id.prefs_not_readable_warning);
+            warning.setText(Html.fromHtml(getString(R.string.prefs_not_readable)));
+            warning.setVisibility(View.VISIBLE);
+            warning.setOnClickListener(this);
         }
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
@@ -60,6 +66,44 @@ public class SettingsActivity extends Activity {
 
     private boolean isPrefsFileReadable() {
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.prefs_not_readable_warning:
+                showDialog(0, R.string.prefs_not_readable_description, true, null);
+                break;
+        }
+    }
+
+    private void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setMessage(Html.fromHtml(getString(contentRes)));
+        if (titleRes > 0)
+            builder.setTitle(titleRes);
+        if (!onlyOk)
+            builder.setNegativeButton(android.R.string.cancel, null);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (okAction != null)
+                    okAction.run();
+            }
+        });
+        View v = builder.show().findViewById(android.R.id.message);
+        if (v instanceof TextView)
+            ((TextView) v).setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    private void showRestartSystemUIDialog() {
+        showDialog(R.string.restart_systemui, R.string.restart_systemui_message, false, new Runnable() {
+            @Override
+            public void run() {
+                sendBroadcast(new Intent(ACTION_KILL_SYSTEMUI).setPackage(XposedHook.PACKAGE_SYSTEMUI));
+                Toast.makeText(SettingsActivity.this, R.string.restart_broadcast_sent, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -204,20 +248,6 @@ public class SettingsActivity extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showRestartSystemUIDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.restart_systemui)
-                .setMessage(R.string.restart_systemui_message)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        sendBroadcast(new Intent(ACTION_KILL_SYSTEMUI).setPackage(XposedHook.PACKAGE_SYSTEMUI));
-                        Toast.makeText(SettingsActivity.this, R.string.restart_broadcast_sent, Toast.LENGTH_SHORT).show();
-                    }
-                }).show();
     }
 
 }

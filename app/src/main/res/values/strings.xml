@@ -14,7 +14,19 @@
     <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">The preference file isn\'t readable by Xposed, default values will be used in hooks. This could be due to enforcing SELinux.</string>
+    <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> The preference file isn\'t readable by Xposed. Click for more info&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed can\'t read the preference file of this module, default values will be used in hooks.
+        There are several ways to fix this problem. Also note that this error pops up if you\'ve never
+        opened the app before.<br><br>
+        First, reboot the device (No soft reboot!).<br>
+        If that doesn\'t help, try reinstalling the module.<br>
+        If both attempts fail, ensure that your SELinux mode is set to <i>permissive</i>.
+        <i>Enforcing</i> SELinux might block access to the preference file. In order to change the mode,
+        use the app <tt>SELinuxModeChanger</tt> that you can download
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">in this XDA thread</a>.<br>
+        If even that fails, you probably have to live with the default values, sorry :(
+        ]]></string>
 
     <string name="header_tweaks">Tweaks</string>
     <string name="header_app">App</string>
@@ -22,7 +34,7 @@
     <string name="app_dark_theme_title">Dark app theme</string>
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>
-    <string name="force_english_title">Force english language</string>
+    <string name="force_english_title">Force English language</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
 

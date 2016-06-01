@@ -799,6 +799,7 @@ public class NotificationsHooks {
     private static XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
+            XposedHook.logD(TAG, "notification_template_material_base inflate hook called for layout \"" + liparam.resNames.fullName + "\"");
             FrameLayout layout = (FrameLayout) liparam.view;
             Context context = layout.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
@@ -823,7 +824,6 @@ public class NotificationsHooks {
 
             FrameLayout.LayoutParams notificationMainLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             notificationMainLParams.setMargins(0, notificationContentPaddingTop, 0, 0);
-            //notificationMainLParams.setMargins(notificationContentPadding, notificationContentPaddingTop, notificationContentPadding, 0);
             notificationMain.setLayoutParams(notificationMainLParams);
 
             //noinspection SuspiciousNameCombination
@@ -836,6 +836,8 @@ public class NotificationsHooks {
             layout.addView(rightIcon);
 
             ViewGroup.LayoutParams params = layout.getLayoutParams();
+            if (params == null)
+                params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             layout.setLayoutParams(params);
 

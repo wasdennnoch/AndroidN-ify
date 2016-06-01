@@ -14,7 +14,19 @@
     <string name="about_version">Verzia: %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">Xposed nevie čítať súbor nastavení, budú použité predvolené hodnoty. To môže byť spôsobené ak je SELinux v režime enforcing.</string>
+    <string name="prefs_not_readable"><![CDATA[<b>Upozornenie:</b> Xposed nevie čítať súbor nastavení. Kliknite pre viac informácií&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed nevie čítať súbor nastavení tohto modulu, budú použité predvolené hodnoty.
+        Je viac spôsobov ako vyriešiť tento problém. Táto chyba sa môže zobraziť aj v prípade, 
+        že ste aplikáciu ešte neotvárali.<br><br>
+        Najskôr, reštartujte zariadenie (úplný reštart!).<br>
+        Ak to nepomôže, skúste preinštalovať modul.<br>
+        Ak oba pokusy zlyhajú, uistite sa, že SELinux je nastavený na režim <i>permissive</i>.
+        SELinux v režime <i>enforcing</i> môže blokovať prístup k súboru nastavení. Pre zmenu režimu 
+        použite aplikáciu <tt>SELinuxModeChanger</tt>, ktorú môžete stiahnuť 
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">z tejto témy na XDA</a>.<br>
+        Ak aj to zlyhá, pravdepodobne sa budete musieť zmieriť s predvolenými hodnotami, prepáčte :(
+        ]]></string>
 
 
     <string name="header_tweaks">Úpravy</string>

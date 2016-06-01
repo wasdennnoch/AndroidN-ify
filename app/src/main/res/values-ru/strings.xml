@@ -14,7 +14,6 @@
     <string name="about_translator">Перевёл @vl_w</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">Xposed не может прочитать файл конфигурации, будут использованы стандартные значения. Это может быть связано с блокирующим режимом SELinux.</string>
 
     <string name="header_tweaks">Твики</string>
     <string name="header_app">Приложение</string>

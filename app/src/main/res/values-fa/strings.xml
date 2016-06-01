@@ -14,7 +14,6 @@
     <string name="about_version">%1$s (%2$d) نسخه</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">این فایل توسط اکسپوزد خواندنی نیست.</string>
 
     <string name="header_settings">تنظیمات</string>
     <string name="header_tweaks">تغییرات</string>

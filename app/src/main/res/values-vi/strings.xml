@@ -70,7 +70,6 @@
     <string name="notifications_custom_color_title">Tùy chỉnh màu nhấn mạnh</string>
     <string name="off">TẮT</string>
     <string name="on">BẬT</string>
-    <string name="prefs_file_not_readable">Xposed không thể đọc tệp thiết đặt, giá trị mặc định sẽ được sử dụng. Điều này có thể do SELinux đang ở trạng thái thực thi.</string>
     <string name="print_summary">%1$d công việc in</string>
     <string name="recents_button_behavior_current">Trở về ứ.dụng hiện tại</string>
     <string name="recents_button_behavior_cycle">Xoay vòng các ứng dụng</string>

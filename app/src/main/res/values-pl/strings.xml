@@ -14,8 +14,20 @@
     <string name="about_version">Wersja %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_file_not_readable">Plik ustawień nie może być odczytany przez Xposed, zostaną użyte wartości domyślne. Może to być spowodowane statusem SELinux enforcing.</string>
-	
+    <string name="prefs_not_readable"><![CDATA[<b>Uwaga:</b> Plik ustawień nie może zostać odczytany przez Xposed. Kliknij aby uzyskać więcej informacji&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed nie może uzyskać dostępu do pliku ustawień tego modułu, zostaną użyte domyślne ustawienia.
+        Istnieje kilka możliwości aby rozwiązać ten problem. Miej na uwadze, że ten problem
+		występuje również przy pierwszym uruchomieniu aplikacji.<br><br>
+        Po pierwsze, zrestartuj swoję urządzenie (Pełny restart wymagany!).<br>
+        Jeśli to nie pomoże, spróbuj zreinstalować moduł.<br>
+        Jeśli oba sposoby nie zadziałają, sprawdź czy SELinux jądra jest ustawiony na <i>permisywny</i>.
+        <i>Wymuszony</i> SELinux może powodować zablokowanie dostępu do plików konfiguracji. Aby zmienić
+        tryb, użyj aplikacji <tt>SELinuxModeChanger</tt>, którą możesz pobrać
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">w tym wątku na XDA</a>.<br>
+        Jeśli nawet to nie przyniesie rezultatu, będziesz musiał się obyć z domyślnymi ustawieniami, przepraszamy :(
+        ]]></string>
+
     <string name="header_tweaks">Ulepszenia</string>
     <string name="header_app">Aplikacja</string>
 
