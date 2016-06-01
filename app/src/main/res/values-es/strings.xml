@@ -97,6 +97,7 @@
     <string name="keep_qs_panel_bg">Útil para temas que cambian el fondo de los ajustes rápidos</string>
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
+    <string name="battery_tile_show_percentage">Mostrar porcentaje de batería</string>
     <string name="alternative_header_qs_method_title">Alternativa de ajustes rápidos</string>
     <string name="alternative_header_qs_method">Activar cuando hay errores en la posición de los ajustes rápidos</string>
     <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N</string>
