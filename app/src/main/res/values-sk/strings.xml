@@ -65,6 +65,7 @@
     <string name="keep_qs_panel_bg">Užitočné pre témy, ktoré používajú vlastné pozadie panela rýchlych nastavení</string>
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
+    <string name="battery_tile_show_percentage">Zobraziť percentá v dlaždici s batériou</string>
     <string name="alternative_header_qs_method_title">Alternatívna metóda načítania dlaždíc</string>
     <string name="alternative_header_qs_method">Povoľte, ak máte problémy s pozíciou ikon rýchlych nastavení</string>
     <string name="enable_new_tile_click_behavior">Android N správanie dlaždice po klepnutí</string>
@@ -111,6 +112,17 @@
     <string name="update_notification_download_fail">Sťahovanie zlyhalo</string>
     <string name="update_notification_download_fail_details">Chyba pri sťahovaní zostavy %1$d</string>
     <!-- /UPDATE -->
+  
+    <!-- BATTERY -->
+    <string name="battery">Batéria</string>
+    <string name="charged">Nabitá</string>
+    <string name="charging">Nabíjanie, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Upraviť</string>
+    <string name="qs_edit_detail">Upraviť dlaždice</string>
+    <!-- /QS -->
 
     <string name="header_app">Aplikácia</string>
     <string name="app_dark_theme_title">Tmavá téma aplikácie</string>
