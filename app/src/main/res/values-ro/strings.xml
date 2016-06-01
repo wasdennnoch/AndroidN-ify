@@ -2,48 +2,8 @@
 <resources>
 
     <string name="xposed_description">Caracteristici întroduse în Android N pe Lollipop şi Marshmallow!</string>
-    <string name="restart_systemui">Repornire SystemUI</string>
-    <string name="restart_systemui_message">Esti sigur ca vrei să reporneşti SystemUI?</string>
-    <string name="restart_broadcast_sent">S-a trimis mesajul de restart </string>
-    <string name="activity_about">Despre Android N-ify</string>
-    <string name="about_author">Făcut de @MrWasdennnoch</string>
-    <string name="about_translator">Tradus de @Eurofighter_ty (nu toată)</string>
-    <string name="about_version">Versiune %1$s (%2$d)</string> 
-    
-    
-    
+
     <!-- prefs -->
-    <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> Fişierul cu setări nu poate fi citit. Apăsaţi pentru mai multe detalii&#8230;]]></string> 
-    <string name="prefs_not_readable_description"><![CDATA[ 
-         Xposed nu poate citi fişierul cu setări din acest modul. Valorile implicite vor fi folosite.
-         Sunt câteva metode pentru a rezolva problema. Deasemnea această eroare apare daca nu ai deschis niciodată aplicatia<br><br> 
-         Mai întai, reporneste dispozitivul (Nu soft reboot!).<br> 
-         Daca asta nu ajută, atunci incearcă să reinstalezi modulul.<br> 
-         Daca ambele metode nu functionează atunci asigurăte că modul SELinux este setat pe <i>permissive</i>. 
-         <i>Enforcing</i> SELinux poate să blocheze citirea fişierul de setări. Ca să schimbati starea, 
-         utilizaţi aplicaţia <tt>SELinuxModeChanger</tt> pe care îl puteţi descărca 
-         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">în acest post XDA</a>.<br> 
-         Daca toate de mai sus nu funcţioneaza atunci cel mai probabil va trebui să traiţi cu valorile implicite. Sorry :( 
-         ]]></string> 
-         
-    <string name="header_tweaks">Tweaks</string> 
-    <string name="header_app">App</string> 
- 
-    <string name="app_dark_theme_title">Tema neagră aplicaţie</string> 
-    <string name="hide_launcher_icon_title">Ascunde icoana din launcher</string> 
-    <string name="hide_launcher_icon">Poate necesită repornirea launcher-ului</string> 
-    <string name="force_english_title">Forţeaza limba Engleza</string> 
-    <string name="debug_log_title">Log-uri pentru depanare</string> 
-    <string name="debug_log">Avertizare: Log-flooding</string> 
- 
-    <string name="requires_android_version">Necesită Android %1$s</string> 
- 
-    <string name="not_activated">Modulul nu este activat</string> 
- 
-    <string name="theme_colorPrimary">Culoare primară</string> 
-    <!-- /prefs -->
-         
-    <!-- SETTINGS -->
     <string name="header_settings">Setări</string>
     <string name="header_recents">Recente</string>
     <string name="header_app">App</string>
