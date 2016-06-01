@@ -39,9 +39,9 @@
     <string name="debug_log">Ostrzeżenie: powoduje dużo wpisów w dzienniku debugowania</string>
 
     <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
-	
+
 	<string name="not_activated">Moduł nieaktywny</string>
-	
+
 	<string name="theme_colorPrimary">Główny kolor</string>
     <!-- /prefs -->
 
@@ -52,7 +52,7 @@
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
     <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
 	<string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
-    
+
 	<string name="disconnected">Rozłączone</string>
     <string name="disabled">Wyłączone</string>
     <string name="off">WYŁ.</string>
@@ -86,7 +86,7 @@
     <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
 
     <string name="no_previous_recents">Brak poprzedniej aplikacji</string>
-	
+
 	<string name="recents_button_behavior_previous">Wróc do poprzedniej aplikacji</string>
     <string name="recents_button_behavior_current">Wróc do obecnej aplikacji</string>
     <string name="recents_button_behavior_cycle">Przełączaj między aplikacjami</string>
@@ -146,4 +146,14 @@
     <string name="update_notification_download_fail_details">Nie udało się pobrać wersji %1$d</string>
 	<!-- /UPDATE -->
 
+  <!-- BATTERY -->
+  <string name="battery">Bateria</string>
+  <string name="charged">Naładowano</string>
+  <string name="charging">Ładowanie, %1$s</string>
+  <!-- /BATTERY -->
+
+  <!-- QS -->
+  <string name="qs_edit">Edycja</string>
+  <string name="qs_edit_detail">Edytuj pola</string>
+  <!-- /QS -->
 </resources>
