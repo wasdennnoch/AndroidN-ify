@@ -134,7 +134,7 @@
     <!-- /BATTERY -->
 
     <!-- QS -->
-    <string name="qs_edit">Редактировать</string>
+    <string name="qs_edit">Изменить</string>
     <string name="qs_edit_detail">Редактировать плитки</string>
     <!-- /QS -->
 </resources>
