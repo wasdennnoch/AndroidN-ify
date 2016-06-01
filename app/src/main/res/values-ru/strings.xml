@@ -129,4 +129,15 @@
     <string name="update_notification_download_fail_details">Не удалось загрузить билд %1$d</string>
     <!-- /UPDATE -->
     
+    <!-- BATTERY -->
+    <string name="battery">Батарея</string>
+    <string name="charged">Заряжено</string>
+    <string name="charging">Зарядка, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Редактировать</string>
+    <string name="qs_edit_detail">Редактировать плитки</string>
+    <!-- /QS -->
+</resources>
 </resources>
