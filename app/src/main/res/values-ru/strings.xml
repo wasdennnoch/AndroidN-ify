@@ -37,7 +37,6 @@
     <string name="debug_log">Внимание: Лог может занимать много места</string>
     
     <string name="requires_android_version">Требуется Android %1$s</string>
-    
     <string name="not_activated">Модуль не активирован</string>
     
     <string name="theme_colorPrimary">Главный цвет</string>
