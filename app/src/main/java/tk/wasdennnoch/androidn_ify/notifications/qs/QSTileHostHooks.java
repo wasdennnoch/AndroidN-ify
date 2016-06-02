@@ -25,6 +25,7 @@ public class QSTileHostHooks {
 
     public static final String CLASS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
     public static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
+    public static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
     public static final String TILES_SETTING = "sysui_qs_tiles";
     public static final String TILE_SPEC_NAME = "tileSpec";
 
@@ -32,6 +33,7 @@ public class QSTileHostHooks {
     public static List<String> mTileSpecs = null;
 
     private static Class<?> classQSUtils;
+    private static Class<?> classQSConstants;
 
     protected static Object mTileHost = null;
 
@@ -49,11 +51,11 @@ public class QSTileHostHooks {
             if (mTilesManager != null) {
                 Map<String, Object> tileMap = (Map<String, Object>)
                         XposedHelpers.getObjectField(param.thisObject, "mTiles");
-                for (Entry<String,Object> entry : tileMap.entrySet()) {
+                for (Entry<String, Object> entry : tileMap.entrySet()) {
                     XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
                 }
                 tileMap.clear();
-                ((List<?>)XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
+                ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
             }
 
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
@@ -61,7 +63,7 @@ public class QSTileHostHooks {
                 XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
             }
             tileMap.clear();
-            ((List<?>)XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
+            ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
         }
 
         @SuppressWarnings("unchecked")
@@ -139,6 +141,10 @@ public class QSTileHostHooks {
 
             if (RomUtils.isCmBased()) {
                 classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
+                try {
+                    classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
+                } catch (Throwable ignore) {
+                }
             }
 
             if (ConfigUtils.header().enable_qs_editor) {
@@ -206,8 +212,12 @@ public class QSTileHostHooks {
         if (RomUtils.isCmBased()) {
             try {
                 specs = (List<String>) XposedHelpers.callStaticMethod(classQSUtils, "getAvailableTiles", context);
-            } catch (Throwable ignore) {
-
+            } catch (Throwable t) {
+                try {
+                    specs = (ArrayList<String>) ((ArrayList<String>) XposedHelpers.getStaticObjectField(classQSConstants, "TILES_AVAILABLE")).clone();
+                } catch (Throwable t2) {
+                    XposedHook.logW(TAG, "Couldn't fetch available tiles (" + t.getClass().getSimpleName() + " and " + t2.getClass().getSimpleName() + ")");
+                }
             }
         }
         if (specs == null) {
@@ -223,6 +233,7 @@ public class QSTileHostHooks {
             specs.add("location");
             specs.add("cast");
             specs.add("hotspot");
+            specs.addAll(bruteForceSpecs());
         }
         specs.add("battery");
         specs.remove("edit");
@@ -236,4 +247,23 @@ public class QSTileHostHooks {
             XposedBridge.log(t);
         }
     }
+
+    private static List<String> bruteForceSpecs() {
+        XposedHook.logW(TAG, "Brute forcing tile specs!");
+        List<String> specs = new ArrayList<>();
+        String[] possibleSpecs = new String[]{/*"notifications", "data", "roaming", "dds", "apn",*/ "profiles", "performance",
+                "adb_network", "nfc", "compass", "lockscreen", /*"lte", "visualizer",*/ "volume_panel", "screen_timeout",
+                "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine"/*, "edit"*/};
+        for (String s : possibleSpecs) {
+            try {
+                XposedHelpers.callMethod(mTileHost, "createTile", s);
+                specs.add(s);
+            } catch (Throwable ignore) {
+                XposedHook.logD(TAG, "bruteForceSpecs: spec \"" + s + "\" doesn't exist");
+                // Not a applicable tile spec
+            }
+        }
+        return specs;
+    }
+
 }
