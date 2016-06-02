@@ -141,16 +141,19 @@ public class QSTileHostHooks {
                 classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
             }
 
-            XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
-            XposedHelpers.findAndHookMethod(classTileHost, "createTile", String.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    String tileSpec = (String) param.args[0];
-                    if (TilesManager.mCustomTileSpecs.contains(tileSpec)) {
-                        param.setResult(mTilesManager.createTile(tileSpec).getTile());
+            if (ConfigUtils.header().enable_qs_editor) {
+                XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
+                XposedHelpers.findAndHookMethod(classTileHost, "createTile", String.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        String tileSpec = (String) param.args[0];
+                        if (TilesManager.mCustomTileSpecs.contains(tileSpec)) {
+                            param.setResult(mTilesManager.createTile(tileSpec).getTile());
+                        }
                     }
-                }
-            });
+                });
+            }
+
             if (ConfigUtils.header().hide_edit_tiles) {
                 XposedHelpers.findAndHookMethod(classTileHost, "loadTileSpecs", String.class, loadTileSpecsHook);
             }

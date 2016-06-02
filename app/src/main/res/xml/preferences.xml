@@ -124,6 +124,18 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:dependency="enable_notification_header"
+                android:key="allow_fancy_qs_transition"
+                android:title="@string/allow_fancy_qs_transition"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_notification_header"
+                android:key="enable_qs_editor"
+                android:title="@string/enable_qs_editor"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_qs_editor"
                 android:key="battery_tile_show_percentage"
                 android:title="@string/battery_tile_show_percentage"/>
 

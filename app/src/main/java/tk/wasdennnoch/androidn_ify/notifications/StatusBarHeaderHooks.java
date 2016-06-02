@@ -647,7 +647,8 @@ public class StatusBarHeaderHooks {
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);
-        mEditButton.setVisibility((showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE) ? View.GONE : View.VISIBLE);
+        if (mEditButton != null)
+            mEditButton.setVisibility((showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE) ? View.GONE : View.VISIBLE);
         if (mWeatherContainer != null) {
             try {
                 if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather"))
@@ -1150,7 +1151,8 @@ public class StatusBarHeaderHooks {
                         editBtn.setId(R.id.qs_edit);
                         editBtn.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
                         editBtn.setOnClickListener(onClickListener);
-                        layout.addView(editBtn);
+                        if (ConfigUtils.header().enable_qs_editor)
+                            layout.addView(editBtn);
 
                         mEditButton = editBtn;
                     }
