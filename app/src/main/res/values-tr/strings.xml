@@ -26,7 +26,6 @@
     <string name="debug_log">Dikkat: Log-flooding</string>
 
     <string name="requires_android_version">Android %1$s sürümü gerekir</string>
-
     <string name="not_activated">Modül aktif değil</string>
 
     <string name="theme_colorPrimary">Ana renk</string>
