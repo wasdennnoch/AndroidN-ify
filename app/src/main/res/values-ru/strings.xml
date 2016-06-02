@@ -37,10 +37,11 @@
     <string name="debug_log">Внимание: Лог может занимать много места</string>
     
     <string name="requires_android_version">Требуется Android %1$s</string>
-    
     <string name="not_activated">Модуль не активирован</string>
     
     <string name="theme_colorPrimary">Главный цвет</string>
+    
+    <string name="header_lockscreen">Экран блокировки</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -144,6 +145,38 @@
     <string name="update_notification_download_fail">Загрузка не удалась</string>
     <string name="update_notification_download_fail_details">Не удалось загрузить билд %1$d</string>
     <!-- /UPDATE -->
+    
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Экстренная Информация</string>
+    <string name="enable_emergency_info_title">Активировать Экстренную Информацию</string>
+    <string name="edit_emergency_info_title">Редактировать Экстренную Информацию</string>
+ 
+    <string name="header_personal">Персональная информация</string>
+    <string name="info_fullname">Полное имя</string>
+    <string name="info_address">Адрес</string>
+    <string name="info_birthdate">Дата рождения</string>
+ 
+    <string name="header_medical">Медицина</string>
+    <string name="info_bloodtype">Группа крови</string>
+    <string name="info_allergies">Аллергия</string>
+    <string name="info_medications">Лекарства</string>
+    <string name="info_medicalnotes">Медицинские рекомендации и примечания</string>
+    <string name="info_organdonor">Донор</string>
+ 
+    <string name="info_unspecified">Не указано</string>
+ 
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+    
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
     
     <!-- BATTERY -->
     <string name="battery">Батарея</string>
