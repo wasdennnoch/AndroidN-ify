@@ -88,6 +88,8 @@
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
     <string name="notification_header_qs_tiles_count_monitor">kare</string>
     <string name="battery_tile_show_percentage">Pil yüzde skalasını göster</string>
+    <string name="enable_qs_editor">Hızlı Ayarlar düzenleyiciyi etkinleştirme</string>
+    <string name="allow_fancy_qs_transition">Aşırı Hızlı Ayarlara geçiş</string>
     <string name="alternative_header_qs_method_title">Alternatif Hızlı Ayarlar yükleme yöntemi</string>
     <string name="alternative_header_qs_method">Hızlı Ayarlar simgelerinde konumlandırma sorunları olduğunda etkinleştirin.</string>
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
