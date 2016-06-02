@@ -99,6 +99,8 @@
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="battery_tile_show_percentage">Show percentage in battery tile</string>
+    <string name="enable_qs_editor">Enable QS editor</string>
+    <string name="allow_fancy_qs_transition">Fancy QS transition</string>
     <string name="alternative_header_qs_method_title">Alternative QS loading method</string>
     <string name="alternative_header_qs_method">Enable when there are positioning issues with the QS icons</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>

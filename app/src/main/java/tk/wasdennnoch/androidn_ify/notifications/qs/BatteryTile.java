@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 
 public class BatteryTile extends QSTile implements BatteryInfoManager.BatteryStatusListener {
@@ -87,7 +88,6 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     public class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener {
         private final int[] LEVELS = new int[] { 4, 15, 100 };
         private final int[] COLORS = new int[] { 0xFFFF3300, 0xFFFF3300, 0xFFFFFFFF };
-        private static final int BOLT_COLOR = 0xB2000000;
         private static final int FULL = 96;
 
         private static final float SUBPIXEL = 0.4f;  // inset rects for softer edges
@@ -175,7 +175,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             }
 
             mWarningTextPaint.setColor(COLORS[0]);
-            mBoltPaint.setColor(BOLT_COLOR);
+            mBoltPaint.setColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("batterymeter_bolt_color", "color", XposedHook.PACKAGE_SYSTEMUI)));
             mChargeColor = mainColor;
             invalidate();
         }
