@@ -3,47 +3,26 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.KeyguardManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.RippleDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
-import android.text.Html;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.io.File;
 import java.util.Calendar;
-import java.util.Date;
 
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference;
 import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
-import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class EmergencyInfoActivity extends Activity {
 
@@ -87,8 +66,8 @@ public class EmergencyInfoActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static class InfoFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener, DatePickerDialog.OnDateSetListener, SharedPreferences.OnSharedPreferenceChangeListener
-    {
+    public static class InfoFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener,
+            DatePickerDialog.OnDateSetListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
         private EmergencyInfoActivity mActivity;
 
@@ -182,7 +161,7 @@ public class EmergencyInfoActivity extends Activity {
             return true;
         }
 
-        private void showDateDialog(){
+        private void showDateDialog() {
             Calendar c = getBirthDate();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);

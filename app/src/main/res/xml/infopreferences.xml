@@ -8,16 +8,17 @@
 
         <EditTextPreference
             android:key="info_fullname"
-            android:title="@string/info_fullname"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:title="@string/info_fullname"/>
 
         <EditTextPreference
             android:key="info_address"
-            android:title="@string/info_address" />
+            android:title="@string/info_address"/>
 
         <Preference
             android:key="info_birthdate"
-            android:title="@string/info_birthdate" />
+            android:title="@string/info_birthdate"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -25,30 +26,31 @@
         android:title="@string/header_medical">
 
         <ListPreference
-            android:key="info_bloodtype"
-            android:title="@string/info_bloodtype"
+            android:defaultValue="@string/info_unspecified"
             android:entries="@array/info_blood_types"
             android:entryValues="@array/info_blood_types"
-            android:defaultValue="@string/info_unspecified" />
+            android:key="info_bloodtype"
+            android:title="@string/info_bloodtype"/>
 
         <EditTextPreference
             android:key="info_allergies"
-            android:title="@string/info_allergies" />
+            android:title="@string/info_allergies"/>
 
         <EditTextPreference
             android:key="info_medications"
-            android:title="@string/info_medications" />
+            android:title="@string/info_medications"/>
 
         <EditTextPreference
             android:key="info_medicalnotes"
-            android:title="@string/info_medicalnotes" />
+            android:title="@string/info_medicalnotes"/>
 
         <ListPreference
-            android:key="info_organdonor"
-            android:title="@string/info_organdonor"
+            android:defaultValue="@string/info_unspecified"
             android:entries="@array/info_organdonor_values"
             android:entryValues="@array/info_organdonor_values"
-            android:defaultValue="@string/info_unspecified" />
+            android:key="info_organdonor"
+            android:title="@string/info_organdonor"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

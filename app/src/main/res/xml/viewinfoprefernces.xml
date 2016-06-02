@@ -8,15 +8,16 @@
 
         <Preference
             android:key="info_fullname"
-            android:title="@string/info_fullname" />
+            android:title="@string/info_fullname"/>
 
         <Preference
             android:key="info_address"
-            android:title="@string/info_address" />
+            android:title="@string/info_address"/>
 
         <Preference
             android:key="info_birthdate"
-            android:title="@string/info_birthdate" />
+            android:title="@string/info_birthdate"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -24,26 +25,27 @@
         android:title="@string/header_medical">
 
         <Preference
+            android:defaultValue="@string/info_unspecified"
             android:key="info_bloodtype"
-            android:title="@string/info_bloodtype"
-            android:defaultValue="@string/info_unspecified" />
+            android:title="@string/info_bloodtype"/>
 
         <Preference
             android:key="info_allergies"
-            android:title="@string/info_allergies" />
+            android:title="@string/info_allergies"/>
 
         <Preference
             android:key="info_medications"
-            android:title="@string/info_medications" />
+            android:title="@string/info_medications"/>
 
         <Preference
             android:key="info_medicalnotes"
-            android:title="@string/info_medicalnotes" />
+            android:title="@string/info_medicalnotes"/>
 
         <Preference
+            android:defaultValue="@string/info_unspecified"
             android:key="info_organdonor"
-            android:title="@string/info_organdonor"
-            android:defaultValue="@string/info_unspecified" />
+            android:title="@string/info_organdonor"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

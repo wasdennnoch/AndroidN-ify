@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Process;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -850,21 +849,12 @@ public class StatusBarHeaderHooks {
 
     private static class CustomItemTouchHelper extends ItemTouchHelper {
 
-        /**
-         * Creates an ItemTouchHelper that will work with the given Callback.
-         * <p>
-         * You can attach ItemTouchHelper to a RecyclerView via
-         * {@link #attachToRecyclerView(RecyclerView)}. Upon attaching, it will add an item decoration,
-         * an onItemTouchListener and a Child attach / detach listener to the RecyclerView.
-         *
-         * @param callback The Callback which controls the behavior of this touch helper.
-         */
         public CustomItemTouchHelper(Callback callback) {
             super(callback);
         }
 
         @Override
-        public void attachToRecyclerView(@Nullable RecyclerView recyclerView) {
+        public void attachToRecyclerView(RecyclerView recyclerView) {
             try {
                 RecyclerView oldRecyclerView = (RecyclerView) XposedHelpers.getObjectField(this, "mRecyclerView");
                 if (oldRecyclerView == recyclerView) {
@@ -884,7 +874,6 @@ public class StatusBarHeaderHooks {
     }
 
     public interface OnStartDragListener {
-
         void onStartDrag(RecyclerView.ViewHolder viewHolder);
     }
 
