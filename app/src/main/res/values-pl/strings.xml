@@ -37,10 +37,11 @@
     <string name="debug_log">Ostrzeżenie: powoduje dużo wpisów w dzienniku debugowania</string>
 
     <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
-    
     <string name="not_activated">Moduł nieaktywny</string>
-    
+
     <string name="theme_colorPrimary">Główny kolor</string>
+
+    <string name="header_lockscreen">Ekran blokady</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -50,7 +51,7 @@
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
     <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
     <string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
-    
+
     <string name="disconnected">Rozłączone</string>
     <string name="disabled">Wyłączone</string>
     <string name="off">WYŁ.</string>
@@ -84,7 +85,7 @@
     <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
 
     <string name="no_previous_recents">Brak poprzedniej aplikacji</string>
-    
+
     <string name="recents_button_behavior_previous">Wróc do poprzedniej aplikacji</string>
     <string name="recents_button_behavior_current">Wróc do obecnej aplikacji</string>
     <string name="recents_button_behavior_cycle">Przełączaj między aplikacjami</string>
@@ -98,6 +99,8 @@
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
     <string name="battery_tile_show_percentage">Pokaż procent naładowania baterii w kafelku</string>
+    <string name="enable_qs_editor">Włącz edytor szybkich ustawień</string>
+    <string name="allow_fancy_qs_transition">Efektowna animacja szybkich ustawień</string>
     <string name="alternative_header_qs_method_title">Alternatywna metoda ładowania szybich ustawień</string>
     <string name="alternative_header_qs_method">Włącz kiedy są problemy z pozycjonowaniem kafelków szybkich ustawień</string>
     <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
@@ -144,7 +147,39 @@
     <string name="update_notification_download_fail">Pobieranie nie udane</string>
     <string name="update_notification_download_fail_details">Nie udało się pobrać wersji %1$d</string>
     <!-- /UPDATE -->
-    
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Informacje Awaryjne</string>
+    <string name="enable_emergency_info_title">Włącz Informacje Awaryjne</string>
+    <string name="edit_emergency_info_title">Edytuj Informacje Awaryjne</string>
+
+    <string name="header_personal">Osobiste</string>
+    <string name="info_fullname">Imię i Nazwisko</string>
+    <string name="info_address">Adres</string>
+    <string name="info_birthdate">Data urodzenia</string>
+
+    <string name="header_medical">Medyczne</string>
+    <string name="info_bloodtype">Grupa krwi</string>
+    <string name="info_allergies">Alergie</string>
+    <string name="info_medications">Zażywane leki</string>
+    <string name="info_medicalnotes">Stan medyczny i notatki</string>
+    <string name="info_organdonor">Dawca organów</string>
+
+    <string name="info_unspecified">Nie określono</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+
     <!-- BATTERY -->
     <string name="battery">Bateria</string>
     <string name="charged">Naładowana</string>
