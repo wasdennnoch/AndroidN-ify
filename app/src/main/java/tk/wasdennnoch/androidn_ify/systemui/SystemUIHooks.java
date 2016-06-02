@@ -9,8 +9,10 @@ import android.os.Handler;
 import android.os.Process;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.notifications.qs.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 
 public class SystemUIHooks {
@@ -18,6 +20,8 @@ public class SystemUIHooks {
     private static final String TAG = "SystemUIHooks";
 
     private static final String CLASS_SYSTEMUI_APPLICATION = "com.android.systemui.SystemUIApplication";
+
+    public static BatteryInfoManager batteryInfoManager;
 
     public static void hookSystemUI(ClassLoader classLoader) {
 
@@ -28,6 +32,8 @@ public class SystemUIHooks {
 
                 Application app = (Application) param.thisObject;
                 final Handler handler = new Handler(app.getMainLooper());
+
+                batteryInfoManager = new BatteryInfoManager(app);
 
                 IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction(SettingsActivity.ACTION_GENERAL);

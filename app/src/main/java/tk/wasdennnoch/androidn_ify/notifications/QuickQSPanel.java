@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.notifications.qs.BatteryTile;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -29,13 +31,23 @@ public class QuickQSPanel extends LinearLayout {
     private ResourceUtils mRes;
     private ArrayList<Object> mRecords = new ArrayList<>();
     private ArrayList<ViewGroup> mTileViews = new ArrayList<>();
+    private ArrayList<View> mIconViews = new ArrayList<>();
+    private ArrayList<View> mTopFiveQs = new ArrayList<>();
+    private BatteryTile.BatteryView mBatteryView;
+    private TouchAnimator mTranslationXAnimator;
+    private TouchAnimator mTranslationYAnimator;
+    private TouchAnimator mFirstPageDelayedAnimator;
+    private TouchAnimator mTopFiveQsAnimator;
+    private float oldPosition = 0;
     private boolean mAlternativeQSMethod;
+    private boolean mShowPercent;
 
     public QuickQSPanel(Context context) {
         super(context);
         ConfigUtils config = ConfigUtils.getInstance();
         mRes = ResourceUtils.getInstance(context);
         mMaxTiles = config.header.qs_tiles_count;
+        mShowPercent = config.header.battery_tile_show_percentage;
         mAlternativeQSMethod = config.header.alternative_quick_qs_method;
         setOrientation(VERTICAL);
         int m = mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
@@ -56,6 +68,11 @@ public class QuickQSPanel extends LinearLayout {
         mTileLayout.removeTiles();
         mTileViews.clear();
         mRecords.clear();
+        mIconViews.clear();
+        mTranslationXAnimator = null;
+        mTranslationYAnimator = null;
+        mFirstPageDelayedAnimator = null;
+        mTopFiveQsAnimator = null;
         for (int i = 0; i < mMaxTiles && i < tileRecords.size(); i++) {
             Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
@@ -77,6 +94,131 @@ public class QuickQSPanel extends LinearLayout {
                 XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
             }
         }
+    }
+
+    public void setupAnimators() {
+        mTopFiveQs.clear();
+        int j = 0;
+        TouchAnimator.Builder builder = new TouchAnimator.Builder();
+        TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
+        TouchAnimator.Builder builder2 = new TouchAnimator.Builder();
+        TouchAnimator.Builder builder3 = new TouchAnimator.Builder();
+        for (int i = 0; i < mIconViews.size(); i++) {
+            Object tilerecord = mRecords.get(i);
+            View tileView = mIconViews.get(i);
+            final ViewGroup qsTileView = (ViewGroup) XposedHelpers.getObjectField(tilerecord, "tileView");
+
+            int ai[] = new int[2];
+            int ai1[] = new int[2];
+
+            getRelativePosition(ai, tileView, StatusBarHeaderHooks.mStatusBarHeaderView);
+            getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
+            int k = ai1[0] - ai[0];
+            int i1 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2) + getHeight();
+
+            j = ai[0] - j;
+            builder.addFloat(tileView, "translationX", 0f, (float) k);
+            builder1.addFloat(tileView, "translationY", 0f, (float) i1);
+
+            builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
+            builder1.addFloat(qsTileView, "translationY", (float) -i1 + (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight")
+                            + StatusBarHeaderHooks.mQsContainer.getPaddingBottom(), 0f);
+
+            mTopFiveQs.add(findIcon(qsTileView));
+        }
+        builder2.setStartDelay(0.7f);
+        builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
+        builder2.addFloat(StatusBarHeaderHooks.mEditButton, "alpha", 0f, 1f);
+        builder3.setStartDelay(0.9f);
+        mTranslationXAnimator = builder.build();
+        mTranslationYAnimator = builder1.build();
+        mFirstPageDelayedAnimator = builder2.build();
+        mTopFiveQsAnimator = builder3.build();
+    }
+
+    public void setPosition(float f) {
+        boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null);
+        if (!readyToAnimate && (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD)) {
+            setupAnimators();
+        }
+        if (!StatusBarHeaderHooks.mShowingDetail || f == 0) {
+            if (oldPosition == 1 && f != oldPosition) {
+                onAnimationStarted();
+            }
+            if (oldPosition != 1 && f == 1) {
+                onAnimationAtEnd();
+            }
+            if (oldPosition == 0 && f != oldPosition) {
+                onAnimationStarted();
+            }
+            if (readyToAnimate) {
+                mTranslationXAnimator.setPosition(f);
+                mTranslationYAnimator.setPosition(f);
+                mFirstPageDelayedAnimator.setPosition(f);
+                mTopFiveQsAnimator.setPosition(f);
+                if (mShowPercent && oldPosition < 0.7f && f >= 0.7f) {
+                    mBatteryView.setShowPercent(false);
+                    mBatteryView.postInvalidate();
+                }
+                if (mShowPercent && oldPosition >= 0.7f && f < 0.7f) {
+                    mBatteryView.setShowPercent(true);
+                    mBatteryView.postInvalidate();
+                }
+            }
+            oldPosition = f;
+        } else {
+            if (getVisibility() != INVISIBLE)
+                setVisibility(INVISIBLE);
+        }
+    }
+
+    private void getRelativePosition(int ai[], View view, View view1)
+    {
+        ai[0] = view.getWidth() / 2;
+        ai[1] = 0;
+        getRelativePositionInt(ai, view, view1);
+    }
+
+    private void getRelativePositionInt(int ai[], View view, View view1)
+    {
+        if (view != null && view != view1) {
+            ai[0] = (int)((float)ai[0] + view.getX());
+            ai[1] = ai[1] + view.getTop();
+            getRelativePositionInt(ai, (View)view.getParent(), view1);
+        }
+    }
+
+    public void onAnimationAtEnd() {
+        setVisibility(INVISIBLE);
+        int j = mTopFiveQs.size();
+        for (int i = 0; i < j; i++)
+        {
+            mTopFiveQs.get(i).setVisibility(VISIBLE);
+        }
+    }
+
+    public void onAnimationStarted() {
+        if (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD) {
+            setVisibility(VISIBLE);
+            int j = mTopFiveQs.size();
+            for (int i = 0; i < j; i++)
+            {
+                mTopFiveQs.get(i).setVisibility(INVISIBLE);
+            }
+        } else {
+            onAnimationAtEnd();
+        }
+    }
+
+    private View findIcon(ViewGroup view) {
+        int children = view.getChildCount();
+        for (int i = 0; i < children; i++) {
+            View child = view.getChildAt(i);
+            if (child.getId() == android.R.id.icon || child instanceof FrameLayout) {
+                return child;
+            }
+        }
+        return view;
     }
 
     private class HeaderTileLayout extends LinearLayout {
@@ -171,6 +313,15 @@ public class QuickQSPanel extends LinearLayout {
                             finalIconView.getBackground().setHotspot(finalIconView.getWidth() / 2, finalIconView.getHeight() / 2);
                         }
                     });
+                    if (mShowPercent && iconView instanceof FrameLayout) {
+                        if (((FrameLayout) iconView).getChildAt(0) != null) {
+                            View frameChild = ((FrameLayout) iconView).getChildAt(0);
+                            if (frameChild instanceof BatteryTile.BatteryView) {
+                                mBatteryView = (BatteryTile.BatteryView) frameChild;
+                                mBatteryView.setShowPercent(true);
+                            }
+                        }
+                    }
                 } else {
                     child.setVisibility(GONE);
                 }
@@ -194,6 +345,7 @@ public class QuickQSPanel extends LinearLayout {
             view.setPadding(p, p, p, p);
             container.addView(view, generateLayoutParams());
             addView(container, position, generateContainerLayoutParams());
+            mIconViews.add(view);
         }
 
         public void removeTiles() {

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="xposed_description">Функции Android N на устройствах Lollipop и Marshmallow!</string>
 
@@ -14,6 +12,19 @@
     <string name="about_translator">Перевёл @vl_w</string>
 
     <!-- prefs -->
+    <string name="prefs_not_readable"><![CDATA[<b>Предупреждение:</b> Файл конфигурации не может быть прочитан Xposed. Нажмите для подробной информации&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+         Xposed не может прочитать файл конфигурации для этого модуля, будут использованы стандартные значения.
+         Приведем несколько путей к решению данной проблемы. Также учтите, что эта ошибка может возникнуть, если
+         Вы открыли это приложение первый раз.<br><br>
+         Дли начала, перезагрузите устройство (Не мягкой перезагрузкой!).<br>
+         Если это не помогло, попробуйте переустановить модуль.<br>
+         Если предыдущие советы не помогли, попробуйте сменить режим SELinux на <i>разрешающий</i>.
+         <i>Блокирующий</i> режим SELinux может блокировать доступ к файлу конфигурации. Для смены режима SELinux
+         используйте приложение <tt>SELinuxModeChanger</tt>, которое можно скачать
+         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">в этой теме на XDA</a>.<br>
+         Если ничего из вышеперечисленного не помогло, то, скорее всего, придется жить со стандартными значениями, извините :(
+         ]]></string>
 
     <string name="header_tweaks">Твики</string>
     <string name="header_app">Приложение</string>
@@ -82,8 +93,13 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Шапка статус-бара</string>
     <string name="enable_notification_header">Изменить стиль шапки статус-бара</string>
+    <string name="keep_qs_panel_bg_title">Не изменять фон быстрых настроек</string>
+    <string name="keep_qs_panel_bg">Полезно для тем, которые используют свой фон для панели быстрых настроек</string>
     <string name="notification_header_qs_tiles_count">Количество значков в верхней панели</string>
     <string name="notification_header_qs_tiles_count_monitor">значков</string>
+    <string name="battery_tile_show_percentage">Показывать проценты на плитке с аккумулятором</string>
+    <string name="alternative_header_qs_method_title">Альтернативный метод загрузки панели быстрого доступа</string>
+    <string name="alternative_header_qs_method">Включите, если есть проблемы с размещением плиток быстрого доступа</string>
     <string name="enable_new_tile_click_behavior">Переключать быстрые настройки одним кликом</string>
     <string name="enable_new_tile_click_behavior_summary">Нажатие на плитку в строке быстрого доступа переключит состояние, не открыв меню парамера</string>
     <string name="enable_large_first_row">Увеличить первую строку</string>
@@ -129,4 +145,14 @@
     <string name="update_notification_download_fail_details">Не удалось загрузить билд %1$d</string>
     <!-- /UPDATE -->
     
+    <!-- BATTERY -->
+    <string name="battery">Батарея</string>
+    <string name="charged">Заряжено</string>
+    <string name="charging">Зарядка, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Изменить</string>
+    <string name="qs_edit_detail">Редактировать плитки</string>
+    <!-- /QS -->
 </resources>

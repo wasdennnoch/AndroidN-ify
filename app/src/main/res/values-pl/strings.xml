@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="xposed_description">Dodaje funkcje wprowadzone w Android N do Androida Lollipop i Marshmallow!</string>
 
@@ -18,11 +16,11 @@
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed nie może uzyskać dostępu do pliku ustawień tego modułu, zostaną użyte domyślne ustawienia.
         Istnieje kilka możliwości aby rozwiązać ten problem. Miej na uwadze, że ten problem
-		występuje również przy pierwszym uruchomieniu aplikacji.<br><br>
+        występuje również przy pierwszym uruchomieniu aplikacji.<br><br>
         Po pierwsze, zrestartuj swoję urządzenie (Pełny restart wymagany!).<br>
         Jeśli to nie pomoże, spróbuj zreinstalować moduł.<br>
         Jeśli oba sposoby nie zadziałają, sprawdź czy SELinux jądra jest ustawiony na <i>permisywny</i>.
-        <i>Wymuszony</i> SELinux może powodować zablokowanie dostępu do plików konfiguracji. Aby zmienić
+        SELinux w trybie <i>wymuszony</i> może powodować zablokowanie dostępu do plików konfiguracji.<br> Aby zmienić
         tryb, użyj aplikacji <tt>SELinuxModeChanger</tt>, którą możesz pobrać
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">w tym wątku na XDA</a>.<br>
         Jeśli nawet to nie przyniesie rezultatu, będziesz musiał się obyć z domyślnymi ustawieniami, przepraszamy :(
@@ -31,18 +29,18 @@
     <string name="header_tweaks">Ulepszenia</string>
     <string name="header_app">Aplikacja</string>
 
-	<string name="app_dark_theme_title">Ciemny motyw aplikacji</string>
+    <string name="app_dark_theme_title">Ciemny motyw aplikacji</string>
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
     <string name="force_english_title">Wymuś język angielski</string>
-	<string name="debug_log_title">Włącz debugowanie</string>
+    <string name="debug_log_title">Włącz debugowanie</string>
     <string name="debug_log">Ostrzeżenie: powoduje dużo wpisów w dzienniku debugowania</string>
 
     <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
-	
-	<string name="not_activated">Moduł nieaktywny</string>
-	
-	<string name="theme_colorPrimary">Główny kolor</string>
+    
+    <string name="not_activated">Moduł nieaktywny</string>
+    
+    <string name="theme_colorPrimary">Główny kolor</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -51,9 +49,9 @@
     <string name="enable_settings_summaries">Pokaż najważniejsze informacje bezpośrednio w menu ustawień</string>
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
     <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
-	<string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
+    <string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
     
-	<string name="disconnected">Rozłączone</string>
+    <string name="disconnected">Rozłączone</string>
     <string name="disabled">Wyłączone</string>
     <string name="off">WYŁ.</string>
     <string name="on">WŁ.</string>
@@ -86,11 +84,11 @@
     <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
 
     <string name="no_previous_recents">Brak poprzedniej aplikacji</string>
-	
-	<string name="recents_button_behavior_previous">Wróc do poprzedniej aplikacji</string>
+    
+    <string name="recents_button_behavior_previous">Wróc do poprzedniej aplikacji</string>
     <string name="recents_button_behavior_current">Wróc do obecnej aplikacji</string>
     <string name="recents_button_behavior_cycle">Przełączaj między aplikacjami</string>
-	<!-- /RECENTS -->
+    <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Pasek statusu</string>
@@ -99,9 +97,10 @@
     <string name="keep_qs_panel_bg">Użyteczne dla stylów, które zmieniają tło panelu szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
+    <string name="battery_tile_show_percentage">Pokaż procent naładowania baterii w kafelku</string>
     <string name="alternative_header_qs_method_title">Alternatywna metoda ładowania szybich ustawień</string>
     <string name="alternative_header_qs_method">Włącz kiedy są problemy z pozycjonowaniem kafelków szybkich ustawień</string>
-	<string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
+    <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
     <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go \na dotknięcie kafelka w panelu rozszerzy go</string>
     <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
     <string name="enable_large_first_row_summary">Na CM użyj menu konfiguracji aby edytować kafelki</string>
@@ -144,6 +143,16 @@
     <string name="update_notification_downloading_details">Pobieranie wersji %1$d</string>
     <string name="update_notification_download_fail">Pobieranie nie udane</string>
     <string name="update_notification_download_fail_details">Nie udało się pobrać wersji %1$d</string>
-	<!-- /UPDATE -->
+    <!-- /UPDATE -->
+    
+    <!-- BATTERY -->
+    <string name="battery">Bateria</string>
+    <string name="charged">Naładowana</string>
+    <string name="charging">Ładowanie, %1$s</string>
+    <!-- /BATTERY -->
 
+    <!-- QS -->
+    <string name="qs_edit">Edycja</string>
+    <string name="qs_edit_detail">Edytuj kafelki</string>
+    <!-- /QS -->
 </resources>

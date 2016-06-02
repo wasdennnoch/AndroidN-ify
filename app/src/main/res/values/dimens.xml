@@ -18,6 +18,10 @@
     <dimen name="qs_quick_tile_size">48dip</dimen>
     <dimen name="qs_quick_tile_padding">12dip</dimen>
 
+    <dimen name="qs_edit_tile_size">88dp</dimen>
+    <dimen name="lib_item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
+    <dimen name="qs_panel_margin_bottom">40dp</dimen>
+
     <dimen name="header_items_margin_top">8dp</dimen>
     <dimen name="brightness_slider_padding_top">-12dp</dimen>
     <dimen name="emergency_calls_only_text_size">12sp</dimen>

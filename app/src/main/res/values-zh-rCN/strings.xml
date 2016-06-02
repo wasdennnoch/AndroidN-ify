@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="xposed_description">将 Android N 内的特性移植到 Lollipop 和 Marshmallow 版本的 rom 中！</string>
 
@@ -99,6 +97,7 @@
     <string name="keep_qs_panel_bg">对所用主题内包含有自定义快速设置面板背景的用户有帮助</string>
     <string name="notification_header_qs_tiles_count">顶栏内的磁贴数量</string>
     <string name="notification_header_qs_tiles_count_monitor">个</string>
+    <string name="battery_tile_show_percentage">在电池磁贴内显示电量百分比</string>
     <string name="alternative_header_qs_method_title">备选的快速设置加载方案</string>
     <string name="alternative_header_qs_method">当快速设置磁贴出现位置错误时启用该选项</string>
     <string name="enable_new_tile_click_behavior">启用安卓 N 式磁贴点击行为</string>
@@ -146,4 +145,14 @@
     <string name="update_notification_download_fail_details">无法下载版本 %1$d 的更新</string>
     <!-- /UPDATE -->
 
+    <!-- BATTERY -->
+    <string name="battery">电池</string>
+    <string name="charged">已充满</string>
+    <string name="charging">正在充电，%1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">编辑</string>
+    <string name="qs_edit_detail">编辑磁贴</string>
+    <!-- /QS -->
 </resources>

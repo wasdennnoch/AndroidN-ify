@@ -124,6 +124,12 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:dependency="enable_notification_header"
+                android:key="battery_tile_show_percentage"
+                android:title="@string/battery_tile_show_percentage"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_notification_header"
                 android:key="enable_new_tile_click_behavior"
                 android:summary="@string/enable_new_tile_click_behavior_summary"
                 android:title="@string/enable_new_tile_click_behavior"/>
