@@ -37,10 +37,11 @@
     <string name="debug_log">Warning: Log-flooding</string>
 
     <string name="requires_android_version">Requires Android %1$s</string>
-
     <string name="not_activated">Module not activated</string>
 
     <string name="theme_colorPrimary">Primary color</string>
+
+    <string name="header_lockscreen">Lock screen</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -144,6 +145,38 @@
     <string name="update_notification_download_fail">Download failed</string>
     <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
     <!-- /UPDATE -->
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Emergency Info</string>
+    <string name="enable_emergency_info_title">Enable Emergency Info</string>
+    <string name="edit_emergency_info_title">Edit Emergency Info</string>
+
+    <string name="header_personal">Personal</string>
+    <string name="info_fullname">Full name</string>
+    <string name="info_address">Address</string>
+    <string name="info_birthdate">Date of birth</string>
+
+    <string name="header_medical">Medical</string>
+    <string name="info_bloodtype">Blood type</string>
+    <string name="info_allergies">Allergies</string>
+    <string name="info_medications">Medications</string>
+    <string name="info_medicalnotes">Medical conditions and notes</string>
+    <string name="info_organdonor">Organ donor</string>
+
+    <string name="info_unspecified">None specified</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!-- BATTERY -->
     <string name="battery">Battery</string>

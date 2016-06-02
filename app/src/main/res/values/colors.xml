@@ -17,6 +17,9 @@
     <color name="notification_action_list">#FFEEEEEE</color>
     <!-- /Notifications / Status bar header -->
 
+    <color name="ripple_dark">#33ffffff</color>
+    <color name="ripple_light">#1f000000</color>
+
     <array name="theme_colors">
         <item>@color/md_red_500</item>
         <item>@color/md_pink_500</item>

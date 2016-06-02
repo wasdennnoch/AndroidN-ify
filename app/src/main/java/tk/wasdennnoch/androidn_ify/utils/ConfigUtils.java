@@ -20,6 +20,7 @@ public class ConfigUtils {
     public RecentsConfig recents;
     public StatusBarHeaderConfig header;
     public NotificationsConfig notifications;
+    public LockscreenConfig lockscreen;
 
     private ConfigUtils() {
         mInstance = this;
@@ -37,6 +38,7 @@ public class ConfigUtils {
         recents = new RecentsConfig(mPrefs);
         header = new StatusBarHeaderConfig(mPrefs);
         notifications = new NotificationsConfig(mPrefs);
+        lockscreen = new LockscreenConfig(mPrefs);
     }
 
     public static ConfigUtils getInstance() {
@@ -59,6 +61,10 @@ public class ConfigUtils {
 
     public static NotificationsConfig notifications() {
         return getInstance().notifications;
+    }
+
+    public static LockscreenConfig lockscreen() {
+        return getInstance().lockscreen;
     }
 
     public class SettingsConfig {
@@ -172,6 +178,14 @@ public class ConfigUtils {
                 XposedHook.logE(TAG, "Error loading blacklisted apps", e);
             }
             blacklistedApps = apps;
+        }
+    }
+
+    public class LockscreenConfig {
+        public boolean enable_emergency_info;
+
+        public LockscreenConfig(XSharedPreferences prefs) {
+            enable_emergency_info = prefs.getBoolean("enable_emergency_info", false);
         }
     }
 

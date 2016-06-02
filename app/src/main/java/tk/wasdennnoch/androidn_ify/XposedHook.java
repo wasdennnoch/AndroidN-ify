@@ -11,6 +11,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import tk.wasdennnoch.androidn_ify.emergency.EmergencyHooks;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
 import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
@@ -43,6 +44,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_ANDROID = "android";
     public static final String PACKAGE_SYSTEMUI = "com.android.systemui";
     public static final String PACKAGE_SETTINGS = "com.android.settings";
+    public static final String PACKAGE_PHONE = "com.android.phone";
     public static final String PACKAGE_OWN = "tk.wasdennnoch.androidn_ify";
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
 
@@ -124,6 +126,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 if (!sPrefs.getBoolean("can_read_prefs", false))
                     XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isPrefsFileReadable", XC_MethodReplacement.returnConstant(false));
                 break;
+            case PACKAGE_PHONE:
+                new EmergencyHooks().hook(lpparam.classLoader);
         }
 
         // Has to be hooked in every app as every app creates own instances of the Notification.Builder
