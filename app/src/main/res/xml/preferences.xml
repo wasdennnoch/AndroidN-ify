@@ -233,6 +233,26 @@
 
         </PreferenceScreen>
 
+        <PreferenceScreen
+            android:key="settings_lockscreen"
+            android:title="@string/header_lockscreen">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="enable_emergency_info"
+                android:title="@string/enable_emergency_info_title"/>
+
+            <PreferenceScreen
+                android:dependency="enable_emergency_info"
+                android:key="edit_emergency_info"
+                android:title="@string/edit_emergency_info_title">
+                <intent android:action="tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity">
+                    <extra android:name="editable" android:value="true" />
+                </intent>
+            </PreferenceScreen>
+
+        </PreferenceScreen>
+
     </PreferenceCategory>
 
     <PreferenceCategory

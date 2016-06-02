@@ -64,7 +64,16 @@
             android:parentActivityName=".ui.SettingsActivity">
             <intent-filter>
                 <action android:name="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity" />
-
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.EmergencyInfoActivity"
+            android:showOnLockScreen="true"
+            android:theme="@android:style/Theme.Material.Light.DarkActionBar"
+            android:label="@string/emergency_info"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

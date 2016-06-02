@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="info_personal"
+        android:title="@string/header_personal">
+
+        <Preference
+            android:key="info_fullname"
+            android:title="@string/info_fullname" />
+
+        <Preference
+            android:key="info_address"
+            android:title="@string/info_address" />
+
+        <Preference
+            android:key="info_birthdate"
+            android:title="@string/info_birthdate" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="info_medical"
+        android:title="@string/header_medical">
+
+        <Preference
+            android:key="info_bloodtype"
+            android:title="@string/info_bloodtype"
+            android:defaultValue="@string/info_unspecified" />
+
+        <Preference
+            android:key="info_allergies"
+            android:title="@string/info_allergies" />
+
+        <Preference
+            android:key="info_medications"
+            android:title="@string/info_medications" />
+
+        <Preference
+            android:key="info_medicalnotes"
+            android:title="@string/info_medicalnotes" />
+
+        <Preference
+            android:key="info_organdonor"
+            android:title="@string/info_organdonor"
+            android:defaultValue="@string/info_unspecified" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
