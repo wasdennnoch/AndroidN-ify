@@ -41,6 +41,8 @@
     <string name="not_activated">Módulo no activo</string>
     
     <string name="theme_colorPrimary">Color primario</string>
+    
+    <string name="header_lockscreen">Pantalla de bloqueo</string>
     <!-- /prefs -->
     
     <!-- SETTINGS -->
@@ -144,6 +146,38 @@
     <string name="update_notification_download_fail">Descarga fallida</string>
     <string name="update_notification_download_fail_details">Fallo al descargar versión %1$d</string>
     <!-- /UPDATE -->
+    
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Información de emergencia</string>
+    <string name="enable_emergency_info_title">Activar info. de emergencia</string>
+    <string name="edit_emergency_info_title">Editar info. de emergencia</string>
+
+    <string name="header_personal">Personal</string>
+    <string name="info_fullname">Nombre</string>
+    <string name="info_address">Dirección</string>
+    <string name="info_birthdate">Fecha de nacimiento</string>
+
+    <string name="header_medical">Medica</string>
+    <string name="info_bloodtype">Grupo sanguíneo</string>
+    <string name="info_allergies">Alergias</string>
+    <string name="info_medications">Medicación</string>
+    <string name="info_medicalnotes">Condición médica</string>
+    <string name="info_organdonor">Donante de órganos</string>
+
+    <string name="info_unspecified">Sin información</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
     
     <!-- BATTERY -->
     <string name="battery">Batería</string>
