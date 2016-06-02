@@ -50,7 +50,7 @@
     <string name="recents_navigation_delay">Čas pokým sa zvolená aplikácia otvorí</string>
     <string name="enable_large_recents">Veľké nedávne aplikácie</string>
     <string name="no_recents_image">Zmeniť obrázok \"Žiadne nedávne položky\"</string>
-    
+
     <string name="no_previous_recents">Žiadne nedávne položky</string>
 
     <string name="recents_button_behavior_previous">Vrátiť sa k predchádzajúcej aplikácii</string>
@@ -97,7 +97,13 @@
     <string name="notifications_custom_actions_color_title">Použiť vlastnú farbu pozadia pre akcie</string>
     <string name="notifications_actions_color_title">Farba pozadia akcií</string>
     <!-- /NOTIFICATIONS -->
-  
+
+    <!-- LOCKSCREEN -->
+    <string name="header_lockscreen">Uzamknutá obrazovka</string>
+    <string name="enable_emergency_info_title">Povoliť núdzové informácie</string>
+    <string name="edit_emergency_info_title">Upraviť núdzové informácie</string>
+    <!-- /LOCKSCREEN -->
+
     <!-- UPDATE -->
     <string name="update_notification_title">Je dostupná aktualizácia</string>
     <string name="update_notification">Zostava %1$d je dostupná na aktualizáciu.</string>
@@ -112,7 +118,38 @@
     <string name="update_notification_download_fail">Sťahovanie zlyhalo</string>
     <string name="update_notification_download_fail_details">Chyba pri sťahovaní zostavy %1$d</string>
     <!-- /UPDATE -->
-  
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Núdzové informácie</string>
+    
+    <string name="header_personal">Osobné</string>
+    <string name="info_fullname">Meno</string>
+    <string name="info_address">Adresa</string>
+    <string name="info_birthdate">Dátum narodenia</string>
+
+    <string name="header_medical">Zdravotné</string>
+    <string name="info_bloodtype">Krvná skupina</string>
+    <string name="info_allergies">Alergie</string>
+    <string name="info_medications">Lieky</string>
+    <string name="info_medicalnotes">Poznámky od lekára</string>
+    <string name="info_organdonor">Darca orgánov</string>
+
+    <string name="info_unspecified">Nešpecifikované</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Áno</string>
+    <string name="no">Nie</string>
+
+
     <!-- BATTERY -->
     <string name="battery">Batéria</string>
     <string name="charged">Nabitá</string>
@@ -134,7 +171,7 @@
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
 
     <string name="requires_android_version">Vyžaduje Android %1$s</string>
-    
+
     <string name="not_activated">Modul nie je aktivovaný</string>
     <!-- /prefs -->
 
