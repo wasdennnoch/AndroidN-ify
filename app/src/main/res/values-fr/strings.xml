@@ -27,7 +27,7 @@
 	
     <string name="theme_colorPrimary">Couleur primaire</string>
 	
-	<string name="header_lockscreen">Ecran de verrouage</string>
+	<string name="header_lockscreen">Ecran de verrouillage</string>
 	<!-- /prefs -->
 	
 	<!-- SETTINGS -->
