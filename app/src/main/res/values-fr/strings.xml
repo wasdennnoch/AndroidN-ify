@@ -149,7 +149,7 @@
     <string name="info_allergies">Allergies</string>
     <string name="info_medications">Médications</string>
     <string name="info_medicalnotes">Problèmes de santé et notes</string>
-    <string name="info_organdonor">Donneur d'organes</string>
+    <string name="info_organdonor">Donneur d\'organes</string>
 
     <string name="info_unspecified">Non spécifié</string>
 	<!-- /EMERGENCY -->
