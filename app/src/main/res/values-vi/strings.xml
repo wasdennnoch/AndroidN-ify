@@ -108,4 +108,23 @@
     <string name="battery_tile_show_percentage">Hiện phần trăm trên ô Pin</string>
     <string name="charged">Đã sạc xong</string>
     <string name="charging">Đang sạc, %1$s</string>
+    <string name="allow_fancy_qs_transition">Hiệu ứng lạ mắt cho C.đặt nhanh</string>
+    <string name="edit_emergency_info_title">Sửa Thông tin Khẩn cấp</string>
+    <string name="emergency_info">Thông tin Khẩn cấp</string>
+    <string name="enable_emergency_info_title">Bật Thông tin Khẩn cấp</string>
+    <string name="enable_qs_editor">Bật trình sửa C.đặt nhanh</string>
+    <string name="header_lockscreen">Màn hình khóa</string>
+    <string name="header_medical">Y tế</string>
+    <string name="header_personal">Cá nhân</string>
+    <string name="info_address">Địa chỉ</string>
+    <string name="info_allergies">Bị dị ứng</string>
+    <string name="info_birthdate">Ngày sinh</string>
+    <string name="info_bloodtype">Nhóm máu</string>
+    <string name="info_fullname">Tên đầy đủ</string>
+    <string name="info_medicalnotes">Điều kiện y tế và ghi chú</string>
+    <string name="info_medications">Thuốc men</string>
+    <string name="info_organdonor">Người hiến tạng</string>
+    <string name="info_unspecified">Không quy định </string>
+    <string name="no">Không</string>
+    <string name="yes">Có</string>
 </resources>
