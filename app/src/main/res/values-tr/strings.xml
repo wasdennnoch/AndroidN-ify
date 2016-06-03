@@ -26,10 +26,11 @@
     <string name="debug_log">Dikkat: Log-flooding</string>
 
     <string name="requires_android_version">Android %1$s sürümü gerekir</string>
-
     <string name="not_activated">Modül aktif değil</string>
 
     <string name="theme_colorPrimary">Ana renk</string>
+
+    <string name="header_lockscreen">Kilit ekranı</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -86,6 +87,8 @@
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
     <string name="notification_header_qs_tiles_count_monitor">kare</string>
     <string name="battery_tile_show_percentage">Pil yüzde skalasını göster</string>
+    <string name="enable_qs_editor">Hızlı Ayarlar düzenleyiciyi etkinleştirme</string>
+    <string name="allow_fancy_qs_transition">Aşırı Hızlı Ayarlara geçiş</string>
     <string name="alternative_header_qs_method_title">Alternatif Hızlı Ayarlar yükleme yöntemi</string>
     <string name="alternative_header_qs_method">Hızlı Ayarlar simgelerinde konumlandırma sorunları olduğunda etkinleştirin.</string>
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
@@ -131,6 +134,30 @@
     <string name="update_notification_download_fail">İndirme başarısız!</string>
     <string name="update_notification_download_fail_details">Yapı %1$d indirme başarısız oldu</string>
     <!-- /UPDATE -->
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Acil Durum Bilgisi</string>
+    <string name="enable_emergency_info_title">Acil durum bilgisini etkinleştirme</string>
+    <string name="edit_emergency_info_title">Acil durum bilgisini düzenle</string>
+
+    <string name="header_personal">Kişisel</string>
+    <string name="info_fullname">Tam isim</string>
+    <string name="info_address">Adres</string>
+    <string name="info_birthdate">Doğum tarihi</string>
+
+    <string name="header_medical">Medikal</string>
+    <string name="info_bloodtype">Kan grubu</string>
+    <string name="info_allergies">Alerjiler</string>
+    <string name="info_medications">İlaçlar</string>
+    <string name="info_medicalnotes">Tıbbi durumlar ve notlar</string>
+    <string name="info_organdonor">Organ Bağışı</string>
+
+    <string name="info_unspecified">Belirtilmemiş</string>
+
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
 
     <!-- BATTERY -->
     <string name="battery">Batarya</string>

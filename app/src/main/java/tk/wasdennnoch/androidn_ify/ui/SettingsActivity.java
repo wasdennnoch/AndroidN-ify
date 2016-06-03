@@ -108,7 +108,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         });
     }
 
-
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
 
         @SuppressLint("CommitPrefEdits")
@@ -175,6 +174,13 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                                     return true;
                                 }
                             });
+                        }
+                        break;
+                    case "settings_lockscreen":
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                            Preference p = screen.findPreference("enable_emergency_info");
+                            p.setEnabled(false);
+                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         }
                         break;
                 }

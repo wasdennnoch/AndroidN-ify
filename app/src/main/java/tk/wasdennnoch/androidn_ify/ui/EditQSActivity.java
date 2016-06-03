@@ -3,11 +3,10 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+// TODO obsolete?
 public class EditQSActivity extends Activity {
 
     @SuppressWarnings("ConstantConditions")

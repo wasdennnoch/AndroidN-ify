@@ -38,9 +38,11 @@ public class QuickQSPanel extends LinearLayout {
     private TouchAnimator mTranslationYAnimator;
     private TouchAnimator mFirstPageDelayedAnimator;
     private TouchAnimator mTopFiveQsAnimator;
+    private TouchAnimator mFadeAnimator;
     private float oldPosition = 0;
     private boolean mAlternativeQSMethod;
     private boolean mShowPercent;
+    private boolean mAllowFancy;
 
     public QuickQSPanel(Context context) {
         super(context);
@@ -49,6 +51,7 @@ public class QuickQSPanel extends LinearLayout {
         mMaxTiles = config.header.qs_tiles_count;
         mShowPercent = config.header.battery_tile_show_percentage;
         mAlternativeQSMethod = config.header.alternative_quick_qs_method;
+        mAllowFancy = config.header.allow_fancy_qs_transition;
         setOrientation(VERTICAL);
         int m = mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
         if (config.header.alternative_quick_qs_method)
@@ -57,6 +60,10 @@ public class QuickQSPanel extends LinearLayout {
             setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         mTileLayout = new HeaderTileLayout(context);
         addView(mTileLayout);
+
+        mFadeAnimator = new TouchAnimator.Builder()
+                .addFloat(this, "alpha", 1.0F, 0.0F)
+                .setEndDelay(0.64F).build();
     }
 
     public void setTiles(ArrayList<Object> tileRecords) {
@@ -137,6 +144,19 @@ public class QuickQSPanel extends LinearLayout {
     }
 
     public void setPosition(float f) {
+        if (mAllowFancy) {
+            animateFancy(f);
+        } else {
+            animateFade(f);
+        }
+    }
+
+    private void animateFade(float f) {
+        mFadeAnimator.setPosition(f);
+        setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private void animateFancy(float f) {
         boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null);
         if (!readyToAnimate && (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD)) {
             setupAnimators();

@@ -12,6 +12,20 @@
     <string name="about_version">Versione %1$s (%2$d)</string>
     
     <!-- prefs -->
+    
+    <string name="prefs_not_readable"><![CDATA[<b>Attenzione:</b> Il file di preferenze non è leggibile da Xposed. Clicca per più informazioni&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed non può leggere il file di preferenze di questo modulo, i valori predefiniti saranno utilizzati negli hooks.
+        Ci sono diversi modi per risolvere questo problema. Nota anche che questo errore potrebbe apparirese tu non hai mai
+        aperto l\'app.<br><br>
+        Per prima cosa, riavvia il tuo dispositivo (Non un soft reboot!).<br>
+        Se non funziona, prova a reinstallare il modulo.<br>
+        Se tutti e due questi tentativi falliscono, fai in modo tale che il tuo SELinux sia in modalità <i>permissive</i>.
+        Il SELinux in modalità <i>Enforcing</i> potrebbe bloccare l\'accesso al file di preferenze. Per poter cambiare la modalità,
+        usa l\'app <tt>SELinuxModeChanger</tt> che puoi scaricare
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">in questo thread di XDA</a>.<br>
+        Se anche questo dovesse fallire, probabilmente dovrai vivere con i valori di default, mi dispiace :(
+        ]]></string>
 
     <string name="header_settings">Impostazioni</string>
     <string name="header_recents">Recenti</string>
@@ -33,6 +47,8 @@
     <string name="smaller_header_clock">Abbassa la grandezza del testo dell\'orologio nell\'intestazione. Utile per schermi piccoli.</string>
     <string name="fix_sound_notif_tile">Alcune ROM uniscono la sezione Suono e Notifiche. Abilita per impostare il giusto sommario per questa sezione</string>
     <string name="header_tweaks">Modifiche</string>
+    <string name="enable_qs_editor">Abilita modifiche QS</string>
+    <string name="allow_fancy_qs_transition">Transizioni QS</string>
 
     <string name="double_tap_speed_title">Velocità doppio tap</string>
     <string name="recents_navigation_delay_title">Velocità navigazione</string>
@@ -50,8 +66,51 @@
     <string name="debug_log_title">Log di debug</string>
     <string name="debug_log">Attenzione: Log invasivo</string>
     <string name="requires_android_version">Richiede Android %1$s</string>
+    <string name="battery_tile_show_percentage">Mostra percentuale nel tile della batteria</string>
     <!-- /prefs -->
+    
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Info Emergenza</string>
+    <string name="enable_emergency_info_title">Abilita Informazioni di Emergenza</string>
+    <string name="edit_emergency_info_title">Modifica Informazioni di Emergenza</string>
 
+    <string name="header_personal">Personale</string>
+    <string name="info_fullname">Nome completo</string>
+    <string name="info_address">Indirizzo</string>
+    <string name="info_birthdate">Data di nascita</string>
+
+    <string name="header_medical">Medico</string>
+    <string name="info_bloodtype">Tipo sangue</string>
+    <string name="info_allergies">Allergie</string>
+    <string name="info_medications">Medicazioni</string>
+    <string name="info_medicalnotes">Condizioni mediche e note</string>
+    <string name="info_organdonor">Donatore di organi</string>
+
+    <string name="info_unspecified">Non specificato</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+
+    <!-- BATTERY -->
+    <string name="battery">Batteria</string>
+    <string name="charged">Carico</string>
+    <string name="charging">Caricando, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Modifica</string>
+    <string name="qs_edit_detail">Modifica tiles</string>
+    <!-- /QS -->
 
     <!-- SETTINGS -->
     <string name="disabled">Disabilitato</string>

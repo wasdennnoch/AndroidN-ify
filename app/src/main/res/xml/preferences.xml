@@ -124,6 +124,18 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:dependency="enable_notification_header"
+                android:key="allow_fancy_qs_transition"
+                android:title="@string/allow_fancy_qs_transition"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_notification_header"
+                android:key="enable_qs_editor"
+                android:title="@string/enable_qs_editor"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_qs_editor"
                 android:key="battery_tile_show_percentage"
                 android:title="@string/battery_tile_show_percentage"/>
 
@@ -230,6 +242,26 @@
                 android:key="actions_background_colors"
                 android:title="@string/notifications_actions_color_title"
                 app:spectrum_colors="@array/actions_background_colors"/>
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="settings_lockscreen"
+            android:title="@string/header_lockscreen">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="enable_emergency_info"
+                android:title="@string/enable_emergency_info_title"/>
+
+            <PreferenceScreen
+                android:dependency="enable_emergency_info"
+                android:key="edit_emergency_info"
+                android:title="@string/edit_emergency_info_title">
+                <intent android:action="tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity">
+                    <extra android:name="editable" android:value="true" />
+                </intent>
+            </PreferenceScreen>
 
         </PreferenceScreen>
 

@@ -2,6 +2,8 @@
 
 ### Next version (v0.2.1):
 
+- Emergency info
+- QS transition
 - Improved "prefs not reabable" warning message
 
 ### v0.2.0 (5):
