@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="xposed_description">Adapte les fonctions introduites dans Android N pour Lollipop et Marshmallow !</string>
 
@@ -23,10 +23,11 @@
     <string name="debug_log">Attention : Beaucoup de Log</string>
 
     <string name="requires_android_version">Nécessite Android %1$s</string>
-	
     <string name="not_activated">Module désactivé</string>
 	
     <string name="theme_colorPrimary">Couleur primaire</string>
+	
+	<string name="header_lockscreen">Ecran de verrouage</string>
 	<!-- /prefs -->
 	
 	<!-- SETTINGS -->
@@ -83,7 +84,9 @@
     <string name="keep_qs_panel_bg">Utile pour les thèmes qui appliquent un arrière-plan modifié pour le panneau QS</string>
     <string name="notification_header_qs_tiles_count">Tuiles QS à afficher</string>
     <string name="notification_header_qs_tiles_count_monitor">tuiles</string>
-    <string name="battery_tile_show_percentage">Afficher le porcentage dans la tuile batterie</string>
+    <string name="battery_tile_show_percentage">Afficher le pourcentage dans la tuile batterie</string>
+    <string name="enable_qs_editor">Activer éditeur QS</string>
+    <string name="allow_fancy_qs_transition">Transition QS améliorée</string>
     <string name="alternative_header_qs_method_title">Méthode de chargement alternatif de QS</string>
     <string name="alternative_header_qs_method">Activer lorsqu\'il existe des problèmes de positionnement des icones QS</string>
     <string name="enable_new_tile_click_behavior">Comportement d\'Android N à l\'appui.</string>
@@ -130,11 +133,34 @@
     <string name="update_notification_download_fail">Echec du téléchargement</string>
     <string name="update_notification_download_fail_details">Echec du téléchargement du build %1$d</string>
     <!-- /UPDATE -->
+	
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Informations d\'urgence</string>
+    <string name="enable_emergency_info_title">Activer informations d\'urgence</string>
+    <string name="edit_emergency_info_title">Editer informations d\'urgence</string>
+
+    <string name="header_personal">Personnel</string>
+    <string name="info_fullname">Nom complet</string>
+    <string name="info_address">Addresse</string>
+    <string name="info_birthdate">Date de naissance</string>
+
+    <string name="header_medical">Medical</string>
+    <string name="info_bloodtype">Groupe sanguin</string>
+    <string name="info_allergies">Allergies</string>
+    <string name="info_medications">Médications</string>
+    <string name="info_medicalnotes">Problèmes de santé et notes</string>
+    <string name="info_organdonor">Donneur d'organes</string>
+
+    <string name="info_unspecified">Non spécifié</string>
+	<!-- /EMERGENCY -->
+	
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
     <!-- BATTERY -->
     <string name="battery">Batterie</string>
     <string name="charged">Chargée</string>
-    <string name="charging">Chargement, %1$s</string>
+    <string name="charging">En Charge, %1$s</string>
     <!-- /BATTERY -->
 
     <!-- QS -->
