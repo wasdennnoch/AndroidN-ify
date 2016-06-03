@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
-
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    
     <string name="xposed_description">把 Android N 的功能移植到 Android 5.x(Lollipop) 和 Android 6.x(Marshmallow)！</string>
 
     <string name="restart_systemui">重新啟動 SystemUI</string>
@@ -14,19 +12,22 @@
     <string name="about_version">版本 %1$s (%2$d)</string>
 
     <!-- prefs -->
-
-    <string name="app_dark_theme_title">暗色主題</string>
     <string name="header_tweaks">調整</string>
     <string name="header_app">應用程式</string>
 
+    <string name="app_dark_theme_title">暗色主題</string>
     <string name="hide_launcher_icon_title">隱藏啟動器的圖示</string>
     <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
+    <string name="force_english_title">強制英語</string>
     <string name="debug_log_title">除錯紀錄</string>
     <string name="debug_log">警告：紀錄如洪水</string>
 
     <string name="requires_android_version">建議執行於 Android %1$s 以上</string>
-
     <string name="not_activated">模組尚未啟用！</string>
+	
+    <string name="theme_colorPrimary">選擇顏色...</string>
+	
+    <string name="header_lockscreen">鎖定螢幕</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -35,6 +36,7 @@
     <string name="enable_settings_summaries">直接在儀表板上面顯示最重要的資訊</string>
     <string name="fix_sound_notif_tile_title">修復 "音效和通知" 的資訊顯示錯誤</string>
     <string name="fix_sound_notif_tile">有些系統會結合"音效"和"通知"的選項。啟用它使摘要正確的顯示</string>
+    <string name="enable_n_platlogo_title">N 的標誌有彩蛋</string>
 
     <string name="disconnected">未連線</string>
     <string name="disabled">已關閉</string>
@@ -90,7 +92,7 @@
     <string name="notification_full_width_volume">在較大螢幕的手機上移除音量對話框的寬度限制</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">隱藏的項目</string>
-    <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon隱藏 系統使用介面調整 圖示</string>
+    <string name="hide_tuner_icon_title">隱藏 系統使用介面調整 圖示</string>
     <string name="hide_edit_tiles_title">隱藏 編輯瓷磚 按鈕</string>
     <string name="hide_carrier_label_title">隱藏 標籤文字</string>
     <!-- /Hide header icons -->
@@ -104,11 +106,15 @@
     <string name="action_search">搜尋</string>
     <string name="notification_blacklisted_apps_title">黑名單</string>
     <string name="notification_blacklisted_apps">給這些應用程式使用舊式的通知風格</string>
+    <string name="notifications_custom_color_title">使用自訂的 強調色(Accent color)</string>
+    <string name="notifications_accent_color_title">強調色(Accent color)</string>
+    <string name="notifications_custom_actions_color_title">使用自訂的動作背景顏色</string>
+    <string name="notifications_actions_color_title">動作背景顏色</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
     <string name="update_notification_title">發現新大陸&#8230;呃，不對是發現新版本！</string>
-    <string name="update_notification">發現可用的組建 %1$d 可以更新！</string>
+    <string name="update_notification">發現可用的更新可以下載：組建 %1$d！</string>
     <string name="update_notification_download">更新</string>
     <string name="check_for_updates_title">檢查更新</string>
     <string name="check_for_updates">啟動應用程式時檢查更新</string>
@@ -116,10 +122,51 @@
     <string name="check_for_update_fail">無法檢查更新！</string>
     <string name="no_updates">目前為最新版本！</string>
     <string name="update_notification_downloading">正在下載更新&#8230;</string>
-    <string name="update_notification_downloading_details">正在下載組建 %1$d &#8230;</string>
+    <string name="update_notification_downloading_details">正在下載更新：組建 %1$d &#8230;</string>
     <string name="update_notification_download_fail">下載失敗</string>
     <string name="update_notification_download_fail_details">下載組建 %1$d 失敗！</string>
-    <string name="enable_n_platlogo_title">N 的標誌有彩蛋</string>
     <!-- /UPDATE -->
 
+    <!-- EMERGENCY -->
+    <string name="emergency_info">緊急資訊(Emergency Info)</string>
+    <string name="enable_emergency_info_title">開啟 緊急資訊</string>
+    <string name="edit_emergency_info_title">編輯 緊急資訊</string>
+
+    <string name="header_personal">私人</string>
+    <string name="info_fullname">全名</string>
+    <string name="info_address">地址</string>
+    <string name="info_birthdate">出生日期</string>
+
+    <string name="header_medical">就醫</string>
+    <string name="info_bloodtype">血型(台灣常見血型為 Rh+)</string>
+    <string name="info_allergies">過敏</string>
+    <string name="info_medications">藥物治療</string>
+    <string name="info_medicalnotes">就醫治療和注意事項</string>
+    <string name="info_organdonor">器官捐贈者</string>
+
+    <string name="info_unspecified">無</string>
+
+    <string name="info_bloodtype_op">O 型 Rh+</string>
+    <string name="info_bloodtype_on">O 型 Rh-</string>
+    <string name="info_bloodtype_ap">A 型 Rh+</string>
+    <string name="info_bloodtype_an">A 型 Rh-</string>
+    <string name="info_bloodtype_bp">B 型 Rh+</string>
+    <string name="info_bloodtype_bn">B 型 Rh-</string>
+    <string name="info_bloodtype_abp">AB 型 Rh+</string>
+    <string name="info_bloodtype_abn">AB 型 Rh-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">是</string>
+    <string name="no">否</string>
+	
+    <!-- BATTERY -->
+    <string name="battery">電池</string>
+    <string name="charged">已充滿</string>
+    <string name="charging">正在充電, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">編輯</string>
+    <string name="qs_edit_detail">編輯瓷磚</string>
+    <!-- /QS -->
 </resources>
