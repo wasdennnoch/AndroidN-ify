@@ -874,6 +874,7 @@ public class StatusBarHeaderHooks {
     }
 
     private static class TileTouchCallback extends ItemTouchHelper.Callback implements OnStartDragListener {
+        private TileAdapter.TileViewHolder mCurrentDrag;
 
         @Override
         public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
@@ -909,31 +910,15 @@ public class StatusBarHeaderHooks {
 
         @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-                float scale = 1.1f;
-                viewHolder.itemView.setScaleX(scale);
-                viewHolder.itemView.setScaleY(scale);
-                try {
-                    ((View) XposedHelpers.callMethod(((RelativeLayout) viewHolder.itemView).getChildAt(0), "labelView")).setVisibility(View.GONE);
-                } catch (Throwable ignore) {
-                    // Not an important thing
-                }
+            if (mCurrentDrag != null) {
+                mCurrentDrag.stopDrag();
+                mCurrentDrag = null;
+            }
+            if (viewHolder != null) {
+                mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
+                mCurrentDrag.startDrag();
             }
             super.onSelectedChanged(viewHolder, actionState);
-        }
-
-        @Override
-        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            super.clearView(recyclerView, viewHolder);
-
-            float scale = 1f;
-            viewHolder.itemView.setScaleX(scale);
-            viewHolder.itemView.setScaleY(scale);
-            try {
-                ((View) XposedHelpers.callMethod(((RelativeLayout) viewHolder.itemView).getChildAt(0), "labelView")).setVisibility(View.VISIBLE);
-            } catch (Throwable ignore) {
-                // Not an important thing
-            }
         }
     }
 
