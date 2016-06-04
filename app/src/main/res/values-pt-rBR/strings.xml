@@ -100,10 +100,10 @@
     <string name="notification_header_qs_tiles_count">Blocos de configurações rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
     <string name="battery_tile_show_percentage">Mostrar porcentagem no bloco de bateria</string>
-    <string name="enable_qs_editor">Ativar editor de QS</string>
-    <string name="allow_fancy_qs_transition">Nova transição de QS</string>
-    <string name="alternative_header_qs_method_title">Método alternativo de carregamento de QS</string>
-    <string name="alternative_header_qs_method">Ative se houver problemas de posicionamento com os blocos de QS</string>    
+    <string name="enable_qs_editor">Ativar editor de CR</string>
+    <string name="allow_fancy_qs_transition">Nova transição de CR</string>
+    <string name="alternative_header_qs_method_title">Método alternativo de carregamento de CR</string>
+    <string name="alternative_header_qs_method">Ative se houver problemas de posicionamento com os blocos de CR</string>    
     <string name="enable_new_tile_click_behavior">Ativar novo estilo de clique no bloco</string>
     <string name="enable_new_tile_click_behavior_summary">Clicar em um bloco no cabeçalho o ativa/desativa e clicar em um bloco no painel o expande</string>
     <string name="enable_large_first_row">Alargar a primeira fileira</string>
@@ -130,8 +130,8 @@
     <string name="notification_blacklisted_apps">Não usar o novo estilo de notificações para estes apps</string>
     <string name="notifications_custom_color_title">Usar cor de destaque personalizada</string>
     <string name="notifications_accent_color_title">Cor de destaque</string>
-    <string name="notifications_custom_actions_color_title">Usar cor de plano de fundo das ações personalizada</string>
-    <string name="notifications_actions_color_title">Cor de plano de fundo das ações</string>    
+    <string name="notifications_custom_actions_color_title">Usar cor de fundo das ações personalizada</string>
+    <string name="notifications_actions_color_title">Cor de fundo das ações</string>    
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -145,8 +145,8 @@
     <string name="no_updates">Nenhuma atualização foi encontrada</string>
     <string name="update_notification_downloading">Baixando atualização</string>
     <string name="update_notification_downloading_details">Baixando compilação %1$d</string>
-    <string name="update_notification_download_fail">Download falhou</string>
-    <string name="update_notification_download_fail_details">Download da compilação %1$d falhou</string>
+    <string name="update_notification_download_fail">Falha no download</string>
+    <string name="update_notification_download_fail_details">Falha no download da compilação %1$d</string>
     <!-- /UPDATE -->
 
     <!-- BATTERY -->
