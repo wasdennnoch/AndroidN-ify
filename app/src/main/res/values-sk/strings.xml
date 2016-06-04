@@ -194,7 +194,7 @@
     <string name="battery_charging_ac">%1$s - Nabíjanie zo zásuvky</string>
     <string name="memory_summary">Využíva sa v priemere %1$s z celkovej pamäte %2$s</string>
     <string name="user_summary">Prihlásený/-á ako %1$s</string>
-    <string name="location_on_power">ZAP. / Úspora betérie</string>
+    <string name="location_on_power">ZAP. / Úspora batérie</string>
     <string name="location_on_device">ZAP. / Len senzory zariadenia</string>
     <string name="location_on_high">ZAP. / Vysoká presnosť</string>
     <string name="print_summary">%1$d tlačových úloh</string>
