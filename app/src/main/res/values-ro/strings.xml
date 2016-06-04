@@ -6,7 +6,7 @@
     <string name="xposed_description">Aduce caracteristicile din Android N pe Lollipop și Marshmallow!</string>
 
     <string name="restart_systemui">Repornire interfața System?</string>
-    <string name="restart_systemui_message">Esti sigur ca vrei sa repornesti interfața System?</string>
+    <string name="restart_systemui_message">Ești sigur că vrei să repornești interfața System?</string>
     <string name="restart_broadcast_sent">Repornire interfața sistem</string>
     <string name="activity_about">Despre Android N-ify</string>
     <string name="about_author">Dezvoltată de @MrWasdennnoch</string>
@@ -18,7 +18,7 @@
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed nu poate citi fișiere de preferință ale acestui modul, valorile prestabilite vor fi folosite.
         Există câteva metode de rezolvare a problemelor. Totodata această eroare va apărea dacă nu ați deschis aplicația niciodată.<br><br>
-        Prima dată repornește dispozitivul (Nu repornire sistem!).<br>
+        Prima dată repornește dispozitivul (Nu utilizați "repornirea rapidă"!).<br>
         Dacă nu ajută, încearcă reinstalarea modulului.<br>
         Dacă ambele metode eșuează, verifică dacă modulul tău SELinux este setat pe<i>facultativ</i>.
         <i>Impunerea</i> SELinux-ului poate bloca accesul la fișierul cu setările preferențiale. Ca să schimbi modul,
@@ -49,7 +49,7 @@
     <string name="enable_settings_summaries_title">Sumar Setări</string>
     <string name="enable_settings_summaries">Afișează cele mai importante caracteristici în pagina principală</string>
     <string name="fix_sound_notif_tile_title">Fixează titlul "Sunete &amp; Notificări"</string>
-    <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete &amp; Notificări. Activează această setare pentru a afișa corect titlul!</string>
+    <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete &amp; Notificări. Activează această setare pentru a afișa titlul corect</string>
     <string name="enable_n_platlogo_title">Logo-ul N în versiune Android</string>
 
     <string name="disconnected">Deconectat/ă</string>
@@ -62,9 +62,9 @@
     <string name="apps_summary">%1$d aplicații instalate</string>
     <string name="storage_summary">%1$s din %2$s utilizați</string>
     <string name="battery_summary">%1$s - aproximativ %2$s ramase</string>
-    <string name="battery_charging_wireless">%1$s - încărcare pe WIRELESS</string>
-    <string name="battery_charging_usb">%1$s - Încărcare la USB</string>
-    <string name="battery_charging_ac">%1$s - Încărcare la AC</string>
+    <string name="battery_charging_wireless">%1$s - Se încarcă fără fir</string>
+    <string name="battery_charging_usb">%1$s - Se incarcă prin USB</string>
+    <string name="battery_charging_ac">%1$s - Se incarca la C.A.</string>
     <string name="memory_summary">%1$s din %2$s memorie RAM utilizată</string>
     <string name="user_summary">Logat ca %1$s</string>
     <string name="location_on_power">Pornită / Salvare energie</string>
@@ -132,15 +132,15 @@
 
     <!-- UPDATE -->
     <string name="update_notification_title">O versiune nouă este disponibilă</string>
-    <string name="update_notification">Versiunea %1$d este acum disponibilă pentru actualizare!</string>
-    <string name="update_notification_download">Actualizare</string>
+    <string name="update_notification">Versiunea %1$d este acum disponibilă pentru descărcare!</string>
+    <string name="update_notification_download">Descărca</string>
     <string name="check_for_updates_title">Verifică pentru actualizări</string>
     <string name="check_for_updates">Verifică pentru actualizări la pornire</string>
-    <string name="checking_for_update">Verific pt. actualizari…</string>
+    <string name="checking_for_update">Se verifica pt. actualizari…</string>
     <string name="check_for_update_fail">Nu pot verifica pt. actualizări</string>
     <string name="no_updates">Nu s-a găsit nici o versiune nouă</string>
     <string name="update_notification_downloading">Descărcare actualizare</string>
-    <string name="update_notification_downloading_details">Descărcare actualizare %1$d</string>
+    <string name="update_notification_downloading_details">Se descărca actualizare %1$d</string>
     <string name="update_notification_download_fail">Descărcare eșuată</string>
     <string name="update_notification_download_fail_details">Nu s-a putut descărca actualizarea %1$d</string>
     <!-- /UPDATE -->

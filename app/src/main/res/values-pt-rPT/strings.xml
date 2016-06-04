@@ -6,38 +6,61 @@
     <string name="xposed_description">Traz funções introduzidas no Android N para dispositivos com Lollipop e Marshmallow!</string>
 	
     <string name="restart_systemui">Reiniciar SystemUI</string>
-    <string name="restart_systemui_message">Tem a certeza de que deseja reiniciar a SystemUI?</string>
+    <string name="restart_systemui_message">Tem a certeza de que quer reiniciar a SystemUI?</string>
     <string name="restart_broadcast_sent">Broadcast de reinício enviado</string>
     <string name="activity_about">Acerca do Android N-ify</string>
     <string name="about_author">Desenvolvido por @MrWasdennnoch</string>
+    <string name="about_translator">Traduzido por @KingKaminari</string>
     <string name="about_version">Versão %1$s (%2$d)</string>	
 
     <!-- prefs -->
-
+    <string name="prefs_not_readable"><![CDATA[<b>Aviso:</b> O ficheiro de preferências não pode ser lido pelo Xposed. Clique para mais informações&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        O Xposed não pode ler o ficheiro de preferências deste módulo, os valores padrão serão usados.
+        Há várias maneiras de resolver este problema. Note também que este erro aparece se nunca
+        abriu o app antes.<br><br>
+        Primeiramente, reinicie o dispositivo (Sem reinício rápido!).<br>
+        Se isso não ajudar, tente reinstalar o módulo.<br>
+        Se ambas as tentativas falharem, certifique-se de que o seu modo de SELinux esteja como <i>Permissivo</i>.
+        O SELinux em modo <i>Enforcing/Impondo</i> pode bloquear o acesso ao arquivo de preferências. Para mudar o modo,
+        use esta app <tt>SELinuxModeChanger</tt> a qual pode transferir
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">a partir deste tópico do XDA</a>.<br>
+        Se até isso falhar, terá de ficar com os valores padrão, desculpas :(
+        ]]></string>    
+    
     <string name="header_tweaks">Ajustes</string>
     <string name="header_app">App</string>
     
+    <string name="app_dark_theme_title">Usar tema escuro</string>
     <string name="hide_launcher_icon_title">Esconder ícone do lançador</string>
     <string name="hide_launcher_icon">Pode ser necessário reiniciar o lançador</string>
+    <string name="force_english_title">Forçar idioma inglês</string>
     <string name="debug_log_title">Registos de depuração</string>
     <string name="debug_log">Atenção: Registo invasivo</string>
 	
-    <string name="requires_android_version">Requer Android %1$s</string>	
+    <string name="requires_android_version">Requer Android %1$s</string>
+    
+    <string name="not_activated">Módulo não activado</string>
+
+    <string name="theme_colorPrimary">Cor primária</string>
+    
+    <string name="header_lockscreen">Tela de bloqueio</string>
     <!-- /prefs -->
     
     <!-- SETTINGS -->
     <string name="header_settings">Definições</string>
-	<string name="enable_settings_summaries_title">Sumários de definições</string>
-    <string name="enable_settings_summaries">Mostrar as informações mais importantes diretamente no painel</string>
+    <string name="enable_settings_summaries_title">Sumários de definições</string>
+    <string name="enable_settings_summaries">Mostrar as informações mais importantes directamente no painel</string>
     <string name="fix_sound_notif_tile_title">Corrigir o módulo de Sons &amp; Notificações</string>
-    <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Activar esta opção para que o sumário correcto seja mostrado.</string>
-	
+    <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Active esta opção para que o sumário correcto seja mostrado.</string>
+    <string name="enable_n_platlogo_title">Logo do Android N no easter egg</string>
+
     <string name="disabled">Desactivado</string>
     <string name="disconnected">Desconectado</string>
-    <string name="off">DESACTIVADO</string>
-    <string name="on">ACTIVADO</string>
+    <string name="off">DESACTIVADA</string>
+    <string name="on">ACTIVADA</string>
     <string name="data_usage_summary">%1$s de dados utilizados</string>
-    <string name="display_summary">Brilho adaptável %1$s</string>
+    <string name="display_summary">Luminosidade adaptável %1$s</string>
     <string name="sound_summary">Volume do toque em %1$s</string>
     <string name="apps_summary">%1$d aplicações instaladas</string>
     <string name="storage_summary">%1$s de %2$s utilizados</string>
@@ -54,15 +77,21 @@
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="header_recents">Recentes</string>
-    <string name="enable_recents_double_tap_title">Troca de aplicações com duplo toque</string>
-    <string name="enable_recents_double_tap">Toque duas vezes na tecla de Apps recentes para mudar para a última aplicação utilizada</string>
+    <string name="header_recents">Apps recentes</string>
+    <string name="enable_recents_double_tap_title">Troca rápida</string>
+    <string name="enable_recents_double_tap">Toque duas vezes na tecla de apps recentes para alternar para a última app utilizada</string>
     <string name="double_tap_speed_title">Velocidade do duplo toque</string>
+    <string name="recents_button_behavior_title">Ação do botão de apps recentes</string>
     <string name="recents_navigation_delay_title">Intervalo de navegação</string>
-    <string name="recents_navigation_delay">Tempo até que a aplicação seleccionada seja trazida para a frente</string>
-    <string name="enable_large_recents">Ativar apps recentes grandes</string>
+    <string name="recents_navigation_delay">Tempo até que a app seleccionada seja colocado em foco</string>
+    <string name="enable_large_recents">Apps recentes grandes</string>
+    <string name="no_recents_image">Mudar a imagem de \"sem itens recentes\"</string>
 
-    <string name="no_previous_recents">Nenhum item recente</string>
+    <string name="no_previous_recents">Sem itens recentes</string>
+    
+    <string name="recents_button_behavior_previous">Voltar para a app anterior</string>
+    <string name="recents_button_behavior_current">Voltar para a app atual</string>
+    <string name="recents_button_behavior_cycle">Alternar entre apps</string>    
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
@@ -70,9 +99,25 @@
     <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
     <string name="notification_header_qs_tiles_count">Blocos de definições rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
-    <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
+    <string name="battery_tile_show_percentage">Mostrar porcentagem no bloco de bateria</string>
+    <string name="enable_qs_editor">Activar editor de DR</string>
+    <string name="allow_fancy_qs_transition">Nova transição de DS</string>
+    <string name="alternative_header_qs_method_title">Método alternativo de carregamento de DR</string>
+    <string name="alternative_header_qs_method">Active se houver problemas de posicionamento com os blocos de DR</string>    
+    <string name="enable_new_tile_click_behavior">Activar novo estilo de clique no bloco</string>
+    <string name="enable_new_tile_click_behavior_summary">Clicar em um bloco no cabeçalho o activa/desactiva e clicar em um bloco no painel o expande</string>
+    <string name="enable_large_first_row">Alargar a primeira fileira</string>
+    <string name="enable_large_first_row_summary">Na CM utilize o menu de configuração do modo Editar blocos ao invés desta opção</string>
+    <string name="smaller_header_clock_title">Relógio menor</string>
+    <string name="smaller_header_clock">Diminuir o tamanho do texto do relógio no cabeçalho expandido. Útil para telas pequenas</string>
     <string name="notification_full_width_volume_title">Largura do painel de volume</string>
     <string name="notification_full_width_volume">Remover o limite de largura do painel de volume em dispositivos com telas grandes</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Esconder itens do cabeçalho</string>    
+    <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
+    <string name="hide_edit_tiles_title">Esconder o botão de editar blocos</string>
+    <string name="hide_carrier_label_title">Esconder o nome da operadora</string>
+    <!-- /Hide header icons -->    
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
@@ -80,12 +125,71 @@
     <string name="notifications_change_style">Mudar o estilo das notificações</string>
     <string name="notification_dismiss_button_title">Mudar o botão Limpar</string>
     <string name="notification_dismiss_button">Mostrar \"LIMPAR TUDO\" ao invés do ícone de limpar</string>
+    <string name="action_search">Buscar</string>
+    <string name="notification_blacklisted_apps_title">Lista negra</string>
+    <string name="notification_blacklisted_apps">Não utilizar o novo estilo de notificações para estas apps</string>
+    <string name="notifications_custom_color_title">Utilizar cor de destaque personalizada</string>
+    <string name="notifications_accent_color_title">Cor de destaque</string>
+    <string name="notifications_custom_actions_color_title">Usar cor de fundo das ações personalizada</string>
+    <string name="notifications_actions_color_title">Cor de fundo das ações</string>    
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
     <string name="update_notification_title">Nova actualização disponível</string>
-    <string name="update_notification">A compilação %1$d está disponível para download!</string>
+    <string name="update_notification">A compilação %1$d está disponível para transferência!</string>
     <string name="update_notification_download">Transferir</string>
+    <string name="check_for_updates_title">Procurar por actualizações</string>
+    <string name="check_for_updates">Procurar por actualizações na inicialização</string>
+    <string name="checking_for_update">A procurar por actualizações…</string>
+    <string name="check_for_update_fail">Não foi possível procurar por actualizações</string>
+    <string name="no_updates">Nenhuma actualização foi encontrada</string>
+    <string name="update_notification_downloading">A transferir actualização</string>
+    <string name="update_notification_downloading_details">A transferir compilação %1$d</string>
+    <string name="update_notification_download_fail">Falha na transferência</string>
+    <string name="update_notification_download_fail_details">Falha na transferência da compilação %1$d</string>
     <!-- /UPDATE -->
+
+    <!-- BATTERY -->
+    <string name="battery">Bateria</string>
+    <string name="charged">Carregado</string>
+    <string name="charging">A carregar, %1$s</string>
+    <!-- /BATTERY -->
+    
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Informações de emergência</string>
+    <string name="enable_emergency_info_title">Activar informações de emergência</string>
+    <string name="edit_emergency_info_title">Editar informações de emergência</string>
+
+    <string name="header_personal">Pessoal</string>
+    <string name="info_fullname">Nome completo</string>
+    <string name="info_address">Endereço</string>
+    <string name="info_birthdate">Data de nascimento</string>
+
+    <string name="header_medical">Médica</string>
+    <string name="info_bloodtype">Tipo sanguíneo</string>
+    <string name="info_allergies">Alergias</string>
+    <string name="info_medications">Medicações</string>
+    <string name="info_medicalnotes">Condições e anotações médicas</string>
+    <string name="info_organdonor">Doador de órgãos</string>
+
+    <string name="info_unspecified">Não especificado</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+
+    <!-- QS -->
+    <string name="qs_edit">Editar</string>
+    <string name="qs_edit_detail">Editar blocos</string>
+    <!-- /QS -->
 
 </resources>
