@@ -260,8 +260,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             mFrame.right -= SUBPIXEL;
             mFrame.bottom -= SUBPIXEL;
 
-            mFramePaint.setColor(COLORS[COLORS.length-1]);
-            mFramePaint.setAlpha(102);
+            mFramePaint.setColor(0x4DFFFFFF);
 
             // set the battery charging color
             final int color = mBatteryData.charging ?
