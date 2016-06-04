@@ -152,6 +152,7 @@ public class QSTileHostHooks {
                 XposedHelpers.findAndHookMethod(classTileHost, "createTile", String.class, new XC_MethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        if (mTilesManager == null) mTilesManager = new TilesManager(param.thisObject);
                         String tileSpec = (String) param.args[0];
                         if (TilesManager.mCustomTileSpecs.contains(tileSpec)) {
                             param.setResult(mTilesManager.createTile(tileSpec).getTile());

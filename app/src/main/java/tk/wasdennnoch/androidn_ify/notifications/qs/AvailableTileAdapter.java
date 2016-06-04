@@ -29,7 +29,11 @@ public class AvailableTileAdapter extends TileAdapter {
 
         classQSTileHost = XposedHelpers.findClass(QSTileHostHooks.CLASS_TILE_HOST, mContext.getClassLoader());
         classResourceIcon = XposedHelpers.findClass(QSTile.CLASS_QS_TILE + "$ResourceIcon", mContext.getClassLoader());
-        classQSTuner = XposedHelpers.findClass(CLASS_QS_TUNER, mContext.getClassLoader());
+        try {
+            classQSTuner = XposedHelpers.findClass(CLASS_QS_TUNER, mContext.getClassLoader());
+        } catch (Throwable ignore) {
+            // CM
+        }
 
         mTileViews = new ArrayList<>();
         List<String> availableTiles = QSTileHostHooks.getAvailableTiles(mContext);
