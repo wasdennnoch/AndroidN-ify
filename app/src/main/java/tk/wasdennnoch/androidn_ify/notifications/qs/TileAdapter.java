@@ -137,7 +137,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         return true;
     }
 
-    protected class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected RelativeLayout mItemView;
 
@@ -156,6 +156,26 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         @Override
         public void onClick(View v) {
             onItemClick(getAdapterPosition());
+        }
+
+        public void startDrag()
+        {
+            itemView.animate().setDuration(100L).scaleX(1.2F).scaleY(1.2F);
+            try {
+                ((View) XposedHelpers.callMethod(((RelativeLayout) itemView).getChildAt(0), "labelView")).animate().setDuration(100L).alpha(0.0F);
+            } catch (Throwable ignore) {
+
+            }
+        }
+
+        public void stopDrag()
+        {
+            itemView.animate().setDuration(100L).scaleX(1.0F).scaleY(1.0F);
+            try {
+                ((View) XposedHelpers.callMethod(((RelativeLayout) itemView).getChildAt(0), "labelView")).animate().setDuration(100L).alpha(1.0F);
+            } catch (Throwable ignore) {
+
+            }
         }
     }
 
