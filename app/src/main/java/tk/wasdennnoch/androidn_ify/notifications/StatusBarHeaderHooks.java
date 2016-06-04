@@ -646,8 +646,7 @@ public class StatusBarHeaderHooks {
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);
-        if (mEditButton != null)
-            mEditButton.setVisibility((showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE) ? View.GONE : View.VISIBLE);
+        setEditButtonVisible(!(showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE));
         if (mWeatherContainer != null) {
             try {
                 if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather"))
@@ -841,10 +840,7 @@ public class StatusBarHeaderHooks {
 
     public static void onSetBarState(int state) {
         mBarState = state;
-        if (mEditButton != null) {
-            int visibility = (state == NotificationPanelHooks.STATE_SHADE) ? View.VISIBLE : View.GONE;
-            mEditButton.setVisibility(visibility);
-        }
+        setEditButtonVisible(state == NotificationPanelHooks.STATE_SHADE);
     }
 
     private static class CustomItemTouchHelper extends ItemTouchHelper {
@@ -1125,10 +1121,11 @@ public class StatusBarHeaderHooks {
 
                         mQsContainer = layout;
 
-                        View qsPanel = layout.getChildAt(0);
-                        FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) qsPanel.getLayoutParams();
-                        qsPanelLp.bottomMargin = res.getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
-                        qsPanel.setLayoutParams(qsPanelLp);
+                        mQsPanel = (ViewGroup) layout.getChildAt(0);
+                        FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
+                        if (ConfigUtils.header().enable_qs_editor)
+                            qsPanelLp.bottomMargin = res.getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
+                        mQsPanel.setLayoutParams(qsPanelLp);
 
                         FrameLayout.LayoutParams buttonLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         buttonLp.gravity = Gravity.BOTTOM | Gravity.END;
@@ -1151,6 +1148,21 @@ public class StatusBarHeaderHooks {
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
         }
+    }
+
+    private static void setEditButtonVisible(boolean visible) {
+        if (mEditButton == null || mQsPanel == null) return;
+        int visibility;
+        FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
+        if (visible) {
+            visibility = View.VISIBLE;
+            qsPanelLp.bottomMargin = getResUtils().getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
+        } else {
+            visibility = View.GONE;
+            qsPanelLp.bottomMargin = 0;
+        }
+        mEditButton.setVisibility(visibility);
+        mQsPanel.setLayoutParams(qsPanelLp);
     }
 
 }
