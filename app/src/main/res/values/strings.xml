@@ -3,16 +3,16 @@
 
     <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
 
-    <string name="restart_systemui">SystemUI újraindítása</string>
-    <string name="restart_systemui_message">Biztosan újraindítod a SystemUI-t?</string>
+    <string name="restart_systemui">Restart SystemUI</string>
+    <string name="restart_systemui_message">Are you sure you want to restart the SystemUI?</string>
     <string name="restart_broadcast_sent">Restart broadcast sent</string>
-    <string name="activity_about">Az Android N-ify-ról</string>
-    <string name="about_author">Fejlesztő: @MrWasdennnoch</string>
-    <string name="about_translator">Fordító: @ABS96</string> <!-- Insert your (preferably XDA) username here -->
-    <string name="about_version">Verzió: %1$s (%2$d)</string>
+    <string name="activity_about">About Android N-ify</string>
+    <string name="about_author">Developed by @MrWasdennnoch</string>
+    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_not_readable"><![CDATA[<b>Figyelem:</b> Az Xposed nem fér hozzá a beállításokat tartalmazó fájlhoz. Kattints ide további információkért&#8230;]]></string>
+    <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> The preference file isn\'t readable by Xposed. Click for more info&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed can\'t read the preference file of this module, default values will be used in hooks.
         There are several ways to fix this problem. Also note that this error pops up if you\'ve never
@@ -52,39 +52,39 @@
     <string name="fix_sound_notif_tile">Some ROMs combine the Sounds and Notifications tile. Enable to set the proper summary for this tile</string>
     <string name="enable_n_platlogo_title">N logo in easter egg</string>
 
-    <string name="disconnected">Lecsatlakozva</string>
-    <string name="disabled">Kikapcsolva</string>
-    <string name="off">KIKAPCSOLVA</string>
-    <string name="on">BEKAPCSOLVA</string>
-    <string name="data_usage_summary">Adathasználat: %1$s</string>
-    <string name="display_summary">Alkalmazkodó fényerő %1$s</string>
-    <string name="sound_summary">A csengőhang hangereje %1$s</string>
-    <string name="apps_summary">%1$d alkalmazás telepítve</string>
-    <string name="storage_summary">%1$s foglalt %2$s tárhelyből</string>
-    <string name="battery_summary">%1$s - körülbelül %2$s van hátra</string>
-    <string name="battery_charging_wireless">%1$s - Vezetéknélküli töltés folyamatban</string>
-    <string name="battery_charging_usb">%1$s - USB töltés folyamatban</string>
-    <string name="battery_charging_ac">%1$s - Hálózati töltés folyamatban</string>
-    <string name="memory_summary">Jelenleg %1$s használatban a %2$s memóriából</string>
-    <string name="user_summary">Bejelentkezve mint %1$s</string>
-    <string name="location_on_power">BEKAPCSOLVA / Energiatakarékos</string>
-    <string name="location_on_device">BEKAPCSOLVA / Csak a készüléken</string>
-    <string name="location_on_high">BEKAPCSOLVA / Nagy pontosság</string>
-    <string name="print_summary">%1$d nyomtatási művelet</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="disabled">Disabled</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="data_usage_summary">%1$s of data used</string>
+    <string name="display_summary">Adaptive brightness is %1$s</string>
+    <string name="sound_summary">Ringer volume at %1$s</string>
+    <string name="apps_summary">%1$d apps installed</string>
+    <string name="storage_summary">%1$s of %2$s used</string>
+    <string name="battery_summary">%1$s - approx. %2$s left</string>
+    <string name="battery_charging_wireless">%1$s - Charging wirelessly</string>
+    <string name="battery_charging_usb">%1$s - Charging on USB</string>
+    <string name="battery_charging_ac">%1$s - Charging on AC</string>
+    <string name="memory_summary">Currently %1$s of %2$s memory used</string>
+    <string name="user_summary">Signed in as %1$s</string>
+    <string name="location_on_power">ON / Power saving</string>
+    <string name="location_on_device">ON / Device only</string>
+    <string name="location_on_high">ON / High accuracy</string>
+    <string name="print_summary">%1$d print jobs</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
-    <string name="header_recents">Alkalmazás előzmények</string>
-    <string name="enable_recents_double_tap_title">Gyors váltás</string> <!-- That's how Google calls it -->
-    <string name="enable_recents_double_tap">Az előzmények gomb kétszeri érintésére a legutóbbi alkalmazásra vált</string>
-    <string name="double_tap_speed_title">Dupla érintés sebessége</string>
-    <string name="recents_button_behavior_title">Előzmények gomb viselkedése érintésre</string>
-    <string name="recents_navigation_delay_title">Navigációs késleltetés</string>
+    <string name="header_recents">Recents</string>
+    <string name="enable_recents_double_tap_title">Quick switch</string> <!-- That's how Google calls it -->
+    <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
+    <string name="double_tap_speed_title">Double tap speed</string>
+    <string name="recents_button_behavior_title">Recents button click behavior</string>
+    <string name="recents_navigation_delay_title">Navigation delay</string>
     <string name="recents_navigation_delay">Time until the selected app gets focused</string>
-    <string name="enable_large_recents">Nagy alkalmazáselőképek</string>
-    <string name="no_recents_image">\"Nincs új alkalmazás\" kép megváltoztatása</string>
+    <string name="enable_large_recents">Large recent apps</string>
+    <string name="no_recents_image">Change \"no recents\" image</string>
 
-    <string name="no_previous_recents">Nincs új alkalmazás</string>
+    <string name="no_previous_recents">No recent items</string>
 
     <string name="recents_button_behavior_previous">Return to previous app</string>
     <string name="recents_button_behavior_current">Return to current app</string>
@@ -112,60 +112,60 @@
     <string name="notification_full_width_volume_title">Full width volume dialog</string>
     <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
     <!-- Hide header icons -->
-    <string name="hide_icons_title">Értesítési sáv elemeinek elrejtése</string>
-    <string name="hide_tuner_icon_title">SystemUI Tuner ikon elrejtése</string>
-    <string name="hide_edit_tiles_title">Csempék szerkesztése gomb elrejtése</string>
-    <string name="hide_carrier_label_title">Szolgáltató nevének elrejtése</string>
+    <string name="hide_icons_title">Hide header items</string>
+    <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
+    <string name="hide_edit_tiles_title">Hide edit tiles button</string>
+    <string name="hide_carrier_label_title">Hide carrier label</string>
     <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->
-    <string name="header_notifications">Értesítések</string>
-    <string name="notifications_change_style">Értesítések Stílusa</string>
-    <string name="notification_dismiss_button_title">Összes törlése gomb megváltoztatása</string>
-    <string name="notification_dismiss_button">\"ÖSSZES TÖRLÉSE\" gomb mutatása az ikon helyett</string>
-    <string name="action_search">Keresés</string>
-    <string name="notification_blacklisted_apps_title">Alkalmazás feketelista</string>
-    <string name="notification_blacklisted_apps"Ezeknél az alkalmazásoknál régi stílusú értesítéseket használ</string>
-    <string name="notifications_custom_color_title">Egyéni kiemelő szín használata</string>
-    <string name="notifications_accent_color_title">Kiemelő szín</string>
-    <string name="notifications_custom_actions_color_title">Egyéni műveletek háttérszín használata</string>
-    <string name="notifications_actions_color_title">Műveletek háttérszín</string>
+    <string name="header_notifications">Notifications</string>
+    <string name="notifications_change_style">Style Notifications</string>
+    <string name="notification_dismiss_button_title">Change dismiss button</string>
+    <string name="notification_dismiss_button">Show \"CLEAR ALL\" instead of dismiss icon</string>
+    <string name="action_search">Search</string>
+    <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
+    <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
+    <string name="notifications_custom_color_title">Use custom accent color</string>
+    <string name="notifications_accent_color_title">Accent color</string>
+    <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
+    <string name="notifications_actions_color_title">Actions background color</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
-    <string name="update_notification_title">Új frissítés érhető el</string>
+    <string name="update_notification_title">New update available</string>
     <string name="update_notification">Build %1$d is now available to update!</string>
-    <string name="update_notification_download">Frissítés</string>
-    <string name="check_for_updates_title">Frissítések keresése</string>
-    <string name="check_for_updates">Frissítések keresése az alkalmazás indulásakor</string>
-    <string name="checking_for_update">Frissítések keresése folyamatban…</string>
-    <string name="check_for_update_fail">Nem sikerült frissítéseket keresni</string>
-    <string name="no_updates">Nem található újabb verzió</string>
-    <string name="update_notification_downloading">Frissítés letöltése folyamaban</string>
+    <string name="update_notification_download">Update</string>
+    <string name="check_for_updates_title">Check for updates</string>
+    <string name="check_for_updates">Check for updates on app start</string>
+    <string name="checking_for_update">Checking for updates…</string>
+    <string name="check_for_update_fail">Couldn\'t check for updates</string>
+    <string name="no_updates">No newer versions found</string>
+    <string name="update_notification_downloading">Downloading update</string>
     <string name="update_notification_downloading_details">Downloading build %1$d</string>
-    <string name="update_notification_download_fail">A letöltés nem sikerült</string>
+    <string name="update_notification_download_fail">Download failed</string>
     <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
     <!-- /UPDATE -->
 
     <!-- EMERGENCY -->
-    <string name="emergency_info">Vészhelyzeti információ</string>
-    <string name="enable_emergency_info_title">Vészhelyzeti információ engedélyezése</string>
-    <string name="edit_emergency_info_title">Vészhelyzeti információ szerkesztése</string>
+    <string name="emergency_info">Emergency Info</string>
+    <string name="enable_emergency_info_title">Enable Emergency Info</string>
+    <string name="edit_emergency_info_title">Edit Emergency Info</string>
 
-    <string name="header_personal">Személyes</string>
-    <string name="info_fullname">Teljes név</string>
-    <string name="info_address">Cím</string>
-    <string name="info_birthdate">Születési dátum</string>
+    <string name="header_personal">Personal</string>
+    <string name="info_fullname">Full name</string>
+    <string name="info_address">Address</string>
+    <string name="info_birthdate">Date of birth</string>
 
-    <string name="header_medical">Orvosi</string>
-    <string name="info_bloodtype">Vértípus</string>
-    <string name="info_allergies">Allergiák</string>
-    <string name="info_medications">Gyógyszerek</string>
-    <string name="info_medicalnotes">Medical conditions és jegyzetek</string>
-    <string name="info_organdonor">Szervdonor</string>
+    <string name="header_medical">Medical</string>
+    <string name="info_bloodtype">Blood type</string>
+    <string name="info_allergies">Allergies</string>
+    <string name="info_medications">Medications</string>
+    <string name="info_medicalnotes">Medical conditions and notes</string>
+    <string name="info_organdonor">Organ donor</string>
 
-    <string name="info_unspecified">Nincs megadva</string>
+    <string name="info_unspecified">None specified</string>
 
     <string name="info_bloodtype_op">O+</string>
     <string name="info_bloodtype_on">O-</string>
@@ -177,17 +177,17 @@
     <string name="info_bloodtype_abn">AB-</string>
     <!-- /EMERGENCY -->
 
-    <string name="yes">Igen</string>
-    <string name="no">Nem</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!-- BATTERY -->
-    <string name="battery">Akkumulátor</string>
-    <string name="charged">Feltöltve</string>
-    <string name="charging">Töltődik, %1$s</string>
+    <string name="battery">Battery</string>
+    <string name="charged">Charged</string>
+    <string name="charging">Charging, %1$s</string>
     <!-- /BATTERY -->
 
     <!-- QS -->
-    <string name="qs_edit">Szerkesztés</string>
-    <string name="qs_edit_detail">Csempék szerkesztése</string>
+    <string name="qs_edit">Edit</string>
+    <string name="qs_edit_detail">Edit tiles</string>
     <!-- /QS -->
 </resources>
