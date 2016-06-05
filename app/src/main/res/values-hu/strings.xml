@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
+    <string name="xposed_description">Elérhetővé tesz néhány Android N funkciót Lollipop és Marshmallow rendszeren!</string>
 
     <string name="restart_systemui">SystemUI újraindítása</string>
     <string name="restart_systemui_message">Biztosan újraindítod a SystemUI-t?</string>
-    <string name="restart_broadcast_sent">Restart broadcast sent</string>
+    <string name="restart_broadcast_sent">Újraindítási parancs elküldve</string>
     <string name="activity_about">Az Android N-ify-ról</string>
     <string name="about_author">Fejlesztő: @MrWasdennnoch</string>
     <string name="about_translator">Fordító: @ABS96</string> <!-- Insert your (preferably XDA) username here -->
@@ -14,22 +14,23 @@
     <!-- prefs -->
     <string name="prefs_not_readable"><![CDATA[<b>Figyelem:</b> Az Xposed nem fér hozzá a beállításokat tartalmazó fájlhoz. Kattints ide további információkért&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
-        Xposed can\'t read the preference file of this module, default values will be used in hooks.
-        There are several ways to fix this problem. Also note that this error pops up if you\'ve never
-        opened the app before.<br><br>
-        First, reboot the device (No soft reboot!).<br>
-        If that doesn\'t help, try reinstalling the module.<br>
-        If both attempts fail, ensure that your SELinux mode is set to <i>permissive</i>.
-        <i>Enforcing</i> SELinux might block access to the preference file. In order to change the mode,
-        use the app <tt>SELinuxModeChanger</tt> that you can download
-        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">in this XDA thread</a>.<br>
-        If even that fails, you probably have to live with the default values, sorry :(
+        Az Xposed nem tudja olvasni a modul beállításait tartalmazó fájlt, így a hook-okban az alapértelmezett
+        beállításokat fogja használni.
+        Ezt a problémát többféleképpen is meg lehet oldani. Fontos tudni továbbá, hogy ez a hiba akkor is megjelenik,
+        ha ezelőtt még nem nyitottad meg az alkalmazást.<br><br>
+        Először is indítsd újra a készüléket (Ne soft reboot-tal!).<br>
+        Ha ez nem segít, telepítsd újra a modult.<br>
+        Amennyiben ezek oldják meg a problémát, bizonyosodj meg róla, hogy a SELinux mód <i>permissive</i>-re van állítva.
+        A SELinux <i>kényszerítése</i> blokkolhatja a hozzáférést a beállításfájlhoz. A mód megváltoztatásához
+        használd a <tt>SELinuxModeChanger</tt> alkalmazást, amit 
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">ebben az XDA-s topikban</a> tölthetsz le.<br>
+        Ha még ez sem segít, kénytelen leszel az alapértelmezett beállításokkal élni, sajnálom :(
         ]]></string>
 
-    <string name="header_tweaks">Tweaks</string>
-    <string name="header_app">App</string>
+    <string name="header_tweaks">Finomhangolások</string>
+    <string name="header_app">Alkalmazás</string>
 
-    <string name="app_dark_theme_title">Sötét app téma</string>
+    <string name="app_dark_theme_title">Sötét alkalmazás téma</string>
     <string name="hide_launcher_icon_title">Ikon elrejtése az alkalmazásindítóban</string>
     <string name="hide_launcher_icon">Ehhez lehet, hogy újra kell indítani az alkalmazásindítót</string>
     <string name="force_english_title">Angol nyelv kényszerítése</string>
@@ -80,11 +81,11 @@
     <string name="double_tap_speed_title">Dupla érintés sebessége</string>
     <string name="recents_button_behavior_title">Előzmények gomb viselkedése érintésre</string>
     <string name="recents_navigation_delay_title">Navigációs késleltetés</string>
-    <string name="recents_navigation_delay">Time until the selected app gets focused</string>
+    <string name="recents_navigation_delay">Ennyi idő után kerül fókuszba a kiválasztott alkalmazás</string>
     <string name="enable_large_recents">Nagy alkalmazáselőképek</string>
     <string name="no_recents_image">\"Nincs új alkalmazás\" kép megváltoztatása</string>
 
-    <string name="no_previous_recents">Nincs új alkalmazás</string>
+    <string name="no_previous_recents">A legutóbbi képernyők itt jelennek meg</string> <!-- Ez a szöveg jelenik meg stock Androidnál -->
 
     <string name="recents_button_behavior_previous">Visszatérés az előző alkalmazáshoz</string>
     <string name="recents_button_behavior_current">Visszatérés a jelenlegi alkalmazáshoz</string>
@@ -92,25 +93,25 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Status bar header</string>
-    <string name="enable_notification_header">Style header</string>
-    <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
-    <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
-    <string name="notification_header_qs_tiles_count">QS tiles to show</string>
-    <string name="notification_header_qs_tiles_count_monitor">tiles</string>
-    <string name="battery_tile_show_percentage">Show percentage in battery tile</string>
-    <string name="enable_qs_editor">Enable QS editor</string>
-    <string name="allow_fancy_qs_transition">Fancy QS transition</string>
-    <string name="alternative_header_qs_method_title">Alternative QS loading method</string>
-    <string name="alternative_header_qs_method">Enable when there are positioning issues with the QS icons</string>
-    <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
-    <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
-    <string name="enable_large_first_row">Enlarge first row</string>
-    <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
-    <string name="smaller_header_clock_title">Smaller clock</string>
-    <string name="smaller_header_clock">Lower the text size of the clock in the expanded header. Useful for small screens</string>
-    <string name="notification_full_width_volume_title">Full width volume dialog</string>
-    <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
+    <string name="header_status_bar_header">Álapotsor fejléc</string>
+    <string name="enable_notification_header">Fejléc stílusának módosítása</string>
+    <string name="keep_qs_panel_bg_title">Változatlan gyorsbeállítás háttér</string>
+    <string name="keep_qs_panel_bg">Hasznos az egyedi gyorsbeállítás hátteret használó témákhoz</string>
+    <string name="notification_header_qs_tiles_count">Gyorsbeállítás csempék száma</string>
+    <string name="notification_header_qs_tiles_count_monitor">csempe</string>
+    <string name="battery_tile_show_percentage">Mutassa a százalékot az akkumulátor csempénél</string>
+    <string name="enable_qs_editor">Gyorsbeállítás csempe szerkesztő engedélyezése</string>
+    <string name="allow_fancy_qs_transition">Mutatós gyorsbeállítás-áttűnés</string>
+    <string name="alternative_header_qs_method_title">Alternatív gyorsbeállítás-megnyitási módszer</string>
+    <string name="alternative_header_qs_method">Engedélyezd, ha a gyorsbeállítás-ikonok rosszul vannah elhelyezve</string>
+    <string name="enable_new_tile_click_behavior">Android N szerinti csempe viselkedés érintéskor</string>
+    <string name="enable_new_tile_click_behavior_summary">A csempe érintéskor a fejlécben be- és kikapcsolja a beállítást, a lenyitott panelben a címre kattintva pedig kiterjeszti azt</string>
+    <string name="enable_large_first_row">Első sor nagyítása</string>
+    <string name="enable_large_first_row_summary">CM alatt ehelyett használd a csempék szerkesztése mód beállítás-menüjét</string>
+    <string name="smaller_header_clock_title">Kisebb óra</string>
+    <string name="smaller_header_clock">Lekicsinyíti az óra betűméretét a lenyitott fejlécben. Jól jöhet kis képernyőjű eszközökön</string>
+    <string name="notification_full_width_volume_title">Teljes szélességű hangerőszabályozó ablak</string>
+    <string name="notification_full_width_volume">Megszűnteti a hangerőszabályozó ablak szélességének korlátozását a nagy képernyőjű telefonokon</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Értesítési sáv elemeinek elrejtése</string>
     <string name="hide_tuner_icon_title">SystemUI Tuner ikon elrejtése</string>
@@ -123,7 +124,7 @@
     <string name="header_notifications">Értesítések</string>
     <string name="notifications_change_style">Értesítések Stílusa</string>
     <string name="notification_dismiss_button_title">Összes törlése gomb megváltoztatása</string>
-    <string name="notification_dismiss_button">\"ÖSSZES TÖRLÉSE\" gomb mutatása az ikon helyett</string>
+    <string name="notification_dismiss_button">\"AZ ÖSSZES TÖRLÉSE\" gomb mutatása az ikon helyett</string>
     <string name="action_search">Keresés</string>
     <string name="notification_blacklisted_apps_title">Alkalmazás feketelista</string>
     <string name="notification_blacklisted_apps"Ezeknél az alkalmazásoknál régi stílusú értesítéseket használ</string>
@@ -135,7 +136,7 @@
 
     <!-- UPDATE -->
     <string name="update_notification_title">Új frissítés érhető el</string>
-    <string name="update_notification">Build %1$d is now available to update!</string>
+    <string name="update_notification">A %1$d számú build már elérhető frissítésre!</string>
     <string name="update_notification_download">Frissítés</string>
     <string name="check_for_updates_title">Frissítések keresése</string>
     <string name="check_for_updates">Frissítések keresése az alkalmazás indulásakor</string>
