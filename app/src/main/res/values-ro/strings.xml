@@ -5,12 +5,12 @@
 
     <string name="xposed_description">Aduce caracteristicile din Android N pe Lollipop și Marshmallow!</string>
 
-    <string name="restart_systemui">Repornire interfața System?</string>
-    <string name="restart_systemui_message">Ești sigur că vrei să repornești interfața System?</string>
-    <string name="restart_broadcast_sent">Repornire interfața sistem</string>
+    <string name="restart_systemui">Reporni SystemUI</string>
+    <string name="restart_systemui_message">Ești sigur că vrei să repornești SystemUI?</string>
+    <string name="restart_broadcast_sent">Broadcast-ul de repornire a fost trimis</string>
     <string name="activity_about">Despre Android N-ify</string>
     <string name="about_author">Dezvoltată de @MrWasdennnoch</string>
-    <string name="about_translator">Tradusă de @IonutGherman</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_translator">Tradusă de @IonutGherman (traducător principal) și @KingKaminari (revizii)</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">Versiunea %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -18,10 +18,10 @@
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed nu poate citi fișiere de preferință ale acestui modul, valorile prestabilite vor fi folosite.
         Există câteva metode de rezolvare a problemelor. Totodata această eroare va apărea dacă nu ați deschis aplicația niciodată.<br><br>
-        Prima dată repornește dispozitivul (Nu utilizați "repornirea rapidă"!).<br>
+        Prima dată repornește dispozitivul (Fără repornire rapidă!).<br>
         Dacă nu ajută, încearcă reinstalarea modulului.<br>
-        Dacă ambele metode eșuează, verifică dacă modulul tău SELinux este setat pe<i>facultativ</i>.
-        <i>Impunerea</i> SELinux-ului poate bloca accesul la fișierul cu setările preferențiale. Ca să schimbi modul,
+        Dacă ambele metode eșuează, verifică dacă modul SELinux-ului este setat pe<i>Permisiv</i>.
+        SELinux-ul setat pe <i>Obligatoriu</i> poate bloca accesul la fișierul cu setările preferențiale. Ca să schimbi modul,
         folosește aplicația <tt>SELinuxModeChanger</tt> care o poți descărca
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">din acest topic XDA</a>.<br>
         Dacă și această metodă eșuează, probabil v-a trebui să rămâi cu setările inițiale. Scuze :(
@@ -63,8 +63,8 @@
     <string name="storage_summary">%1$s din %2$s utilizați</string>
     <string name="battery_summary">%1$s - aproximativ %2$s ramase</string>
     <string name="battery_charging_wireless">%1$s - Se încarcă fără fir</string>
-    <string name="battery_charging_usb">%1$s - Se incarcă prin USB</string>
-    <string name="battery_charging_ac">%1$s - Se incarca la C.A.</string>
+    <string name="battery_charging_usb">%1$s - Se încarcă prin USB</string>
+    <string name="battery_charging_ac">%1$s - Se încarcă la C.A.</string>
     <string name="memory_summary">%1$s din %2$s memorie RAM utilizată</string>
     <string name="user_summary">Logat ca %1$s</string>
     <string name="location_on_power">Pornită / Salvare energie</string>
