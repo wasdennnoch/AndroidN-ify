@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">将 Android N 内的特性移植到 Lollipop 和 Marshmallow 版本的 rom 中！</string>
+    <string name="xposed_description">将 Android N 内的特性移植到 Lollipop 和 Marshmallow 版本的 ROM 中！</string>
 
     <string name="restart_systemui">重启系统界面</string>
-    <string name="restart_systemui_message">你确定要重启系统界面吗？</string>
+    <string name="restart_systemui_message">您确定要重启系统界面吗？</string>
     <string name="restart_broadcast_sent">已发送重启广播</string>
     <string name="activity_about">关于 Android N-ify</string>
     <string name="about_author">开发者 @MrWasdennnoch</string>
@@ -31,12 +31,12 @@
 
     <string name="app_dark_theme_title">使用暗色主题</string>
     <string name="hide_launcher_icon_title">隐藏应用图标</string>
-    <string name="hide_launcher_icon">或许需要重启桌面</string>
+    <string name="hide_launcher_icon">可能需要重启启动器</string>
     <string name="force_english_title">强制显示英语</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
 
-    <string name="requires_android_version">所需安卓版本 %1$s</string>
+    <string name="requires_android_version">所需 Android 版本 %1$s</string>
     <string name="not_activated">模块尚未激活</string>
 	
     <string name="theme_colorPrimary">主色调</string>
@@ -49,7 +49,7 @@
     <string name="enable_settings_summaries_title">设置项摘要</string>
     <string name="enable_settings_summaries">在设置内直接显示最重要的系统信息</string>
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
-    <string name="fix_sound_notif_tile">一些 rom 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 rom 中显示出正确的信息摘要。</string>
+    <string name="fix_sound_notif_tile">一些 ROM 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 ROM 中显示出正确的信息摘要。</string>
     <string name="enable_n_platlogo_title">在系统彩蛋内显示 Android N 的标志</string>
 
     <string name="disconnected">未连接</string>
@@ -62,7 +62,7 @@
     <string name="apps_summary">已安装 %1$d 个应用</string>
     <string name="storage_summary">已用 %1$s / %2$s</string>
     <string name="battery_summary">%1$s - 还可用大约%2$s</string>
-    <string name="battery_charging_wireless">%1$s - 正在使用无线充电</string>
+    <string name="battery_charging_wireless">%1$s - 正在无线充电</string>
     <string name="battery_charging_usb">%1$s - 正在通过 USB 充电</string>
     <string name="battery_charging_ac">%1$s - 正在通过交流电源充电</string>
     <string name="memory_summary">当前已用 %1$s / %2$s 内存</string>
@@ -103,7 +103,7 @@
     <string name="allow_fancy_qs_transition">快速设置过渡动画</string>
     <string name="alternative_header_qs_method_title">备选的快速设置加载方案</string>
     <string name="alternative_header_qs_method">当快速设置磁贴出现位置错误时启用该选项</string>
-    <string name="enable_new_tile_click_behavior">启用安卓 N 式磁贴点击行为</string>
+    <string name="enable_new_tile_click_behavior">启用 Android N 式磁贴点击行为</string>
     <string name="enable_new_tile_click_behavior_summary">点击顶栏内的磁贴时直接切换状态\n点击快速设置面板内的磁贴时展开设置项</string>
     <string name="enable_large_first_row">扩大首行磁贴</string>
     <string name="enable_large_first_row_summary">使用 CM 的用户请选择通过磁贴编辑模式中的配置菜单项进行该设置</string>
@@ -155,7 +155,7 @@
 
     <string name="header_personal">个人信息</string>
     <string name="info_fullname">姓名</string>
-    <string name="info_address">家庭地址</string>
+    <string name="info_address">地址</string>
     <string name="info_birthdate">出生日期</string>
 
     <string name="header_medical">医疗信息</string>
@@ -167,14 +167,14 @@
 
     <string name="info_unspecified">未指定</string>
 
-    <string name="info_bloodtype_op">O型Rh阳性</string>
-    <string name="info_bloodtype_on">O型Rh阴性</string>
-    <string name="info_bloodtype_ap">A型Rh阳性</string>
-    <string name="info_bloodtype_an">A型Rh阴性</string>
-    <string name="info_bloodtype_bp">B型Rh阳性</string>
-    <string name="info_bloodtype_bn">B型Rh阴性</string>
-    <string name="info_bloodtype_abp">AB型Rh阳性</string>
-    <string name="info_bloodtype_abn">AB型Rh阴性</string>
+    <string name="info_bloodtype_op">O 型 Rh 阳性</string>
+    <string name="info_bloodtype_on">O 型 Rh 阴性</string>
+    <string name="info_bloodtype_ap">A 型 Rh 阳性</string>
+    <string name="info_bloodtype_an">A 型 Rh 阴性</string>
+    <string name="info_bloodtype_bp">B 型 Rh 阳性</string>
+    <string name="info_bloodtype_bn">B 型 Rh 阴性</string>
+    <string name="info_bloodtype_abp">AB 型 Rh 阳性</string>
+    <string name="info_bloodtype_abn">AB 型 Rh 阴性</string>
     <!-- /EMERGENCY -->
     
     <string name="yes">是</string>
