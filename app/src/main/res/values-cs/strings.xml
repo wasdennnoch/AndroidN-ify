@@ -71,7 +71,7 @@
     <string name="enable_qs_editor">Povolit úpravu rychlých nastavení</string>
     <string name="allow_fancy_qs_transition">Ozdobný přechod rychlých nastavení</string>
     <string name="enable_new_tile_click_behavior">Android N chování dlaždice po klepnutí</string>
-    <string name="enable_new_tile_click_behavior_summary">Klepnutí na dlaždici v záhlaví ji přepne a klepnutí na dlaždici v panelu iu rozbalí</string>
+    <string name="enable_new_tile_click_behavior_summary">Klepnutí na dlaždici v záhlaví ji přepne a klepnutí na dlaždici v panelu ji rozbalí</string>
     <string name="enable_large_first_row">Zvětšit prví řádek</string>
     <string name="enable_large_first_row_summary">Na CM raději použijte menu pro nastavení dlaždic</string>
     <string name="smaller_header_clock_title">Menší hodiny</string>
