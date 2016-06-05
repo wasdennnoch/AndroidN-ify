@@ -63,8 +63,8 @@
     <string name="enable_notification_header">Upravit záhlaví</string>
     <string name="keep_qs_panel_bg_title">Neměnit pozadí rychlých nastavení</string>
     <string name="keep_qs_panel_bg">Užitečné pro témata, která používají vlastní pozadí panelu rychlých nastavení</string>
-    <string name="notification_header_qs_tiles_count">Zobrazit maximální</string>
-    <string name="notification_header_qs_tiles_count_monitor">dlaždice.</string>
+    <string name="notification_header_qs_tiles_count">Zobrazit</string>
+    <string name="notification_header_qs_tiles_count_monitor">dlaždic/e</string>
     <string name="battery_tile_show_percentage">Zobrazit procenta v dlaždici s baterií</string>
     <string name="alternative_header_qs_method_title">Alternativní metoda načítání dlaždic</string>
     <string name="alternative_header_qs_method">Povolte, pokud máte problémy s pozicí ikon rychlých nastavení</string>
@@ -133,10 +133,10 @@
     <string name="info_bloodtype">Krevní skupina</string>
     <string name="info_allergies">Alergie</string>
     <string name="info_medications">Léky</string>
-    <string name="info_medicalnotes">Poznámky lékaře</string>
+    <string name="info_medicalnotes">Poznámky pro lékaře</string>
     <string name="info_organdonor">Dárce orgánů</string>
 
-    <string name="info_unspecified">Nespecifikované</string>
+    <string name="info_unspecified">Nespecifikováno</string>
 
     <string name="info_bloodtype_op">O+</string>
     <string name="info_bloodtype_on">O-</string>
