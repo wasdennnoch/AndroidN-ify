@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string name="xposed_description">Některé funkce z Android N pro Lollipop a Marshmallow!</string>
+
+    <string name="restart_systemui">Restartovat SystemUI</string>
+    <string name="restart_systemui_message">Jste si jistí, že chcete restartovat SystemUI?</string>
+    <string name="restart_broadcast_sent">Žádost na restart odeslaná</string>
+    <string name="activity_about">O aplikaci Android N-ify</string>
+    <string name="about_author">Vytvořil: @MrWasdennnoch</string>
+    <string name="about_translator">Přeložil: @petrmatula190</string>
+    <string name="about_version">Verze: %1$s (%2$d)</string>
+
+    <!-- prefs -->
+    <string name="prefs_not_readable"><![CDATA[<b>Upozornění:</b> Xposed nemůže číst soubor nastavení. Klikněte pro více informací&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+       Xposed nemůže číst soubor nastavení tohoto modulu, budou použity výchozí hodnoty.
+        Je více způsobů jak vyrěšit tento problém. Tato chyba se může zobrazit i v prípadě, 
+        že jste aplikaci ještě neotevírali<br><br>
+        Nejdříve, restartujte zařízení (úplný restart!).<br>
+        Když to nepomůže, zkuste přeinstalovat modul.<br>
+        Když oba pokusy selžou, ujistěte se, že SELinux je nastavený na režim <i>permissive</i>.
+        SELinux v režimu <i>enforcing</i> může blokovat přístup k souboru nastavení. Pro změnu režimu 
+        použijte aplikaci <tt>SELinuxModeChanger</tt>, kterou můžete stáhnout 
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">z tohoto XDA vlákna</a>.<br>
+        Když i to selže, pravděpodobně se budete muset smířit s výchozími hodnotami, omlouvám se :(
+        ]]></string>
+
+
+    <string name="header_tweaks">Úpravy</string>
+
+    <!-- SETTINGS -->
+    <string name="header_settings">Nastavení</string>
+    <string name="enable_settings_summaries_title">Souhrn nastavení</string>
+    <string name="enable_settings_summaries">Zobrazí nejdůležitější informace přímo v hlavní nabídce</string>
+    <string name="fix_sound_notif_tile_title">Opraví "Zvuky a upozornění"</string>
+    <string name="fix_sound_notif_tile">Některé ROM kombinují Zvuky a upozornění. Povolte pro zobrazení správného shrnutí</string>
+    <string name="enable_n_platlogo_title">N logo v easter egg</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="header_recents">Nedávné aplikace</string>
+    <string name="enable_recents_double_tap_title">Přepínání aplikací dvojitým poklepáním</string>
+    <string name="enable_recents_double_tap">Dvojitým poklepáním otevři předchozí aplikaci</string>
+    <string name="double_tap_speed_title">Rychlost dvojitého poklepání</string>
+    <string name="recents_button_behavior_title">Chování tlačítka nedávných aplikací</string>
+    <string name="recents_navigation_delay_title">Opoždění navigace</string>
+    <string name="recents_navigation_delay">Čas než se zvolená aplikace otevře</string>
+    <string name="enable_large_recents">Velké nedávné aplikace</string>
+    <string name="no_recents_image">Změnit obrázek \"Žádné nedávne položky\"</string>
+
+    <string name="no_previous_recents">Žádné nedávné položky</string>
+
+    <string name="recents_button_behavior_previous">Vrátit se k předchozí aplikaci</string>
+    <string name="recents_button_behavior_current">Vrátit se k současné aplikaci</string>
+    <string name="recents_button_behavior_cycle">Přecházet přes aplikace</string>
+    <!-- /RECENTS -->
+
+    <!-- STATUS BAR HEADER -->
+    <string name="header_status_bar_header">Záhlaví stavového řádku</string>
+    <string name="enable_notification_header">Upravit záhlaví</string>
+    <string name="keep_qs_panel_bg_title">Neměnit pozadí rychlých nastavení</string>
+    <string name="keep_qs_panel_bg">Užitečné pro témata, která používají vlastní pozadí panelu rychlých nastavení</string>
+    <string name="notification_header_qs_tiles_count">Zobrazit maximální</string>
+    <string name="notification_header_qs_tiles_count_monitor">dlaždice.</string>
+    <string name="battery_tile_show_percentage">Zobrazit procenta v dlaždici s baterií</string>
+    <string name="alternative_header_qs_method_title">Alternativní metoda načítání dlaždic</string>
+    <string name="alternative_header_qs_method">Povolte, pokud máte problémy s pozicí ikon rychlých nastavení</string>
+    <string name="enable_qs_editor">Povolit úpravu rychlých nastavení</string>
+    <string name="allow_fancy_qs_transition">Ozdobný přechod rychlých nastavení</string>
+    <string name="enable_new_tile_click_behavior">Android N chování dlaždice po klepnutí</string>
+    <string name="enable_new_tile_click_behavior_summary">Klepnutí na dlaždici v záhlaví ji přepne a klepnutí na dlaždici v panelu ji rozbalí</string>
+    <string name="enable_large_first_row">Zvětšit prví řádek</string>
+    <string name="enable_large_first_row_summary">Na CM raději použijte menu pro nastavení dlaždic</string>
+    <string name="smaller_header_clock_title">Menší hodiny</string>
+    <string name="smaller_header_clock">Zmenší text pro hodiny v otevřeném záhlaví. Užitečné pro menší obrazovky</string>
+    <string name="notification_full_width_volume_title">Dialog s hlasitostí na celou šířku</string>
+    <string name="notification_full_width_volume">Odstrani limit šířky pro dialog s hlasitostí na telefonech s velkou obrazovkou</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Skrýt položky záhlaví</string>
+    <string name="hide_tuner_icon_title">Skrýt ikonu pro nástroj ladění uživatelského rozhraní systému</string>
+    <string name="hide_edit_tiles_title">Skrýt tlačítko pro úpravu dlaždic</string>
+    <string name="hide_carrier_label_title">Skrýt operátora</string>
+    <!-- /Hide header icons -->
+    <!-- /STATUS BAR HEADER -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Upozornění</string>
+    <string name="notifications_change_style">Upozornění v N stylu</string>
+    <string name="notification_dismiss_button_title">Změnit tlačítko pro vymazání</string>
+    <string name="notification_dismiss_button">Zobrazí \"SMAZAT VŠE\" namísto ikony</string>
+    <string name="action_search">Hledat</string>
+    <string name="notification_blacklisted_apps_title">Zakázané aplikace</string>
+    <string name="notification_blacklisted_apps">Použije starý styl upozornění pro vybrané aplikace</string>
+    <string name="notifications_custom_color_title">Použít vlastní barvu pro zvýraznění</string>
+    <string name="notifications_accent_color_title">Barva zvýraznění</string>
+    <string name="notifications_custom_actions_color_title">Použít vlastní barvu pozadí pro akce</string>
+    <string name="notifications_actions_color_title">Barva pozadí akcí</string>
+    <!-- /NOTIFICATIONS -->
+
+    <!-- LOCKSCREEN -->
+    <string name="header_lockscreen">Uzamčená obrazovka</string>
+    <string name="enable_emergency_info_title">Povolit nouzové informace</string>
+    <string name="edit_emergency_info_title">Upravit nouzové informace</string>
+    <!-- /LOCKSCREEN -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">Je dostupná aktualizace</string>
+    <string name="update_notification">Sestavení %1$d je dostupné pro aktualizaci.</string>
+    <string name="update_notification_download">Aktualizovat</string>
+    <string name="check_for_updates_title">Zkontrolovat aktualizace</string>
+    <string name="check_for_updates">Zkontroluje aktualizace po spuštení aplikace</string>
+    <string name="checking_for_update">Kontrolují se aktualizace…</string>
+    <string name="check_for_update_fail">Není možné zkontrolovat aktualizace</string>
+    <string name="no_updates">Nová verze nebyla nalezena</string>
+    <string name="update_notification_downloading">Stáhnout aktualizaci</string>
+    <string name="update_notification_downloading_details">Stahování sestavení %1$d</string>
+    <string name="update_notification_download_fail">Stahování selhalo</string>
+    <string name="update_notification_download_fail_details">Chyba při stahování sestavení %1$d</string>
+    <!-- /UPDATE -->
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Nouzové informace</string>
+    
+    <string name="header_personal">Osobní</string>
+    <string name="info_fullname">Jméno</string>
+    <string name="info_address">Adresa</string>
+    <string name="info_birthdate">Datum narození</string>
+
+    <string name="header_medical">Zdravotní</string>
+    <string name="info_bloodtype">Krevní skupina</string>
+    <string name="info_allergies">Alergie</string>
+    <string name="info_medications">Léky</string>
+    <string name="info_medicalnotes">Poznámky lékaře</string>
+    <string name="info_organdonor">Dárce orgánů</string>
+
+    <string name="info_unspecified">Nespecifikované</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+
+
+    <!-- BATTERY -->
+    <string name="battery">Baterie</string>
+    <string name="charged">Nabito</string>
+    <string name="charging">Nabíjení, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Upravit</string>
+    <string name="qs_edit_detail">Upravit dlaždice</string>
+    <!-- /QS -->
+
+    <string name="header_app">Aplikace</string>
+    <string name="app_dark_theme_title">Tmavé téma aplikace</string>
+    <string name="theme_colorPrimary">Primární barva</string>
+    <string name="hide_launcher_icon_title">Skrýt ikonu aplikace</string>
+    <string name="force_english_title">Vynutit anglický jazyk</string>
+    <string name="hide_launcher_icon">Může vyžadovat restart spouštěče</string>
+    <string name="debug_log_title">Zaznamenávání chyb</string>
+    <string name="debug_log">Upozornění: Zahlcování záznamu</string>
+
+    <string name="requires_android_version">Vyžaduje Android %1$s</string>
+
+    <string name="not_activated">Modul není aktivovaný</string>
+    <!-- /prefs -->
+
+
+    <!-- SETTINGS -->
+    <string name="disconnected">Odpojené</string>
+    <string name="disabled">Zakázané</string>
+    <string name="off">VYP.</string>
+    <string name="on">ZAP.</string>
+    <string name="data_usage_summary">Objem využitých dat: %1$s</string>
+    <string name="display_summary">Adaptivní jas je %1$s</string>
+    <string name="sound_summary">Hlasitost zvonění: %1$s</string>
+    <string name="apps_summary">Počet nainstalovaných aplikací: %1$d</string>
+    <string name="storage_summary">Využito: %1$s z %2$s</string>
+    <string name="battery_summary">%1$s - zůstává přibližně %2$s</string>
+    <string name="battery_charging_wireless">%1$s - Bezdrátové nabíjení</string>
+    <string name="battery_charging_usb">%1$s - Nabíjení z USB</string>
+    <string name="battery_charging_ac">%1$s - Nabíjení z adaptéru</string>
+    <string name="memory_summary">Přibližné využití paměti %1$s z %2$s</string>
+    <string name="user_summary">Přihlášený/-á jako %1$s</string>
+    <string name="location_on_power">ZAPNUTO / Úspora baterie</string>
+    <string name="location_on_device">ZAPNUTO / Jen senzory zařízení</string>
+    <string name="location_on_high">ZAPNUTO / Vysoká přesnost</string>
+    <string name="print_summary">%1$d tiskových úloh</string>
+    <!-- /SETTINGS -->
+
+</resources>
