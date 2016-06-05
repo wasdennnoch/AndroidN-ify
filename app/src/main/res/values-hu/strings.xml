@@ -12,29 +12,29 @@
     <string name="about_version">Verzió: %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_not_readable"><![CDATA[<b>Figyelem:</b> Az Xposed nem fér hozzá a beállításokat tartalmazó fájlhoz. Kattints ide további információkért&#8230;]]></string>
+    <string name="prefs_not_readable"><![CDATA[<b>Figyelem:</b> Az Xposed nem fér hozzá a beállításokat tartalmazó fájlhoz. Kattints ide további információért&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         Az Xposed nem tudja olvasni a modul beállításait tartalmazó fájlt, így a hook-okban az alapértelmezett
         beállításokat fogja használni.
-        Ezt a problémát többféleképpen is meg lehet oldani. Fontos tudni továbbá, hogy ez a hiba akkor is megjelenik,
-        ha ezelőtt még nem nyitottad meg az alkalmazást.<br><br>
+        Ezt a problémát többféleképpen is meg lehet oldani. Megjegyzendő továbbá, hogy ez a hiba akkor is megjelenik,
+        ha ezelőtt még egyszer sem nyitottad meg az alkalmazást.<br><br>
         Először is indítsd újra a készüléket (Ne soft reboot-tal!).<br>
         Ha ez nem segít, telepítsd újra a modult.<br>
-        Amennyiben ezek oldják meg a problémát, bizonyosodj meg róla, hogy a SELinux mód <i>permissive</i>-re van állítva.
+        Amennyiben ezek nem oldják meg a problémát, bizonyosodj meg róla, hogy a SELinux mód <i>permissive</i>-re van állítva.
         A SELinux <i>kényszerítése</i> blokkolhatja a hozzáférést a beállításfájlhoz. A mód megváltoztatásához
         használd a <tt>SELinuxModeChanger</tt> alkalmazást, amit 
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">ebben az XDA-s topikban</a> tölthetsz le.<br>
-        Ha még ez sem segít, kénytelen leszel az alapértelmezett beállításokkal élni, sajnálom :(
+        Ha még ez sem segít, akkor kénytelen leszel az alapértelmezett beállításokkal élni, sajnálom :(
         ]]></string>
 
-    <string name="header_tweaks">Finomhangolások</string>
+    <string name="header_tweaks">Finomhangolás</string>
     <string name="header_app">Alkalmazás</string>
 
     <string name="app_dark_theme_title">Sötét alkalmazás téma</string>
-    <string name="hide_launcher_icon_title">Ikon elrejtése az alkalmazásindítóban</string>
+    <string name="hide_launcher_icon_title">Ikon eltűntetése az alkalmazásindítóból</string>
     <string name="hide_launcher_icon">Ehhez lehet, hogy újra kell indítani az alkalmazásindítót</string>
     <string name="force_english_title">Angol nyelv kényszerítése</string>
-    <string name="debug_log_title">Hibaelhárítási napló</string>
+    <string name="debug_log_title">Hibaelhárítási naplózás</string>
     <string name="debug_log">Vigyázat: teleírja a naplót</string>
 
     <string name="requires_android_version">Android %1$s szükséges hozzá</string>
@@ -48,9 +48,9 @@
     <!-- SETTINGS -->
     <string name="header_settings">Beállítások</string>
     <string name="enable_settings_summaries_title">Beállítások összefoglalása</string>
-    <string name="enable_settings_summaries">Megmutatja a legfontosabb információt a beállítás neve alatt</string>
-    <string name="fix_sound_notif_tile_title">"Hang és értesítések" javítása</string>
-    <string name="fix_sound_notif_tile">Néhány ROM egyesíti a Hang és Értesítések menüpontokat. Ezt engedélyezve a menüpont alatt megfelelően jelenik meg az összefoglalás</string>
+    <string name="enable_settings_summaries">Megjeleníti a legfontosabb információkat a beállítások főképernyőjén</string>
+    <string name="fix_sound_notif_tile_title">\"Hang és értesítések\" javítása</string>
+    <string name="fix_sound_notif_tile">Néhány ROM egyesíti a Hang és az Értesítések menüpontokat. Ezt engedélyezve a menüpont alatt megfelelően jelenik meg az összefoglalás</string>
     <string name="enable_n_platlogo_title">N logó az easter egg-ben</string>
 
     <string name="disconnected">Lecsatlakozva</string>
@@ -59,14 +59,14 @@
     <string name="on">BEKAPCSOLVA</string>
     <string name="data_usage_summary">Adathasználat: %1$s</string>
     <string name="display_summary">Alkalmazkodó fényerő %1$s</string>
-    <string name="sound_summary">A csengőhang hangereje %1$s</string>
+    <string name="sound_summary">A csengés hangereje %1$s</string>
     <string name="apps_summary">%1$d alkalmazás telepítve</string>
     <string name="storage_summary">%1$s foglalt %2$s tárhelyből</string>
-    <string name="battery_summary">%1$s - körülbelül %2$s van hátra</string>
-    <string name="battery_charging_wireless">%1$s - Vezetéknélküli töltés folyamatban</string>
+    <string name="battery_summary">%1$s - kb. %2$s van hátra</string>
+    <string name="battery_charging_wireless">%1$s - Vezeték nélküli töltés folyamatban</string>
     <string name="battery_charging_usb">%1$s - USB töltés folyamatban</string>
     <string name="battery_charging_ac">%1$s - Hálózati töltés folyamatban</string>
-    <string name="memory_summary">Jelenleg %1$s használatban a %2$s memóriából</string>
+    <string name="memory_summary">%1$s van használatban a %2$s memóriából</string>
     <string name="user_summary">Bejelentkezve mint %1$s</string>
     <string name="location_on_power">BEKAPCSOLVA / Energiatakarékos</string>
     <string name="location_on_device">BEKAPCSOLVA / Csak a készüléken</string>
@@ -77,12 +77,12 @@
     <!-- RECENTS -->
     <string name="header_recents">Alkalmazás előzmények</string>
     <string name="enable_recents_double_tap_title">Gyors váltás</string> <!-- That's how Google calls it -->
-    <string name="enable_recents_double_tap">Az előzmények gomb kétszeri érintésére a legutóbbi alkalmazásra vált</string>
+    <string name="enable_recents_double_tap">Az előzmények gomb dupla érintésre a legutóbbi alkalmazásra vált</string>
     <string name="double_tap_speed_title">Dupla érintés sebessége</string>
     <string name="recents_button_behavior_title">Előzmények gomb viselkedése érintésre</string>
     <string name="recents_navigation_delay_title">Navigációs késleltetés</string>
     <string name="recents_navigation_delay">Ennyi idő után kerül fókuszba a kiválasztott alkalmazás</string>
-    <string name="enable_large_recents">Nagy alkalmazáselőképek</string>
+    <string name="enable_large_recents">Nagy alkalmazás-előképek</string>
     <string name="no_recents_image">\"Nincs új alkalmazás\" kép megváltoztatása</string>
 
     <string name="no_previous_recents">A legutóbbi képernyők itt jelennek meg</string> <!-- Ez a szöveg jelenik meg stock Androidnál -->
@@ -105,7 +105,7 @@
     <string name="alternative_header_qs_method_title">Alternatív gyorsbeállítás-megnyitási módszer</string>
     <string name="alternative_header_qs_method">Engedélyezd, ha a gyorsbeállítás-ikonok rosszul vannah elhelyezve</string>
     <string name="enable_new_tile_click_behavior">Android N szerinti csempe viselkedés érintéskor</string>
-    <string name="enable_new_tile_click_behavior_summary">A csempe érintéskor a fejlécben be- és kikapcsolja a beállítást, a lenyitott panelben a címre kattintva pedig kiterjeszti azt</string>
+    <string name="enable_new_tile_click_behavior_summary">A csempe érintéskor a fejlécben be- és kikapcsolja a beállítást, a lenyitott panelben pedig kiterjeszti azt</string>
     <string name="enable_large_first_row">Első sor nagyítása</string>
     <string name="enable_large_first_row_summary">CM alatt ehelyett használd a csempék szerkesztése mód beállítás-menüjét</string>
     <string name="smaller_header_clock_title">Kisebb óra</string>
@@ -113,7 +113,7 @@
     <string name="notification_full_width_volume_title">Teljes szélességű hangerőszabályozó ablak</string>
     <string name="notification_full_width_volume">Megszűnteti a hangerőszabályozó ablak szélességének korlátozását a nagy képernyőjű telefonokon</string>
     <!-- Hide header icons -->
-    <string name="hide_icons_title">Értesítési sáv elemeinek elrejtése</string>
+    <string name="hide_icons_title">Fejléc elemeinek elrejtése</string>
     <string name="hide_tuner_icon_title">SystemUI Tuner ikon elrejtése</string>
     <string name="hide_edit_tiles_title">Csempék szerkesztése gomb elrejtése</string>
     <string name="hide_carrier_label_title">Szolgáltató nevének elrejtése</string>
@@ -122,12 +122,12 @@
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Értesítések</string>
-    <string name="notifications_change_style">Értesítések Stílusa</string>
-    <string name="notification_dismiss_button_title">Összes törlése gomb megváltoztatása</string>
-    <string name="notification_dismiss_button">\"AZ ÖSSZES TÖRLÉSE\" gomb mutatása az ikon helyett</string>
+    <string name="notifications_change_style">Értesítések stílusának módosítása</string>
+    <string name="notification_dismiss_button_title">Az összes törlése gomb megváltoztatása</string>
+    <string name="notification_dismiss_button">\"AZ ÖSSZES TÖRLÉSE\" feliratú gomb mutatása az ikon helyett</string>
     <string name="action_search">Keresés</string>
     <string name="notification_blacklisted_apps_title">Alkalmazás feketelista</string>
-    <string name="notification_blacklisted_apps"Ezeknél az alkalmazásoknál régi stílusú értesítéseket használ</string>
+    <string name="notification_blacklisted_apps">Ezeknél az alkalmazásoknál a régi értesítési stílust használja</string>
     <string name="notifications_custom_color_title">Egyéni kiemelő szín használata</string>
     <string name="notifications_accent_color_title">Kiemelő szín</string>
     <string name="notifications_custom_actions_color_title">Egyéni műveletek háttérszín használata</string>
@@ -136,7 +136,7 @@
 
     <!-- UPDATE -->
     <string name="update_notification_title">Új frissítés érhető el</string>
-    <string name="update_notification">A %1$d számú build már elérhető frissítésre!</string>
+    <string name="update_notification">A %1$d. számú build már elérhető frissítésre!</string>
     <string name="update_notification_download">Frissítés</string>
     <string name="check_for_updates_title">Frissítések keresése</string>
     <string name="check_for_updates">Frissítések keresése az alkalmazás indulásakor</string>
@@ -146,7 +146,7 @@
     <string name="update_notification_downloading">Frissítés letöltése folyamaban</string>
     <string name="update_notification_downloading_details">Downloading build %1$d</string>
     <string name="update_notification_download_fail">A letöltés nem sikerült</string>
-    <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
+    <string name="update_notification_download_fail_details">Nem lehetett letölteni a %1$d. számú buildet</string>
     <!-- /UPDATE -->
 
     <!-- EMERGENCY -->
@@ -163,7 +163,7 @@
     <string name="info_bloodtype">Vértípus</string>
     <string name="info_allergies">Allergiák</string>
     <string name="info_medications">Gyógyszerek</string>
-    <string name="info_medicalnotes">Medical conditions és jegyzetek</string>
+    <string name="info_medicalnotes">Betegségek és jegyzetek</string>
     <string name="info_organdonor">Szervdonor</string>
 
     <string name="info_unspecified">Nincs megadva</string>
