@@ -234,7 +234,8 @@ public class StatusBarHeaderHooks {
                 int headerItemsMarginTop = res.getDimensionPixelSize(R.dimen.header_items_margin_top);
                 int alarmStatusTextColor = res.getColor(R.color.alarm_status_text_color);
                 int dateTimeCollapsedSize = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
-                int dateTimeTextColor = res.getColor(R.color.date_time_text_color);
+                //int dateTimeTextColor = res.getColor(R.color.date_time_text_color);
+                int dateTimeTextColor = mTime.getCurrentTextColor();
                 int dateCollapsedDrawablePadding = res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding);
                 int dateTimeMarginLeft = res.getDimensionPixelSize(R.dimen.date_time_alarm_group_margin_left);
                 Drawable alarmSmall = context.getDrawable(context.getResources().getIdentifier("ic_access_alarms_small", "drawable", XposedHook.PACKAGE_SYSTEMUI));

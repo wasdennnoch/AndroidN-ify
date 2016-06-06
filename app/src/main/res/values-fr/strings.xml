@@ -19,7 +19,7 @@
     <string name="app_dark_theme_title">Thème sombre</string>
     <string name="hide_launcher_icon_title">Cacher l\'icône dans le lanceur</string>
     <string name="hide_launcher_icon">Peut nécessiter un redémarrage du lanceur</string>
-    <string name="force_english_title">Forcer l'utilisation de l'anglais</string>
+    <string name="force_english_title">Forcer l\'utilisation de l\'anglais</string>
     <string name="debug_log_title">Log de Débogage</string>
     <string name="debug_log">Attention : Beaucoup de Log</string>
 
