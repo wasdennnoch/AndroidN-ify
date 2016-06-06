@@ -130,7 +130,7 @@
     <string name="notification_blacklisted_apps">Não utilizar o novo estilo de notificações para estas apps</string>
     <string name="notifications_custom_color_title">Utilizar cor de destaque personalizada</string>
     <string name="notifications_accent_color_title">Cor de destaque</string>
-    <string name="notifications_custom_actions_color_title">Usar cor de fundo das ações personalizada</string>
+    <string name="notifications_custom_actions_color_title">Utilizar cor de fundo das ações personalizada</string>
     <string name="notifications_actions_color_title">Cor de fundo das ações</string>    
     <!-- /NOTIFICATIONS -->
 
@@ -148,12 +148,6 @@
     <string name="update_notification_download_fail">Falha na transferência</string>
     <string name="update_notification_download_fail_details">Falha na transferência da compilação %1$d</string>
     <!-- /UPDATE -->
-
-    <!-- BATTERY -->
-    <string name="battery">Bateria</string>
-    <string name="charged">Carregado</string>
-    <string name="charging">A carregar, %1$s</string>
-    <!-- /BATTERY -->
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Informações de emergência</string>
@@ -186,6 +180,12 @@
 
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+
+    <!-- BATTERY -->
+    <string name="battery">Bateria</string>
+    <string name="charged">Carregado</string>
+    <string name="charging">A carregar, %1$s</string>
+    <!-- /BATTERY -->
 
     <!-- QS -->
     <string name="qs_edit">Editar</string>
