@@ -19,6 +19,7 @@
     <string name="app_dark_theme_title">Thème sombre</string>
     <string name="hide_launcher_icon_title">Cacher l\'icône dans le lanceur</string>
     <string name="hide_launcher_icon">Peut nécessiter un redémarrage du lanceur</string>
+    <string name="force_english_title">Forcer l'utilisation de l'anglais</string>
     <string name="debug_log_title">Log de Débogage</string>
     <string name="debug_log">Attention : Beaucoup de Log</string>
 
@@ -68,7 +69,7 @@
     <string name="recents_navigation_delay_title">Délai de navigation</string>
     <string name="recents_navigation_delay">Durée avant que l\'app selectionnée soit agrandie</string>
     <string name="enable_large_recents">Activer applications récentes larges</string>
-    <string name="no_recents_image">Changer l\'image de \"aucun récent\"</string>
+    <string name="no_recents_image">Changer l\'image \"aucunes apps récents\"</string>
 
     <string name="no_previous_recents">Aucune application récente</string>
 
@@ -90,7 +91,7 @@
     <string name="alternative_header_qs_method_title">Méthode de chargement alternatif de QS</string>
     <string name="alternative_header_qs_method">Activer lorsqu\'il existe des problèmes de positionnement des icones QS</string>
     <string name="enable_new_tile_click_behavior">Comportement d\'Android N à l\'appui.</string>
-    <string name="enable_new_tile_click_behavior_summary">Un click sur une tuile de l\'entête la basculeras et un appui sur une tuile du panneau ouvrira directement ses paramètres</string>
+    <string name="enable_new_tile_click_behavior_summary">Un clic sur une tuile de l\'entête la basculeras et un appui sur une tuile du panneau ouvrira directement ses paramètres</string>
     <string name="enable_large_first_row">Aggrandir la première rangée</string>
     <string name="enable_large_first_row_summary">Sur CM utilisez à la place le menu de configuration du mode d\'édition</string>
     <string name="smaller_header_clock_title">Petite horloge</string>
@@ -112,7 +113,7 @@
     <string name="notification_dismiss_button">Afficher \"TOUT EFFACER\" au lieu de l\'icône d\'élimination</string>
     <string name="action_search">Rechercher</string>
     <string name="notification_blacklisted_apps_title">Liste noire des applis.</string>
-    <string name="notification_blacklisted_apps">Utilisation de l\'ancienne notification pour ces applis.</string>
+    <string name="notification_blacklisted_apps">Utilisation de l\'ancien style de notifications pour ces applis.</string>
     <string name="notifications_custom_color_title">Utiliser une couleur d\'accentuation personnalisée</string>
     <string name="notifications_accent_color_title">Couleur d\'accentuation</string>
     <string name="notifications_custom_actions_color_title">Utiliser une couleur personnalisée pour le fond des actions</string>
@@ -141,7 +142,7 @@
 
     <string name="header_personal">Personnel</string>
     <string name="info_fullname">Nom complet</string>
-    <string name="info_address">Addresse</string>
+    <string name="info_address">Adresse</string>
     <string name="info_birthdate">Date de naissance</string>
 
     <string name="header_medical">Medical</string>
