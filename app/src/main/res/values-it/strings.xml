@@ -104,7 +104,7 @@
     <!-- BATTERY -->
     <string name="battery">Batteria</string>
     <string name="charged">Carico</string>
-    <string name="charging">Caricando, %1$s</string>
+    <string name="charging">In carica, %1$s</string>
     <!-- /BATTERY -->
 
     <!-- QS -->
