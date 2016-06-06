@@ -27,63 +27,74 @@ public class EmergencyHooks implements View.OnClickListener {
     private XC_MethodReplacement setupAssistActionsHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-            FrameLayout emergencyActionGroup = (FrameLayout) param.thisObject;
-            mContext = emergencyActionGroup.getContext();
-            mResUtils = ResourceUtils.getInstance(mContext);
+            try {
+                FrameLayout emergencyActionGroup = (FrameLayout) param.thisObject;
+                mContext = emergencyActionGroup.getContext();
+                mResUtils = ResourceUtils.getInstance(mContext);
 
-            int button1Id = mContext.getResources().getIdentifier("action1", "id", PACKAGE_PHONE);
-            int button2Id = mContext.getResources().getIdentifier("action2", "id", PACKAGE_PHONE);
-            int button3Id = mContext.getResources().getIdentifier("action3", "id", PACKAGE_PHONE);
+                int button1Id = mContext.getResources().getIdentifier("action1", "id", PACKAGE_PHONE);
+                int button2Id = mContext.getResources().getIdentifier("action2", "id", PACKAGE_PHONE);
+                int button3Id = mContext.getResources().getIdentifier("action3", "id", PACKAGE_PHONE);
 
-            int[] buttonIds = new int[] {button1Id, button2Id, button3Id};
+                int[] buttonIds = new int[]{button1Id, button2Id, button3Id};
 
-            for (int i = 0; i < 3; i++) {
-                Button button = (Button) emergencyActionGroup.findViewById(buttonIds[i]);
+                for (int i = 0; i < 3; i++) {
+                    Button button = (Button) emergencyActionGroup.findViewById(buttonIds[i]);
 
-                if (button.getId() == button1Id) {
-                    button.setVisibility(View.VISIBLE);
-                    button.setText(mResUtils.getString(R.string.emergency_info));
-                    button.setOnClickListener(EmergencyHooks.this);
-                    mEmergencyButton = button;
-                } else {
-                    button.setVisibility(View.GONE);
+                    if (button.getId() == button1Id) {
+                        button.setVisibility(View.VISIBLE);
+                        button.setText(mResUtils.getString(R.string.emergency_info));
+                        button.setOnClickListener(EmergencyHooks.this);
+                        mEmergencyButton = button;
+                    } else {
+                        button.setVisibility(View.GONE);
+                    }
                 }
+
+                mHitCount = 0;
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "Error in setupAssistActionsHook", t);
             }
 
-            mHitCount = 0;
-
-            return null;
+            return null; // TODO This could cause crashes too
         }
     };
 
     public void hook(ClassLoader classLoader) {
-        Class classEmergencyActionGroup = XposedHelpers.findClass("com.android.phone.EmergencyActionGroup", classLoader);
-
-        if (ConfigUtils.lockscreen().enable_emergency_info) {
-            XposedHelpers.findAndHookMethod(classEmergencyActionGroup, "setupAssistActions", setupAssistActionsHook);
+        try {
+            if (ConfigUtils.lockscreen().enable_emergency_info) {
+                Class classEmergencyActionGroup = XposedHelpers.findClass("com.android.phone.EmergencyActionGroup", classLoader);
+                XposedHelpers.findAndHookMethod(classEmergencyActionGroup, "setupAssistActions", setupAssistActionsHook);
+            }
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error in emergency hook", t);
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (mHitCount) {
-            case 0:
-                mEmergencyButton.getBackground().setColorFilter(mResUtils.getColor(R.color.md_red_500), PorterDuff.Mode.SRC_ATOP);
-                break;
-            default:
-                mEmergencyButton.getBackground().clearColorFilter();
-                mHitCount = -1;
+        try {
+            switch (mHitCount) {
+                case 0:
+                    mEmergencyButton.getBackground().setColorFilter(mResUtils.getColor(R.color.md_red_500), PorterDuff.Mode.SRC_ATOP);
+                    break;
+                default:
+                    mEmergencyButton.getBackground().clearColorFilter();
+                    mHitCount = -1;
 
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.setClassName("tk.wasdennnoch.androidn_ify",
-                        EmergencyInfoActivity.class.getName());
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setClassName("tk.wasdennnoch.androidn_ify",
+                            EmergencyInfoActivity.class.getName());
 
-                try {
-                    mContext.startActivity(intent);
-                } catch (Exception e) {
-                    XposedHook.logE(TAG, "Unable to start activity " + intent.toString(), e);
-                }
+                    try {
+                        mContext.startActivity(intent);
+                    } catch (Exception e) {
+                        XposedHook.logE(TAG, "Unable to start activity " + intent.toString(), e);
+                    }
+            }
+            mHitCount++;
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error in onClick", t);
         }
-        mHitCount++;
     }
 }
