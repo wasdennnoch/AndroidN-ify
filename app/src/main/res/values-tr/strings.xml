@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
      
     <string name="xposed_description">Lollipop ve Marshmallow üzerinde Android N özelliklerini deneyin!</string>
 
-    <string name="restart_systemui">SystemUI yeniden başlat</string>
-    <string name="restart_systemui_message">SistemUI yeniden başlatmak istediğinizden emin misiniz?</string>
+    <string name="restart_systemui">Sistem Arayüzünü yeniden başlat</string>
+    <string name="restart_systemui_message">Sistem Arayüzünü yeniden başlatmak istediğinizden emin misiniz?</string>
     <string name="restart_broadcast_sent">Yayını yeniden başlat</string>
     <string name="activity_about">Android N-ify Hakkında</string>
     <string name="about_author">Geliştirici @MrWasdennnoch</string>
@@ -14,6 +12,19 @@
     <string name="about_version">Versiyon %1$s (%2$d)</string>
 
     <!-- prefs -->
+	<string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed Bu modülün tercih dosyasını okuyamıyor, varsayılan değerleri kullanılacaktır.
+        Bu sorunu gidermek için çeşitli yollar vardır. Ayrıca, bu hata uygulamayı daha önce
+		hiç açmadıysanız bu sebeple ortaya çıktığını unutmayın.<br><br>
+        İlk olarak, cihaz yeniden başlatın (yazılımsal yeniden başlat değil!).<br>
+        Bu işe yaramazsa, modülü yeniden yüklemeyi deneyin.<br>
+        Her iki denemede başarısız olursa, SELinux modunun <i>permissive(serbest)</i> olarak ayarlanmış olduğundan emin olun.
+        <i>Enforcing(Zorunlu)</i> SELinux modu tercih dosyasına erişimi engelleyebilir. modunu değiştirmek için,
+        <tt>SELinuxModeChanger</tt> uygulamasını kullanabilirsiniz. İndirmek için
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485"> bu XDA konusunu ziyaret edin</a>.<br>
+        Bu seferde başarısız olursa, muhtemelen varsayılan değerler ile yaşamak zorundasınız üzgünüm :(
+        ]]></string>
 
     <string name="header_tweaks">Geliştirme</string>
     <string name="header_app">Uygulama</string>
@@ -21,7 +32,7 @@
     <string name="app_dark_theme_title">Karanlık uygulama teması</string>  
     <string name="hide_launcher_icon_title">Simgeyi gizle</string>
     <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
-    <string name="force_english_title">İngilizceye zorla</string>
+    <string name="force_english_title">İngilizce diline zorla</string>
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
     <string name="debug_log">Dikkat: Log-flooding</string>
 
@@ -64,9 +75,10 @@
 
     <!-- RECENTS -->
     <string name="header_recents">Son Uygulamalar</string>
-    <string name="enable_recents_double_tap_title">Çift tıklama ile uygulamalar arası geçiş</string>
+    <string name="enable_recents_double_tap_title">Hızlı geçiş</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Son uygulamalar tuşuna çift tıklamak son kullanılan uygulamayı açar</string>
     <string name="double_tap_speed_title">Çift tıklama hızı</string>
+	<string name="recents_button_behavior_title">Son uygulamalar tuşuna dokunma davranışı</string>
     <string name="recents_navigation_delay_title">Gezinme gecikmesi</string>
     <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
     <string name="enable_large_recents">Büyük son uygulamalar</string>
@@ -82,25 +94,26 @@
     <!-- STATUS BAR HEADER -->
     <string name="header_status_bar_header">Durum Çubuğu Başlığı</string>
     <string name="enable_notification_header">Başlık stili</string>
-    <string name="keep_qs_panel_bg_title">Değiştirilmemiş Hızlı Ayarlar paneli</string>
+    <string name="keep_qs_panel_bg_title">Değiştirilmemiş Hızlı Ayarlar arka planı</string>
     <string name="keep_qs_panel_bg">Özel bir Hızlı Ayarlar paneli arka planı uygulamak temalar için faydalıdır.</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
-    <string name="notification_header_qs_tiles_count_monitor">kare</string>
+    <string name="notification_header_qs_tiles_count_monitor">kareler</string>
     <string name="battery_tile_show_percentage">Pil yüzde skalasını göster</string>
-    <string name="enable_qs_editor">Hızlı Ayarlar düzenleyiciyi etkinleştirme</string>
+    <string name="enable_qs_editor">Hızlı Ayarları düzenlemeyi etkinleştir</string>
     <string name="allow_fancy_qs_transition">Aşırı Hızlı Ayarlara geçiş</string>
     <string name="alternative_header_qs_method_title">Alternatif Hızlı Ayarlar yükleme yöntemi</string>
     <string name="alternative_header_qs_method">Hızlı Ayarlar simgelerinde konumlandırma sorunları olduğunda etkinleştirin.</string>
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
     <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
     <string name="enable_large_first_row">İlk satırı büyüt</string>
+	<string name="enable_large_first_row_summary">Kareleri düzenle modu yerine CM yapılandırma menüsünü kullanın</string>
     <string name="smaller_header_clock_title">Küçük saat</string>
     <string name="smaller_header_clock">Genişletilmiş başlıkta saatin metin boyutunu düşürün. Küçük ekranlar için kullanışlıdır.</string>
     <string name="notification_full_width_volume_title">Tam genişlikte ses ayarları</string>
     <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Başlık öğelerini gizle</string>
-    <string name="hide_tuner_icon_title">SistemUI Ayar simgesini gizle</string>
+    <string name="hide_tuner_icon_title">Sistem Arayüzü Ayar simgesini gizle</string>
     <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
     <string name="hide_carrier_label_title">Sim durumunu gizle</string>
     <!-- /Hide header icons -->
@@ -108,7 +121,7 @@
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Bildirimler</string>	
-    <string name="notifications_change_style">Bildirimler Stili</string>
+    <string name="notifications_change_style">Bildirimler stili</string>
     <string name="notification_dismiss_button_title">Temizleme tuşunu değiştir</string>
     <string name="notification_dismiss_button">Temizle tuşu yerine \"TÜMÜNÜ TEMİZLE\" yazısını gösterir.</string>
     <string name="action_search">Ara</string>
@@ -116,7 +129,7 @@
     <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullanın.</string>
     <string name="notifications_custom_color_title">Özel vurgu rengi kullan</string>
     <string name="notifications_accent_color_title">Vurgu rengi</string>
-    <string name="notifications_custom_actions_color_title">Özelleştirilmiş arkaplan rengini kullan.</string>
+    <string name="notifications_custom_actions_color_title">Özelleştirilmiş arkaplan rengini kullan</string>
     <string name="notifications_actions_color_title">Arkaplan renk eylemi</string>
     <!-- /NOTIFICATIONS -->
 
@@ -154,13 +167,21 @@
 
     <string name="info_unspecified">Belirtilmemiş</string>
 
-    <!-- /EMERGENCY -->
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+	<!-- /EMERGENCY -->
 
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
 
     <!-- BATTERY -->
-    <string name="battery">Batarya</string>
+    <string name="battery">Pil</string>
     <string name="charged">Şarj</string>
     <string name="charging">Şarj oluyor, %1$s</string>
     <!-- /BATTERY -->
