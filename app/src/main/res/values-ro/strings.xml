@@ -5,8 +5,8 @@
 
     <string name="xposed_description">Aduce caracteristicile din Android N pe Lollipop și Marshmallow!</string>
 
-    <string name="restart_systemui">Reporni SystemUI</string>
-    <string name="restart_systemui_message">Ești sigur că vrei să repornești SystemUI?</string>
+    <string name="restart_systemui">Reporni SystemUI-ul</string>
+    <string name="restart_systemui_message">Ești sigur că vrei să repornești SystemUI-ul?</string>
     <string name="restart_broadcast_sent">Broadcast-ul de repornire a fost trimis</string>
     <string name="activity_about">Despre Android N-ify</string>
     <string name="about_author">Dezvoltată de @MrWasdennnoch</string>
@@ -20,7 +20,7 @@
         Există câteva metode de rezolvare a problemelor. Totodata această eroare va apărea dacă nu ați deschis aplicația niciodată.<br><br>
         Prima dată repornește dispozitivul (Fără repornire rapidă!).<br>
         Dacă nu ajută, încearcă reinstalarea modulului.<br>
-        Dacă ambele metode eșuează, verifică dacă modul SELinux-ului este setat pe<i>Permisiv</i>.
+        Dacă ambele metode eșuează, verifică dacă modul SELinux-ului este setat pe <i>Permisiv</i>.
         SELinux-ul setat pe <i>Obligatoriu</i> poate bloca accesul la fișierul cu setările preferențiale. Ca să schimbi modul,
         folosește aplicația <tt>SELinuxModeChanger</tt> care o poți descărca
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">din acest topic XDA</a>.<br>
@@ -82,7 +82,7 @@
     <string name="recents_navigation_delay_title">Întârziere navigare</string>
     <string name="recents_navigation_delay">Timpul în care aplicațiile devin concentrate</string>
     <string name="enable_large_recents">Aplicații recente mari</string>
-    <string name="no_recents_image">Schimbă imaginea \"nici o aplicație recentă\" </string>
+    <string name="no_recents_image">Schimbă imaginea \"nicio aplicație recentă\" </string>
 
     <string name="no_previous_recents">Nu sunt aplicații recente</string>
 
@@ -133,16 +133,58 @@
     <!-- UPDATE -->
     <string name="update_notification_title">O versiune nouă este disponibilă</string>
     <string name="update_notification">Versiunea %1$d este acum disponibilă pentru descărcare!</string>
-    <string name="update_notification_download">Descărca</string>
+    <string name="update_notification_download">Descarcă</string>
     <string name="check_for_updates_title">Verifică pentru actualizări</string>
     <string name="check_for_updates">Verifică pentru actualizări la pornire</string>
     <string name="checking_for_update">Se verifica pt. actualizari…</string>
-    <string name="check_for_update_fail">Nu pot verifica pt. actualizări</string>
-    <string name="no_updates">Nu s-a găsit nici o versiune nouă</string>
-    <string name="update_notification_downloading">Descărcare actualizare</string>
-    <string name="update_notification_downloading_details">Se descărca actualizare %1$d</string>
-    <string name="update_notification_download_fail">Descărcare eșuată</string>
+    <string name="check_for_update_fail">Nu se poate verifica pt. actualizări</string>
+    <string name="no_updates">Nu s-a găsit nicio versiune nouă</string>
+    <string name="update_notification_downloading">Descărcarea actualizarii</string>
+    <string name="update_notification_downloading_details">Se descărca actualizarea %1$d</string>
+    <string name="update_notification_download_fail">Descărcarea a eșuat</string>
     <string name="update_notification_download_fail_details">Nu s-a putut descărca actualizarea %1$d</string>
     <!-- /UPDATE -->
+    
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Informații de emergență</string>
+    <string name="enable_emergency_info_title">Activați info de emergență</string>
+    <string name="edit_emergency_info_title">Editați info de emergență</string>
 
+    <string name="header_personal">Personală</string>
+    <string name="info_fullname">Numele complet</string>
+    <string name="info_address">Adresă</string>
+    <string name="info_birthdate">Dată nașterii</string>
+
+    <string name="header_medical">Medicală</string>
+    <string name="info_bloodtype">Grupă sanguină</string>
+    <string name="info_allergies">Alergii</string>
+    <string name="info_medications">Medicamente</string>
+    <string name="info_medicalnotes">Condiții și note medicale</string>
+    <string name="info_organdonor">Donator de organe</string>
+
+    <string name="info_unspecified">Nespecificat</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Da</string>
+    <string name="no">Nu</string>
+
+    <!-- BATTERY -->
+    <string name="battery">Baterie</string>
+    <string name="charged">Încărcat</string>
+    <string name="charging">Se încarcă, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Editați</string>
+    <string name="qs_edit_detail">Editați titluri</string>
+    <!-- /QS -->
 </resources>

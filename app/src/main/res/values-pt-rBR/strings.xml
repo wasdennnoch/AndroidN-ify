@@ -148,12 +148,6 @@
     <string name="update_notification_download_fail">Falha no download</string>
     <string name="update_notification_download_fail_details">Falha no download da compilação %1$d</string>
     <!-- /UPDATE -->
-
-    <!-- BATTERY -->
-    <string name="battery">Bateria</string>
-    <string name="charged">Carregado</string>
-    <string name="charging">Carregando, %1$s</string>
-    <!-- /BATTERY -->
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Informações de emergência</string>
@@ -186,6 +180,12 @@
 
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+
+    <!-- BATTERY -->
+    <string name="battery">Bateria</string>
+    <string name="charged">Carregado</string>
+    <string name="charging">Carregando, %1$s</string>
+    <!-- /BATTERY -->
 
     <!-- QS -->
     <string name="qs_edit">Editar</string>
