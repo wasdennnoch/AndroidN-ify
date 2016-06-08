@@ -210,21 +210,15 @@ public class QuickQSPanel extends LinearLayout {
 
     public void onAnimationAtEnd() {
         setVisibility(INVISIBLE);
-        int j = mTopFiveQs.size();
-        for (int i = 0; i < j; i++)
-        {
-            mTopFiveQs.get(i).setVisibility(VISIBLE);
-        }
+        for (View v : mTopFiveQs)
+            v.setVisibility(VISIBLE);
     }
 
     public void onAnimationStarted() {
         if (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD) {
             setVisibility(VISIBLE);
-            int j = mTopFiveQs.size();
-            for (int i = 0; i < j; i++)
-            {
-                mTopFiveQs.get(i).setVisibility(INVISIBLE);
-            }
+            for (View v : mTopFiveQs)
+                v.setVisibility(INVISIBLE);
         } else {
             onAnimationAtEnd();
         }
