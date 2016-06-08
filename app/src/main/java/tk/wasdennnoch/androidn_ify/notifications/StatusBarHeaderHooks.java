@@ -763,7 +763,11 @@ public class StatusBarHeaderHooks {
         if (mHasEditPanel)
             y += mStatusBarHeaderView.getHeight();
         mEditing = true;
-        XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[] {x, y});
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+			// In Lollipop and Lollipop MR1 this method doesn't take an int array as an arg
+			XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter);
+		else
+			XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[] {x, y});
     }
 
     private static void createEditAdapter() {
