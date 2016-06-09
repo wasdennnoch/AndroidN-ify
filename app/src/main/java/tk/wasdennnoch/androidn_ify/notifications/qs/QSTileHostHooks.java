@@ -289,7 +289,7 @@ public class QSTileHostHooks {
             specs.add("airplane");
 
             // DND tile was added only on M!
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
                 specs.add("dnd");
 
             specs.add("rotation");
