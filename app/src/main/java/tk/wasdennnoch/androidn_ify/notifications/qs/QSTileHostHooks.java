@@ -3,6 +3,7 @@ package tk.wasdennnoch.androidn_ify.notifications.qs;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 
 import org.json.JSONArray;
@@ -42,7 +43,6 @@ public class QSTileHostHooks {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             // Thanks to GravityBox for this
-
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
@@ -75,6 +75,61 @@ public class QSTileHostHooks {
                 mTilesManager = new TilesManager(param.thisObject);
 
             List<String> tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
+            Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
+
+            Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
+
+            tileSpecs.clear();
+            tileSpecs.addAll(getTileSpecs(context));
+            tileMap.clear();
+            int tileSpecCount = tileSpecs.size();
+            for (int i = 0; i < tileSpecCount; i++) {
+                String spec = tileSpecs.get(i);
+                tileMap.put(spec, createTile(param.thisObject, spec));
+            }
+
+            Object mCallback = XposedHelpers.getObjectField(param.thisObject, "mCallback");
+            if (mCallback != null) XposedHelpers.callMethod(mCallback, "onTilesChanged");
+        }
+    };
+
+    // For LP
+    private static XC_MethodHook recreateTilesHook = new XC_MethodHook() {
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            // Thanks to GravityBox for this
+            if (mTileHost == null)
+                mTileHost = param.thisObject;
+
+            mTileSpecs = new ArrayList<>(); // Do this since mTileSpecs doesn't exist on LP
+
+            if (mTilesManager != null) {
+                Map<String, Object> tileMap = (Map<String, Object>)
+                        XposedHelpers.getObjectField(param.thisObject, "mTiles");
+                for (Entry<String, Object> entry : tileMap.entrySet()) {
+                    XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
+                }
+                tileMap.clear();
+                mTileSpecs.clear();
+            }
+
+            Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
+            for (Entry<String, Object> entry : tileMap.entrySet()) {
+                XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
+            }
+            tileMap.clear();
+            mTileSpecs.clear();
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+
+            if (mTilesManager == null)
+                mTilesManager = new TilesManager(param.thisObject);
+
+            List<String> tileSpecs = new ArrayList<>(); // Do this since mTileSpecs doesn't exist on LP
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
 
             Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
@@ -148,7 +203,11 @@ public class QSTileHostHooks {
             }
 
             if (ConfigUtils.header().enable_qs_editor) {
-                XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                    XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook); // On L, this method is void
+                else
+                    XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
+
                 XposedHelpers.findAndHookMethod(classTileHost, "createTile", String.class, new XC_MethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -228,7 +287,11 @@ public class QSTileHostHooks {
             specs.add("inversion");
             specs.add("cell");
             specs.add("airplane");
-            specs.add("dnd");
+
+            // DND tile was added only on M!
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
+                specs.add("dnd");
+
             specs.add("rotation");
             specs.add("flashlight");
             specs.add("location");
@@ -243,7 +306,10 @@ public class QSTileHostHooks {
 
     public static void recreateTiles() {
         try {
-            XposedHelpers.callMethod(mTileHost, "onTuningChanged", TILES_SETTING, "");
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                XposedHelpers.callMethod(mTileHost, "recreateTiles");
+            else
+                XposedHelpers.callMethod(mTileHost, "onTuningChanged", TILES_SETTING, "");
         } catch (Throwable t) {
             XposedBridge.log(t);
         }
