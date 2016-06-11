@@ -700,9 +700,6 @@ public class StatusBarHeaderHooks {
                 QSTileHostHooks.recreateTiles();
             }
         }
-        FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
-        qsPanelLp.bottomMargin = (showingDetail) ? 0 : getResUtils().getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
-        mQsPanel.setLayoutParams(qsPanelLp);
     }
 
     private static ResourceUtils getResUtils() {
