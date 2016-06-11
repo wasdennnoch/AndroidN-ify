@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs;
 
+import android.annotation.Nullable;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -46,7 +47,7 @@ public class QSTileHostHooks {
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
-            if (param.args != null && param.args.length > 0 && !TILES_SETTING.equals(param.args[0]))
+            if (!TILES_SETTING.equals(param.args[0]))
                 return;
 
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
@@ -54,28 +55,18 @@ public class QSTileHostHooks {
                 XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
             }
             tileMap.clear();
-            try {
-                ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
-            } catch (Throwable ignore) {
-                // Not present in LP or Candy6
-            }
+            ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
         }
 
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            if (param.args != null && param.args.length > 0 && !TILES_SETTING.equals(param.args[0])) return;
+            if (!TILES_SETTING.equals(param.args[0])) return;
 
             if (mTilesManager == null)
                 mTilesManager = new TilesManager(param.thisObject);
 
-            List<String> tileSpecs;
-            try {
-                tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
-            } catch (Throwable t) {
-                // Not present in LP or Candy6
-                tileSpecs = new ArrayList<>();
-            }
+            List<String> tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
 
             Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
@@ -180,15 +171,21 @@ public class QSTileHostHooks {
         return mTileSpecs;
     }
 
+    @Nullable
     public static Object createTile(Object tileHost, String tileSpec) {
-        Object tile;
-        if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
-            tile = mTilesManager.createTile(tileSpec).getTile();
-        } else {
-            tile = XposedHelpers.callMethod(tileHost, "createTile", tileSpec);
+        try {
+            Object tile;
+            if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
+                tile = mTilesManager.createTile(tileSpec).getTile();
+            } else {
+                tile = XposedHelpers.callMethod(tileHost, "createTile", tileSpec);
+            }
+            XposedHelpers.setAdditionalInstanceField(tile, TILE_SPEC_NAME, tileSpec);
+            return tile;
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Couldn't create tile with spec \"" + tileSpec + "\"", t);
         }
-        XposedHelpers.setAdditionalInstanceField(tile, TILE_SPEC_NAME, tileSpec);
-        return tile;
+        return null;
     }
 
     public static void hook(ClassLoader classLoader) {
@@ -210,7 +207,7 @@ public class QSTileHostHooks {
                     try {
                         XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
                     } catch (Throwable t) { // Candy6
-                        XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", onTuningChangedHook);
+                        XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook);
                     }
                 }
 
