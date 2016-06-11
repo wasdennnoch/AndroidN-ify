@@ -17,7 +17,7 @@
     <string name="prefs_not_readable"><![CDATA[<b>Aviso:</b> O ficheiro de preferências não pode ser lido pelo Xposed. Clique para mais informações&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         O Xposed não pode ler o ficheiro de preferências deste módulo, os valores padrão serão usados.
-        Há várias maneiras de resolver este problema. Note também que esse erro aparece se nunca
+        Há várias maneiras de resolver este problema. Note também que este erro aparece se nunca
         abriu o app antes.<br><br>
         Primeiramente, reinicie o dispositivo (Sem reinício rápido!).<br>
         Se isso não ajudar, tente reinstalar o módulo.<br>
