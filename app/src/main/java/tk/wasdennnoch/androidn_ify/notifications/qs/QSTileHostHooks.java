@@ -46,7 +46,8 @@ public class QSTileHostHooks {
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
-            if (!TILES_SETTING.equals(param.args[0])) return;
+            if (param.args != null && param.args.length > 0 && !TILES_SETTING.equals(param.args[0]))
+                return;
 
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
             for (Entry<String, Object> entry : tileMap.entrySet()) {
