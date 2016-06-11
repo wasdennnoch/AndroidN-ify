@@ -16,7 +16,7 @@
     <string name="prefs_not_readable"><![CDATA[<b>Attenzione:</b> Il file di preferenze non è leggibile da Xposed. Clicca per più informazioni&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed non può leggere il file di preferenze di questo modulo, i valori predefiniti saranno utilizzati negli hooks.
-        Ci sono diversi modi per risolvere questo problema. Nota anche che questo errore potrebbe apparirese tu non hai mai
+        Ci sono diversi modi per risolvere questo problema. Nota anche che questo errore potrebbe apparire se tu non hai mai
         aperto l\'app.<br><br>
         Per prima cosa, riavvia il tuo dispositivo (Non un soft reboot!).<br>
         Se non funziona, prova a reinstallare il modulo.<br>
@@ -146,7 +146,7 @@
   <!--  <string name="enable_qs_in_header">Abilita i quicksettings nell\'intestazioner</string> -->
     <string name="notifications_custom_color_title">Usa colore personalizzato</string>
     <string name="notifications_accent_color_title">Colore</string>
-    <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
+    <string name="notifications_custom_actions_color_title">Usa colore sfondo delle azioni personalizzato</string>
     <string name="notifications_actions_color_title">Colore sfondo azioni</string>
     <string name="notification_header_qs_tiles_count">Numero massimo di quicksettings da mostrare</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
@@ -163,7 +163,9 @@
     <string name="notification_blacklisted_apps_title">App disabilitate</string>
     <string name="notification_blacklisted_apps">Usa il vecchio stile delle notifiche per queste app</string>
     <string name="alternative_header_qs_method_title">Metodo alternativo caricamento QS</string>
-    <string name="alternative_header_qs_method">Abilitalo quando ci sono problemi di posizionamento cone le icone dei QS</string>
+    <string name="alternative_header_qs_method">Abilitalo quando ci sono problemi di posizionamento con le icone dei QS</string>
+    <string name="drag_to_add_tiles">Trascina per aggiungere tiles</string>
+    <string name="drag_to_remove_tiles">Trascina qui per rimuovere</string>
      <!-- /NOTIFICATIONS -->
      
      <!-- UPDATE -->
