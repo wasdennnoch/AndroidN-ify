@@ -280,10 +280,15 @@ public class NotificationsHooks {
 
             int mColor = (int) XposedHelpers.callMethod(param.thisObject, "resolveColor");
             int textViewId = context.getResources().getIdentifier("action0", "id", PACKAGE_ANDROID);
+            Notification.Action action = (Notification.Action) param.args[0];
 
             RemoteViews button = (RemoteViews) param.getResult();
-            button.setTextViewCompoundDrawablesRelative(textViewId, 0, 0, 0, 0);
-            button.setTextColor(textViewId, mColor);
+            if (action.title != null && action.title.length() != 0) {
+                button.setTextViewCompoundDrawablesRelative(textViewId, 0, 0, 0, 0);
+                button.setTextColor(textViewId, mColor);
+            } else {
+                XposedHelpers.callMethod(button, "setTextViewCompoundDrawablesRelativeColorFilter", textViewId, 0, mColor, PorterDuff.Mode.SRC_ATOP);
+            }
         }
     };
 

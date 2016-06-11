@@ -56,7 +56,7 @@ public class EmergencyHooks implements View.OnClickListener {
                 XposedHook.logE(TAG, "Error in setupAssistActionsHook", t);
             }
 
-            return null; // TODO This could cause crashes too
+            return null; // void
         }
     };
 

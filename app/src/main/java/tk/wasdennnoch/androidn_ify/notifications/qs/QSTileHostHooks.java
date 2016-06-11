@@ -195,8 +195,8 @@ public class QSTileHostHooks {
             Class<?> classTileHost = XposedHelpers.findClass(CLASS_TILE_HOST, classLoader);
 
             if (RomUtils.isCmBased()) {
-                classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
                 try {
+                    classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
                     classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
                 } catch (Throwable ignore) {
                 }
@@ -320,7 +320,8 @@ public class QSTileHostHooks {
         List<String> specs = new ArrayList<>();
         String[] possibleSpecs = new String[]{/*"notifications", "data", "roaming", "dds", "apn",*/ "profiles", "performance",
                 "adb_network", "nfc", "compass", "lockscreen", /*"lte", "visualizer",*/ "volume_panel", "screen_timeout",
-                "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine"/*, "edit"*/};
+                "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine", "music", "next_alarm",
+                "ime_selector", "su", "adb", "live_display", "themes"};
         for (String s : possibleSpecs) {
             if (bruteForceSpec(s)) specs.add(s);
         }
