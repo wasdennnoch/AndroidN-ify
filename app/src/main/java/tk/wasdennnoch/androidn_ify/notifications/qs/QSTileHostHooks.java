@@ -77,7 +77,9 @@ public class QSTileHostHooks {
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
                 String spec = tileSpecs.get(i);
-                tileMap.put(spec, createTile(param.thisObject, spec));
+                Object tile = createTile(param.thisObject, spec);
+                if (tile != null)
+                    tileMap.put(spec, tile);
             }
 
             Object mCallback = XposedHelpers.getObjectField(param.thisObject, "mCallback");
@@ -132,7 +134,9 @@ public class QSTileHostHooks {
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
                 String spec = tileSpecs.get(i);
-                tileMap.put(spec, createTile(param.thisObject, spec));
+                Object tile = createTile(param.thisObject, spec);
+                if (tile != null)
+                    tileMap.put(spec, tile);
             }
 
             Object mCallback = XposedHelpers.getObjectField(param.thisObject, "mCallback");
