@@ -54,7 +54,11 @@ public class QSTileHostHooks {
                 XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
             }
             tileMap.clear();
-            ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
+            try {
+                ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
+            } catch (Throwable ignore) {
+                // Not present in LP or Candy6
+            }
         }
 
         @SuppressWarnings("unchecked")
