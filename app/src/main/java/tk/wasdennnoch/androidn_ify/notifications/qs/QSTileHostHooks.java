@@ -64,12 +64,18 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            if (!TILES_SETTING.equals(param.args[0])) return;
+            if (param.args != null && param.args.length > 0 && !TILES_SETTING.equals(param.args[0])) return;
 
             if (mTilesManager == null)
                 mTilesManager = new TilesManager(param.thisObject);
 
-            List<String> tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
+            List<String> tileSpecs;
+            try {
+                tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
+            } catch (Throwable t) {
+                // Not present in LP or Candy6
+                tileSpecs = new ArrayList<>();
+            }
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
 
             Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
