@@ -10,11 +10,11 @@
     <string name="restart_broadcast_sent">Broadcast-ul de repornire a fost trimis</string>
     <string name="activity_about">Despre Android N-ify</string>
     <string name="about_author">Dezvoltată de @MrWasdennnoch</string>
-    <string name="about_translator">Tradusă de @IonutGherman (traducător principal) și @KingKaminari (revizii)</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_translator">Tradusă de @IonutGherman și @KingKaminari</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">Versiunea %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_not_readable"><![CDATA[<b>Atenție:</b> Fișierul de preferință nu este citit de către Xposed. Click pt. mai multe informații&#8230;]]></string>
+    <string name="prefs_not_readable"><![CDATA[<b>Atenție:</b> Fișierul de preferință nu este citit de către Xposed. Dați clic pentru mai multe informații&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed nu poate citi fișiere de preferință ale acestui modul, valorile prestabilite vor fi folosite.
         Există câteva metode de rezolvare a problemelor. Totodata această eroare va apărea dacă nu ați deschis aplicația niciodată.<br><br>
@@ -136,19 +136,19 @@
     <string name="update_notification_download">Descarcă</string>
     <string name="check_for_updates_title">Verifică pentru actualizări</string>
     <string name="check_for_updates">Verifică pentru actualizări la pornire</string>
-    <string name="checking_for_update">Se verifica pt. actualizari…</string>
+    <string name="checking_for_update">Se verifică pt. actualizari…</string>
     <string name="check_for_update_fail">Nu se poate verifica pt. actualizări</string>
     <string name="no_updates">Nu s-a găsit nicio versiune nouă</string>
     <string name="update_notification_downloading">Descărcarea actualizarii</string>
-    <string name="update_notification_downloading_details">Se descărca actualizarea %1$d</string>
+    <string name="update_notification_downloading_details">Se descarcă actualizarea %1$d</string>
     <string name="update_notification_download_fail">Descărcarea a eșuat</string>
     <string name="update_notification_download_fail_details">Nu s-a putut descărca actualizarea %1$d</string>
     <!-- /UPDATE -->
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Informații de emergență</string>
-    <string name="enable_emergency_info_title">Activați info de emergență</string>
-    <string name="edit_emergency_info_title">Editați info de emergență</string>
+    <string name="enable_emergency_info_title">Activare info de emergență</string>
+    <string name="edit_emergency_info_title">Editare info de emergență</string>
 
     <string name="header_personal">Personală</string>
     <string name="info_fullname">Numele complet</string>
@@ -184,7 +184,9 @@
     <!-- /BATTERY -->
 
     <!-- QS -->
-    <string name="qs_edit">Editați</string>
-    <string name="qs_edit_detail">Editați titluri</string>
+    <string name="qs_edit">Edita</string>
+    <string name="qs_edit_detail">Editare titluri</string>
+    <string name="drag_to_add_tiles">Trageți pentru a adăuga titluri</string>
+    <string name="drag_to_remove_tiles">Trageți aici pentru a elimina</string>	
     <!-- /QS -->
 </resources>
