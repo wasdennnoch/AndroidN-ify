@@ -5,6 +5,7 @@
 - Emergency info
 - QS transition
 - Improved "prefs not reabable" warning message
+- Minor fixes and improvements
 
 ### v0.2.0 (5):
 
