@@ -175,7 +175,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             }
 
             mWarningTextPaint.setColor(COLORS[0]);
-            mBoltPaint.setColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("batterymeter_bolt_color", "color", XposedHook.PACKAGE_SYSTEMUI)));
+            mBatteryPaint.setColor(mainColor);
             mChargeColor = mainColor;
             invalidate();
         }

@@ -184,9 +184,10 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     public boolean onItemMove(int fromPosition, int toPosition) {
-        if (fromPosition > mDividerIndex && toPosition >= mDividerIndex) {
+        if (fromPosition > mDividerIndex && toPosition > mDividerIndex)
             return false;
-        }
+        if (fromPosition < mDividerIndex && mDividerIndex < 2)
+            return false;
         move(fromPosition, toPosition, mTileViews);
         move(fromPosition, toPosition, mTileSpecs);
         mDividerIndex = mTileViews.indexOf(null);
@@ -214,7 +215,15 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         mTileTouchCallback = tileTouchCallback;
     }
 
-    public class TileViewHolder extends RecyclerView.ViewHolder {
+    private void addTile(int position) {
+        onItemMove(position, mDividerIndex);
+    }
+
+    private void removeTile(int position) {
+        onItemMove(position, mDividerIndex);
+    }
+
+    public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected RelativeLayout mItemView;
         protected TextView mTextView;
@@ -224,7 +233,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
             if (itemView instanceof RelativeLayout)
                 mItemView = (RelativeLayout) itemView;
-            else if (itemView instanceof TextView)
+             else if (itemView instanceof TextView)
                 mTextView = (TextView) itemView;
         }
 
@@ -232,6 +241,8 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             if (mItemView == null) return;
             mItemView.removeAllViews();
             mItemView.addView(tileView);
+            tileView.setClickable(true);
+            tileView.setOnClickListener(this);
         }
 
         public void startDrag() {
@@ -252,6 +263,15 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             } catch (Throwable ignore) {
 
             }
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (position < mDividerIndex)
+                removeTile(position);
+            else
+                addTile(position);
         }
     }
 
@@ -300,10 +320,8 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private final RecyclerView.ItemDecoration mDecoration = new RecyclerView.ItemDecoration() {
         private final ColorDrawable mDrawable = new ColorDrawable(0xff384248);
 
-        public void onDraw(Canvas canvas, RecyclerView recyclerview, RecyclerView.State state)
-        {
-            label0:
-            {
+        public void onDraw(Canvas canvas, RecyclerView recyclerview, RecyclerView.State state) {
+            label0: {
                 super.onDraw(canvas, recyclerview, state);
                 int l = recyclerview.getChildCount();
                 int j = recyclerview.getWidth();
