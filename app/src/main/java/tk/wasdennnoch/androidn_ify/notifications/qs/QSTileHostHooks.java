@@ -272,6 +272,12 @@ public class QSTileHostHooks {
         if (RomUtils.isCmBased()) {
             try {
                 specs = (List<String>) XposedHelpers.callStaticMethod(classQSUtils, "getAvailableTiles", context);
+                specs.add("next_alarm");
+                specs.add("ime_selector");
+                specs.add("su");
+                specs.add("adb");
+                specs.add("live_display");
+                specs.add("themes");
             } catch (Throwable t) {
                 try {
                     specs = (ArrayList<String>) ((ArrayList<String>) XposedHelpers.getStaticObjectField(classQSConstants, "TILES_AVAILABLE")).clone();
@@ -322,15 +328,20 @@ public class QSTileHostHooks {
                 "adb_network", "nfc", "compass", "lockscreen", /*"lte", "visualizer",*/ "volume_panel", "screen_timeout",
                 "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine"/*, "edit"*/};
         for (String s : possibleSpecs) {
-            try {
-                XposedHelpers.callMethod(mTileHost, "createTile", s);
-                specs.add(s);
-            } catch (Throwable ignore) {
-                XposedHook.logD(TAG, "bruteForceSpecs: spec \"" + s + "\" doesn't exist");
-                // Not a applicable tile spec
-            }
+            if (bruteForceSpec(s)) specs.add(s);
         }
         return specs;
+    }
+
+    private static boolean bruteForceSpec(String spec) {
+        try {
+            XposedHelpers.callMethod(mTileHost, "createTile", spec);
+            return true;
+        } catch (Throwable ignore) {
+            XposedHook.logD(TAG, "bruteForceSpecs: spec \"" + spec + "\" doesn't exist");
+            return false;
+            // Not a applicable tile spec
+        }
     }
 
 }
