@@ -971,7 +971,13 @@ public class StatusBarHeaderHooks {
                         }
                     });
                 } catch (Throwable t) {
-                    XposedHook.logW(TAG, "Couldn't hook fireShowingDetail in the QS panel (" + t.getClass().getSimpleName() + ")");
+                    XposedHelpers.findAndHookMethod(classQSPanel, "showDetailAdapter", boolean.class, CLASS_DETAIL_ADAPTER, int[].class, new XC_MethodReplacement() {
+                        @Override
+                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                            handleShowingDetail(param.args[0]);
+                            return null;
+                        }
+                    });
                 }
 
                 boolean isCm = false;

@@ -657,6 +657,11 @@ public class NotificationsHooks {
             int dismissButtonPaddingTop = res.getDimensionPixelSize(R.dimen.notification_dismiss_button_padding_top);
 
             View buttonView = layout.getChildAt(0);
+            if (buttonView instanceof LinearLayout) {
+                ((LinearLayout) buttonView).getChildAt(0).setVisibility(View.GONE);
+                ((LinearLayout) buttonView).getChildAt(1).setVisibility(View.VISIBLE);
+                buttonView = ((LinearLayout) buttonView).getChildAt(1);
+            }
             if (buttonView instanceof ImageButton) {
                 int oldId = buttonView.getId();
                 layout.removeView(buttonView);
