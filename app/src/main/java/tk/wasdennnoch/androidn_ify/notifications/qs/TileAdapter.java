@@ -1,7 +1,6 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -15,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
@@ -37,8 +35,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     protected int mCellHeight;
     protected int mCellWidth;
     private List<String> mTileSpecs;
-    private AvailableTileAdapter mAvailableTileAdapter;
-    private StatusBarHeaderHooks.OnStartDragListener mOnStartDragListener;
     private StatusBarHeaderHooks.TileTouchCallback mTileTouchCallback;
     private ResourceUtils mRes;
     public int mDividerIndex;
@@ -72,11 +68,11 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     private void addAvailableTiles() {
-        mAvailableTileAdapter = new AvailableTileAdapter(mRecords, mContext, mQsPanel);
+        // TODO completely remove AvailableTileAdapter
+        AvailableTileAdapter mAvailableTileAdapter = new AvailableTileAdapter(mRecords, mContext, mQsPanel);
         int count = mAvailableTileAdapter.getItemCount();
         for (int i = 0; i < count; i++) {
             mTileSpecs.add((String) mAvailableTileAdapter.mRecords.get(i));
-            //mRecords.add(new Record((String) mAvailableTileAdapter.mRecords.get(i)));
             mTileViews.add(mAvailableTileAdapter.mTileViews.get(i));
         }
     }
@@ -131,10 +127,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private GridLayoutManager.LayoutParams generateLayoutParams() {
         int i = getWidth();
         return new GridLayoutManager.LayoutParams(i, i);
-    }
-
-    public void setOnStartDragListener(StatusBarHeaderHooks.OnStartDragListener onStartDragListener) {
-        mOnStartDragListener = onStartDragListener;
     }
 
     @Override
@@ -222,7 +214,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         mTileTouchCallback = tileTouchCallback;
     }
 
-    public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TileViewHolder extends RecyclerView.ViewHolder {
 
         protected RelativeLayout mItemView;
         protected TextView mTextView;
@@ -240,12 +232,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             if (mItemView == null) return;
             mItemView.removeAllViews();
             mItemView.addView(tileView);
-            tileView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            onItemClick(getAdapterPosition());
         }
 
         public void startDrag() {
@@ -267,42 +253,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
             }
         }
-    }
-
-    public void onItemClick(int position) {
-        Object tilerecord = mRecords.get(position);
-        String spec;
-        if (tilerecord instanceof Record) {
-            spec = ((Record) tilerecord).spec;
-        } else {
-            Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
-            spec = (String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME);
-        }
-        StatusBarHeaderHooks.mAvailableTileAdapter.addAdditionalSpec(spec);
-
-        mRecords.remove(position);
-        mTileViews.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public void addRecord(Record record) {
-        /*
-        int addPosition = mTileViews.size();
-
-        Object tile = QSTileHostHooks.createTile(QSTileHostHooks.mTileHost, record.spec);
-        XposedHelpers.callMethod(tile, "refreshState");
-        addTile(addPosition, tile);
-        mRecords.add(record);
-        notifyItemInserted(addPosition);
-        *
-
-        List<String> tileSpecs = convertToSpecs();
-        tileSpecs.add(tileSpecs.size(), record.spec);
-        if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
-            QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
-            QSTileHostHooks.recreateTiles();
-        }
-        */
     }
 
     public boolean saveChanges() {

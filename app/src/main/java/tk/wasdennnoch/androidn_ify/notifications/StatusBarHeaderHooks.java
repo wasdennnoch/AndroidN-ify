@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.graphics.drawable.Animatable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Process;
@@ -47,7 +46,6 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
-import tk.wasdennnoch.androidn_ify.notifications.qs.AvailableTileAdapter;
 import tk.wasdennnoch.androidn_ify.notifications.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.notifications.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.BluetoothTileHook;
@@ -119,12 +117,8 @@ public class StatusBarHeaderHooks {
 
     private static Object mEditAdapter;
     private static NestedScrollView mEditView;
-    private static RecyclerView mRecyclerView;
-    private static RecyclerView mSecondRecyclerView;
     public static Button mEditButton;
     public static TileAdapter mTileAdapter;
-    public static AvailableTileAdapter mAvailableTileAdapter;
-    private static ItemTouchHelper mItemTouchHelper;
     private static ResourceUtils mResUtils;
 
     private static int mBarState = 2;
@@ -822,35 +816,21 @@ public class StatusBarHeaderHooks {
         // Init tiles list
         mTileAdapter = new TileAdapter(mRecords, mContext, mQsPanel);
         TileTouchCallback callback = new TileTouchCallback();
-        mItemTouchHelper = new CustomItemTouchHelper(callback);
+        ItemTouchHelper mItemTouchHelper = new CustomItemTouchHelper(callback);
         XposedHelpers.setIntField(callback, "mCachedMaxScrollSpeed", res.getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
         // With this, it's very easy to deal with drag & drop
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         gridLayoutManager.setSpanSizeLookup(mTileAdapter.getSizeLookup());
-        mRecyclerView = new RecyclerView(mContext);
+        RecyclerView mRecyclerView = new RecyclerView(mContext);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mTileAdapter);
         mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
-        mTileAdapter.setOnStartDragListener(callback);
         mTileAdapter.setTileTouchCallback(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-        /*
-        // Init available tiles list
-        mAvailableTileAdapter = new AvailableTileAdapter(mRecords, mContext, mQsPanel);
-        mSecondRecyclerView = new RecyclerView(mContext);
-        mSecondRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
-        mSecondRecyclerView.setAdapter(mAvailableTileAdapter);
-        mSecondRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        mSecondRecyclerView.setNestedScrollingEnabled(false);
-        mSecondRecyclerView.setBackground(new ColorDrawable(0xFF384248));
-        */
-
-
         linearLayout.addView(mRecyclerView);
-        //linearLayout.addView(mSecondRecyclerView);
     }
 
     public static void onSetBarState(int state) {
@@ -884,11 +864,7 @@ public class StatusBarHeaderHooks {
         }
     }
 
-    public interface OnStartDragListener {
-        void onStartDrag(RecyclerView.ViewHolder viewHolder);
-    }
-
-    public static class TileTouchCallback extends ItemTouchHelper.Callback implements OnStartDragListener {
+    public static class TileTouchCallback extends ItemTouchHelper.Callback {
         public TileAdapter.TileViewHolder mCurrentDrag;
 
         @Override
@@ -919,11 +895,6 @@ public class StatusBarHeaderHooks {
         @Override
         public boolean isItemViewSwipeEnabled() {
             return false;
-        }
-
-        @Override
-        public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-            mItemTouchHelper.startDrag(viewHolder);
         }
 
         @Override
