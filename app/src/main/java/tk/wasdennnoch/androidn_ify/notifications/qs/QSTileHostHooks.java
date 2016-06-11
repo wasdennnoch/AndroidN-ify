@@ -48,16 +48,6 @@ public class QSTileHostHooks {
 
             if (!TILES_SETTING.equals(param.args[0])) return;
 
-            if (mTilesManager != null) {
-                Map<String, Object> tileMap = (Map<String, Object>)
-                        XposedHelpers.getObjectField(param.thisObject, "mTiles");
-                for (Entry<String, Object> entry : tileMap.entrySet()) {
-                    XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
-                }
-                tileMap.clear();
-                ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
-            }
-
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
             for (Entry<String, Object> entry : tileMap.entrySet()) {
                 XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
@@ -203,15 +193,22 @@ public class QSTileHostHooks {
             }
 
             if (ConfigUtils.header().enable_qs_editor) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook); // On L, this method is void
-                else
-                    XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
+                } else {
+                    try {
+                        XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
+                    } catch (Throwable t) { // Candy6
+                        XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", onTuningChangedHook);
+                    }
+                }
 
                 XposedHelpers.findAndHookMethod(classTileHost, "createTile", String.class, new XC_MethodHook() {
+
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        if (mTilesManager == null) mTilesManager = new TilesManager(param.thisObject);
+                        if (mTilesManager == null)
+                            mTilesManager = new TilesManager(param.thisObject);
                         String tileSpec = (String) param.args[0];
                         if (TilesManager.mCustomTileSpecs.contains(tileSpec)) {
                             param.setResult(mTilesManager.createTile(tileSpec).getTile());
@@ -306,10 +303,15 @@ public class QSTileHostHooks {
 
     public static void recreateTiles() {
         try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 XposedHelpers.callMethod(mTileHost, "recreateTiles");
-            else
-                XposedHelpers.callMethod(mTileHost, "onTuningChanged", TILES_SETTING, "");
+            } else {
+                try {
+                    XposedHelpers.callMethod(mTileHost, "onTuningChanged", TILES_SETTING, "");
+                } catch (Throwable t) { // Candy6
+                    XposedHelpers.callMethod(mTileHost, "recreateTiles");
+                }
+            }
         } catch (Throwable t) {
             XposedBridge.log(t);
         }

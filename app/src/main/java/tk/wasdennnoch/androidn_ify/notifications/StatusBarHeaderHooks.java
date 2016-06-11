@@ -738,15 +738,19 @@ public class StatusBarHeaderHooks {
     private static View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.qs_edit:
-                    showEdit();
-                    break;
-                case R.id.qs_up:
-                    XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
-                            mContext.getString(mContext.getResources().getIdentifier("accessibility_desc_quick_settings", "string", PACKAGE_SYSTEMUI)));
-                    XposedHelpers.callMethod(mQsPanel, "closeDetail");
-                    break;
+            try {
+                switch (v.getId()) {
+                    case R.id.qs_edit:
+                        showEdit();
+                        break;
+                    case R.id.qs_up:
+                        XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
+                                mContext.getString(mContext.getResources().getIdentifier("accessibility_desc_quick_settings", "string", PACKAGE_SYSTEMUI)));
+                        XposedHelpers.callMethod(mQsPanel, "closeDetail");
+                        break;
+                }
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "Error in onClickListener", t);
             }
         }
     };
@@ -764,7 +768,7 @@ public class StatusBarHeaderHooks {
             // In LP this method doesn't take an int array as an arg
             XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter);
         else
-            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[] {x, y});
+            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[]{x, y});
     }
 
     private static void createEditAdapter() {
@@ -777,7 +781,7 @@ public class StatusBarHeaderHooks {
 
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                if(method.getName().equals("getTitle")){
+                if (method.getName().equals("getTitle")) {
                     return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", PACKAGE_SYSTEMUI);
                 } else if (method.getName().equals("getToggleState")) {
                     return false;
@@ -991,7 +995,7 @@ public class StatusBarHeaderHooks {
                 }
 
                 QSTileHostHooks.hook(classLoader);
-                
+
                 boolean firstRowLarge = ConfigUtils.header().large_first_row;
                 if (ConfigUtils.header().new_click_behavior) {
                     new WifiTileHook(classLoader, (!isCm && !firstRowLarge));
