@@ -2,10 +2,13 @@ package tk.wasdennnoch.androidn_ify.utils;
 
 import android.annotation.DimenRes;
 import android.annotation.DrawableRes;
+import android.annotation.LayoutRes;
 import android.annotation.NonNull;
 import android.annotation.StringRes;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -34,6 +37,10 @@ public class ResourceUtils {
         if (mInstance == null)
             mInstance = new ResourceUtils(context);
         return mInstance;
+    }
+
+    public final XmlResourceParser getLayout(@LayoutRes int resId) {
+        return mContext.getResources().getLayout(resId);
     }
 
     public final float getDimension(@DimenRes int resId) {

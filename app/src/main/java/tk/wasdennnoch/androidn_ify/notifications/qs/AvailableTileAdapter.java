@@ -11,7 +11,6 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class AvailableTileAdapter extends TileAdapter {
@@ -77,6 +76,11 @@ public class AvailableTileAdapter extends TileAdapter {
         tileView.handleStateChanged(getQSTileIcon(spec), getQSTileLabel(spec));
         mTileViews.add(tileView);
         mRecords.add(spec);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mTileViews.size();
     }
 
     private Drawable getQSTileIcon(String spec) {
@@ -227,22 +231,5 @@ public class AvailableTileAdapter extends TileAdapter {
                 return res.getIdentifier("quick_settings_hotspot_label", "string", PACKAGE_SYSTEMUI);
         }
         return 0;
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        Record r = new TileAdapter.Record();
-        r.spec = (String) mRecords.get(position);
-        StatusBarHeaderHooks.mTileAdapter.addRecord(r);
-
-        mRecords.remove(position);
-        mTileViews.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public void addAdditionalSpec(String spec) {
-        int addPosition = mTileViews.size();
-        addSpec(spec);
-        notifyItemInserted(addPosition);
     }
 }
