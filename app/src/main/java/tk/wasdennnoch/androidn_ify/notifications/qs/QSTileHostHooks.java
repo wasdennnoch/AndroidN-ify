@@ -272,12 +272,6 @@ public class QSTileHostHooks {
         if (RomUtils.isCmBased()) {
             try {
                 specs = (List<String>) XposedHelpers.callStaticMethod(classQSUtils, "getAvailableTiles", context);
-                specs.add("next_alarm");
-                specs.add("ime_selector");
-                specs.add("su");
-                specs.add("adb");
-                specs.add("live_display");
-                specs.add("themes");
             } catch (Throwable t) {
                 try {
                     specs = (ArrayList<String>) ((ArrayList<String>) XposedHelpers.getStaticObjectField(classQSConstants, "TILES_AVAILABLE")).clone();
