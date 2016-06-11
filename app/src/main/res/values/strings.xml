@@ -189,5 +189,7 @@
     <!-- QS -->
     <string name="qs_edit">Edit</string>
     <string name="qs_edit_detail">Edit tiles</string>
+    <string name="drag_to_add_tiles">Drag to add tiles</string>
+    <string name="drag_to_remove_tiles">Drag here to remove</string>
     <!-- /QS -->
 </resources>

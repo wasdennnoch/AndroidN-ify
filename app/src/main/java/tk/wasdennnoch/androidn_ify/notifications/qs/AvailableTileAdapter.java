@@ -79,6 +79,11 @@ public class AvailableTileAdapter extends TileAdapter {
         mRecords.add(spec);
     }
 
+    @Override
+    public int getItemCount() {
+        return mTileViews.size();
+    }
+
     private Drawable getQSTileIcon(String spec) {
         int res;
         try {
@@ -231,8 +236,7 @@ public class AvailableTileAdapter extends TileAdapter {
 
     @Override
     public void onItemClick(int position) {
-        Record r = new TileAdapter.Record();
-        r.spec = (String) mRecords.get(position);
+        Record r = new TileAdapter.Record((String) mRecords.get(position));
         StatusBarHeaderHooks.mTileAdapter.addRecord(r);
 
         mRecords.remove(position);

@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -522,10 +523,6 @@ public class StatusBarHeaderHooks {
                     } catch (Throwable ignore) {
                     }
                 }
-                if (mTileAdapter != null) {
-                    mTileAdapter.setRecords(mRecords);
-                    mTileAdapter.notifyDataSetChanged();
-                }
                 mHeaderQsPanel.setTiles(mRecords);
             }
         }
@@ -659,6 +656,10 @@ public class StatusBarHeaderHooks {
         mShowingDetail = showingDetail;
         XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
         if (showingDetail) {
+            View mDetailDoneButton = (View) XposedHelpers.getObjectField(mQsPanel, "mDetailDoneButton");
+            mDetailDoneButton.setVisibility(View.GONE);
+            LinearLayout mDetailButtons = (LinearLayout) mDetailDoneButton.getParent();
+            mDetailButtons.setVisibility(mEditing ? View.INVISIBLE : View.VISIBLE);
             mCollapseAfterHideDatails = NotificationPanelHooks.isCollapsed();
             NotificationPanelHooks.expandIfNecessary();
             try {
@@ -750,6 +751,11 @@ public class StatusBarHeaderHooks {
                 case R.id.qs_edit:
                     showEdit();
                     break;
+                case R.id.qs_up:
+                    XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
+                            mContext.getString(mContext.getResources().getIdentifier("accessibility_desc_quick_settings", "string", PACKAGE_SYSTEMUI)));
+                    XposedHelpers.callMethod(mQsPanel, "closeDetail");
+                    break;
             }
         }
     };
@@ -819,14 +825,19 @@ public class StatusBarHeaderHooks {
         mItemTouchHelper = new CustomItemTouchHelper(callback);
         XposedHelpers.setIntField(callback, "mCachedMaxScrollSpeed", res.getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
         // With this, it's very easy to deal with drag & drop
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
+        gridLayoutManager.setSpanSizeLookup(mTileAdapter.getSizeLookup());
         mRecyclerView = new RecyclerView(mContext);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
+        mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mTileAdapter);
         mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setClipChildren(false);
+        mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
         mTileAdapter.setOnStartDragListener(callback);
+        mTileAdapter.setTileTouchCallback(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
+        /*
         // Init available tiles list
         mAvailableTileAdapter = new AvailableTileAdapter(mRecords, mContext, mQsPanel);
         mSecondRecyclerView = new RecyclerView(mContext);
@@ -835,12 +846,11 @@ public class StatusBarHeaderHooks {
         mSecondRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mSecondRecyclerView.setNestedScrollingEnabled(false);
         mSecondRecyclerView.setBackground(new ColorDrawable(0xFF384248));
-        mRecyclerView.setClipChildren(false);
+        */
 
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         linearLayout.addView(mRecyclerView);
-        linearLayout.addView(mSecondRecyclerView);
+        //linearLayout.addView(mSecondRecyclerView);
     }
 
     public static void onSetBarState(int state) {
@@ -878,12 +888,15 @@ public class StatusBarHeaderHooks {
         void onStartDrag(RecyclerView.ViewHolder viewHolder);
     }
 
-    private static class TileTouchCallback extends ItemTouchHelper.Callback implements OnStartDragListener {
-        private TileAdapter.TileViewHolder mCurrentDrag;
+    public static class TileTouchCallback extends ItemTouchHelper.Callback implements OnStartDragListener {
+        public TileAdapter.TileViewHolder mCurrentDrag;
 
         @Override
         public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
+            if (viewHolder.getItemViewType() == 1) {
+                dragFlags = 0;
+            }
             return makeMovementFlags(dragFlags, 0);
         }
 
@@ -923,7 +936,14 @@ public class StatusBarHeaderHooks {
                 mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
                 mCurrentDrag.startDrag();
             }
+            mTileAdapter.notifyItemChanged(mTileAdapter.mDividerIndex);
             super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            ((TileAdapter.TileViewHolder) viewHolder).stopDrag();
+            super.clearView(recyclerView, viewHolder);
         }
     }
 
@@ -1079,6 +1099,25 @@ public class StatusBarHeaderHooks {
                         liparam.view.setPadding(0, 0, 0, 0);
                         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) liparam.view.getLayoutParams();
                         params.height = ResourceUtils.getInstance(liparam.view.getContext()).getDimensionPixelSize(R.dimen.status_bar_header_height);
+                    }
+                });
+
+                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_detail_header", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        LinearLayout layout = (LinearLayout) liparam.view;
+                        Context context = layout.getContext();
+
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+                        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        View upButton = inflater.inflate(res.getLayout(R.layout.qs_up_button), null);
+                        upButton.setOnClickListener(onClickListener);
+
+                        int padding = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_panel_padding", "dimen", PACKAGE_SYSTEMUI));
+
+                        layout.addView(upButton, 0);
+                        layout.setPadding(0, 0, padding, 0);
+                        layout.setGravity(Gravity.CENTER);
                     }
                 });
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qs_up"
+    android:background="?android:selectableItemBackgroundBorderless"
+    android:tint="#ffffffff"
+    android:padding="16.0dip"
+    android:clickable="true"
+    android:layout_width="56.0dip"
+    android:layout_height="56.0dip"
+    android:src="?android:homeAsUpIndicator"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="ContentDescription" />
