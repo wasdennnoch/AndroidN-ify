@@ -653,7 +653,7 @@ public class StatusBarHeaderHooks {
             View mDetailDoneButton = (View) XposedHelpers.getObjectField(mQsPanel, "mDetailDoneButton");
             mDetailDoneButton.setVisibility(View.GONE);
             LinearLayout mDetailButtons = (LinearLayout) mDetailDoneButton.getParent();
-            mDetailButtons.setVisibility(mEditing ? View.INVISIBLE : View.VISIBLE);
+            mDetailButtons.setVisibility(mEditing ? View.GONE : View.VISIBLE);
             mCollapseAfterHideDatails = NotificationPanelHooks.isCollapsed();
             NotificationPanelHooks.expandIfNecessary();
             try {
