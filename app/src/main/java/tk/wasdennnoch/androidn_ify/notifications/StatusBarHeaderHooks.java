@@ -903,7 +903,11 @@ public class StatusBarHeaderHooks {
                 mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
                 mCurrentDrag.startDrag();
             }
-            mTileAdapter.notifyItemChanged(mTileAdapter.mDividerIndex);
+            try {
+                mTileAdapter.notifyItemChanged(mTileAdapter.mDividerIndex);
+            } catch (Throwable ignore) {
+
+            }
             super.onSelectedChanged(viewHolder, actionState);
         }
 
@@ -1139,6 +1143,7 @@ public class StatusBarHeaderHooks {
                         editBtn.setGravity(Gravity.CENTER);
                         editBtn.setLayoutParams(buttonLp);
                         editBtn.setText(res.getString(R.string.qs_edit));
+                        editBtn.setTextColor(res.getColor(R.color.edit_btn_text));
                         editBtn.setAllCaps(true);
                         editBtn.setId(R.id.qs_edit);
                         editBtn.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
