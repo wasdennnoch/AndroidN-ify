@@ -5,6 +5,7 @@ import android.os.Build;
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
@@ -15,6 +16,7 @@ import tk.wasdennnoch.androidn_ify.emergency.EmergencyHooks;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
 import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.notifications.qs.LiveDisplayObserver;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapHwKeys;
@@ -117,9 +119,10 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 }
                 break;
             case PACKAGE_ANDROID:
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
                     DoubleTapHwKeys.hook(lpparam.classLoader);
-                }
+                else
+                    LiveDisplayObserver.hook(lpparam.classLoader);
                 break;
             case PACKAGE_OWN:
                 XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isActivated", XC_MethodReplacement.returnConstant(true));

@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs;
 
+import android.annotation.Nullable;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -46,7 +47,7 @@ public class QSTileHostHooks {
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
-            if (param.args != null && param.args.length > 0 && !TILES_SETTING.equals(param.args[0]))
+            if (!TILES_SETTING.equals(param.args[0]))
                 return;
 
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
@@ -54,11 +55,7 @@ public class QSTileHostHooks {
                 XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
             }
             tileMap.clear();
-            try {
-                ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
-            } catch (Throwable ignore) {
-                // Not present in LP or Candy6
-            }
+            ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
         }
 
         @SuppressWarnings("unchecked")
@@ -80,7 +77,9 @@ public class QSTileHostHooks {
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
                 String spec = tileSpecs.get(i);
-                tileMap.put(spec, createTile(param.thisObject, spec));
+                Object tile = createTile(param.thisObject, spec);
+                if (tile != null)
+                    tileMap.put(spec, tile);
             }
 
             Object mCallback = XposedHelpers.getObjectField(param.thisObject, "mCallback");
@@ -135,7 +134,9 @@ public class QSTileHostHooks {
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
                 String spec = tileSpecs.get(i);
-                tileMap.put(spec, createTile(param.thisObject, spec));
+                Object tile = createTile(param.thisObject, spec);
+                if (tile != null)
+                    tileMap.put(spec, tile);
             }
 
             Object mCallback = XposedHelpers.getObjectField(param.thisObject, "mCallback");
@@ -174,15 +175,21 @@ public class QSTileHostHooks {
         return mTileSpecs;
     }
 
+    @Nullable
     public static Object createTile(Object tileHost, String tileSpec) {
-        Object tile;
-        if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
-            tile = mTilesManager.createTile(tileSpec).getTile();
-        } else {
-            tile = XposedHelpers.callMethod(tileHost, "createTile", tileSpec);
+        try {
+            Object tile;
+            if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
+                tile = mTilesManager.createTile(tileSpec).getTile();
+            } else {
+                tile = XposedHelpers.callMethod(tileHost, "createTile", tileSpec);
+            }
+            XposedHelpers.setAdditionalInstanceField(tile, TILE_SPEC_NAME, tileSpec);
+            return tile;
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Couldn't create tile with spec \"" + tileSpec + "\"", t);
         }
-        XposedHelpers.setAdditionalInstanceField(tile, TILE_SPEC_NAME, tileSpec);
-        return tile;
+        return null;
     }
 
     public static void hook(ClassLoader classLoader) {
@@ -204,7 +211,7 @@ public class QSTileHostHooks {
                     try {
                         XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
                     } catch (Throwable t) { // Candy6
-                        XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", onTuningChangedHook);
+                        XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook);
                     }
                 }
 
@@ -301,7 +308,7 @@ public class QSTileHostHooks {
             specs.add("hotspot");
             specs.addAll(bruteForceSpecs());
         }
-        specs.add("battery");
+        specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
         return specs;
     }

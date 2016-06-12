@@ -25,6 +25,7 @@ import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 
 public class BatteryTile extends QSTile implements BatteryInfoManager.BatteryStatusListener {
 
+    public static final String TILE_SPEC = "battery";
     private BatteryInfoManager.BatteryData mTileBatteryData;
     private BatteryView mBatteryView;
 

@@ -1,6 +1,7 @@
 package tk.wasdennnoch.androidn_ify.notifications.qs;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -10,7 +11,9 @@ import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class TilesManager {
 
@@ -25,8 +28,21 @@ public class TilesManager {
 
     static {
         mCustomTileSpecs = new ArrayList<>();
-        mCustomTileSpecs.add("test");
-        mCustomTileSpecs.add("battery");
+        if (!RomUtils.isCm() || Build.VERSION.SDK_INT != Build.VERSION_CODES.LOLLIPOP_MR1)
+            mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
+        if (RomUtils.isCm() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
+    }
+
+    public static int getLabelResource(String spec) throws Exception {
+        if (!mCustomTileSpecs.contains(spec)) throw new Exception();
+        switch (spec) {
+            case BatteryTile.TILE_SPEC:
+                return R.string.battery;
+            case LiveDisplayTile.TILE_SPEC:
+                return R.string.live_display;
+        }
+        return 0;
     }
 
     public TilesManager(Object qsTileHost) {
@@ -42,8 +58,10 @@ public class TilesManager {
 
     public QSTile createTile(String key) {
         switch (key) {
-            case "battery":
+            case BatteryTile.TILE_SPEC:
                 return new BatteryTile(this, mQSTileHost, key);
+            case LiveDisplayTile.TILE_SPEC:
+                return new LiveDisplayTile(this, mQSTileHost, key);
         }
         return new QSTile(this, mQSTileHost, key);
     }
@@ -132,6 +150,31 @@ public class TilesManager {
                             if (tile != null) {
                                 tile.handleClick();
                                 param.setResult(null);
+                            }
+                        }
+                    });
+
+            XposedHelpers.findAndHookMethod(QSTile.CLASS_INTENT_TILE, classLoader, "handleLongClick",
+                    new XC_MethodHook() {
+                        @SuppressWarnings("SuspiciousMethodCalls")
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            if (tile != null) {
+                                tile.handleLongClick();
+                                param.setResult(null);
+                            }
+                        }
+                    });
+
+            XposedHelpers.findAndHookMethod(QSTile.CLASS_RESOURCE_ICON, classLoader, "getDrawable",
+                    Context.class, new XC_MethodHook() {
+                        @SuppressWarnings("SuspiciousMethodCalls")
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            if (tile != null) {
+                                param.setResult(tile.getResourceIconDrawable());
                             }
                         }
                     });

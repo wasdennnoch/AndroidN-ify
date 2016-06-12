@@ -16,6 +16,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -116,7 +117,7 @@ public class StatusBarHeaderHooks {
     private static Context mContext;
 
     private static Object mEditAdapter;
-    private static NestedScrollView mEditView;
+    private static RecyclerView mRecyclerView;
     public static Button mEditButton;
     public static TileAdapter mTileAdapter;
     private static ResourceUtils mResUtils;
@@ -772,7 +773,7 @@ public class StatusBarHeaderHooks {
     }
 
     private static void createEditAdapter() {
-        if (mEditView == null)
+        if (mRecyclerView == null)
             createEditView();
 
         Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
@@ -794,7 +795,7 @@ public class StatusBarHeaderHooks {
                 } else if (method.getName().equals("getMetricsCategory")) {
                     return MetricsLogger.QS_INTENT;
                 } else if (method.getName().equals("createDetailView")) {
-                    return mEditView;
+                    return mRecyclerView;
                 }
                 return null;
             }
@@ -804,16 +805,6 @@ public class StatusBarHeaderHooks {
     private static void createEditView() {
         ResourceUtils res = ResourceUtils.getInstance(mContext);
 
-        LinearLayout linearLayout = new LinearLayout(mContext);
-        linearLayout.setLayoutParams(new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setClipChildren(false);
-
-        mEditView = new NestedScrollView(mContext);
-        mEditView.addView(linearLayout);
-        mEditView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mEditView.setFillViewport(true);
-
         // Init tiles list
         mTileAdapter = new TileAdapter(mRecords, mContext, mQsPanel);
         TileTouchCallback callback = new TileTouchCallback();
@@ -822,16 +813,20 @@ public class StatusBarHeaderHooks {
         // With this, it's very easy to deal with drag & drop
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         gridLayoutManager.setSpanSizeLookup(mTileAdapter.getSizeLookup());
-        RecyclerView mRecyclerView = new RecyclerView(mContext);
+        mRecyclerView = new RecyclerView(mContext);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mTileAdapter);
-        mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         mTileAdapter.setTileTouchCallback(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-
-        linearLayout.addView(mRecyclerView);
     }
 
     public static void onSetBarState(int state) {
@@ -908,7 +903,11 @@ public class StatusBarHeaderHooks {
                 mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
                 mCurrentDrag.startDrag();
             }
-            mTileAdapter.notifyItemChanged(mTileAdapter.mDividerIndex);
+            try {
+                mTileAdapter.notifyItemChanged(mTileAdapter.mDividerIndex);
+            } catch (Throwable ignore) {
+
+            }
             super.onSelectedChanged(viewHolder, actionState);
         }
 
@@ -1144,6 +1143,7 @@ public class StatusBarHeaderHooks {
                         editBtn.setGravity(Gravity.CENTER);
                         editBtn.setLayoutParams(buttonLp);
                         editBtn.setText(res.getString(R.string.qs_edit));
+                        editBtn.setTextColor(res.getColor(R.color.edit_btn_text));
                         editBtn.setAllCaps(true);
                         editBtn.setId(R.id.qs_edit);
                         editBtn.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
