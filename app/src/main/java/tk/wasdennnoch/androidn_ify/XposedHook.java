@@ -119,10 +119,10 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 }
                 break;
             case PACKAGE_ANDROID:
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
                     DoubleTapHwKeys.hook(lpparam.classLoader);
-                }
-                LiveDisplayObserver.hook(lpparam.classLoader);
+                else
+                    LiveDisplayObserver.hook(lpparam.classLoader);
                 break;
             case PACKAGE_OWN:
                 XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isActivated", XC_MethodReplacement.returnConstant(true));

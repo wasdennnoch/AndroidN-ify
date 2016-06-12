@@ -308,7 +308,8 @@ public class QSTileHostHooks {
             specs.add("hotspot");
             specs.addAll(bruteForceSpecs());
         }
-        specs.addAll(TilesManager.mCustomTileSpecs);
+        if (!RomUtils.isCm() || Build.VERSION.SDK_INT != Build.VERSION_CODES.LOLLIPOP_MR1)
+            specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
         return specs;
     }
