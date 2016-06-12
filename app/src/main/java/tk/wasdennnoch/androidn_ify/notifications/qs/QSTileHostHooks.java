@@ -308,7 +308,7 @@ public class QSTileHostHooks {
             specs.add("hotspot");
             specs.addAll(bruteForceSpecs());
         }
-        specs.add("battery");
+        specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
         return specs;
     }
