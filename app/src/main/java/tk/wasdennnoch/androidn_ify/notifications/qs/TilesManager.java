@@ -28,7 +28,8 @@ public class TilesManager {
 
     static {
         mCustomTileSpecs = new ArrayList<>();
-        mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
+        if (!RomUtils.isCm() || Build.VERSION.SDK_INT != Build.VERSION_CODES.LOLLIPOP_MR1)
+            mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
         if (RomUtils.isCm() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
     }
