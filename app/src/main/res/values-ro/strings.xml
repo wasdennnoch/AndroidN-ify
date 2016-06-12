@@ -184,9 +184,15 @@
     <!-- /BATTERY -->
 
     <!-- QS -->
-    <string name="qs_edit">Edita</string>
+    <string name="qs_edit">Edită</string>
     <string name="qs_edit_detail">Editare titluri</string>
     <string name="drag_to_add_tiles">Trageți pentru a adăuga titluri</string>
-    <string name="drag_to_remove_tiles">Trageți aici pentru a elimina</string>	
+    <string name="drag_to_remove_tiles">Trageți aici pentru a elimina</string>
+    <string name="live_display">LiveDisplay</string>	
+    <string name="live_display_auto">Automat</string>
+    <string name="live_display_off">Dezactivat</string>
+    <string name="live_display_day">Zi</string>
+    <string name="live_display_night">Noapte</string>
+    <string name="live_display_outdoor">Extern (soare strălucitor)</string>		
     <!-- /QS -->
 </resources>

@@ -191,6 +191,12 @@
     <string name="qs_edit">Editar</string>
     <string name="qs_edit_detail">Editar blocos</string>
     <string name="drag_to_add_tiles">Arraste para adicionar blocos</string>
-    <string name="drag_to_remove_tiles">Arraste aqui para remover</string>		
+    <string name="drag_to_remove_tiles">Arraste aqui para remover</string>
+    <string name="live_display">LiveDisplay</string>	
+    <string name="live_display_auto">Automático</string>
+    <string name="live_display_off">Desactivado</string>
+    <string name="live_display_day">Dia</string>
+    <string name="live_display_night">Noite</string>
+    <string name="live_display_outdoor">Externo (sol forte)</string>		
     <!-- /QS -->
 </resources>
