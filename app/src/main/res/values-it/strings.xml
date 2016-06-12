@@ -166,6 +166,12 @@
     <string name="alternative_header_qs_method">Abilitalo quando ci sono problemi di posizionamento con le icone dei QS</string>
     <string name="drag_to_add_tiles">Trascina per aggiungere tiles</string>
     <string name="drag_to_remove_tiles">Trascina qui per rimuovere</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automatico</string>
+    <string name="live_display_off">Spento</string>
+    <string name="live_display_day">Giorno</string>
+    <string name="live_display_night">Notte</string>
+    <string name="live_display_outdoor">Esterno (sole luminoso)</string>
      <!-- /NOTIFICATIONS -->
      
      <!-- UPDATE -->
