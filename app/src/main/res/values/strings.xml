@@ -191,5 +191,11 @@
     <string name="qs_edit_detail">Edit tiles</string>
     <string name="drag_to_add_tiles">Drag to add tiles</string>
     <string name="drag_to_remove_tiles">Drag here to remove</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automatic</string>
+    <string name="live_display_off">Off</string>
+    <string name="live_display_day">Day</string>
+    <string name="live_display_night">Night</string>
+    <string name="live_display_outdoor">Outdoor (bright sun)</string>
     <!-- /QS -->
 </resources>

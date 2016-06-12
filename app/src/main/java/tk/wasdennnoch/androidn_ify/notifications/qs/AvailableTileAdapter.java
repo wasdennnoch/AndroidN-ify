@@ -11,6 +11,7 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class AvailableTileAdapter extends TileAdapter {
@@ -48,7 +49,7 @@ public class AvailableTileAdapter extends TileAdapter {
             try {
                 Class<?> classQSUtils = XposedHelpers.findClass(QSTileHostHooks.CLASS_QS_UTILS, mContext.getClassLoader());
                 for (String spec : availableTiles) {
-                    if (!(boolean) XposedHelpers.callStaticMethod(classQSUtils, "isStaticQsTile", spec)) {
+                    if (!(boolean) XposedHelpers.callStaticMethod(classQSUtils, "isStaticQsTile", spec) && !TilesManager.mCustomTileSpecs.contains(spec)) {
                         availableTiles.remove(spec);
                     }
                 }
@@ -189,16 +190,24 @@ public class AvailableTileAdapter extends TileAdapter {
     private String getQSTileLabel(String spec) {
         int resource;
         try {
-            resource = (int) XposedHelpers.callStaticMethod(classQSTileHost, "getLabelResource", spec);
+            resource = TilesManager.getLabelResource(spec);
         } catch (Throwable t) {
-            try { // RR
-                resource = (int) XposedHelpers.callStaticMethod(classQSTuner, "getLabelResource", spec);
-            } catch (Throwable ignore2) {
-                resource = getQSTileLabelAosp(spec);
+            try {
+                resource = (int) XposedHelpers.callStaticMethod(classQSTileHost, "getLabelResource", spec);
+            } catch (Throwable t2) {
+                try { // RR
+                    resource = (int) XposedHelpers.callStaticMethod(classQSTuner, "getLabelResource", spec);
+                } catch (Throwable t3) {
+                    resource = getQSTileLabelAosp(spec);
+                }
             }
         }
         if (resource != 0) {
-            return mContext.getText(resource).toString();
+            try {
+                return mContext.getText(resource).toString();
+            } catch (Throwable t) {
+                return ResourceUtils.getInstance(mContext).getText(resource).toString();
+            }
         } else {
             return spec;
         }
