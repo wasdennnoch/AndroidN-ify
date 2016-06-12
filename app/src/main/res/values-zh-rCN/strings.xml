@@ -191,5 +191,11 @@
     <string name="qs_edit_detail">编辑磁贴</string>
     <string name="drag_to_add_tiles">拖动添加磁贴</string>
     <string name="drag_to_remove_tiles">拖至此处移除</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">自动</string>
+    <string name="live_display_off">关闭</string>
+    <string name="live_display_day">白天</string>
+    <string name="live_display_night">夜晚</string>
+    <string name="live_display_outdoor">室外（阳光环境）</string>
     <!-- /QS -->
 </resources>
