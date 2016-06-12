@@ -163,6 +163,12 @@
     <string name="qs_edit_detail">Upraviť dlaždice</string>
     <string name="drag_to_add_tiles">Potiahnite pre pridanie dlaždíc</string>
     <string name="drag_to_remove_tiles">Potiahnite sem pre odstránenie</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automaticky</string>
+    <string name="live_display_off">Vypnuté</string>
+    <string name="live_display_day">Deň</string>
+    <string name="live_display_night">Noc</string>
+    <string name="live_display_outdoor">Vonku (jasné slnešné svetlo)</string>
     <!-- /QS -->
 
     <string name="header_app">Aplikácia</string>
