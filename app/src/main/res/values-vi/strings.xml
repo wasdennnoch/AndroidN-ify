@@ -127,4 +127,14 @@
     <string name="info_unspecified">Không quy định </string>
     <string name="no">Không</string>
     <string name="yes">Có</string>
+    <string name="drag_to_add_tiles">Kéo để thêm ô</string>
+    <string name="drag_to_remove_tiles">Kéo vào đây để xóa</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_op">O+</string>
 </resources>
