@@ -178,6 +178,17 @@
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
+    <string name="share_logcat_title">Zdieľať záznam</string>
+    <string name="share_logcat">Uloží záznam do súboru</string>
+
+    <string name="requesting_root">Žiadanie o root prístup&#8230;</string>
+    <string name="root_failed">Nepodarilo sa získať READ_LOGS povolenie</string>
+    <string name="permission_required">Je vyžadované povolenie</string>
+    <string name="logs_permission_description">
+        V Androide od verzie Jelly Bean, aplikácie nemajú prístup k čítaniu plného záznamu.
+        Môžete ale povoliť READ_LOGS povolenie pomocou root prístupu.
+        Potom musí byť aplikácia reštartovaná, aby sa povolenie sprístupnilo.
+    </string>
 
     <string name="requires_android_version">Vyžaduje Android %1$s</string>
 
