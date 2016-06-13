@@ -189,5 +189,13 @@
     <!-- QS -->
     <string name="qs_edit">Edycja</string>
     <string name="qs_edit_detail">Edytuj kafelki</string>
+    <string name="drag_to_add_tiles">Przeciągnij aby dodać kafelek</string>
+    <string name="drag_to_remove_tiles">Przeciągnij tu aby usunąć</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automatyczny</string>
+    <string name="live_display_off">Wyłączony</string>
+    <string name="live_display_day">Dzień</string>
+    <string name="live_display_night">Noc</string>
+    <string name="live_display_outdoor">Na zewnątrz (jasne słońce)</string>
     <!-- /QS -->
 </resources>
