@@ -34,8 +34,19 @@
     <string name="hide_launcher_icon">可能需要重启启动器</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
+    <string name="share_logcat_title">分享日志</string>
+    <string name="share_logcat">将您的日志保存到文件中</string>
+    
+    <string name="requesting_root">正在请求 ROOT 权限&#8230;</string>
+    <string name="root_failed">无法获取 READ_LOGS 权限</string>
+    <string name="permission_required">需要权限</string>
+    <string name="logs_permission_description">
+        从 Jelly Bean 版本开始，Android 系统不再允许应用读取完整的日志信息。
+        然而您可以选择使用 ROOT 手动获取 READ_LOGS 权限。
+        在这之后请重启应用以使用新获取的权限。
+    </string>
 
-    <string name="requires_android_version">所需 Android 版本 %1$s</string>
+    <string name="requires_android_version">需要 Android %1$s 版本</string>
     <string name="not_activated">模块尚未激活</string>
 	
     <string name="theme_colorPrimary">主色调</string>
