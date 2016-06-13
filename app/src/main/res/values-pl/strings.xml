@@ -32,7 +32,6 @@
     <string name="app_dark_theme_title">Ciemny motyw aplikacji</string>
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
-    <string name="force_english_title">Wymuś język angielski</string>
     <string name="debug_log_title">Włącz debugowanie</string>
     <string name="debug_log">Ostrzeżenie: powoduje dużo wpisów w dzienniku debugowania</string>
 

@@ -24,15 +24,22 @@ import android.os.PowerManager;
 
 import java.util.ArrayList;
 
+import tk.wasdennnoch.androidn_ify.XposedHook;
+
 public class BatteryInfoManager extends BroadcastReceiver {
+
+    private static final String TAG = "BatteryInfoManager";
+
     private BatteryData mBatteryData;
-    private ArrayList<BatteryStatusListener> mListeners;
+    private final ArrayList<BatteryStatusListener> mListeners;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
         if (action.equals(Intent.ACTION_BATTERY_CHANGED)) {
             updateBatteryInfo(intent);
+        } else if (action.equals(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)) {
+            updatePowerSavingInfo(((PowerManager) context.getSystemService(Context.POWER_SERVICE)).isPowerSaveMode());
         }
     }
 
@@ -57,11 +64,11 @@ public class BatteryInfoManager extends BroadcastReceiver {
         }
 
         public String toString() {
-            return "charging="+this.charging+"; level="+this.level+
-                    "; powerSource="+this.powerSource+
-                    "; temperature="+this.temperature+
-                    "; voltage="+this.voltage+
-                    "; isPowerSaving="+this.isPowerSaving;
+            return "charging=" + this.charging + "; level=" + this.level +
+                    "; powerSource=" + this.powerSource +
+                    "; temperature=" + this.temperature +
+                    "; voltage=" + this.voltage +
+                    "; isPowerSaving=" + this.isPowerSaving;
 
         }
     }
@@ -78,12 +85,13 @@ public class BatteryInfoManager extends BroadcastReceiver {
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
+        intentFilter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
         context.registerReceiver(this, intentFilter);
     }
 
     public void registerListener(BatteryStatusListener listener) {
         if (listener == null) return;
-        synchronized(mListeners) {
+        synchronized (mListeners) {
             if (!mListeners.contains(listener)) {
                 mListeners.add(listener);
                 listener.onBatteryStatusChanged(mBatteryData);
@@ -93,7 +101,7 @@ public class BatteryInfoManager extends BroadcastReceiver {
 
     public void unregisterListener(BatteryStatusListener listener) {
         if (listener == null) return;
-        synchronized(mListeners) {
+        synchronized (mListeners) {
             if (mListeners.contains(listener)) {
                 mListeners.remove(listener);
             }
@@ -101,7 +109,7 @@ public class BatteryInfoManager extends BroadcastReceiver {
     }
 
     private void notifyListeners() {
-        synchronized(mListeners) {
+        synchronized (mListeners) {
             for (BatteryStatusListener listener : mListeners) {
                 listener.onBatteryStatusChanged(mBatteryData.clone());
             }
@@ -111,7 +119,7 @@ public class BatteryInfoManager extends BroadcastReceiver {
     private void updateBatteryInfo(Intent intent) {
         if (intent == null) return;
 
-        int newLevel = (int)(100f
+        int newLevel = (int) (100f
                 * intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
                 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, 100));
         int newPowerSource = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
@@ -129,6 +137,13 @@ public class BatteryInfoManager extends BroadcastReceiver {
             mBatteryData.powerSource = newPowerSource;
             mBatteryData.temperature = newTemp;
             mBatteryData.voltage = newVoltage;
+
+            XposedHook.logD(TAG, "Updating battery info: " +
+                    "; level= " + newLevel +
+                    "; charging= " + newCharging +
+                    "; powerSource= " + newPowerSource +
+                    "; temperature= " + newTemp +
+                    "; voltage= " + newVoltage);
 
             notifyListeners();
         }

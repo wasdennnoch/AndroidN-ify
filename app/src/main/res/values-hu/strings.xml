@@ -33,7 +33,6 @@
     <string name="app_dark_theme_title">Sötét alkalmazás téma</string>
     <string name="hide_launcher_icon_title">Ikon eltűntetése az alkalmazásindítóból</string>
     <string name="hide_launcher_icon">Ehhez lehet, hogy újra kell indítani az alkalmazásindítót</string>
-    <string name="force_english_title">Angol nyelv kényszerítése</string>
     <string name="debug_log_title">Hibaelhárítási naplózás</string>
     <string name="debug_log">Vigyázat: teleírja a naplót</string>
 

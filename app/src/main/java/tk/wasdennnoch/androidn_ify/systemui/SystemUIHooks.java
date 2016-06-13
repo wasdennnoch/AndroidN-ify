@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.Process;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.notifications.qs.BatteryInfoManager;

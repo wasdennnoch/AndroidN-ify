@@ -32,9 +32,19 @@
     <string name="app_dark_theme_title">Dark app theme</string>
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>
-    <string name="force_english_title">Force English language</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
+    <string name="share_logcat_title">Share logcat</string>
+    <string name="share_logcat">Saves your logcat to a file</string>
+
+    <string name="requesting_root">Requesting root access&#8230;</string>
+    <string name="root_failed">Failed to gain READ_LOGS permission</string>
+    <string name="permission_required">Permission required</string>
+    <string name="logs_permission_description">
+        In Android versions since Jelly Bean applications aren\'t allowed to read the full logcat anymore.
+        You can however manually grant the READ_LOGS permission with root access.
+        After that the app needs to be restarted in order to apply the newly granted permissions.
+    </string>
 
     <string name="requires_android_version">Requires Android %1$s</string>
     <string name="not_activated">Module not activated</string>

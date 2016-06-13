@@ -33,7 +33,6 @@
     <string name="app_dark_theme_title">Temă intunecată</string>
     <string name="hide_launcher_icon_title">Ascunde iconita în lansator</string>
     <string name="hide_launcher_icon">Poate necesita repornirea lansatorului</string>
-    <string name="force_english_title">Forțează limba engleză</string>
     <string name="debug_log_title">Log depanare</string>
     <string name="debug_log">Atentie: încărcare log</string>
 

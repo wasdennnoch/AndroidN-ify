@@ -32,7 +32,6 @@
     <string name="app_dark_theme_title">어두운 앱 테마</string>
     <string name="hide_launcher_icon_title">앱 아이콘 숨기기</string>
     <string name="hide_launcher_icon">홈 런처를 다시 시작해야할 수도 있습니다</string>
-    <string name="force_english_title">영어로 언어 강제 사용</string>
     <string name="debug_log_title">디버그 로그</string>
     <string name="debug_log">경고: Log-flooding</string>
 

@@ -21,7 +21,6 @@
     <string name="app_dark_theme_title">Темна тема додатку</string>
     <string name="hide_launcher_icon_title">Приховати значок в лаунчері</string>
     <string name="hide_launcher_icon">Може знадобитися перезавантаження робочого столу</string>
-    <string name="force_english_title">Примусово використовувати англійську мову</string>
     <string name="debug_log_title">Журнал для налагодження</string>
     <string name="debug_log">Увага: Журнал може займати багато місця</string>
     

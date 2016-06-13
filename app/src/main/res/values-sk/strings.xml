@@ -175,7 +175,6 @@
     <string name="app_dark_theme_title">Tmavá téma aplikácie</string>
     <string name="theme_colorPrimary">Primárna farba</string>
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
-    <string name="force_english_title">Vynútiť anglický jazyk</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>

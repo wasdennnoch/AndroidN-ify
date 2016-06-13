@@ -34,7 +34,6 @@
     <string name="app_dark_theme_title">Usar tema escuro</string>
     <string name="hide_launcher_icon_title">Esconder ícone do launcher</string>
     <string name="hide_launcher_icon">Pode ser preciso reiniciar o launcher</string>
-    <string name="force_english_title">Forçar idioma inglês</string>
     <string name="debug_log_title">Registros de depuração</string>
     <string name="debug_log">Atenção: Registro invasivo</string>
 	

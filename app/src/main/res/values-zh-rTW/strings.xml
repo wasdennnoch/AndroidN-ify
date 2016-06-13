@@ -18,7 +18,6 @@
     <string name="app_dark_theme_title">暗色主題</string>
     <string name="hide_launcher_icon_title">隱藏啟動器的圖示</string>
     <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
-    <string name="force_english_title">強制英語</string>
     <string name="debug_log_title">除錯紀錄</string>
     <string name="debug_log">警告：紀錄如洪水</string>
 

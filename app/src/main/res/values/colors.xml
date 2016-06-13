@@ -12,14 +12,10 @@
     <!-- Notifications / Status bar header -->
     <color name="alarm_status_text_color">#64FFFFFF</color>
     <color name="emergency_calls_only_text_color">#66FFFFFF</color>
-    <color name="date_time_text_color">#FFFFFFFF</color>
 
     <color name="notification_action_list">#FFEEEEEE</color>
-    <!-- /Notifications / Status bar header -->
-
-    <color name="ripple_dark">#33ffffff</color>
-    <color name="ripple_light">#1f000000</color>
     <color name="edit_btn_text">#40ffffff</color>
+    <!-- /Notifications / Status bar header -->
 
     <array name="theme_colors">
         <item>@color/md_red_500</item>
