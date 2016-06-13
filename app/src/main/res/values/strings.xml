@@ -36,6 +36,13 @@
     <string name="debug_log">Warning: Log-flooding</string>
     <string name="share_logcat_title">Share logcat</string>
     <string name="share_logcat">Saves your logcat to a file</string>
+    <string name="logcat_notif_ongoing_title">Saving logcat</string>
+    <string name="logcat_notif_finished_title">Logcat saved</string>
+    <string name="logcat_notif_preparing">Preparing</string>
+    <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
+    <string name="logcat_notif_finished_lines">%1$s lines saved</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_share">Share</string>
 
     <string name="requesting_root">Requesting root access&#8230;</string>
     <string name="root_failed">Failed to gain READ_LOGS permission</string>

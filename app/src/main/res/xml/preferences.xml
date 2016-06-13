@@ -259,7 +259,10 @@
                 android:key="edit_emergency_info"
                 android:title="@string/edit_emergency_info_title">
                 <intent android:action="tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity">
-                    <extra android:name="editable" android:value="true" />
+                    <!--suppress AndroidElementNotAllowed -->
+                    <extra
+                        android:name="editable"
+                        android:value="true"/>
                 </intent>
             </PreferenceScreen>
 
@@ -294,16 +297,21 @@
             android:title="@string/force_english_title"/>
 
         <SwitchPreference
+            android:defaultValue="true"
+            android:key="check_for_updates"
+            android:summary="@string/check_for_updates"
+            android:title="@string/check_for_updates_title"/>
+
+        <SwitchPreference
             android:defaultValue="false"
             android:key="debug_log"
             android:summary="@string/debug_log"
             android:title="@string/debug_log_title"/>
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="check_for_updates"
-            android:summary="@string/check_for_updates"
-            android:title="@string/check_for_updates_title"/>
+        <Preference
+            android:key="share_logcat"
+            android:title="@string/share_logcat_title"
+            android:summary="@string/share_logcat"/>
 
     </PreferenceCategory>
 
