@@ -12,11 +12,11 @@
     <string name="about_version">Versiyon %1$s (%2$d)</string>
 
     <!-- prefs -->
-	<string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
+    <string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed Bu modülün tercih dosyasını okuyamıyor, varsayılan değerleri kullanılacaktır.
         Bu sorunu gidermek için çeşitli yollar vardır. Ayrıca, bu hata uygulamayı daha önce
-		hiç açmadıysanız bu sebeple ortaya çıktığını unutmayın.<br><br>
+        hiç açmadıysanız bu sebeple ortaya çıktığını unutmayın.<br><br>
         İlk olarak, cihaz yeniden başlatın (yazılımsal yeniden başlat değil!).<br>
         Bu işe yaramazsa, modülü yeniden yüklemeyi deneyin.<br>
         Her iki denemede başarısız olursa, SELinux modunun <i>permissive(serbest)</i> olarak ayarlanmış olduğundan emin olun.
@@ -34,6 +34,24 @@
     <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
     <string name="debug_log">Dikkat: Log-flooding</string>
+    <string name="share_logcat_title">Hata kaydını paylaş</string>
+    <string name="share_logcat">Hata akydını bir dosyay kaydeder</string>
+    <string name="logcat_notif_ongoing_title">Hata kaydı kaydediliyor</string>
+    <string name="logcat_notif_finished_title">Hata kaydı kaydedildi</string>
+    <string name="logcat_notif_preparing">Hazırlanıyor</string>
+    <string name="logcat_notif_ongoing_lines">Kaydedilen hata %1$s&#8230;</string>
+    <string name="logcat_notif_finished_lines">%1$s hata kaydedildi</string>
+    <string name="action_stop">Durdur</string>
+    <string name="action_share">Paylaş</string>
+    
+    <string name="requesting_root">Root erişimi isteniyor&#8230;</string>
+    <string name="root_failed">READ_LOGS izni alma işlemi başarısız oldu</string>
+    <string name="permission_required">İizin gerekli</string>
+    <string name="logs_permission_description">
+        Android Jelly Bean sürümünden beri uygulamalara artık tam hata kaydı okumak için izin verilmez.
+        Bununla birlikte manuel root erişimi ile READ_LOGS izni verebilebilir.
+        Sonrasın da uygulamaya yeni verilen izinleri uygulamak için yeniden başlatılması gerekir.
+    </string>
 
     <string name="requires_android_version">Android %1$s sürümü gerekir</string>
     <string name="not_activated">Modül aktif değil</string>
@@ -77,7 +95,7 @@
     <string name="enable_recents_double_tap_title">Hızlı geçiş</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Son uygulamalar tuşuna çift tıklamak son kullanılan uygulamayı açar</string>
     <string name="double_tap_speed_title">Çift tıklama hızı</string>
-	<string name="recents_button_behavior_title">Son uygulamalar tuşuna dokunma davranışı</string>
+    <string name="recents_button_behavior_title">Son uygulamalar tuşuna dokunma davranışı</string>
     <string name="recents_navigation_delay_title">Gezinme gecikmesi</string>
     <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
     <string name="enable_large_recents">Büyük son uygulamalar</string>
@@ -105,7 +123,7 @@
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
     <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
     <string name="enable_large_first_row">İlk satırı büyüt</string>
-	<string name="enable_large_first_row_summary">Kareleri düzenle modu yerine CM yapılandırma menüsünü kullanın</string>
+    <string name="enable_large_first_row_summary">Kareleri düzenle modu yerine CM yapılandırma menüsünü kullanın</string>
     <string name="smaller_header_clock_title">Küçük saat</string>
     <string name="smaller_header_clock">Genişletilmiş başlıkta saatin metin boyutunu düşürün. Küçük ekranlar için kullanışlıdır.</string>
     <string name="notification_full_width_volume_title">Tam genişlikte ses ayarları</string>
@@ -188,5 +206,13 @@
     <!-- QS -->
     <string name="qs_edit">Düzenle</string>
     <string name="qs_edit_detail">Kareleri Düzenle</string>
+    <string name="drag_to_add_tiles">Kare eklemek için sürükleyin</string>
+    <string name="drag_to_remove_tiles">Kaldırmak için buraya sürükleyin</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Otomatik</string>
+    <string name="live_display_off">Kapalı</string>
+    <string name="live_display_day">Gündüz</string>
+    <string name="live_display_night">Gece</string>
+    <string name="live_display_outdoor">Dış mekan (parlak güneş)</string>
     <!-- /QS -->
 </resources>
