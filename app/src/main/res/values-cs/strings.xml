@@ -37,7 +37,7 @@
     <string name="enable_settings_summaries">Zobrazí nejdůležitější informace přímo v hlavní nabídce</string>
     <string name="fix_sound_notif_tile_title">Opraví "Zvuky a upozornění"</string>
     <string name="fix_sound_notif_tile">Některé ROM kombinují Zvuky a upozornění. Povolte pro zobrazení správného shrnutí</string>
-    <string name="enable_n_platlogo_title">N logo v easter egg</string>
+    <string name="enable_n_platlogo_title">N logo v easter eggu</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -178,8 +178,8 @@
     <string name="hide_launcher_icon">Může vyžadovat restart spouštěče</string>
     <string name="force_english_title">Vynutit anglický jazyk</string>
     <string name="debug_log_title">Zaznamenávání chyb</string>
-    <string name="debug_log">Upozornění: Zahlcování záznamu</string>
-    <string name="share_logcat_title">Share logcat</string>
+    <string name="debug_log">Upozornění: způsobuje zahlcování záznamu</string>
+    <string name="share_logcat_title">Sdílet logcat</string>
     <string name="share_logcat">Uložit logcat do souboru</string>
     <string name="logcat_notif_ongoing_title">Ukládání záznamu</string>
     <string name="logcat_notif_finished_title">Záznam uložen</string>
@@ -205,8 +205,8 @@
 
 
     <!-- SETTINGS -->
-    <string name="disconnected">Odpojené</string>
-    <string name="disabled">Zakázané</string>
+    <string name="disconnected">Odpojeno</string>
+    <string name="disabled">Zakázáno</string>
     <string name="off">VYP.</string>
     <string name="on">ZAP.</string>
     <string name="data_usage_summary">Objem využitých dat: %1$s</string>
