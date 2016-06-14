@@ -35,7 +35,7 @@
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
     <string name="debug_log">Dikkat: Log-flooding</string>
     <string name="share_logcat_title">Hata kaydını paylaş</string>
-    <string name="share_logcat">Hata akydını bir dosyay kaydeder</string>
+    <string name="share_logcat">Hata kaydını bir dosyaya kaydeder</string>
     <string name="logcat_notif_ongoing_title">Hata kaydı kaydediliyor</string>
     <string name="logcat_notif_finished_title">Hata kaydı kaydedildi</string>
     <string name="logcat_notif_preparing">Hazırlanıyor</string>
