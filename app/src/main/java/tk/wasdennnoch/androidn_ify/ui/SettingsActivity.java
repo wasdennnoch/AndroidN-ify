@@ -1,16 +1,20 @@
 package tk.wasdennnoch.androidn_ify.ui;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -19,6 +23,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,15 +31,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference;
+import tk.wasdennnoch.androidn_ify.utils.LogcatService;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class SettingsActivity extends Activity implements View.OnClickListener {
+
+    private static final String TAG = "SettingsActivity";
 
     public static final String ACTION_RECENTS_CHANGED = "tk.wasdennnoch.androidn_ify.action.ACTION_RECENTS_CHANGED";
     public static final String EXTRA_RECENTS_DOUBLE_TAP_SPEED = "extra.recents.DOUBLE_TAP_SPEED";
@@ -184,6 +193,17 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         }
                         break;
                 }
+            } else {
+                switch (preference.getKey()) {
+                    case "share_logcat":
+                        ((SettingsActivity) getActivity()).requestLogsPermission(new Runnable() {
+                            @Override
+                            public void run() {
+                                getActivity().startService(new Intent(getActivity(), LogcatService.class));
+                            }
+                        });
+                        break;
+                }
             }
             return false;
         }
@@ -256,6 +276,53 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void requestLogsPermission(Runnable action) {
+        if (getPackageManager().checkPermission(Manifest.permission.READ_LOGS, getPackageName()) != PackageManager.PERMISSION_GRANTED) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage(getString(R.string.requesting_root));
+            showDialog(R.string.permission_required, R.string.logs_permission_description, false, new Runnable() {
+                @Override
+                public void run() {
+                    new AsyncTask<Void, Void, Boolean>() {
+                        @Override
+                        protected void onPreExecute() {
+                            progressDialog.show();
+                        }
+
+                        @Override
+                        protected Boolean doInBackground(Void... params) {
+                            try {
+                                java.lang.Process proc = Runtime.getRuntime().exec(new String[]{"su", "-c", "pm grant " + getPackageName() + " " + Manifest.permission.READ_LOGS});
+                                int res = proc.waitFor();
+                                proc.destroy();
+                                if (res != 0)
+                                    throw new IOException("Failed to grant READ_LOGS permision with root (exit value: " + res + ")");
+                            } catch (IOException | InterruptedException e) {
+                                Log.e(TAG, "Couldn't grant READ_LOGS permission with root", e);
+                                return false;
+                            }
+                            return true;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Boolean result) {
+                            progressDialog.dismiss();
+                            if (result) {
+                                Process.sendSignal(Process.myPid(), Process.SIGNAL_KILL);
+                            } else {
+                                showDialog(0, R.string.root_failed, true, null);
+                            }
+                        }
+                    }.execute();
+                }
+            });
+        } else {
+            action.run();
+        }
     }
 
 }

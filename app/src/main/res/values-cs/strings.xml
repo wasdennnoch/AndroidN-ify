@@ -167,7 +167,6 @@
     <string name="app_dark_theme_title">Tmavé téma aplikace</string>
     <string name="theme_colorPrimary">Primární barva</string>
     <string name="hide_launcher_icon_title">Skrýt ikonu aplikace</string>
-    <string name="force_english_title">Vynutit anglický jazyk</string>
     <string name="hide_launcher_icon">Může vyžadovat restart spouštěče</string>
     <string name="debug_log_title">Zaznamenávání chyb</string>
     <string name="debug_log">Upozornění: Zahlcování záznamu</string>

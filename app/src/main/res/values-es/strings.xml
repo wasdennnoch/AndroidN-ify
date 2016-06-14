@@ -32,12 +32,10 @@
     <string name="app_dark_theme_title">Tema oscuro</string>
     <string name="hide_launcher_icon">Puede requerir reiniciar el lanzador</string>
     <string name="hide_launcher_icon_title">Esconder icono en el lanzador</string>
-    <string name="force_english_title">Forzar el idioma al Inglés</string>
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     
     <string name="requires_android_version">Requiere Android %1$s</string>
-    
     <string name="not_activated">Módulo no activo</string>
     
     <string name="theme_colorPrimary">Color primario</string>
@@ -100,6 +98,8 @@
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
     <string name="battery_tile_show_percentage">Mostrar porcentaje de batería</string>
+    <string name="enable_qs_editor">Activar editor de ajustes</string>
+    <string name="allow_fancy_qs_transition">Animación de ajustes rápidos</string>
     <string name="alternative_header_qs_method_title">Alternativa de ajustes rápidos</string>
     <string name="alternative_header_qs_method">Activar cuando hay errores en la posición de los ajustes rápidos</string>
     <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N</string>
@@ -188,6 +188,7 @@
     <!-- QS -->
     <string name="qs_edit">Editar</string>
     <string name="qs_edit_detail">Editar ajustes</string>
+    <string name="drag_to_add_tiles">Arrastrar para añadir</string>
+    <string name="drag_to_remove_tiles">Arrastra aqui para</string>
     <!-- /QS -->
-
 </resources>

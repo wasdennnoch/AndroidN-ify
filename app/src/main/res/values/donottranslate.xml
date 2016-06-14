@@ -2,6 +2,8 @@
 
     <string name="app_name" translatable="false">Android N-ify</string>
 
+    <string name="force_english_title" translatable="false">Force English language</string>
+
     <!-- NOTIFICATIONS -->
     <string name="notification_header_divider_symbol" translatable="false">•</string>
     <!-- /NOTIFICATIONS -->

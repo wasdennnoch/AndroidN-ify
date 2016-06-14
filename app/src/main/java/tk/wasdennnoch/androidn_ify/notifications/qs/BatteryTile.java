@@ -20,11 +20,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 
 public class BatteryTile extends QSTile implements BatteryInfoManager.BatteryStatusListener {
 
+    public static final String TILE_SPEC = "battery";
     private BatteryInfoManager.BatteryData mTileBatteryData;
     private BatteryView mBatteryView;
 
@@ -86,8 +86,8 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     // A mix of GB BatteryView and AOSP BatteryMeterView
     public class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener {
-        private final int[] LEVELS = new int[] { 4, 15, 100 };
-        private final int[] COLORS = new int[] { 0xFFFF3300, 0xFFFF3300, 0xFFFFFFFF };
+        private final int[] LEVELS = new int[]{4, 15, 100};
+        private final int[] COLORS = new int[]{0xFFFF3300, 0xFFFF3300, 0xFFFFFFFF};
         private static final int FULL = 96;
 
         private static final float SUBPIXEL = 0.4f;  // inset rects for softer edges
@@ -165,13 +165,13 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         }
 
         private void setColor(int mainColor) {
-            COLORS[COLORS.length-1] = mainColor;
+            COLORS[COLORS.length - 1] = mainColor;
 
             final int N = LEVELS.length;
-            mColors = new int[2*N];
-            for (int i=0; i<N; i++) {
-                mColors[2*i] = LEVELS[i];
-                mColors[2*i+1] = COLORS[i];
+            mColors = new int[2 * N];
+            for (int i = 0; i < N; i++) {
+                mColors[2 * i] = LEVELS[i];
+                mColors[2 * i + 1] = COLORS[i];
             }
 
             mWarningTextPaint.setColor(COLORS[0]);
@@ -185,7 +185,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         }
 
         private float[] loadBoltPoints() {
-            final int[] pts = new int[] { 73,0,392,0,201,259,442,259,4,703,157,334,0,334 };
+            final int[] pts = new int[]{73, 0, 392, 0, 201, 259, 442, 259, 4, 703, 157, 334, 0, 334};
             int maxX = 0, maxY = 0;
             for (int i = 0; i < pts.length; i += 2) {
                 maxX = Math.max(maxX, pts[i]);
@@ -193,8 +193,8 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             }
             final float[] ptsF = new float[pts.length];
             for (int i = 0; i < pts.length; i += 2) {
-                ptsF[i] = (float)pts[i] / maxX;
-                ptsF[i + 1] = (float)pts[i + 1] / maxY;
+                ptsF[i] = (float) pts[i] / maxX;
+                ptsF[i + 1] = (float) pts[i + 1] / maxY;
             }
             return ptsF;
         }
@@ -216,9 +216,9 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
         private int getColorForLevel(int percent) {
             int thresh, color = 0;
-            for (int i=0; i<mColors.length; i+=2) {
+            for (int i = 0; i < mColors.length; i += 2) {
                 thresh = mColors[i];
-                color = mColors[i+1];
+                color = mColors[i + 1];
                 if (percent <= thresh) return color;
             }
             return color;
@@ -349,7 +349,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             // draw the battery shape, clipped to charging level
             mFrame.top = levelTop;
             mClipPath.reset();
-            mClipPath.addRect(mFrame,  Path.Direction.CCW);
+            mClipPath.addRect(mFrame, Path.Direction.CCW);
             mShapePath.op(mClipPath, Path.Op.INTERSECT);
             c.drawPath(mShapePath, mBatteryPaint);
 

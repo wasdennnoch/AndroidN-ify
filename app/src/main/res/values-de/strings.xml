@@ -21,7 +21,6 @@
     <string name="app_dark_theme_title">Dunkles App-Design</string>
     <string name="hide_launcher_icon_title">Launcher-Icon verbergen</string>
     <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
-    <string name="force_english_title">Englisch erzwingen</string>
     <string name="debug_log_title">Debug-Log</string>
     <string name="debug_log">Warnung: Log-flutend</string>
 

@@ -32,7 +32,6 @@
     <string name="app_dark_theme_title">Karanlık uygulama teması</string>  
     <string name="hide_launcher_icon_title">Simgeyi gizle</string>
     <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
-    <string name="force_english_title">İngilizce diline zorla</string>
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
     <string name="debug_log">Dikkat: Log-flooding</string>
 

@@ -37,8 +37,7 @@
     <string name="recents_button_behavior_previous">Ritorna all\'app precedente</string>
     <string name="recents_button_behavior_current">Ritorna all\'app corrente</string>
     <string name="recents_button_behavior_cycle">Naviga attraverso le apps</string>
-    <string name="force_english_title">Forza la lingua Inglese</string>
-    
+
     <string name="enable_settings_summaries">Mostra le informazioni più importanti direttamente nella sezione Impostazioni</string>
     <string name="enable_settings_summaries_title">Abilita modifiche alle impostazioni</string>
     <string name="fix_sound_notif_tile_title">Fix sezione "Suono &amp; Notifiche"</string>
@@ -166,6 +165,12 @@
     <string name="alternative_header_qs_method">Abilitalo quando ci sono problemi di posizionamento con le icone dei QS</string>
     <string name="drag_to_add_tiles">Trascina per aggiungere tiles</string>
     <string name="drag_to_remove_tiles">Trascina qui per rimuovere</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automatico</string>
+    <string name="live_display_off">Spento</string>
+    <string name="live_display_day">Giorno</string>
+    <string name="live_display_night">Notte</string>
+    <string name="live_display_outdoor">Esterno (sole luminoso)</string>
      <!-- /NOTIFICATIONS -->
      
      <!-- UPDATE -->

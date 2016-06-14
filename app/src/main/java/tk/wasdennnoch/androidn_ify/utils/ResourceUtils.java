@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
@@ -72,6 +73,13 @@ public class ResourceUtils {
         return mContext.getResources().getString(resId, formatArgs);
     }
 
+    public Resources getResources() {
+        return mContext.getResources();
+    }
+
+    public CharSequence getText(@StringRes int resId) {
+        return mContext.getResources().getText(resId);
+    }
 }
 
 

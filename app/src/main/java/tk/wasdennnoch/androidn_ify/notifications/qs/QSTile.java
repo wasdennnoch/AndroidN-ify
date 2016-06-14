@@ -26,6 +26,7 @@ public class QSTile {
     public static final String CLASS_TILE_STATE = "com.android.systemui.qs.QSTile.State";
     public static final String CLASS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     public static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
+    public static final String CLASS_RESOURCE_ICON = CLASS_QS_TILE + ".ResourceIcon";
 
     public QSTile(TilesManager tilesManager, Object host, String key) {
         mTilesManager = tilesManager;
@@ -93,12 +94,19 @@ public class QSTile {
     public void handleClick() {
     }
 
+    public void handleLongClick() {
+    }
+
     public void handleDestroy() {
         mTilesManager.unregisterTile(this);
         mTilesManager = null;
         mTile = null;
         mHost = null;
         mContext = null;
+    }
+
+    public Drawable getResourceIconDrawable() {
+        return mState.icon;
     }
 
     public static class State {

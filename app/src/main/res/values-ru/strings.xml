@@ -32,7 +32,6 @@
     <string name="app_dark_theme_title">Тёмная тема приложения</string>
     <string name="hide_launcher_icon_title">Скрыть иконку приложения</string>
     <string name="hide_launcher_icon">Может потребоватся перезагрузка рабочего стола</string>
-    <string name="force_english_title">Принудительно использовать английский язык</string>
     <string name="debug_log_title">Лог для отладки</string>
     <string name="debug_log">Внимание: Лог может занимать много места</string>
     

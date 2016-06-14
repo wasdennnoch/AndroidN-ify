@@ -20,17 +20,6 @@ import tk.wasdennnoch.androidn_ify.R;
 
 public class DownloadService extends IntentService {
 
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
-    @SuppressWarnings("unused")
-    public DownloadService(String name) {
-        super(name);
-    }
-
-    @SuppressWarnings("unused")
     public DownloadService() {
         super("DownloadService");
     }
@@ -96,8 +85,8 @@ public class DownloadService extends IntentService {
             int fileLength = connection.getContentLength();
 
             String path = mContext.getExternalFilesDir(null).getPath() + "/update.apk";
-            File file = (new File(path));
-            if(file.exists()) {
+            File file = new File(path);
+            if (file.exists()) {
                 file.delete();
             }
             file.createNewFile();

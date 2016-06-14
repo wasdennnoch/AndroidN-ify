@@ -163,16 +163,39 @@
     <string name="qs_edit_detail">Upraviť dlaždice</string>
     <string name="drag_to_add_tiles">Potiahnite pre pridanie dlaždíc</string>
     <string name="drag_to_remove_tiles">Potiahnite sem pre odstránenie</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automaticky</string>
+    <string name="live_display_off">Vypnuté</string>
+    <string name="live_display_day">Deň</string>
+    <string name="live_display_night">Noc</string>
+    <string name="live_display_outdoor">Vonku (jasné slnešné svetlo)</string>
     <!-- /QS -->
 
     <string name="header_app">Aplikácia</string>
     <string name="app_dark_theme_title">Tmavá téma aplikácie</string>
     <string name="theme_colorPrimary">Primárna farba</string>
     <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
-    <string name="force_english_title">Vynútiť anglický jazyk</string>
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
+    <string name="share_logcat_title">Zdieľať záznam</string>
+    <string name="share_logcat">Uloží záznam do súboru</string>
+    <string name="logcat_notif_ongoing_title">Ukladanie záznamu</string>
+    <string name="logcat_notif_finished_title">Záznam uložený</string>
+    <string name="logcat_notif_preparing">Príprava</string>
+    <string name="logcat_notif_ongoing_lines">Uložených %1$s riadkov&#8230;</string>
+    <string name="logcat_notif_finished_lines">%1$s riadkov uložených</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_share">Zdieľať</string>
+
+    <string name="requesting_root">Žiadanie o root prístup&#8230;</string>
+    <string name="root_failed">Nepodarilo sa získať READ_LOGS povolenie</string>
+    <string name="permission_required">Je vyžadované povolenie</string>
+    <string name="logs_permission_description">
+        V Androide od verzie Jelly Bean, aplikácie nemajú prístup k čítaniu plného záznamu.
+        Môžete ale povoliť READ_LOGS povolenie pomocou root prístupu.
+        Potom musí byť aplikácia reštartovaná, aby sa povolenie sprístupnilo.
+    </string>
 
     <string name="requires_android_version">Vyžaduje Android %1$s</string>
 

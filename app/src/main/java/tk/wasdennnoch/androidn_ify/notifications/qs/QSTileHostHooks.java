@@ -211,7 +211,11 @@ public class QSTileHostHooks {
                     try {
                         XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
                     } catch (Throwable t) { // Candy6
-                        XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook);
+                        try {
+                            XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook);
+                        } catch (Throwable t2) {
+                            XposedHook.logE(TAG, "Couldn't hook recreateTiles / onTuningChanged", null);
+                        }
                     }
                 }
 
@@ -308,7 +312,7 @@ public class QSTileHostHooks {
             specs.add("hotspot");
             specs.addAll(bruteForceSpecs());
         }
-        specs.add("battery");
+        specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
         return specs;
     }
@@ -332,10 +336,12 @@ public class QSTileHostHooks {
     private static List<String> bruteForceSpecs() {
         XposedHook.logW(TAG, "Brute forcing tile specs!");
         List<String> specs = new ArrayList<>();
-        String[] possibleSpecs = new String[]{/*"notifications", "data", "roaming", "dds", "apn",*/ "profiles", "performance",
-                "adb_network", "nfc", "compass", "lockscreen", /*"lte", "visualizer",*/ "volume_panel", "screen_timeout",
+        String[] possibleSpecs = new String[]{"notifications", "data", "roaming", "dds", "apn", "profiles", "performance",
+                "adb_network", "nfc", "compass", "lockscreen", "lte", "visualizer", "volume_panel", "screen_timeout",
                 "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine", "music", "next_alarm",
-                "ime_selector", "su", "adb", "live_display", "themes"};
+                "ime_selector", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenshot", "expanded_desktop",
+                "reboot", "configurations", "navbar", "appcirclebar", "kernel_adiutor", "screenrecord", "gesture_anywhere",
+                "power_menu", "app_picker", "kill_app", "hw_keys", "sound", "pulse", "pie", "float_mode"};
         for (String s : possibleSpecs) {
             if (bruteForceSpec(s)) specs.add(s);
         }
