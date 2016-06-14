@@ -136,4 +136,22 @@
     <string name="info_bloodtype_bp">B+</string>
     <string name="info_bloodtype_on">O-</string>
     <string name="info_bloodtype_op">O+</string>
+    <string name="action_share">Chia sẻ</string>
+    <string name="action_stop">Dừng</string>
+    <string name="live_display_auto">Tự động</string>
+    <string name="live_display_day">Ngày</string>
+    <string name="live_display_night">Đêm</string>
+    <string name="live_display_off">Tắt</string>
+    <string name="live_display_outdoor">Ngoài trời (nắng mạnh)</string>
+    <string name="logcat_notif_finished_lines">%1$s dòng đã lưu</string>
+    <string name="logcat_notif_finished_title">Đã lưu logcat</string>
+    <string name="logcat_notif_ongoing_lines">Đã lưu %1$s dòng…</string>
+    <string name="logcat_notif_ongoing_title">Đang lưu logcat</string>
+    <string name="logcat_notif_preparing">Đang chuẩn bị</string>
+    <string name="logs_permission_description">Kể từ Android phiên bản Jelly Bean các ứng dụng không được phép đọc logcat nữa.         Tuy nhiên bạn có thể cấp quyền READ_LOGS với quyền root.         Sau đó ứng dụng cần khởi động lại để sử dụng quyền mới cấp.</string>
+    <string name="permission_required">Cần cấp quyền</string>
+    <string name="requesting_root">Cần quyền root…</string>
+    <string name="root_failed">Cấp quyền READ_LOGS thất bại</string>
+    <string name="share_logcat">Lưu logcat của bạn thành tệp</string>
+    <string name="share_logcat_title">Chia sẻ logcat</string>
 </resources>
