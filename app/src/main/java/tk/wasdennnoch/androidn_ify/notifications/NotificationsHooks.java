@@ -228,7 +228,12 @@ public class NotificationsHooks {
                     contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
                     contentView.setTextColor(R.id.notification_summary, mColor);
                     contentView.setTextColor(R.id.notification_summary_divider, mColor);
-                    XposedHelpers.callMethod(param.thisObject, "unshrinkLine3Text");
+                    try {
+                        // TODO Why it's crashing here
+                        XposedHelpers.callMethod(param.thisObject, "unshrinkLine3Text");
+                    } catch (Throwable ignore) {
+
+                    }
                 }
             }
         }
