@@ -125,8 +125,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             SystemUIHooks.batteryInfoManager.registerListener(this);
 
             mWarningString = "!";
-            mCriticalLevel = mContext.getResources().getInteger(
-                    com.android.internal.R.integer.config_criticalBatteryWarningLevel);
+            mCriticalLevel = 4;
 
             mFramePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mFramePaint.setDither(true);
@@ -266,6 +265,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             final int color = mBatteryData.charging ?
                     mChargeColor : getColorForLevel(mBatteryData.level);
             mBatteryPaint.setColor(color);
+            mBoltPaint.setColor(color);
 
             if (level >= FULL) {
                 drawFrac = 1f;
