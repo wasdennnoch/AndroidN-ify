@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Use features introduced in Android N on devices running Lollipop and Marshmallow!</string>
+    <string name="xposed_description">안드로이드 N의 기능을 롤리팝 혹은 마시멜로를 사용하는 디바이스에서 누려보세요!</string>
 
     <string name="restart_systemui">시스템UI 다시 시작</string>
     <string name="restart_systemui_message">시스템UI를 다시 시작 하시겠습니까?</string>
@@ -34,6 +34,8 @@
     <string name="hide_launcher_icon">홈 런처를 다시 시작해야할 수도 있습니다</string>
     <string name="debug_log_title">디버그 로그</string>
     <string name="debug_log">경고: Log-flooding</string>
+    <string name="share_logcat_title">로그켓 공유</string>
+    <string name="share_logcat">로그켓을 파일로 저장합니다</string>
     <string name="logcat_notif_ongoing_title">로그켓을 저장하는 중</string>
     <string name="logcat_notif_finished_title">로그켓 저장됨</string>
     <string name="logcat_notif_preparing">Preparing</string>
@@ -41,6 +43,15 @@
     <string name="logcat_notif_finished_lines">%1$s줄이 저장됨</string>
     <string name="action_stop">중지</string>
     <string name="action_share">공유</string>
+
+    <string name="requesting_root">루트 권한 요청 중&#8230;</string>
+    <string name="root_failed">READ_LOGS 권한을 얻는데 실패하였습니다</string>
+    <string name="permission_required">권한이 필요함</string>
+    <string name="logs_permission_description">
+        안드로이드 젤리빈 버전부터 모든 로그켓을 더이상 읽을 수 없게 되었습니다.
+        하지만 루트 권한으로 READ_LOGS 권한을 수동으로 얻을 수 있습니다.
+        새로운 권한 적용이 성공적으로 적용되려면 앱을 다시 시작 해야 합니다.
+    </string>
 
     <string name="requires_android_version">안드로이드 %1$s 이상의 버전이 필요합니다</string>
     <string name="not_activated">모듈이 활성화 되지 않았습니다</string>
@@ -162,7 +173,7 @@
     <string name="header_personal">개인</string>
     <string name="info_fullname">이름</string>
     <string name="info_address">주소</string>
-    <string name="info_birthdate">생일 날짜</string>
+    <string name="info_birthdate">생일</string>
 
     <string name="header_medical">의학</string>
     <string name="info_bloodtype">혈액형</string>
