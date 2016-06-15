@@ -21,7 +21,7 @@
             android:value="true"/>
         <meta-data
             android:name="xposedminversion"
-            android:value="60"/>
+            android:value="81"/>
         <meta-data
             android:name="xposeddescription"
             android:value="@string/xposed_description"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
+    <string name="xposed_description">Use features introduced in Android N on devices running Lollipop and Marshmallow!</string>
 
     <string name="restart_systemui">Restart SystemUI</string>
     <string name="restart_systemui_message">Are you sure you want to restart the SystemUI?</string>
