@@ -45,7 +45,7 @@
     <string name="action_share">Enviar</string>
     
     <string name="requesting_root">Pidiendo acceso root&#8230;</string>
-    <string name="root_failed">Failed to gain READ_LOGS permission</string>
+    <string name="root_failed">Fallo al activar el permiso READ_LOGS</string>
     <string name="permission_required">Permiso requerido</string>
     <string name="logs_permission_description">
         En las versiones posteriores a Jelly Bean las aplicaciones no tienen permiso para acceder al informe de fallos.
