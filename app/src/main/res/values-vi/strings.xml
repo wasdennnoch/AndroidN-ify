@@ -16,7 +16,7 @@
     <string name="check_for_updates_title">Tìm bản cập nhật</string>
     <string name="checking_for_update">Đang tìm cập nhật...</string>
     <string name="data_usage_summary">Đã sử dụng %1$s dữ liệu</string>
-    <string name="debug_log">Chú ý: Rất nhiều thông báo trong trình gỡ lỗi</string>
+    <string name="debug_log">Chú ý: Rất nhiều thông tin trong trình gỡ lỗi</string>
     <string name="debug_log_title">Thông tin gỡ lỗi</string>
     <string name="disabled">Vô liệu hóa</string>
     <string name="disconnected">Đã ngắt kết nối</string>
@@ -39,7 +39,7 @@
     <string name="header_notifications">Thông báo</string>
     <string name="header_recents">Ứng dụng gần đây</string>
     <string name="header_settings">Cài đặt</string>
-    <string name="header_status_bar_header">Thanh tiêu đề của Cài đặt nhanh</string>
+    <string name="header_status_bar_header">Thanh tiêu đề c.đặt nhanh</string>
     <string name="header_tweaks">Tinh chỉnh</string>
     <string name="hide_carrier_label_title">Ẩn tên nhà mạng</string>
     <string name="hide_edit_tiles_title">Ẩn nút tùy chỉnh ô</string>
@@ -81,10 +81,10 @@
     <string name="restart_broadcast_sent">Đã gửi tín hiệu khởi động lại</string>
     <string name="restart_systemui">Khởi động lại Giao diện người dùng hệ thống</string>
     <string name="restart_systemui_message">Bạn có chắc muốn khởi động lại Giao diện người dùng hệ thống không?</string>
-    <string name="smaller_header_clock">Giảm cỡ chữ của đồng hồ trên thanh tiêu đề đã mở rộng. Hữu ích cho màn hình nhỏ</string>
+    <string name="smaller_header_clock">Giảm cỡ chữ đồng hồ trên thanh tiêu đề mở rộng. Tốt cho màn hình nhỏ</string>
     <string name="smaller_header_clock_title">Đồng hồ nhỏ hơn</string>
     <string name="sound_summary">Âm lượng chuông là %1$s</string>
-    <string name="storage_summary">%1$s trên %2$s đã sử dụng</string>
+    <string name="storage_summary">Đã dùng %1$s trên %2$s</string>
     <string name="theme_colorPrimary">Màu chính</string>
     <string name="update_notification">Phiên bản %1$d đã sẵn sàng để cập nhật!</string>
     <string name="update_notification_download">Cập nhật</string>
@@ -94,10 +94,10 @@
     <string name="update_notification_downloading_details">Đang tải phiên bản %1$d</string>
     <string name="update_notification_title">Có bản cập nhật mới</string>
     <string name="user_summary">Đăng nhập với tên %1$s</string>
-    <string name="xposed_description">Mang tính năng mới từ Android N đến Lollipop và Marshmallow!</string>
+    <string name="xposed_description">Dùng những tính năng của Android N trên các thiết bị chạy Lollipop và Marshmallow!</string>
     <string name="alternative_header_qs_method">Bật khi gặp vấn đề vị trí các icon Cài đặt nhanh</string>
     <string name="alternative_header_qs_method_title">Nạp icon Cài đặt nhanh kiểu khác</string>
-    <string name="keep_qs_panel_bg">Hữu ích khi dùng Giao diện có tùy chỉnh màu nền Cài đặt nhanh</string>
+    <string name="keep_qs_panel_bg">Hữu ích khi dùng Giao diện có tùy chỉnh màu nền C.đặt nhanh</string>
     <string name="keep_qs_panel_bg_title">Không thay đổi nền C.đặt nhanh</string>
     <string name="qs_edit">Sửa</string>
     <string name="qs_edit_detail">Sửa các ô</string>
@@ -120,7 +120,7 @@
     <string name="info_birthdate">Ngày sinh</string>
     <string name="info_bloodtype">Nhóm máu</string>
     <string name="info_fullname">Tên đầy đủ</string>
-    <string name="info_medicalnotes">Điều kiện y tế và ghi chú</string>
+    <string name="info_medicalnotes">Tình trạng y tế và ghi chú</string>
     <string name="info_medications">Thuốc men</string>
     <string name="info_organdonor">Người hiến tạng</string>
     <string name="info_unspecified">Không quy định </string>
