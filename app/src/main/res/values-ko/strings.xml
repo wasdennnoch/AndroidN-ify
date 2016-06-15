@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Ports back features introduced in Android N to Lollipop and Marshmallow!</string>
+    <string name="xposed_description">Use features introduced in Android N on devices running Lollipop and Marshmallow!</string>
 
     <string name="restart_systemui">시스템UI 다시 시작</string>
     <string name="restart_systemui_message">시스템UI를 다시 시작 하시겠습니까?</string>
@@ -34,6 +34,13 @@
     <string name="hide_launcher_icon">홈 런처를 다시 시작해야할 수도 있습니다</string>
     <string name="debug_log_title">디버그 로그</string>
     <string name="debug_log">경고: Log-flooding</string>
+    <string name="logcat_notif_ongoing_title">로그켓을 저장하는 중</string>
+    <string name="logcat_notif_finished_title">로그켓 저장됨</string>
+    <string name="logcat_notif_preparing">Preparing</string>
+    <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
+    <string name="logcat_notif_finished_lines">%1$s줄이 저장됨</string>
+    <string name="action_stop">중지</string>
+    <string name="action_share">공유</string>
 
     <string name="requires_android_version">안드로이드 %1$s 이상의 버전이 필요합니다</string>
     <string name="not_activated">모듈이 활성화 되지 않았습니다</string>
@@ -188,5 +195,13 @@
     <!-- QS -->
     <string name="qs_edit">수정</string>
     <string name="qs_edit_detail">타일 수정</string>
+    <string name="drag_to_add_tiles">타일을 추가하려면 드래그 하세요</string>
+    <string name="drag_to_remove_tiles">제거하려면 여기로 드래그 하세요</string>
+    <string name="live_display">디스플레이 모드</string>
+    <string name="live_display_auto">자동</string>
+    <string name="live_display_off">꺼짐</string>
+    <string name="live_display_day">주간</string>
+    <string name="live_display_night">야간</string>
+    <string name="live_display_outdoor">자동 야외 모드</string>
     <!-- /QS -->
 </resources>
