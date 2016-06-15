@@ -34,6 +34,24 @@
     <string name="hide_launcher_icon_title">Esconder icono en el lanzador</string>
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
+    <string name="share_logcat_title">Enviar informe de fallos</string>
+    <string name="share_logcat">Guarda un informe de fallos en un archivo</string>
+    <string name="logcat_notif_ongoing_title">Guardando informe</string>
+    <string name="logcat_notif_finished_title">Informe guardado</string>
+    <string name="logcat_notif_preparing">Preparando</string>
+    <string name="logcat_notif_ongoing_lines">Guardadas %1$s líneas&#8230;</string>
+    <string name="logcat_notif_finished_lines">%1$s líneas guardadas</string>
+    <string name="action_stop">Parar</string>
+    <string name="action_share">Enviar</string>
+    
+    <string name="requesting_root">Pidiendo acceso root&#8230;</string>
+    <string name="root_failed">Fallo al activar el permiso READ_LOGS</string>
+    <string name="permission_required">Permiso requerido</string>
+    <string name="logs_permission_description">
+        En las versiones posteriores a Jelly Bean las aplicaciones no tienen permiso para acceder al informe de fallos.
+        Aun así se puede activar el permiso READ_LOGS manualmente sin tener root.
+        Después de activarlo se necesita reiniciar el dispositivo para aplicar los cambios.
+    </string>
     
     <string name="requires_android_version">Requiere Android %1$s</string>
     <string name="not_activated">Módulo no activo</string>
@@ -190,5 +208,11 @@
     <string name="qs_edit_detail">Editar ajustes</string>
     <string name="drag_to_add_tiles">Arrastrar para añadir</string>
     <string name="drag_to_remove_tiles">Arrastra aqui para</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automático</string>
+    <string name="live_display_off">Desactivado</string>
+    <string name="live_display_day">Día</string>
+    <string name="live_display_night">Noche</string>
+<string name="live_display_outdoor">Ambiente muy luminoso</string>
     <!-- /QS -->
 </resources>
