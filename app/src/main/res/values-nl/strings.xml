@@ -64,7 +64,7 @@
 
     <!-- SETTINGS -->
     <string name="header_settings">Instellingen</string>
-    <string name="enable_settings_summaries_title">Samenvattingen van beschrijvingen</string>
+    <string name="enable_settings_summaries_title">Samenvattingen van instellingen</string>
     <string name="enable_settings_summaries">Laat de meest belangrijke informatie direct zien in het dashboard</string>
     <string name="fix_sound_notif_tile_title">Repareer de "Geluids- &amp; notificatie" tegel</string>
     <string name="fix_sound_notif_tile">Sommige ROMs combineren de geluids- en notificatie tegel. Schakel deze optie in om het correcte overzicht voor de tegel te krijgen</string>
