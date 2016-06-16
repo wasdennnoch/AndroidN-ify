@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-<string name="xposed_description"Gebruik functies ge&#239;ntroduceerd in Android N op toestellen onder Lollipop en Marshmallow</string>
+    <string name="xposed_description">Gebruik functies ge&#239;ntroduceerd in Android N op toestellen onder Lollipop en Marshmallow</string>
 
     <string name="restart_systemui">Herstart SystemUI</string>
     <string name="restart_systemui_message">Weet je zeker dat je SystemUI wil herstarten?</string>
