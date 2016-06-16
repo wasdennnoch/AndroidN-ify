@@ -16,12 +16,12 @@
     <!-- prefs -->
     <string name="prefs_not_readable"><![CDATA[<b>Waarschuwing:</b> Het voorkeuren-bestand is niet leesbaar door Xposed. Klik voor meer info&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
-        Xposed het voorkeuren-bestand van deze module niet lezen, standaard waarden worden gebruikt in hooks.
-        Er zijn verschillende manieren om dit probleem op te lessen. Opgelet: deze fout veschijnt ook als je de app nog nooit hebt geopend.<br><br>
-        Vooreerst: reboot je toestel (Geen soft reboot!).<br>
+        Xposed kan het voorkeuren-bestand van deze module niet lezen, standaard waarden worden gebruikt in hooks.
+        Er zijn verschillende manieren om dit probleem op te lossen. Opgelet: deze fout veschijnt ook als je de app nog nooit hebt geopend.<br><br>
+        Reboot eerst je toestel (Geen soft reboot!).<br>
         Als dat niet helpt, probeer dan de module opnieuw te installeren.<br>
         Als beide pogingen falen, wees dan zeker dat je SELinux mode op <i>permissive</i> staat.
-        <i>Enforcing</i> SELinux kan toegang tot het voorkeuren-bestand blokkeren. Om de modues te wijzigen, kan je dea
+        <i>Enforcing</i> SELinux kan toegang tot het voorkeuren-bestand blokkeren. Om de modus te wijzigen, kan je de
         app <tt>SELinuxModeChanger</tt> gebruiken die je kan downloaden
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485"> in deze XDA-thread</a>.<br>
         Als ook dat faalt, zal je moeten leven met de standaardwaardes, sorry :(
@@ -44,7 +44,7 @@
     <string name="logcat_notif_finished_lines">%1$s lijnen opgeslagen</string>
     <string name="action_stop">Stop</string>
     <string name="action_share">Deel</string>
-    
+
     <string name="requesting_root">Root toegang verkrijgen&#8230;</string>
     <string name="root_failed">Mislukt om de READ_LOGS permissie te verkrijgen</string>
     <string name="permission_required">Toestemming vereist</string>
@@ -58,7 +58,7 @@
     <string name="not_activated">Module niet geactiveerd</string>
 
     <string name="theme_colorPrimary">Primaire kleur</string>
-    
+
     <string name="header_lockscreen">Vergrendelingsscherm</string>
     <!-- /prefs -->
 
