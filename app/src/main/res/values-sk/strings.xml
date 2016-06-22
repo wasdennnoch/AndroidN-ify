@@ -58,8 +58,8 @@
     <string name="recents_button_behavior_cycle">Prechádzať cez aplikácie</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Záhlavie stavového riadku</string>
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Rýchle nastavenia</string>
     <string name="enable_notification_header">Upraviť záhlavie</string>
     <string name="keep_qs_panel_bg_title">Nemeniť pozadie rýchlych nastavení</string>
     <string name="keep_qs_panel_bg">Užitočné pre témy, ktoré používajú vlastné pozadie panela rýchlych nastavení</string>
@@ -78,13 +78,15 @@
     <string name="smaller_header_clock">Zmenší text pre hodiny v otvorenom záhlaví. Užitočné pre menšie obrazovky</string>
     <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
     <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
+    <string name="fix_stuck_inversion_title">Opraviť invertované farby</string>
+    <string name="fix_stuck_inversion">Na niektorých zariadeniach sa môžu povolené invertovné farby zaseknúť. Kliknite pre vynútenie zkázania</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Skryť položky záhlavia</string>
     <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
     <string name="hide_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc</string>
     <string name="hide_carrier_label_title">Skryť operátora</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Upozornenia</string>
