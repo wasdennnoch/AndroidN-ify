@@ -142,7 +142,8 @@
                 android:defaultValue="true"
                 android:dependency="enable_qs_editor"
                 android:key="battery_tile_show_percentage"
-                android:title="@string/battery_tile_show_percentage"/>
+                android:title="@string/battery_tile_show_percentage"
+                android:summary="@string/battery_tile_show_percentage_summary"/>
 
             <SwitchPreference
                 android:defaultValue="true"

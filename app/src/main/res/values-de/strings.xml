@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="xposed_description">Bringt in Android N eingeführte Features auf Geräte mit Lollipop und Marshmallow!</string>
 
@@ -14,6 +12,19 @@
     <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
+    <string name="prefs_not_readable"><![CDATA[<b>Achtung:</b> Xposed kann die Datei mit den Einstellungen nicht lesen. Klicke für mehr Informationen&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed kann die Datei mit den Einstellungen nicht lesen, Standardwerte werden benutzt.
+        Es gibt mehrere Wege, dieses Problem zu lösen. Beachte auch, dass diese Meldung angezeigt wird,
+        wenn du die App noch nie geöffnet hast.<br><br>
+        Als Erstes, versuche dein Gerät neu zu starten (Kein Soft Reboot!).<br>
+        Wenn das nicht hilft, versuche das Modul neu zu installieren.<br>
+        Wenn beide Versuche scheitern, stelle sicher, dass der SELinux-Modus auf <i>permissive</i> gesetzt ist.
+        Im <i>Enforcing</i>-Modus könnte SELinux den Zugriff auf die Datei sperren. Um den Modus zu ändern,
+        benutze die App <tt>SELinuxModeChanger</tt>, welche du in
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">diesem XDA thread</a> herunterladen kannst.<br>
+        Falls selbst das scheitert, wirst du vermutlich mit Standardwerten leben müssen, sorry :(
+        ]]></string>
 
     <string name="header_tweaks">Tweaks</string>
     <string name="header_app">App</string>
@@ -23,12 +34,31 @@
     <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
     <string name="debug_log_title">Debug-Log</string>
     <string name="debug_log">Warnung: Log-flutend</string>
+    <string name="share_logcat_title">Logcat teilen</string>
+    <string name="share_logcat">Speichert den Logcat in einer Datei ab</string>
+    <string name="logcat_notif_ongoing_title">Speichere Logcat&#8230;</string>
+    <string name="logcat_notif_finished_title">Logcat gespeichert</string>
+    <string name="logcat_notif_preparing">Bereitet vor&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">%1$s Zeilen gespeichert&#8230;</string>
+    <string name="logcat_notif_finished_lines">%1$s Zeilen gespeichert</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_share">Teilen</string>
+
+    <string name="requesting_root">Fordere Root-Zugrff an&#8230;</string>
+    <string name="root_failed">Konnte die READ_LOGS-Berechtigung nicht erhalten</string>
+    <string name="permission_required">Berechtigung benötigt</string>
+    <string name="logs_permission_description">
+        In Android-Versionen seit Jelly Bean haben Apps keine Berechtigung mehr, den vollständigen logcat zu lesen.
+        Man kann jedoch die READ_LOGS-Berechtigung manuell mit Root-Zugrff gewähren.
+        Danach muss die App ne gestartet werden, um die neuen Berechtigungen zu übernehmen.
+    </string>
 
     <string name="requires_android_version">Benötigt Android %1$s</string>
-
     <string name="not_activated">Modul nicht aktiviert</string>
 
     <string name="theme_colorPrimary">Hauptfarbe</string>
+
+    <string name="header_lockscreen">Sperrbildschirm</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -38,6 +68,7 @@
     <string name="fix_sound_notif_tile_title">\"Töne &amp; Benachrichtigungen\"-Kachel reparieren</string>
     <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kachel. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
     <string name="enable_n_platlogo_title">N logo in Easter Egg</string>
+    <string name="use_namey_mcnameface_title">\"Namey McNameface\"-Icon verwenden</string>
 
     <string name="disconnected">Getrennt</string>
     <string name="disabled">Deaktiviert</string>
@@ -62,7 +93,7 @@
 
     <!-- RECENTS -->
     <string name="header_recents">Recents</string>
-    <string name="enable_recents_double_tap_title">Doppelklick-Appwechsler</string>
+    <string name="enable_recents_double_tap_title">Quick Switch</string>
     <string name="enable_recents_double_tap">Doppelt auf die Recents-Taste klicken, um zur zuletzt genutzten App zu gelangen</string>
     <string name="double_tap_speed_title">Doppelklick-Geschwindigkeit</string>
     <string name="recents_button_behavior_title">Recents-Button Klickverhalten</string>
@@ -78,12 +109,17 @@
     <string name="recents_button_behavior_cycle">Durch Apps wechseln</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Schnelleinstellungen</string>
     <string name="enable_notification_header">Header stylen</string>
     <string name="keep_qs_panel_bg_title">Unveränderter QS Hintergrund</string>
     <string name="keep_qs_panel_bg">Nützlich für Designs, die einen eigenen Hintergrund nutzen</string>
     <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
     <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
+    <string name="battery_tile_show_percentage">Prozent in der Batterie-Kachel</string>
+    <string name="battery_tile_show_percentage_summary">Verbleibende Prozent in der Batterie-Kachel zeigen</string>
+    <string name="enable_qs_editor">Enable QS editor</string>
+    <string name="allow_fancy_qs_transition">Fancy QS transition</string>
     <string name="alternative_header_qs_method_title">Alternative QS Lademethode</string>
     <string name="alternative_header_qs_method">Aktivieren, wenn Positionierungsprobleme der QS Icons auftreten</string>
     <string name="enable_new_tile_click_behavior">Android N Kachel-Klick-Verhalten</string>
@@ -94,13 +130,15 @@
     <string name="smaller_header_clock">Verringert die Textgröße der Uhr im ausgedehnten Header. Nützlich für kleine Bildschirme</string>
     <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
     <string name="notification_full_width_volume">Entfernt das Breitenlimit des Lautstärkedialogs auf Geräten mit großem Bildschirm</string>
+    <string name="fix_stuck_inversion_title">Invertierung reparieren</string>
+    <string name="fix_stuck_inversion">Auf manchen Geräten kann die Farbunkehrung nach dem Aktivieren nicht mehr deaktiviert werden. Klicken, um die Invertierung manuell zu deaktivieren.</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Header-Items verstecken</string>
     <string name="hide_tuner_icon_title">SystemUI Tuner-Icon verstecken</string>
     <string name="hide_edit_tiles_title">\"Kacheln Bearbeiten\" Button verstecken</string>
     <string name="hide_carrier_label_title">Anbietertext verstecken</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Benachrichtigungen</string>
@@ -130,5 +168,56 @@
     <string name="update_notification_download_fail">Download fehlgeschlagen</string>
     <string name="update_notification_download_fail_details">Download von Build %1$d fehlgeschlagen</string>
     <!-- /UPDATE -->
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Notfallinformationen</string>
+    <string name="enable_emergency_info_title">Notfallinformationen aktivieren</string>
+    <string name="edit_emergency_info_title">Notfallinformationen bearbeiten</string>
+
+    <string name="header_personal">Persönlich</string>
+    <string name="info_fullname">Voller Name</string>
+    <string name="info_address">Adresse</string>
+    <string name="info_birthdate">Geburtsdatum</string>
+
+    <string name="header_medical">Medizinisch</string>
+    <string name="info_bloodtype">Blutgruppe</string>
+    <string name="info_allergies">Allergien</string>
+    <string name="info_medications">Medikamente</string>
+    <string name="info_medicalnotes">Medizinische Bedingungen und Bemerkungen</string>
+    <string name="info_organdonor">Organspender</string>
+
+    <string name="info_unspecified">Keine ausgewählt</string>
+
+    <string name="info_bloodtype_op">0+</string>
+    <string name="info_bloodtype_on">0-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+
+    <!-- BATTERY -->
+    <string name="battery">Batterie</string>
+    <string name="charged">Geladen</string>
+    <string name="charging">Lädt, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Bearbeiten</string>
+    <string name="qs_edit_detail">Kachln bearbeiten</string>
+    <string name="drag_to_add_tiles">Ziehen, um Kachel hinzuzufügen</string>
+    <string name="drag_to_remove_tiles">Hierhin ziehen, um Kachel zu entfernen</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automatisch</string>
+    <string name="live_display_off">Aus</string>
+    <string name="live_display_day">Tag</string>
+    <string name="live_display_night">Nacht</string>
+    <string name="live_display_outdoor">Außen (helle Sonne)</string>
+    <!-- /QS -->
 
 </resources>

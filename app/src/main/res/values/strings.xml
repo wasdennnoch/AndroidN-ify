@@ -36,9 +36,9 @@
     <string name="debug_log">Warning: Log-flooding</string>
     <string name="share_logcat_title">Share logcat</string>
     <string name="share_logcat">Saves your logcat to a file</string>
-    <string name="logcat_notif_ongoing_title">Saving logcat</string>
+    <string name="logcat_notif_ongoing_title">Saving logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat saved</string>
-    <string name="logcat_notif_preparing">Preparing</string>
+    <string name="logcat_notif_preparing">Preparing&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
     <string name="logcat_notif_finished_lines">%1$s lines saved</string>
     <string name="action_stop">Stop</string>
@@ -117,6 +117,7 @@
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="battery_tile_show_percentage">Show percentage in battery tile</string>
+    <string name="battery_tile_show_percentage_summary">Show battery percentage in the battery tile</string>
     <string name="enable_qs_editor">Enable QS editor</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
     <string name="alternative_header_qs_method_title">Alternative QS loading method</string>
@@ -187,8 +188,8 @@
 
     <string name="info_unspecified">None specified</string>
 
-    <string name="info_bloodtype_op">O+</string>
-    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_op">0+</string>
+    <string name="info_bloodtype_on">0-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>
@@ -218,4 +219,5 @@
     <string name="live_display_night">Night</string>
     <string name="live_display_outdoor">Outdoor (bright sun)</string>
     <!-- /QS -->
+
 </resources>
