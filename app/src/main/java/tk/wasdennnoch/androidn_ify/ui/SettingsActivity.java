@@ -47,6 +47,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public static final String ACTION_RECENTS_CHANGED = "tk.wasdennnoch.androidn_ify.action.ACTION_RECENTS_CHANGED";
     public static final String EXTRA_RECENTS_DOUBLE_TAP_SPEED = "extra.recents.DOUBLE_TAP_SPEED";
+    public static final String ACTION_FIX_INVERSION = "tk.wasdennnoch.androidn_ify.action.ACTION_FIX_INVERSION";
     public static final String ACTION_GENERAL = "tk.wasdennnoch.androidn_ify.action.ACTION_GENERAL";
     public static final String EXTRA_GENERAL_DEBUG_LOG = "extra.general.DEBUG_LOG";
     public static final String ACTION_KILL_SYSTEMUI = "tk.wasdennnoch.androidn_ify.action.ACTION_KILL_SYSTEMUI";
@@ -195,6 +196,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 }
             } else {
                 switch (preference.getKey()) {
+                    case "fix_stuck_inversion":
+                        getActivity().sendBroadcast(new Intent(ACTION_FIX_INVERSION));
+                        break;
                     case "share_logcat":
                         ((SettingsActivity) getActivity()).requestLogsPermission(new Runnable() {
                             @Override

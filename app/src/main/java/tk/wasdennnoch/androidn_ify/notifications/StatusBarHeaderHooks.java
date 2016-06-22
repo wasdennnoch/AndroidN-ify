@@ -987,7 +987,6 @@ public class StatusBarHeaderHooks {
                 }
 
                 boolean isCm = false;
-
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);

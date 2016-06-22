@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Process;
+import android.provider.Settings;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
@@ -29,13 +30,14 @@ public class SystemUIHooks {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 XposedHook.logD(TAG, "prepareNavigationBarViewHook called");
 
-                Application app = (Application) param.thisObject;
+                final Application app = (Application) param.thisObject;
                 final Handler handler = new Handler(app.getMainLooper());
 
                 batteryInfoManager = new BatteryInfoManager(app);
 
                 IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction(SettingsActivity.ACTION_GENERAL);
+                intentFilter.addAction(SettingsActivity.ACTION_FIX_INVERSION);
                 intentFilter.addAction(SettingsActivity.ACTION_KILL_SYSTEMUI);
                 app.registerReceiver(new BroadcastReceiver() {
                     @Override
@@ -47,6 +49,9 @@ public class SystemUIHooks {
                                     XposedHook.debug = intent.getBooleanExtra(SettingsActivity.EXTRA_GENERAL_DEBUG_LOG, false);
                                     XposedHook.logI(TAG, "Debug log " + (XposedHook.debug ? "enabled" : "disabled"));
                                 }
+                                break;
+                            case SettingsActivity.ACTION_FIX_INVERSION:
+                                Settings.Secure.putInt(app.getContentResolver(), Settings.Secure.ACCESSIBILITY_DISPLAY_INVERSION_ENABLED, 0);
                                 break;
                             case SettingsActivity.ACTION_KILL_SYSTEMUI:
                                 handler.postDelayed(new Runnable() {

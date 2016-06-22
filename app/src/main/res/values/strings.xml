@@ -108,8 +108,8 @@
     <string name="recents_button_behavior_cycle">Cycle through apps</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Status bar header</string>
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Quick Settings</string>
     <string name="enable_notification_header">Style header</string>
     <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
     <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
@@ -128,13 +128,15 @@
     <string name="smaller_header_clock">Lower the text size of the clock in the expanded header. Useful for small screens</string>
     <string name="notification_full_width_volume_title">Full width volume dialog</string>
     <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
+    <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
+    <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Hide header items</string>
     <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
     <string name="hide_edit_tiles_title">Hide edit tiles button</string>
     <string name="hide_carrier_label_title">Hide carrier label</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notifications</string>

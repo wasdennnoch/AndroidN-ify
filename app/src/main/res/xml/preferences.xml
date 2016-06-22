@@ -87,8 +87,8 @@
 
 
         <PreferenceScreen
-            android:key="settings_status_bar_header"
-            android:title="@string/header_status_bar_header">
+            android:key="settings_qs"
+            android:title="@string/header_qs">
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -190,6 +190,11 @@
                 android:key="notification_full_width_volume"
                 android:summary="@string/notification_full_width_volume"
                 android:title="@string/notification_full_width_volume_title"/>
+
+            <Preference
+                android:key="fix_stuck_inversion"
+                android:title="@string/fix_stuck_inversion_title"
+                android:summary="@string/fix_stuck_inversion"/>
 
         </PreferenceScreen>
 
