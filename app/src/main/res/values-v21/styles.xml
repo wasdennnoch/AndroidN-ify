@@ -22,8 +22,9 @@
     </declare-styleable>
 
     <declare-styleable name="DropDownPreference">
-        <attr name="android:entries" />
-        <attr name="android:entryValues" />
+        <attr name="android:summary"/>
+        <attr name="android:entries"/>
+        <attr name="android:entryValues"/>
     </declare-styleable>
 
 </resources>

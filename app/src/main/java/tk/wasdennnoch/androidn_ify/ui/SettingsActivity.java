@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -35,7 +34,7 @@ import java.io.IOException;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference;
+import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
 import tk.wasdennnoch.androidn_ify.utils.LogcatService;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
@@ -167,17 +166,16 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     ThemeUtils.applyTheme(screen.getDialog(), getActivity(), preference.getSharedPreferences());
                 switch (preference.getKey()) {
                     case "settings_recents":
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference p = screen.findPreference("recents_button_behavior");
-                            p.setEnabled(false);
-                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        DropDownPreference recentsBehaviorPref = (DropDownPreference) screen.findPreference("recents_button_behavior");
+                        if (Build.VERSION.SDK_INT < 23) {
+                            recentsBehaviorPref.setEnabled(false);
+                            recentsBehaviorPref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         } else {
-                            final SeekBarPreference delayPref = (SeekBarPreference) screen.findPreference("recents_navigation_delay");
-                            ListPreference behaviorPref = (ListPreference) screen.findPreference("recents_button_behavior");
-                            if (behaviorPref.getValue().equals("2")) {
+                            final Preference delayPref = screen.findPreference("recents_navigation_delay");
+                            if (recentsBehaviorPref.getValue().equals("2")) {
                                 delayPref.setEnabled(true);
                             }
-                            behaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                            recentsBehaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                                 @Override
                                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                                     delayPref.setEnabled(Integer.parseInt((String) newValue) == 2);
@@ -188,9 +186,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         break;
                     case "settings_lockscreen":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference p = screen.findPreference("enable_emergency_info");
-                            p.setEnabled(false);
-                            p.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                            Preference emergencyInfoPref = screen.findPreference("enable_emergency_info");
+                            emergencyInfoPref.setEnabled(false);
+                            emergencyInfoPref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         }
                         break;
                 }
@@ -237,7 +235,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             switch (key) {
                 case "double_tap_speed":
                     intent.setAction(ACTION_RECENTS_CHANGED);
-                    intent.putExtra(EXTRA_RECENTS_DOUBLE_TAP_SPEED, prefs.getInt(key, 180));
+                    intent.putExtra(EXTRA_RECENTS_DOUBLE_TAP_SPEED, prefs.getInt(key, 400));
                     break;
                 case "debug_log":
                     intent.setAction(ACTION_GENERAL);
@@ -252,7 +250,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void onError(Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Error fetching updates", e);
         }
 
         @Override

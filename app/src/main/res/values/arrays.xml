@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="recents_button_behaviors">
+    <string-array name="recents_button_behaviors" translatable="false">
         <item>@string/recents_button_behavior_previous</item>
         <item>@string/recents_button_behavior_current</item>
         <item>@string/recents_button_behavior_cycle</item>
@@ -13,7 +13,7 @@
         <item>2</item>
     </string-array>
 
-    <string-array name="info_blood_types">
+    <string-array name="info_blood_types" translatable="false">
         <item>@string/info_bloodtype_op</item>
         <item>@string/info_bloodtype_on</item>
         <item>@string/info_bloodtype_ap</item>
@@ -25,7 +25,7 @@
         <item>@string/info_unspecified</item>
     </string-array>
 
-    <string-array name="info_organdonor_values">
+    <string-array name="info_organdonor_values" translatable="false">
         <item>@string/yes</item>
         <item>@string/no</item>
         <item>@string/info_unspecified</item>

@@ -52,14 +52,13 @@
                 app:monitorBoxEnabled="true"
                 app:monitorBoxUnit="ms"/>
 
-            <ListPreference
+            <tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference
                 android:defaultValue="0"
                 android:entries="@array/recents_button_behaviors"
                 android:entryValues="@array/recents_button_behaviors_values"
                 android:key="recents_button_behavior"
-                android:summary="%s"
+                android:summary="[%s]"
                 android:title="@string/recents_button_behavior_title"/>
-            <!-- Isn't the "%s" nifty? -->
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="1000"
@@ -193,8 +192,8 @@
 
             <Preference
                 android:key="fix_stuck_inversion"
-                android:title="@string/fix_stuck_inversion_title"
-                android:summary="@string/fix_stuck_inversion"/>
+                android:summary="@string/fix_stuck_inversion"
+                android:title="@string/fix_stuck_inversion_title"/>
 
         </PreferenceScreen>
 
@@ -315,8 +314,8 @@
 
         <Preference
             android:key="share_logcat"
-            android:title="@string/share_logcat_title"
-            android:summary="@string/share_logcat"/>
+            android:summary="@string/share_logcat"
+            android:title="@string/share_logcat_title"/>
 
     </PreferenceCategory>
 
