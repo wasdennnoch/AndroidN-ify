@@ -25,6 +25,7 @@ import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -62,7 +63,12 @@ public class PlatLogoActivity extends Activity {
         im.setScaleX(0.5f);
         im.setScaleY(0.5f);
         im.setAlpha(0f);
-        final Drawable N = getDrawable(R.drawable.platlogo);
+        final Drawable N;
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("use_namey_mcnameface", false)) {
+            N = getDrawable(R.drawable.ic_namey_mcnameface);
+        } else {
+            N = getDrawable(R.drawable.platlogo);
+        }
         im.setBackground(new RippleDrawable(
                 ColorStateList.valueOf(0xFFFFFFFF),
                 N,

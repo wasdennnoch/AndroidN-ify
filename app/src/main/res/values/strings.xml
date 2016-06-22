@@ -68,6 +68,7 @@
     <string name="fix_sound_notif_tile_title">Fix "Sound &amp; notification" tile</string>
     <string name="fix_sound_notif_tile">Some ROMs combine the Sounds and Notifications tile. Enable to set the proper summary for this tile</string>
     <string name="enable_n_platlogo_title">N logo in easter egg</string>
+    <string name="use_namey_mcnameface_title">Use \"Namey McNameface\" icon</string>
 
     <string name="disconnected">Disconnected</string>
     <string name="disabled">Disabled</string>
