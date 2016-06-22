@@ -109,7 +109,6 @@
     <!-- /RECENTS -->
     
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Шапка статус-бара</string>
     <string name="enable_notification_header">Изменить стиль шапки статус-бара</string>
     <string name="keep_qs_panel_bg_title">Не изменять фон быстрых настроек</string>
     <string name="keep_qs_panel_bg">Полезно для тем, которые используют свой фон для панели быстрых настроек</string>

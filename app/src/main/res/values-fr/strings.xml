@@ -78,7 +78,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-	<string name="header_status_bar_header">Entête de la barre d\'état</string>
     <string name="enable_notification_header">Style entête</string>
     <string name="keep_qs_panel_bg_title">Arrière-plan QS inchangé</string>
     <string name="keep_qs_panel_bg">Utile pour les thèmes qui appliquent un arrière-plan modifié pour le panneau QS</string>
@@ -125,7 +124,7 @@
     <string name="update_notification_download">Mise à jour</string>
     <string name="check_for_updates_title">Vérifier les mises à jours</string>
     <string name="check_for_updates">Vérifier les mises à jours au démarrage de l\'appli</string>
-    <string name="checking_for_update">Vérification de mises à jour...</string>
+    <string name="checking_for_update">Vérification de mises à jour&#8230;</string>
     <string name="check_for_update_fail">Impossible de récupérer les mises à jour</string>
     <string name="no_updates">Pas de nouvelles versions trouvées</string>
     <string name="update_notification_downloading">Téléchargement de la mise à jour</string>

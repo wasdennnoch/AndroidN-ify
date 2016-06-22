@@ -24,7 +24,7 @@
     <string name="requires_android_version">建議執行於 Android %1$s 以上</string>
     <string name="not_activated">模組尚未啟用！</string>
 	
-    <string name="theme_colorPrimary">選擇顏色...</string>
+    <string name="theme_colorPrimary">選擇顏色&#8230;</string>
 	
     <string name="header_lockscreen">鎖定螢幕</string>
     <!-- /prefs -->
@@ -77,7 +77,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">下拉式狀態列</string>
     <string name="enable_notification_header">調整狀態列</string>
     <string name="notification_header_qs_tiles_count">狀態列內瓷磚的數量</string>
     <string name="notification_header_qs_tiles_count_monitor">個</string>

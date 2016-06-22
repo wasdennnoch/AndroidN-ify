@@ -109,7 +109,6 @@
     <!-- /RECENTS -->
     
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Barra de estado</string>  
     <string name="enable_notification_header">Activar nueva barra de estado</string>
     <string name="keep_qs_panel_bg_title">Mantener fondo de ajustes rápidos</string>
     <string name="keep_qs_panel_bg">Útil para temas que cambian el fondo de los ajustes rápidos</string>
@@ -207,7 +206,7 @@
     <string name="qs_edit">Editar</string>
     <string name="qs_edit_detail">Editar ajustes</string>
     <string name="drag_to_add_tiles">Arrastrar para añadir</string>
-    <string name="drag_to_remove_tiles">Arrastra aqui para</string>
+    <string name="drag_to_remove_tiles">Arrastra aquí para</string>
     <string name="live_display">LiveDisplay</string>
     <string name="live_display_auto">Automático</string>
     <string name="live_display_off">Desactivado</string>

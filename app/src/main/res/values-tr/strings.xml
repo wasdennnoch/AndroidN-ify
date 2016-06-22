@@ -109,7 +109,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Durum Çubuğu Başlığı</string>
     <string name="enable_notification_header">Başlık stili</string>
     <string name="keep_qs_panel_bg_title">Değiştirilmemiş Hızlı Ayarlar arka planı</string>
     <string name="keep_qs_panel_bg">Özel bir Hızlı Ayarlar paneli arka planı uygulamak temalar için faydalıdır.</string>
@@ -156,7 +155,7 @@
     <string name="update_notification_download">Güncelle</string>
     <string name="check_for_updates_title">Güncellemeleri kontrol et</string>
     <string name="check_for_updates">Uygulama başlatıldığında güncellemeleri kontrol eder.</string>
-    <string name="checking_for_update">Güncellemeler kontrol ediliyor ...</string>
+    <string name="checking_for_update">Güncellemeler kontrol ediliyor&#8230;</string>
     <string name="check_for_update_fail">Güncellemeler kontrol edilemedi!</string>
     <string name="no_updates">Yeni versiyon bulunamadı!</string>
     <string name="update_notification_downloading">Güncelleme indiriliyor!</string>

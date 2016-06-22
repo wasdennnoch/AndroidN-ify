@@ -21,4 +21,9 @@
         <attr name="monitorBoxLeadingSpace" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="DropDownPreference">
+        <attr name="android:entries" />
+        <attr name="android:entryValues" />
+    </declare-styleable>
+
 </resources>

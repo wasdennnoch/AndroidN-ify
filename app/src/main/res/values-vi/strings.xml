@@ -14,7 +14,7 @@
     <string name="check_for_update_fail">Không thể tìm bản cập nhật</string>
     <string name="check_for_updates">Tìm bản cập nhật khi khởi động</string>
     <string name="check_for_updates_title">Tìm bản cập nhật</string>
-    <string name="checking_for_update">Đang tìm cập nhật...</string>
+    <string name="checking_for_update">Đang tìm cập nhật&#8230;</string>
     <string name="data_usage_summary">Đã sử dụng %1$s dữ liệu</string>
     <string name="debug_log">Chú ý: Rất nhiều thông tin trong trình gỡ lỗi</string>
     <string name="debug_log_title">Thông tin gỡ lỗi</string>
@@ -39,7 +39,6 @@
     <string name="header_notifications">Thông báo</string>
     <string name="header_recents">Ứng dụng gần đây</string>
     <string name="header_settings">Cài đặt</string>
-    <string name="header_status_bar_header">Thanh tiêu đề c.đặt nhanh</string>
     <string name="header_tweaks">Tinh chỉnh</string>
     <string name="hide_carrier_label_title">Ẩn tên nhà mạng</string>
     <string name="hide_edit_tiles_title">Ẩn nút tùy chỉnh ô</string>

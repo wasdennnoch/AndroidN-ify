@@ -57,7 +57,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Záhlaví stavového řádku</string>
     <string name="enable_notification_header">Upravit záhlaví</string>
     <string name="keep_qs_panel_bg_title">Neměnit pozadí rychlých nastavení</string>
     <string name="keep_qs_panel_bg">Užitečné pro témata, která používají vlastní pozadí panelu rychlých nastavení</string>

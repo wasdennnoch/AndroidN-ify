@@ -94,7 +94,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Cabeçalho da barra de status</string>
     <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
     <string name="notification_header_qs_tiles_count">Blocos de definições rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>

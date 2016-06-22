@@ -76,7 +76,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Status bar header</string>
     <string name="enable_notification_header">ปรับแต่งส่วน header</string>
     <string name="notification_header_qs_tiles_count">จำนวนปุ่ม Quick Settings ที่แสดง</string>
     <string name="notification_header_qs_tiles_count_monitor">ปุ่ม</string>

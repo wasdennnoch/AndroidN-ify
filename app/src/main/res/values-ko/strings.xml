@@ -109,7 +109,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">상단바 헤더</string>
     <string name="enable_notification_header">헤더 스타일</string>
     <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
     <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>

@@ -29,7 +29,6 @@
 
     <string name="header_settings">Impostazioni</string>
     <string name="header_recents">Recenti</string>
-    <string name="header_status_bar_header">Intestazione barra di stato</string>
     <string name="header_notifications">Notifiche</string>
     <string name="header_app">App</string>
     <string name="app_dark_theme_title">Tema app scuro</string>

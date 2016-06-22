@@ -109,7 +109,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">下拉顶栏</string>
     <string name="enable_notification_header">调整顶栏</string>
     <string name="keep_qs_panel_bg_title">不更改快速设置面板背景</string>
     <string name="keep_qs_panel_bg">对所用主题内包含有自定义快速设置面板背景的用户有帮助</string>

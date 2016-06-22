@@ -91,7 +91,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Antet bară de stare</string>
     <string name="enable_notification_header">Stil antet</string>
     <string name="keep_qs_panel_bg_title">Fundal SR nealterat</string>
     <string name="keep_qs_panel_bg">Folositor pentru temele care aplică propriul fundal pt. SR</string>

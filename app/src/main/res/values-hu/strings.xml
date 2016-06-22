@@ -92,7 +92,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Álapotsor fejléc</string>
     <string name="enable_notification_header">Fejléc stílusának módosítása</string>
     <string name="keep_qs_panel_bg_title">Változatlan gyorsbeállítás háttér</string>
     <string name="keep_qs_panel_bg">Hasznos az egyedi gyorsbeállítás hátteret használó témákhoz</string>

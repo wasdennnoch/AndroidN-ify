@@ -109,7 +109,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-    <string name="header_status_bar_header">Pasek statusu</string>
     <string name="enable_notification_header">Styl nagłówka</string>
     <string name="keep_qs_panel_bg_title">Nie zmieniaj tła szybkich ustawień</string>
     <string name="keep_qs_panel_bg">Użyteczne dla stylów, które zmieniają tło panelu szybkich ustawień</string>

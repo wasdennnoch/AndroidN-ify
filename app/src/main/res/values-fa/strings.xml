@@ -65,7 +65,6 @@
     <!-- /RECENTS -->
 
     <!-- STATUS BAR HEADER -->
-	<string name="header_status_bar_header">استاتوس بار</string>
     <string name="enable_notification_header">طرح دادن استاتوس بار</string>
     <string name="notification_header_qs_tiles_count">تعداد تنظیمات نشان داده شده</string>
     <string name="notification_header_qs_tiles_count_monitor">دکمه</string>
