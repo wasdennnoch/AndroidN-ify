@@ -109,7 +109,7 @@
     <string name="recents_button_behavior_cycle">Przełączaj między aplikacjami</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
     <string name="header_qs">Szybkie ustawienia</string>
     <string name="enable_notification_header">Styl nagłówka</string>
     <string name="keep_qs_panel_bg_title">Nie zmieniaj tła szybkich ustawień</string>
@@ -138,7 +138,7 @@
     <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
     <string name="hide_carrier_label_title">Ukryj nazwę dostawcy</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Powiadomienia</string>
