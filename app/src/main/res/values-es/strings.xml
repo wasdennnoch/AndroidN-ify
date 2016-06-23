@@ -36,9 +36,9 @@
     <string name="debug_log">Atención: Registro invasivo</string>
     <string name="share_logcat_title">Enviar informe de fallos</string>
     <string name="share_logcat">Guarda un informe de fallos en un archivo</string>
-    <string name="logcat_notif_ongoing_title">Guardando informe</string>
+    <string name="logcat_notif_ongoing_title">Guardando informe&#8230;</string>
     <string name="logcat_notif_finished_title">Informe guardado</string>
-    <string name="logcat_notif_preparing">Preparando</string>
+    <string name="logcat_notif_preparing">Preparando&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Guardadas %1$s líneas&#8230;</string>
     <string name="logcat_notif_finished_lines">%1$s líneas guardadas</string>
     <string name="action_stop">Parar</string>
@@ -68,6 +68,7 @@
     <string name="fix_sound_notif_tile_title">Corregir "Sonidos &amp; notificaciones"</string>
     <string name="fix_sound_notif_tile">Algunas ROMs combinan el menú de de sonidos y notificaciones. Activa esto para mostrar la información correctamente</string>
     <string name="enable_n_platlogo_title">N logo en el huevo de pascua</string>
+    <string name="use_namey_mcnameface_title">Usar icono \"Namey McNameface\"</string>
     
     <string name="disconnected">Desconectado</string>
     <string name="disabled">Desactivado</string>
@@ -108,13 +109,15 @@
     <string name="recents_button_behavior_cycle">Cambiar entre aplicaciones</string>
     <!-- /RECENTS -->
     
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Ajustes rápidos</string>
     <string name="enable_notification_header">Activar nueva barra de estado</string>
     <string name="keep_qs_panel_bg_title">Mantener fondo de ajustes rápidos</string>
     <string name="keep_qs_panel_bg">Útil para temas que cambian el fondo de los ajustes rápidos</string>
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
     <string name="battery_tile_show_percentage">Mostrar porcentaje de batería</string>
+    <string name="battery_tile_show_percentage_summary">Muestra el porcentaje de batería en el ajuste rápido</string>
     <string name="enable_qs_editor">Activar editor de ajustes</string>
     <string name="allow_fancy_qs_transition">Animación de ajustes rápidos</string>
     <string name="alternative_header_qs_method_title">Alternativa de ajustes rápidos</string>
@@ -127,13 +130,15 @@
     <string name="smaller_header_clock">Reduce el tamaño del reloj en la barra de estado expandida. Útil para pantallas pequeñas</string>
     <string name="notification_full_width_volume_title">Volumen con ancho completo</string>
     <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
+    <string name="fix_stuck_inversion_title">Arreglar rotación bloqueada</string>
+    <string name="fix_stuck_inversion">En algunos dispositivos la rotación de pantalla se bloquea al activarla. Selecciona para forzar desactivación</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Ocultar información</string>
     <string name="hide_tuner_icon_title">Ocultar icono de SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
     <string name="hide_carrier_label_title">Ocultar operador de red</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notificaciones</string>
@@ -212,6 +217,7 @@
     <string name="live_display_off">Desactivado</string>
     <string name="live_display_day">Día</string>
     <string name="live_display_night">Noche</string>
-<string name="live_display_outdoor">Ambiente muy luminoso</string>
+    <string name="live_display_outdoor">Ambiente muy luminoso</string>
     <!-- /QS -->
+    
 </resources>
