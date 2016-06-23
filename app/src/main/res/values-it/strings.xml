@@ -65,6 +65,7 @@
     <string name="debug_log">Attenzione: Log invasivo</string>
     <string name="requires_android_version">Richiede Android %1$s</string>
     <string name="battery_tile_show_percentage">Mostra percentuale nel tile della batteria</string>
+    <string name="battery_tile_show_percentage_summary">Mostra percentuale residua nel tile della batteria</string>
     <!-- /prefs -->
     
     <!-- EMERGENCY -->
@@ -86,8 +87,8 @@
 
     <string name="info_unspecified">Non specificato</string>
 
-    <string name="info_bloodtype_op">O+</string>
-    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_op">0+</string>
+    <string name="info_bloodtype_on">0-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>
@@ -131,6 +132,7 @@
     <string name="location_on_high">ON / Alta precisione</string>
     <string name="print_summary">%1$d processi di stampa</string>
     <string name="enable_n_platlogo_title">Logo di N nell\' easter egg</string>
+    <string name="use_namey_mcnameface_title">Usa l\' icona \"Namey McNameface\"</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -140,8 +142,8 @@
     <string name="no_recents_image">Cambia l\'immagine di \"nessuna app precedente\"</string>
     <!-- /RECENTS -->
     
-    <!-- NOTIFICATIONS -->
-  <!--  <string name="enable_qs_in_header">Abilita i quicksettings nell\'intestazioner</string> -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Quick Settings</string>
     <string name="notifications_custom_color_title">Usa colore personalizzato</string>
     <string name="notifications_accent_color_title">Colore</string>
     <string name="notifications_custom_actions_color_title">Usa colore sfondo delle azioni personalizzato</string>
@@ -170,7 +172,9 @@
     <string name="live_display_day">Giorno</string>
     <string name="live_display_night">Notte</string>
     <string name="live_display_outdoor">Esterno (sole luminoso)</string>
-     <!-- /NOTIFICATIONS -->
+    <string name="fix_stuck_inversion_title">Fix per l'inversione bloccata</string>
+    <string name="fix_stuck_inversion">In alcuni dispositivi l'inversione rimane bloccata quando abilitata. Clicca per forzare la disattivazione</string>
+     <!-- /QUICK SETTINGS -->
      
      <!-- UPDATE -->
     <string name="update_notification_title">Nuovo aggiornamento disponibile</string>
@@ -187,9 +191,9 @@
     <string name="update_notification_download_fail_details">Impossibile scaricare la build %1$d</string>
     <string name="share_logcat_title">Condividi logcat</string>
     <string name="share_logcat">Salva il tuo logcat in un file</string>
-    <string name="logcat_notif_ongoing_title">Salvo il logcat</string>
+    <string name="logcat_notif_ongoing_title">Salvo il logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat salvato</string>
-    <string name="logcat_notif_preparing">Preparazione</string>
+    <string name="logcat_notif_preparing">Preparazione&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Salvate %1$s righe&#8230;</string>
     <string name="logcat_notif_finished_lines">%1$s righe salvate</string>
     <string name="action_stop">Ferma</string>
