@@ -172,8 +172,8 @@
     <string name="live_display_day">Giorno</string>
     <string name="live_display_night">Notte</string>
     <string name="live_display_outdoor">Esterno (sole luminoso)</string>
-    <string name="fix_stuck_inversion_title">Fix per l'inversione bloccata</string>
-    <string name="fix_stuck_inversion">In alcuni dispositivi l'inversione rimane bloccata quando abilitata. Clicca per forzare la disattivazione</string>
+    <string name="fix_stuck_inversion_title">Fix per l\'inversione bloccata</string>
+    <string name="fix_stuck_inversion">In alcuni dispositivi l\'inversione rimane bloccata quando abilitata. Clicca per forzare la disattivazione</string>
      <!-- /QUICK SETTINGS -->
      
      <!-- UPDATE -->
