@@ -68,6 +68,7 @@
     <string name="fix_sound_notif_tile_title">"Ses &amp; bildirim" karesini düzelt</string>
     <string name="fix_sound_notif_tile">Bazı ROM\'lar Sesler ve Bildirimler karesini birleştirir. Kareye uygun kısaltmayı ayarlamak için etkinleştirin.</string>
     <string name="enable_n_platlogo_title">Süprizli N logosu</string>
+    <string name="use_namey_mcnameface_title">\"Namey McNameface\" simgesini kullan</string>
 
     <string name="disconnected">Bağlı değil</string>
     <string name="disabled">Etkin değil</string>
@@ -108,13 +109,15 @@
     <string name="recents_button_behavior_cycle">Uygulamalar arası geçiş</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Hızlı Ayarlar</string>
     <string name="enable_notification_header">Başlık stili</string>
     <string name="keep_qs_panel_bg_title">Değiştirilmemiş Hızlı Ayarlar arka planı</string>
     <string name="keep_qs_panel_bg">Özel bir Hızlı Ayarlar paneli arka planı uygulamak temalar için faydalıdır.</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
     <string name="notification_header_qs_tiles_count_monitor">kareler</string>
     <string name="battery_tile_show_percentage">Pil yüzde skalasını göster</string>
+    <string name="battery_tile_show_percentage_summary">Pil karesinde pil yüzdesini göster</string>
     <string name="enable_qs_editor">Hızlı Ayarları düzenlemeyi etkinleştir</string>
     <string name="allow_fancy_qs_transition">Aşırı Hızlı Ayarlara geçiş</string>
     <string name="alternative_header_qs_method_title">Alternatif Hızlı Ayarlar yükleme yöntemi</string>
@@ -127,6 +130,8 @@
     <string name="smaller_header_clock">Genişletilmiş başlıkta saatin metin boyutunu düşürün. Küçük ekranlar için kullanışlıdır.</string>
     <string name="notification_full_width_volume_title">Tam genişlikte ses ayarları</string>
     <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
+    <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
+    <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Başlık öğelerini gizle</string>
     <string name="hide_tuner_icon_title">Sistem Arayüzü Ayar simgesini gizle</string>
@@ -191,7 +196,7 @@
     <string name="info_bloodtype_bn">B-</string>
     <string name="info_bloodtype_abp">AB+</string>
     <string name="info_bloodtype_abn">AB-</string>
-	<!-- /EMERGENCY -->
+    <!-- /EMERGENCY -->
 
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
@@ -214,4 +219,5 @@
     <string name="live_display_night">Gece</string>
     <string name="live_display_outdoor">Dış mekan (parlak güneş)</string>
     <!-- /QS -->
+	
 </resources>
