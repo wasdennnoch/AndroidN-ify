@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">将 Android N 内的特性移植到 Lollipop 和 Marshmallow 版本的 ROM 中！</string>
+    <string name="xposed_description">在运行 Lollipop 和 Marshmallow 的设备上使用 Android N 内新引入的功能！</string>
 
     <string name="restart_systemui">重启系统界面</string>
     <string name="restart_systemui_message">您确定要重启系统界面吗？</string>
@@ -36,9 +36,9 @@
     <string name="debug_log">警告：将生成大量日志</string>
     <string name="share_logcat_title">分享日志</string>
     <string name="share_logcat">将您的日志保存到文件中</string>
-    <string name="logcat_notif_ongoing_title">正在保存日志</string>
+    <string name="logcat_notif_ongoing_title">正在保存日志&#8230;</string>
     <string name="logcat_notif_finished_title">日志已保存</string>
-    <string name="logcat_notif_preparing">正在准备</string>
+    <string name="logcat_notif_preparing">正在准备&#8230;</string>
     <string name="logcat_notif_ongoing_lines">已保存 %1$s 行&#8230;</string>
     <string name="logcat_notif_finished_lines">共保存 %1$s 行</string>
     <string name="action_stop">停止</string>
@@ -68,7 +68,8 @@
     <string name="fix_sound_notif_tile_title">修复“提示音和通知”项</string>
     <string name="fix_sound_notif_tile">一些 ROM 的设置内将提示音与通知二者合并为了一个项目，启用后可在这类 ROM 中显示出正确的信息摘要。</string>
     <string name="enable_n_platlogo_title">在系统彩蛋内显示 Android N 的标志</string>
-
+    <string name="use_namey_mcnameface_title">使用 Developer Preview 4 内的彩蛋样式</string>
+    
     <string name="disconnected">未连接</string>
     <string name="disabled">已关闭</string>
     <string name="off">关闭</string>
@@ -108,13 +109,15 @@
     <string name="recents_button_behavior_cycle">依次浏览最近任务</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">快速设置</string>
     <string name="enable_notification_header">调整顶栏</string>
     <string name="keep_qs_panel_bg_title">不更改快速设置面板背景</string>
     <string name="keep_qs_panel_bg">对所用主题内包含有自定义快速设置面板背景的用户有帮助</string>
     <string name="notification_header_qs_tiles_count">顶栏内的磁贴数量</string>
     <string name="notification_header_qs_tiles_count_monitor">个</string>
-    <string name="battery_tile_show_percentage">在电池磁贴内显示电量百分比</string>
+    <string name="battery_tile_show_percentage">显示百分比</string>
+    <string name="battery_tile_show_percentage_summary">在电池磁贴内显示电量百分比</string>
     <string name="enable_qs_editor">启用快速设置编辑器</string>
     <string name="allow_fancy_qs_transition">快速设置过渡动画</string>
     <string name="alternative_header_qs_method_title">备选的快速设置加载方案</string>
@@ -127,13 +130,15 @@
     <string name="smaller_header_clock">减小当展开下拉顶栏时显示时钟的尺寸。对小屏幕手机有帮助</string>
     <string name="notification_full_width_volume_title">全宽度的音量控制条</string>
     <string name="notification_full_width_volume">针对大屏幕手机移除音量控制条的宽度限制</string>
+    <string name="fix_stuck_inversion_title">修复反转磁贴卡顿</string>
+    <string name="fix_stuck_inversion">在一些设备上反转磁贴可能会在启用后出现卡顿问题。点击以强制停用</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">隐藏顶栏内的项目</string>
     <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
     <string name="hide_edit_tiles_title">隐藏编辑磁贴按钮</string>
     <string name="hide_carrier_label_title">隐藏运营商名称</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">通知区域</string>
@@ -183,8 +188,8 @@
 
     <string name="info_unspecified">未指定</string>
 
-    <string name="info_bloodtype_op">O 型 Rh 阳性</string>
-    <string name="info_bloodtype_on">O 型 Rh 阴性</string>
+    <string name="info_bloodtype_op">0 型 Rh 阳性</string>
+    <string name="info_bloodtype_on">0 型 Rh 阴性</string>
     <string name="info_bloodtype_ap">A 型 Rh 阳性</string>
     <string name="info_bloodtype_an">A 型 Rh 阴性</string>
     <string name="info_bloodtype_bp">B 型 Rh 阳性</string>
@@ -214,4 +219,5 @@
     <string name="live_display_night">夜晚</string>
     <string name="live_display_outdoor">室外（阳光环境）</string>
     <!-- /QS -->
+
 </resources>
