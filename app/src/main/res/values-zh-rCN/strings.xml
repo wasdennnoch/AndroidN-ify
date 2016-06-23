@@ -130,8 +130,8 @@
     <string name="smaller_header_clock">减小当展开下拉顶栏时显示时钟的尺寸。对小屏幕手机有帮助</string>
     <string name="notification_full_width_volume_title">全宽度的音量控制条</string>
     <string name="notification_full_width_volume">针对大屏幕手机移除音量控制条的宽度限制</string>
-    <string name="fix_stuck_inversion_title">修复反转磁贴卡顿</string>
-    <string name="fix_stuck_inversion">在一些设备上反转磁贴可能会在启用后出现卡顿问题。点击以强制停用</string>
+    <string name="fix_stuck_inversion_title">修复颜色反转卡顿</string>
+    <string name="fix_stuck_inversion">一些设备可能在启用反转磁贴后出现屏幕卡顿的问题。点此可强制停用</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">隐藏顶栏内的项目</string>
     <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
