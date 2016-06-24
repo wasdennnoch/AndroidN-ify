@@ -110,8 +110,8 @@
     <!-- /RECENTS -->
     
     <!-- QUICK SETTINGS -->
-    <!-- string name="header_status_bar_header">Быстрые настройки</string> --> <!-- FIX ME! -->
-    <string name="enable_notification_header">Изменить стиль шапки статус-бара</string>
+    <string name="header_qs">Быстрые настройки</string>
+    <string name="enable_notification_header">Изменить стиль панели быстрых настроек</string>
     <string name="keep_qs_panel_bg_title">Не изменять фон быстрых настроек</string>
     <string name="keep_qs_panel_bg">Полезно для тем, которые используют свой фон для панели быстрых настроек</string>
     <string name="notification_header_qs_tiles_count">Количество плиток в верхней панели</string>
@@ -120,20 +120,20 @@
     <string name="battery_tile_show_percentage_summary">Показывать остаток батареи в процентах на плитке с аккумулятором</string>
     <string name="enable_qs_editor">Новый редактор плиток</string>  
     <string name="allow_fancy_qs_transition">Анимация перехода плиток</string>
-    <string name="alternative_header_qs_method_title">Альтернативный метод загрузки панели быстрого доступа</string>
-    <string name="alternative_header_qs_method">Включите, если есть проблемы с размещением плиток быстрого доступа</string>
+    <string name="alternative_header_qs_method_title">Альтернативный метод загрузки панели быстрых настроек</string>
+    <string name="alternative_header_qs_method">Включите, если есть проблемы с размещением плиток быстрых настроек</string>
     <string name="enable_new_tile_click_behavior">Переключать быстрые настройки одним кликом</string>
     <string name="enable_new_tile_click_behavior_summary">Нажатие на плитку в строке быстрого доступа переключит состояние, не открыв меню парамера</string>
     <string name="enable_large_first_row">Увеличить первую строку</string>
     <string name="enable_large_first_row_summary">На CM используйте меню конфигурации в режиме редактирования плиток вместо этого переключателя</string>
     <string name="smaller_header_clock_title">Уменьшить часы</string>
-    <string name="smaller_header_clock">Уменьшает размер часов при раскрытой шапке статус-бара. Удобно для маленьких экранов</string>
+    <string name="smaller_header_clock">Уменьшает размер часов при раскрытой панели быстрых настроек. Удобно для маленьких экранов</string>
     <string name="notification_full_width_volume_title">Растянуть диалог громкости</string>
     <string name="notification_full_width_volume">Убрать ограничение ширины диалога громкости для телефонов с большими дисплеями</string>
     <string name="fix_stuck_inversion_title">Исправить инверсию</string>
     <string name="fix_stuck_inversion">На некоторых устройствах инверсия застрявает, когда включена. Нажмите для принудительного отключения</string>
     <!-- Hide header icons -->
-    <string name="hide_icons_title">Спрятать элементы шапки статус-бара</string>
+    <string name="hide_icons_title">Спрятать элементы панели быстрых настроек</string>
     <string name="hide_tuner_icon_title">Скрыть иконку SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Скрыть кнопку редактирования плиток</string>
     <string name="hide_carrier_label_title">Скрыть carrier надпись</string> 
