@@ -33,7 +33,7 @@
     <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
     <string name="debug_log_title">Włącz debugowanie</string>
-    <string name="debug_log">Ostrzeżenie: powoduje dużo wpisów w dzienniku debugowania</string>
+    <string name="debug_log">Ostrzeżenie: generuje dużo wpisów w dzienniku debugowania</string>
     <string name="share_logcat_title">Udostępnij logcat</string>
     <string name="share_logcat">Zapisz logcat do pliku</string>
     <string name="logcat_notif_ongoing_title">Zapisywanie logcat</string>
@@ -117,24 +117,24 @@
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
     <string name="battery_tile_show_percentage">Pokaż procent naładowania baterii w kafelku</string>
-    <string name="battery_tile_show_percentage_summary">Pokaż procent naładowania baterii w kafelku</string>
+    <string name="battery_tile_show_percentage_summary">Wyświetla wartość procentową naładowania baterii w kafelku</string>
     <string name="enable_qs_editor">Włącz edytor szybkich ustawień</string>
     <string name="allow_fancy_qs_transition">Efektowna animacja szybkich ustawień</string>
-    <string name="alternative_header_qs_method_title">Alternatywna metoda ładowania szybich ustawień</string>
-    <string name="alternative_header_qs_method">Włącz kiedy są problemy z pozycjonowaniem kafelków szybkich ustawień</string>
+    <string name="alternative_header_qs_method_title">Alternatywna metoda ładowania szybkich ustawień</string>
+    <string name="alternative_header_qs_method">Włącz kiedy występuje problem z pozycjonowaniem kafelków szybkich ustawień</string>
     <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
-    <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go \na dotknięcie kafelka w panelu rozszerzy go</string>
+    <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go, \na dotknięcie kafelka w rozwiniętym panelu rozszerzy go</string>
     <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
-    <string name="enable_large_first_row_summary">Na CM użyj menu konfiguracji aby edytować kafelki</string>
+    <string name="enable_large_first_row_summary">Jeśli posiadasz CyanogenMod, użyj menu konfiguracji aby edytować kafelki</string>
     <string name="smaller_header_clock_title">Mniejszy zegarek</string>
-    <string name="smaller_header_clock">Zmniejsza rozmiar tekstu zegarka w rozwiniętym nagłówku. Przydatne dla małych ekranów</string>
+    <string name="smaller_header_clock">Zmniejsza rozmiar tekstu zegarka w rozwiniętym nagłówku. Przydatne dla telefonów z małym ekranem</string>
     <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
-    <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności, dla telefonów z dużym ekranem</string>
-    <string name="fix_stuck_inversion_title">Napraw zacięcie inwersji</string>
-    <string name="fix_stuck_inversion">Na niektórych urządzeniach inwersja zacina się, gdy jest włączona. Aktywuj aby wyłączyć</string>
+    <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności. Przydatne dla telefonów z dużym ekranem</string>
+    <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
+    <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
     <!-- Hide header icons -->
-    <string name="hide_icons_title">Ukryj elementy nagłówka</string>
-    <string name="hide_tuner_icon_title">Ukryj ikonę tunera SystemUI</string>
+    <string name="hide_icons_title">Ukryj wybrane elementy nagłówka</string>
+    <string name="hide_tuner_icon_title">Ukryj ikonę edycji SystemUI</string>
     <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
     <string name="hide_carrier_label_title">Ukryj nazwę dostawcy</string>
     <!-- /Hide header icons -->
@@ -158,8 +158,8 @@
     <string name="update_notification">Wersja %1$d jest teraz dostępna do pobrania!</string>
     <string name="update_notification_download">Pobierz</string>
     <string name="update_notification_title">Nowa wersja dostępna</string>
-    <string name="check_for_updates_title">Sprawdź dostępność aktualizacji</string>
-    <string name="check_for_updates">Sprawdź dostępność aktualizacji przy starcie aplikacji</string>
+    <string name="check_for_updates_title">Sprawdzaj dostępność aktualizacji</string>
+    <string name="check_for_updates">Sprawdzaj dostępność aktualizacji przy uruchamianiu aplikacji</string>
     <string name="checking_for_update">Sprawdzanie aktualizacji…</string>
     <string name="check_for_update_fail">Nie można sprawdzić aktualizacji</string>
     <string name="no_updates">Nie znaleziono nowszych wersji</string>
@@ -211,7 +211,7 @@
     <string name="qs_edit">Edycja</string>
     <string name="qs_edit_detail">Edytuj kafelki</string>
     <string name="drag_to_add_tiles">Przeciągnij aby dodać kafelek</string>
-    <string name="drag_to_remove_tiles">Przeciągnij tu aby usunąć</string>
+    <string name="drag_to_remove_tiles">Przeciągnij tu, aby usunąć</string>
     <string name="live_display">LiveDisplay</string>
     <string name="live_display_auto">Automatyczny</string>
     <string name="live_display_off">Wyłączony</string>
