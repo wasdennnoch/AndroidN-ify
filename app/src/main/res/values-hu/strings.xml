@@ -12,7 +12,7 @@
     <string name="about_version">Verzió: %1$s (%2$d)</string>
 
     <!-- prefs -->
-    <string name="prefs_not_readable"><![CDATA[<b>Figyelem:</b> Az Xposed nem fér hozzá a beállításokat tartalmazó fájlhoz. Kattints ide további információért&#8230;]]></string>
+    <string name="prefs_not_readable"><![CDATA[<b>Figyelem:</b> Az Xposed nem fér hozzá a beállításokat tartalmazó fájlhoz. Koppints ide további információért&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         Az Xposed nem tudja olvasni a modul beállításait tartalmazó fájlt, így a hook-okban az alapértelmezett
         beállításokat fogja használni.
@@ -35,6 +35,24 @@
     <string name="hide_launcher_icon">Ehhez lehet, hogy újra kell indítani az alkalmazásindítót</string>
     <string name="debug_log_title">Hibaelhárítási naplózás</string>
     <string name="debug_log">Vigyázat: teleírja a naplót</string>
+    <string name="share_logcat_title">Logcat megosztása</string>
+    <string name="share_logcat">Elmenti a logcat-edet egy fájlba</string>
+    <string name="logcat_notif_ongoing_title">Logcat mentése&#8230;</string>
+    <string name="logcat_notif_finished_title">Logcat mentve</string>
+    <string name="logcat_notif_preparing">Előkészítés&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">%1$s sor mentve&#8230;</string>
+    <string name="logcat_notif_finished_lines">%1$s lett mentve</string>
+    <string name="action_stop">Megállítás</string>
+    <string name="action_share">Megosztás</string></string>
+
+    <string name="requesting_root">Root hozzáférés igénylése&#8230;</string>
+    <string name="root_failed">Nem sikerült READ_LOGS engedélyt szerezni</string>
+    <string name="permission_required">Engedély szükséges</string>
+    <string name="logs_permission_description">
+        A Jelly Bean utáni Android verziókban az alkalmazások már nem olvashatják a teljes logcat-et.
+        Te viszont manuálisan megadhatod a READ_LOGS engedélyt root hozzáféréssel.
+        Ezután újra kell indítani az alkalmazást, hogy életbelépjenek az új engedélyek.
+    </string>
 
     <string name="requires_android_version">Android %1$s szükséges hozzá</string>
     <string name="not_activated">A modul nincs aktiválva</string>
@@ -51,6 +69,7 @@
     <string name="fix_sound_notif_tile_title">\"Hang és értesítések\" javítása</string>
     <string name="fix_sound_notif_tile">Néhány ROM egyesíti a Hang és az Értesítések menüpontokat. Ezt engedélyezve a menüpont alatt megfelelően jelenik meg az összefoglalás</string>
     <string name="enable_n_platlogo_title">N logó az easter egg-ben</string>
+    <string name="use_namey_mcnameface_title">\"Namey McNameface\" ikon használata</string>
 
     <string name="disconnected">Lecsatlakozva</string>
     <string name="disabled">Kikapcsolva</string>
@@ -91,13 +110,15 @@
     <string name="recents_button_behavior_cycle">Váltogatás az alkalmazások között</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Gyorsbeállítások</string>
     <string name="enable_notification_header">Fejléc stílusának módosítása</string>
     <string name="keep_qs_panel_bg_title">Változatlan gyorsbeállítás háttér</string>
     <string name="keep_qs_panel_bg">Hasznos az egyedi gyorsbeállítás hátteret használó témákhoz</string>
     <string name="notification_header_qs_tiles_count">Gyorsbeállítás csempék száma</string>
     <string name="notification_header_qs_tiles_count_monitor">csempe</string>
     <string name="battery_tile_show_percentage">Mutassa a százalékot az akkumulátor csempénél</string>
+    <string name="battery_tile_show_percentage_summary">Mutassa az akkumulátortöltöttséget százalékban az akkumulátor csempénél</string>
     <string name="enable_qs_editor">Gyorsbeállítás csempe szerkesztő engedélyezése</string>
     <string name="allow_fancy_qs_transition">Mutatós gyorsbeállítás-áttűnés</string>
     <string name="alternative_header_qs_method_title">Alternatív gyorsbeállítás-megnyitási módszer</string>
@@ -110,13 +131,15 @@
     <string name="smaller_header_clock">Lekicsinyíti az óra betűméretét a lenyitott fejlécben. Jól jöhet kis képernyőjű eszközökön</string>
     <string name="notification_full_width_volume_title">Teljes szélességű hangerőszabályozó ablak</string>
     <string name="notification_full_width_volume">Megszűnteti a hangerőszabályozó ablak szélességének korlátozását a nagy képernyőjű telefonokon</string>
+    <string name="fix_stuck_inversion_title">Beragadt inverzió javítása</string>
+    <string name="fix_stuck_inversion">Néhány eszközön az inverzió beragad, ha engedélyezik. Koppints ide a deaktiválás kényszerítéséhez</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Fejléc elemeinek elrejtése</string>
     <string name="hide_tuner_icon_title">SystemUI Tuner ikon elrejtése</string>
     <string name="hide_edit_tiles_title">Csempék szerkesztése gomb elrejtése</string>
     <string name="hide_carrier_label_title">Szolgáltató nevének elrejtése</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Értesítések</string>
@@ -188,5 +211,14 @@
     <!-- QS -->
     <string name="qs_edit">Szerkesztés</string>
     <string name="qs_edit_detail">Csempék szerkesztése</string>
+    <string name="drag_to_add_tiles">Húzd csempék hozzáadásához</string>
+    <string name="drag_to_remove_tiles">Húzd ide a törléshez/string>
+    <!--(LiveDisplay is called the same in Hungarian CM)-->
+    <string name="live_display_auto">Automatkus</string>
+    <string name="live_display_off">Ki</string>
+    <string name="live_display_day">Nappal</string>
+    <string name="live_display_night">Éjszaka</string>
+    <string name="live_display_outdoor">Kültér (erős napfény)</string>
     <!-- /QS -->
+    
 </resources>
