@@ -36,9 +36,9 @@
     <string name="debug_log">Внимание: Лог может занимать много места</string>
     <string name="share_logcat_title">Отправить logcat</string>
     <string name="share_logcat">Сохраняет Ваш logcat в файл</string>
-    <string name="logcat_notif_ongoing_title">Сохранение logcat</string>
+    <string name="logcat_notif_ongoing_title">Сохранение logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat сохранен</string>
-    <string name="logcat_notif_preparing">Подготовка</string>
+    <string name="logcat_notif_preparing">Подготовка&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Сохранено %1$s строк&#8230;</string>
     <string name="logcat_notif_finished_lines">%1$s строк сохранено</string>
     <string name="action_stop">Остановить</string>
@@ -68,6 +68,7 @@
     <string name="fix_sound_notif_tile_title">Исправить пункт \"Звуки и Уведомления\"</string>
     <string name="fix_sound_notif_tile">Некоторые прошивки объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения.</string>
     <string name="enable_n_platlogo_title">Логотип пасхалки в стиле N</string>
+    <string name="use_namey_mcnameface_title">Использовать значок \"Namey McNameface\"</string>
     
     <string name="disconnected">Разъединено</string>
     <string name="disabled">Отключено</string>
@@ -108,13 +109,15 @@
     <string name="recents_button_behavior_cycle">Переключение между приложениями</string> 
     <!-- /RECENTS -->
     
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_status_bar_header">Быстрые настройки</string>
     <string name="enable_notification_header">Изменить стиль шапки статус-бара</string>
     <string name="keep_qs_panel_bg_title">Не изменять фон быстрых настроек</string>
     <string name="keep_qs_panel_bg">Полезно для тем, которые используют свой фон для панели быстрых настроек</string>
     <string name="notification_header_qs_tiles_count">Количество плиток в верхней панели</string>
     <string name="notification_header_qs_tiles_count_monitor">плиток</string>
     <string name="battery_tile_show_percentage">Показывать проценты на плитке с аккумулятором</string>
+    <string name="battery_tile_show_percentage_summary">Показывать остаток батареи в процентах на плитке с аккумулятором</string>
     <string name="enable_qs_editor">Новый редактор плиток</string>  
     <string name="allow_fancy_qs_transition">Анимация перехода плиток</string>
     <string name="alternative_header_qs_method_title">Альтернативный метод загрузки панели быстрого доступа</string>
@@ -127,13 +130,15 @@
     <string name="smaller_header_clock">Уменьшает размер часов при раскрытой шапке статус-бара. Удобно для маленьких экранов</string>
     <string name="notification_full_width_volume_title">Растянуть диалог громкости</string>
     <string name="notification_full_width_volume">Убрать ограничение ширины диалога громкости для телефонов с большими дисплеями</string>
+    <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
+    <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Нажмите для принудительного отключения</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Спрятать элементы шапки статус-бара</string>
     <string name="hide_tuner_icon_title">Скрыть иконку SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Скрыть кнопку редактирования плиток</string>
     <string name="hide_carrier_label_title">Скрыть carrier надпись</string> 
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
  
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Уведомления</string>
@@ -183,8 +188,8 @@
  
     <string name="info_unspecified">Не указано</string>
  
-    <string name="info_bloodtype_op">O+</string>
-    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_op">0+</string>
+    <string name="info_bloodtype_on">0-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>
@@ -214,4 +219,5 @@
     <string name="live_display_night">Ночь</string>
     <string name="live_display_outdoor">На улице (яркое солнце)</string>
     <!-- /QS -->
+    
 </resources>
