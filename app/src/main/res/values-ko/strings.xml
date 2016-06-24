@@ -5,7 +5,7 @@
 
     <string name="restart_systemui">시스템UI 다시 시작</string>
     <string name="restart_systemui_message">시스템UI를 다시 시작 하시겠습니까?</string>
-    <string name="restart_broadcast_sent">다시 시작 요청을 보냈습니다</string>
+    <string name="restart_broadcast_sent">시스템UI를 다시 시작하는 중입니다</string>
     <string name="activity_about">Android N-ify에 대하여</string>
     <string name="about_author">\@MrWasdennnoch 이(가) 개발하였습니다</string>
     <string name="about_translator">\@CNBLACK 이(가) 번역하였습니다</string> <!-- Insert your (preferably XDA) username here -->
@@ -36,10 +36,10 @@
     <string name="debug_log">경고: Log-flooding</string>
     <string name="share_logcat_title">로그켓 공유</string>
     <string name="share_logcat">로그켓을 파일로 저장합니다</string>
-    <string name="logcat_notif_ongoing_title">로그켓을 저장하는 중</string>
+    <string name="logcat_notif_ongoing_title">로그켓을 저장하는 중&#8230;</string>
     <string name="logcat_notif_finished_title">로그켓 저장됨</string>
-    <string name="logcat_notif_preparing">Preparing</string>
-    <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
+    <string name="logcat_notif_preparing">Preparing&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">%1$s줄 저장하는 중&#8230;</string>
     <string name="logcat_notif_finished_lines">%1$s줄이 저장됨</string>
     <string name="action_stop">중지</string>
     <string name="action_share">공유</string>
@@ -68,6 +68,7 @@
     <string name="fix_sound_notif_tile_title">"소리 &amp; 알림" 타일 수정</string>
     <string name="fix_sound_notif_tile">몇몇의 롬은 소리와 알림 타일을 결합하였습니다. 이 타일을 위해 적절한 세부 정보를 표시합니다</string>
     <string name="enable_n_platlogo_title">이스터에그에 N로고 사용</string>
+    <string name="use_namey_mcnameface_title">\"Namey McNameface\" 아이콘 사용 (N DP4 이스터에그)</string>
 
     <string name="disconnected">연결 해제됨</string>
     <string name="disabled">사용 안함</string>
@@ -108,13 +109,15 @@
     <string name="recents_button_behavior_cycle">Cycle through apps</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">퀵세팅 설정</string>
     <string name="enable_notification_header">헤더 스타일</string>
     <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
     <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">타일</string>
     <string name="battery_tile_show_percentage">배터리 타일에 퍼센트 표시</string>
+    <string name="battery_tile_show_percentage_summary">배터리 타일에 남은 배터리의 퍼센트를 표시합니다</string>
     <string name="enable_qs_editor">Enable QS editor</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
     <string name="alternative_header_qs_method_title">Alternative QS loading method</string>
@@ -127,13 +130,15 @@
     <string name="smaller_header_clock">확장 헤더의 시계의 텍스트의 크기를 줄입니다. 화면이 작은 디바이스들에게 유용합니다</string>
     <string name="notification_full_width_volume_title">볼륨 다이아로그 길이 제한 해제</string>
     <string name="notification_full_width_volume">큰 화면을 사용하는 디바이스들을 위해 볼륨 다이아로그 길이 제한을 해제합니다</string>
+    <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
+    <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">헤더 아이템 숨기기</string>
     <string name="hide_tuner_icon_title">시스템UI 튜너 아이콘 숨기기</string>
     <string name="hide_edit_tiles_title">타일 수정 버튼 숨기기</string>
     <string name="hide_carrier_label_title">통신사 라벨 숨기기</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">알림</string>
@@ -183,8 +188,8 @@
 
     <string name="info_unspecified">명시된 내용 없음</string>
 
-    <string name="info_bloodtype_op">O+</string>
-    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_op">0+</string>
+    <string name="info_bloodtype_on">0-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>
@@ -214,4 +219,5 @@
     <string name="live_display_night">야간</string>
     <string name="live_display_outdoor">자동 야외 모드</string>
     <!-- /QS -->
+
 </resources>
