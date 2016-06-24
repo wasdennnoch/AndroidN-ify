@@ -130,8 +130,8 @@
     <string name="smaller_header_clock">Reduce el tamaño del reloj en la barra de estado expandida. Útil para pantallas pequeñas</string>
     <string name="notification_full_width_volume_title">Volumen con ancho completo</string>
     <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
-    <string name="fix_stuck_inversion_title">Arreglar rotación bloqueada</string>
-    <string name="fix_stuck_inversion">En algunos dispositivos la rotación de pantalla se bloquea al activarla. Selecciona para forzar desactivación</string>
+    <string name="fix_stuck_inversion_title">Arreglar inversión bloqueada</string>
+    <string name="fix_stuck_inversion">En algunos dispositivos la inversión de colores se bloquea al activarla. Selecciona para forzar desactivación</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Ocultar información</string>
     <string name="hide_tuner_icon_title">Ocultar icono de SystemUI Tuner</string>
