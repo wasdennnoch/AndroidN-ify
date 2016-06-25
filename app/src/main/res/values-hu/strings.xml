@@ -43,7 +43,7 @@
     <string name="logcat_notif_ongoing_lines">%1$s sor mentve&#8230;</string>
     <string name="logcat_notif_finished_lines">%1$s lett mentve</string>
     <string name="action_stop">Megállítás</string>
-    <string name="action_share">Megosztás</string></string>
+    <string name="action_share">Megosztás</string>
 
     <string name="requesting_root">Root hozzáférés igénylése&#8230;</string>
     <string name="root_failed">Nem sikerült READ_LOGS engedélyt szerezni</string>
@@ -212,7 +212,7 @@
     <string name="qs_edit">Szerkesztés</string>
     <string name="qs_edit_detail">Csempék szerkesztése</string>
     <string name="drag_to_add_tiles">Húzd csempék hozzáadásához</string>
-    <string name="drag_to_remove_tiles">Húzd ide a törléshez/string>
+    <string name="drag_to_remove_tiles">Húzd ide a törléshez</string>
     <!--(LiveDisplay is called the same in Hungarian CM)-->
     <string name="live_display_auto">Automatkus</string>
     <string name="live_display_off">Ki</string>
