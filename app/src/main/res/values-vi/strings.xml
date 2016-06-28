@@ -153,4 +153,10 @@
     <string name="root_failed">Cấp quyền READ_LOGS thất bại</string>
     <string name="share_logcat">Lưu logcat của bạn thành tệp</string>
     <string name="share_logcat_title">Chia sẻ logcat</string>
+    <string name="battery_tile_show_percentage_summary">Hiện phần trăm pin trên ô Pin</string>
+    <string name="fix_stuck_inversion">Trên một số thiết bị, hiệu ứng lộn ngược bị kẹt khi bật. Bấm để ép tắt</string>
+    <string name="fix_stuck_inversion_title">Sửa kẹt đảo ngược</string>
+    <string name="header_qs">Cài đặt nhanh</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="use_namey_mcnameface_title">Dùng biểu tượng \"Namey McNameface\" </string>
 </resources>
