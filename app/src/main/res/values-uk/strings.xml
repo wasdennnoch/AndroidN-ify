@@ -85,9 +85,9 @@
 	<string name="battery_charging_ac">%1$s - Зарядка від мережі</string>
 	<string name="memory_summary">Використовується %1$s з %2$s</string>
 	<string name="user_summary">Ви увійшли як %1$s</string>
-	<string name="location_on_power">Увімк / Економія батареї</string>
-	<string name="location_on_device">Увімк / По датчиках пристрою</string>
-	<string name="location_on_high">Увімк / Висока точність</string>
+	<string name="location_on_power">Увімкнено / Економія заряду акумулятора</string>
+	<string name="location_on_device">Увімкнено / Лише датчики пристрою</string>
+	<string name="location_on_high">Увімкнено / Висока точність</string>
 	<string name="print_summary">%1$d завдання на друк</string>
 	<!-- /SETTINGS -->
 	
