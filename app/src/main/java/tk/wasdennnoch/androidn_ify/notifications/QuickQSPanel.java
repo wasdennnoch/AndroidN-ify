@@ -36,6 +36,8 @@ public class QuickQSPanel extends LinearLayout {
     private BatteryTile.BatteryView mBatteryView;
     private TouchAnimator mTranslationXAnimator;
     private TouchAnimator mTranslationYAnimator;
+    private TouchAnimator mTranslationXAnimator2;
+    private TouchAnimator mTranslationYAnimator2;
     private TouchAnimator mFirstPageDelayedAnimator;
     private TouchAnimator mTopFiveQsAnimator;
     private TouchAnimator mFadeAnimator;
@@ -110,6 +112,8 @@ public class QuickQSPanel extends LinearLayout {
         TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
         TouchAnimator.Builder builder2 = new TouchAnimator.Builder();
         TouchAnimator.Builder builder3 = new TouchAnimator.Builder();
+        TouchAnimator.Builder builder4 = new TouchAnimator.Builder();
+        TouchAnimator.Builder builder5 = new TouchAnimator.Builder();
         for (int i = 0; i < mIconViews.size(); i++) {
             Object tilerecord = mRecords.get(i);
             View tileView = mIconViews.get(i);
@@ -127,8 +131,8 @@ public class QuickQSPanel extends LinearLayout {
             builder.addFloat(tileView, "translationX", 0f, (float) k);
             builder1.addFloat(tileView, "translationY", 0f, (float) i1);
 
-            builder.addFloat(qsTileView, "translationX", (float) -k, 0f);
-            builder1.addFloat(qsTileView, "translationY", (float) -i1 + (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight")
+            builder4.addFloat(qsTileView, "translationX", (float) -k, 0f);
+            builder5.addFloat(qsTileView, "translationY", (float) -i1 + (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight")
                             + StatusBarHeaderHooks.mQsContainer.getPaddingBottom(), 0f);
 
             mTopFiveQs.add(findIcon(qsTileView));
@@ -141,6 +145,8 @@ public class QuickQSPanel extends LinearLayout {
         mTranslationYAnimator = builder1.build();
         mFirstPageDelayedAnimator = builder2.build();
         mTopFiveQsAnimator = builder3.build();
+        mTranslationXAnimator2 = builder4.build();
+        mTranslationYAnimator2 = builder5.build();
     }
 
     public void setPosition(float f) {
@@ -158,22 +164,40 @@ public class QuickQSPanel extends LinearLayout {
 
     private void animateFancy(float f) {
         boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null);
+        boolean disableTranslation = StatusBarHeaderHooks.mDisableFancy;
         if (!readyToAnimate && (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD)) {
             setupAnimators();
         }
         if (!StatusBarHeaderHooks.mShowingDetail || f == 0) {
             if (oldPosition == 1 && f != oldPosition) {
-                onAnimationStarted();
+                if (!disableTranslation) {
+                    onAnimationStarted();
+                } else {
+                    setVisibility(VISIBLE);
+                }
             }
-            if (oldPosition != 1 && f == 1) {
+            if (oldPosition != 1 && f == 1 && !disableTranslation) {
                 onAnimationAtEnd();
             }
             if (oldPosition == 0 && f != oldPosition) {
-                onAnimationStarted();
+                if (!disableTranslation) {
+                    onAnimationStarted();
+                } else {
+                    setVisibility(VISIBLE);
+                }
             }
             if (readyToAnimate) {
-                mTranslationXAnimator.setPosition(f);
-                mTranslationYAnimator.setPosition(f);
+                if (!disableTranslation) {
+                    mTranslationXAnimator.setPosition(f);
+                    mTranslationYAnimator.setPosition(f);
+                    mTranslationXAnimator2.setPosition(f);
+                    mTranslationYAnimator2.setPosition(f);
+                    mFadeAnimator.setPosition(0);
+                } else {
+                    mTranslationXAnimator.setPosition(0);
+                    mTranslationYAnimator.setPosition(0);
+                    mFadeAnimator.setPosition(f);
+                }
                 mFirstPageDelayedAnimator.setPosition(f);
                 mTopFiveQsAnimator.setPosition(f);
                 if (mShowPercent && oldPosition < 0.7f && f >= 0.7f) {
