@@ -5,7 +5,6 @@ import android.os.Build;
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
@@ -64,7 +63,6 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         XposedBridge.log(String.format(LOG_FORMAT, "[WARNING]", tag, msg));
     }
 
-    @SuppressWarnings("unused")
     public static void logI(String tag, String msg) {
         XposedBridge.log(String.format(LOG_FORMAT, "[INFO]", tag, msg));
     }
