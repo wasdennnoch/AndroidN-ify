@@ -36,6 +36,24 @@
     <string name="hide_launcher_icon">Pode ser preciso reiniciar o launcher</string>
     <string name="debug_log_title">Registros de depuração</string>
     <string name="debug_log">Atenção: Registro invasivo</string>
+    <string name="share_logcat_title">Enviar relatório de erros</string>
+    <string name="share_logcat">Salvar relatório de erros em um arquivo</string>
+    <string name="logcat_notif_ongoing_title">Salvando relatório&#8230;</string>
+    <string name="logcat_notif_finished_title">Relatório salvo</string>
+    <string name="logcat_notif_preparing">Preparando&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">Salvando %1$s linhas&#8230;</string>
+    <string name="logcat_notif_finished_lines">%1$s linhas salvas</string>
+    <string name="action_stop">Parar</string>
+    <string name="action_share">Enviar</string>
+    
+    <string name="requesting_root">Precisa de acceso root&#8230;</string>
+    <string name="root_failed">Falha ao ativar a permissão READ_LOGS</string>
+    <string name="permission_required">Necessita de permissoes</string>
+    <string name="logs_permission_description">
+        Em versões posteriores a Jelly Bean os aplicativos não tem permissão para acessar o relatório de erro.
+        No entanto, a permissão READ_LOGS pode ser ativada manualmente sem root.
+        Após a ativação, você precisará reiniciar o dispositivo para aplicar as alterações.
+    </string>
 	
     <string name="requires_android_version">Requer Android %1$s</string>
     
@@ -53,6 +71,7 @@
     <string name="fix_sound_notif_tile_title">Corrigir o módulo de Sons &amp; Notificações</string>
     <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Ative esta opção para que o sumário correto seja mostrado.</string>
     <string name="enable_n_platlogo_title">Logo do Android N no easter egg</string>
+    <string name="use_namey_mcnameface_title">Usar ícone \"Namey McNameface\"</string>
 
     <string name="disabled">Desativado</string>
     <string name="disconnected">Desconectado</string>
@@ -93,11 +112,15 @@
     <string name="recents_button_behavior_cycle">Alternar entre apps</string>    
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Configurações rápidas</string>
     <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
+    <string name="keep_qs_panel_bg_title">Manter fundo das configurações rápidas</string>
+    <string name="keep_qs_panel_bg">Útil para temas que alteram o fundo das configurações rápidas</string>
     <string name="notification_header_qs_tiles_count">Blocos de configurações rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
     <string name="battery_tile_show_percentage">Mostrar porcentagem no bloco de bateria</string>
+    <string name="battery_tile_show_percentage_summary">Mostra a porcentagem de bateria nas configurações rápidas</string>
     <string name="enable_qs_editor">Ativar editor de CR</string>
     <string name="allow_fancy_qs_transition">Nova transição de CR</string>
     <string name="alternative_header_qs_method_title">Método alternativo de carregamento de CR</string>
@@ -110,13 +133,15 @@
     <string name="smaller_header_clock">Diminuir o tamanho do texto do relógio no cabeçalho expandido. Útil para telas pequenas</string>
     <string name="notification_full_width_volume_title">Largura do painel de volume</string>
     <string name="notification_full_width_volume">Remover o limite de largura do painel de volume em dispositivos com telas grandes</string>
+    <string name="fix_stuck_inversion_title">Fix inversão presa</string>
+    <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores falha quando ativada. Selecione está opção para forçar a desativação</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Esconder itens do cabeçalho</string>    
     <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Esconder o botão de editar blocos</string>
     <string name="hide_carrier_label_title">Esconder o nome da operadora</string>
     <!-- /Hide header icons -->    
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notificações</string>
