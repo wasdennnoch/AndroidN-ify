@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="xposed_description">Některé funkce z Android N pro Lollipop a Marshmallow</string>
 
@@ -161,7 +159,7 @@
     <!-- /BATTERY -->
 
     <!-- QS -->
-	<string name="qs_edit">Upravit</string>
+    <string name="qs_edit">Upravit</string>
     <string name="qs_edit_detail">Upravit dlaždice</string>
     <string name="drag_to_add_tiles">Přetáhněte pro přidání dlaždic</string>
     <string name="drag_to_remove_tiles">Přetáhněte sem pro odstranění</string>
