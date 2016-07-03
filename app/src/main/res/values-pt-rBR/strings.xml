@@ -48,7 +48,7 @@
     
     <string name="requesting_root">Precisa de acceso root&#8230;</string>
     <string name="root_failed">Falha ao ativar a permissão READ_LOGS</string>
-    <string name="permission_required">Necessita de permissoes</string>
+    <string name="permission_required">Necessita de permissões</string>
     <string name="logs_permission_description">
         Em versões posteriores a Jelly Bean os aplicativos não tem permissão para acessar o relatório de erro.
         No entanto, a permissão READ_LOGS pode ser ativada manualmente sem root.
