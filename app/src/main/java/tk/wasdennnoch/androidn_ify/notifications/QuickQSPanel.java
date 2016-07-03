@@ -267,11 +267,8 @@ public class QuickQSPanel extends LinearLayout {
             super(context);
             setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             setOrientation(HORIZONTAL);
-            //setGravity(16);
-            setGravity(Gravity.CENTER_VERTICAL);    // CENTER_VERTICAL = AXIS_SPECIFIED<<AXIS_Y_SHIFT
-                                                    // AXIS_SPECIFIED = 1 (00000001)
-                                                    // AXIS_Y_SHIFT = 4
-                                                    // 1<<4 = 16 (00010000)
+            setGravity(16); // I have no idea which Gravity this is, it's taken straight from the decompiled source
+            // TODO    ^ replace when N source gets released
             setClipChildren(false);
             setClipToPadding(false);
             mEndSpacer = new Space(context);
