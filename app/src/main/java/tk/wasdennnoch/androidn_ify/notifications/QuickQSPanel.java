@@ -166,7 +166,7 @@ public class QuickQSPanel extends LinearLayout {
         boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null);
         boolean disableTranslation = StatusBarHeaderHooks.mDisableFancy;
         if (!readyToAnimate && (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD)) {
-            setupAnimators();
+            return;
         }
         if (!StatusBarHeaderHooks.mShowingDetail || f == 0) {
             if (oldPosition == 1 && f != oldPosition) {
@@ -200,13 +200,15 @@ public class QuickQSPanel extends LinearLayout {
                 }
                 mFirstPageDelayedAnimator.setPosition(f);
                 mTopFiveQsAnimator.setPosition(f);
-                if (mShowPercent && oldPosition < 0.7f && f >= 0.7f) {
-                    mBatteryView.setShowPercent(false);
-                    mBatteryView.postInvalidate();
-                }
-                if (mShowPercent && oldPosition >= 0.7f && f < 0.7f) {
-                    mBatteryView.setShowPercent(true);
-                    mBatteryView.postInvalidate();
+                if (mBatteryView != null) {
+                    if (mShowPercent && oldPosition < 0.7f && f >= 0.7f) {
+                        mBatteryView.setShowPercent(false);
+                        mBatteryView.postInvalidate();
+                    }
+                    if (mShowPercent && oldPosition >= 0.7f && f < 0.7f) {
+                        mBatteryView.setShowPercent(true);
+                        mBatteryView.postInvalidate();
+                    }
                 }
             }
             oldPosition = f;
