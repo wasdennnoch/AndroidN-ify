@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="xposed_description">Některé funkce z Android N pro Lollipop a Marshmallow!</string>
+    <string name="xposed_description">Některé funkce z Android N pro Lollipop a Marshmallow</string>
 
     <string name="restart_systemui">Restartovat SystemUI</string>
     <string name="restart_systemui_message">Jste si jistí, že chcete restartovat SystemUI?</string>
     <string name="restart_broadcast_sent">Žádost na restart odeslaná</string>
     <string name="activity_about">O aplikaci Android N-ify</string>
     <string name="about_author">Vytvořil: @MrWasdennnoch</string>
-    <string name="about_translator">Přeložil: @matlala (znám též jako @matlala.se nebo @petrmatula190), za impulz děkuji slovenskému překladu od @ja-som</string>
+    <string name="about_translator">Přeložil: @matlala (@matlala.se, @petrmatula190), za impulz děkuji slovenskému překladu od @ja-som</string>
     <string name="about_version">Verze: %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -56,7 +56,8 @@
     <string name="recents_button_behavior_cycle">Přecházet přes aplikace</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Rychlé nastavení</string>
     <string name="enable_notification_header">Upravit záhlaví</string>
     <string name="keep_qs_panel_bg_title">Neměnit pozadí rychlých nastavení</string>
     <string name="keep_qs_panel_bg">Užitečné pro témata, která používají vlastní pozadí panelu rychlých nastavení</string>
@@ -75,13 +76,15 @@
     <string name="smaller_header_clock">Zmenší text pro hodiny v otevřeném záhlaví. Užitečné pro menší obrazovky</string>
     <string name="notification_full_width_volume_title">Dialog s hlasitostí na celou šířku</string>
     <string name="notification_full_width_volume">Odstrani limit šířky pro dialog s hlasitostí na telefonech s velkou obrazovkou</string>
+    <string name="fix_stuck_inversion_title">Opravit invertované barvy</string>
+    <string name="fix_stuck_inversion">Na některých zařízeních může povolení intertování barev průsobit zamrznutí. Kliknete pro vynucení zakázání.</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Skrýt položky záhlaví</string>
     <string name="hide_tuner_icon_title">Skrýt ikonu pro nástroj ladění uživatelského rozhraní systému</string>
     <string name="hide_edit_tiles_title">Skrýt tlačítko pro úpravu dlaždic</string>
     <string name="hide_carrier_label_title">Skrýt operátora</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">Upozornění</string>
@@ -119,7 +122,7 @@
     <!-- /UPDATE -->
 
     <!-- EMERGENCY -->
-    <string name="emergency_info">Nouzové informace</string>
+   <string name="emergency_info">Nouzové informace</string>
     
     <string name="header_personal">Osobní</string>
     <string name="info_fullname">Jméno</string>
@@ -135,7 +138,7 @@
 
     <string name="info_unspecified">Nespecifikované</string>
 
-    <string name="info_bloodtype_op">O+</string>
+     <string name="info_bloodtype_op">O+</string>
     <string name="info_bloodtype_on">O-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
@@ -184,7 +187,6 @@
     <string name="logcat_notif_finished_lines">%1$s řádků uloženo</string>
     <string name="action_stop">Stop</string>
     <string name="action_share">Sdílet</string>
-    
 
     <string name="requesting_root">Požadování root přístupu&#8230;</string>
     <string name="root_failed">Chyba při přidělování READ_LOGS oprávnění</string>
@@ -196,6 +198,7 @@
     </string>
 
     <string name="requires_android_version">Vyžaduje Android %1$s</string>
+
     <string name="not_activated">Modul není aktivovaný</string>
     <!-- /prefs -->
 

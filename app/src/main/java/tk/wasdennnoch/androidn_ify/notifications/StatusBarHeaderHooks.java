@@ -69,6 +69,8 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_QS_STATE = CLASS_QS_TILE + "$State";
     private static final String CLASS_QS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
+    private static final String CLASS_CIRCLE_PAGE_INDICATOR = "com.viewpagerindicator.CirclePageIndicator";
+    private static final String QS_PANEL_INDICATOR = "QSPanelIndicator";
 
     private static boolean mHasEditPanel = false;
     private static boolean mCollapseAfterHideDatails = false;
@@ -122,11 +124,15 @@ public class StatusBarHeaderHooks {
     private static ResourceUtils mResUtils;
 
     private static int mBarState = 2;
+    public static int mQsPage;
 
     private static boolean mEditing;
     public static boolean mShowingDetail;
+    public static boolean mDisableFancy = false;
 
     private static ArrayList<Object> mRecords;
+
+    private static XC_MethodHook.Unhook onMeasureUnhook;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -413,6 +419,31 @@ public class StatusBarHeaderHooks {
 
         }
     };
+
+    private static XC_MethodHook onMeasureHook = new XC_MethodHook() {
+
+        private int unchanged;
+        private int gridHeight;
+        private int oldGridHeight = -1;
+
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHook.logD(TAG, "onMeasure called");
+            gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
+            if (gridHeight == oldGridHeight) {
+                if (unchanged > 5) {
+                    onMeasureUnhook.unhook();
+                    mHeaderQsPanel.setupAnimators();
+                }
+                unchanged++;
+            }
+            else {
+                unchanged = 0;
+                oldGridHeight = gridHeight;
+            }
+        }
+    };
+
     private static XC_MethodHook setExpansionHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -533,6 +564,24 @@ public class StatusBarHeaderHooks {
             }
             if (mTileAdapter != null) {
                 mTileAdapter.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState"));
+            }
+        }
+    };
+
+    private static XC_MethodHook setupViewsHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            Object mPageIndicator = XposedHelpers.getObjectField(param.thisObject, "mPageIndicator");
+            XposedHelpers.setAdditionalInstanceField(mPageIndicator, QS_PANEL_INDICATOR, true);
+        }
+    };
+
+    private static XC_MethodHook onPageSelectedHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if ((boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, QS_PANEL_INDICATOR)) {
+                mQsPage = (int) param.args[0];
+                mDisableFancy = mQsPage != 0;
             }
         }
     };
@@ -989,9 +1038,14 @@ public class StatusBarHeaderHooks {
                 boolean isCm = false;
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
+                    Class<?> classCirclePageIndicator = XposedHelpers.findClass(CLASS_CIRCLE_PAGE_INDICATOR, classLoader);
+                    onMeasureUnhook = XposedHelpers.findAndHookMethod(classQSDragPanel, "onMeasure", int.class, int.class, onMeasureHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
+                    XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
+                    XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageSelected", int.class, onPageSelectedHook);
                     isCm = true;
                 } catch (Throwable ignore) {
+                    onMeasureUnhook = XposedHelpers.findAndHookMethod(classQSPanel, "onMeasure", int.class, int.class, onMeasureHook);
                     XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
                 }
 
