@@ -130,6 +130,8 @@ public class StatusBarHeaderHooks {
     public static boolean mShowingDetail;
     public static boolean mDisableFancy = false;
 
+    private static Class<?> onMeasureHookedClass;
+
     private static ArrayList<Object> mRecords;
 
     private static XC_MethodHook.Unhook onMeasureUnhook;
@@ -700,7 +702,6 @@ public class StatusBarHeaderHooks {
         XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
         if (showingDetail) {
             View mDetailDoneButton = (View) XposedHelpers.getObjectField(mQsPanel, "mDetailDoneButton");
-            mDetailDoneButton.setVisibility(View.GONE);
             LinearLayout mDetailButtons = (LinearLayout) mDetailDoneButton.getParent();
             mDetailButtons.setVisibility(mEditing ? View.GONE : View.VISIBLE);
             mCollapseAfterHideDatails = NotificationPanelHooks.isCollapsed();
@@ -1039,13 +1040,15 @@ public class StatusBarHeaderHooks {
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
                     Class<?> classCirclePageIndicator = XposedHelpers.findClass(CLASS_CIRCLE_PAGE_INDICATOR, classLoader);
-                    onMeasureUnhook = XposedHelpers.findAndHookMethod(classQSDragPanel, "onMeasure", int.class, int.class, onMeasureHook);
+                    onMeasureHookedClass = classQSDragPanel;
+                    hookQSOnMeasure();
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
                     XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageSelected", int.class, onPageSelectedHook);
                     isCm = true;
                 } catch (Throwable ignore) {
-                    onMeasureUnhook = XposedHelpers.findAndHookMethod(classQSPanel, "onMeasure", int.class, int.class, onMeasureHook);
+                    onMeasureHookedClass = classQSPanel;
+                    hookQSOnMeasure();
                     XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
                 }
 
@@ -1093,6 +1096,12 @@ public class StatusBarHeaderHooks {
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
         }
+    }
+
+    public static void hookQSOnMeasure() {
+        if (onMeasureHook == null || onMeasureHookedClass == null) return;
+        XposedHelpers.setObjectField(onMeasureHook, "unchanged", 0);
+        onMeasureUnhook = XposedHelpers.findAndHookMethod(onMeasureHookedClass, "onMeasure", int.class, int.class, onMeasureHook);
     }
 
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
