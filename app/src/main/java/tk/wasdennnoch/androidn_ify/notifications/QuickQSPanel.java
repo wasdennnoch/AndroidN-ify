@@ -82,6 +82,7 @@ public class QuickQSPanel extends LinearLayout {
         mTranslationYAnimator = null;
         mFirstPageDelayedAnimator = null;
         mTopFiveQsAnimator = null;
+        StatusBarHeaderHooks.hookQSOnMeasure();
         for (int i = 0; i < mMaxTiles && i < tileRecords.size(); i++) {
             Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
