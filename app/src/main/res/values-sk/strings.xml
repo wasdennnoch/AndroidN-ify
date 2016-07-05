@@ -66,6 +66,7 @@
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
     <string name="battery_tile_show_percentage">Zobraziť percentá v dlaždici s batériou</string>
+    <string name="battery_tile_show_percentage_summary">Zobrazí stav batérie v dlaždici s batériou</string>
     <string name="alternative_header_qs_method_title">Alternatívna metóda načítania dlaždíc</string>
     <string name="alternative_header_qs_method">Povoľte, ak máte problémy s pozíciou ikon rýchlych nastavení</string>
     <string name="enable_qs_editor">Povoliť úpravu rýchlych nastavení</string>
