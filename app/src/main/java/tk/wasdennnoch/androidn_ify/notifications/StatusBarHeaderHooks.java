@@ -134,6 +134,7 @@ public class StatusBarHeaderHooks {
 
     private static ArrayList<Object> mRecords;
 
+    private static int mOnMeasureUnchagedCount;
     private static XC_MethodHook.Unhook onMeasureUnhook;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
@@ -429,23 +430,21 @@ public class StatusBarHeaderHooks {
 
     private static XC_MethodHook onMeasureHook = new XC_MethodHook() {
 
-        private int unchanged;
         private int gridHeight;
         private int oldGridHeight = -1;
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "onMeasure called");
+            XposedHook.logD(TAG, "onMeasure() called");
             gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
             if (gridHeight == oldGridHeight) {
-                if (unchanged > 5) {
+                if (mOnMeasureUnchagedCount > 5) {
                     onMeasureUnhook.unhook();
                     mHeaderQsPanel.setupAnimators();
                 }
-                unchanged++;
-            }
-            else {
-                unchanged = 0;
+                mOnMeasureUnchagedCount++;
+            } else {
+                mOnMeasureUnchagedCount = 0;
                 oldGridHeight = gridHeight;
             }
         }
@@ -1108,7 +1107,7 @@ public class StatusBarHeaderHooks {
 
     public static void hookQSOnMeasure() {
         if (onMeasureHook == null || onMeasureHookedClass == null) return;
-        XposedHelpers.setObjectField(onMeasureHook, "unchanged", 0);
+        mOnMeasureUnchagedCount = 0;
         onMeasureUnhook = XposedHelpers.findAndHookMethod(onMeasureHookedClass, "onMeasure", int.class, int.class, onMeasureHook);
     }
 
