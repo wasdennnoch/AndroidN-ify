@@ -50,7 +50,7 @@
     <string name="logs_permission_description">
         In Android-Versionen seit Jelly Bean haben Apps keine Berechtigung mehr, den vollständigen logcat zu lesen.
         Man kann jedoch die READ_LOGS-Berechtigung manuell mit Root-Zugrff gewähren.
-        Danach muss die App ne gestartet werden, um die neuen Berechtigungen zu übernehmen.
+        Danach muss die App neu gestartet werden, um die neuen Berechtigungen zu übernehmen.
     </string>
 
     <string name="requires_android_version">Benötigt Android %1$s</string>
