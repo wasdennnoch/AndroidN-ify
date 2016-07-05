@@ -531,7 +531,6 @@ public class StatusBarHeaderHooks {
     private static XC_MethodHook setTilesHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "setTilesHook PID: " + Process.myPid());
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
             mQsPanel = (ViewGroup) param.thisObject;
@@ -540,7 +539,7 @@ public class StatusBarHeaderHooks {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
                 } catch (Throwable t) {
-                    try {
+                    try { // OOS2
                         //noinspection unchecked
                         mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
                     } catch (Throwable t2) {
@@ -549,7 +548,7 @@ public class StatusBarHeaderHooks {
                     }
                 }
                 if (mRecords.size() == 0) {
-                    try {
+                    try { // OOS2 again because sometimes mRecords still seems to be in the StatusBarHeaderView (but empty)
                         //noinspection unchecked
                         mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
                     } catch (Throwable ignore) {
@@ -1054,7 +1053,11 @@ public class StatusBarHeaderHooks {
                 } catch (Throwable ignore) {
                     onMeasureHookedClass = classQSPanel;
                     hookQSOnMeasure();
-                    XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
+                    try {
+                        XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
+                    } catch (Throwable t) { // PA
+                        XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", setTilesHook);
+                    }
                 }
 
                 QSTileHostHooks.hook(classLoader);
