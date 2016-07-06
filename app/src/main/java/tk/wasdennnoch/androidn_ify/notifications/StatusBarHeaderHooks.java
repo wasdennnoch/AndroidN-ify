@@ -101,7 +101,7 @@ public class StatusBarHeaderHooks {
     private static View mTunerIcon;
     private static View mWeatherContainer;
     private static View mTaskManagerButton;
-    private static View mSomcQuickSettings;
+    private static View mCustomQSEditButton;
     private static View mCarrierText = null;
 
     private static ExpandableIndicator mExpandIndicator;
@@ -134,6 +134,7 @@ public class StatusBarHeaderHooks {
 
     private static ArrayList<Object> mRecords;
 
+    private static int mOnMeasureUnchagedCount;
     private static XC_MethodHook.Unhook onMeasureUnhook;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
@@ -211,14 +212,19 @@ public class StatusBarHeaderHooks {
             } catch (Throwable t) {
                 XposedHook.logD(TAG, "No mTaskManagerButton view (" + t.getClass().getSimpleName() + ")");
             }
-            try {
-                mSomcQuickSettings = (View) XposedHelpers.getObjectField(param.thisObject, "mSomcQuickSettings");
+            try { // Sony
+                mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mSomcQuickSettings");
             } catch (Throwable t) {
                 XposedHook.logD(TAG, "No mSomcQuickSettings view (" + t.getClass().getSimpleName() + ")");
                 try { // OOS2
-                    mSomcQuickSettings = (View) XposedHelpers.getObjectField(param.thisObject, "mEditModeButton");
+                    mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mEditModeButton");
                 } catch (Throwable t2) {
                     XposedHook.logD(TAG, "No mEditModeButton view (" + t2.getClass().getSimpleName() + ")");
+                    try { // PA
+                        mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mQsAddButton");
+                    } catch (Throwable t3) {
+                        XposedHook.logD(TAG, "No mQsAddButton view (" + t3.getClass().getSimpleName() + ")");
+                    }
                 }
             }
 
@@ -424,23 +430,21 @@ public class StatusBarHeaderHooks {
 
     private static XC_MethodHook onMeasureHook = new XC_MethodHook() {
 
-        private int unchanged;
         private int gridHeight;
         private int oldGridHeight = -1;
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "onMeasure called");
+            XposedHook.logD(TAG, "onMeasure() called");
             gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
             if (gridHeight == oldGridHeight) {
-                if (unchanged > 5) {
+                if (mOnMeasureUnchagedCount > 5) {
                     onMeasureUnhook.unhook();
                     mHeaderQsPanel.setupAnimators();
                 }
-                unchanged++;
-            }
-            else {
-                unchanged = 0;
+                mOnMeasureUnchagedCount++;
+            } else {
+                mOnMeasureUnchagedCount = 0;
                 oldGridHeight = gridHeight;
             }
         }
@@ -492,8 +496,8 @@ public class StatusBarHeaderHooks {
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
                 mAlarmStatus.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
-                if (mHideEditTiles && mSomcQuickSettings != null)
-                    mSomcQuickSettings.setVisibility(View.INVISIBLE);
+                if (mHideEditTiles && mCustomQSEditButton != null)
+                    mCustomQSEditButton.setVisibility(View.INVISIBLE);
                 if (mHideCarrierLabel && mCarrierText != null)
                     mCarrierText.setVisibility(View.GONE);
                 if (mWeatherContainer != null) {
@@ -526,7 +530,6 @@ public class StatusBarHeaderHooks {
     private static XC_MethodHook setTilesHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "setTilesHook PID: " + Process.myPid());
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
             mQsPanel = (ViewGroup) param.thisObject;
@@ -535,7 +538,7 @@ public class StatusBarHeaderHooks {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
                 } catch (Throwable t) {
-                    try {
+                    try { // OOS2
                         //noinspection unchecked
                         mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
                     } catch (Throwable t2) {
@@ -544,7 +547,7 @@ public class StatusBarHeaderHooks {
                     }
                 }
                 if (mRecords.size() == 0) {
-                    try {
+                    try { // OOS2 again because sometimes mRecords still seems to be in the StatusBarHeaderView (but empty)
                         //noinspection unchecked
                         mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
                     } catch (Throwable ignore) {
@@ -635,8 +638,8 @@ public class StatusBarHeaderHooks {
                     .addFloat(mTaskManagerButton, "translationY", -gearTranslation, 0.0F)
                     .addFloat(mTaskManagerButton, "alpha", 0.0F, 1.0F);
         }
-        if (mSomcQuickSettings != null)
-            settingsAlphaBuilder.addFloat(mSomcQuickSettings, "alpha", 0.0F, 1.0F);
+        if (mCustomQSEditButton != null)
+            settingsAlphaBuilder.addFloat(mCustomQSEditButton, "alpha", 0.0F, 1.0F);
         mSettingsAlpha = settingsAlphaBuilder.build();
 
         boolean rtl = (boolean) XposedHelpers.callMethod(mStatusBarHeaderView.getLayoutParams(), "isLayoutRtl");
@@ -1049,7 +1052,11 @@ public class StatusBarHeaderHooks {
                 } catch (Throwable ignore) {
                     onMeasureHookedClass = classQSPanel;
                     hookQSOnMeasure();
-                    XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
+                    try {
+                        XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
+                    } catch (Throwable t) { // PA
+                        XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", setTilesHook);
+                    }
                 }
 
                 QSTileHostHooks.hook(classLoader);
@@ -1100,7 +1107,7 @@ public class StatusBarHeaderHooks {
 
     public static void hookQSOnMeasure() {
         if (onMeasureHook == null || onMeasureHookedClass == null) return;
-        XposedHelpers.setObjectField(onMeasureHook, "unchanged", 0);
+        mOnMeasureUnchagedCount = 0;
         onMeasureUnhook = XposedHelpers.findAndHookMethod(onMeasureHookedClass, "onMeasure", int.class, int.class, onMeasureHook);
     }
 
