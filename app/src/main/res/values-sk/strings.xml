@@ -38,6 +38,7 @@
     <string name="fix_sound_notif_tile_title">Opraviť "Zvuk a upozornenia"</string>
     <string name="fix_sound_notif_tile">Niektoré ROM kombinujú Zvuky a Upozornenia. Povoľte pre zobrazenie správneho zhrnutia</string>
     <string name="enable_n_platlogo_title">N logo v easter egg</string>
+    <string name="use_namey_mcnameface_title">Použiť \"Namey McNameface\" ikonu</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
