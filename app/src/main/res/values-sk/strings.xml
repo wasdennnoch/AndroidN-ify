@@ -187,6 +187,7 @@
     <string name="logcat_notif_finished_title">Záznam uložený</string>
     <string name="logcat_notif_preparing">Príprava</string>
     <string name="logcat_notif_ongoing_lines">Uložených %1$s riadkov&#8230;</string>
+    <string name="logcat_notif_finished">%1$s riadkov uložených do %2$s</string> <!-- %2$s == file path -->
     <string name="logcat_notif_finished_lines">%1$s riadkov uložených</string>
     <string name="action_stop">Stop</string>
     <string name="action_share">Zdieľať</string>
