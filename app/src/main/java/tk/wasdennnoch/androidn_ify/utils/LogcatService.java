@@ -8,8 +8,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import tk.wasdennnoch.androidn_ify.R;
 
@@ -36,7 +38,7 @@ public class LogcatService extends IntentService {
     private static final int UPDATE_INTERVAL = 1000;
 
     private String mNotifText;
-    private long mTotalLines = 0;
+    private AtomicInteger mTotalLines = new AtomicInteger(0);
     private boolean mCancelled = false;
 
     private NotificationManager mNotif;
@@ -50,7 +52,7 @@ public class LogcatService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        mTotalLines = 0;
+        mTotalLines.set(0);
         mNotifText = getString(R.string.logcat_notif_ongoing_lines);
 
         PendingIntent stopPendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_STOP).setPackage(getPackageName()), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -70,7 +72,7 @@ public class LogcatService extends IntentService {
         final Runnable updateRunnable = new Runnable() {
             @Override
             public void run() {
-                mNotifBuilder.setContentText(String.format(mNotifText, mTotalLines));
+                mNotifBuilder.setContentText(String.format(mNotifText, mTotalLines.get()));
                 mNotif.notify(NOTIF_ONGOING_ID, mNotifBuilder.build());
             }
         };
@@ -94,7 +96,8 @@ public class LogcatService extends IntentService {
         commands.add("time");
 
         //noinspection ConstantConditions
-        File file = new File(getExternalFilesDir(null).getPath() + "/logcat.txt");
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/Android_N-ify", "logcat.txt");
+        file.mkdirs();
         if (file.exists()) {
             file.delete();
         }
@@ -117,7 +120,7 @@ public class LogcatService extends IntentService {
 
                 output.write(line);
                 output.write("\n");
-                mTotalLines++;
+                mTotalLines.incrementAndGet();
             }
         } catch (IOException e) {
             Log.e(TAG, "Error fetching logcat", e);
@@ -140,22 +143,14 @@ public class LogcatService extends IntentService {
         unregisterReceiver(actionReceiver);
         stopForeground(true);
 
-        Intent shareIntent = new Intent(Intent.ACTION_SEND)
-                .setType("text/plain")
-                .putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        shareIntent = Intent.createChooser(shareIntent, getString(R.string.action_share));
-        PendingIntent sharePendingIntent = PendingIntent.getActivity(this, 0, shareIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Action shareAction = new NotificationCompat.Action.Builder(R.drawable.ic_share, getString(R.string.action_share), sharePendingIntent).build();
-
-        //noinspection deprecation
+        String text = getString(R.string.logcat_notif_finished, mTotalLines.get(), file.getAbsolutePath());
         NotificationCompat.Builder endNotif = new NotificationCompat.Builder(this)
                 .setContentTitle(getString(R.string.logcat_notif_finished_title))
-                .setContentText(getString(R.string.logcat_notif_finished_lines, mTotalLines))
+                .setContentText(text)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setColor(getResources().getColor(R.color.colorAccent))
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .addAction(shareAction);
+                .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
+                .setPriority(Notification.PRIORITY_DEFAULT);
         mNotif.notify(NOTIF_END_ID, endNotif.build());
 
     }

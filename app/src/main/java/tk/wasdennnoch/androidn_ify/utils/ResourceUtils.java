@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
@@ -23,11 +22,16 @@ public class ResourceUtils {
 
     private ResourceUtils(Context context) {
         mInstance = this;
+        mContext = createOwnContext(context);
+    }
+
+    public static Context createOwnContext(Context context) {
         try {
-            mContext = context.createPackageContext("tk.wasdennnoch.androidn_ify", Context.CONTEXT_IGNORE_SECURITY);
+            return context.createPackageContext("tk.wasdennnoch.androidn_ify", Context.CONTEXT_IGNORE_SECURITY);
         } catch (PackageManager.NameNotFoundException e) {
             XposedHook.logE(TAG, "Failed to instantiate package context", e);
         }
+        return context;
     }
 
     public static ResourceUtils getInstance() {

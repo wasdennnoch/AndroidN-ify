@@ -824,23 +824,22 @@ public class StatusBarHeaderHooks {
         Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
 
         mEditAdapter = Proxy.newProxyInstance(classDetailAdapter.getClassLoader(), new Class<?>[]{classDetailAdapter}, new InvocationHandler() {
-
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                if (method.getName().equals("getTitle")) {
-                    return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", PACKAGE_SYSTEMUI);
-                } else if (method.getName().equals("getToggleState")) {
-                    return false;
-                } else if (method.getName().equals("getSettingsIntent")) {
-                    Intent intent = new Intent(mContext, SettingsActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    return intent;
-                } else if (method.getName().equals("setToggleState")) {
-                    return null;
-                } else if (method.getName().equals("getMetricsCategory")) {
-                    return MetricsLogger.QS_INTENT;
-                } else if (method.getName().equals("createDetailView")) {
-                    return mRecyclerView;
+                switch (method.getName()) {
+                    case "getTitle":
+                        return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", PACKAGE_SYSTEMUI);
+                    case "getToggleState":
+                        return false;
+                    case "getSettingsIntent":
+                        return new Intent(ResourceUtils.createOwnContext(mContext), SettingsActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    case "setToggleState":
+                        return null;
+                    case "getMetricsCategory":
+                        return MetricsLogger.QS_INTENT;
+                    case "createDetailView":
+                        return mRecyclerView;
                 }
                 return null;
             }
@@ -848,21 +847,22 @@ public class StatusBarHeaderHooks {
     }
 
     private static void createEditView() {
-        ResourceUtils res = ResourceUtils.getInstance(mContext);
-
         // Init tiles list
         mTileAdapter = new TileAdapter(mRecords, mContext, mQsPanel);
         TileTouchCallback callback = new TileTouchCallback();
         ItemTouchHelper mItemTouchHelper = new CustomItemTouchHelper(callback);
-        XposedHelpers.setIntField(callback, "mCachedMaxScrollSpeed", res.getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
+        XposedHelpers.setIntField(callback, "mCachedMaxScrollSpeed", getResUtils().getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
         // With this, it's very easy to deal with drag & drop
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         gridLayoutManager.setSpanSizeLookup(mTileAdapter.getSizeLookup());
         mRecyclerView = new RecyclerView(mContext);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecyclerView.setAdapter(mTileAdapter);
         mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mRecyclerView.setAdapter(mTileAdapter);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
+        mRecyclerView.setVerticalScrollBarEnabled(true);
+        mRecyclerView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        mRecyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_DEFAULT);
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

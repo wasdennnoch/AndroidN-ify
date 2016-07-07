@@ -41,6 +41,7 @@
     <string name="logcat_notif_preparing">Preparing&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
     <string name="logcat_notif_finished_lines">%1$s lines saved</string>
+    <string name="logcat_notif_finished">%1$s lines saved to %2$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Stop</string>
     <string name="action_share">Share</string>
 

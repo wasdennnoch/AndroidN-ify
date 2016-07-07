@@ -27,9 +27,9 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     public static final float TILE_ASPECT = 1.2f;
 
     public static final String TAG = "TileAdapter";
-    protected ArrayList<Object> mRecords;
+    protected ArrayList<Object> mRecords = new ArrayList<>();
     protected ViewGroup mQsPanel;
-    protected ArrayList<ViewGroup> mTileViews;
+    protected ArrayList<ViewGroup> mTileViews = new ArrayList<>();
     protected Context mContext;
     protected int mCellHeight;
     protected int mCellWidth;
@@ -49,7 +49,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     public TileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
         this(context, qsPanel);
         mRes = ResourceUtils.getInstance(context);
-        mTileViews = new ArrayList<>();
 
         setRecords(records);
         mTileSpecs = convertToSpecs();
@@ -77,8 +76,8 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     public void setRecords(ArrayList<Object> records) {
-        mTileViews = new ArrayList<>();
-        mRecords = new ArrayList<>();
+        mTileViews.clear();
+        mRecords.clear();
 
         for (int i = 0; i < records.size(); i++) {
             Object tilerecord = records.get(i);
@@ -109,12 +108,11 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             if (tile == qstile) {
                 if (i >= mTileViews.size()) {
-                    XposedHook.logD(TAG, "handleStateChanged; tilerecord index greater than or equals to tileViews size; index :" + i + "; views: " + mTileViews.size());
+                    XposedHook.logD(TAG, "handleStateChanged; tilerecord index >= tileViews.size; index :" + i + "; views: " + mTileViews.size());
                     return;
                 }
                 ViewGroup tileView = mTileViews.get(i);
                 XposedHelpers.callMethod(tileView, "onStateChanged", state);
-                XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
             }
         }
     }
@@ -135,7 +133,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         if (viewType == 1) {
             ResourceUtils res = ResourceUtils.getInstance(context);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            itemView = inflater.inflate(res.getLayout(R.layout.qs_customize_divider), null);
+            itemView = inflater.inflate(res.getLayout(R.layout.qs_customize_divider), parent, false);
         } else {
             itemView = new RelativeLayout(parent.getContext());
             itemView.setLayoutParams(generateLayoutParams());
@@ -144,7 +142,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final TileViewHolder holder, int position) {
+    public void onBindViewHolder(TileViewHolder holder, int position) {
         if (holder.getItemViewType() == 1) {
             TextView textView = (TextView) holder.itemView.findViewById(android.R.id.title);
             int textId;
@@ -193,19 +191,19 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     @SuppressWarnings("unchecked")
-    private void move(int i, int j, List list) {
-        int k;
-        if (i > j) {
-            k = j;
+    private void move(int from, int to, List list) {
+        int addIndex;
+        if (from > to) {
+            addIndex = to;
         } else {
-            k = j + 1;
+            addIndex = to + 1;
         }
-        list.add(k, list.get(i));
-        k = i;
-        if (i > j) {
-            k = i + 1;
+        list.add(addIndex, list.get(from));
+        int removeIndex = from;
+        if (from > to) {
+            removeIndex = from + 1;
         }
-        list.remove(k);
+        list.remove(removeIndex);
     }
 
     public void setTileTouchCallback(StatusBarHeaderHooks.TileTouchCallback tileTouchCallback) {
@@ -244,21 +242,19 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
         public void startDrag() {
             if (mItemView == null) return;
-            itemView.animate().setDuration(100L).scaleX(1.2F).scaleY(1.2F);
+            mItemView.animate().setDuration(100L).scaleX(1.2F).scaleY(1.2F);
             try {
-                ((View) XposedHelpers.callMethod(((RelativeLayout) itemView).getChildAt(0), "labelView")).animate().setDuration(100L).alpha(0.0F);
+                ((View) XposedHelpers.callMethod(mItemView.getChildAt(0), "labelView")).animate().setDuration(100L).alpha(0.0F);
             } catch (Throwable ignore) {
-
             }
         }
 
         public void stopDrag() {
             if (mItemView == null) return;
-            itemView.animate().setDuration(100L).scaleX(1.0F).scaleY(1.0F);
+            mItemView.animate().setDuration(100L).scaleX(1.0F).scaleY(1.0F);
             try {
-                ((View) XposedHelpers.callMethod(((RelativeLayout) itemView).getChildAt(0), "labelView")).animate().setDuration(100L).alpha(1.0F);
+                ((View) XposedHelpers.callMethod(mItemView.getChildAt(0), "labelView")).animate().setDuration(100L).alpha(1.0F);
             } catch (Throwable ignore) {
-
             }
         }
 
@@ -277,9 +273,8 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public List<String> getAddedTileSpecs() {
@@ -297,12 +292,8 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         for (int i = 0; i < mRecords.size(); i++) {
             Object tilerecord = mRecords.get(i);
             if (tilerecord == null) return tileSpecs;
-            if (tilerecord instanceof Record) {
-                tileSpecs.add(((Record) tilerecord).spec);
-            } else {
                 Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
                 tileSpecs.add((String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME));
-            }
         }
         return tileSpecs;
     }
@@ -335,11 +326,4 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         }
     };
 
-    public class Record {
-        public String spec;
-
-        public Record(String s) {
-            spec = s;
-        }
-    }
 }
