@@ -108,6 +108,7 @@ public class QuickQSPanel extends LinearLayout {
 
     public void setupAnimators() {
         mTopFiveQs.clear();
+        int gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
         int j = 0;
         TouchAnimator.Builder builder = new TouchAnimator.Builder();
         TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
@@ -133,14 +134,15 @@ public class QuickQSPanel extends LinearLayout {
             builder1.addFloat(tileView, "translationY", 0f, (float) i1);
 
             builder4.addFloat(qsTileView, "translationX", (float) -k, 0f);
-            builder5.addFloat(qsTileView, "translationY", (float) -i1 + (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight")
+            builder5.addFloat(qsTileView, "translationY", (float) -i1 + gridHeight
                             + StatusBarHeaderHooks.mQsContainer.getPaddingBottom(), 0f);
 
             mTopFiveQs.add(findIcon(qsTileView));
         }
         builder2.setStartDelay(0.7f);
         builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
-        builder2.addFloat(StatusBarHeaderHooks.mEditButton, "alpha", 0f, 1f);
+        if (StatusBarHeaderHooks.mEditButton != null)
+            builder2.addFloat(StatusBarHeaderHooks.mEditButton, "alpha", 0f, 1f);
         builder3.setStartDelay(0.9f);
         mTranslationXAnimator = builder.build();
         mTranslationYAnimator = builder1.build();

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,7 +43,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         mQsPanel = qsPanel;
 
         mCellHeight = mContext.getResources().getDimensionPixelSize(mContext.getResources().getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI));
-        mCellWidth = (int)(mCellHeight * TILE_ASPECT);
+        mCellWidth = (int) (mCellHeight * TILE_ASPECT);
     }
 
     public TileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
@@ -169,13 +168,11 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     @Override
-    public int getItemViewType(int i)
-    {
+    public int getItemViewType(int i) {
         return mTileViews.get(i) != null ? 0 : 1;
     }
 
-    public RecyclerView.ItemDecoration getItemDecoration()
-    {
+    public RecyclerView.ItemDecoration getItemDecoration() {
         return mDecoration;
     }
 
@@ -233,7 +230,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
             if (itemView instanceof RelativeLayout)
                 mItemView = (RelativeLayout) itemView;
-             else if (itemView instanceof TextView)
+            else if (itemView instanceof TextView)
                 mTextView = (TextView) itemView;
         }
 
@@ -320,30 +317,20 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private final RecyclerView.ItemDecoration mDecoration = new RecyclerView.ItemDecoration() {
         private final ColorDrawable mDrawable = new ColorDrawable(0xff384248);
 
+        @Override
         public void onDraw(Canvas canvas, RecyclerView recyclerview, RecyclerView.State state) {
-            label0: {
-                super.onDraw(canvas, recyclerview, state);
-                int l = recyclerview.getChildCount();
-                int j = recyclerview.getWidth();
-                int k = recyclerview.getBottom();
-                int i = 0;
-                View child;
-                do {
-                    if (i >= l) {
-                        break label0;
-                    }
-                    child = recyclerview.getChildAt(i);
-                    if (recyclerview.getChildViewHolder(child).getAdapterPosition() >= mDividerIndex) {
-                        break;
-                    }
-                    i++;
-                } while (true);
-                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-                i = child.getTop();
-                l = layoutParams.topMargin;
-                int i1 = Math.round(ViewCompat.getTranslationY(child));
-                mDrawable.setBounds(0, i + l + i1, j, k);
-                mDrawable.draw(canvas);
+            int count = recyclerview.getChildCount();
+            View child;
+            for (int i = 0; i < count; i++) {
+                child = recyclerview.getChildAt(i);
+                if (recyclerview.getChildViewHolder(child).getAdapterPosition() >= mDividerIndex) {
+                    RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
+                    int childTop = child.getTop();
+                    int topMargin = layoutParams.topMargin;
+                    int childTranslationY = Math.round(child.getTranslationY());
+                    mDrawable.setBounds(0, childTop + topMargin + childTranslationY, recyclerview.getWidth(), recyclerview.getBottom());
+                    mDrawable.draw(canvas);
+                }
             }
         }
     };

@@ -56,8 +56,6 @@ public class AvailableTileAdapter extends TileAdapter {
             } catch (Throwable t) {
                 XposedHook.logW(TAG, "Couldn't determine static tiles (" + t.getClass().getSimpleName() + ")");
                 // TODO crashing although the CMSDK is clearly there?
-                // Catching is better than hanging the system server until the Watchdog kills it
-                // (At least on my device)
             }
         }
 
@@ -106,28 +104,17 @@ public class AvailableTileAdapter extends TileAdapter {
     private int getIconResourceAosp(String spec) {
         Resources res = mContext.getResources();
         switch (spec) {
-            case "wifi":
-                return res.getIdentifier("ic_qs_wifi_full_4", "drawable", PACKAGE_SYSTEMUI);
-            case "bt":
-                return res.getIdentifier("ic_qs_bluetooth_on", "drawable", PACKAGE_SYSTEMUI);
-            case "inversion":
-                return res.getIdentifier("ic_invert_colors_enable_animation", "drawable", PACKAGE_SYSTEMUI);
-            case "cell":
-                return res.getIdentifier("ic_qs_signal_full_4", "drawable", PACKAGE_SYSTEMUI);
-            case "airplane":
-                return res.getIdentifier("ic_signal_airplane_enable", "drawable", PACKAGE_SYSTEMUI);
-            case "dnd":
-                return res.getIdentifier("ic_dnd", "drawable", PACKAGE_SYSTEMUI);
-            case "rotation":
-                return res.getIdentifier("ic_portrait_from_auto_rotate", "drawable", PACKAGE_SYSTEMUI);
-            case "flashlight":
-                return res.getIdentifier("ic_signal_flashlight_enable", "drawable", PACKAGE_SYSTEMUI);
-            case "location":
-                return res.getIdentifier("ic_signal_location_enable", "drawable", PACKAGE_SYSTEMUI);
-            case "cast":
-                return res.getIdentifier("ic_qs_cast_on", "drawable", PACKAGE_SYSTEMUI);
-            case "hotspot":
-                return res.getIdentifier("ic_hotspot_enable", "drawable", PACKAGE_SYSTEMUI);
+            case "wifi": return res.getIdentifier("ic_qs_wifi_full_4", "drawable", PACKAGE_SYSTEMUI);
+            case "bt": return res.getIdentifier("ic_qs_bluetooth_on", "drawable", PACKAGE_SYSTEMUI);
+            case "inversion": return res.getIdentifier("ic_invert_colors_enable_animation", "drawable", PACKAGE_SYSTEMUI);
+            case "cell": return res.getIdentifier("ic_qs_signal_full_4", "drawable", PACKAGE_SYSTEMUI);
+            case "airplane": return res.getIdentifier("ic_signal_airplane_enable", "drawable", PACKAGE_SYSTEMUI);
+            case "dnd": return res.getIdentifier("ic_dnd", "drawable", PACKAGE_SYSTEMUI);
+            case "rotation": return res.getIdentifier("ic_portrait_from_auto_rotate", "drawable", PACKAGE_SYSTEMUI);
+            case "flashlight": return res.getIdentifier("ic_signal_flashlight_enable", "drawable", PACKAGE_SYSTEMUI);
+            case "location": return res.getIdentifier("ic_signal_location_enable", "drawable", PACKAGE_SYSTEMUI);
+            case "cast": return res.getIdentifier("ic_qs_cast_on", "drawable", PACKAGE_SYSTEMUI);
+            case "hotspot": return res.getIdentifier("ic_hotspot_enable", "drawable", PACKAGE_SYSTEMUI);
         }
         return 0;
     }
@@ -216,28 +203,17 @@ public class AvailableTileAdapter extends TileAdapter {
     private int getQSTileLabelAosp(String spec) {
         Resources res = mContext.getResources();
         switch (spec) {
-            case "wifi":
-                return res.getIdentifier("quick_settings_wifi_label", "string", PACKAGE_SYSTEMUI);
-            case "bt":
-                return res.getIdentifier("quick_settings_bluetooth_label", "string", PACKAGE_SYSTEMUI);
-            case "inversion":
-                return res.getIdentifier("quick_settings_inversion_label", "string", PACKAGE_SYSTEMUI);
-            case "cell":
-                return res.getIdentifier("quick_settings_cellular_detail_title", "string", PACKAGE_SYSTEMUI);
-            case "airplane":
-                return res.getIdentifier("airplane_mode", "string", PACKAGE_SYSTEMUI);
-            case "dnd":
-                return res.getIdentifier("quick_settings_dnd_label", "string", PACKAGE_SYSTEMUI);
-            case "rotation":
-                return res.getIdentifier("quick_settings_rotation_locked_label", "string", PACKAGE_SYSTEMUI);
-            case "flashlight":
-                return res.getIdentifier("quick_settings_flashlight_label", "string", PACKAGE_SYSTEMUI);
-            case "location":
-                return res.getIdentifier("quick_settings_location_label", "string", PACKAGE_SYSTEMUI);
-            case "cast":
-                return res.getIdentifier("quick_settings_cast_title", "string", PACKAGE_SYSTEMUI);
-            case "hotspot":
-                return res.getIdentifier("quick_settings_hotspot_label", "string", PACKAGE_SYSTEMUI);
+            case "wifi": return res.getIdentifier("quick_settings_wifi_label", "string", PACKAGE_SYSTEMUI);
+            case "bt": return res.getIdentifier("quick_settings_bluetooth_label", "string", PACKAGE_SYSTEMUI);
+            case "inversion": return res.getIdentifier("quick_settings_inversion_label", "string", PACKAGE_SYSTEMUI);
+            case "cell": return res.getIdentifier("quick_settings_cellular_detail_title", "string", PACKAGE_SYSTEMUI);
+            case "airplane": return res.getIdentifier("airplane_mode", "string", PACKAGE_SYSTEMUI);
+            case "dnd": return res.getIdentifier("quick_settings_dnd_label", "string", PACKAGE_SYSTEMUI);
+            case "rotation": return res.getIdentifier("quick_settings_rotation_locked_label", "string", PACKAGE_SYSTEMUI);
+            case "flashlight": return res.getIdentifier("quick_settings_flashlight_label", "string", PACKAGE_SYSTEMUI);
+            case "location": return res.getIdentifier("quick_settings_location_label", "string", PACKAGE_SYSTEMUI);
+            case "cast": return res.getIdentifier("quick_settings_cast_title", "string", PACKAGE_SYSTEMUI);
+            case "hotspot": return res.getIdentifier("quick_settings_hotspot_label", "string", PACKAGE_SYSTEMUI);
         }
         return 0;
     }

@@ -22,12 +22,11 @@ public class TilesManager {
     private Object mQSTileHost;
     private Context mContext;
 
-    public static List<String> mCustomTileSpecs;
+    public static List<String> mCustomTileSpecs = new ArrayList<>();
     private Map<String, QSTile> mTiles;
     private String mCreateTileViewTileKey;
 
     static {
-        mCustomTileSpecs = new ArrayList<>();
         if (!RomUtils.isCm() || Build.VERSION.SDK_INT != Build.VERSION_CODES.LOLLIPOP_MR1)
             mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
         if (RomUtils.isCm() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -35,7 +34,7 @@ public class TilesManager {
     }
 
     public static int getLabelResource(String spec) throws Exception {
-        if (!mCustomTileSpecs.contains(spec)) throw new Exception();
+        if (!mCustomTileSpecs.contains(spec)) throw new Exception("Saved custom tile specs don't contain the spec '" + spec + "'!");
         switch (spec) {
             case BatteryTile.TILE_SPEC:
                 return R.string.battery;

@@ -8,7 +8,6 @@ import android.content.res.XResources;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Process;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -141,8 +140,6 @@ public class StatusBarHeaderHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
-            XposedHook.logD(TAG, "SystemUI PID: " + Process.myPid());
-
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
             Context context = mStatusBarHeaderView.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
@@ -187,7 +184,6 @@ public class StatusBarHeaderHooks {
             try {
                 mSettingsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSettingsContainer");
             } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mSettingsContainer view (" + t.getClass().getSimpleName() + ")");
                 mSettingsContainer = mSettingsButton;
             }
             mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
@@ -506,8 +502,6 @@ public class StatusBarHeaderHooks {
                     } catch (Throwable ignored) {
                     }
                 }
-            } else {
-                XposedHook.logD(TAG, "updateVisibilitiesHook: mSystemIconsSuperContainer is still null");
             }
         }
     };
@@ -521,8 +515,6 @@ public class StatusBarHeaderHooks {
                 mMultiUserSwitch.setVisibility(shouldShowViews ? View.VISIBLE : View.INVISIBLE);
                 mSettingsContainer.setVisibility(shouldShowViews ? View.VISIBLE : View.INVISIBLE);
                 mExpandIndicator.setVisibility(editing ? View.INVISIBLE : View.VISIBLE);
-            } else {
-                XposedHook.logD(TAG, "setEditingHook: mDateTimeAlarmGroup is still null");
             }
         }
     };
@@ -561,7 +553,6 @@ public class StatusBarHeaderHooks {
     private static XC_MethodHook handleStateChangedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "handleStateChangedHook PID: " + Process.myPid());
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
             if (mHeaderQsPanel != null) {
@@ -593,7 +584,6 @@ public class StatusBarHeaderHooks {
 
     private static void updateResources(Context context) {
         if (mDateTimeGroup == null) {
-            XposedHook.logD(TAG, "updateResources(): mDateTimeGroup is still null");
             return;
         }
 
@@ -821,8 +811,7 @@ public class StatusBarHeaderHooks {
         if (mHasEditPanel)
             y += mStatusBarHeaderView.getHeight();
         mEditing = true;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            // In LP this method doesn't take an int array as an arg
+        if (Build.VERSION.SDK_INT < 23)
             XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter);
         else
             XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[]{x, y});
@@ -1174,7 +1163,7 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                // For Motorola stock roms only
+                // For Motorola stock ROMs only
                 try {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "zz_moto_status_bar_expanded_header", new XC_LayoutInflated() {
                         @Override
@@ -1192,38 +1181,39 @@ public class StatusBarHeaderHooks {
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_panel", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        liparam.view.setElevation(0);
-                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) liparam.view.getLayoutParams();
-                        params.setMarginStart(0);
-                        params.setMarginEnd(0);
-
                         FrameLayout layout = (FrameLayout) liparam.view;
                         Context context = layout.getContext();
                         ResourceUtils res = ResourceUtils.getInstance(context);
 
                         mQsContainer = layout;
 
-                        mQsPanel = (ViewGroup) layout.getChildAt(0);
-                        FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
-                        if (ConfigUtils.header().enable_qs_editor)
-                            qsPanelLp.bottomMargin = res.getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
-                        mQsPanel.setLayoutParams(qsPanelLp);
+                        layout.setElevation(0);
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layout.getLayoutParams();
+                        params.setMarginStart(0);
+                        params.setMarginEnd(0);
 
-                        FrameLayout.LayoutParams buttonLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        buttonLp.gravity = Gravity.BOTTOM | Gravity.END;
-                        Button editBtn = new Button(context);
-                        editBtn.setGravity(Gravity.CENTER);
-                        editBtn.setLayoutParams(buttonLp);
-                        editBtn.setText(res.getString(R.string.qs_edit));
-                        editBtn.setTextColor(res.getColor(R.color.edit_btn_text));
-                        editBtn.setAllCaps(true);
-                        editBtn.setId(R.id.qs_edit);
-                        editBtn.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
-                        editBtn.setOnClickListener(onClickListener);
-                        if (ConfigUtils.header().enable_qs_editor)
+                        mQsPanel = (ViewGroup) layout.getChildAt(0);
+
+                        if (ConfigUtils.header().enable_qs_editor) {
+                            FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
+                            qsPanelLp.bottomMargin = res.getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
+                            mQsPanel.setLayoutParams(qsPanelLp);
+
+                            FrameLayout.LayoutParams buttonLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            buttonLp.gravity = Gravity.BOTTOM | Gravity.END;
+                            Button editBtn = new Button(context);
+                            editBtn.setGravity(Gravity.CENTER);
+                            editBtn.setLayoutParams(buttonLp);
+                            editBtn.setText(res.getString(R.string.qs_edit));
+                            editBtn.setTextColor(res.getColor(R.color.edit_btn_text));
+                            editBtn.setAllCaps(true);
+                            editBtn.setId(R.id.qs_edit);
+                            editBtn.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
+                            editBtn.setOnClickListener(onClickListener);
                             layout.addView(editBtn);
 
-                        mEditButton = editBtn;
+                            mEditButton = editBtn;
+                        }
                     }
                 });
 
@@ -1235,16 +1225,14 @@ public class StatusBarHeaderHooks {
 
     private static void setEditButtonVisible(boolean visible) {
         if (mEditButton == null || mQsPanel == null) return;
-        int visibility;
         FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
         if (visible) {
-            visibility = View.VISIBLE;
+            mEditButton.setVisibility(View.VISIBLE);
             qsPanelLp.bottomMargin = getResUtils().getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
         } else {
-            visibility = View.GONE;
+            mEditButton.setVisibility(View.GONE);
             qsPanelLp.bottomMargin = 0;
         }
-        mEditButton.setVisibility(visibility);
         mQsPanel.setLayoutParams(qsPanelLp);
     }
 
