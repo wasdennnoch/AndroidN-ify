@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.systemui.notifications;
+package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -18,6 +18,8 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -50,13 +52,13 @@ public class QuickQSPanel extends LinearLayout {
         super(context);
         ConfigUtils config = ConfigUtils.getInstance();
         mRes = ResourceUtils.getInstance(context);
-        mMaxTiles = config.header.qs_tiles_count;
-        mShowPercent = config.header.battery_tile_show_percentage;
-        mAlternativeQSMethod = config.header.alternative_quick_qs_method;
-        mAllowFancy = config.header.allow_fancy_qs_transition;
+        mMaxTiles = config.qs.qs_tiles_count;
+        mShowPercent = config.qs.battery_tile_show_percentage;
+        mAlternativeQSMethod = config.qs.alternative_quick_qs_method;
+        mAllowFancy = config.qs.allow_fancy_qs_transition;
         setOrientation(VERTICAL);
         int m = mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
-        if (config.header.alternative_quick_qs_method)
+        if (config.qs.alternative_quick_qs_method)
             setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top_alternative), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         else
             setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));

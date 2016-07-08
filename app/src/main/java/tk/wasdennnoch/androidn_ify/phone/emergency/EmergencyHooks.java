@@ -15,16 +15,16 @@ import tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-public class EmergencyHooks implements View.OnClickListener {
+public class EmergencyHooks {
 
     private static final String TAG = "EmergencyHooks";
-    public static final String PACKAGE_PHONE = "com.android.phone";
-    private Button mEmergencyButton;
-    private Context mContext;
-    private ResourceUtils mResUtils;
-    private int mHitCount = 0;
+    public static final String PACKAGE_PHONE = XposedHook.PACKAGE_PHONE;
+    private static Button mEmergencyButton;
+    private static Context mContext;
+    private static ResourceUtils mResUtils;
+    private static boolean mClicked = false;
 
-    private XC_MethodReplacement setupAssistActionsHook = new XC_MethodReplacement() {
+    private static XC_MethodReplacement setupAssistActionsHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             try {
@@ -44,14 +44,14 @@ public class EmergencyHooks implements View.OnClickListener {
                     if (button.getId() == button1Id) {
                         button.setVisibility(View.VISIBLE);
                         button.setText(mResUtils.getString(R.string.emergency_info));
-                        button.setOnClickListener(EmergencyHooks.this);
+                        button.setOnClickListener(clickListener);
                         mEmergencyButton = button;
                     } else {
                         button.setVisibility(View.GONE);
                     }
                 }
 
-                mHitCount = 0;
+                mClicked = false;
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Error in setupAssistActionsHook", t);
             }
@@ -60,7 +60,7 @@ public class EmergencyHooks implements View.OnClickListener {
         }
     };
 
-    public void hook(ClassLoader classLoader) {
+    public static void hook(ClassLoader classLoader) {
         try {
             if (ConfigUtils.lockscreen().enable_emergency_info) {
                 Class classEmergencyActionGroup = XposedHelpers.findClass("com.android.phone.EmergencyActionGroup", classLoader);
@@ -71,16 +71,16 @@ public class EmergencyHooks implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        try {
-            switch (mHitCount) {
-                case 0:
+    private static View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                if (!mClicked) {
                     mEmergencyButton.getBackground().setColorFilter(mResUtils.getColor(R.color.md_red_500), PorterDuff.Mode.SRC_ATOP);
-                    break;
-                default:
+                    mClicked = true;
+                } else {
                     mEmergencyButton.getBackground().clearColorFilter();
-                    mHitCount = -1;
+                    mClicked = false;
 
                     Intent intent = new Intent(Intent.ACTION_MAIN);
                     intent.setClassName("tk.wasdennnoch.androidn_ify",
@@ -91,10 +91,11 @@ public class EmergencyHooks implements View.OnClickListener {
                     } catch (Exception e) {
                         XposedHook.logE(TAG, "Unable to start activity " + intent.toString(), e);
                     }
+                }
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "Error in onClick", t);
             }
-            mHitCount++;
-        } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error in onClick", t);
         }
-    }
+    };
+
 }

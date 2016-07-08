@@ -47,6 +47,13 @@
                 android:summary="@string/enable_recents_double_tap"
                 android:title="@string/enable_recents_double_tap_title"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_recents_double_tap"
+                android:title="@string/alternative_double_tap_title"
+                android:summary="@string/alternative_double_tap"
+                android:key="alternative_method"/>
+
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="400"
                 android:dependency="enable_recents_double_tap"

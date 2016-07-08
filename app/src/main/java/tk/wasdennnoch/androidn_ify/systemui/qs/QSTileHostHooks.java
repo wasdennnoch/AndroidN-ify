@@ -204,7 +204,7 @@ public class QSTileHostHooks {
                 }
             }
 
-            if (ConfigUtils.header().enable_qs_editor) {
+            if (ConfigUtils.qs().enable_qs_editor) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook); // On L, this method is void
                 } else {
@@ -233,7 +233,7 @@ public class QSTileHostHooks {
                 });
             }
 
-            if (ConfigUtils.header().hide_edit_tiles) {
+            if (ConfigUtils.qs().hide_edit_tiles) {
                 XposedHelpers.findAndHookMethod(classTileHost, "loadTileSpecs", String.class, loadTileSpecsHook);
             }
         } catch (Throwable t) {

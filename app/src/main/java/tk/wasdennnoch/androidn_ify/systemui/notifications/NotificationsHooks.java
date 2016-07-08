@@ -504,7 +504,7 @@ public class NotificationsHooks {
                     XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
                 }
 
-                fullWidthVolume = config.header.full_width_volume;
+                fullWidthVolume = config.qs.full_width_volume;
 
                 if (Build.VERSION.SDK_INT >= 23) {
                     Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);

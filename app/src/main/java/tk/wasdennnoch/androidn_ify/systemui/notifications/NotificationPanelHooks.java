@@ -38,7 +38,7 @@ public class NotificationPanelHooks {
             mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
             mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
 
-            if (!ConfigUtils.header().keep_qs_panel_background) {
+            if (!ConfigUtils.qs().keep_qs_panel_background) {
                 View mQsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mQsContainer");
                 try {
                     //noinspection deprecation
@@ -100,7 +100,7 @@ public class NotificationPanelHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
-            if (ConfigUtils.header().header) {
+            if (ConfigUtils.qs().header) {
 
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);

@@ -46,6 +46,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.BluetoothTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.CellularTileHook;
@@ -187,9 +188,9 @@ public class StatusBarHeaderHooks {
                 mSettingsContainer = mSettingsButton;
             }
             mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
-            mHideTunerIcon = config.header.hide_tuner_icon;
-            mHideEditTiles = config.header.hide_edit_tiles;
-            mHideCarrierLabel = config.header.hide_carrier_label;
+            mHideTunerIcon = config.qs.hide_tuner_icon;
+            mHideEditTiles = config.qs.hide_edit_tiles;
+            mHideCarrierLabel = config.qs.hide_carrier_label;
             View dummyClock = new View(context);
             dummyClock.setVisibility(View.GONE);
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
@@ -590,7 +591,7 @@ public class StatusBarHeaderHooks {
         ResourceUtils res = ResourceUtils.getInstance(context);
         float timeCollapsed = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
         float timeExpanded;
-        if (ConfigUtils.header().smaller_header_clock)
+        if (ConfigUtils.qs().smaller_header_clock)
             timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small);
         else
             timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size);
@@ -963,9 +964,28 @@ public class StatusBarHeaderHooks {
         }
     }
 
+    private static void setEditButtonVisible(boolean visible) {
+        if (mEditButton == null || mQsPanel == null) return;
+        FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
+        if (visible) {
+            mEditButton.setVisibility(View.VISIBLE);
+            qsPanelLp.bottomMargin = getResUtils().getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
+        } else {
+            mEditButton.setVisibility(View.GONE);
+            qsPanelLp.bottomMargin = 0;
+        }
+        mQsPanel.setLayoutParams(qsPanelLp);
+    }
+
+    public static void hookQSOnMeasure() {
+        if (onMeasureHook == null || onMeasureHookedClass == null) return;
+        mOnMeasureUnchagedCount = 0;
+        onMeasureUnhook = XposedHelpers.findAndHookMethod(onMeasureHookedClass, "onMeasure", int.class, int.class, onMeasureHook);
+    }
+
     public static void hook(ClassLoader classLoader) {
         try {
-            if (ConfigUtils.header().header) {
+            if (ConfigUtils.qs().header) {
 
                 Class<?> classStatusBarHeaderView = XposedHelpers.findClass(CLASS_STATUS_BAR_HEADER_VIEW, classLoader);
                 Class<?> classLayoutValues = XposedHelpers.findClass(CLASS_LAYOUT_VALUES, classLoader);
@@ -1050,8 +1070,8 @@ public class StatusBarHeaderHooks {
 
                 QSTileHostHooks.hook(classLoader);
 
-                boolean firstRowLarge = ConfigUtils.header().large_first_row;
-                if (ConfigUtils.header().new_click_behavior) {
+                boolean firstRowLarge = ConfigUtils.qs().large_first_row;
+                if (ConfigUtils.qs().new_click_behavior) {
                     new WifiTileHook(classLoader, (!isCm && !firstRowLarge));
                     new BluetoothTileHook(classLoader, (!isCm && !firstRowLarge));
                     new CellularTileHook(classLoader);
@@ -1094,15 +1114,9 @@ public class StatusBarHeaderHooks {
         }
     }
 
-    public static void hookQSOnMeasure() {
-        if (onMeasureHook == null || onMeasureHookedClass == null) return;
-        mOnMeasureUnchagedCount = 0;
-        onMeasureUnhook = XposedHelpers.findAndHookMethod(onMeasureHookedClass, "onMeasure", int.class, int.class, onMeasureHook);
-    }
-
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
-            if (ConfigUtils.header().header) {
+            if (ConfigUtils.qs().header) {
 
                 XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
 
@@ -1121,7 +1135,7 @@ public class StatusBarHeaderHooks {
                     // Not in LP
                 }
 
-                if (!ConfigUtils.header().large_first_row) {
+                if (!ConfigUtils.qs().large_first_row) {
                     try {
                         resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height",
                                 new XResources.DimensionReplacement(resparam.res.getDimensionPixelSize(
@@ -1163,7 +1177,7 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                // For Motorola stock ROMs only
+                // Motorola
                 try {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "zz_moto_status_bar_expanded_header", new XC_LayoutInflated() {
                         @Override
@@ -1175,7 +1189,6 @@ public class StatusBarHeaderHooks {
                         }
                     });
                 } catch (Throwable ignore) {
-                    // Don't do anything here
                 }
 
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_panel", new XC_LayoutInflated() {
@@ -1194,7 +1207,7 @@ public class StatusBarHeaderHooks {
 
                         mQsPanel = (ViewGroup) layout.getChildAt(0);
 
-                        if (ConfigUtils.header().enable_qs_editor) {
+                        if (ConfigUtils.qs().enable_qs_editor) {
                             FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
                             qsPanelLp.bottomMargin = res.getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
                             mQsPanel.setLayoutParams(qsPanelLp);
@@ -1221,19 +1234,6 @@ public class StatusBarHeaderHooks {
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
         }
-    }
-
-    private static void setEditButtonVisible(boolean visible) {
-        if (mEditButton == null || mQsPanel == null) return;
-        FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
-        if (visible) {
-            mEditButton.setVisibility(View.VISIBLE);
-            qsPanelLp.bottomMargin = getResUtils().getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
-        } else {
-            mEditButton.setVisibility(View.GONE);
-            qsPanelLp.bottomMargin = 0;
-        }
-        mQsPanel.setLayoutParams(qsPanelLp);
     }
 
 }
