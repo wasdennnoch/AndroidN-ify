@@ -433,16 +433,19 @@ public class StatusBarHeaderHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "onMeasure() called");
-            gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
-            if (gridHeight == oldGridHeight) {
-                if (mOnMeasureUnchagedCount > 5) {
-                    onMeasureUnhook.unhook();
-                    mHeaderQsPanel.setupAnimators();
+            try {
+                gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
+                if (gridHeight == oldGridHeight) {
+                    if (mOnMeasureUnchagedCount > 5) {
+                        onMeasureUnhook.unhook();
+                        mHeaderQsPanel.setupAnimators();
+                    }
+                    mOnMeasureUnchagedCount++;
+                } else {
+                    mOnMeasureUnchagedCount = 0;
+                    oldGridHeight = gridHeight;
                 }
-                mOnMeasureUnchagedCount++;
-            } else {
-                mOnMeasureUnchagedCount = 0;
-                oldGridHeight = gridHeight;
+            } catch (Throwable ignore) {
             }
         }
     };
@@ -862,9 +865,10 @@ public class StatusBarHeaderHooks {
         mRecyclerView.setAdapter(mTileAdapter);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
-        mRecyclerView.setVerticalScrollBarEnabled(true);
+        /*mRecyclerView.setVerticalScrollBarEnabled(true);
         mRecyclerView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mRecyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_DEFAULT);
+        mRecyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_DEFAULT);*/
+        // TODO these above have no effect; why? And why isn't the grid scrolling smoothly?
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

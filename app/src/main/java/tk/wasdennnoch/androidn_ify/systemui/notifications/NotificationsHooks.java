@@ -19,6 +19,8 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.ColorUtils;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -66,7 +68,7 @@ public class NotificationsHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Object entry = param.args[0];
             Object row = XposedHelpers.getObjectField(entry, "row");
-            Object contentContainer = XposedHelpers.getObjectField(row, "mPrivateLayout");
+            Object contentContainer = XposedHelpers.getObjectField(row, "mPrivateLayout"); // NotificationContentView
             Object contentContainerPublic = XposedHelpers.getObjectField(row, "mPublicLayout");
 
             ConfigUtils.notifications().loadBlacklistedApps();
@@ -117,33 +119,18 @@ public class NotificationsHooks {
                 }
             }
 
-            // TODO automatically determine actions background
-
-            // in row sind (NotificationBackgroundView) mBackgroundNormal / mBackgroundDimmed, darin jeweils mBackground
-
-            /*int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
-            View actionsPublic = publicView.findViewById(actionsId);
-            View actionsPrivate = privateView.findViewById(actionsId);
-
-            if (actionsPublic != null || actionsPrivate != null) {
-                Drawable origNormalBg = (Drawable) XposedHelpers.getObjectField(XposedHelpers.getObjectField(row, "mBackgroundNormal"), "mBackground");
-                Drawable origDimmedBg = (Drawable) XposedHelpers.getObjectField(XposedHelpers.getObjectField(row, "mBackgroundDimmed"), "mBackground");
-                int origNormalBgColor = -1;
-                int origDimmedBgColor = -1;
-                if (origNormalBg instanceof LayerDrawable) {
-                    origNormalBgColor = ((ColorDrawable) ((LayerDrawable) origNormalBg).findDrawableByLayerId(R.id.notification_background)).getColor();
+            // actions background
+            View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
+            if (expandedChild != null) {
+                View actions = expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                if (actions != null) {
+                    int origBgColor = ContextCompat.getColor(context, context.getResources().getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));
+                    double[] lab = new double[3];
+                    ColorUtils.colorToLAB(origBgColor, lab);
+                    lab[0] = 1.0f - 0.8f * (1.0f - lab[0]);
+                    actions.setBackgroundColor(ColorUtils.LABToColor(lab[0], lab[1], lab[2]));
                 }
-                if (origDimmedBg instanceof LayerDrawable) {
-                    origDimmedBgColor = ((ColorDrawable) ((LayerDrawable) origDimmedBg).findDrawableByLayerId(R.id.notification_background)).getColor();
-                }
-                // TODO determine if dimmed
-                if (actionsPublic != null) {
-                    actionsPublic.setBackgroundColor(origNormalBgColor);
-                }
-                if (actionsPrivate != null) {
-                    actionsPrivate.setBackgroundColor(origDimmedBgColor);
-                }
-            }*/
+            }
 
         }
     };
@@ -420,6 +407,7 @@ public class NotificationsHooks {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private static RippleDrawable getNotificationBackground(XResources xRes, XModuleResources modRes) {
         return new RippleDrawable(
                 ColorStateList.valueOf(xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI))),
@@ -427,6 +415,7 @@ public class NotificationsHooks {
                 null);
     }
 
+    @SuppressWarnings("deprecation")
     private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes, XModuleResources modRes) {
         return new RippleDrawable(
                 ColorStateList.valueOf(xRes.getColor(android.R.color.transparent)),
