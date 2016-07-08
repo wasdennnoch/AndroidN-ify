@@ -45,6 +45,8 @@
     <string name="header_recents">Nedávne aplikácie</string>
     <string name="enable_recents_double_tap_title">Prepínanie aplikácií dvojitým poklepaním</string>
     <string name="enable_recents_double_tap">Dvojitým poklepaním otvorí predchádzajúcu aplikáciu</string>
+    <string name="alternative_double_tap_title">Alternatívna detekcia dvojitého poklepania</string>
+    <string name="alternative_double_tap">Povoľte ak rýchle prepínanie nefunguje správne</string>
     <string name="double_tap_speed_title">Rýchlosť dvojitého poklepania</string>
     <string name="recents_button_behavior_title">Správanie tlačidla nedávnych aplikácií</string>
     <string name="recents_navigation_delay_title">Oneskorenie navigácie</string>
