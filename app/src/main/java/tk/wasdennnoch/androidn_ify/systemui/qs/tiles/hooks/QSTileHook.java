@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications.qs.tiles;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;

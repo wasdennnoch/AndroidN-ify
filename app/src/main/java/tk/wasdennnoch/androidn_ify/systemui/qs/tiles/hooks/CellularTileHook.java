@@ -1,7 +1,7 @@
-package tk.wasdennnoch.androidn_ify.notifications.qs.tiles;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks;
 
 import de.robv.android.xposed.XposedHelpers;
-import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 
 public class CellularTileHook extends QSTileHook {
 

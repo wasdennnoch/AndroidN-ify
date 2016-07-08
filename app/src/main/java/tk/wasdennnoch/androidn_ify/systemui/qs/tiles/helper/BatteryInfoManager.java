@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package tk.wasdennnoch.androidn_ify.notifications.qs;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

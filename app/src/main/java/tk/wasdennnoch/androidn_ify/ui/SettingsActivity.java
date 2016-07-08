@@ -34,8 +34,8 @@ import java.io.IOException;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.ui.misc.LogcatService;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
-import tk.wasdennnoch.androidn_ify.utils.LogcatService;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;

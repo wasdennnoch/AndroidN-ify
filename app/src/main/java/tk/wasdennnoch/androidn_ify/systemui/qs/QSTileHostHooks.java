@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications.qs;
+package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.annotation.Nullable;
 import android.annotation.SuppressLint;

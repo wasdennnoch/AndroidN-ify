@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import tk.wasdennnoch.androidn_ify.utils.CachedResolveInfo;
+import tk.wasdennnoch.androidn_ify.ui.misc.CachedResolveInfo;
 
 public class LoadAppInfoTask extends AsyncTask<Object, Void, List<CachedResolveInfo>> {
 

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package tk.wasdennnoch.androidn_ify.notifications.qs;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.views;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -236,7 +236,7 @@ public class FakeQSTileView extends ViewGroup {
     }
 
     @SuppressWarnings("deprecation")
-    protected void handleStateChanged(Drawable d, String label) {
+    public void handleStateChanged(Drawable d, String label) {
         if (mIcon instanceof ImageView) {
             setIcon((ImageView) mIcon, d);
         }

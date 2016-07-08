@@ -1,6 +1,5 @@
 package tk.wasdennnoch.androidn_ify.extracted.systemui;
 
-import android.util.FloatProperty;
 import android.util.MathUtils;
 import android.util.Property;
 import android.view.View;
@@ -12,23 +11,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class TouchAnimator {
 
-    private static final FloatProperty POSITION = new FloatProperty("position") {
-        public Float get(TouchAnimator touchanimator) {
-            return touchanimator.mLastT;
-        }
-
-        public Object get(Object obj) {
-            return get((TouchAnimator) obj);
-        }
-
-        public void setValue(TouchAnimator touchanimator, float f) {
-            touchanimator.setPosition(f);
-        }
-
-        public void setValue(Object obj, float f) {
-            setValue((TouchAnimator) obj, f);
-        }
-    };
     private final Interpolator mInterpolator;
     private final KeyframeSet[] mKeyframeSets;
     private float mLastT = -1.0F;

@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.utils;
+package tk.wasdennnoch.androidn_ify.ui.misc;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class DownloadService extends IntentService {
 

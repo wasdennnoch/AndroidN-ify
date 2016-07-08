@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.emergency;
+package tk.wasdennnoch.androidn_ify.phone.emergency;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications;
+package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
 import android.content.Context;
 import android.content.Intent;
@@ -45,11 +45,11 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
-import tk.wasdennnoch.androidn_ify.notifications.qs.QSTileHostHooks;
-import tk.wasdennnoch.androidn_ify.notifications.qs.TileAdapter;
-import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.BluetoothTileHook;
-import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.CellularTileHook;
-import tk.wasdennnoch.androidn_ify.notifications.qs.tiles.WifiTileHook;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.TileAdapter;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.BluetoothTileHook;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.CellularTileHook;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.WifiTileHook;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -832,7 +832,8 @@ public class StatusBarHeaderHooks {
                     case "getToggleState":
                         return false;
                     case "getSettingsIntent":
-                        return new Intent(ResourceUtils.createOwnContext(mContext), SettingsActivity.class)
+                        return new Intent(Intent.ACTION_MAIN)
+                                .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     case "setToggleState":
                         return null;
@@ -925,7 +926,6 @@ public class StatusBarHeaderHooks {
 
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
         }
 
         @Override

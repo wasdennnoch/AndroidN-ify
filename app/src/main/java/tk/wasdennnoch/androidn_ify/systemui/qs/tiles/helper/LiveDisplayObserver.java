@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications.qs;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications.qs;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,6 +21,8 @@ import android.widget.ImageView;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
 
 public class BatteryTile extends QSTile implements BatteryInfoManager.BatteryStatusListener {
 

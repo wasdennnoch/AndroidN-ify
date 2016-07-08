@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.utils;
+package tk.wasdennnoch.androidn_ify.ui.misc;
 
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;

@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications.qs;
+package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,6 +11,8 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.views.FakeQSTileView;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 

@@ -12,7 +12,7 @@ import android.provider.Settings;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.notifications.qs.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 

@@ -6,9 +6,9 @@
     android:installLocation="internalOnly">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
 
     <application
         android:allowBackup="true"
@@ -17,6 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/LightTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <meta-data
             android:name="xposedmodule"
             android:value="true"/>
@@ -29,11 +30,9 @@
             tools:ignore="ManifestResource"/>
 
         <activity
-            android:name=".ui.SettingsActivity"
-            android:label="@string/app_name">
+            android:name=".ui.SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS"/>
             </intent-filter>
         </activity>
@@ -41,11 +40,9 @@
         <activity-alias
             android:name=".SettingsAlias"
             android:enabled="true"
-            android:label="@string/app_name"
             android:targetActivity=".ui.SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity-alias>
@@ -56,14 +53,6 @@
         <activity
             android:name=".ui.PlatLogoActivity"
             android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"/>
-
-        <service
-            android:name=".utils.DownloadService"
-            android:exported="false"/>
-
-        <service
-            android:name=".utils.LogcatService"
-            android:exported="false"/>
 
         <activity
             android:name=".ui.BlacklistAppActivity"
@@ -87,9 +76,15 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.EditQSActivity"
-            android:theme="@android:style/Theme.Material.Light.DarkActionBar"/>
+
+        <service
+            android:name=".ui.misc.DownloadService"
+            android:exported="false"/>
+
+        <service
+            android:name=".ui.misc.LogcatService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

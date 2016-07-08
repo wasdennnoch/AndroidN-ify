@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications.qs;
+package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.content.Context;
 import android.os.Build;
@@ -13,6 +13,9 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.LiveDisplayTile;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class TilesManager {

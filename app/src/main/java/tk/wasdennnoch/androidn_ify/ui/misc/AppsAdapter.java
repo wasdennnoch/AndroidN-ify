@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.ui;
+package tk.wasdennnoch.androidn_ify.ui.misc;
 
 import android.content.pm.PackageManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.utils.CachedResolveInfo;
 
 public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder> {
     List<CachedResolveInfo> mApps;

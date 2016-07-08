@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications;
+package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
 import android.content.Context;
 import android.view.View;

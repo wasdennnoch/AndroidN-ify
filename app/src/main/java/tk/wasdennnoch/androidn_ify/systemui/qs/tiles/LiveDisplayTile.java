@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.notifications.qs;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -11,6 +11,8 @@ import android.os.UserHandle;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.LiveDisplayObserver;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class LiveDisplayTile extends QSTile {
