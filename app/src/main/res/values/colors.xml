@@ -8,6 +8,7 @@
     <color name="windowBackground">#333333</color>
     <!-- /App theme -->
 
+    <color name="md_red_500">#F44336</color>
 
     <!-- Notifications / Status bar header -->
     <color name="alarm_status_text_color">#64FFFFFF</color>
