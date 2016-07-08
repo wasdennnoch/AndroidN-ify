@@ -40,10 +40,8 @@
     <string name="logcat_notif_finished_title">Informe guardado</string>
     <string name="logcat_notif_preparing">Preparando&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Guardadas %1$s líneas&#8230;</string>
-    <string name="logcat_notif_finished_lines">%1$s líneas guardadas</string>
     <string name="action_stop">Parar</string>
-    <string name="action_share">Enviar</string>
-    
+
     <string name="requesting_root">Pidiendo acceso root&#8230;</string>
     <string name="root_failed">Fallo al activar el permiso READ_LOGS</string>
     <string name="permission_required">Permiso requerido</string>

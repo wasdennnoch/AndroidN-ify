@@ -12,7 +12,6 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/icon"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:contentDescription="@null"

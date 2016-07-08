@@ -40,10 +40,8 @@
     <string name="logcat_notif_finished_title">日志已保存</string>
     <string name="logcat_notif_preparing">正在准备&#8230;</string>
     <string name="logcat_notif_ongoing_lines">已保存 %1$s 行&#8230;</string>
-    <string name="logcat_notif_finished_lines">共保存 %1$s 行</string>
     <string name="action_stop">停止</string>
-    <string name="action_share">分享</string>
-    
+
     <string name="requesting_root">正在请求 ROOT 权限&#8230;</string>
     <string name="root_failed">无法获取 READ_LOGS 权限</string>
     <string name="permission_required">需要权限</string>

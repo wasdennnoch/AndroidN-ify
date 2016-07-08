@@ -196,10 +196,8 @@
     <string name="logcat_notif_finished_title">Logcat salvato</string>
     <string name="logcat_notif_preparing">Preparazione&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Salvate %1$s righe&#8230;</string>
-    <string name="logcat_notif_finished_lines">%1$s righe salvate</string>
     <string name="logcat_notif_finished">%1$s righte salvate in %2$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Ferma</string>
-    <string name="action_share">Condividi</string>
     <string name="requesting_root">Chiedo permesso root&#8230;</string>
     <string name="root_failed">Impossibile ottenere il permesso READ_LOGS</string>
     <string name="permission_required">Permesso richiesto</string>

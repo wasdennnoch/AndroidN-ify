@@ -40,10 +40,8 @@
     <string name="logcat_notif_finished_title">Hata kaydı kaydedildi</string>
     <string name="logcat_notif_preparing">Hazırlanıyor</string>
     <string name="logcat_notif_ongoing_lines">Kaydedilen hata %1$s&#8230;</string>
-    <string name="logcat_notif_finished_lines">%1$s hata kaydedildi</string>
     <string name="action_stop">Durdur</string>
-    <string name="action_share">Paylaş</string>
-    
+
     <string name="requesting_root">Root erişimi isteniyor&#8230;</string>
     <string name="root_failed">READ_LOGS izni alma işlemi başarısız oldu</string>
     <string name="permission_required">İizin gerekli</string>

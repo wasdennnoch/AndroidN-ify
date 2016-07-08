@@ -40,10 +40,8 @@
     <string name="logcat_notif_finished_title">Logcat saved</string>
     <string name="logcat_notif_preparing">Preparing&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
-    <string name="logcat_notif_finished_lines">%1$s lines saved</string>
     <string name="logcat_notif_finished">%1$s lines saved to %2$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Stop</string>
-    <string name="action_share">Share</string>
 
     <string name="requesting_root">Requesting root access&#8230;</string>
     <string name="root_failed">Failed to gain READ_LOGS permission</string>
@@ -222,5 +220,10 @@
     <string name="live_display_night">Night</string>
     <string name="live_display_outdoor">Outdoor (bright sun)</string>
     <!-- /QS -->
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on Color to apply</string>
+    <!-- /Color Picker -->
 
 </resources>
