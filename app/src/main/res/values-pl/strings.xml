@@ -41,9 +41,10 @@
     <string name="logcat_notif_preparing">Przygotowanie</string>
     <string name="logcat_notif_ongoing_lines">Zapisano %1$s linii&#8230;</string>
     <string name="logcat_notif_finished_lines">%1$s linii zapisanych</string>
+    <string name="logcat_notif_finished">%1$s linni zapisanych w %2$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Zatrzymaj</string>
     <string name="action_share">Udostępnij</string>
-    
+
     <string name="requesting_root">Wymaga dostępu do roota&#8230;</string>
     <string name="root_failed">Nie udało się uzyskać uprawnienia READ_LOGS</string>
     <string name="permission_required">Uprawnienie wymagane</string>
@@ -52,7 +53,7 @@
         Możesz jednak uzyskać ten dostęp ręcznie przez użycie uprawnienia READ_LOGS z pomocą roota.
         Po tym aplikacja musi zostać zrestartowana, aby użyć nowego uprawnienia.
     </string>
-    
+
     <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
     <string name="not_activated">Moduł nieaktywny</string>
 
@@ -66,7 +67,7 @@
     <string name="enable_settings_summaries_title">Włącz poprawki ustawień</string>
     <string name="enable_settings_summaries">Pokaż najważniejsze informacje bezpośrednio w menu ustawień</string>
     <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
-    <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka.</string>
+    <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka</string>
     <string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
     <string name="use_namey_mcnameface_title">Używaj ikony \"Namey McNameface\"</string>
 
@@ -93,16 +94,18 @@
 
     <!-- RECENTS -->
     <string name="header_recents">Poprzednie aplikacje</string>
-    <string name="enable_recents_double_tap_title">Podwójne dotknięcie, aby zmienić na poprzednio używaną aplikację</string>
+    <string name="enable_recents_double_tap_title">Szybkie przełączanie</string>
     <string name="enable_recents_double_tap">Podwójne dotknij klawisz poprzednio używanych aplikacji aby zmienić na poprzednio używaną aplikację</string>
+    <string name="alternative_double_tap_title">Aletratywna metoda wykrywania podwójnego dotknięcia</string>
+    <string name="alternative_double_tap">Włącz, jeśli Szybkie przełączanie nie działa poprawnie</string>
     <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
-    <string name="recents_button_behavior_title">Zachowanie przyciski ostanich aplikacji</string>
-    <string name="recents_navigation_delay_title">Opóźnienie nawigacji poprzednich aplikacji</string>
+    <string name="recents_button_behavior_title">Zachowanie przycisku poprzednich aplikacji</string>
+    <string name="recents_navigation_delay_title">Opóźnienie zmiany poprzednich aplikacji</string>
     <string name="recents_navigation_delay">Czas po jakim nastąpi przełączenie na wybraną aplikację</string>
     <string name="enable_large_recents">Włącz duże okna poprzednich aplikacji</string>
     <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
 
-    <string name="no_previous_recents">Brak poprzedniej aplikacji</string>
+    <string name="no_previous_recents">Brak poprzednich aplikacji</string>
 
     <string name="recents_button_behavior_previous">Wróc do poprzedniej aplikacji</string>
     <string name="recents_button_behavior_current">Wróc do obecnej aplikacji</string>
