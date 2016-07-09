@@ -176,6 +176,11 @@
     <string name="live_display_night">Noc</string>
     <string name="live_display_outdoor">Vonku (jasné slnešné svetlo)</string>
     <!-- /QS -->
+  
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Výber farby</string>
+    <string name="press_color_to_apply">Kliknite na farbu pre použitie</string>
+    <!-- /Color Picker -->
 
     <string name="header_app">Aplikácia</string>
     <string name="app_dark_theme_title">Tmavá téma aplikácie</string>
