@@ -89,6 +89,7 @@ public class StatusBarHeaderHooks {
     private static View mSystemIconsSuperContainer;
     private static View mDateGroup;
     private static FrameLayout mMultiUserSwitch;
+    private static View mClock;
     private static TextView mDateCollapsed;
     private static TextView mDateExpanded;
     private static View mSettingsButton;
@@ -156,7 +157,6 @@ public class StatusBarHeaderHooks {
                 XposedHook.logE(TAG, "Couldn't change header background color", t);
             }
 
-            View mClock;
             TextView mTime;
             TextView mAmPm;
             TextView mEmergencyCallsOnly;
@@ -1031,6 +1031,18 @@ public class StatusBarHeaderHooks {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         mAlarmStatus.setX(0);
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onClick", View.class, new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        if (param.args[0] == mClock) {
+                            try {
+                                XposedHelpers.callMethod(mStatusBarHeaderView, "startClockActivity");
+                            } catch (Throwable ignore) {
+                            }
+                        }
                     }
                 });
 
