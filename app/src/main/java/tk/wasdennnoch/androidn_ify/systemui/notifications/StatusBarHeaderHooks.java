@@ -129,6 +129,7 @@ public class StatusBarHeaderHooks {
     private static boolean mEditing;
     public static boolean mShowingDetail;
     public static boolean mDisableFancy = false;
+    public static boolean mUseDragPanel = false;
 
     private static Class<?> onMeasureHookedClass;
 
@@ -1052,7 +1053,7 @@ public class StatusBarHeaderHooks {
                     });
                 }
 
-                boolean isCm = false;
+                mUseDragPanel = false;
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
                     Class<?> classCirclePageIndicator = XposedHelpers.findClass(CLASS_CIRCLE_PAGE_INDICATOR, classLoader);
@@ -1061,7 +1062,7 @@ public class StatusBarHeaderHooks {
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
                     XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageSelected", int.class, onPageSelectedHook);
-                    isCm = true;
+                    mUseDragPanel = true;
                 } catch (Throwable ignore) {
                     onMeasureHookedClass = classQSPanel;
                     hookQSOnMeasure();
@@ -1076,8 +1077,8 @@ public class StatusBarHeaderHooks {
 
                 boolean firstRowLarge = ConfigUtils.qs().large_first_row;
                 if (ConfigUtils.qs().new_click_behavior) {
-                    new WifiTileHook(classLoader, (!isCm && !firstRowLarge));
-                    new BluetoothTileHook(classLoader, (!isCm && !firstRowLarge));
+                    new WifiTileHook(classLoader, (!mUseDragPanel && !firstRowLarge));
+                    new BluetoothTileHook(classLoader, (!mUseDragPanel && !firstRowLarge));
                     new CellularTileHook(classLoader);
                 }
 

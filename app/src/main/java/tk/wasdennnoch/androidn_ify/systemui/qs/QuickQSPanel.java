@@ -129,7 +129,7 @@ public class QuickQSPanel extends LinearLayout {
             getRelativePosition(ai, tileView, StatusBarHeaderHooks.mStatusBarHeaderView);
             getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
             int k = ai1[0] - ai[0];
-            int i1 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2) + getHeight() + StatusBarHeaderHooks.mQsContainer.getPaddingTop();
+            int i1 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2) + getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
 
             j = ai[0] - j;
             builder.addFloat(tileView, "translationX", 0f, (float) k);
