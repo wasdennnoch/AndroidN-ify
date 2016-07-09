@@ -192,9 +192,6 @@ public class StatusBarHeaderHooks {
             mHideTunerIcon = config.qs.hide_tuner_icon;
             mHideEditTiles = config.qs.hide_edit_tiles;
             mHideCarrierLabel = config.qs.hide_carrier_label;
-            View dummyClock = new View(context);
-            dummyClock.setVisibility(View.GONE);
-            XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
             try {
                 mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
             } catch (Throwable t) {
@@ -241,7 +238,6 @@ public class StatusBarHeaderHooks {
                 int headerItemsMarginTop = res.getDimensionPixelSize(R.dimen.header_items_margin_top);
                 int alarmStatusTextColor = res.getColor(R.color.alarm_status_text_color);
                 int dateTimeCollapsedSize = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
-                //int dateTimeTextColor = res.getColor(R.color.date_time_text_color);
                 int dateTimeTextColor = mTime.getCurrentTextColor();
                 int dateCollapsedDrawablePadding = res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding);
                 int dateTimeMarginLeft = res.getDimensionPixelSize(R.dimen.date_time_alarm_group_margin_left);
