@@ -192,6 +192,9 @@ public class StatusBarHeaderHooks {
             mHideTunerIcon = config.qs.hide_tuner_icon;
             mHideEditTiles = config.qs.hide_edit_tiles;
             mHideCarrierLabel = config.qs.hide_carrier_label;
+            View dummyClock = new View(context);
+            dummyClock.setVisibility(View.GONE);
+            XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
             try {
                 mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
             } catch (Throwable t) {
