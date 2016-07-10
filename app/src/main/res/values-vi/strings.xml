@@ -157,4 +157,6 @@
     <string name="header_qs">Cài đặt nhanh</string>
     <string name="live_display">LiveDisplay</string>
     <string name="use_namey_mcnameface_title">Dùng biểu tượng \"Namey McNameface\" </string>
+    <string name="alternative_double_tap_title">phát hiện chạm đôi kiểu khác </string>
+    <string name="alternative_double_tap">Bật nếu Chuyển ứ.dụng nhanh hoạt động không như </string>
 </resources>
