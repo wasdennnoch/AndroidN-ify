@@ -87,7 +87,7 @@ public class EmergencyInfoActivity extends Activity {
             mActivity = (EmergencyInfoActivity) getActivity();
             //noinspection deprecation
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
-            addPreferencesFromResource(mActivity.mEditable ? R.xml.infopreferences : R.xml.viewinfoprefernces);
+            addPreferencesFromResource(mActivity.mEditable ? R.xml.emergency_info_edit_preferences : R.xml.emergency_info_view_prefernces);
 
             mFullnamePref = getPreferenceScreen().findPreference("info_fullname");
             mAddressPref = getPreferenceScreen().findPreference("info_address");

@@ -135,14 +135,12 @@
     <string name="info_bloodtype_bp">B+</string>
     <string name="info_bloodtype_on">O-</string>
     <string name="info_bloodtype_op">O+</string>
-    <string name="action_share">Chia sẻ</string>
     <string name="action_stop">Dừng</string>
     <string name="live_display_auto">Tự động</string>
     <string name="live_display_day">Ngày</string>
     <string name="live_display_night">Đêm</string>
     <string name="live_display_off">Tắt</string>
     <string name="live_display_outdoor">Ngoài trời (nắng mạnh)</string>
-    <string name="logcat_notif_finished_lines">%1$s dòng đã lưu</string>
     <string name="logcat_notif_finished_title">Đã lưu logcat</string>
     <string name="logcat_notif_ongoing_lines">Đã lưu %1$s dòng…</string>
     <string name="logcat_notif_ongoing_title">Đang lưu logcat</string>

@@ -25,11 +25,11 @@ public class ThemeUtils {
         int colorPrimaryDark = Color.HSVToColor(hsv);
         activity.getWindow().setStatusBarColor(colorPrimaryDark);
         activity.getActionBar().setBackgroundDrawable(new ColorDrawable(colorPrimary));
-        Locale locale = prefs.getBoolean("force_english", false) ? Locale.ENGLISH : Locale.getDefault();
-        //Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        activity.getResources().updateConfiguration(config, null);
+        if (prefs.getBoolean("force_english", false)) {
+            Configuration config = activity.getResources().getConfiguration();
+            config.locale = Locale.ENGLISH;
+            activity.getResources().updateConfiguration(config, null);
+        }
     }
 
     @SuppressWarnings({"ConstantConditions", "deprecation"})

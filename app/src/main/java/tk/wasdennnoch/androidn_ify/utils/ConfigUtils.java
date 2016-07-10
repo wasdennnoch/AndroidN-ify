@@ -18,7 +18,7 @@ public class ConfigUtils {
     private XSharedPreferences mPrefs;
     public SettingsConfig settings;
     public RecentsConfig recents;
-    public StatusBarHeaderConfig header;
+    public QuickSettingsConfig qs;
     public NotificationsConfig notifications;
     public LockscreenConfig lockscreen;
 
@@ -36,7 +36,7 @@ public class ConfigUtils {
     private void loadConfig() {
         settings = new SettingsConfig(mPrefs);
         recents = new RecentsConfig(mPrefs);
-        header = new StatusBarHeaderConfig(mPrefs);
+        qs = new QuickSettingsConfig(mPrefs);
         notifications = new NotificationsConfig(mPrefs);
         lockscreen = new LockscreenConfig(mPrefs);
     }
@@ -55,8 +55,8 @@ public class ConfigUtils {
         return getInstance().recents;
     }
 
-    public static StatusBarHeaderConfig header() {
-        return getInstance().header;
+    public static QuickSettingsConfig qs() {
+        return getInstance().qs;
     }
 
     public static NotificationsConfig notifications() {
@@ -82,6 +82,7 @@ public class ConfigUtils {
 
     public class RecentsConfig {
         public boolean double_tap;
+        public boolean alternative_method;
         public int double_tap_speed;
         public boolean navigate_recents;
         public boolean force_double_tap;
@@ -91,6 +92,7 @@ public class ConfigUtils {
 
         public RecentsConfig(XSharedPreferences prefs) {
             double_tap = prefs.getBoolean("enable_recents_double_tap", true);
+            alternative_method = prefs.getBoolean("alternative_method", false);
             double_tap_speed = prefs.getInt("double_tap_speed", 400);
             navigation_delay = prefs.getInt("recents_navigation_delay", 1000);
             large_recents = prefs.getBoolean("enable_large_recents", true);
@@ -111,7 +113,7 @@ public class ConfigUtils {
         }
     }
 
-    public class StatusBarHeaderConfig {
+    public class QuickSettingsConfig {
         public boolean header;
         public boolean keep_qs_panel_background;
         public int qs_tiles_count;
@@ -127,7 +129,7 @@ public class ConfigUtils {
         public boolean hide_edit_tiles;
         public boolean hide_carrier_label;
 
-        public StatusBarHeaderConfig(XSharedPreferences prefs) {
+        public QuickSettingsConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
             keep_qs_panel_background = prefs.getBoolean("keep_qs_panel_background", false);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);

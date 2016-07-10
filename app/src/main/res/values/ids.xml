@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <item name="app_name_text" type="id"/>
     <item name="time_divider" type="id"/>
     <item name="public_app_name_text" type="id"/>
@@ -11,4 +12,5 @@
     <item name="notification_info_divider" type="id"/>
     <item name="task_progress" type="id"/>
     <item name="qs_edit" type="id"/>
+
 </resources>

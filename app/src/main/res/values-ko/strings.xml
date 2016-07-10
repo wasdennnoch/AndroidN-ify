@@ -40,9 +40,7 @@
     <string name="logcat_notif_finished_title">로그켓 저장됨</string>
     <string name="logcat_notif_preparing">Preparing&#8230;</string>
     <string name="logcat_notif_ongoing_lines">%1$s줄 저장하는 중&#8230;</string>
-    <string name="logcat_notif_finished_lines">%1$s줄이 저장됨</string>
     <string name="action_stop">중지</string>
-    <string name="action_share">공유</string>
 
     <string name="requesting_root">루트 권한 요청 중&#8230;</string>
     <string name="root_failed">READ_LOGS 권한을 얻는데 실패하였습니다</string>

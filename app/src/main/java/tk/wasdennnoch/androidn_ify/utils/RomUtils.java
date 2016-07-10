@@ -5,14 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import de.robv.android.xposed.XSharedPreferences;
-import tk.wasdennnoch.androidn_ify.XposedHook;
 
 public class RomUtils {
     private static SharedPreferences sPrefs;
-    private static boolean isReadOnly = false;
 
     // Init from UI
     public static void init(Context context) {
@@ -23,13 +20,11 @@ public class RomUtils {
     // Init from Xposed
     public static void init(XSharedPreferences prefs) {
         sPrefs = prefs;
-        isReadOnly = true;
-        checkRom();
     }
 
+    // Call only from UI
     @SuppressLint("CommitPrefEdits")
     private static void checkRom() {
-        if (isReadOnly) return;
         if (sPrefs.contains("rom")) return;
         String rrVersion = SystemProperties.get("ro.rr.version", "");
         if (!"".equals(rrVersion)) {

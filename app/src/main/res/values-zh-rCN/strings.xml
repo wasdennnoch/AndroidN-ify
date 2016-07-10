@@ -21,9 +21,9 @@
         如果没有帮助，尝试重新安装此模块。<br>
         如果上述方法均无效，请确保设备的 SELinux 模式为 <i>permissive</i>.
         <i>Enforcing</i> SELinux 可能会阻止 Xposed 接入模块的首选项文件。要修改模式，
-        请使用应用 <tt>SELinuxModeChanger</tt> 你可以在
+        请安装应用 <tt>SELinuxModeChanger</tt> 您可以在
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">XDA 上的相关话题帖</a>内下载该应用。<br>
-        如果即便如此依旧无效的话，你将可能需要继续忍受此问题了，在此深感抱歉 :(
+        如果即便如此依旧无效的话，您将可能需要继续忍受此问题了，在此深感抱歉 :(
         ]]></string>
     
     <string name="header_tweaks">调整</string>
@@ -35,15 +35,14 @@
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
     <string name="share_logcat_title">分享日志</string>
-    <string name="share_logcat">将您的日志保存到文件中</string>
+    <string name="share_logcat">将日志保存到文件中</string>
     <string name="logcat_notif_ongoing_title">正在保存日志&#8230;</string>
     <string name="logcat_notif_finished_title">日志已保存</string>
     <string name="logcat_notif_preparing">正在准备&#8230;</string>
     <string name="logcat_notif_ongoing_lines">已保存 %1$s 行&#8230;</string>
-    <string name="logcat_notif_finished_lines">共保存 %1$s 行</string>
+    <string name="logcat_notif_finished">%1$s 行日志已保存至 %2$s</string>
     <string name="action_stop">停止</string>
-    <string name="action_share">分享</string>
-    
+
     <string name="requesting_root">正在请求 ROOT 权限&#8230;</string>
     <string name="root_failed">无法获取 READ_LOGS 权限</string>
     <string name="permission_required">需要权限</string>
@@ -95,6 +94,8 @@
     <string name="header_recents">最近任务</string>
     <string name="enable_recents_double_tap_title">双击切换应用</string>
     <string name="enable_recents_double_tap">双击多任务键时切换至上一个使用过的应用</string>
+    <string name="alternative_double_tap_title">备选的双击检测方案</string>
+    <string name="alternative_double_tap">当快速切换功能无法正常工作时启用该选项</string>
     <string name="double_tap_speed_title">双击速度</string>
     <string name="recents_button_behavior_title">多任务键点击行为</string>
     <string name="recents_navigation_delay_title">任务导航延时</string>
@@ -219,5 +220,10 @@
     <string name="live_display_night">夜晚</string>
     <string name="live_display_outdoor">室外（阳光环境）</string>
     <!-- /QS -->
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">颜色选择器</string>
+    <string name="press_color_to_apply">点击颜色以应用</string>
+    <!-- /Color Picker -->
 
 </resources>

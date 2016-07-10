@@ -1,6 +1,7 @@
 package tk.wasdennnoch.androidn_ify.systemui.recents.doubletap;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.view.View;
 
@@ -64,7 +65,7 @@ public class DoubleTapSwKeys extends DoubleTapBase {
     public static void hook(ClassLoader classLoader) {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
-            config.reload();
+            if (Build.VERSION.SDK_INT >= 23 && !config.recents.alternative_method) return;
             loadPrefDoubleTapSpeed();
             if (config.recents.double_tap) {
                 try {

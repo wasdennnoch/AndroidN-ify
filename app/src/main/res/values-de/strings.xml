@@ -40,9 +40,7 @@
     <string name="logcat_notif_finished_title">Logcat gespeichert</string>
     <string name="logcat_notif_preparing">Bereitet vor&#8230;</string>
     <string name="logcat_notif_ongoing_lines">%1$s Zeilen gespeichert&#8230;</string>
-    <string name="logcat_notif_finished_lines">%1$s Zeilen gespeichert</string>
     <string name="action_stop">Stop</string>
-    <string name="action_share">Teilen</string>
 
     <string name="requesting_root">Fordere Root-Zugrff an&#8230;</string>
     <string name="root_failed">Konnte die READ_LOGS-Berechtigung nicht erhalten</string>
@@ -50,7 +48,7 @@
     <string name="logs_permission_description">
         In Android-Versionen seit Jelly Bean haben Apps keine Berechtigung mehr, den vollständigen logcat zu lesen.
         Man kann jedoch die READ_LOGS-Berechtigung manuell mit Root-Zugrff gewähren.
-        Danach muss die App ne gestartet werden, um die neuen Berechtigungen zu übernehmen.
+        Danach muss die App neu gestartet werden, um die neuen Berechtigungen zu übernehmen.
     </string>
 
     <string name="requires_android_version">Benötigt Android %1$s</string>
@@ -209,7 +207,7 @@
 
     <!-- QS -->
     <string name="qs_edit">Bearbeiten</string>
-    <string name="qs_edit_detail">Kachln bearbeiten</string>
+    <string name="qs_edit_detail">Kacheln bearbeiten</string>
     <string name="drag_to_add_tiles">Ziehen, um Kachel hinzuzufügen</string>
     <string name="drag_to_remove_tiles">Hierhin ziehen, um Kachel zu entfernen</string>
     <string name="live_display">LiveDisplay</string>

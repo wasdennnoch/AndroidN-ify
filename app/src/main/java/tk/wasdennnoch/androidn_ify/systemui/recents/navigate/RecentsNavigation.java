@@ -2,6 +2,7 @@ package tk.wasdennnoch.androidn_ify.systemui.recents.navigate;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
@@ -280,6 +281,7 @@ public class RecentsNavigation {
 
     public static void hookSystemUI(ClassLoader classLoader) {
         try {
+            if (Build.VERSION.SDK_INT < 23 || ConfigUtils.recents().alternative_method) return;
             mConfig = ConfigUtils.getInstance();
             mClassLoader = classLoader;
             if (mConfig.recents.double_tap || mConfig.recents.navigate_recents) {

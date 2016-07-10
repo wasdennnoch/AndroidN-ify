@@ -83,6 +83,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
 
     public static void hook(ClassLoader classLoader) {
         try {
+            if (Build.VERSION.SDK_INT >= 23 && !ConfigUtils.recents().alternative_method) return;
 
             Class<?> classPhoneWindowManager = XposedHelpers.findClass(CLASS_PHONE_WINDOW_MANAGER, classLoader);
 
@@ -92,9 +93,8 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             config.reload();
             loadPrefDoubleTapSpeed();
             if (config.recents.double_tap) {
-
-                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching", WindowManagerPolicy.WindowState.class, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
-
+                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching",
+                        WindowManagerPolicy.WindowState.class, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);

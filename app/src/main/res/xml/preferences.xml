@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidUnknownAttribute -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -46,6 +47,13 @@
                 android:key="enable_recents_double_tap"
                 android:summary="@string/enable_recents_double_tap"
                 android:title="@string/enable_recents_double_tap_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_recents_double_tap"
+                android:key="alternative_method"
+                android:summary="@string/alternative_double_tap"
+                android:title="@string/alternative_double_tap_title"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="400"
@@ -142,8 +150,8 @@
                 android:defaultValue="true"
                 android:dependency="enable_qs_editor"
                 android:key="battery_tile_show_percentage"
-                android:title="@string/battery_tile_show_percentage"
-                android:summary="@string/battery_tile_show_percentage_summary"/>
+                android:summary="@string/battery_tile_show_percentage_summary"
+                android:title="@string/battery_tile_show_percentage"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -234,12 +242,13 @@
                 android:key="notifications_custom_color"
                 android:title="@string/notifications_custom_color_title"/>
 
-            <com.thebluealliance.spectrum.SpectrumPreference
+            <net.margaritov.preference.colorpicker.ColorPickerPreference
+                alphaSlider="true"
+                hexValue="true"
                 android:defaultValue="0"
                 android:dependency="notifications_custom_color"
                 android:key="notifications_appname_color"
-                android:title="@string/notifications_accent_color_title"
-                app:spectrum_colors="@array/appname_colors"/>
+                android:title="@string/notifications_accent_color_title"/>
 
             <SwitchPreference
                 android:defaultValue="false"
@@ -247,12 +256,13 @@
                 android:key="notifications_custom_actions_color"
                 android:title="@string/notifications_custom_actions_color_title"/>
 
-            <com.thebluealliance.spectrum.SpectrumPreference
+            <net.margaritov.preference.colorpicker.ColorPickerPreference
+                alphaSlider="true"
+                hexValue="true"
                 android:defaultValue="0"
                 android:dependency="notifications_custom_actions_color"
                 android:key="actions_background_colors"
-                android:title="@string/notifications_actions_color_title"
-                app:spectrum_colors="@array/actions_background_colors"/>
+                android:title="@string/notifications_actions_color_title"/>
 
         </PreferenceScreen>
 
@@ -290,11 +300,12 @@
             android:key="app_dark_theme"
             android:title="@string/app_dark_theme_title"/>
 
-        <com.thebluealliance.spectrum.SpectrumPreference
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            alphaSlider="true"
+            hexValue="true"
             android:defaultValue="@color/colorPrimary"
             android:key="theme_colorPrimary"
-            android:title="@string/theme_colorPrimary"
-            app:spectrum_colors="@array/theme_colors"/>
+            android:title="@string/theme_colorPrimary"/>
 
         <SwitchPreference
             android:defaultValue="false"

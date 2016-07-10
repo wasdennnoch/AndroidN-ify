@@ -12,8 +12,9 @@ import android.provider.Settings;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.notifications.qs.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class SystemUIHooks {
 
@@ -29,6 +30,8 @@ public class SystemUIHooks {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 XposedHook.logD(TAG, "prepareNavigationBarViewHook called");
+
+                ConfigUtils.getInstance().reload(); // Start loading prefs in a background thread to have them ready as quick as possible
 
                 final Application app = (Application) param.thisObject;
                 final Handler handler = new Handler(app.getMainLooper());
@@ -57,8 +60,7 @@ public class SystemUIHooks {
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        XposedHook.logD(TAG, "Kill broadcast received, sending kill signal");
-                                        Process.sendSignal(Process.myPid(), Process.SIGNAL_KILL);
+                                        Process.killProcess(Process.myPid());
                                     }
                                 }, 100);
                                 break;

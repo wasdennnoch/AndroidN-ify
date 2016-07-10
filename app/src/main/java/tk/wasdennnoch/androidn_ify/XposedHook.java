@@ -11,13 +11,13 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-import tk.wasdennnoch.androidn_ify.emergency.EmergencyHooks;
-import tk.wasdennnoch.androidn_ify.notifications.NotificationPanelHooks;
-import tk.wasdennnoch.androidn_ify.notifications.NotificationsHooks;
-import tk.wasdennnoch.androidn_ify.notifications.StatusBarHeaderHooks;
-import tk.wasdennnoch.androidn_ify.notifications.qs.LiveDisplayObserver;
+import tk.wasdennnoch.androidn_ify.phone.emergency.EmergencyHooks;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationsHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.LiveDisplayObserver;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.navigate.RecentsNavigation;
@@ -110,35 +110,34 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 NotificationPanelHooks.hook(lpparam.classLoader);
                 NotificationsHooks.hookSystemUI(lpparam.classLoader);
                 RecentsStackHooks.hookSystemUI(lpparam.classLoader);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    RecentsNavigation.hookSystemUI(lpparam.classLoader);
-                } else {
-                    DoubleTapSwKeys.hook(lpparam.classLoader);
-                }
+                RecentsNavigation.hookSystemUI(lpparam.classLoader);
+                DoubleTapSwKeys.hook(lpparam.classLoader);
                 break;
             case PACKAGE_ANDROID:
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-                    DoubleTapHwKeys.hook(lpparam.classLoader);
-                else
-                    LiveDisplayObserver.hook(lpparam.classLoader);
+                DoubleTapHwKeys.hook(lpparam.classLoader);
+                LiveDisplayObserver.hook(lpparam.classLoader);
+                break;
+            case PACKAGE_PHONE:
+                EmergencyHooks.hook(lpparam.classLoader);
                 break;
             case PACKAGE_OWN:
                 XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isActivated", XC_MethodReplacement.returnConstant(true));
                 if (!sPrefs.getBoolean("can_read_prefs", false))
                     XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isPrefsFileReadable", XC_MethodReplacement.returnConstant(false));
                 break;
-            case PACKAGE_PHONE:
-                new EmergencyHooks().hook(lpparam.classLoader);
         }
 
         // Has to be hooked in every app as every app creates own instances of the Notification.Builder
         NotificationsHooks.hook(lpparam.classLoader);
 
-        try {
-            Class<?> classCMStatusBarManager = XposedHelpers.findClass("cyanogenmod.app.CMStatusBarManager", lpparam.classLoader);
-            XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTile", XC_MethodReplacement.DO_NOTHING);
-            XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTileAsUser", XC_MethodReplacement.DO_NOTHING);
-        } catch (Throwable ignore) {
+        // Same here (probably)
+        if (ConfigUtils.qs().enable_qs_editor) {
+            try {
+                Class<?> classCMStatusBarManager = XposedHelpers.findClass("cyanogenmod.app.CMStatusBarManager", lpparam.classLoader);
+                XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTile", XC_MethodReplacement.DO_NOTHING);
+                XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTileAsUser", XC_MethodReplacement.DO_NOTHING);
+            } catch (Throwable ignore) {
+            }
         }
     }
 
