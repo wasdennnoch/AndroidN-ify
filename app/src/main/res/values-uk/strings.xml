@@ -124,9 +124,7 @@
 	<string name="enable_new_tile_click_behavior_summary">При натисканні на плитку у рядку швидкого доступу перемкне стан, і натисніть плитку на панелі, щоб розширити</string>
 	<string name="enable_large_first_row">Збільшити перший рядок</string>
 	<string name="enable_large_first_row_summary">На CM використовуйте меню конфігурації в режимі редагування плиток замість цього перемикача</string>
-	<string name="smaller_header_clock_title">Зменшити годинник</string>
-	<string name="smaller_header_clock">Зменшує розмір годинника при перегляді шапки статус-бару. Зручно для маленьких екранів</string>
-	<string name="notification_full_width_volume_title">Розтягнути діалог гучності</string>
+    <string name="notification_full_width_volume_title">Розтягнути діалог гучності</string>
 	<string name="notification_full_width_volume">Прибрати обмеження ширини діалогу гучності для телефонів з великими дисплеями</string>
 	<string name="fix_stuck_inversion_title">Виправити інверсію</string>
 	<string name="fix_stuck_inversion">На деяких пристроях інверсія застряє, коли увімкнена. Натисніть для примусового вимкнення</string>

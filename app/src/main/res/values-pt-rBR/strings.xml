@@ -127,8 +127,6 @@
     <string name="enable_new_tile_click_behavior_summary">Clicar em um bloco no cabeçalho o ativa/desativa e clicar em um bloco no painel o expande</string>
     <string name="enable_large_first_row">Alargar a primeira fileira</string>
     <string name="enable_large_first_row_summary">Na CM use o menu de configuração do modo Editar blocos ao invés desta opção</string>
-    <string name="smaller_header_clock_title">Relógio menor</string>
-    <string name="smaller_header_clock">Diminuir o tamanho do texto do relógio no cabeçalho expandido. Útil para telas pequenas</string>
     <string name="notification_full_width_volume_title">Largura do painel de volume</string>
     <string name="notification_full_width_volume">Remover o limite de largura do painel de volume em dispositivos com telas grandes</string>
     <string name="fix_stuck_inversion_title">Fix inversão presa</string>

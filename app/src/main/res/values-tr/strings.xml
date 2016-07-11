@@ -124,8 +124,6 @@
     <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
     <string name="enable_large_first_row">İlk satırı büyüt</string>
     <string name="enable_large_first_row_summary">Kareleri düzenle modu yerine CM yapılandırma menüsünü kullanın</string>
-    <string name="smaller_header_clock_title">Küçük saat</string>
-    <string name="smaller_header_clock">Genişletilmiş başlıkta saatin metin boyutunu düşürün. Küçük ekranlar için kullanışlıdır.</string>
     <string name="notification_full_width_volume_title">Tam genişlikte ses ayarları</string>
     <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>

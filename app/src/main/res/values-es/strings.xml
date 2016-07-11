@@ -124,8 +124,6 @@
     <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
     <string name="enable_large_first_row">Alargar la primera fila</string>
     <string name="enable_large_first_row_summary">En CM usar el menú de configuración de ajustes rápidos propio</string>
-    <string name="smaller_header_clock_title">Reloj pequeño</string>
-    <string name="smaller_header_clock">Reduce el tamaño del reloj en la barra de estado expandida. Útil para pantallas pequeñas</string>
     <string name="notification_full_width_volume_title">Volumen con ancho completo</string>
     <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
     <string name="fix_stuck_inversion_title">Arreglar inversión bloqueada</string>
