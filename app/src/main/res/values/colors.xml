@@ -11,9 +11,6 @@
     <color name="md_red_500">#F44336</color>
 
     <!-- Notifications / Status bar header -->
-    <color name="alarm_status_text_color">#64FFFFFF</color>
-    <color name="emergency_calls_only_text_color">#66FFFFFF</color>
-
     <color name="edit_btn_text">#40ffffff</color>
     <!-- /Notifications / Status bar header -->
 
