@@ -13,6 +13,22 @@
         <item>2</item>
     </string-array>
 
+
+    <string-array name="header_clock_sizes" translatable="false">
+        <item>@string/header_clock_size_normal</item>
+        <item>@string/header_clock_size_small</item>
+        <item>@string/header_clock_size_smaller</item>
+        <item>@string/header_clock_size_tiny</item>
+    </string-array>
+
+    <string-array name="header_clock_sizes_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+
     <string-array name="info_blood_types" translatable="false">
         <item>@string/info_bloodtype_op</item>
         <item>@string/info_bloodtype_on</item>
@@ -38,4 +54,5 @@
         <item>@string/live_display_night</item>
         <item>@string/live_display_outdoor</item>
     </string-array>
+
 </resources>

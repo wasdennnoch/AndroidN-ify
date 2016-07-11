@@ -123,7 +123,7 @@ public class ConfigUtils {
         public boolean alternative_quick_qs_method;
         public boolean new_click_behavior;
         public boolean large_first_row;
-        public boolean smaller_header_clock;
+        public int header_clock_size;
         public boolean full_width_volume;
         public boolean hide_tuner_icon;
         public boolean hide_edit_tiles;
@@ -139,11 +139,11 @@ public class ConfigUtils {
             alternative_quick_qs_method = prefs.getBoolean("alternative_quick_qs_method", false);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
-            smaller_header_clock = prefs.getBoolean("smaller_header_clock", false);
             full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
             hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
+            header_clock_size = Integer.parseInt(prefs.getString("header_clock_size", "0"));
         }
     }
 

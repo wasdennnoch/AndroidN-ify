@@ -61,10 +61,11 @@ public class StatusBarHeaderHooks {
 
     private static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
+
     private static final String CLASS_STATUS_BAR_HEADER_VIEW = "com.android.systemui.statusbar.phone.StatusBarHeaderView";
     private static final String CLASS_LAYOUT_VALUES = CLASS_STATUS_BAR_HEADER_VIEW + "$LayoutValues";
-    private static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
     private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
+    private static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
     private static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
     private static final String CLASS_QS_STATE = CLASS_QS_TILE + "$State";
     private static final String CLASS_QS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
@@ -590,10 +591,12 @@ public class StatusBarHeaderHooks {
         ResourceUtils res = ResourceUtils.getInstance(context);
         float timeCollapsed = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
         float timeExpanded;
-        if (ConfigUtils.qs().smaller_header_clock)
-            timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small);
-        else
-            timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size);
+        switch (ConfigUtils.qs().header_clock_size) {
+            case 1: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small); break;
+            case 2: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_smaller); break;
+            case 3: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_tiny); break;
+            default: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_normal); break;
+        }
         float dateScaleFactor = timeExpanded / timeCollapsed;
         float gearTranslation = res.getDimension(R.dimen.settings_gear_translation);
 
