@@ -78,16 +78,20 @@
     <string name="enable_new_tile_click_behavior_summary">Klepnutie na dlaždicu v záhlaví ju prepne a klepnutie na dlaždicu v panely ju rozbalí</string>
     <string name="enable_large_first_row">Zväčšiť prvý riadok</string>
     <string name="enable_large_first_row_summary">Na CM radšej použite menu pre nastavenie dlaždíc</string>
-    <string name="smaller_header_clock_title">Menšie hodiny</string>
-    <string name="smaller_header_clock">Zmenší text pre hodiny v otvorenom záhlaví. Užitočné pre menšie obrazovky</string>
     <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
     <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
     <string name="fix_stuck_inversion_title">Opraviť invertované farby</string>
     <string name="fix_stuck_inversion">Na niektorých zariadeniach sa môžu povolené invertovné farby zaseknúť. Kliknite pre vynútenie zkázania</string>
+    <string name="header_clock_size_title">Veľkosť hodín v záhlaví</string>
+    <string name="header_clock_size_normal">Normálne</string>
+    <string name="header_clock_size_small">Melé</string>
+    <string name="header_clock_size_smaller">Menšie</string>
+    <string name="header_clock_size_tiny">Maličké</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Skryť položky záhlavia</string>
     <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
     <string name="hide_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc</string>
+    <string name="hide_edit_tiles_summary">Toto skryje iba základné tlačidlo pre úpravu!</string>
     <string name="hide_carrier_label_title">Skryť operátora</string>
     <!-- /Hide header icons -->
     <!-- /QUICK SETTINGS -->
