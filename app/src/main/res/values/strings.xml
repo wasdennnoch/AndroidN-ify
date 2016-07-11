@@ -141,7 +141,7 @@
     <string name="hide_icons_title">Hide header items</string>
     <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
     <string name="hide_edit_tiles_title">Hide edit tiles button</string>
-    <string name="hide_edit_tiles_summary">This only hides the stock edit buton!</string>
+    <string name="hide_edit_tiles_summary">This only hides the stock edit button!</string>
     <string name="hide_carrier_label_title">Hide carrier label</string>
     <!-- /Hide header icons -->
     <!-- /QUICK SETTINGS -->
