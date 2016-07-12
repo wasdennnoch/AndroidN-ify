@@ -3,12 +3,12 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
@@ -143,13 +142,18 @@ public class QuickQSPanel extends LinearLayout {
             mTopFiveQs.add(findIcon(qsTileView));
         }
 
-
-        Path path = new Path();
-        path.moveTo(0.0F, 0.0F);
-        path.cubicTo(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        PathInterpolatorBuilder b = new PathInterpolatorBuilder(0.0F, 0.0F, 0.0F, 1.0F);
-        builder.setInterpolator(b.getXInterpolator());
-        builder1.setInterpolator(b.getYInterpolator());
+        builder.setInterpolator(new Interpolator() {
+            @Override
+            public float getInterpolation(float input) {
+                return input * input * input;
+            }
+        });
+        builder1.setInterpolator(new Interpolator() {
+            @Override
+            public float getInterpolation(float input) {
+                return (input - 1) * (input - 1) * (input - 1) + 1;
+            }
+        });
 
         builder2.setStartDelay(0.86f);
         builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
