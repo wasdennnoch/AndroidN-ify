@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -141,6 +142,21 @@ public class QuickQSPanel extends LinearLayout {
 
             mTopFiveQs.add(findIcon(qsTileView));
         }
+        // Ease in quadratic for X
+        builder.setInterpolator(new Interpolator() {
+            @Override
+            public float getInterpolation(float input) {
+                return input * input;
+            }
+        });
+        // Ease out quad for Y
+        builder1.setInterpolator(new Interpolator() {
+            @Override
+            public float getInterpolation(float input) {
+                return -input * (input - 2);
+            }
+        });
+
         builder2.setStartDelay(0.7f);
         builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
         if (StatusBarHeaderHooks.mEditButton != null)
