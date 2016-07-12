@@ -58,7 +58,8 @@ public class LiveDisplayTile extends QSTile {
     @Override
     public void handleDestroy() {
         super.handleDestroy();
-        mContext.unregisterReceiver(sBroadcastReceiver);
+        if (mContext != null) // for some reason mContext is null on some devices, but it doesn't crash in init
+            mContext.unregisterReceiver(sBroadcastReceiver);
     }
 
     private PendingIntent getCustomTileNextModePendingIntent() {
