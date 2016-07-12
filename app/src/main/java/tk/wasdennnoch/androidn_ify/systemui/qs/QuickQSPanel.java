@@ -137,8 +137,7 @@ public class QuickQSPanel extends LinearLayout {
             builder1.addFloat(tileView, "translationY", 0f, (float) i1);
 
             builder4.addFloat(qsTileView, "translationX", (float) -k, 0f);
-            builder5.addFloat(qsTileView, "translationY", (float) -i1 + gridHeight
-                            + StatusBarHeaderHooks.mQsContainer.getPaddingBottom(), 0f);
+            builder5.addFloat(qsTileView, "translationY", gridHeight - StatusBarHeaderHooks.mQsContainer.getPaddingBottom(), 0f);
 
             mTopFiveQs.add(findIcon(qsTileView));
         }
@@ -157,7 +156,7 @@ public class QuickQSPanel extends LinearLayout {
             }
         });
 
-        builder2.setStartDelay(0.7f);
+        builder2.setStartDelay(0.85f);
         builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
         if (StatusBarHeaderHooks.mEditButton != null)
             builder2.addFloat(StatusBarHeaderHooks.mEditButton, "alpha", 0f, 1f);
