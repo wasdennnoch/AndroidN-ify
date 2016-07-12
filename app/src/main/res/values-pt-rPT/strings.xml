@@ -132,7 +132,7 @@
     <string name="fix_stuck_inversion_title">Consertar inversão presa</string>
     <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores falha quando activada. Seleccione esta opção para forçar a desactivação</string>	
 
-	<string name="header_clock_size_title">Tamanho do relógio do cabeçalho</string>
+    <string name="header_clock_size_title">Tamanho do relógio do cabeçalho</string>
     <string name="header_clock_size_normal">Normal</string>
     <string name="header_clock_size_small">Pequeno</string>
     <string name="header_clock_size_smaller">Menor</string>
@@ -141,7 +141,7 @@
     <string name="hide_icons_title">Esconder itens do cabeçalho</string>    
     <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Esconder o botão de editar blocos</string>
-	<string name="hide_edit_tiles_title">Isto esconde somente o botão padrão de editar blocos!</string>	
+    <string name="hide_edit_tiles_summary">Isto esconde somente o botão padrão de editar blocos!</string>	
     <string name="hide_carrier_label_title">Esconder o nome da operadora</string>
     <!-- /Hide header icons -->    
     <!-- /QUICK SETTINGS -->
@@ -226,7 +226,7 @@
     <string name="live_display_outdoor">Externo (sol forte)</string>		
     <!-- /QS -->
 	
-	<!-- Color Picker -->
+    <!-- Color Picker -->
     <string name="dialog_color_picker">Selector de cores</string>
     <string name="press_color_to_apply">Prima Cor para aplicar</string>
     <!-- /Color Picker -->		
