@@ -3,12 +3,12 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
@@ -141,22 +142,16 @@ public class QuickQSPanel extends LinearLayout {
 
             mTopFiveQs.add(findIcon(qsTileView));
         }
-        // Ease in quadratic for X
-        builder.setInterpolator(new Interpolator() {
-            @Override
-            public float getInterpolation(float input) {
-                return input * input;
-            }
-        });
-        // Ease out quad for Y
-        builder1.setInterpolator(new Interpolator() {
-            @Override
-            public float getInterpolation(float input) {
-                return -input * (input - 2);
-            }
-        });
 
-        builder2.setStartDelay(0.85f);
+
+        Path path = new Path();
+        path.moveTo(0.0F, 0.0F);
+        path.cubicTo(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        PathInterpolatorBuilder b = new PathInterpolatorBuilder(0.0F, 0.0F, 0.0F, 1.0F);
+        builder.setInterpolator(b.getXInterpolator());
+        builder1.setInterpolator(b.getYInterpolator());
+
+        builder2.setStartDelay(0.86f);
         builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
         if (StatusBarHeaderHooks.mEditButton != null)
             builder2.addFloat(StatusBarHeaderHooks.mEditButton, "alpha", 0f, 1f);
@@ -238,19 +233,17 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
-    private void getRelativePosition(int ai[], View view, View view1)
-    {
+    private void getRelativePosition(int ai[], View view, View view1) {
         ai[0] = view.getWidth() / 2;
         ai[1] = 0;
         getRelativePositionInt(ai, view, view1);
     }
 
-    private void getRelativePositionInt(int ai[], View view, View view1)
-    {
+    private void getRelativePositionInt(int ai[], View view, View view1) {
         if (view != null && view != view1) {
-            ai[0] = (int)((float)ai[0] + view.getX());
+            ai[0] = (int) ((float) ai[0] + view.getX());
             ai[1] = ai[1] + view.getTop();
-            getRelativePositionInt(ai, (View)view.getParent(), view1);
+            getRelativePositionInt(ai, (View) view.getParent(), view1);
         }
     }
 
@@ -291,9 +284,9 @@ public class QuickQSPanel extends LinearLayout {
             setOrientation(HORIZONTAL);
             //setGravity(16);
             setGravity(Gravity.CENTER_VERTICAL);    // CENTER_VERTICAL = AXIS_SPECIFIED<<AXIS_Y_SHIFT
-                                                    // AXIS_SPECIFIED = 1 (00000001)
-                                                    // AXIS_Y_SHIFT = 4
-                                                    // 1<<4 = 16 (00010000)
+            // AXIS_SPECIFIED = 1 (00000001)
+            // AXIS_Y_SHIFT = 4
+            // 1<<4 = 16 (00010000)
             setClipChildren(false);
             setClipToPadding(false);
             mEndSpacer = new Space(context);

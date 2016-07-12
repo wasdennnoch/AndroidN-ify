@@ -39,6 +39,7 @@ public class QSTileHostHooks {
 
     protected static Object mTileHost = null;
 
+    // MM
     private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
@@ -87,7 +88,7 @@ public class QSTileHostHooks {
         }
     };
 
-    // For LP
+    // LP
     private static XC_MethodHook recreateTilesHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
@@ -119,13 +120,11 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-
             if (mTilesManager == null)
                 mTilesManager = new TilesManager(param.thisObject);
 
             List<String> tileSpecs = new ArrayList<>(); // Do this since mTileSpecs doesn't exist on LP
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
-
             Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
 
             tileSpecs.clear();
