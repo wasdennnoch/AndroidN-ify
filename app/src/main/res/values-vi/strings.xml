@@ -30,7 +30,7 @@
     <string name="enable_new_tile_click_behavior_summary">Nhấn vào ô trên thanh tiêu đề để bật/tắt, nhấn vào ô trong Cài đặt nhanh để phóng lớn nó</string>
     <string name="enable_notification_header">Tùy chỉnh thanh tiêu đề</string>
     <string name="enable_recents_double_tap">Nhấn hai lần nút chuyển ứ.dụng để quay về ứ.dụng trước đó</string>
-    <string name="enable_recents_double_tap_title">Chuyển ứdụng nhanh</string>
+    <string name="enable_recents_double_tap_title">Chuyển ứ.dụng nhanh</string>
     <string name="enable_settings_summaries">Hiện những thông tin quan trọng trực tiếp lên màn hình Cài đặt</string>
     <string name="enable_settings_summaries_title">Tóm tắt cài đặt</string>
     <string name="fix_sound_notif_tile">Một vài ROM gộp cài đặt Âm thanh và Thông báo. Bật để hiển thị tóm tắt phù hợp cho mục này</string>
@@ -78,9 +78,9 @@
     <string name="recents_navigation_delay_title">Độ trễ điều hướng</string>
     <string name="requires_android_version">Yêu cầu Android %1$s</string>
     <string name="restart_broadcast_sent">Đã gửi tín hiệu khởi động lại</string>
-    <string name="restart_systemui">Khởi động lại Giao diện người dùng hệ thống</string>
+    <string name="restart_systemui">Khởi động lại SystemUI</string>
     <string name="restart_systemui_message">Bạn có chắc muốn khởi động lại Giao diện người dùng hệ thống không?</string>
-    <string name="sound_summary">Âm lượng chuông là %1$s</string>
+    <string name="sound_summary">Âm lượng chuông %1$s</string>
     <string name="storage_summary">Đã dùng %1$s trên %2$s</string>
     <string name="theme_colorPrimary">Màu chính</string>
     <string name="update_notification">Phiên bản %1$d đã sẵn sàng để cập nhật!</string>
@@ -155,6 +155,14 @@
     <string name="header_qs">Cài đặt nhanh</string>
     <string name="live_display">LiveDisplay</string>
     <string name="use_namey_mcnameface_title">Dùng biểu tượng \"Namey McNameface\" </string>
-    <string name="alternative_double_tap_title">phát hiện chạm đôi kiểu khác </string>
-    <string name="alternative_double_tap">Bật nếu Chuyển ứ.dụng nhanh hoạt động không như </string>
+    <string name="alternative_double_tap_title">Phát hiện chạm đôi kiểu khác</string>
+    <string name="alternative_double_tap">Bật nếu Chuyển ứ.dụng nhanh không hoạt động như mong mong muốn</string>
+    <string name="dialog_color_picker">Bảng chọn màu </string>
+    <string name="header_clock_size_normal">Bình thường </string>
+    <string name="header_clock_size_small">Nhỏ </string>
+    <string name="header_clock_size_smaller">Nhỏ hơn </string>
+    <string name="header_clock_size_tiny">Tí hon </string>
+    <string name="header_clock_size_title">Cỡ đồng hồ trên thanh tiêu đề </string>
+    <string name="logcat_notif_finished">%1$s dòng đã lưu vào %2$s</string>
+    <string name="press_color_to_apply">Bấm vào màu để áp dụng </string>
 </resources>
