@@ -131,10 +131,17 @@
     <string name="notification_full_width_volume">针对大屏幕手机移除音量控制条的宽度限制</string>
     <string name="fix_stuck_inversion_title">修复颜色反转卡顿</string>
     <string name="fix_stuck_inversion">一些设备可能在启用反转磁贴后出现屏幕卡顿的问题。点此可强制停用</string>
+    
+    <string name="header_clock_size_title">顶栏时钟大小</string>
+    <string name="header_clock_size_normal">正常</string>
+    <string name="header_clock_size_small">小</string>
+    <string name="header_clock_size_smaller">更小</string>
+    <string name="header_clock_size_tiny">最小</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">隐藏顶栏内的项目</string>
     <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
     <string name="hide_edit_tiles_title">隐藏编辑磁贴按钮</string>
+    <string name="hide_edit_tiles_summary">该选项仅用于隐藏 ROM 内自带的编辑按钮！</string>
     <string name="hide_carrier_label_title">隐藏运营商名称</string>
     <!-- /Hide header icons -->
     <!-- /QUICK SETTINGS -->
