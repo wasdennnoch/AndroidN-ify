@@ -80,10 +80,10 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public void handleDestroy() {
-        super.handleDestroy();
         SystemUIHooks.batteryInfoManager.unregisterListener(this);
         mTileBatteryData = null;
         mBatteryView = null;
+        super.handleDestroy();
     }
 
     // A mix of GB BatteryView and AOSP BatteryMeterView
