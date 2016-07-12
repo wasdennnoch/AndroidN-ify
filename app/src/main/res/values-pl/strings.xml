@@ -127,8 +127,6 @@
     <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go, \na dotknięcie kafelka w rozwiniętym panelu rozszerzy go</string>
     <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
     <string name="enable_large_first_row_summary">Jeśli posiadasz CyanogenMod, użyj menu konfiguracji aby edytować kafelki</string>
-    <string name="smaller_header_clock_title">Mniejszy zegarek</string>
-    <string name="smaller_header_clock">Zmniejsza rozmiar tekstu zegarka w rozwiniętym nagłówku. Przydatne dla telefonów z małym ekranem</string>
     <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
     <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności. Przydatne dla telefonów z dużym ekranem</string>
     <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>

@@ -122,8 +122,6 @@
     <string name="enable_new_tile_click_behavior_summary">Als je klikt op een tegel die zich in de header bevindt, wordt deze geopend en het paneel wordt uitgebreid</string>
     <string name="enable_large_first_row_summary">Gebruik het instellingsmenu van de \"pas tegels aan\" knop op CM ipv dit</string>
     <string name="enable_large_first_row">Vouw eerste rij uit</string>
-    <string name="smaller_header_clock_title">Kleinere klok</string>
-    <string name="smaller_header_clock">Maak het lettertype van de klok kleiner in de uitvouwbare header. Handig voor kleinere schermen</string>
     <string name="notification_full_width_volume_title">Bredere geluidsmenu</string>
     <string name="notification_full_width_volume">Zet de beperking voor de grootte van het geluidsmenu uit voor telefoons met grote schermen</string>
     <!-- Hide header icons -->

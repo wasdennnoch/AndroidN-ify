@@ -124,8 +124,6 @@
     <string name="enable_new_tile_click_behavior_summary">Eine Kachel im Header klicken, um sie zu (de)aktivieren, im Panel, um Details zu zeigen</string>
     <string name="enable_large_first_row">Erste Reihe vergrößern</string>
     <string name="enable_large_first_row_summary">In CM das Konfigurationsmenü im Kachel-Bearbeitungs-Modus benutzen</string>
-    <string name="smaller_header_clock_title">Kleinere Uhr</string>
-    <string name="smaller_header_clock">Verringert die Textgröße der Uhr im ausgedehnten Header. Nützlich für kleine Bildschirme</string>
     <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
     <string name="notification_full_width_volume">Entfernt das Breitenlimit des Lautstärkedialogs auf Geräten mit großem Bildschirm</string>
     <string name="fix_stuck_inversion_title">Invertierung reparieren</string>

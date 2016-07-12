@@ -41,6 +41,7 @@
     <string name="logcat_notif_finished_title">Logcat mentve</string>
     <string name="logcat_notif_preparing">Előkészítés&#8230;</string>
     <string name="logcat_notif_ongoing_lines">%1$s sor mentve&#8230;</string>
+    <string name="logcat_notif_finished">%1$s sor mentve ide: %2$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Megállítás</string>
 
     <string name="requesting_root">Root hozzáférés igénylése&#8230;</string>
@@ -94,6 +95,8 @@
     <string name="header_recents">Alkalmazás előzmények</string>
     <string name="enable_recents_double_tap_title">Gyors váltás</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Az előzmények gomb dupla érintésre a legutóbbi alkalmazásra vált</string>
+    <string name="alternative_double_tap_title">Alternatív dupla érintés érzékelési mód</string>
+    <string name="alternative_double_tap">Engedélyezd, ha a Gyors váltás nem működik megfelelően</string>
     <string name="double_tap_speed_title">Dupla érintés sebessége</string>
     <string name="recents_button_behavior_title">Előzmények gomb viselkedése érintésre</string>
     <string name="recents_navigation_delay_title">Navigációs késleltetés</string>
@@ -125,8 +128,6 @@
     <string name="enable_new_tile_click_behavior_summary">A csempe érintéskor a fejlécben be- és kikapcsolja a beállítást, a lenyitott panelben pedig kiterjeszti azt</string>
     <string name="enable_large_first_row">Első sor nagyítása</string>
     <string name="enable_large_first_row_summary">CM alatt ehelyett használd a csempék szerkesztése mód beállítás-menüjét</string>
-    <string name="smaller_header_clock_title">Kisebb óra</string>
-    <string name="smaller_header_clock">Lekicsinyíti az óra betűméretét a lenyitott fejlécben. Jól jöhet kis képernyőjű eszközökön</string>
     <string name="notification_full_width_volume_title">Teljes szélességű hangerőszabályozó ablak</string>
     <string name="notification_full_width_volume">Megszűnteti a hangerőszabályozó ablak szélességének korlátozását a nagy képernyőjű telefonokon</string>
     <string name="fix_stuck_inversion_title">Beragadt inverzió javítása</string>
@@ -218,5 +219,10 @@
     <string name="live_display_night">Éjszaka</string>
     <string name="live_display_outdoor">Kültér (erős napfény)</string>
     <!-- /QS -->
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Színválasztó</string>
+    <string name="press_color_to_apply">Koppints a Színre az alkalmazáshoz</string>
+    <!-- /Color Picker -->
     
 </resources>

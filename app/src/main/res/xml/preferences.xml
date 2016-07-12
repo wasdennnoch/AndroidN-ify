@@ -167,12 +167,14 @@
                 android:summary="@string/enable_large_first_row_summary"
                 android:title="@string/enable_large_first_row"/>
 
-            <SwitchPreference
-                android:defaultValue="false"
+            <tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference
+                android:defaultValue="0"
                 android:dependency="enable_notification_header"
-                android:key="smaller_header_clock"
-                android:summary="@string/smaller_header_clock"
-                android:title="@string/smaller_header_clock_title"/>
+                android:entries="@array/header_clock_sizes"
+                android:entryValues="@array/header_clock_sizes_values"
+                android:key="header_clock_size"
+                android:summary="[%s]"
+                android:title="@string/header_clock_size_title"/>
 
             <PreferenceScreen
                 android:dependency="enable_notification_header"
@@ -189,6 +191,7 @@
                     android:defaultValue="false"
                     android:dependency="enable_notification_header"
                     android:key="hide_edit_tiles"
+                    android:summary="@string/hide_edit_tiles_summary"
                     android:title="@string/hide_edit_tiles_title"/>
 
                 <SwitchPreference

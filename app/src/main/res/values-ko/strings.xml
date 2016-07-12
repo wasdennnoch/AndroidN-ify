@@ -124,8 +124,6 @@
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
     <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
-    <string name="smaller_header_clock_title">작은 시계</string>
-    <string name="smaller_header_clock">확장 헤더의 시계의 텍스트의 크기를 줄입니다. 화면이 작은 디바이스들에게 유용합니다</string>
     <string name="notification_full_width_volume_title">볼륨 다이아로그 길이 제한 해제</string>
     <string name="notification_full_width_volume">큰 화면을 사용하는 디바이스들을 위해 볼륨 다이아로그 길이 제한을 해제합니다</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>

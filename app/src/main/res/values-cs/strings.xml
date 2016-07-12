@@ -72,8 +72,6 @@
     <string name="enable_new_tile_click_behavior_summary">Klepnutí na dlaždici v záhlaví ji přepne a klepnutí na dlaždici v panelu ji rozbalí</string>
     <string name="enable_large_first_row">Zvětšit prví řádek</string>
     <string name="enable_large_first_row_summary">Na CM raději použijte menu pro nastavení dlaždic</string>
-    <string name="smaller_header_clock_title">Menší hodiny</string>
-    <string name="smaller_header_clock">Zmenší text pro hodiny v otevřeném záhlaví. Užitečné pro menší obrazovky</string>
     <string name="notification_full_width_volume_title">Dialog s hlasitostí na celou šířku</string>
     <string name="notification_full_width_volume">Odstrani limit šířky pro dialog s hlasitostí na telefonech s velkou obrazovkou</string>
     <string name="fix_stuck_inversion_title">Opravit invertované barvy</string>

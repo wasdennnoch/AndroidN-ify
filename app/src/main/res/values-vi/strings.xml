@@ -80,8 +80,6 @@
     <string name="restart_broadcast_sent">Đã gửi tín hiệu khởi động lại</string>
     <string name="restart_systemui">Khởi động lại Giao diện người dùng hệ thống</string>
     <string name="restart_systemui_message">Bạn có chắc muốn khởi động lại Giao diện người dùng hệ thống không?</string>
-    <string name="smaller_header_clock">Giảm cỡ chữ đồng hồ trên thanh tiêu đề mở rộng. Tốt cho màn hình nhỏ</string>
-    <string name="smaller_header_clock_title">Đồng hồ nhỏ hơn</string>
     <string name="sound_summary">Âm lượng chuông là %1$s</string>
     <string name="storage_summary">Đã dùng %1$s trên %2$s</string>
     <string name="theme_colorPrimary">Màu chính</string>

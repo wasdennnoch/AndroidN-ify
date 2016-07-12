@@ -19,7 +19,6 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.service.notification.StatusBarNotification;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -122,14 +121,25 @@ public class NotificationsHooks {
             // actions background
             if (!ConfigUtils.notifications().custom_actions_color) {
                 View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
-                if (expandedChild != null) {
-                    View actions = expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
-                    if (actions != null) {
-                        int origBgColor = ContextCompat.getColor(context, context.getResources().getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));
-                        double[] lab = new double[3];
-                        ColorUtils.colorToLAB(origBgColor, lab);
-                        lab[0] = 1.0f - 0.8f * (1.0f - lab[0]);
-                        actions.setBackgroundColor(ColorUtils.LABToColor(lab[0], lab[1], lab[2]));
+                View headsUpChild = (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild");
+                if (expandedChild != null || headsUpChild != null) {
+                    int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
+                    int origBgColor = context.getResources().getColor(context.getResources().getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));
+                    double[] lab = new double[3];
+                    ColorUtils.colorToLAB(origBgColor, lab);
+                    lab[0] = 1.0f - 0.8f * (1.0f - lab[0]);
+                    int endColor = ColorUtils.LABToColor(lab[0], lab[1], lab[2]);
+                    if (expandedChild != null) {
+                        View actionsExpanded = expandedChild.findViewById(actionsId);
+                        if (actionsExpanded != null) {
+                            actionsExpanded.setBackgroundColor(endColor);
+                        }
+                    }
+                    if (headsUpChild != null) {
+                        View actionsHeadsUp = headsUpChild.findViewById(actionsId);
+                        if (actionsHeadsUp != null) {
+                            actionsHeadsUp.setBackgroundColor(endColor);
+                        }
                     }
                 }
             }
@@ -369,8 +379,16 @@ public class NotificationsHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", zero);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
+
+                try {
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_children_padding", zero);
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_children_divider_height", zero);
+                    //resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "z_distance_between_notifications", zero);
+                } catch (Throwable ignore) {
+                }
 
                 if (config.notifications.change_style) {
                     // Notifications

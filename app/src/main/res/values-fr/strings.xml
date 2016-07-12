@@ -92,9 +92,7 @@
     <string name="enable_new_tile_click_behavior_summary">Un clic sur une tuile de l\'entête la basculeras et un appui sur une tuile du panneau ouvrira directement ses paramètres</string>
     <string name="enable_large_first_row">Aggrandir la première rangée</string>
     <string name="enable_large_first_row_summary">Sur CM utilisez à la place le menu de configuration du mode d\'édition</string>
-    <string name="smaller_header_clock_title">Petite horloge</string>
-    <string name="smaller_header_clock">Réduit la taille de l\'horloge dans la vue étendue. Utile pour les petits écrans</string>
-	<string name="notification_full_width_volume_title">Largeur totale boîte de dialogue du volume</string>
+    <string name="notification_full_width_volume_title">Largeur totale boîte de dialogue du volume</string>
     <string name="notification_full_width_volume">Supprimer la limite de la largeur de la boîte de dialogue du volume pour les téléphones avec grand écran</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Cacher les éléments d\'entête</string>

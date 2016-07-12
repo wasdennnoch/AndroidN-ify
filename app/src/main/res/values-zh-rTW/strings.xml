@@ -84,8 +84,6 @@
     <string name="enable_new_tile_click_behavior_summary">點擊下拉式狀態列內的瓷磚時直接切換狀態\n點擊快速設定内的顯示項目时展開設定項目</string>
     <string name="enable_large_first_row">首行瓷磚強制放大</string>
     <string name="enable_large_first_row_summary">使用 CyanogenMod 的使用者請透過編輯瓷磚模式中的設定選單進行設定</string>
-    <string name="smaller_header_clock_title">更小的時鐘</string>
-    <string name="smaller_header_clock">縮小時鐘在展開下拉式狀態列時的文字大小。有助於小螢幕的裝置</string>
     <string name="notification_full_width_volume_title">最大化音量對話框的寬度</string>
     <string name="notification_full_width_volume">在較大螢幕的手機上移除音量對話框的寬度限制</string>
     <!-- Hide header icons -->

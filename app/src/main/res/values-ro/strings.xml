@@ -102,8 +102,6 @@
     <string name="enable_new_tile_click_behavior_summary">Apăsând un chenar în antet îl vei comuta și apăsând un chenar în panou îl vei extinde</string>
     <string name="enable_large_first_row">Lărgeste primul rând</string>
     <string name="enable_large_first_row_summary">Pe CM folosește meniul de modificare a SR în schimb</string>
-    <string name="smaller_header_clock_title">Ceas mai mic</string>
-    <string name="smaller_header_clock">Micșorează dimensiunea ceasului în antetul extins. Folositor pentru ecranele mici</string>
     <string name="notification_full_width_volume_title">Dialog volum lățime completă</string>
     <string name="notification_full_width_volume">Dezactivează limita lațimei dialogului de volum pt. ecranele mari</string>
     <!-- Hide header icons -->

@@ -61,10 +61,11 @@ public class StatusBarHeaderHooks {
 
     private static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
+
     private static final String CLASS_STATUS_BAR_HEADER_VIEW = "com.android.systemui.statusbar.phone.StatusBarHeaderView";
     private static final String CLASS_LAYOUT_VALUES = CLASS_STATUS_BAR_HEADER_VIEW + "$LayoutValues";
-    private static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
     private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
+    private static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
     private static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
     private static final String CLASS_QS_STATE = CLASS_QS_TILE + "$State";
     private static final String CLASS_QS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
@@ -192,6 +193,7 @@ public class StatusBarHeaderHooks {
             mHideTunerIcon = config.qs.hide_tuner_icon;
             mHideEditTiles = config.qs.hide_edit_tiles;
             mHideCarrierLabel = config.qs.hide_carrier_label;
+            // workaround for a bug where the clock would get a wrong position when opening the detail view
             View dummyClock = new View(context);
             dummyClock.setVisibility(View.GONE);
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
@@ -239,7 +241,7 @@ public class StatusBarHeaderHooks {
                 int rightIconWidth = mTaskManagerButton != null && mShowTaskManager ? res.getDimensionPixelSize(R.dimen.right_icon_width_small) : rightIconHeight;
                 int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
                 int headerItemsMarginTop = res.getDimensionPixelSize(R.dimen.header_items_margin_top);
-                int alarmStatusTextColor = res.getColor(R.color.alarm_status_text_color);
+                int alarmStatusTextColor = mAlarmStatus.getCurrentTextColor();
                 int dateTimeCollapsedSize = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
                 int dateTimeTextColor = mTime.getCurrentTextColor();
                 int dateCollapsedDrawablePadding = res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding);
@@ -292,9 +294,8 @@ public class StatusBarHeaderHooks {
                 RelativeLayout.LayoutParams emergencyCallsOnlyLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 emergencyCallsOnlyLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 mEmergencyCallsOnly.setLayoutParams(emergencyCallsOnlyLp);
-                //noinspection deprecation
                 mEmergencyCallsOnly.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimensionPixelSize(R.dimen.emergency_calls_only_text_size));
-                mEmergencyCallsOnly.setTextColor(res.getColor(R.color.emergency_calls_only_text_color));
+                mEmergencyCallsOnly.setTextColor(alarmStatusTextColor);
                 mEmergencyCallsOnly.setPadding(0, 0, 0, 0);
                 mEmergencyCallsOnly.setVisibility(View.GONE);
 
@@ -313,8 +314,6 @@ public class StatusBarHeaderHooks {
                 LinearLayout.LayoutParams alarmStatusLp = new LinearLayout.LayoutParams(WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.alarm_status_height));
                 mAlarmStatus.setLayoutParams(alarmStatusLp);
                 mAlarmStatus.setGravity(Gravity.TOP);
-                //noinspection deprecation
-                mAlarmStatus.setTextColor(alarmStatusTextColor);
                 mAlarmStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX, dateTimeCollapsedSize);
                 mAlarmStatus.setPadding(0, res.getDimensionPixelSize(R.dimen.alarm_status_padding_top), 0, 0);
                 mAlarmStatus.setCompoundDrawablePadding(res.getDimensionPixelSize(R.dimen.alarm_status_drawable_padding));
@@ -355,13 +354,11 @@ public class StatusBarHeaderHooks {
                 mAlarmStatusCollapsed.setLayoutParams(alarmStatusCollapsedLp);
                 mAlarmStatusCollapsed.setId(View.generateViewId());
                 mAlarmStatusCollapsed.setGravity(Gravity.TOP);
-                //noinspection deprecation
                 mAlarmStatusCollapsed.setTextColor(alarmStatusTextColor);
                 mAlarmStatusCollapsed.setTextSize(TypedValue.COMPLEX_UNIT_PX, dateTimeCollapsedSize);
                 mAlarmStatusCollapsed.setClickable(false);
                 mAlarmStatusCollapsed.setFocusable(false);
                 mAlarmStatusCollapsed.setVisibility(View.GONE);
-                //noinspection deprecation
                 mAlarmStatusCollapsed.setCompoundDrawablesWithIntrinsicBounds(alarmSmall, null, null, null);
                 mAlarmStatusCollapsed.setBackgroundResource(0);
                 mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
@@ -416,7 +413,7 @@ public class StatusBarHeaderHooks {
 
             } catch (Throwable t) {
                 // :(
-                XposedHook.logE(TAG, "Error modifying the layout", t);
+                XposedHook.logE(TAG, "Error modifying header layout", t);
                 return;
             }
 
@@ -594,10 +591,12 @@ public class StatusBarHeaderHooks {
         ResourceUtils res = ResourceUtils.getInstance(context);
         float timeCollapsed = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
         float timeExpanded;
-        if (ConfigUtils.qs().smaller_header_clock)
-            timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small);
-        else
-            timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size);
+        switch (ConfigUtils.qs().header_clock_size) {
+            case 1: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small); break;
+            case 2: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_smaller); break;
+            case 3: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_tiny); break;
+            default: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_normal); break;
+        }
         float dateScaleFactor = timeExpanded / timeCollapsed;
         float gearTranslation = res.getDimension(R.dimen.settings_gear_translation);
 
@@ -1039,12 +1038,23 @@ public class StatusBarHeaderHooks {
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         if (param.args[0] == mClock) {
                             try {
-                                XposedHelpers.callMethod(mStatusBarHeaderView, "startClockActivity");
+                                XposedHelpers.callMethod(param.thisObject, "startClockActivity");
                             } catch (Throwable ignore) {
                             }
                         }
                     }
                 });
+
+                // TODO ripples don't clip, but icons do?!
+                /*XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpanded", boolean.class, new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        boolean clip = !(boolean) param.args[0];
+                        XposedHook.logI("androidn_ify", "clip " + clip);
+                        mStatusBarHeaderView.setClipChildren(clip);
+                        mStatusBarHeaderView.setClipToPadding(clip);
+                    }
+                });*/
 
                 try {
                     XposedHelpers.findAndHookMethod(classQSPanel, "fireShowingDetail", CLASS_DETAIL_ADAPTER, new XC_MethodReplacement() {
@@ -1157,12 +1167,13 @@ public class StatusBarHeaderHooks {
                                 new XResources.DimensionReplacement(resparam.res.getDimensionPixelSize(
                                         resparam.res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI)),
                                         TypedValue.COMPLEX_UNIT_PX));
+                        resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_tile_divider_height", zero);
                     } catch (Throwable t) {
-                        XposedHook.logE(TAG, "Couldn't change qs_dual_tile_height (" + t.getClass().getSimpleName() + ")", null);
+                        XposedHook.logE(TAG, "Couldn't change qs_dual_tile_height or qs_tile_divider_height (" + t.getClass().getSimpleName() + ")", null);
                     }
                 }
 
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00FFFFFF);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00000000);
 
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded_header", new XC_LayoutInflated() {
                     @Override
