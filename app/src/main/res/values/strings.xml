@@ -194,8 +194,8 @@
 
     <string name="info_unspecified">None specified</string>
 
-    <string name="info_bloodtype_op">0+</string>
-    <string name="info_bloodtype_on">0-</string>
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>

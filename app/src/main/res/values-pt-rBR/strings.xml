@@ -10,7 +10,7 @@
     <string name="restart_broadcast_sent">Broadcast de reinício enviado</string>
     <string name="activity_about">Sobre o Android N-ify</string>
     <string name="about_author">Desenvolvido por @MrWasdennnoch</string>
-    <string name="about_translator">Traduzido por @KingKaminari</string>
+    <string name="about_translator">Traduzido por @Kamin4ri</string>
     <string name="about_version">Versão %1$s (%2$d)</string>	
 
     <!-- prefs -->
@@ -41,16 +41,17 @@
     <string name="logcat_notif_ongoing_title">Salvando relatório&#8230;</string>
     <string name="logcat_notif_finished_title">Relatório salvo</string>
     <string name="logcat_notif_preparing">Preparando&#8230;</string>
-    <string name="logcat_notif_ongoing_lines">Salvando %1$s linhas&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">%1$s linhas salvas&#8230;</string>
+    <string name="logcat_notif_finished">%1$s linhas salvas em %2$s</string> <!-- %2$s == file path -->	
     <string name="action_stop">Parar</string>
 
-    <string name="requesting_root">Precisa de acceso root&#8230;</string>
+    <string name="requesting_root">Necessário acesso root&#8230;</string>
     <string name="root_failed">Falha ao ativar a permissão READ_LOGS</string>
     <string name="permission_required">Necessita de permissões</string>
     <string name="logs_permission_description">
-        Em versões posteriores a Jelly Bean os aplicativos não tem permissão para acessar o relatório de erro.
-        No entanto, a permissão READ_LOGS pode ser ativada manualmente sem root.
-        Após a ativação, você precisará reiniciar o dispositivo para aplicar as alterações.
+        A partir do Android Jelly Bean, os aplicativos não têm mais permissão para acessar o relatório de erro.
+        No entanto, a permissão READ_LOGS pode ser concedida manualmente com root.
+        Após conceder a permissão, você precisará reiniciar o aplicativo para aplicar as alterações.
     </string>
 	
     <string name="requires_android_version">Requer Android %1$s</string>
@@ -129,12 +130,19 @@
     <string name="enable_large_first_row_summary">Na CM use o menu de configuração do modo Editar blocos ao invés desta opção</string>
     <string name="notification_full_width_volume_title">Largura do painel de volume</string>
     <string name="notification_full_width_volume">Remover o limite de largura do painel de volume em dispositivos com telas grandes</string>
-    <string name="fix_stuck_inversion_title">Fix inversão presa</string>
-    <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores falha quando ativada. Selecione está opção para forçar a desativação</string>
-    <!-- Hide header icons -->
+    <string name="fix_stuck_inversion_title">Consertar inversão presa</string>
+    <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores falha quando ativada. Selecione esta opção para forçar a desativação</string>
+    
+	<string name="header_clock_size_title">Tamanho do relógio do cabeçalho</string>
+    <string name="header_clock_size_normal">Normal</string>
+    <string name="header_clock_size_small">Pequeno</string>
+    <string name="header_clock_size_smaller">Menor</string>
+    <string name="header_clock_size_tiny">Minúsculo</string>
+	<!-- Hide header icons -->
     <string name="hide_icons_title">Esconder itens do cabeçalho</string>    
     <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Esconder o botão de editar blocos</string>
+	<string name="hide_edit_tiles_summary">Isto esconde somente o botão padrão de editar blocos!</string>
     <string name="hide_carrier_label_title">Esconder o nome da operadora</string>
     <!-- /Hide header icons -->    
     <!-- /QUICK SETTINGS -->
@@ -217,5 +225,12 @@
     <string name="live_display_day">Dia</string>
     <string name="live_display_night">Noite</string>
     <string name="live_display_outdoor">Externo (sol forte)</string>	
-    <!-- /QS -->	
+    <!-- /QS -->
+	
+	<!-- Color Picker -->
+    <string name="dialog_color_picker">Seletor de cores</string>
+    <string name="press_color_to_apply">Pressione Cor para aplicar</string>
+    <!-- /Color Picker -->	
+	
 </resources>
+
