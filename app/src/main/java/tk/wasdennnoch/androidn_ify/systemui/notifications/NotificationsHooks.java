@@ -127,7 +127,7 @@ public class NotificationsHooks {
                     int origBgColor = context.getResources().getColor(context.getResources().getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));
                     double[] lab = new double[3];
                     ColorUtils.colorToLAB(origBgColor, lab);
-                    lab[0] = 1.0f - 0.8f * (1.0f - lab[0]);
+                    lab[0] = 1.0f - 0.95f * (1.0f - lab[0]);
                     int endColor = ColorUtils.LABToColor(lab[0], lab[1], lab[2]);
                     if (expandedChild != null) {
                         View actionsExpanded = expandedChild.findViewById(actionsId);
