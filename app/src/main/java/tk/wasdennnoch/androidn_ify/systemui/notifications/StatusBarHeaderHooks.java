@@ -1232,7 +1232,16 @@ public class StatusBarHeaderHooks {
                         params.setMarginStart(0);
                         params.setMarginEnd(0);
 
-                        mQsPanel = (ViewGroup) layout.getChildAt(0);
+                        try {
+                            mQsPanel = (ViewGroup) layout.getChildAt(0);
+                        } catch (Throwable t1) {
+                            try { // RR added an ImageView (background) first
+                                mQsPanel = (ViewGroup) layout.getChildAt(1);
+                                if (mQsPanel == null) throw new Throwable();
+                            } catch (Throwable t2) {
+                                mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
+                            }
+                        }
 
                         if (ConfigUtils.qs().enable_qs_editor) {
                             FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
