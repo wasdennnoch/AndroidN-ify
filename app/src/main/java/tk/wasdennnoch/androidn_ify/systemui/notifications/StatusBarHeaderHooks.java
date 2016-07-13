@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
+import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -133,12 +134,17 @@ public class StatusBarHeaderHooks {
     public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
 
+    private static float mExpansion = 0;
+    private static int mGridHeight = 0;
+
     private static Class<?> onMeasureHookedClass;
 
     private static ArrayList<Object> mRecords;
 
     private static int mOnMeasureUnchagedCount;
     private static XC_MethodHook.Unhook onMeasureUnhook;
+
+    private static final Rect mClipBounds = new Rect();
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -435,6 +441,7 @@ public class StatusBarHeaderHooks {
                 if (gridHeight == oldGridHeight) {
                     if (mOnMeasureUnchagedCount > 5) {
                         onMeasureUnhook.unhook();
+                        mGridHeight = gridHeight;
                         mHeaderQsPanel.setupAnimators();
                     }
                     mOnMeasureUnchagedCount++;
@@ -449,8 +456,9 @@ public class StatusBarHeaderHooks {
 
     private static XC_MethodHook setExpansionHook = new XC_MethodHook() {
         @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             float f = (float) param.args[0];
+            mExpansion = f;
             try {
                 if (mAlarmTranslation != null)
                     mAlarmTranslation.setPosition(f);
@@ -1024,7 +1032,21 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateAmPmTranslation", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockLp", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateMultiUserSwitch", XC_MethodReplacement.DO_NOTHING);
-                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setClipping", float.class, XC_MethodReplacement.DO_NOTHING);
+
+                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setClipping", float.class, new XC_MethodReplacement() {
+                    @Override
+                    protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                        if (mGridHeight == 0)
+                            return null;
+                        View view = (View) param.thisObject;
+                        float height = (float) param.args[0];
+                        height += (int) (mGridHeight * mExpansion);
+                        mClipBounds.set(view.getPaddingLeft(), 0, view.getWidth() - view.getPaddingRight(), (int) height);
+                        view.setClipBounds(mClipBounds);
+                        view.invalidateOutline();
+                        return null;
+                    }
+                });
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
                     @Override
