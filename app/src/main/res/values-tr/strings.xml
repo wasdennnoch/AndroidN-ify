@@ -38,8 +38,9 @@
     <string name="share_logcat">Hata kaydını bir dosyaya kaydeder</string>
     <string name="logcat_notif_ongoing_title">Hata kaydı kaydediliyor</string>
     <string name="logcat_notif_finished_title">Hata kaydı kaydedildi</string>
-    <string name="logcat_notif_preparing">Hazırlanıyor</string>
-    <string name="logcat_notif_ongoing_lines">Kaydedilen hata %1$s&#8230;</string>
+    <string name="logcat_notif_preparing">Hazırlanıyor&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">%1$s kaydedilen hata&#8230;</string>
+    <string name="logcat_notif_finished">%2$s satır kaydedildi %1$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Durdur</string>
 
     <string name="requesting_root">Root erişimi isteniyor&#8230;</string>
@@ -57,7 +58,7 @@
     <string name="theme_colorPrimary">Ana renk</string>
 
     <string name="header_lockscreen">Kilit ekranı</string>
-    <!-- /prefs -->
+	<!-- /prefs -->
 
     <!-- SETTINGS -->
     <string name="header_settings">Ayarlar</string>
@@ -94,6 +95,8 @@
     <string name="enable_recents_double_tap_title">Hızlı geçiş</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Son uygulamalar tuşuna çift tıklamak son kullanılan uygulamayı açar</string>
     <string name="double_tap_speed_title">Çift tıklama hızı</string>
+    <string name="alternative_double_tap_title">Alternatif çift tıklama algılandı</string>
+    <string name="alternative_double_tap">Etkinleştirilen Hızlı geçiş doğru çalışmıyor</string>
     <string name="recents_button_behavior_title">Son uygulamalar tuşuna dokunma davranışı</string>
     <string name="recents_navigation_delay_title">Gezinme gecikmesi</string>
     <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
@@ -128,10 +131,17 @@
     <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
     <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
+    
+    <string name="header_clock_size_title">Başlık saati boyutu</string>
+    <string name="header_clock_size_normal">Normal</string>
+    <string name="header_clock_size_small">Küçük</string>
+    <string name="header_clock_size_smaller">Daha küçük</string>
+    <string name="header_clock_size_tiny">En küçük</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Başlık öğelerini gizle</string>
     <string name="hide_tuner_icon_title">Sistem Arayüzü Ayar simgesini gizle</string>
     <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
+    <string name="hide_edit_tiles_summary">Bu sadece mevcut düzenleme düğmesini gizler!</string>
     <string name="hide_carrier_label_title">Sim durumunu gizle</string>
     <!-- /Hide header icons -->
     <!-- /STATUS BAR HEADER -->
@@ -216,4 +226,9 @@
     <string name="live_display_outdoor">Dış mekan (parlak güneş)</string>
     <!-- /QS -->
 	
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Renk Seçivi</string>
+    <string name="press_color_to_apply">Rengi uygulamak için dokunun</string>
+    <!-- /Color Picker -->
+
 </resources>
