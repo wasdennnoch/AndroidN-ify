@@ -294,11 +294,7 @@ public class QuickQSPanel extends LinearLayout {
             super(context);
             setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             setOrientation(HORIZONTAL);
-            //setGravity(16);
-            setGravity(Gravity.CENTER_VERTICAL);    // CENTER_VERTICAL = AXIS_SPECIFIED<<AXIS_Y_SHIFT
-            // AXIS_SPECIFIED = 1 (00000001)
-            // AXIS_Y_SHIFT = 4
-            // 1<<4 = 16 (00010000)
+            setGravity(Gravity.CENTER_VERTICAL);
             setClipChildren(false);
             setClipToPadding(false);
             mEndSpacer = new Space(context);
@@ -312,6 +308,7 @@ public class QuickQSPanel extends LinearLayout {
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", getContext());
             XposedHelpers.setAdditionalInstanceField(tileView, "headerTileRowItem", true);
+            XposedHelpers.setAdditionalInstanceField(tileView, "headerTileRowType", tile.getClass().getSimpleName());
 
             View.OnClickListener click = new View.OnClickListener() {
                 @Override
