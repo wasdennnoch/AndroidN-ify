@@ -25,20 +25,15 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
-import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.views.QuickTileLayout;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 
 public class QuickQSPanel extends LinearLayout {
-    private static final float TILE_ASPECT = 1.2f;
-
     private static final String TAG = "QuickQSPanel";
     private int mIconSizePx;
     private int mTileSpacingPx;
-    private int mCellHeight;
-    private int mCellWidth;
     private int mQuickTilePadding;
 
     private int mMaxTiles;
@@ -67,8 +62,6 @@ public class QuickQSPanel extends LinearLayout {
         Resources res = context.getResources();
         mIconSizePx = res.getDimensionPixelSize(res.getIdentifier("qs_tile_icon_size", "dimen", PACKAGE_SYSTEMUI));
         mTileSpacingPx = res.getDimensionPixelSize(res.getIdentifier("qs_tile_spacing", "dimen", PACKAGE_SYSTEMUI));
-        mCellHeight = res.getDimensionPixelSize(res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI));
-        mCellWidth = (int) (mCellHeight * TILE_ASPECT);
         mRes = ResourceUtils.getInstance(context);
         mQuickTilePadding = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding);
         mMaxTiles = config.qs.qs_tiles_count;
