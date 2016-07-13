@@ -1067,17 +1067,6 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                // TODO ripples don't clip, but icons do?!
-                /*XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpanded", boolean.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        boolean clip = !(boolean) param.args[0];
-                        XposedHook.logI("androidn_ify", "clip " + clip);
-                        mStatusBarHeaderView.setClipChildren(clip);
-                        mStatusBarHeaderView.setClipToPadding(clip);
-                    }
-                });*/
-
                 try {
                     XposedHelpers.findAndHookMethod(classQSPanel, "fireShowingDetail", CLASS_DETAIL_ADAPTER, new XC_MethodReplacement() {
                         @Override

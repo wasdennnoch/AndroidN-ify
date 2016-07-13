@@ -85,7 +85,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             logI(TAG, "Remote Build; Version: " + BuildConst.BUILD_SERVER_VERSION);
         }
 
-        XposedHook.logI(TAG, "ROM type: " + sPrefs.getString("rom", "undefined"));
+        logI(TAG, "ROM type: " + sPrefs.getString("rom", "undefined"));
 
         if (!sPrefs.getBoolean("can_read_prefs", false)) {
             // With SELinux enforcing, it might happen that we don't have access
