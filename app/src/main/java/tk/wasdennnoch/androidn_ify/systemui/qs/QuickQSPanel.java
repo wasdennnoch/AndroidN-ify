@@ -143,7 +143,7 @@ public class QuickQSPanel extends LinearLayout {
 
             int k = ai1[0] - ai[0];
             int i1 = ai1[1] - ai[1] +
-                    XposedHelpers.getIntField(qsTileView, "mTilePaddingTopPx") + mTileSpacingPx /*+ (tileView.getPaddingTop() / 2)*/
+                    XposedHelpers.getIntField(qsTileView, "mTilePaddingTopPx") + mTileSpacingPx
                     + getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
 
             j = ai[0] - j;
