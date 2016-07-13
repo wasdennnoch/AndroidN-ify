@@ -121,7 +121,9 @@ public class NotificationsHooks {
             // actions background
             if (!ConfigUtils.notifications().custom_actions_color) {
                 View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
-                View headsUpChild = (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild");
+                View headsUpChild = null;
+                if (ConfigUtils.MM)
+                    headsUpChild = (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild");
                 if (expandedChild != null || headsUpChild != null) {
                     int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
                     int origBgColor = context.getResources().getColor(context.getResources().getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));

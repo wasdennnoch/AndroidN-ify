@@ -143,7 +143,6 @@ public class QuickQSPanel extends LinearLayout {
             mTopFiveQs.add(findIcon(qsTileView));
         }
 
-
         Path path = new Path();
         path.moveTo(0.0F, 0.0F);
         path.cubicTo(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);

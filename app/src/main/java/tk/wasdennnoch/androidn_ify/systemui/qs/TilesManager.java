@@ -26,7 +26,7 @@ public class TilesManager {
     private Context mContext;
 
     public static List<String> mCustomTileSpecs = new ArrayList<>();
-    private Map<String, QSTile> mTiles;
+    private Map<String, QSTile> mTiles = new HashMap<>();
     private String mCreateTileViewTileKey;
 
     static {
@@ -50,7 +50,6 @@ public class TilesManager {
     public TilesManager(Object qsTileHost) {
         mQSTileHost = qsTileHost;
         mContext = (Context) XposedHelpers.callMethod(mQSTileHost, "getContext");
-        mTiles = new HashMap<>();
         hook();
     }
 
@@ -107,8 +106,7 @@ public class TilesManager {
                     Context.class, new XC_MethodHook() {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            mCreateTileViewTileKey = (String) XposedHelpers
-                                    .getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME);
+                            mCreateTileViewTileKey = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME);
                         }
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -164,6 +162,19 @@ public class TilesManager {
                             final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null) {
                                 tile.handleLongClick();
+                                param.setResult(null);
+                            }
+                        }
+                    });
+
+            XposedHelpers.findAndHookMethod(QSTile.CLASS_INTENT_TILE, classLoader, "setListening",
+                    boolean.class, new XC_MethodHook() {
+                        @SuppressWarnings("SuspiciousMethodCalls")
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            if (tile != null) {
+                                tile.setListening((boolean) param.args[0]);
                                 param.setResult(null);
                             }
                         }

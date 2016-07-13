@@ -11,6 +11,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class QSTile {
+
     private static final String TAG = "QSTile";
     private static Class<?> resourceIconClass;
     private TilesManager mTilesManager;
@@ -80,6 +81,7 @@ public class QSTile {
             XposedHook.logE(TAG, "Error refreshing tile state: ", t);
         }
     }
+
     public void startActivityDismissingKeyguard(String action) {
         startActivityDismissingKeyguard(new Intent(action));
     }
@@ -96,6 +98,9 @@ public class QSTile {
     }
 
     public void handleLongClick() {
+    }
+
+    public void setListening(boolean listening) {
     }
 
     public void handleDestroy() {

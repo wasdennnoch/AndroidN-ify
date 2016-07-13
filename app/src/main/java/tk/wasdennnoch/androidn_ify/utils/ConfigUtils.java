@@ -1,5 +1,7 @@
 package tk.wasdennnoch.androidn_ify.utils;
 
+import android.os.Build;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -13,8 +15,9 @@ public class ConfigUtils {
 
     private static final String TAG = "ConfigUtils";
 
-    private static ConfigUtils mInstance;
+    public static final boolean MM = Build.VERSION.SDK_INT >= 23;
 
+    private static ConfigUtils mInstance;
     private XSharedPreferences mPrefs;
     public SettingsConfig settings;
     public RecentsConfig recents;

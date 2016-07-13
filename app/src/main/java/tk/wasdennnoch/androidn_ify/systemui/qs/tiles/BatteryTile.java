@@ -75,12 +75,12 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     @Override
     public void handleClick() {
         startActivityDismissingKeyguard(Intent.ACTION_POWER_USAGE_SUMMARY);
-        super.handleClick();
     }
 
     @Override
     public void handleDestroy() {
         SystemUIHooks.batteryInfoManager.unregisterListener(this);
+        SystemUIHooks.batteryInfoManager.unregisterListener(mBatteryView);
         mTileBatteryData = null;
         mBatteryView = null;
         super.handleDestroy();
@@ -373,5 +373,6 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             mBatteryData = batteryData;
             postInvalidate();
         }
+
     }
 }
