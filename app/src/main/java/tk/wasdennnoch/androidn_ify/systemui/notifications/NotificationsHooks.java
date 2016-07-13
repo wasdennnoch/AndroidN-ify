@@ -58,7 +58,8 @@ public class NotificationsHooks {
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
 
-    private static boolean fullWidthVolume = false;
+    private static boolean mFullWidthVolume = false;
+    private static int mNotificationBgColor;
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -126,9 +127,8 @@ public class NotificationsHooks {
                     headsUpChild = (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild");
                 if (expandedChild != null || headsUpChild != null) {
                     int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
-                    int origBgColor = context.getResources().getColor(context.getResources().getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));
                     double[] lab = new double[3];
-                    ColorUtils.colorToLAB(origBgColor, lab);
+                    ColorUtils.colorToLAB(mNotificationBgColor, lab);
                     lab[0] = 1.0f - 0.95f * (1.0f - lab[0]);
                     int endColor = ColorUtils.LABToColor(lab[0], lab[1], lab[2]);
                     if (expandedChild != null) {
@@ -322,7 +322,7 @@ public class NotificationsHooks {
             Context context = mDialogView.getContext();
             ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mDialogView.getLayoutParams();
             lp.setMargins(0, 0, 0, 0);
-            if (fullWidthVolume) {
+            if (mFullWidthVolume) {
                 DisplayMetrics dm = context.getResources().getDisplayMetrics();
                 lp.width = dm.widthPixels;
             }
@@ -337,7 +337,7 @@ public class NotificationsHooks {
             Dialog mDialog = (Dialog) XposedHelpers.getObjectField(param.thisObject, "mDialog");
             Resources res = mDialog.getContext().getResources();
             Window window = mDialog.getWindow();
-            if (fullWidthVolume) {
+            if (mFullWidthVolume) {
                 WindowManager.LayoutParams lp = window.getAttributes();
                 DisplayMetrics dm = res.getDisplayMetrics();
                 lp.width = dm.widthPixels;
@@ -431,9 +431,10 @@ public class NotificationsHooks {
 
     @SuppressWarnings("deprecation")
     private static RippleDrawable getNotificationBackground(XResources xRes, XModuleResources modRes) {
+        mNotificationBgColor = xRes.getColor(xRes.getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));
         return new RippleDrawable(
                 ColorStateList.valueOf(xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI))),
-                getBackgroundRippleContent(modRes, xRes.getColor(xRes.getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI))),
+                getBackgroundRippleContent(modRes, mNotificationBgColor),
                 null);
     }
 
@@ -515,7 +516,7 @@ public class NotificationsHooks {
                     XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
                 }
 
-                fullWidthVolume = config.qs.full_width_volume;
+                mFullWidthVolume = config.qs.full_width_volume;
 
                 if (Build.VERSION.SDK_INT >= 23) {
                     Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
