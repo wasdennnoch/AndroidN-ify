@@ -456,8 +456,10 @@ public class StatusBarHeaderHooks {
 
     private static XC_MethodHook setExpansionHook = new XC_MethodHook() {
         @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             float f = (float) param.args[0];
+            if (!XposedHelpers.getBooleanField(param.thisObject, "mExpanded"))
+                f = 0f;
             mExpansion = f;
             try {
                 if (mAlarmTranslation != null)
