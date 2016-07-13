@@ -458,8 +458,6 @@ public class StatusBarHeaderHooks {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             float f = (float) param.args[0];
-            if (!XposedHelpers.getBooleanField(param.thisObject, "mExpanded"))
-                f = 0f;
             mExpansion = f;
             try {
                 if (mAlarmTranslation != null)
