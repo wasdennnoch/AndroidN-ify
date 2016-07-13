@@ -2,6 +2,7 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Space;
 
 import java.util.ArrayList;
@@ -23,12 +25,21 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.views.QuickTileLayout;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
+
 public class QuickQSPanel extends LinearLayout {
+    private static final float TILE_ASPECT = 1.2f;
 
     private static final String TAG = "QuickQSPanel";
+    private int mIconSizePx;
+    private int mTileSpacingPx;
+    private int mCellHeight;
+    private int mCellWidth;
+    private int mQuickTilePadding;
 
     private int mMaxTiles;
     private HeaderTileLayout mTileLayout;
@@ -53,7 +64,13 @@ public class QuickQSPanel extends LinearLayout {
     public QuickQSPanel(Context context) {
         super(context);
         ConfigUtils config = ConfigUtils.getInstance();
+        Resources res = context.getResources();
+        mIconSizePx = res.getDimensionPixelSize(res.getIdentifier("qs_tile_icon_size", "dimen", PACKAGE_SYSTEMUI));
+        mTileSpacingPx = res.getDimensionPixelSize(res.getIdentifier("qs_tile_spacing", "dimen", PACKAGE_SYSTEMUI));
+        mCellHeight = res.getDimensionPixelSize(res.getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI));
+        mCellWidth = (int) (mCellHeight * TILE_ASPECT);
         mRes = ResourceUtils.getInstance(context);
+        mQuickTilePadding = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding);
         mMaxTiles = config.qs.qs_tiles_count;
         mShowPercent = config.qs.battery_tile_show_percentage;
         mAlternativeQSMethod = config.qs.alternative_quick_qs_method;
@@ -130,8 +147,11 @@ public class QuickQSPanel extends LinearLayout {
 
             getRelativePosition(ai, tileView, StatusBarHeaderHooks.mStatusBarHeaderView);
             getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
+
             int k = ai1[0] - ai[0];
-            int i1 = ai1[1] - ai[1] + (tileView.getPaddingTop() / 2) + getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
+            int i1 = ai1[1] - ai[1] +
+                    XposedHelpers.getIntField(qsTileView, "mTilePaddingTopPx") + mTileSpacingPx /*+ (tileView.getPaddingTop() / 2)*/
+                    + getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
 
             j = ai[0] - j;
             builder.addFloat(tileView, "translationX", 0f, (float) k);
@@ -358,17 +378,6 @@ public class QuickQSPanel extends LinearLayout {
                 if (child.getId() == android.R.id.icon || child instanceof FrameLayout) {
                     child.setVisibility(VISIBLE);
                     iconView = child;
-                    iconView.setOnClickListener(click);
-                    iconView.setOnLongClickListener(longClick);
-                    iconView.setBackground(newTileBackground());
-                    final View finalIconView = iconView;
-                    iconView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            finalIconView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                            finalIconView.getBackground().setHotspot(finalIconView.getWidth() / 2, finalIconView.getHeight() / 2);
-                        }
-                    });
                     if (mShowPercent && iconView instanceof FrameLayout) {
                         if (((FrameLayout) iconView).getChildAt(0) != null) {
                             View frameChild = ((FrameLayout) iconView).getChildAt(0);
@@ -388,20 +397,39 @@ public class QuickQSPanel extends LinearLayout {
             XposedHook.logD(TAG, "addTile: adding tile at #" + position);
             if (!mAlternativeQSMethod && iconView != null) {
                 ((ViewGroup) iconView.getParent()).removeView(iconView);
-                addViewToLayout(iconView, position);
+                addViewToLayout(iconView, position, click, longClick);
             } else {
                 addView(tileView, position, generateOriginalLayoutParams());
             }
             addView(new Space(getContext()), position + 1, generateSpaceParams());
         }
 
-        private void addViewToLayout(View view, int position) {
-            int p = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding);
-            FrameLayout container = new FrameLayout(view.getContext());
-            view.setPadding(p, p, p, p);
+        private void addViewToLayout(View view, int position, OnClickListener click, OnLongClickListener longClick) {
+            view.setClickable(false);
+            RelativeLayout container = new RelativeLayout(view.getContext());
+            container.setClickable(true);
+            container.setOnClickListener(click);
+            container.setOnLongClickListener(longClick);
+            container.setBackground(newTileBackground());
             container.addView(view, generateLayoutParams());
+            new GlobalLayoutListener(container);
             addView(container, position, generateContainerLayoutParams());
             mIconViews.add(view);
+        }
+
+        private class GlobalLayoutListener {
+            private View mView;
+
+            protected GlobalLayoutListener(View view) {
+                mView = view;
+                mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        mView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        mView.getBackground().setHotspot(mView.getWidth() / 2, mView.getHeight() / 2);
+                    }
+                });
+            }
         }
 
         public void removeTiles() {
@@ -412,8 +440,10 @@ public class QuickQSPanel extends LinearLayout {
             }
         }
 
-        private FrameLayout.LayoutParams generateLayoutParams() {
-            return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        private RelativeLayout.LayoutParams generateLayoutParams() {
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mIconSizePx);
+            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            return lp;
         }
 
         private LayoutParams generateOriginalLayoutParams() {
@@ -446,7 +476,7 @@ public class QuickQSPanel extends LinearLayout {
 
         private void updateDownArrowMargin() {
             LayoutParams layoutparams = (LayoutParams) mEndSpacer.getLayoutParams();
-            layoutparams.setMarginStart(mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding));
+            layoutparams.setMarginStart(mQuickTilePadding);
             mEndSpacer.setLayoutParams(layoutparams);
         }
 
