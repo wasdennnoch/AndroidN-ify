@@ -1,6 +1,5 @@
 package tk.wasdennnoch.androidn_ify.utils;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -8,14 +7,15 @@ import android.support.v7.graphics.Palette;
 
 public class ColorUtils {
 
-    public static int generateColor(Context context, Drawable drawable, int defaultColor) {
-        int color = Palette.from(convertToBitmap(drawable, 128, 128)).generate().getVibrantColor(defaultColor);
-        if(color != defaultColor) return color;
-        color = Palette.from(convertToBitmap(drawable, 128, 128)).generate().getLightVibrantColor(defaultColor);
-        if(color != defaultColor) return color;
-        color = Palette.from(convertToBitmap(drawable, 128, 128)).generate().getDarkMutedColor(defaultColor);
-        if(color != defaultColor) return color;
-        color = Palette.from(convertToBitmap(drawable, 128, 128)).generate().getLightMutedColor(defaultColor);
+    public static int generateColor(Drawable drawable, int defaultColor) {
+        Palette palette = Palette.from(convertToBitmap(drawable, 128, 128)).generate();
+        int color = palette.getVibrantColor(defaultColor);
+        if (color != defaultColor) return color;
+        color = palette.getLightVibrantColor(defaultColor);
+        if (color != defaultColor) return color;
+        color = palette.getDarkMutedColor(defaultColor);
+        if (color != defaultColor) return color;
+        color = palette.getLightMutedColor(defaultColor);
         return color;
     }
 
@@ -27,4 +27,5 @@ public class ColorUtils {
 
         return bitmap;
     }
+
 }

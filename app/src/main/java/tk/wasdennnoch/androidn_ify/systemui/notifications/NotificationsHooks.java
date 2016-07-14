@@ -327,7 +327,7 @@ public class NotificationsHooks {
                     if (mGeneratedColors.containsKey(packageName)) return mGeneratedColors.get(packageName);
                     try {
                         Drawable appIcon = context.getPackageManager().getApplicationIcon(packageName);
-                        mGeneratedColors.put(packageName, tk.wasdennnoch.androidn_ify.utils.ColorUtils.generateColor(context, appIcon, ConfigUtils.notifications().appname_color));
+                        mGeneratedColors.put(packageName, tk.wasdennnoch.androidn_ify.utils.ColorUtils.generateColor(appIcon, ConfigUtils.notifications().appname_color));
                         return mGeneratedColors.get(packageName);
                     } catch (PackageManager.NameNotFoundException ignore) {
                         // return color from config
