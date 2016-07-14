@@ -478,11 +478,22 @@ public class StatusBarHeaderHooks {
                     mSettingsAlpha.setPosition(f);
                     mHeaderQsPanel.setPosition(f);
                 }
-                //mHeaderQsPanel.setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable ignore) {
                 // Oh god, a massive spam wall coming right at you, quick, hide!
             }
+        }
+
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (mGridHeight == 0)
+                return;
+            View view = (View) param.thisObject;
+            float height = view.getHeight();
+            height += (int) (mGridHeight * mExpansion);
+            mClipBounds.set(view.getPaddingLeft(), 0, view.getWidth() - view.getPaddingRight(), (int) height);
+            view.setClipBounds(mClipBounds);
+            view.invalidateOutline();
         }
     };
     private static XC_MethodHook onConfigurationChangedHook = new XC_MethodHook() {
@@ -542,8 +553,8 @@ public class StatusBarHeaderHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
-            mQsPanel = (ViewGroup) param.thisObject;
             if (mHeaderQsPanel != null) {
+                mQsPanel = (ViewGroup) param.thisObject;
                 try {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
@@ -1041,21 +1052,7 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateAmPmTranslation", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockLp", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateMultiUserSwitch", XC_MethodReplacement.DO_NOTHING);
-
-                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setClipping", float.class, new XC_MethodReplacement() {
-                    @Override
-                    protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                        if (mGridHeight == 0)
-                            return null;
-                        View view = (View) param.thisObject;
-                        float height = (float) param.args[0];
-                        height += (int) (mGridHeight * mExpansion);
-                        mClipBounds.set(view.getPaddingLeft(), 0, view.getWidth() - view.getPaddingRight(), (int) height);
-                        view.setClipBounds(mClipBounds);
-                        view.invalidateOutline();
-                        return null;
-                    }
-                });
+                XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setClipping", float.class, XC_MethodReplacement.DO_NOTHING);
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
                     @Override

@@ -24,7 +24,6 @@ public class ColorUtils {
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, widthPixels, heightPixels);
         drawable.draw(canvas);
-
         return bitmap;
     }
 
