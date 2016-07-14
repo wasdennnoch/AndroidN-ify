@@ -455,10 +455,12 @@ public class StatusBarHeaderHooks {
                     }
                     mOnMeasureUnchagedCount++;
                 } else {
+                    XposedHook.logD(TAG, "grid height changed to " + gridHeight);
                     mOnMeasureUnchagedCount = 0;
                     oldGridHeight = gridHeight;
                 }
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "onMeasureHook failed: " + t, null);
             }
         }
     };

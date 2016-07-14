@@ -313,19 +313,32 @@ public class QuickQSPanel extends LinearLayout {
             View.OnClickListener click = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    XposedHelpers.callMethod(tile, "click");
+                    try {
+                        XposedHelpers.callMethod(tile, "click");
+                    } catch (Throwable t) {
+                        try { // PA
+                            XposedHelpers.callMethod(tile, "click", false);
+                        } catch (Throwable ignore) {
+                        }
+                    }
                 }
             };
             View.OnClickListener clickSecondary = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    XposedHelpers.callMethod(tile, "secondaryClick");
+                    try {
+                        XposedHelpers.callMethod(tile, "secondaryClick");
+                    } catch (Throwable ignore) {
+                    }
                 }
             };
             View.OnLongClickListener longClick = new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    XposedHelpers.callMethod(tile, "longClick");
+                    try {
+                        XposedHelpers.callMethod(tile, "longClick");
+                    } catch (Throwable ignore) {
+                    }
                     return true;
                 }
             };
