@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.RemoteInput;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.XModuleResources;
@@ -40,6 +41,9 @@ import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
@@ -60,6 +64,9 @@ public class NotificationsHooks {
 
     private static boolean mFullWidthVolume = false;
     private static int mNotificationBgColor;
+    private static int mAccentColor = 0;
+    //private static int mGeneratedColor = 0; For some reason this stays in many process
+    private static Map<String, Integer> mGeneratedColors = new HashMap<>();
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -166,6 +173,17 @@ public class NotificationsHooks {
         }
     };
 
+    private static void processIcon(RemoteViews contentView, Context context, int mColor, Notification.Builder builder) {
+        if ((boolean) XposedHelpers.callMethod(builder, "isLegacy")) {
+            Object mColorUtil = XposedHelpers.getObjectField(builder, "mColorUtil");
+            Object mSmallIcon = XposedHelpers.getObjectField(builder, "mSmallIcon"); // Icon if Marshmallow, int if Lollipop. So we shouldn't specify which type is this.
+            if (!(boolean) XposedHelpers.callMethod(mColorUtil, "isGrayscaleIcon", context, mSmallIcon)) {
+                return;
+            }
+        }
+        contentView.setInt(R.id.notification_icon, "setColorFilter", mColor);
+    }
+
     private static XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
 
         @Override
@@ -174,7 +192,7 @@ public class NotificationsHooks {
             Resources res = context.getResources();
             RemoteViews contentView = (RemoteViews) param.getResult();
             int mColor = (int) XposedHelpers.callMethod(param.thisObject, "resolveColor");
-            contentView.setInt(R.id.notification_icon, "setColorFilter", mColor);
+            processIcon(contentView, context, mColor, (Notification.Builder) param.thisObject);
             String appname = context.getPackageName();
             try {
                 appname = context.getString(context.getApplicationInfo().labelRes);
@@ -302,8 +320,24 @@ public class NotificationsHooks {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             int mColor = XposedHelpers.getIntField(param.thisObject, "mColor");
-            if (mColor == 0)
-                return ConfigUtils.notifications().appname_color;
+            if (mColor == 0) {
+                if (ConfigUtils.notifications().auto_appname_color) {
+                    Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+                    String packageName = context.getPackageName();
+                    if (mGeneratedColors.containsKey(packageName)) return mGeneratedColors.get(packageName);
+                    try {
+                        Drawable appIcon = context.getPackageManager().getApplicationIcon(packageName);
+                        mGeneratedColors.put(packageName, tk.wasdennnoch.androidn_ify.utils.ColorUtils.generateColor(context, appIcon, ConfigUtils.notifications().appname_color));
+                        return mGeneratedColors.get(packageName);
+                    } catch (PackageManager.NameNotFoundException ignore) {
+                        // return color from config
+                    }
+                    if (mAccentColor == 0)
+                        mAccentColor = context.getResources().getColor(context.getResources().getIdentifier("notification_icon_bg_color", "color", PACKAGE_ANDROID));
+                    return mAccentColor;
+                } else
+                    return ConfigUtils.notifications().appname_color;
+            }
             return mColor;
         }
     };
@@ -472,7 +506,7 @@ public class NotificationsHooks {
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "applyStandardTemplateWithActions", int.class, applyStandardTemplateWithActionsHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
-                if (ConfigUtils.notifications().custom_appname_color)
+                if (ConfigUtils.notifications().custom_appname_color || ConfigUtils.notifications().auto_appname_color)
                     XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
                 XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
             }

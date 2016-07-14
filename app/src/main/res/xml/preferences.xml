@@ -240,8 +240,15 @@
                 android:title="@string/notification_dismiss_button_title"/>
 
             <SwitchPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:dependency="notification_change_style"
+                android:key="notifications_auto_color"
+                android:disableDependentsState="true"
+                android:title="@string/notifications_auto_color_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="notifications_auto_color"
                 android:key="notifications_custom_color"
                 android:title="@string/notifications_custom_color_title"/>
 

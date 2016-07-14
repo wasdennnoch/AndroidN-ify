@@ -154,6 +154,7 @@
     <string name="action_search">Search</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
+    <string name="notifications_auto_color_title">Use auto accent color</string>
     <string name="notifications_custom_color_title">Use custom accent color</string>
     <string name="notifications_accent_color_title">Accent color</string>
     <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
