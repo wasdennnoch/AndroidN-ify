@@ -104,6 +104,7 @@
     <string name="action_search">Hľadať</string>
     <string name="notification_blacklisted_apps_title">Zakázané aplikácie</string>
     <string name="notification_blacklisted_apps">Použije starý štýl upozornení pre vybrané aplikácie</string>
+    <string name="notifications_auto_color_title">Použiť automatickú farbu pre zvýraznenie</string>
     <string name="notifications_custom_color_title">Použiť vlastnú farbu pre zvýraznenie</string>
     <string name="notifications_accent_color_title">Farba zvýraznenia</string>
     <string name="notifications_custom_actions_color_title">Použiť vlastnú farbu pozadia pre akcie</string>
