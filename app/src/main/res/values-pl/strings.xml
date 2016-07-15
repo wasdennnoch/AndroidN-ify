@@ -121,14 +121,10 @@
     <string name="battery_tile_show_percentage_summary">Wyświetla wartość procentową naładowania baterii w kafelku</string>
     <string name="enable_qs_editor">Włącz edytor szybkich ustawień</string>
     <string name="allow_fancy_qs_transition">Efektowna animacja szybkich ustawień</string>
-    <string name="alternative_header_qs_method_title">Alternatywna metoda ładowania szybkich ustawień</string>
-    <string name="alternative_header_qs_method">Włącz kiedy występuje problem z pozycjonowaniem kafelków szybkich ustawień</string>
     <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
     <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go, \na dotknięcie kafelka w rozwiniętym panelu rozszerzy go</string>
     <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
     <string name="enable_large_first_row_summary">Jeśli posiadasz CyanogenMod, użyj menu konfiguracji aby edytować kafelki</string>
-    <string name="notification_full_width_volume_title">Pełna szerokość okna głośności</string>
-    <string name="notification_full_width_volume">Usuń limit szerokośći okna kontroli głośności. Przydatne dla telefonów z dużym ekranem</string>
     <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
     <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
     <!-- Hide header icons -->
@@ -147,8 +143,6 @@
     <string name="action_search">Szukaj</string>
     <string name="notification_blacklisted_apps_title">Wyłączone aplikacje</string>
     <string name="notification_blacklisted_apps">Użyj starego stylu powiadomień dla tych aplikacji</string>
-    <string name="notifications_custom_color_title">Użyj niestandardowego koloru akcentu</string>
-    <string name="notifications_accent_color_title">Kolor akcentu</string>
     <string name="notifications_custom_actions_color_title">Użyj niestandardowego koloru tła akcji</string>
     <string name="notifications_actions_color_title">Kolor tła akcji</string>
     <!-- /NOTIFICATIONS -->

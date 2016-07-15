@@ -37,8 +37,8 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.ui.misc.LogcatService;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
-import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
+import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 public class SettingsActivity extends Activity implements View.OnClickListener {
 
@@ -55,7 +55,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        ThemeUtils.applyTheme(this, prefs);
+        ViewUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
         RomUtils.init(this);
         setContentView(R.layout.activity_settings);
@@ -163,7 +163,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             if (preference instanceof PreferenceScreen) {
                 PreferenceScreen screen = (PreferenceScreen) preference;
                 if (screen.getDialog() != null)
-                    ThemeUtils.applyTheme(screen.getDialog(), getActivity(), preference.getSharedPreferences());
+                    ViewUtils.applyTheme(screen.getDialog(), getActivity(), preference.getSharedPreferences());
                 switch (preference.getKey()) {
                     case "settings_recents":
                         DropDownPreference recentsBehaviorPref = (DropDownPreference) screen.findPreference("recents_button_behavior");

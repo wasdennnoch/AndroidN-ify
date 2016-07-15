@@ -84,8 +84,6 @@
     <string name="enable_new_tile_click_behavior_summary">點擊下拉式狀態列內的瓷磚時直接切換狀態\n點擊快速設定内的顯示項目时展開設定項目</string>
     <string name="enable_large_first_row">首行瓷磚強制放大</string>
     <string name="enable_large_first_row_summary">使用 CyanogenMod 的使用者請透過編輯瓷磚模式中的設定選單進行設定</string>
-    <string name="notification_full_width_volume_title">最大化音量對話框的寬度</string>
-    <string name="notification_full_width_volume">在較大螢幕的手機上移除音量對話框的寬度限制</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">隱藏的項目</string>
     <string name="hide_tuner_icon_title">隱藏 系統使用介面調整 圖示</string>
@@ -102,8 +100,6 @@
     <string name="action_search">搜尋</string>
     <string name="notification_blacklisted_apps_title">黑名單</string>
     <string name="notification_blacklisted_apps">給這些應用程式使用舊式的通知風格</string>
-    <string name="notifications_custom_color_title">使用自訂的 強調色(Accent color)</string>
-    <string name="notifications_accent_color_title">強調色(Accent color)</string>
     <string name="notifications_custom_actions_color_title">使用自訂的動作背景顏色</string>
     <string name="notifications_actions_color_title">動作背景顏色</string>
     <!-- /NOTIFICATIONS -->

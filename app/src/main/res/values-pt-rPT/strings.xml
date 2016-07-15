@@ -121,14 +121,10 @@
     <string name="battery_tile_show_percentage_summary">Mostra a porcentagem de bateria nas configurações rápidas</string>
     <string name="enable_qs_editor">Activar editor de DR</string>
     <string name="allow_fancy_qs_transition">Nova transição de DR</string>
-    <string name="alternative_header_qs_method_title">Método alternativo de carregamento de DR</string>
-    <string name="alternative_header_qs_method">Active se houver problemas de posicionamento com os blocos de DR</string>    
     <string name="enable_new_tile_click_behavior">Activar novo estilo de clique no bloco</string>
     <string name="enable_new_tile_click_behavior_summary">Clicar em um bloco no cabeçalho o activa/desactiva e clicar em um bloco no painel o expande</string>
     <string name="enable_large_first_row">Alargar a primeira fileira</string>
     <string name="enable_large_first_row_summary">Na CM utilize o menu de configuração do modo Editar blocos ao invés desta opção</string>
-    <string name="notification_full_width_volume_title">Largura do painel de volume</string>
-    <string name="notification_full_width_volume">Remover o limite de largura do painel de volume em dispositivos com telas grandes</string>
     <string name="fix_stuck_inversion_title">Consertar inversão presa</string>
     <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores falha quando activada. Seleccione esta opção para forçar a desactivação</string>	
 
@@ -154,8 +150,6 @@
     <string name="action_search">Buscar</string>
     <string name="notification_blacklisted_apps_title">Lista negra</string>
     <string name="notification_blacklisted_apps">Não utilizar o novo estilo de notificações para estas apps</string>
-    <string name="notifications_custom_color_title">Utilizar cor de destaque personalizada</string>
-    <string name="notifications_accent_color_title">Cor de destaque</string>
     <string name="notifications_custom_actions_color_title">Utilizar cor de fundo das ações personalizada</string>
     <string name="notifications_actions_color_title">Cor de fundo das ações</string>    
     <!-- /NOTIFICATIONS -->

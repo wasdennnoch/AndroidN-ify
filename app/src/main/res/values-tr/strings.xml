@@ -121,14 +121,10 @@
     <string name="battery_tile_show_percentage_summary">Pil karesinde pil yüzdesini göster</string>
     <string name="enable_qs_editor">Hızlı Ayarları düzenlemeyi etkinleştir</string>
     <string name="allow_fancy_qs_transition">Aşırı Hızlı Ayarlara geçiş</string>
-    <string name="alternative_header_qs_method_title">Alternatif Hızlı Ayarlar yükleme yöntemi</string>
-    <string name="alternative_header_qs_method">Hızlı Ayarlar simgelerinde konumlandırma sorunları olduğunda etkinleştirin.</string>
     <string name="enable_new_tile_click_behavior">Android N kare tıklama davranışı</string>
     <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
     <string name="enable_large_first_row">İlk satırı büyüt</string>
     <string name="enable_large_first_row_summary">Kareleri düzenle modu yerine CM yapılandırma menüsünü kullanın</string>
-    <string name="notification_full_width_volume_title">Tam genişlikte ses ayarları</string>
-    <string name="notification_full_width_volume">Geniş ekranlı telefonlar için ses ayarları sınırını kaldırır.</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
     <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
     
@@ -154,8 +150,6 @@
     <string name="action_search">Ara</string>
     <string name="notification_blacklisted_apps_title">Kara listeye alınan uygulamalar</string>
     <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullanın.</string>
-    <string name="notifications_custom_color_title">Özel vurgu rengi kullan</string>
-    <string name="notifications_accent_color_title">Vurgu rengi</string>
     <string name="notifications_custom_actions_color_title">Özelleştirilmiş arkaplan rengini kullan</string>
     <string name="notifications_actions_color_title">Arkaplan renk eylemi</string>
     <!-- /NOTIFICATIONS -->

@@ -13,7 +13,6 @@
 
     <dimen name="qs_quick_panel_margin_horizontal">12dp</dimen>
     <dimen name="qs_quick_panel_padding_top">32dp</dimen>
-    <dimen name="qs_quick_panel_padding_top_alternative">22dp</dimen>
     <dimen name="qs_quick_panel_padding_bottom">8dp</dimen>
     <dimen name="qs_quick_tile_size">48dip</dimen>
     <dimen name="qs_quick_tile_padding">12dip</dimen>

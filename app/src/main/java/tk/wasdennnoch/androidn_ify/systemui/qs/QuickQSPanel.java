@@ -52,7 +52,6 @@ public class QuickQSPanel extends LinearLayout {
     private TouchAnimator mTopFiveQsAnimator;
     private TouchAnimator mFadeAnimator;
     private float oldPosition = 0;
-    private boolean mAlternativeQSMethod;
     private boolean mShowPercent;
     private boolean mAllowFancy;
 
@@ -66,14 +65,10 @@ public class QuickQSPanel extends LinearLayout {
         mQuickTilePadding = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding);
         mMaxTiles = config.qs.qs_tiles_count;
         mShowPercent = config.qs.battery_tile_show_percentage;
-        mAlternativeQSMethod = config.qs.alternative_quick_qs_method;
         mAllowFancy = config.qs.allow_fancy_qs_transition;
         setOrientation(VERTICAL);
         int m = mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
-        if (config.qs.alternative_quick_qs_method)
-            setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top_alternative), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
-        else
-            setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
+        setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
         mTileLayout = new HeaderTileLayout(context);
         addView(mTileLayout);
 
@@ -397,7 +392,7 @@ public class QuickQSPanel extends LinearLayout {
             mTileViews.add(tileView);
             int position = getChildCount() - 1;
             XposedHook.logD(TAG, "addTile: adding tile at #" + position);
-            if (!mAlternativeQSMethod && iconView != null) {
+            if (iconView != null) {
                 ((ViewGroup) iconView.getParent()).removeView(iconView);
                 addViewToLayout(iconView, position, click, longClick);
             } else {

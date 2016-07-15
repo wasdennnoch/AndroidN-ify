@@ -121,14 +121,10 @@
     <string name="battery_tile_show_percentage_summary">배터리 타일에 남은 배터리의 퍼센트를 표시합니다</string>
     <string name="enable_qs_editor">Enable QS editor</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
-    <string name="alternative_header_qs_method_title">Alternative QS loading method</string>
-    <string name="alternative_header_qs_method">Enable when there are positioning issues with the QS icons</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
     <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
-    <string name="notification_full_width_volume_title">볼륨 다이아로그 길이 제한 해제</string>
-    <string name="notification_full_width_volume">큰 화면을 사용하는 디바이스들을 위해 볼륨 다이아로그 길이 제한을 해제합니다</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
     <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
 
@@ -154,8 +150,6 @@
     <string name="action_search">검색</string>
     <string name="notification_blacklisted_apps_title">앱 블랙리스트</string>
     <string name="notification_blacklisted_apps">이 앱에 대해서는 기존의 알림 스타일을 사용합니다</string>
-    <string name="notifications_custom_color_title">커스텀 강조 색상 사용</string>
-    <string name="notifications_accent_color_title">강조 색상</string>
     <string name="notifications_custom_actions_color_title">커스텀 액션 배경 색상 사용</string>
     <string name="notifications_actions_color_title">액션 배경 색상</string>
     <!-- /NOTIFICATIONS -->

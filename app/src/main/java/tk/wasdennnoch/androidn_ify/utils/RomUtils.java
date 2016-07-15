@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import de.robv.android.xposed.XSharedPreferences;
 
 public class RomUtils {
+
     private static SharedPreferences sPrefs;
 
     // Init from UI

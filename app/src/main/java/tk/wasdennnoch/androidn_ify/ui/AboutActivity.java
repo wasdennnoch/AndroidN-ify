@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
+import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 public class AboutActivity extends Activity implements UpdateUtils.UpdateListener {
 
@@ -24,7 +24,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        ThemeUtils.applyTheme(this, prefs);
+        ViewUtils.applyTheme(this, prefs);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);

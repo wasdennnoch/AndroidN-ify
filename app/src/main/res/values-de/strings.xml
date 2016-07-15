@@ -118,14 +118,10 @@
     <string name="battery_tile_show_percentage_summary">Verbleibende Prozent in der Batterie-Kachel zeigen</string>
     <string name="enable_qs_editor">Enable QS editor</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
-    <string name="alternative_header_qs_method_title">Alternative QS Lademethode</string>
-    <string name="alternative_header_qs_method">Aktivieren, wenn Positionierungsprobleme der QS Icons auftreten</string>
     <string name="enable_new_tile_click_behavior">Android N Kachel-Klick-Verhalten</string>
     <string name="enable_new_tile_click_behavior_summary">Eine Kachel im Header klicken, um sie zu (de)aktivieren, im Panel, um Details zu zeigen</string>
     <string name="enable_large_first_row">Erste Reihe vergrößern</string>
     <string name="enable_large_first_row_summary">In CM das Konfigurationsmenü im Kachel-Bearbeitungs-Modus benutzen</string>
-    <string name="notification_full_width_volume_title">Breiter Lautstärkedialog</string>
-    <string name="notification_full_width_volume">Entfernt das Breitenlimit des Lautstärkedialogs auf Geräten mit großem Bildschirm</string>
     <string name="fix_stuck_inversion_title">Invertierung reparieren</string>
     <string name="fix_stuck_inversion">Auf manchen Geräten kann die Farbunkehrung nach dem Aktivieren nicht mehr deaktiviert werden. Klicken, um die Invertierung manuell zu deaktivieren.</string>
     <!-- Hide header icons -->
@@ -144,8 +140,6 @@
     <string name="action_search">Suchen</string>
     <string name="notification_blacklisted_apps_title">Ausgeschlossene Apps</string>
     <string name="notification_blacklisted_apps">Alten Benachrichtigungs-Stil für diese Apps verwenden</string>
-    <string name="notifications_custom_color_title">Eigene Akzentfarbe nutzen</string>
-    <string name="notifications_accent_color_title">Akzentfarbe</string>
     <string name="notifications_custom_actions_color_title">Eigene Actions-Hintergrundfarbe nutzen</string>
     <string name="notifications_actions_color_title">Actions-Hintergrundfarbe</string>
     <!-- /NOTIFICATIONS -->

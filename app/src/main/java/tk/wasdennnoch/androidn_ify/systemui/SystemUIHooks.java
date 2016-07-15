@@ -29,7 +29,7 @@ public class SystemUIHooks {
         XposedHelpers.findAndHookMethod(CLASS_SYSTEMUI_APPLICATION, classLoader, "onCreate", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                XposedHook.logD(TAG, "prepareNavigationBarViewHook called");
+                XposedHook.logD(TAG, "SystemUIApplication created, init");
 
                 ConfigUtils.getInstance().reload(); // Start loading prefs in a background thread to have them ready as quick as possible
 

@@ -119,14 +119,10 @@
     <string name="battery_tile_show_percentage_summary">Afișează procentajul bateriei în titlul bateriei</string>
     <string name="enable_qs_editor">Activați editorul SR</string>
     <string name="allow_fancy_qs_transition">Tranziția SR extravagantă</string>
-    <string name="alternative_header_qs_method_title">Metoda alternativă de încărcare a SR</string>
-    <string name="alternative_header_qs_method">Activați dacă sunt probleme de poziționare cu titluri SR</string>
     <string name="enable_new_tile_click_behavior">Comportament click Android N</string>
     <string name="enable_new_tile_click_behavior_summary">Apăsând un chenar în antet îl vei comuta și apăsând un chenar în panou îl vei extinde</string>
     <string name="enable_large_first_row">Lărgeste primul rând</string>
     <string name="enable_large_first_row_summary">Pe CM folosește meniul de modificare a SR în schimb</string>
-    <string name="notification_full_width_volume_title">Dialog volum lățime completă</string>
-    <string name="notification_full_width_volume">Dezactivează limita lațimei dialogului de volum pt. ecranele mari</string>
     <string name="fix_stuck_inversion_title">Fixează inversiunea blocată</string>
     <string name="fix_stuck_inversion">Pe unele dispozitive, inversiunea culorilor devine blocată când este activată. Dați clic aici pentru a forța dezactivarea</string>
 
@@ -152,8 +148,6 @@
     <string name="action_search">Caută</string>
     <string name="notification_blacklisted_apps_title">Aplicații pe lista neagră</string>
     <string name="notification_blacklisted_apps">Folosește stilul vechi al notificărilor pt. aceste aplicații</string>
-    <string name="notifications_custom_color_title">Utilizați o culoare de accent personalizată</string>
-    <string name="notifications_accent_color_title">Culoare accent</string>
     <string name="notifications_custom_actions_color_title">Utilizați o culoare de fundal al acțiunilor personalizată</string>
     <string name="notifications_actions_color_title">Culoare fundal acțiuni</string>
     <!-- /NOTIFICATIONS -->

@@ -35,7 +35,7 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-import tk.wasdennnoch.androidn_ify.utils.FontSizeUtils;
+import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 /** View that represents a standard quick settings tile. **/
 public class FakeQSTileView extends ViewGroup {
@@ -88,7 +88,7 @@ public class FakeQSTileView extends ViewGroup {
         int padding = res.getDimensionPixelSize(res.getIdentifier("qs_tile_padding_top", "dimen", PACKAGE_SYSTEMUI));
         int largePadding = res.getDimensionPixelSize(res.getIdentifier("qs_tile_padding_top_large_text", "dimen", PACKAGE_SYSTEMUI));
         float largeFactor = (MathUtils.constrain(getResources().getConfiguration().fontScale,
-                1.0f, FontSizeUtils.LARGE_TEXT_SCALE) - 1f) / (FontSizeUtils.LARGE_TEXT_SCALE - 1f);
+                1.0f, ViewUtils.LARGE_TEXT_SCALE) - 1f) / (ViewUtils.LARGE_TEXT_SCALE - 1f);
         mTilePaddingTopPx = Math.round((1 - largeFactor) * padding + largeFactor * largePadding);
         requestLayout();
     }
@@ -97,7 +97,7 @@ public class FakeQSTileView extends ViewGroup {
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateTopPadding();
-        FontSizeUtils.updateFontSize(mLabel, getResources().getIdentifier("qs_tile_text_size", "dimen", PACKAGE_SYSTEMUI));
+        ViewUtils.updateFontSize(mLabel, getResources().getIdentifier("qs_tile_text_size", "dimen", PACKAGE_SYSTEMUI));
     }
 
     @SuppressWarnings("deprecation")

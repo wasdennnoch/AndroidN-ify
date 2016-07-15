@@ -86,14 +86,10 @@
     <string name="battery_tile_show_percentage">Afficher le pourcentage dans la tuile batterie</string>
     <string name="enable_qs_editor">Activer éditeur QS</string>
     <string name="allow_fancy_qs_transition">Transition QS améliorée</string>
-    <string name="alternative_header_qs_method_title">Méthode de chargement alternatif de QS</string>
-    <string name="alternative_header_qs_method">Activer lorsqu\'il existe des problèmes de positionnement des icones QS</string>
     <string name="enable_new_tile_click_behavior">Comportement d\'Android N à l\'appui.</string>
     <string name="enable_new_tile_click_behavior_summary">Un clic sur une tuile de l\'entête la basculeras et un appui sur une tuile du panneau ouvrira directement ses paramètres</string>
     <string name="enable_large_first_row">Aggrandir la première rangée</string>
     <string name="enable_large_first_row_summary">Sur CM utilisez à la place le menu de configuration du mode d\'édition</string>
-    <string name="notification_full_width_volume_title">Largeur totale boîte de dialogue du volume</string>
-    <string name="notification_full_width_volume">Supprimer la limite de la largeur de la boîte de dialogue du volume pour les téléphones avec grand écran</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Cacher les éléments d\'entête</string>
     <string name="hide_tuner_icon_title">Cacher l\'icone de SystemUI Tuner</string>
@@ -110,8 +106,6 @@
     <string name="action_search">Rechercher</string>
     <string name="notification_blacklisted_apps_title">Liste noire des applis.</string>
     <string name="notification_blacklisted_apps">Utilisation de l\'ancien style de notifications pour ces applis.</string>
-    <string name="notifications_custom_color_title">Utiliser une couleur d\'accentuation personnalisée</string>
-    <string name="notifications_accent_color_title">Couleur d\'accentuation</string>
     <string name="notifications_custom_actions_color_title">Utiliser une couleur personnalisée pour le fond des actions</string>
     <string name="notifications_actions_color_title">Couleur fond des actions</string>
     <!-- /NOTIFICATIONS -->

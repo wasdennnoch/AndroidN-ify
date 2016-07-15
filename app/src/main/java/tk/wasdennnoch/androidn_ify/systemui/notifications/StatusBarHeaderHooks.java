@@ -444,18 +444,19 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "onMeasure() called");
             try {
                 gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
                 if (gridHeight == oldGridHeight) {
+                    XposedHook.logD(TAG, "onMeasureHook: Grid height unchanged");
                     if (mOnMeasureUnchagedCount > 5) {
+                        XposedHook.logD(TAG, "onMeasureHook: Unhook and setup");
                         onMeasureUnhook.unhook();
                         mGridHeight = gridHeight;
                         mHeaderQsPanel.setupAnimators();
                     }
                     mOnMeasureUnchagedCount++;
                 } else {
-                    XposedHook.logD(TAG, "grid height changed to " + gridHeight);
+                    XposedHook.logD(TAG, "onMeasureHook: Grid height changed to " + gridHeight);
                     mOnMeasureUnchagedCount = 0;
                     oldGridHeight = gridHeight;
                 }
@@ -622,10 +623,18 @@ public class StatusBarHeaderHooks {
         float timeCollapsed = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
         float timeExpanded;
         switch (ConfigUtils.qs().header_clock_size) {
-            case 1: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small); break;
-            case 2: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_smaller); break;
-            case 3: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_tiny); break;
-            default: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_normal); break;
+            case 1:
+                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small);
+                break;
+            case 2:
+                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_smaller);
+                break;
+            case 3:
+                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_tiny);
+                break;
+            default:
+                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_normal);
+                break;
         }
         float dateScaleFactor = timeExpanded / timeCollapsed;
         float gearTranslation = res.getDimension(R.dimen.settings_gear_translation);
@@ -1135,8 +1144,8 @@ public class StatusBarHeaderHooks {
                             forceAnim = headerItem != null && (boolean) headerItem &&
                                     !Objects.equals(XposedHelpers.getObjectField(param.args[1], "icon"),
                                             iv.getTag(iv.getResources().getIdentifier("qs_icon_tag", "id", PACKAGE_SYSTEMUI)));
-                            XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + "; type: " +
-                                    XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType"));
+                            String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
+                            XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
                         }
 
                         @Override
