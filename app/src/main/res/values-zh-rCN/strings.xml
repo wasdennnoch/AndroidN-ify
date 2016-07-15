@@ -103,7 +103,7 @@
     <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
     <string name="no_recents_image">更改没有最近任务时的界面样式</string>
 
-    <string name="no_previous_recents">没有最近使用的项目</string>
+    <string name="no_previous_recents">没有最近任务</string>
 
     <string name="recents_button_behavior_previous">返回到上一个应用</string>
     <string name="recents_button_behavior_current">返回到当前应用</string>
@@ -154,6 +154,7 @@
     <string name="action_search">搜索</string>
     <string name="notification_blacklisted_apps_title">黑名单应用</string>
     <string name="notification_blacklisted_apps">所选应用将使用旧风格的通知</string>
+    <string name="notifications_auto_color_title">自动设置通知强调色</string>
     <string name="notifications_custom_color_title">使用自定义的通知强调色</string>
     <string name="notifications_accent_color_title">通知强调色</string>
     <string name="notifications_custom_actions_color_title">使用自定义的通知操作背景色</string>
@@ -194,8 +195,8 @@
 
     <string name="info_unspecified">未指定</string>
 
-    <string name="info_bloodtype_op">0 型 Rh 阳性</string>
-    <string name="info_bloodtype_on">0 型 Rh 阴性</string>
+    <string name="info_bloodtype_op">O 型 Rh 阳性</string>
+    <string name="info_bloodtype_on">O 型 Rh 阴性</string>
     <string name="info_bloodtype_ap">A 型 Rh 阳性</string>
     <string name="info_bloodtype_an">A 型 Rh 阴性</string>
     <string name="info_bloodtype_bp">B 型 Rh 阳性</string>
