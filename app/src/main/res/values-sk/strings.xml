@@ -188,6 +188,7 @@
     <string name="debug_log_title">Zaznamenávanie chýb</string>
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
     <string name="share_logcat_title">Zdieľať záznam</string>
+    <string name="share_logcat_summary">Uloží dôležité informácie zo záznamu do súboru</string>
     <string name="logcat_notif_ongoing_title">Ukladanie záznamu</string>
     <string name="logcat_notif_finished_title">Záznam uložený</string>
     <string name="logcat_notif_preparing">Príprava</string>
