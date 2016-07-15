@@ -127,10 +127,15 @@
     <string name="enable_large_first_row_summary">Jeśli posiadasz CyanogenMod, użyj menu konfiguracji aby edytować kafelki</string>
     <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
     <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
-    <!-- Hide header icons -->
+    <string name="header_clock_size_title">Rozmiar zegarka w nagłówku</string>
+    <string name="header_clock_size_normal">Normalny</string>
+    <string name="header_clock_size_small">Mały</string>
+    <string name="header_clock_size_smaller">Mniejszy</string>
+    <string name="header_clock_size_tiny">Najmniejszy</string><!-- Hide header icons -->
     <string name="hide_icons_title">Ukryj wybrane elementy nagłówka</string>
     <string name="hide_tuner_icon_title">Ukryj ikonę edycji SystemUI</string>
     <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
+    <string name="hide_edit_tiles_summary">Ukrywa tylko stockowy przycisk edycji!</string>
     <string name="hide_carrier_label_title">Ukryj nazwę dostawcy</string>
     <!-- /Hide header icons -->
     <!-- /QUICK SETTINGS -->
@@ -143,6 +148,7 @@
     <string name="action_search">Szukaj</string>
     <string name="notification_blacklisted_apps_title">Wyłączone aplikacje</string>
     <string name="notification_blacklisted_apps">Użyj starego stylu powiadomień dla tych aplikacji</string>
+    <string name="notifications_auto_color_title">Użyj atomatycznego koloru akcentu</string>
     <string name="notifications_custom_actions_color_title">Użyj niestandardowego koloru tła akcji</string>
     <string name="notifications_actions_color_title">Kolor tła akcji</string>
     <!-- /NOTIFICATIONS -->
@@ -212,5 +218,10 @@
     <string name="live_display_night">Noc</string>
     <string name="live_display_outdoor">Na zewnątrz (jasne słońce)</string>
     <!-- /QS -->
-    
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Wybór Koloru</string>
+    <string name="press_color_to_apply">Naciśnij na kolorze, aby wybrać</string>
+    <!-- /Color Picker -->
+
 </resources>
