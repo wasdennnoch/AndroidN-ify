@@ -171,7 +171,6 @@
     <string name="debug_log_title">Zaznamenávání chyb</string>
     <string name="debug_log">Upozornění: způsobuje zahlcování záznamu</string>
     <string name="share_logcat_title">Sdílet logcat</string>
-    <string name="share_logcat">Uložit logcat do souboru</string>
     <string name="logcat_notif_ongoing_title">Ukládání záznamu</string>
     <string name="logcat_notif_finished_title">Záznam uložen</string>
     <string name="logcat_notif_preparing">Příprava</string>

@@ -141,7 +141,6 @@
     <string name="permission_required">Cần cấp quyền</string>
     <string name="requesting_root">Cần quyền root…</string>
     <string name="root_failed">Cấp quyền READ_LOGS thất bại</string>
-    <string name="share_logcat">Lưu logcat của bạn thành tệp</string>
     <string name="share_logcat_title">Chia sẻ logcat</string>
     <string name="battery_tile_show_percentage_summary">Hiện phần trăm pin trên ô Pin</string>
     <string name="fix_stuck_inversion">Trên một số thiết bị, hiệu ứng lộn ngược bị kẹt khi bật. Bấm để ép tắt</string>

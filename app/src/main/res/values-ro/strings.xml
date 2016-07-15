@@ -36,7 +36,6 @@
     <string name="debug_log_title">Loguri de depanare</string>
     <string name="debug_log">Atentie: încărcare log</string>
     <string name="share_logcat_title">Împărtăși logcat</string>
-    <string name="share_logcat">Împărtășește logcat-ul dvs. la un fișier</string>
     <string name="logcat_notif_ongoing_title">Se salvează logcat-ul&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat-ul salvat</string>
     <string name="logcat_notif_preparing">Se pregătească&#8230;</string>

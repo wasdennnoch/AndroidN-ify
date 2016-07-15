@@ -37,7 +37,6 @@
     <string name="debug_log_title">Registos de depuração</string>
     <string name="debug_log">Atenção: Registo invasivo</string>
     <string name="share_logcat_title">Enviar relatório de erros</string>
-    <string name="share_logcat">Guardar relatório de erros em um ficheiroo</string>
     <string name="logcat_notif_ongoing_title">A guardar relatório&#8230;</string>
     <string name="logcat_notif_finished_title">Relatório salvo</string>
     <string name="logcat_notif_preparing">A preparar&#8230;</string>

@@ -183,7 +183,6 @@
     <string name="update_notification_download_fail">Download fallito</string>
     <string name="update_notification_download_fail_details">Impossibile scaricare la build %1$d</string>
     <string name="share_logcat_title">Condividi logcat</string>
-    <string name="share_logcat">Salva il tuo logcat in un file</string>
     <string name="logcat_notif_ongoing_title">Salvo il logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat salvato</string>
     <string name="logcat_notif_preparing">Preparazione&#8230;</string>

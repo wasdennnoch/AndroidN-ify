@@ -35,7 +35,6 @@
     <string name="debug_log_title">디버그 로그</string>
     <string name="debug_log">경고: Log-flooding</string>
     <string name="share_logcat_title">로그켓 공유</string>
-    <string name="share_logcat">로그켓을 파일로 저장합니다</string>
     <string name="logcat_notif_ongoing_title">로그켓을 저장하는 중&#8230;</string>
     <string name="logcat_notif_finished_title">로그켓 저장됨</string>
     <string name="logcat_notif_preparing">Preparing&#8230;</string>

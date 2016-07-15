@@ -35,7 +35,6 @@
     <string name="debug_log_title">Włącz debugowanie</string>
     <string name="debug_log">Ostrzeżenie: generuje dużo wpisów w dzienniku debugowania</string>
     <string name="share_logcat_title">Udostępnij logcat</string>
-    <string name="share_logcat">Zapisz logcat do pliku</string>
     <string name="logcat_notif_ongoing_title">Zapisywanie logcat</string>
     <string name="logcat_notif_finished_title">Logcat zapisany</string>
     <string name="logcat_notif_preparing">Przygotowanie</string>
@@ -148,7 +147,6 @@
     <string name="action_search">Szukaj</string>
     <string name="notification_blacklisted_apps_title">Wyłączone aplikacje</string>
     <string name="notification_blacklisted_apps">Użyj starego stylu powiadomień dla tych aplikacji</string>
-    <string name="notifications_auto_color_title">Użyj atomatycznego koloru akcentu</string>
     <string name="notifications_custom_actions_color_title">Użyj niestandardowego koloru tła akcji</string>
     <string name="notifications_actions_color_title">Kolor tła akcji</string>
     <!-- /NOTIFICATIONS -->

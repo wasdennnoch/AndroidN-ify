@@ -21,6 +21,8 @@ import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 
 public class DownloadService extends IntentService {
 
+    private static final String TAG = "DownloadService";
+
     public DownloadService() {
         super("DownloadService");
     }
@@ -47,7 +49,7 @@ public class DownloadService extends IntentService {
         startForeground(1, mNotificationBuider.build());
 
         if (download(url)) {
-            Log.d("update", getExternalFilesDir(null).getPath() + "/update.apk");
+            Log.d(TAG, "Downloaded updated apk to " + getExternalFilesDir(null).getPath() + "/update.apk");
 
             Intent installIntent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
             installIntent.setData(Uri.parse("file:" + getExternalFilesDir(null).getPath() + "/update.apk"));
@@ -99,13 +101,13 @@ public class DownloadService extends IntentService {
             byte data[] = new byte[4096];
             int count;
 
-            Log.d("dl", "downloading " + fileLength + " bytes to " + path);
+            Log.d(TAG, "Downloading " + fileLength + " bytes to " + path);
 
             while ((count = input.read(data)) != -1) {
                 output.write(data, 0, count);
             }
 
-            Log.d("dl", "download complete");
+            Log.d(TAG, "Download complete");
         } catch (Exception ignore) {
             return false;
         } finally {

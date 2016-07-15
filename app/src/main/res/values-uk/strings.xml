@@ -35,8 +35,7 @@
 	<string name="debug_log_title">Журнал для налагодження</string>
 	<string name="debug_log">Увага: Журнал може займати багато місця</string>
 	<string name="share_logcat_title">Поділитися logcat</string>
-	<string name="share_logcat">Зберігає ваш logcat в файл</string>
-	<string name="logcat_notif_ongoing_title">Збереження logcat&#8230;</string>
+    <string name="logcat_notif_ongoing_title">Збереження logcat&#8230;</string>
 	<string name="logcat_notif_finished_title">Logcat збережено</string>
 	<string name="logcat_notif_preparing">Підготування&#8230;</string>
 	<string name="logcat_notif_ongoing_lines">Збережено %1$s рядків&#8230;</string>

@@ -35,7 +35,7 @@
     <string name="debug_log_title">Debug-Log</string>
     <string name="debug_log">Warnung: Log-flutend</string>
     <string name="share_logcat_title">Logcat teilen</string>
-    <string name="share_logcat">Speichert den Logcat in einer Datei ab</string>
+    <string name="share_logcat_summary">Speichert wichtige Auszüge aus dem Logcat in einer Datei ab</string>
     <string name="logcat_notif_ongoing_title">Speichere Logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat gespeichert</string>
     <string name="logcat_notif_preparing">Bereitet vor&#8230;</string>

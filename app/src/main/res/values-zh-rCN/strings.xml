@@ -35,7 +35,6 @@
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
     <string name="share_logcat_title">分享日志</string>
-    <string name="share_logcat">将日志保存到文件中</string>
     <string name="logcat_notif_ongoing_title">正在保存日志&#8230;</string>
     <string name="logcat_notif_finished_title">日志已保存</string>
     <string name="logcat_notif_preparing">正在准备&#8230;</string>

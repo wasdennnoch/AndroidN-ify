@@ -35,7 +35,6 @@
     <string name="debug_log_title">Лог отладки</string>
     <string name="debug_log">Внимание: Лог может занимать много места</string>
     <string name="share_logcat_title">Отправить logcat</string>
-    <string name="share_logcat">Сохраняет Ваш logcat в файл</string>
     <string name="logcat_notif_ongoing_title">Сохранение logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat сохранен</string>
     <string name="logcat_notif_preparing">Подготовка&#8230;</string>

@@ -35,7 +35,7 @@
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
     <string name="share_logcat_title">Share logcat</string>
-    <string name="share_logcat">Saves your logcat to a file</string>
+    <string name="share_logcat_summary">Saves important extracts of the logcat to a file</string>
     <string name="logcat_notif_ongoing_title">Saving logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat saved</string>
     <string name="logcat_notif_preparing">Preparing&#8230;</string>

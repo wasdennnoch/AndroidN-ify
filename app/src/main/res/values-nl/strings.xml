@@ -36,7 +36,6 @@
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Waarschuwing: Log-overstromingen</string>
     <string name="share_logcat_title">Deel logcat</string>
-    <string name="share_logcat">Slaag jouw logcat op in een bestand</string>
     <string name="logcat_notif_ongoing_title">Logcat opslaan</string>
     <string name="logcat_notif_finished_title">Logcat opgeslagen</string>
     <string name="logcat_notif_preparing">Voorbereiden</string>
