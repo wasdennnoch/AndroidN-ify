@@ -5,6 +5,7 @@ import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 
 public class QSTileHook {
+
     private Class<?> mTileClass;
     private Object mThisObject;
 
@@ -25,7 +26,6 @@ public class QSTileHook {
     }
 
     public void handleLongClick() {
-
     }
 
     public void hookClick() {
@@ -72,4 +72,5 @@ public class QSTileHook {
             return null;
         }
     };
+
 }

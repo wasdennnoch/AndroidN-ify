@@ -16,6 +16,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.LiveDisplayTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class TilesManager {
@@ -28,11 +29,12 @@ public class TilesManager {
     public static List<String> mCustomTileSpecs = new ArrayList<>();
     private Map<String, QSTile> mTiles = new HashMap<>();
     private String mCreateTileViewTileKey;
+    public boolean useVolumeTile = false;
 
     static {
         if (!RomUtils.isCm() || Build.VERSION.SDK_INT != Build.VERSION_CODES.LOLLIPOP_MR1)
             mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
-        if (RomUtils.isCm() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        if (RomUtils.isCm() && ConfigUtils.M)
             mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
     }
 
@@ -89,7 +91,20 @@ public class TilesManager {
         try {
             ClassLoader classLoader = mContext.getClassLoader();
 
-            XposedHelpers.findAndHookMethod(QSTile.CLASS_INTENT_TILE, classLoader, "handleUpdateState",
+            Class hookClass;
+            try {
+                hookClass = XposedHelpers.findClass(QSTile.CLASS_INTENT_TILE, classLoader);
+            } catch (Throwable ignore) {
+                try {
+                    hookClass = XposedHelpers.findClass(QSTile.CLASS_VOLUME_TILE, classLoader);
+                    useVolumeTile = true;
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Couldn't find required tile class, aborting hook", null);
+                    return;
+                }
+            }
+
+            XposedHelpers.findAndHookMethod(hookClass, "handleUpdateState",
                     QSTile.CLASS_TILE_STATE, Object.class, new XC_MethodHook() {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
@@ -110,6 +125,7 @@ public class TilesManager {
                         }
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            if (mCreateTileViewTileKey == null) return;
                             final QSTile tile = mTiles.get(mCreateTileViewTileKey);
                             if (tile != null)
                                 tile.onCreateTileView((View)param.getResult());
@@ -121,6 +137,7 @@ public class TilesManager {
                     new XC_MethodHook() {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            if (mCreateTileViewTileKey == null) return;
                             final QSTile tile = mTiles.get(mCreateTileViewTileKey);
                             if (tile != null) {
                                 View icon = tile.onCreateIcon();
@@ -141,7 +158,7 @@ public class TilesManager {
                         }
                     });
 
-            XposedHelpers.findAndHookMethod(QSTile.CLASS_INTENT_TILE, classLoader, "handleClick",
+            XposedHelpers.findAndHookMethod(hookClass, "handleClick",
                     new XC_MethodHook() {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
@@ -154,7 +171,7 @@ public class TilesManager {
                         }
                     });
 
-            XposedHelpers.findAndHookMethod(QSTile.CLASS_INTENT_TILE, classLoader, "handleLongClick",
+            XposedHelpers.findAndHookMethod(hookClass, "handleLongClick",
                     new XC_MethodHook() {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
@@ -167,7 +184,7 @@ public class TilesManager {
                         }
                     });
 
-            XposedHelpers.findAndHookMethod(QSTile.CLASS_INTENT_TILE, classLoader, "setListening",
+            XposedHelpers.findAndHookMethod(hookClass, "setListening",
                     boolean.class, new XC_MethodHook() {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
@@ -191,6 +208,7 @@ public class TilesManager {
                             }
                         }
                     });
+
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
         }

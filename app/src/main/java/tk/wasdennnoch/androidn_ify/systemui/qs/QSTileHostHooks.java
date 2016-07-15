@@ -180,17 +180,18 @@ public class QSTileHostHooks {
         try {
             Class<?> classTileHost = XposedHelpers.findClass(CLASS_TILE_HOST, classLoader);
 
-            if (RomUtils.isCmBased()) {
-                try {
-                    classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
-                    classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
-                } catch (Throwable ignore) {
-                }
-            }
-
             if (ConfigUtils.qs().enable_qs_editor) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook); // On L, this method is void
+
+                if (RomUtils.isCmBased()) {
+                    try {
+                        classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
+                        classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
+                    } catch (Throwable ignore) {
+                    }
+                }
+
+                if (!ConfigUtils.M) {
+                    XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook);
                 } else {
                     try {
                         XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);

@@ -29,6 +29,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     public static final String TILE_SPEC = "battery";
     private BatteryInfoManager.BatteryData mTileBatteryData;
     private BatteryView mBatteryView;
+    private boolean mListening;
 
     public BatteryTile(TilesManager tilesManager, Object host, String key) {
         super(tilesManager, host, key);
@@ -69,12 +70,21 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     @Override
     public void onBatteryStatusChanged(BatteryInfoManager.BatteryData batteryData) {
         mTileBatteryData = batteryData;
-        refreshState();
+        if (mListening)
+            refreshState();
     }
 
     @Override
     public void handleClick() {
         startActivityDismissingKeyguard(Intent.ACTION_POWER_USAGE_SUMMARY);
+    }
+
+    @Override
+    public void setListening(boolean listening) {
+        mListening = listening;
+        if (mListening) {
+            mBatteryView.invalidate();
+        }
     }
 
     @Override
@@ -371,7 +381,8 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         @Override
         public void onBatteryStatusChanged(BatteryInfoManager.BatteryData batteryData) {
             mBatteryData = batteryData;
-            postInvalidate();
+            if (mListening)
+                postInvalidate();
         }
 
     }

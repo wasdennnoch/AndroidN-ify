@@ -25,6 +25,7 @@ public class QSTile {
     public static final String TILE_KEY_NAME = "customTileKey";
     public static final String DUMMY_INTENT = "intent(dummy)";
     public static final String CLASS_INTENT_TILE = "com.android.systemui.qs.tiles.IntentTile";
+    public static final String CLASS_VOLUME_TILE = "com.android.systemui.qs.tiles.VolumeTile"; // Used on CM12.1 where IntentTile doesn't exist
     public static final String CLASS_TILE_STATE = "com.android.systemui.qs.QSTile.State";
     public static final String CLASS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     public static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
@@ -37,7 +38,10 @@ public class QSTile {
         mState = new State(mKey);
         mContext = (Context) XposedHelpers.callMethod(mHost, "getContext");
         mResUtils = ResourceUtils.getInstance(mContext);
-        mTile = XposedHelpers.callStaticMethod(XposedHelpers.findClass(CLASS_INTENT_TILE, mContext.getClassLoader()), "create", mHost, DUMMY_INTENT);
+        if (!tilesManager.useVolumeTile)
+            mTile = XposedHelpers.callStaticMethod(XposedHelpers.findClass(CLASS_INTENT_TILE, mContext.getClassLoader()), "create", mHost, DUMMY_INTENT);
+        else
+            mTile = XposedHelpers.newInstance(XposedHelpers.findClass(CLASS_VOLUME_TILE, mContext.getClassLoader()), mHost);
         XposedHelpers.setAdditionalInstanceField(mTile, TILE_KEY_NAME, mKey);
         mTilesManager.registerTile(this);
         if (resourceIconClass == null)
