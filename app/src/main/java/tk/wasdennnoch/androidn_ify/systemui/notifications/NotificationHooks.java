@@ -161,7 +161,7 @@ public class NotificationHooks {
                     ? XposedHelpers.getObjectField(param.thisObject, "mSummaryText")
                     : XposedHelpers.getObjectField(mBuilder, "mSubText"));
             if (overflowText != null) {
-                contentView.setTextViewText(R.id.notification_summary, (CharSequence) XposedHelpers.callMethod(mBuilder, "processLegacyText", overflowText));
+                contentView.setTextViewText(R.id.notification_summary, processLegacyText(mBuilder, overflowText));
                 contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
                 contentView.setViewVisibility(R.id.notification_summary, View.VISIBLE);
             }
@@ -177,6 +177,15 @@ public class NotificationHooks {
             }
         }
         contentView.setInt(R.id.notification_icon, "setColorFilter", mColor);
+    }
+
+    private static CharSequence processLegacyText(Object notifBuilder, CharSequence text) {
+        try {
+            return (CharSequence) XposedHelpers.callMethod(notifBuilder, "processLegacyText", text);
+        } catch (Throwable t) {
+            return (CharSequence) XposedHelpers.callMethod(notifBuilder, "processText",
+                    XposedHelpers.callMethod(notifBuilder, "getTextColor", 255));
+        }
     }
 
     private static XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
@@ -230,9 +239,9 @@ public class NotificationHooks {
                 CharSequence mSubText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mSubText");
                 if (mContentText != null && mSubText != null) {
                     contentView.setTextViewText(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID),
-                            (CharSequence) XposedHelpers.callMethod(param.thisObject, "processLegacyText", mContentText));
+                            processLegacyText(param.thisObject, mContentText));
                     contentView.setViewVisibility(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID), View.GONE);
-                    contentView.setTextViewText(R.id.notification_summary, (CharSequence) XposedHelpers.callMethod(param.thisObject, "processLegacyText", mSubText));
+                    contentView.setTextViewText(R.id.notification_summary, processLegacyText(param.thisObject, mSubText));
                     contentView.setViewVisibility(R.id.notification_summary, View.VISIBLE);
                     contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
                     contentView.setTextColor(R.id.notification_summary, mColor);
