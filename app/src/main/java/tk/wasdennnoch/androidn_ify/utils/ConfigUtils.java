@@ -71,6 +71,10 @@ public class ConfigUtils {
         return getInstance().lockscreen;
     }
 
+    public XSharedPreferences getPrefs() {
+        return mPrefs;
+    }
+
     public class SettingsConfig {
         public boolean enable_summaries;
 
@@ -197,12 +201,14 @@ public class ConfigUtils {
         ConfigUtils.LockscreenConfig l = lockscreen();
 
         StringBuilder b = new StringBuilder("Current module config:\n");
-        b.append("  Settings\n");
+        b.append("  General----------------\n");
+        add(b, "can_read_prefs", ConfigUtils.getInstance().getPrefs().getBoolean("can_read_prefs", false));
+        b.append("  Settings---------------\n");
         add(b, "enable_summaries", s.enable_summaries);
         add(b, "fix_sound_notif_tile", s.fix_sound_notif_tile);
         add(b, "enable_n_platlogo", s.enable_n_platlogo);
         add(b, "use_namey_mcnameface", s.use_namey_mcnameface);
-        b.append("  Recents\n");
+        b.append("  Recents---------------\n");
         add(b, "double_tap", r.double_tap);
         add(b, "alternative_method", r.alternative_method);
         add(b, "double_tap_speed", r.double_tap_speed);
@@ -211,7 +217,7 @@ public class ConfigUtils {
         add(b, "navigation_delay", r.navigation_delay);
         add(b, "large_recents", r.large_recents);
         add(b, "no_recents_image", r.no_recents_image);
-        b.append("  Quick Settings\n");
+        b.append("  Quick Settings---------\n");
         add(b, "header", q.header);
         add(b, "keep_qs_panel_background", q.keep_qs_panel_background);
         add(b, "qs_tiles_count", q.qs_tiles_count);
@@ -224,12 +230,12 @@ public class ConfigUtils {
         add(b, "hide_tuner_icon", q.hide_tuner_icon);
         add(b, "hide_edit_tiles", q.hide_edit_tiles);
         add(b, "hide_carrier_label", q.hide_carrier_label);
-        b.append("  Notifications\n");
+        b.append("  Notifications----------\n");
         add(b, "change_style", n.change_style);
         add(b, "dismiss_button", n.dismiss_button);
         add(b, "custom_actions_color", n.custom_actions_color);
         add(b, "actions_color", n.actions_color);
-        b.append("  Lockscreen\n");
+        b.append("  Lockscreen-------------\n");
         add(b, "enable_emergency_info", l.enable_emergency_info);
         b.append("End module config");
 

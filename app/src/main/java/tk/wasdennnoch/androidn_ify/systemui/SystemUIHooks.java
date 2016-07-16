@@ -67,6 +67,15 @@ public class SystemUIHooks {
                         }
                     }
                 }, intentFilter);
+
+                // Give the settings enough time to load in the background
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (XposedHook.debug)
+                            ConfigUtils.log();
+                    }
+                }, 4000);
             }
         });
 

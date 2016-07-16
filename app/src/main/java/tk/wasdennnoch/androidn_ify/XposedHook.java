@@ -95,8 +95,6 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             logW(TAG, "Can't read prefs file, default values will be applied in hooks!");
         }
         debug = sPrefs.getBoolean("debug_log", false);
-        if (debug)
-            ConfigUtils.log();
     }
 
     @Override
