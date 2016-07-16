@@ -8,7 +8,6 @@ import android.view.animation.Interpolator;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class TouchAnimator {
 
     private final Interpolator mInterpolator;
@@ -67,7 +66,7 @@ public class TouchAnimator {
             mValues.add(paramKeyframeSet);
         }
 
-        private static Property<View, Float> getProperty(View paramObject, String paramString, Class<?> paramClass) {
+        private static Property<View, Float> getProperty(String paramString) {
             if (paramString.equals("translationX")) {
                 return View.TRANSLATION_X;
             }
@@ -99,7 +98,7 @@ public class TouchAnimator {
         }
 
         public Builder addFloat(View paramObject, String paramString, float... paramVarArgs) {
-            add(paramObject, KeyframeSet.ofFloat(getProperty(paramObject, paramString, Float.TYPE), paramVarArgs));
+            add(paramObject, KeyframeSet.ofFloat(getProperty(paramString), paramVarArgs));
             return this;
         }
 
@@ -187,4 +186,5 @@ public class TouchAnimator {
         public void onAnimationStarted() {
         }
     }
+
 }

@@ -1,6 +1,8 @@
 package tk.wasdennnoch.androidn_ify.systemui.recents.stack;
 
 import android.content.res.XModuleResources;
+import android.content.res.XResources;
+import android.util.TypedValue;
 
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
@@ -83,6 +85,8 @@ public class RecentsStackHooks {
             }
             if (config.recents.large_recents) {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "recents_stack_top_padding", modRes.fwd(R.dimen.recents_stack_top_padding));
+                // srsly bliss? 12 dp looks ugly as hell...
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "recents_task_view_rounded_corners_radius", new XResources.DimensionReplacement(2, TypedValue.COMPLEX_UNIT_DIP));
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
