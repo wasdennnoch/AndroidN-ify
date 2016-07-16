@@ -137,7 +137,7 @@ public class ConfigUtils {
             header = prefs.getBoolean("enable_notification_header", true);
             keep_qs_panel_background = prefs.getBoolean("keep_qs_panel_background", false);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
-            battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", true);
+            battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", false);
             enable_qs_editor = prefs.getBoolean("enable_qs_editor", true);
             allow_fancy_qs_transition = prefs.getBoolean("allow_fancy_qs_transition", true);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);

@@ -75,6 +75,7 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
     private static final String CLASS_CIRCLE_PAGE_INDICATOR = "com.viewpagerindicator.CirclePageIndicator";
     private static final String QS_PANEL_INDICATOR = "QSPanelIndicator";
+    private static final int ANIMATION_DURATION_STANDARD = 360;
 
     private static boolean mHasEditPanel = false;
     private static boolean mCollapseAfterHideDatails = false;
@@ -138,6 +139,7 @@ public class StatusBarHeaderHooks {
 
     private static float mExpansion = 0;
     private static int mGridHeight = 0;
+    public static int mHeaderHeight = 0;
 
     private static Class<?> onMeasureHookedClass;
 
@@ -158,6 +160,7 @@ public class StatusBarHeaderHooks {
             ConfigUtils config = ConfigUtils.getInstance();
 
             mContext = mStatusBarHeaderView.getContext();
+            mHeaderHeight = res.getDimensionPixelSize(R.dimen.status_bar_header_height);
 
             try {
                 //noinspection deprecation
@@ -774,6 +777,7 @@ public class StatusBarHeaderHooks {
                 }
             }
             if (mEditing) {
+                NotificationHooks.mPanelShadow.setAlpha(0);
                 mQsDetailHeaderTitle.setText(getResUtils().getString(R.string.qs_edit_detail));
             }
         } else {
@@ -781,6 +785,7 @@ public class StatusBarHeaderHooks {
             mQsDetailHeader.setClickable(false);
             if (mEditing) {
                 mEditing = false;
+                NotificationHooks.mPanelShadow.setAlpha(1);
                 mTileAdapter.saveChanges();
                 QSTileHostHooks.recreateTiles();
             }

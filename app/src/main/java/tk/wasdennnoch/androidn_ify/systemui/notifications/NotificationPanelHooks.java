@@ -94,6 +94,10 @@ public class NotificationPanelHooks {
         }
     }
 
+    public static boolean isOnKeyguard() {
+        return getStatusBarState() == NotificationPanelHooks.STATE_KEYGUARD;
+    }
+
     public static int getStatusBarState() {
         return XposedHelpers.getIntField(mNotificationPanelView, "mStatusBarState");
     }
@@ -107,6 +111,12 @@ public class NotificationPanelHooks {
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "getHeaderTranslation", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        NotificationHooks.setHeaderTranslation(Math.round((float) param.getResult()));
+                    }
+                });
 
                 XposedHelpers.findAndHookMethod(classPanelView, "schedulePeek", new XC_MethodHook() {
                     @Override
