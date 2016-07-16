@@ -75,7 +75,6 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
     private static final String CLASS_CIRCLE_PAGE_INDICATOR = "com.viewpagerindicator.CirclePageIndicator";
     private static final String QS_PANEL_INDICATOR = "QSPanelIndicator";
-    private static final int ANIMATION_DURATION_STANDARD = 360;
 
     private static boolean mHasEditPanel = false;
     private static boolean mCollapseAfterHideDatails = false;
@@ -1153,8 +1152,10 @@ public class StatusBarHeaderHooks {
                             forceAnim = headerItem != null && (boolean) headerItem &&
                                     !Objects.equals(XposedHelpers.getObjectField(param.args[1], "icon"),
                                             iv.getTag(iv.getResources().getIdentifier("qs_icon_tag", "id", PACKAGE_SYSTEMUI)));
-                            String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
-                            XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
+                            if (forceAnim) {
+                                String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
+                                XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
+                            }
                         }
 
                         @Override
