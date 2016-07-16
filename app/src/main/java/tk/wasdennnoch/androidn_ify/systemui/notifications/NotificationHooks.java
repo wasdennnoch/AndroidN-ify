@@ -584,10 +584,9 @@ public class NotificationHooks {
                     }
                 });
 
-                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "updateNotificationShadeForChildren", new XC_MethodHook() {
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "updateNotificationShade", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        XposedHook.logI(TAG, "updateNotificationShadeForChildren");
                         ViewGroup stack = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mStackScroller");
                         int childCount = stack.getChildCount();
                         boolean firstChild = true;
