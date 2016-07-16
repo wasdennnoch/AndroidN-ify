@@ -28,6 +28,8 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_QUICKQS_TILEVIEW;
+
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 
 public class QuickQSPanel extends LinearLayout {
@@ -99,19 +101,10 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
-    public void handleStateChanged(Object qstile, Object state) {
-        for (int i = 0; i < mRecords.size(); i++) {
-            Object tilerecord = mRecords.get(i);
-            Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
-            if (tile == qstile) {
-                if (i >= mTileViews.size()) {
-                    XposedHook.logD(TAG, "handleStateChanged; tilerecord index greater than or equals to tileViews size; index :" + i + "; views: " + mTileViews.size());
-                    return;
-                }
-                ViewGroup tileView = mTileViews.get(i);
-                XposedHelpers.callMethod(tileView, "onStateChanged", state);
-                XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
-            }
+    public void handleStateChanged(Object qsTile, Object state) {
+        ViewGroup tileView = (ViewGroup) XposedHelpers.getAdditionalInstanceField(qsTile, KEY_QUICKQS_TILEVIEW);
+        if (tileView != null) {
+            XposedHelpers.callMethod(tileView, "onStateChanged", state);
         }
     }
 
@@ -388,6 +381,8 @@ public class QuickQSPanel extends LinearLayout {
                     child.setVisibility(GONE);
                 }
             }
+
+            XposedHelpers.setAdditionalInstanceField(tile, KEY_QUICKQS_TILEVIEW, tileView);
 
             mTileViews.add(tileView);
             int position = getChildCount() - 1;

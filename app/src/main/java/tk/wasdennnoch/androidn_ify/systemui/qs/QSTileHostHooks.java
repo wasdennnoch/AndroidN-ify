@@ -31,6 +31,8 @@ public class QSTileHostHooks {
     public static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
     public static final String TILES_SETTING = "sysui_qs_tiles";
     public static final String TILE_SPEC_NAME = "tileSpec";
+    public static final String KEY_QUICKQS_TILEVIEW = "QuickQS_TileView";
+    public static final String KEY_EDIT_TILEVIEW = "Edit_TileView";
 
     private static TilesManager mTilesManager = null;
     public static List<String> mTileSpecs = null;
@@ -66,7 +68,10 @@ public class QSTileHostHooks {
 
             for (Map.Entry<String, Object> tile : tileMap.entrySet()) {
                 if (!tileSpecs.contains(tile.getKey())) {
-                    XposedHelpers.callMethod(tile.getValue(), "handleDestroy");
+                    Object qsTile = tile.getValue();
+                    XposedHelpers.removeAdditionalInstanceField(qsTile, KEY_QUICKQS_TILEVIEW);
+                    XposedHelpers.removeAdditionalInstanceField(qsTile, KEY_EDIT_TILEVIEW);
+                    XposedHelpers.callMethod(qsTile, "handleDestroy");
                 }
             }
 

@@ -21,6 +21,9 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_TILEVIEW;
+import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_QUICKQS_TILEVIEW;
+
 public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder> {
 
     protected static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
@@ -99,21 +102,14 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             XposedHelpers.callMethod(tileView, "setDual", false, false);
         }
         XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
+        XposedHelpers.setAdditionalInstanceField(tile, KEY_EDIT_TILEVIEW, tileView);
         mTileViews.add(i, tileView);
     }
 
-    public void handleStateChanged(Object qstile, Object state) {
-        for (int i = 0; i < mRecords.size(); i++) {
-            Object tilerecord = mRecords.get(i);
-            Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
-            if (tile == qstile) {
-                if (i >= mTileViews.size()) {
-                    XposedHook.logD(TAG, "handleStateChanged; tilerecord index >= tileViews.size; index :" + i + "; views: " + mTileViews.size());
-                    return;
-                }
-                ViewGroup tileView = mTileViews.get(i);
-                XposedHelpers.callMethod(tileView, "onStateChanged", state);
-            }
+    public void handleStateChanged(Object qsTile, Object state) {
+        ViewGroup tileView = (ViewGroup) XposedHelpers.getAdditionalInstanceField(qsTile, KEY_EDIT_TILEVIEW);
+        if (tileView != null) {
+            XposedHelpers.callMethod(tileView, "onStateChanged", state);
         }
     }
 
