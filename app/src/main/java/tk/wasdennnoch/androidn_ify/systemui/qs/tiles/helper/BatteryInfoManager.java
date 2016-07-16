@@ -138,7 +138,7 @@ public class BatteryInfoManager extends BroadcastReceiver {
             mBatteryData.temperature = newTemp;
             mBatteryData.voltage = newVoltage;
 
-            XposedHook.logD(TAG, "Updating battery info: " +
+            XposedHook.logD(TAG, "Updating battery info" +
                     "; level= " + newLevel +
                     "; charging= " + newCharging +
                     "; powerSource= " + newPowerSource +

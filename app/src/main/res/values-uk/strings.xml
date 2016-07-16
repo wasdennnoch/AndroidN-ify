@@ -35,8 +35,7 @@
 	<string name="debug_log_title">Журнал для налагодження</string>
 	<string name="debug_log">Увага: Журнал може займати багато місця</string>
 	<string name="share_logcat_title">Поділитися logcat</string>
-	<string name="share_logcat">Зберігає ваш logcat в файл</string>
-	<string name="logcat_notif_ongoing_title">Збереження logcat&#8230;</string>
+    <string name="logcat_notif_ongoing_title">Збереження logcat&#8230;</string>
 	<string name="logcat_notif_finished_title">Logcat збережено</string>
 	<string name="logcat_notif_preparing">Підготування&#8230;</string>
 	<string name="logcat_notif_ongoing_lines">Збережено %1$s рядків&#8230;</string>
@@ -118,15 +117,11 @@
 	<string name="battery_tile_show_percentage_summary">Показувати залишок батареї у відсотках на плитці з акумулятором</string>
 	<string name="enable_qs_editor">Новий редактор плиток</string>
 	<string name="allow_fancy_qs_transition">Анімація переходу плиток</string>
-	<string name="alternative_header_qs_method_title">Альтернативний метод завантаження панелі швидких налаштувань</string>
-	<string name="alternative_header_qs_method">Увімкніть, якщо є проблеми з розміщенням плиток швидких налаштувань</string>
-	<string name="enable_new_tile_click_behavior">Перемикати швидкі налаштування одним натисканням</string>
+    <string name="enable_new_tile_click_behavior">Перемикати швидкі налаштування одним натисканням</string>
 	<string name="enable_new_tile_click_behavior_summary">При натисканні на плитку у рядку швидкого доступу перемкне стан, і натисніть плитку на панелі, щоб розширити</string>
 	<string name="enable_large_first_row">Збільшити перший рядок</string>
 	<string name="enable_large_first_row_summary">На CM використовуйте меню конфігурації в режимі редагування плиток замість цього перемикача</string>
-    <string name="notification_full_width_volume_title">Розтягнути діалог гучності</string>
-	<string name="notification_full_width_volume">Прибрати обмеження ширини діалогу гучності для телефонів з великими дисплеями</string>
-	<string name="fix_stuck_inversion_title">Виправити інверсію</string>
+    <string name="fix_stuck_inversion_title">Виправити інверсію</string>
 	<string name="fix_stuck_inversion">На деяких пристроях інверсія застряє, коли увімкнена. Натисніть для примусового вимкнення</string>
 	<!-- Hide header icons -->
 	<string name="hide_icons_title">Приховати елементи шапки статус-бару</string>
@@ -144,9 +139,7 @@
 	<string name="action_search">Пошук</string>
 	<string name="notification_blacklisted_apps_title">Чорний список додатків</string>
 	<string name="notification_blacklisted_apps">Використовувати старий стиль сповіщень для цих додатків</string>
-	<string name="notifications_custom_color_title">Змінити відтінок</string>
-	<string name="notifications_accent_color_title">Колір відтінку</string>
-	<string name="notifications_custom_actions_color_title">Змінити колір фону панелі дій</string>
+    <string name="notifications_custom_actions_color_title">Змінити колір фону панелі дій</string>
 	<string name="notifications_actions_color_title">Колір фону панелі дій</string>
 	<!-- /NOTIFICATIONS -->
 	

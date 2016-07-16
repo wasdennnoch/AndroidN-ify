@@ -22,7 +22,7 @@ import android.widget.ListView;
 import java.util.Calendar;
 
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.utils.ThemeUtils;
+import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 public class EmergencyInfoActivity extends Activity {
 
@@ -34,7 +34,7 @@ public class EmergencyInfoActivity extends Activity {
         mEditable = getIntent().hasExtra("editable") && getIntent().getExtras().getBoolean("editable", false);
         if (mEditable) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            ThemeUtils.applyTheme(this, prefs);
+            ViewUtils.applyTheme(this, prefs);
             getActionBar().setTitle(getString(R.string.edit_emergency_info_title));
         }
         super.onCreate(savedInstanceState);

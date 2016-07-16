@@ -1,5 +1,7 @@
 package tk.wasdennnoch.androidn_ify.utils;
 
+import android.os.Build;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -13,9 +15,11 @@ public class ConfigUtils {
 
     private static final String TAG = "ConfigUtils";
 
-    private static ConfigUtils mInstance;
+    public static final boolean M = Build.VERSION.SDK_INT >= 23;
 
+    private static ConfigUtils mInstance;
     private XSharedPreferences mPrefs;
+
     public SettingsConfig settings;
     public RecentsConfig recents;
     public QuickSettingsConfig qs;
@@ -72,11 +76,13 @@ public class ConfigUtils {
 
         public boolean fix_sound_notif_tile;
         public boolean enable_n_platlogo;
+        public boolean use_namey_mcnameface;
 
         public SettingsConfig(XSharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
             fix_sound_notif_tile = prefs.getBoolean("fix_sound_notif_tile", false);
             enable_n_platlogo = prefs.getBoolean("enable_n_platlogo", true);
+            use_namey_mcnameface = prefs.getBoolean("use_namey_mcnameface", false);
         }
     }
 
@@ -120,11 +126,9 @@ public class ConfigUtils {
         public boolean battery_tile_show_percentage;
         public boolean enable_qs_editor;
         public boolean allow_fancy_qs_transition;
-        public boolean alternative_quick_qs_method;
         public boolean new_click_behavior;
         public boolean large_first_row;
         public int header_clock_size;
-        public boolean full_width_volume;
         public boolean hide_tuner_icon;
         public boolean hide_edit_tiles;
         public boolean hide_carrier_label;
@@ -136,10 +140,8 @@ public class ConfigUtils {
             battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", true);
             enable_qs_editor = prefs.getBoolean("enable_qs_editor", true);
             allow_fancy_qs_transition = prefs.getBoolean("allow_fancy_qs_transition", true);
-            alternative_quick_qs_method = prefs.getBoolean("alternative_quick_qs_method", false);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
-            full_width_volume = prefs.getBoolean("notification_full_width_volume", false);
             hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
@@ -148,12 +150,8 @@ public class ConfigUtils {
     }
 
     public class NotificationsConfig {
-        public boolean enable;
-
         public boolean change_style;
         public boolean dismiss_button;
-        public boolean custom_appname_color;
-        public int appname_color;
         public boolean custom_actions_color;
         public int actions_color;
 
@@ -162,12 +160,8 @@ public class ConfigUtils {
         public NotificationsConfig(XSharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
-            custom_appname_color = prefs.getBoolean("notifications_custom_color", false);
-            appname_color = prefs.getInt("notifications_appname_color", 0);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
             actions_color = prefs.getInt("actions_background_colors", 0);
-
-            enable = (change_style || dismiss_button);
         }
 
         public void loadBlacklistedApps() {
@@ -193,6 +187,57 @@ public class ConfigUtils {
         public LockscreenConfig(XSharedPreferences prefs) {
             enable_emergency_info = prefs.getBoolean("enable_emergency_info", false);
         }
+    }
+
+    public static void log() {
+        ConfigUtils.SettingsConfig s = settings();
+        ConfigUtils.RecentsConfig r = recents();
+        ConfigUtils.QuickSettingsConfig q = qs();
+        ConfigUtils.NotificationsConfig n = notifications();
+        ConfigUtils.LockscreenConfig l = lockscreen();
+
+        StringBuilder b = new StringBuilder("Current module config:\n");
+        b.append("  Settings\n");
+        add(b, "enable_summaries", s.enable_summaries);
+        add(b, "fix_sound_notif_tile", s.fix_sound_notif_tile);
+        add(b, "enable_n_platlogo", s.enable_n_platlogo);
+        add(b, "use_namey_mcnameface", s.use_namey_mcnameface);
+        b.append("  Recents\n");
+        add(b, "double_tap", r.double_tap);
+        add(b, "alternative_method", r.alternative_method);
+        add(b, "double_tap_speed", r.double_tap_speed);
+        add(b, "navigate_recents", r.navigate_recents);
+        add(b, "force_double_tap", r.force_double_tap);
+        add(b, "navigation_delay", r.navigation_delay);
+        add(b, "large_recents", r.large_recents);
+        add(b, "no_recents_image", r.no_recents_image);
+        b.append("  Quick Settings\n");
+        add(b, "header", q.header);
+        add(b, "keep_qs_panel_background", q.keep_qs_panel_background);
+        add(b, "qs_tiles_count", q.qs_tiles_count);
+        add(b, "battery_tile_show_percentage", q.battery_tile_show_percentage);
+        add(b, "enable_qs_editor", q.enable_qs_editor);
+        add(b, "allow_fancy_qs_transition", q.allow_fancy_qs_transition);
+        add(b, "new_click_behavior", q.new_click_behavior);
+        add(b, "large_first_row", q.large_first_row);
+        add(b, "header_clock_size", q.header_clock_size);
+        add(b, "hide_tuner_icon", q.hide_tuner_icon);
+        add(b, "hide_edit_tiles", q.hide_edit_tiles);
+        add(b, "hide_carrier_label", q.hide_carrier_label);
+        b.append("  Notifications\n");
+        add(b, "change_style", n.change_style);
+        add(b, "dismiss_button", n.dismiss_button);
+        add(b, "custom_actions_color", n.custom_actions_color);
+        add(b, "actions_color", n.actions_color);
+        b.append("  Lockscreen\n");
+        add(b, "enable_emergency_info", l.enable_emergency_info);
+        b.append("End module config");
+
+        XposedHook.logD(TAG, b.toString());
+    }
+
+    private static void add(StringBuilder b, String name, Object value) {
+        b.append("    ").append(name).append(": ").append(value).append("\n");
     }
 
 }

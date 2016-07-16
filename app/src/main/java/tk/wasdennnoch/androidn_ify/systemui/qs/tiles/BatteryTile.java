@@ -29,6 +29,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     public static final String TILE_SPEC = "battery";
     private BatteryInfoManager.BatteryData mTileBatteryData;
     private BatteryView mBatteryView;
+    private boolean mListening;
 
     public BatteryTile(TilesManager tilesManager, Object host, String key) {
         super(tilesManager, host, key);
@@ -69,21 +70,30 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     @Override
     public void onBatteryStatusChanged(BatteryInfoManager.BatteryData batteryData) {
         mTileBatteryData = batteryData;
-        refreshState();
+        if (mListening)
+            refreshState();
     }
 
     @Override
     public void handleClick() {
         startActivityDismissingKeyguard(Intent.ACTION_POWER_USAGE_SUMMARY);
-        super.handleClick();
+    }
+
+    @Override
+    public void setListening(boolean listening) {
+        mListening = listening;
+        if (mListening) {
+            mBatteryView.invalidate();
+        }
     }
 
     @Override
     public void handleDestroy() {
-        super.handleDestroy();
         SystemUIHooks.batteryInfoManager.unregisterListener(this);
+        SystemUIHooks.batteryInfoManager.unregisterListener(mBatteryView);
         mTileBatteryData = null;
         mBatteryView = null;
+        super.handleDestroy();
     }
 
     // A mix of GB BatteryView and AOSP BatteryMeterView
@@ -371,7 +381,9 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         @Override
         public void onBatteryStatusChanged(BatteryInfoManager.BatteryData batteryData) {
             mBatteryData = batteryData;
-            postInvalidate();
+            if (mListening)
+                postInvalidate();
         }
+
     }
 }

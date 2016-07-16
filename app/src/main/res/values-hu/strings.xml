@@ -36,7 +36,6 @@
     <string name="debug_log_title">Hibaelhárítási naplózás</string>
     <string name="debug_log">Vigyázat: teleírja a naplót</string>
     <string name="share_logcat_title">Logcat megosztása</string>
-    <string name="share_logcat">Elmenti a logcat-edet egy fájlba</string>
     <string name="logcat_notif_ongoing_title">Logcat mentése&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat mentve</string>
     <string name="logcat_notif_preparing">Előkészítés&#8230;</string>
@@ -122,14 +121,10 @@
     <string name="battery_tile_show_percentage_summary">Mutassa az akkumulátortöltöttséget százalékban az akkumulátor csempénél</string>
     <string name="enable_qs_editor">Gyorsbeállítás csempe szerkesztő engedélyezése</string>
     <string name="allow_fancy_qs_transition">Mutatós gyorsbeállítás-áttűnés</string>
-    <string name="alternative_header_qs_method_title">Alternatív gyorsbeállítás-megnyitási módszer</string>
-    <string name="alternative_header_qs_method">Engedélyezd, ha a gyorsbeállítás-ikonok rosszul vannah elhelyezve</string>
     <string name="enable_new_tile_click_behavior">Android N szerinti csempe viselkedés érintéskor</string>
     <string name="enable_new_tile_click_behavior_summary">A csempe érintéskor a fejlécben be- és kikapcsolja a beállítást, a lenyitott panelben pedig kiterjeszti azt</string>
     <string name="enable_large_first_row">Első sor nagyítása</string>
     <string name="enable_large_first_row_summary">CM alatt ehelyett használd a csempék szerkesztése mód beállítás-menüjét</string>
-    <string name="notification_full_width_volume_title">Teljes szélességű hangerőszabályozó ablak</string>
-    <string name="notification_full_width_volume">Megszűnteti a hangerőszabályozó ablak szélességének korlátozását a nagy képernyőjű telefonokon</string>
     <string name="fix_stuck_inversion_title">Beragadt inverzió javítása</string>
     <string name="fix_stuck_inversion">Néhány eszközön az inverzió beragad, ha engedélyezik. Koppints ide a deaktiválás kényszerítéséhez</string>
     <!-- Hide header icons -->
@@ -148,8 +143,6 @@
     <string name="action_search">Keresés</string>
     <string name="notification_blacklisted_apps_title">Alkalmazás feketelista</string>
     <string name="notification_blacklisted_apps">Ezeknél az alkalmazásoknál a régi értesítési stílust használja</string>
-    <string name="notifications_custom_color_title">Egyéni kiemelő szín használata</string>
-    <string name="notifications_accent_color_title">Kiemelő szín</string>
     <string name="notifications_custom_actions_color_title">Egyéni műveletek háttérszín használata</string>
     <string name="notifications_actions_color_title">Műveletek háttérszín</string>
     <!-- /NOTIFICATIONS -->

@@ -70,16 +70,12 @@
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
     <string name="battery_tile_show_percentage">Zobraziť percentá v dlaždici s batériou</string>
     <string name="battery_tile_show_percentage_summary">Zobrazí stav batérie v dlaždici s batériou</string>
-    <string name="alternative_header_qs_method_title">Alternatívna metóda načítania dlaždíc</string>
-    <string name="alternative_header_qs_method">Povoľte, ak máte problémy s pozíciou ikon rýchlych nastavení</string>
     <string name="enable_qs_editor">Povoliť úpravu rýchlych nastavení</string>
     <string name="allow_fancy_qs_transition">Ozdobný prechod rýchlych nastavení</string>
     <string name="enable_new_tile_click_behavior">Android N správanie dlaždice po klepnutí</string>
     <string name="enable_new_tile_click_behavior_summary">Klepnutie na dlaždicu v záhlaví ju prepne a klepnutie na dlaždicu v panely ju rozbalí</string>
     <string name="enable_large_first_row">Zväčšiť prvý riadok</string>
     <string name="enable_large_first_row_summary">Na CM radšej použite menu pre nastavenie dlaždíc</string>
-    <string name="notification_full_width_volume_title">Dialóg s hlasitosťou na celú šírku</string>
-    <string name="notification_full_width_volume">Odstráni limit šírky pre dialóg s hlasitosťou na telefónoch s veľkou obrazovkou</string>
     <string name="fix_stuck_inversion_title">Opraviť invertované farby</string>
     <string name="fix_stuck_inversion">Na niektorých zariadeniach sa môžu povolené invertovné farby zaseknúť. Kliknite pre vynútenie zkázania</string>
     <string name="header_clock_size_title">Veľkosť hodín v záhlaví</string>
@@ -104,8 +100,6 @@
     <string name="action_search">Hľadať</string>
     <string name="notification_blacklisted_apps_title">Zakázané aplikácie</string>
     <string name="notification_blacklisted_apps">Použije starý štýl upozornení pre vybrané aplikácie</string>
-    <string name="notifications_custom_color_title">Použiť vlastnú farbu pre zvýraznenie</string>
-    <string name="notifications_accent_color_title">Farba zvýraznenia</string>
     <string name="notifications_custom_actions_color_title">Použiť vlastnú farbu pozadia pre akcie</string>
     <string name="notifications_actions_color_title">Farba pozadia akcií</string>
     <!-- /NOTIFICATIONS -->
@@ -194,7 +188,7 @@
     <string name="debug_log_title">Zaznamenávanie chýb</string>
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
     <string name="share_logcat_title">Zdieľať záznam</string>
-    <string name="share_logcat">Uloží záznam do súboru</string>
+    <string name="share_logcat_summary">Uloží dôležité informácie zo záznamu do súboru</string>
     <string name="logcat_notif_ongoing_title">Ukladanie záznamu</string>
     <string name="logcat_notif_finished_title">Záznam uložený</string>
     <string name="logcat_notif_preparing">Príprava</string>

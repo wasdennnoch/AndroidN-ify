@@ -36,7 +36,6 @@
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Waarschuwing: Log-overstromingen</string>
     <string name="share_logcat_title">Deel logcat</string>
-    <string name="share_logcat">Slaag jouw logcat op in een bestand</string>
     <string name="logcat_notif_ongoing_title">Logcat opslaan</string>
     <string name="logcat_notif_finished_title">Logcat opgeslagen</string>
     <string name="logcat_notif_preparing">Voorbereiden</string>
@@ -116,14 +115,10 @@
     <string name="battery_tile_show_percentage">Toon percentage in battery tegel</string>
     <string name="enable_qs_editor">Zet QS editor aan</string>
     <string name="allow_fancy_qs_transition">Fancy QS overgang</string>
-    <string name="alternative_header_qs_method_title">Alternatieve QS laad methode</string>
-    <string name="alternative_header_qs_method">Zet dit aan wanneer er weergave problemen zijn met de QS icoontjes</string>
     <string name="enable_new_tile_click_behavior">Android N tegel klik gedrag</string>
     <string name="enable_new_tile_click_behavior_summary">Als je klikt op een tegel die zich in de header bevindt, wordt deze geopend en het paneel wordt uitgebreid</string>
     <string name="enable_large_first_row_summary">Gebruik het instellingsmenu van de \"pas tegels aan\" knop op CM ipv dit</string>
     <string name="enable_large_first_row">Vouw eerste rij uit</string>
-    <string name="notification_full_width_volume_title">Bredere geluidsmenu</string>
-    <string name="notification_full_width_volume">Zet de beperking voor de grootte van het geluidsmenu uit voor telefoons met grote schermen</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Verberg header items</string>
     <string name="hide_tuner_icon_title">Verberg SystemUI Tuner icoontje</string>
@@ -140,8 +135,6 @@
     <string name="action_search">Zoeken</string>
     <string name="notification_blacklisted_apps_title">Geblacklistte apps</string>
     <string name="notification_blacklisted_apps">Gebruik de oude notificatie stijl voor deze apps</string>
-    <string name="notifications_custom_color_title">Gebruik aangepaste accent kleuren</string>
-    <string name="notifications_accent_color_title">Accent kleur</string>
     <string name="notifications_custom_actions_color_title">Gebruik angepaste actions achtergrond kleuren</string>
     <string name="notifications_actions_color_title">Actions achtergrond kleur</string>
     <!-- /NOTIFICATIONS -->

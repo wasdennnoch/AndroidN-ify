@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
+import android.graphics.Outline;
+import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -17,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -133,12 +136,17 @@ public class StatusBarHeaderHooks {
     public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
 
+    private static float mExpansion = 0;
+    private static int mGridHeight = 0;
+
     private static Class<?> onMeasureHookedClass;
 
     private static ArrayList<Object> mRecords;
 
     private static int mOnMeasureUnchagedCount;
     private static XC_MethodHook.Unhook onMeasureUnhook;
+
+    private static final Rect mClipBounds = new Rect();
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -411,6 +419,13 @@ public class StatusBarHeaderHooks {
                 mStatusBarHeaderView.setClipChildren(false);
                 mStatusBarHeaderView.setClipToPadding(false);
 
+                mStatusBarHeaderView.setOutlineProvider(new ViewOutlineProvider() {
+                    @Override
+                    public void getOutline(View view, Outline outline) {
+                        outline.setRect(mClipBounds);
+                    }
+                });
+
             } catch (Throwable t) {
                 // :(
                 XposedHook.logE(TAG, "Error modifying header layout", t);
@@ -429,28 +444,33 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "onMeasure() called");
             try {
                 gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
                 if (gridHeight == oldGridHeight) {
+                    XposedHook.logD(TAG, "onMeasureHook: Grid height unchanged");
                     if (mOnMeasureUnchagedCount > 5) {
+                        XposedHook.logD(TAG, "onMeasureHook: Unhook and setup");
                         onMeasureUnhook.unhook();
+                        mGridHeight = gridHeight;
                         mHeaderQsPanel.setupAnimators();
                     }
                     mOnMeasureUnchagedCount++;
                 } else {
+                    XposedHook.logD(TAG, "onMeasureHook: Grid height changed to " + gridHeight);
                     mOnMeasureUnchagedCount = 0;
                     oldGridHeight = gridHeight;
                 }
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "onMeasureHook failed: " + t, null);
             }
         }
     };
 
     private static XC_MethodHook setExpansionHook = new XC_MethodHook() {
         @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             float f = (float) param.args[0];
+            mExpansion = f;
             try {
                 if (mAlarmTranslation != null)
                     mAlarmTranslation.setPosition(f);
@@ -461,11 +481,22 @@ public class StatusBarHeaderHooks {
                     mSettingsAlpha.setPosition(f);
                     mHeaderQsPanel.setPosition(f);
                 }
-                //mHeaderQsPanel.setVisibility(f < 0.36F ? View.VISIBLE : View.INVISIBLE);
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable ignore) {
                 // Oh god, a massive spam wall coming right at you, quick, hide!
             }
+        }
+
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (mGridHeight == 0)
+                return;
+            View view = (View) param.thisObject;
+            float height = view.getHeight();
+            height += (int) (mGridHeight * mExpansion);
+            mClipBounds.set(view.getPaddingLeft(), 0, view.getWidth() - view.getPaddingRight(), (int) height);
+            view.setClipBounds(mClipBounds);
+            view.invalidateOutline();
         }
     };
     private static XC_MethodHook onConfigurationChangedHook = new XC_MethodHook() {
@@ -525,8 +556,8 @@ public class StatusBarHeaderHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
-            mQsPanel = (ViewGroup) param.thisObject;
             if (mHeaderQsPanel != null) {
+                mQsPanel = (ViewGroup) param.thisObject;
                 try {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
@@ -592,10 +623,18 @@ public class StatusBarHeaderHooks {
         float timeCollapsed = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
         float timeExpanded;
         switch (ConfigUtils.qs().header_clock_size) {
-            case 1: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small); break;
-            case 2: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_smaller); break;
-            case 3: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_tiny); break;
-            default: timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_normal); break;
+            case 1:
+                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small);
+                break;
+            case 2:
+                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_smaller);
+                break;
+            case 3:
+                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_tiny);
+                break;
+            default:
+                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_normal);
+                break;
         }
         float dateScaleFactor = timeExpanded / timeCollapsed;
         float gearTranslation = res.getDimension(R.dimen.settings_gear_translation);
@@ -1009,8 +1048,12 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateEverything", updateEverythingHook);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateVisibilities", updateVisibilitiesHook);
 
-                // Every time you make a typo, the errorists win.
-                XposedHelpers.findAndHookMethod(classLayoutValues, "interpoloate", classLayoutValues, classLayoutValues, float.class, XC_MethodReplacement.DO_NOTHING);
+                try {
+                    // Every time you make a typo, the errorists win.
+                    XposedHelpers.findAndHookMethod(classLayoutValues, "interpoloate", classLayoutValues, classLayoutValues, float.class, XC_MethodReplacement.DO_NOTHING);
+                } catch (Throwable ignore) { // srsly Bliss?
+                    XposedHelpers.findAndHookMethod(classLayoutValues, "interpolate", classLayoutValues, classLayoutValues, float.class, XC_MethodReplacement.DO_NOTHING);
+                }
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "requestCaptureValues", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "applyLayoutValues", classLayoutValues, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "captureLayoutValues", classLayoutValues, XC_MethodReplacement.DO_NOTHING);
@@ -1044,17 +1087,6 @@ public class StatusBarHeaderHooks {
                         }
                     }
                 });
-
-                // TODO ripples don't clip, but icons do?!
-                /*XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setExpanded", boolean.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        boolean clip = !(boolean) param.args[0];
-                        XposedHook.logI("androidn_ify", "clip " + clip);
-                        mStatusBarHeaderView.setClipChildren(clip);
-                        mStatusBarHeaderView.setClipToPadding(clip);
-                    }
-                });*/
 
                 try {
                     XposedHelpers.findAndHookMethod(classQSPanel, "fireShowingDetail", CLASS_DETAIL_ADAPTER, new XC_MethodReplacement() {
@@ -1116,11 +1148,12 @@ public class StatusBarHeaderHooks {
                             forceAnim = headerItem != null && (boolean) headerItem &&
                                     !Objects.equals(XposedHelpers.getObjectField(param.args[1], "icon"),
                                             iv.getTag(iv.getResources().getIdentifier("qs_icon_tag", "id", PACKAGE_SYSTEMUI)));
+                            String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
+                            XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
                         }
 
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                            XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim);
                             if (forceAnim) {
                                 View iconView = (View) XposedHelpers.getObjectField(param.thisObject, "mIcon");
                                 if (iconView instanceof ImageView) {
@@ -1232,7 +1265,16 @@ public class StatusBarHeaderHooks {
                         params.setMarginStart(0);
                         params.setMarginEnd(0);
 
-                        mQsPanel = (ViewGroup) layout.getChildAt(0);
+                        try {
+                            mQsPanel = (ViewGroup) layout.getChildAt(0);
+                        } catch (Throwable t1) {
+                            try { // RR added an ImageView (background) first
+                                mQsPanel = (ViewGroup) layout.getChildAt(1);
+                                if (mQsPanel == null) throw new Throwable();
+                            } catch (Throwable t2) {
+                                mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
+                            }
+                        }
 
                         if (ConfigUtils.qs().enable_qs_editor) {
                             FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();

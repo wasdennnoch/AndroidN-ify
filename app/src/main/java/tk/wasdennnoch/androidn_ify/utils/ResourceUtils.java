@@ -15,8 +15,6 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 
 public class ResourceUtils {
 
-    private static final String TAG = "ResourceUtils";
-
     private static Context mContext;
     private static ResourceUtils mInstance;
 
@@ -27,11 +25,10 @@ public class ResourceUtils {
 
     public static Context createOwnContext(Context context) {
         try {
-            return context.createPackageContext("tk.wasdennnoch.androidn_ify", Context.CONTEXT_IGNORE_SECURITY);
+            return context.createPackageContext(XposedHook.PACKAGE_OWN, Context.CONTEXT_IGNORE_SECURITY);
         } catch (PackageManager.NameNotFoundException e) {
-            XposedHook.logE(TAG, "Failed to instantiate package context", e);
+            throw new RuntimeException("Failed to instantiate own package context", e);
         }
-        return context;
     }
 
     public static ResourceUtils getInstance() {

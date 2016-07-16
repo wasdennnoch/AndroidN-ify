@@ -94,6 +94,13 @@ public class LogcatService extends IntentService {
         commands.add("logcat");
         commands.add("-v");
         commands.add("time");
+        commands.add("-s");
+        commands.add("XposedStartupMarker:V");
+        commands.add("Xposed:V");
+        commands.add("LogcatService:V");
+        commands.add("DownloadService:V");
+        commands.add("PlatLogoActivity:V");
+        commands.add("SettingsActivity:V");
 
         //noinspection ConstantConditions
         File file = new File(Environment.getExternalStorageDirectory().getPath() + "/Android_N-ify", "logcat.txt");

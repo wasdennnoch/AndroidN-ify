@@ -128,13 +128,6 @@
                 app:monitorBoxUnit="@string/notification_header_qs_tiles_count_monitor"/>
 
             <SwitchPreference
-                android:defaultValue="false"
-                android:dependency="enable_notification_header"
-                android:key="alternative_quick_qs_method"
-                android:summary="@string/alternative_header_qs_method"
-                android:title="@string/alternative_header_qs_method_title"/>
-
-            <SwitchPreference
                 android:defaultValue="true"
                 android:dependency="enable_notification_header"
                 android:key="allow_fancy_qs_transition"
@@ -202,12 +195,6 @@
 
             </PreferenceScreen>
 
-            <SwitchPreference
-                android:defaultValue="false"
-                android:key="notification_full_width_volume"
-                android:summary="@string/notification_full_width_volume"
-                android:title="@string/notification_full_width_volume_title"/>
-
             <Preference
                 android:key="fix_stuck_inversion"
                 android:summary="@string/fix_stuck_inversion"
@@ -238,20 +225,6 @@
                 android:key="notification_dismiss_button"
                 android:summary="@string/notification_dismiss_button"
                 android:title="@string/notification_dismiss_button_title"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
-                android:dependency="notification_change_style"
-                android:key="notifications_custom_color"
-                android:title="@string/notifications_custom_color_title"/>
-
-            <net.margaritov.preference.colorpicker.ColorPickerPreference
-                alphaSlider="true"
-                hexValue="true"
-                android:defaultValue="0"
-                android:dependency="notifications_custom_color"
-                android:key="notifications_appname_color"
-                android:title="@string/notifications_accent_color_title"/>
 
             <SwitchPreference
                 android:defaultValue="false"
@@ -335,7 +308,7 @@
 
         <Preference
             android:key="share_logcat"
-            android:summary="@string/share_logcat"
+            android:summary="@string/share_logcat_summary"
             android:title="@string/share_logcat_title"/>
 
     </PreferenceCategory>

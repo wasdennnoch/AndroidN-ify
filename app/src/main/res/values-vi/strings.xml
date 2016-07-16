@@ -58,15 +58,11 @@
     <string name="notification_blacklisted_apps_title">Danh sách loại trừ</string>
     <string name="notification_dismiss_button">Hện \"XÓA TẤT CẢ\" thay cho biểu tượng bỏ qua</string>
     <string name="notification_dismiss_button_title">Đổi icon bỏ qua</string>
-    <string name="notification_full_width_volume">Bỏ giới hạn bề ngang hộp chỉnh âm lượng trên thiết bị màn hình lớn</string>
-    <string name="notification_full_width_volume_title">Tràn lề hộp chỉnh âm lượng</string>
     <string name="notification_header_qs_tiles_count">Số lượng ô cài đặt nhanh</string>
     <string name="notification_header_qs_tiles_count_monitor">ô</string>
-    <string name="notifications_accent_color_title">Màu nhấn mạnh</string>
     <string name="notifications_actions_color_title">Màu nền vùng hành động</string>
     <string name="notifications_change_style">Tùy chỉnh Thông báo</string>
     <string name="notifications_custom_actions_color_title">Tùy chỉnh màu nền vùng hành động</string>
-    <string name="notifications_custom_color_title">Tùy chỉnh màu nhấn mạnh</string>
     <string name="off">TẮT</string>
     <string name="on">BẬT</string>
     <string name="print_summary">%1$d công việc in</string>
@@ -92,8 +88,6 @@
     <string name="update_notification_title">Có bản cập nhật mới</string>
     <string name="user_summary">Đăng nhập với tên %1$s</string>
     <string name="xposed_description">Dùng những tính năng của Android N trên các thiết bị chạy Lollipop và Marshmallow!</string>
-    <string name="alternative_header_qs_method">Bật khi các icon C.đặt nhanh bị lỗi vị trí </string>
-    <string name="alternative_header_qs_method_title">Nạp icon C.đặt nhanh kiểu khác</string>
     <string name="keep_qs_panel_bg">Hữu ích khi dùng Giao diện có tùy chỉnh màu nền C.đặt nhanh</string>
     <string name="keep_qs_panel_bg_title">Không thay đổi nền C.đặt nhanh</string>
     <string name="qs_edit">Sửa</string>
@@ -147,7 +141,6 @@
     <string name="permission_required">Cần cấp quyền</string>
     <string name="requesting_root">Cần quyền root…</string>
     <string name="root_failed">Cấp quyền READ_LOGS thất bại</string>
-    <string name="share_logcat">Lưu logcat của bạn thành tệp</string>
     <string name="share_logcat_title">Chia sẻ logcat</string>
     <string name="battery_tile_show_percentage_summary">Hiện phần trăm pin trên ô Pin</string>
     <string name="fix_stuck_inversion">Trên một số thiết bị, hiệu ứng lộn ngược bị kẹt khi bật. Bấm để ép tắt</string>

@@ -73,8 +73,6 @@
     <string name="enable_large_first_row">بزرگ کردن ردیف اول</string>
     <string name="hide_tuner_icon_title">غیر فعال کردن آیکن سیستم یو آی</string>
     <string name="hide_edit_tiles_title">غیر فعال کردن دکمه ویرایش دکمه ها</string>
-    <string name="notification_full_width_volume_title">دیالوگ ولوم جدید</string>
-    <string name="notification_full_width_volume">دیالوگ ولوم تمام صفحه</string>
     <!-- /STATUS BAR HEADER -->
 
     <!-- NOTIFICATIONS -->

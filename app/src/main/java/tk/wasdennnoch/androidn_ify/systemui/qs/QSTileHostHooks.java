@@ -39,6 +39,7 @@ public class QSTileHostHooks {
 
     protected static Object mTileHost = null;
 
+    // MM
     private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
@@ -87,7 +88,7 @@ public class QSTileHostHooks {
         }
     };
 
-    // For LP
+    // LP
     private static XC_MethodHook recreateTilesHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
@@ -119,13 +120,11 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-
             if (mTilesManager == null)
                 mTilesManager = new TilesManager(param.thisObject);
 
             List<String> tileSpecs = new ArrayList<>(); // Do this since mTileSpecs doesn't exist on LP
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
-
             Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
 
             tileSpecs.clear();
@@ -181,17 +180,18 @@ public class QSTileHostHooks {
         try {
             Class<?> classTileHost = XposedHelpers.findClass(CLASS_TILE_HOST, classLoader);
 
-            if (RomUtils.isCmBased()) {
-                try {
-                    classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
-                    classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
-                } catch (Throwable ignore) {
-                }
-            }
-
             if (ConfigUtils.qs().enable_qs_editor) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook); // On L, this method is void
+
+                if (RomUtils.isCmBased()) {
+                    try {
+                        classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
+                        classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
+                    } catch (Throwable ignore) {
+                    }
+                }
+
+                if (!ConfigUtils.M) {
+                    XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook);
                 } else {
                     try {
                         XposedHelpers.findAndHookMethod(classTileHost, "onTuningChanged", String.class, String.class, onTuningChangedHook);
@@ -285,11 +285,8 @@ public class QSTileHostHooks {
             specs.add("inversion");
             specs.add("cell");
             specs.add("airplane");
-
-            // DND tile was added only on M!
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M)
+            if (Build.VERSION.SDK_INT >= 23)
                 specs.add("dnd");
-
             specs.add("rotation");
             specs.add("flashlight");
             specs.add("location");
@@ -319,10 +316,10 @@ public class QSTileHostHooks {
     }
 
     private static List<String> bruteForceSpecs() {
-        XposedHook.logW(TAG, "Brute forcing tile specs!");
+        XposedHook.logI(TAG, "Brute forcing tile specs!");
         List<String> specs = new ArrayList<>();
         String[] possibleSpecs = new String[]{"notifications", "data", "roaming", "dds", "apn", "profiles", "performance",
-                "adb_network", "nfc", "compass", "lockscreen", "lte", "visualizer", "volume_panel", "screen_timeout",
+                "adb_network", "nfc", "compass", "lockscreen", "lte", /*"visualizer",*/ "volume_panel", "screen_timeout",
                 "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine", "music", "next_alarm",
                 "ime_selector", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenshot", "expanded_desktop",
                 "reboot", "configurations", "navbar", "appcirclebar", "kernel_adiutor", "screenrecord", "gesture_anywhere",

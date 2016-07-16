@@ -64,16 +64,12 @@
     <string name="notification_header_qs_tiles_count">Zobrazit maximální</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaždice.</string>
     <string name="battery_tile_show_percentage">Zobrazit procenta v dlaždici s baterií</string>
-    <string name="alternative_header_qs_method_title">Alternativní metoda načítání dlaždic</string>
-    <string name="alternative_header_qs_method">Povolte, pokud máte problémy s pozicí ikon rychlých nastavení</string>
     <string name="enable_qs_editor">Povolit úpravu rychlých nastavení</string>
     <string name="allow_fancy_qs_transition">Ozdobný přechod rychlých nastavení</string>
     <string name="enable_new_tile_click_behavior">Android N chování dlaždice po klepnutí</string>
     <string name="enable_new_tile_click_behavior_summary">Klepnutí na dlaždici v záhlaví ji přepne a klepnutí na dlaždici v panelu ji rozbalí</string>
     <string name="enable_large_first_row">Zvětšit prví řádek</string>
     <string name="enable_large_first_row_summary">Na CM raději použijte menu pro nastavení dlaždic</string>
-    <string name="notification_full_width_volume_title">Dialog s hlasitostí na celou šířku</string>
-    <string name="notification_full_width_volume">Odstrani limit šířky pro dialog s hlasitostí na telefonech s velkou obrazovkou</string>
     <string name="fix_stuck_inversion_title">Opravit invertované barvy</string>
     <string name="fix_stuck_inversion">Na některých zařízeních může povolení intertování barev průsobit zamrznutí. Kliknete pro vynucení zakázání.</string>
     <!-- Hide header icons -->
@@ -92,8 +88,6 @@
     <string name="action_search">Hledat</string>
     <string name="notification_blacklisted_apps_title">Zakázané aplikace</string>
     <string name="notification_blacklisted_apps">Použije starý styl upozornění pro vybrané aplikace</string>
-    <string name="notifications_custom_color_title">Použít vlastní barvu pro zvýraznění</string>
-    <string name="notifications_accent_color_title">Barva zvýraznění</string>
     <string name="notifications_custom_actions_color_title">Použít vlastní barvu pozadí pro akce</string>
     <string name="notifications_actions_color_title">Barva pozadí akcí</string>
     <!-- /NOTIFICATIONS -->
@@ -177,7 +171,6 @@
     <string name="debug_log_title">Zaznamenávání chyb</string>
     <string name="debug_log">Upozornění: způsobuje zahlcování záznamu</string>
     <string name="share_logcat_title">Sdílet logcat</string>
-    <string name="share_logcat">Uložit logcat do souboru</string>
     <string name="logcat_notif_ongoing_title">Ukládání záznamu</string>
     <string name="logcat_notif_finished_title">Záznam uložen</string>
     <string name="logcat_notif_preparing">Příprava</string>

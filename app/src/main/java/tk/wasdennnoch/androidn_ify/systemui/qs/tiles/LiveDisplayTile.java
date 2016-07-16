@@ -31,7 +31,7 @@ public class LiveDisplayTile extends QSTile {
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(LiveDisplayObserver.LIVE_DISPLAY_MODE_CHANGED);
-        mContext.registerReceiver(sBroadcastReceiver, intentFilter);
+        mContext.registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
     @Override
@@ -57,8 +57,8 @@ public class LiveDisplayTile extends QSTile {
 
     @Override
     public void handleDestroy() {
+        mContext.unregisterReceiver(mBroadcastReceiver);
         super.handleDestroy();
-        mContext.unregisterReceiver(sBroadcastReceiver);
     }
 
     private PendingIntent getCustomTileNextModePendingIntent() {
@@ -84,7 +84,7 @@ public class LiveDisplayTile extends QSTile {
         refreshState();
     }
 
-    private BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             XposedHook.logD(TAG, "Broadcast received, action: " + intent.getAction());

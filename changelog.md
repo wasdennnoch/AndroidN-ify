@@ -1,11 +1,12 @@
 # Changelog
 
-### Next version (v0.2.1):
+### Next version (v0.3.0):
 
 - Emergency info
 - QS transition
 - Improved "prefs not reabable" warning message
-- Minor fixes and improvements
+- "Namey McNameface" Icon
+- Many fixes and improvements
 
 ### v0.2.0 (5):
 

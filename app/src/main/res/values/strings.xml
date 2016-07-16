@@ -35,7 +35,7 @@
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
     <string name="share_logcat_title">Share logcat</string>
-    <string name="share_logcat">Saves your logcat to a file</string>
+    <string name="share_logcat_summary">Saves important extracts of the logcat to a file</string>
     <string name="logcat_notif_ongoing_title">Saving logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat saved</string>
     <string name="logcat_notif_preparing">Preparing&#8230;</string>
@@ -121,14 +121,10 @@
     <string name="battery_tile_show_percentage_summary">Show battery percentage in the battery tile</string>
     <string name="enable_qs_editor">Enable QS editor</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
-    <string name="alternative_header_qs_method_title">Alternative QS loading method</string>
-    <string name="alternative_header_qs_method">Enable when there are positioning issues with the QS icons</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
     <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
-    <string name="notification_full_width_volume_title">Full width volume dialog</string>
-    <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
     <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
 
@@ -154,8 +150,6 @@
     <string name="action_search">Search</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
-    <string name="notifications_custom_color_title">Use custom accent color</string>
-    <string name="notifications_accent_color_title">Accent color</string>
     <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
     <string name="notifications_actions_color_title">Actions background color</string>
     <!-- /NOTIFICATIONS -->
@@ -194,8 +188,8 @@
 
     <string name="info_unspecified">None specified</string>
 
-    <string name="info_bloodtype_op">0+</string>
-    <string name="info_bloodtype_on">0-</string>
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>
@@ -228,7 +222,7 @@
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
-    <string name="press_color_to_apply">Press on Color to apply</string>
+    <string name="press_color_to_apply">Press on color to apply</string>
     <!-- /Color Picker -->
 
 </resources>

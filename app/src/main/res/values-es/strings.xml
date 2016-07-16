@@ -35,7 +35,6 @@
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     <string name="share_logcat_title">Enviar informe de fallos</string>
-    <string name="share_logcat">Guarda un informe de fallos en un archivo</string>
     <string name="logcat_notif_ongoing_title">Guardando informe&#8230;</string>
     <string name="logcat_notif_finished_title">Informe guardado</string>
     <string name="logcat_notif_preparing">Preparando&#8230;</string>
@@ -118,14 +117,10 @@
     <string name="battery_tile_show_percentage_summary">Muestra el porcentaje de batería en el ajuste rápido</string>
     <string name="enable_qs_editor">Activar editor de ajustes</string>
     <string name="allow_fancy_qs_transition">Animación de ajustes rápidos</string>
-    <string name="alternative_header_qs_method_title">Alternativa de ajustes rápidos</string>
-    <string name="alternative_header_qs_method">Activar cuando hay errores en la posición de los ajustes rápidos</string>
     <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N</string>
     <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
     <string name="enable_large_first_row">Alargar la primera fila</string>
     <string name="enable_large_first_row_summary">En CM usar el menú de configuración de ajustes rápidos propio</string>
-    <string name="notification_full_width_volume_title">Volumen con ancho completo</string>
-    <string name="notification_full_width_volume">Elimina el límite de anchura en dispositivos con pantalla grande</string>
     <string name="fix_stuck_inversion_title">Arreglar inversión bloqueada</string>
     <string name="fix_stuck_inversion">En algunos dispositivos la inversión de colores se bloquea al activarla. Selecciona para forzar desactivación</string>
     <!-- Hide header icons -->
@@ -144,8 +139,6 @@
     <string name="action_search">Buscar</string>
     <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
     <string name="notification_blacklisted_apps">Usar el estilo antigüo para estas aplicaciones</string>
-    <string name="notifications_custom_color_title">Usar color de acento personalizado</string>
-    <string name="notifications_accent_color_title">Color de acento</string>
     <string name="notifications_custom_actions_color_title">Usar color personalizado para fondo</string>
     <string name="notifications_actions_color_title">Color de fondo de acciones</string>
     <!-- /NOTIFICATIONS -->

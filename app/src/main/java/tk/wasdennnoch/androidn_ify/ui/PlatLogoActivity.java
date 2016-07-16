@@ -39,6 +39,9 @@ import android.widget.FrameLayout;
 import tk.wasdennnoch.androidn_ify.R;
 
 public class PlatLogoActivity extends Activity {
+
+    private static final String TAG = "PlatLogoActivity";
+
     FrameLayout mLayout;
     int mTapCount;
     int mKeyCount;
@@ -97,7 +100,7 @@ public class PlatLogoActivity extends Activity {
                                         "egg_mode",
                                         System.currentTimeMillis());
                             } catch (RuntimeException e) {
-                                Log.e("PlatLogoActivity", "Can't write settings", e);
+                                Log.e(TAG, "Can't write settings", e);
                             }
                         }
                         im.post(new Runnable() {
@@ -110,7 +113,7 @@ public class PlatLogoActivity extends Activity {
                                                     | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
                                             .addCategory("com.android.internal.category.PLATLOGO"));
                                 } catch (ActivityNotFoundException ex) {
-                                    Log.e("PlatLogoActivity", "No more eggs.");
+                                    Log.e(TAG, "No more eggs.");
                                 }
                                 finish();
                             }

@@ -165,6 +165,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
     protected void showDialog(Bundle state) {
         mDialog = new ColorPickerDialog(getContext(), mValue);
+        mDialog.setTitle(getTitle());
         mDialog.setOnColorChangedListener(this);
         if (mAlphaSliderEnabled) {
             mDialog.setAlphaSliderVisible(true);
