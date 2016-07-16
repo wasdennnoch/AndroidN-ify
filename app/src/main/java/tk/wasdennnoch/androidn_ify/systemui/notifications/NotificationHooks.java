@@ -15,7 +15,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.Icon;
-import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
@@ -45,6 +44,7 @@ import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -63,7 +63,11 @@ public class NotificationHooks {
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;
+    private static View mPanelShadow;
     private static Map<String, Integer> mGeneratedColors = new HashMap<>();
+    private static int mNotificationsTopPadding = 0;
+
+    public static int mHeaderTranslation = 0;
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -424,6 +428,29 @@ public class NotificationHooks {
 
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_no_notifications", status_bar_no_notifications);
+
+                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        View view = liparam.view;
+                        Context context = view.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        int containerId = context.getResources().getIdentifier("notification_container_parent", "id", PACKAGE_SYSTEMUI);
+                        int shadowHeight = res.getDimensionPixelSize(R.dimen.notification_panel_shadow_height);
+
+                        FrameLayout.LayoutParams shadowLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, shadowHeight);
+                        shadowLp.gravity = Gravity.TOP;
+
+                        mPanelShadow = new View(context);
+                        mPanelShadow.setLayoutParams(shadowLp);
+                        mPanelShadow.setBackground(res.getDrawable(R.drawable.shadow));
+
+                        ViewGroup container = (ViewGroup) view.findViewById(containerId);
+                        container.addView(mPanelShadow);
+                    }
+                });
+
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -537,6 +564,7 @@ public class NotificationHooks {
                 Class classNotificationGuts = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationGuts", classLoader);
                 final Class<?> classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
                 Class classPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
+                final Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
@@ -598,6 +626,14 @@ public class NotificationHooks {
                             child.findViewById(R.id.notification_divider).setVisibility(firstChild ? View.INVISIBLE : View.VISIBLE);
                             firstChild = false;
                         }
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setTopPadding", int.class, boolean.class, new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        mNotificationsTopPadding = (int) param.args[0];
+                        updateShadowPosition();
                     }
                 });
 
@@ -1200,4 +1236,20 @@ public class NotificationHooks {
         }
     };
 
+    public static void updateShadowPosition() {
+        if (mHeaderTranslation >= 0)
+            mPanelShadow.setTranslationY(mNotificationsTopPadding);
+        updateShadowVisibility();
+    }
+
+    public static void setHeaderTranslation(int headerTranslation) {
+        mHeaderTranslation = headerTranslation;
+        if (headerTranslation < 0)
+            mPanelShadow.setTranslationY(StatusBarHeaderHooks.mHeaderHeight + mHeaderTranslation);
+        updateShadowVisibility();
+    }
+
+    public static void updateShadowVisibility() {
+        mPanelShadow.setVisibility(NotificationPanelHooks.isOnKeyguard() ? View.GONE : View.VISIBLE);
+    }
 }

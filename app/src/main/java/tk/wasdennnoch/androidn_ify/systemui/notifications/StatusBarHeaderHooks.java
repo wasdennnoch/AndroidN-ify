@@ -138,6 +138,7 @@ public class StatusBarHeaderHooks {
 
     private static float mExpansion = 0;
     private static int mGridHeight = 0;
+    public static int mHeaderHeight = 0;
 
     private static Class<?> onMeasureHookedClass;
 
@@ -158,6 +159,7 @@ public class StatusBarHeaderHooks {
             ConfigUtils config = ConfigUtils.getInstance();
 
             mContext = mStatusBarHeaderView.getContext();
+            mHeaderHeight = res.getDimensionPixelSize(R.dimen.status_bar_header_height);
 
             try {
                 //noinspection deprecation
