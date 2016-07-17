@@ -36,6 +36,7 @@
     <string name="debug_log_title">Hibaelhárítási naplózás</string>
     <string name="debug_log">Vigyázat: teleírja a naplót</string>
     <string name="share_logcat_title">Logcat megosztása</string>
+    <string name="share_logcat_summary">Elmenti a logcat fontos részleteit egy fájlba</string>
     <string name="logcat_notif_ongoing_title">Logcat mentése&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat mentve</string>
     <string name="logcat_notif_preparing">Előkészítés&#8230;</string>
@@ -127,10 +128,17 @@
     <string name="enable_large_first_row_summary">CM alatt ehelyett használd a csempék szerkesztése mód beállítás-menüjét</string>
     <string name="fix_stuck_inversion_title">Beragadt inverzió javítása</string>
     <string name="fix_stuck_inversion">Néhány eszközön az inverzió beragad, ha engedélyezik. Koppints ide a deaktiválás kényszerítéséhez</string>
+    
+    <string name="header_clock_size_title">Fejléc óra mérete</string>
+    <string name="header_clock_size_normal">Normál</string>
+    <string name="header_clock_size_small">Kicsi</string>
+    <string name="header_clock_size_smaller">Kisebb</string>
+    <string name="header_clock_size_tiny">Parányi</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Fejléc elemeinek elrejtése</string>
     <string name="hide_tuner_icon_title">SystemUI Tuner ikon elrejtése</string>
     <string name="hide_edit_tiles_title">Csempék szerkesztése gomb elrejtése</string>
+    <string name="hide_edit_tiles_summary">Ez csak az alap Androidos szerkesztés gombot tűnteti el!</string>
     <string name="hide_carrier_label_title">Szolgáltató nevének elrejtése</string>
     <!-- /Hide header icons -->
     <!-- /QUICK SETTINGS -->
