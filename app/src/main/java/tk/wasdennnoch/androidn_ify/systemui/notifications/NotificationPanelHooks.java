@@ -111,12 +111,6 @@ public class NotificationPanelHooks {
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
-                XposedHelpers.findAndHookMethod(classNotificationPanelView, "getHeaderTranslation", new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        NotificationHooks.setHeaderTranslation(Math.round((float) param.getResult()));
-                    }
-                });
 
                 XposedHelpers.findAndHookMethod(classPanelView, "schedulePeek", new XC_MethodHook() {
                     @Override

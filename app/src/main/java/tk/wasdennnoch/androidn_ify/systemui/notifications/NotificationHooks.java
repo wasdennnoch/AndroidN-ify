@@ -63,11 +63,7 @@ public class NotificationHooks {
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;
-    public static View mPanelShadow;
     private static Map<String, Integer> mGeneratedColors = new HashMap<>();
-    private static int mNotificationsTopPadding = 0;
-
-    public static int mHeaderTranslation = 0;
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -429,28 +425,6 @@ public class NotificationHooks {
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_no_notifications", status_bar_no_notifications);
 
-                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        View view = liparam.view;
-                        Context context = view.getContext();
-                        ResourceUtils res = ResourceUtils.getInstance(context);
-
-                        int containerId = context.getResources().getIdentifier("notification_container_parent", "id", PACKAGE_SYSTEMUI);
-                        int shadowHeight = res.getDimensionPixelSize(R.dimen.notification_panel_shadow_height);
-
-                        FrameLayout.LayoutParams shadowLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, shadowHeight);
-                        shadowLp.gravity = Gravity.TOP;
-
-                        mPanelShadow = new View(context);
-                        mPanelShadow.setLayoutParams(shadowLp);
-                        mPanelShadow.setBackground(res.getDrawable(R.drawable.shadow));
-
-                        ViewGroup container = (ViewGroup) view.findViewById(containerId);
-                        container.addView(mPanelShadow);
-                    }
-                });
-
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
 
@@ -487,7 +461,7 @@ public class NotificationHooks {
         mNotificationBgColor = xRes.getColor(xRes.getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));
         return new RippleDrawable(
                 ColorStateList.valueOf(xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI))),
-                getBackgroundRippleContent(modRes, mNotificationBgColor),
+                getBackgroundRippleContent(mNotificationBgColor),
                 null);
     }
 
@@ -495,12 +469,12 @@ public class NotificationHooks {
     private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes, XModuleResources modRes) {
         return new RippleDrawable(
                 ColorStateList.valueOf(xRes.getColor(android.R.color.transparent)),
-                getBackgroundRippleContent(modRes, xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI))),
+                getBackgroundRippleContent(xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI))),
                 null);
     }
 
     @SuppressWarnings({"deprecation", "ConstantConditions"})
-    private static Drawable getBackgroundRippleContent(XModuleResources modRes, int color) {
+    private static Drawable getBackgroundRippleContent(int color) {
         return new ColorDrawable(color);
     }
 
@@ -547,7 +521,6 @@ public class NotificationHooks {
                 final Class<?> classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
                 final Class<?> classMediaExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.MediaExpandableNotificationRow", classLoader);
                 Class classPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
-                final Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
@@ -610,14 +583,6 @@ public class NotificationHooks {
                             child.findViewById(R.id.notification_divider).setVisibility(firstChild ? View.INVISIBLE : View.VISIBLE);
                             firstChild = false;
                         }
-                    }
-                });
-
-                XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setTopPadding", int.class, boolean.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        mNotificationsTopPadding = (int) param.args[0];
-                        updateShadowPosition();
                     }
                 });
 
@@ -1241,21 +1206,4 @@ public class NotificationHooks {
             layout.addView(divider);
         }
     };
-
-    public static void updateShadowPosition() {
-        if (mHeaderTranslation >= 0)
-            mPanelShadow.setTranslationY(mNotificationsTopPadding);
-        updateShadowVisibility();
-    }
-
-    public static void setHeaderTranslation(int headerTranslation) {
-        mHeaderTranslation = headerTranslation;
-        if (headerTranslation < 0)
-            mPanelShadow.setTranslationY(StatusBarHeaderHooks.mHeaderHeight + mHeaderTranslation);
-        updateShadowVisibility();
-    }
-
-    public static void updateShadowVisibility() {
-        mPanelShadow.setVisibility(NotificationPanelHooks.isOnKeyguard() ? View.GONE : View.VISIBLE);
-    }
 }
