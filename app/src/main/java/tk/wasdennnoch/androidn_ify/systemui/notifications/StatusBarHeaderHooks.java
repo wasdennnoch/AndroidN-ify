@@ -776,7 +776,6 @@ public class StatusBarHeaderHooks {
                 }
             }
             if (mEditing) {
-                NotificationHooks.mPanelShadow.setAlpha(0);
                 mQsDetailHeaderTitle.setText(getResUtils().getString(R.string.qs_edit_detail));
             }
         } else {
@@ -784,7 +783,6 @@ public class StatusBarHeaderHooks {
             mQsDetailHeader.setClickable(false);
             if (mEditing) {
                 mEditing = false;
-                NotificationHooks.mPanelShadow.setAlpha(1);
                 mTileAdapter.saveChanges();
                 QSTileHostHooks.recreateTiles();
             }
