@@ -29,7 +29,7 @@ public class StackScrollAlgorithmHooks {
     private static ViewGroup mStackScrollLayout;
     private static float mStackTop = 0;
     private static float mStateTop = 0;
-    private static int mShadowLeft = 0;
+    private static int mShadowWidth = 0;
 
     private static Field fieldCollapsedSize;
     private static Field fieldVisibleChildren;
@@ -106,14 +106,12 @@ public class StackScrollAlgorithmHooks {
                             panelShadow.setVisibility(View.GONE);
                             mStackScrollLayout.setClipBounds(null);
                         } else {
-                            int stackLeft = mStackScrollLayout.getLeft();
-                            int stackRight = mStackScrollLayout.getRight();
-                            if (stackLeft != mShadowLeft) {
+                            int stackWidth = mStackScrollLayout.getWidth();
+                            if (mShadowWidth != stackWidth) {
                                 FrameLayout.LayoutParams shadowLp = NotificationHooks.mShadowLp;
-                                shadowLp.leftMargin = stackLeft;
-                                shadowLp.width = stackRight - stackLeft;
+                                shadowLp.width = stackWidth;
                                 panelShadow.setLayoutParams(shadowLp);
-                                mShadowLeft = stackLeft;
+                                mShadowWidth = stackWidth;
                             }
                             panelShadow.setTranslationY(mStackTop);
                             updateShadowVisibility();
