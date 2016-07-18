@@ -106,15 +106,16 @@ public class StackScrollAlgorithmHooks {
                             panelShadow.setVisibility(View.GONE);
                             mStackScrollLayout.setClipBounds(null);
                         } else {
-                            int stackWidth = mStackScrollLayout.getWidth();
-                            if (mShadowWidth != stackWidth) {
-                                FrameLayout.LayoutParams shadowLp = NotificationHooks.mShadowLp;
-                                shadowLp.width = stackWidth;
-                                panelShadow.setLayoutParams(shadowLp);
-                                mShadowWidth = stackWidth;
+                            if (updateShadowVisibility()) {
+                                int stackWidth = mStackScrollLayout.getWidth();
+                                if (mShadowWidth != stackWidth) {
+                                    FrameLayout.LayoutParams shadowLp = NotificationHooks.mShadowLp;
+                                    shadowLp.width = stackWidth;
+                                    panelShadow.setLayoutParams(shadowLp);
+                                    mShadowWidth = stackWidth;
+                                }
+                                panelShadow.setTranslationY(mStackTop);
                             }
-                            panelShadow.setTranslationY(mStackTop);
-                            updateShadowVisibility();
                             mClipBounds.set(0,
                                     (int) mStackTop,
                                     mStackScrollLayout.getRight(),
@@ -235,7 +236,9 @@ public class StackScrollAlgorithmHooks {
         }
     }
 
-    public static void updateShadowVisibility() {
-        NotificationHooks.mPanelShadow.setVisibility(NotificationPanelHooks.isOnKeyguard() ? View.GONE : View.VISIBLE);
+    public static boolean updateShadowVisibility() {
+        boolean visible = !NotificationPanelHooks.isOnKeyguard();
+        NotificationHooks.mPanelShadow.setVisibility(visible ? View.VISIBLE : View.GONE);
+        return visible;
     }
 }
