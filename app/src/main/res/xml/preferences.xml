@@ -240,6 +240,13 @@
                 android:key="actions_background_colors"
                 android:title="@string/notifications_actions_color_title"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="notification_change_style"
+                android:key="notification_experimental"
+                android:title="@string/notification_experimental_title"
+                android:summary="@string/notification_experimental"/>
+
         </PreferenceScreen>
 
         <PreferenceScreen

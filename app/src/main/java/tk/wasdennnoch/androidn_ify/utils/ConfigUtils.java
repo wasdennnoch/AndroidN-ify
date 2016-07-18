@@ -157,6 +157,7 @@ public class ConfigUtils {
         public boolean change_style;
         public boolean dismiss_button;
         public boolean custom_actions_color;
+        public boolean experimental;
         public int actions_color;
 
         public List<String> blacklistedApps;
@@ -165,6 +166,7 @@ public class ConfigUtils {
             change_style = prefs.getBoolean("notification_change_style", true);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
+            experimental = M && prefs.getBoolean("notification_experimental", false);
             actions_color = prefs.getInt("actions_background_colors", 0);
         }
 
