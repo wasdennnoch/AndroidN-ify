@@ -152,6 +152,8 @@
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
     <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
     <string name="notifications_actions_color_title">Actions background color</string>
+    <string name="notification_experimental_title">Experimental N notifications behavior</string>
+    <string name="notification_experimental">N scrolling behavior (no top stack) and notifications shadow</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
