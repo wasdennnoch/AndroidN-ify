@@ -20,7 +20,7 @@
         Există câteva metode de a rezolva această problemă. Totodată această eroare va apărea dacă nu ați deschis aplicația niciodată.<br><br>
         Prima dată reporniți dispozitivul (Fără repornire rapidă!).<br>
         Dacă nu ajută, încercați reinstalarea modulului.<br>
-        Dacă ambele metode eșuează, verificați dacă modul lui SELinux este setat pe <i>Permisiv</i>.
+        Dacă ambele metode eșueze, verificați dacă modul lui SELinux este setat pe <i>Permisiv</i>.
         SELinux-ul setat pe <i>Obligatoriu</i> poate bloca accesul la fișierul cu setările preferențiale. Ca să schimbi modul,
         folosește aplicația <tt>SELinuxModeChanger</tt> care o puteți descărca
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">din acest topic XDA</a>.<br>
@@ -35,28 +35,31 @@
     <string name="hide_launcher_icon">Poate necesita repornirea lansatorului</string>
     <string name="debug_log_title">Loguri de depanare</string>
     <string name="debug_log">Atentie: încărcare log</string>
-    <string name="share_logcat_title">Împărtăși logcat</string>
+    <string name="share_logcat_title">Împărtășește logcat</string>
+    <string name="share_logcat_summary">Salvează părți importante ale logcat-ului dvs. la un fișier</string>
     <string name="logcat_notif_ongoing_title">Se salvează logcat-ul&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat-ul salvat</string>
     <string name="logcat_notif_preparing">Se pregătească&#8230;</string>
     <string name="logcat_notif_ongoing_lines">%1$s (de) linii au fost salvate&#8230;</string>
     <string name="logcat_notif_finished">%1$s (de) linii au fost salvate la %2$s</string> <!-- %2$s == file path -->
-    <string name="action_stop">Stop</string>	
+    <string name="action_stop">Stop</string>    
 
     <string name="requesting_root">Se solicită accesul root&#8230;</string>
     <string name="root_failed">Nu se poate obține permisiunea READ_LOGS</string>
     <string name="permission_required">Este necesară permisiunea</string>
     <string name="logs_permission_description">
-        De la Android Jelly Bean, aplicațiile nu mai sunt permise să citească întregul logcat.
-		Puteți totuși acorda manual permisiunea READ_LOGS cu accesul root.
-		După aceea, aplicația trebuie să fie repornită pentru a aplica permisiunile nou acordate.
-    </string>	
-	
+        De la Android Jelly Bean, aplicațiile nu mai sunt permise să citesc întregul logcat.
+        Puteți totuși acorda manual permisiunea READ_LOGS cu accesul root.
+        După aceea, aplicația trebuie să fie repornită pentru a aplica permisiunile nou acordate.
+    </string>   
+    
     <string name="requires_android_version">Necesită Android %1$s</string>
 
     <string name="not_activated">Modulul nu este activat</string>
 
     <string name="theme_colorPrimary">Culoare primară</string>
+    
+    <string name="header_lockscreen">Ecran de blocare</string>
     <!-- /prefs -->
 
     <!-- SETTINGS -->
@@ -66,7 +69,7 @@
     <string name="fix_sound_notif_tile_title">Fixează titlul "Sunete &amp; Notificări"</string>
     <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete &amp; Notificări. Activează această setare pentru a afișa titlul corect</string>
     <string name="enable_n_platlogo_title">Logo-ul N în versiune Android</string>
-	<string name="use_namey_mcnameface_title">Utilizați imaginea \"Namey McNameface\"</string>
+    <string name="use_namey_mcnameface_title">Folosește imaginea \"Namey McNameface\"</string>
 
     <string name="disconnected">Deconectat/ă</string>
     <string name="disabled">Dezactivat/ă</string>
@@ -87,12 +90,18 @@
     <string name="location_on_device">Pornită / Doar GPS</string>
     <string name="location_on_high">Pornită / Acuritate ridicată</string>
     <string name="print_summary">%1$d sarcini printate</string>
+    <string name="store">Magazin</string>
+    <string name="app_details">Detalii ai aplicației</string>
+    <string name="install_source">Aplicație instalată din %1$s</string>
+    <string name="from_pm">Aplicație instalată din Instalator de pachete</string>   
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
     <string name="header_recents">Recente</string>
     <string name="enable_recents_double_tap_title">Schimbare rapidă</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Apasă dublu butonul de ap. recente pentru a schimba aplicațiile</string>
+    <string name="alternative_double_tap_title">Detectare alternativă a apăsării duble</string>
+    <string name="alternative_double_tap">Activați dacă Schimbare rapidă nu funcționează corect</string>    
     <string name="double_tap_speed_title">Viteză apăsare dublă</string>
     <string name="recents_button_behavior_title">Comportament ap. recente</string>
     <string name="recents_navigation_delay_title">Întârziere navigare</string>
@@ -114,13 +123,13 @@
     <string name="keep_qs_panel_bg">Folosiți aceasta dacă utilizați o temă care aplică un fundal propriu pt. SR</string>
     <string name="notification_header_qs_tiles_count">Afișare titluri SR</string>
     <string name="notification_header_qs_tiles_count_monitor">titluri</string>
-    <string name="battery_tile_show_percentage">Afișa procentajul bateriei</string>
+    <string name="battery_tile_show_percentage">Afișează procentaj</string>
     <string name="battery_tile_show_percentage_summary">Afișează procentajul bateriei în titlul bateriei</string>
-    <string name="enable_qs_editor">Activați editorul SR</string>
+    <string name="enable_qs_editor">Activează editorul SR</string>
     <string name="allow_fancy_qs_transition">Tranziția SR extravagantă</string>
     <string name="enable_new_tile_click_behavior">Comportament click Android N</string>
     <string name="enable_new_tile_click_behavior_summary">Apăsând un chenar în antet îl vei comuta și apăsând un chenar în panou îl vei extinde</string>
-    <string name="enable_large_first_row">Lărgeste primul rând</string>
+    <string name="enable_large_first_row">Lărgește primul rând</string>
     <string name="enable_large_first_row_summary">Pe CM folosește meniul de modificare a SR în schimb</string>
     <string name="fix_stuck_inversion_title">Fixează inversiunea blocată</string>
     <string name="fix_stuck_inversion">Pe unele dispozitive, inversiunea culorilor devine blocată când este activată. Dați clic aici pentru a forța dezactivarea</string>
@@ -133,7 +142,7 @@
     <!-- Hide header icons -->
     <string name="hide_icons_title">Ascunde elementele antetului</string>
     <string name="hide_tuner_icon_title">Ascunde acordorul SystemUI</string>
-    <string name="hide_edit_tiles_title">Ascunde butonul editare chenare</string>
+    <string name="hide_edit_tiles_title">Ascunde butonul de editare a chenarelor</string>
     <string name="hide_edit_tiles_summary">Aceasta ascunde numai butonul de editare default!</string>
     <string name="hide_carrier_label_title">Ascunde numele operatorului</string>
     <!-- /Hide header icons -->
@@ -144,17 +153,20 @@
     <string name="notifications_change_style">Schimbă stilul notificărilor</string>
     <string name="notification_dismiss_button_title">Schimbă butonul de stergere a notificărilor</string>
     <string name="notification_dismiss_button">Arată \"ȘTERGEȚI TOATE NOTIFICĂRILE\" în schimbul butonului</string>
-    <string name="action_search">Caută</string>
+    <string name="action_search">Căutare</string>
     <string name="notification_blacklisted_apps_title">Aplicații pe lista neagră</string>
     <string name="notification_blacklisted_apps">Folosește stilul vechi al notificărilor pt. aceste aplicații</string>
     <string name="notifications_custom_actions_color_title">Utilizați o culoare de fundal al acțiunilor personalizată</string>
     <string name="notifications_actions_color_title">Culoare fundal acțiuni</string>
+    <string name="notification_experimental_title">Comportament experimental pt. notificările</string>
+    <string name="notification_experimental">Comportament de defilare Android N (fără grămadă de sus) și umbra notificărilor</string>
+    <string name="notification_keyguard_max_title">Max. de notificări pe ecranul de blocare</string>    
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
     <string name="update_notification_title">O versiune nouă este disponibilă</string>
     <string name="update_notification">Versiunea %1$d este acum disponibilă pentru descărcare!</string>
-    <string name="update_notification_download">Descarcați</string>
+    <string name="update_notification_download">Descărcați</string>
     <string name="check_for_updates_title">Verifică pentru actualizări</string>
     <string name="check_for_updates">Verifică pentru actualizări la pornire</string>
     <string name="checking_for_update">Se verifică pt. actualizari…</string>
@@ -167,9 +179,9 @@
     <!-- /UPDATE -->
     
     <!-- EMERGENCY -->
-    <string name="emergency_info">Informații de emergență</string>
-    <string name="enable_emergency_info_title">Activează info de emergență</string>
-    <string name="edit_emergency_info_title">Editează info de emergență</string>
+    <string name="emergency_info">Informații de urgență</string>
+    <string name="enable_emergency_info_title">Activează informații de urgență</string>
+    <string name="edit_emergency_info_title">Editează informații de urgență</string>
 
     <string name="header_personal">Personală</string>
     <string name="info_fullname">Nume complet</string>
@@ -209,18 +221,17 @@
     <string name="qs_edit_detail">Editare titluri</string>
     <string name="drag_to_add_tiles">Trageți pentru a adăuga titluri</string>
     <string name="drag_to_remove_tiles">Trageți aici pentru a elimina</string>
-    <string name="live_display">LiveDisplay</string>	
+    <string name="live_display">LiveDisplay</string>    
     <string name="live_display_auto">Automat</string>
     <string name="live_display_off">Dezactivat</string>
     <string name="live_display_day">Zi</string>
     <string name="live_display_night">Noapte</string>
-    <string name="live_display_outdoor">Extern (soare strălucitor)</string>		
+    <string name="live_display_outdoor">Extern (soare strălucitor)</string>     
     <!-- /QS -->
-	
-	<!-- Color Picker -->
+    
+    <!-- Color Picker -->
     <string name="dialog_color_picker">Alegător de culori</string>
     <string name="press_color_to_apply">Apăsați pe Culoare pentru a aplica</string>
     <!-- /Color Picker -->
-	
+    
 </resources>
-
