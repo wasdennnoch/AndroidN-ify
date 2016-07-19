@@ -104,6 +104,7 @@
     <string name="notifications_actions_color_title">Farba pozadia akcií</string>
     <string name="notification_experimental_title">N správanie upozornení (experimentálne)</string>
     <string name="notification_experimental">N správanie skrolovania a tieň upozornení</string>
+    <string name="notification_keyguard_max_title">Max. upozornení</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- LOCKSCREEN -->
