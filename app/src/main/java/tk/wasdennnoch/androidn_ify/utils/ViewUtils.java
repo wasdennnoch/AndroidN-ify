@@ -41,6 +41,14 @@ public class ViewUtils {
         view.setLayoutParams(layoutParams);
     }
 
+
+    public static void setMarginEnd(View view, int margin) {
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        lp.rightMargin = margin;
+        view.setLayoutParams(lp);
+    }
+
+
     public static View inflate(Context context, int resId) {
         return inflate(context, resId, null);
     }

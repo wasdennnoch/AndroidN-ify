@@ -28,12 +28,13 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_QUICKQS_TILEVIEW;
 
-import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
-
 public class QuickQSPanel extends LinearLayout {
+
     private static final String TAG = "QuickQSPanel";
+
     private int mIconSizePx;
     private int mTileSpacingPx;
     private int mQuickTilePadding;
@@ -79,6 +80,7 @@ public class QuickQSPanel extends LinearLayout {
                 .setEndDelay(0.64F).build();
     }
 
+    // TODO add check if tiles actually changed
     public void setTiles(ArrayList<Object> tileRecords) {
         XposedHook.logD(TAG, "setTiles tile record count: " + tileRecords.size());
         if (tileRecords.size() == 0) {
@@ -292,8 +294,10 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         public void addTile(Object tilerecord) {
-            XposedHook.logD(TAG, "addTile: original tileView class: " + XposedHelpers.getObjectField(tilerecord, "tileView").getClass().getSimpleName());
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
+            XposedHook.logD(TAG, "addTile: original tileView class: " +
+                    XposedHelpers.getObjectField(tilerecord, "tileView").getClass().getSimpleName() +
+                    " for tile " + tile.getClass().getSimpleName());
             ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", getContext());
             XposedHelpers.setAdditionalInstanceField(tileView, "headerTileRowItem", true);
             XposedHelpers.setAdditionalInstanceField(tileView, "headerTileRowType", tile.getClass().getSimpleName());
@@ -386,7 +390,6 @@ public class QuickQSPanel extends LinearLayout {
 
             mTileViews.add(tileView);
             int position = getChildCount() - 1;
-            XposedHook.logD(TAG, "addTile: adding tile at #" + position);
             if (iconView != null) {
                 ((ViewGroup) iconView.getParent()).removeView(iconView);
                 addViewToLayout(iconView, position, click, longClick);
@@ -425,7 +428,6 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         public void removeTiles() {
-            XposedHook.logD(TAG, "Removing all tiles");
             for (int i = 0; i < mMaxTiles && i < mRecords.size(); i++) {
                 removeViewAt(0); // Tile
                 removeViewAt(0); // Space

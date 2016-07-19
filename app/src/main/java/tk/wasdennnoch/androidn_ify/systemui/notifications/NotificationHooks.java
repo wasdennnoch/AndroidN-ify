@@ -27,6 +27,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -462,7 +463,6 @@ public class NotificationHooks {
                 try {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
                 } catch (Throwable ignore) {
-
                 }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", new XResources.DrawableLoader() {
@@ -683,6 +683,7 @@ public class NotificationHooks {
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_base", notification_template_material_base);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_media", notification_template_material_media);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_base", notification_template_material_base);
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_base", notification_template_material_big_base); // Extra treatment
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_media", notification_template_material_big_media);
 
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_picture", notification_template_material_big_picture);
@@ -706,9 +707,20 @@ public class NotificationHooks {
                         int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
 
                         TextView title = (TextView) layout.findViewById(context.getResources().getIdentifier("title", "id", PACKAGE_ANDROID));
-                        LinearLayout.LayoutParams titleLp = (LinearLayout.LayoutParams) title.getLayoutParams();
-                        titleLp.rightMargin = notificationTextMarginEnd;
-                        title.setLayoutParams(titleLp);
+                        ViewUtils.setMarginEnd(title, notificationTextMarginEnd);
+                    }
+                });
+
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_part_line2", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        Context context = liparam.view.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
+
+                        ViewStub progress = (ViewStub) liparam.view.findViewById(context.getResources().getIdentifier("progress", "id", PACKAGE_ANDROID));
+                        ViewUtils.setMarginEnd(progress, notificationTextMarginEnd);
                     }
                 });
 
@@ -723,9 +735,7 @@ public class NotificationHooks {
                         int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
 
                         TextView text = (TextView) layout.findViewById(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID));
-                        LinearLayout.LayoutParams textLp = (LinearLayout.LayoutParams) text.getLayoutParams();
-                        textLp.rightMargin = notificationTextMarginEnd;
-                        text.setLayoutParams(textLp);
+                        ViewUtils.setMarginEnd(text, notificationTextMarginEnd);
 
                         if (layout.getChildAt(1) != null) {
                             layout.removeViewAt(1);
@@ -733,7 +743,6 @@ public class NotificationHooks {
                     }
                 });
 
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_base", notification_template_material_big_base);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking framework resources", t);
@@ -753,9 +762,7 @@ public class NotificationHooks {
 
             TextView bigText = (TextView) layout.findViewById(context.getResources().getIdentifier("big_text", "id", PACKAGE_ANDROID));
             if (bigText != null) {
-                LinearLayout.LayoutParams bigTextLp = (LinearLayout.LayoutParams) bigText.getLayoutParams();
-                bigTextLp.rightMargin = notificationTextMarginEnd;
-                bigText.setLayoutParams(bigTextLp);
+                ViewUtils.setMarginEnd(bigText, notificationTextMarginEnd);
             }
         }
     };
@@ -952,7 +959,6 @@ public class NotificationHooks {
     private static XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
-            XposedHook.logD(TAG, "notification_template_material_base inflate hook called for layout \"" + liparam.resNames.fullName + "\"");
             FrameLayout layout = (FrameLayout) liparam.view;
             Context context = layout.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
@@ -1028,11 +1034,11 @@ public class NotificationHooks {
                 int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_inbox_margin_end);
                 if (isInboxLayout) {
                     View inboxText0 = notificationMain.findViewById(context.getResources().getIdentifier("inbox_text0", "id", PACKAGE_ANDROID));
-                    applyNotificationTextMarginEnd(inboxText0, notificationTextMarginEnd);
+                    ViewUtils.setMarginEnd(inboxText0, notificationTextMarginEnd);
                 }
                 if (isBigTextLayout) {
                     View bigText = notificationMain.findViewById(context.getResources().getIdentifier("big_text", "id", PACKAGE_ANDROID));
-                    applyNotificationTextMarginEnd(bigText, notificationTextMarginEnd);
+                    ViewUtils.setMarginEnd(bigText, notificationTextMarginEnd);
                 }
                 // Remove divider
                 notificationMain.removeViewAt(notificationMain.getChildCount() - 2);
@@ -1062,13 +1068,6 @@ public class NotificationHooks {
             row.addView(divider);
         }
     };
-
-
-    private static void applyNotificationTextMarginEnd(View text, int marginEnd) {
-        LinearLayout.LayoutParams textLp = (LinearLayout.LayoutParams) text.getLayoutParams();
-        textLp.rightMargin = marginEnd;
-        text.setLayoutParams(textLp);
-    }
 
     private static XC_LayoutInflated notification_material_action = new XC_LayoutInflated() {
         @Override
