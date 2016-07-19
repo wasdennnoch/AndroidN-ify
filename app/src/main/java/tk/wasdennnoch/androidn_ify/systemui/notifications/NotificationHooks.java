@@ -445,7 +445,7 @@ public class NotificationHooks {
                             int shadowHeight = res.getDimensionPixelSize(R.dimen.notification_panel_shadow_height);
 
                             mShadowLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, shadowHeight);
-                            mShadowLp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+                            mShadowLp.gravity = Gravity.TOP;
 
                             mPanelShadow = new View(context);
                             mPanelShadow.setLayoutParams(mShadowLp);

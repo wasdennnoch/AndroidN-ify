@@ -262,8 +262,8 @@ public class QSTileHostHooks {
     public static String getDefaultTilesPref() {
         List<String> specs = new ArrayList<>();
         specs.add("wifi");
-        specs.add("cell");
         specs.add("bt");
+        specs.add("cell");
         specs.add("battery");
         specs.add("flashlight");
         specs.add("rotation");
