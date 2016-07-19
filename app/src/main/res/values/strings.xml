@@ -99,7 +99,7 @@
     <string name="enable_recents_double_tap_title">Quick switch</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
     <string name="alternative_double_tap_title">Alternative double tap detection</string>
-    <string name="alternative_double_tap">Enable if Quick switch isn\'t working correcty</string>
+    <string name="alternative_double_tap">Enable if Quick switch isn\'t working correctly</string>
     <string name="double_tap_speed_title">Double tap speed</string>
     <string name="recents_button_behavior_title">Recents button click behavior</string>
     <string name="recents_navigation_delay_title">Navigation delay</string>
