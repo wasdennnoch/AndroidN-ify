@@ -154,6 +154,7 @@
     <string name="notifications_actions_color_title">Actions background color</string>
     <string name="notification_experimental_title">Experimental N notifications behavior</string>
     <string name="notification_experimental">N scrolling behavior (no top stack) and notifications shadow</string>
+    <string name="notification_keyguard_max_title">Max notifications on keyguard</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->

@@ -240,6 +240,17 @@
                 android:key="actions_background_colors"
                 android:title="@string/notifications_actions_color_title"/>
 
+            <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+                android:defaultValue="3"
+                android:dependency="notification_change_style"
+                android:key="notification_keyguard_max"
+                android:title="@string/notification_keyguard_max_title"
+                app:interval="1"
+                app:maximum="5"
+                app:minimum="0"
+                app:monitorBoxEnabled="true"
+                app:monitorBoxUnit=""/>
+
             <SwitchPreference
                 android:defaultValue="false"
                 android:dependency="notification_change_style"
