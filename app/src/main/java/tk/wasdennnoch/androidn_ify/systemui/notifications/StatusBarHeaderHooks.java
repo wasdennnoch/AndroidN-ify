@@ -690,6 +690,7 @@ public class StatusBarHeaderHooks {
     }
 
     private static void updateDateTimePosition(Context context) {
+        if (mStatusBarHeaderView == null) return;
         ResourceUtils res = ResourceUtils.getInstance(context);
         float mDateTimeTranslation = res.getDimension(R.dimen.date_anim_translation);
         float mDateTimeAlarmTranslation = res.getDimension(R.dimen.date_alarm_anim_translation);

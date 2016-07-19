@@ -57,25 +57,28 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             int keyCode = event.getKeyCode();
             boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
             boolean isFromSystem = (event.getFlags() & KeyEvent.FLAG_FROM_SYSTEM) != 0;
-            XposedHook.logD(TAG, "interceptKeyBeforeDispatching: keyCode= " + keyCode +
-                    "; keyCodeString=" + KeyEvent.keyCodeToString(keyCode) +
-                    "; down= " + down +
-                    "; repeatCount= " + event.getRepeatCount() +
-                    "; isInjected= " + (((Integer) param.args[2] & 0x01000000) != 0) +
-                    "; fromSystem= " + isFromSystem);
 
-            if (keyCode == KeyEvent.KEYCODE_APP_SWITCH && isFromSystem && !isTaskLocked(mContext) && down && event.getRepeatCount() == 0) {
-                if (!mWasPressed) {
-                    XposedHook.logD(TAG, "HW recents clicked");
-                    mWasPressed = true;
-                    mHandler.postDelayed(resetPressedState, mDoubletapSpeed);
-                } else {
-                    XposedHook.logD(TAG, "Double tap detected");
-                    mHandler.removeCallbacks(resetPressedState);
-                    mWasPressed = false;
-                    switchToLastApp(mContext, mHandler);
+            if (keyCode == KeyEvent.KEYCODE_APP_SWITCH) {
+                XposedHook.logD(TAG, "interceptKeyBeforeDispatching: keyCode= " + keyCode +
+                        "; keyCodeString=" + KeyEvent.keyCodeToString(keyCode) +
+                        "; down= " + down +
+                        "; repeatCount= " + event.getRepeatCount() +
+                        "; isInjected= " + (((Integer) param.args[2] & 0x01000000) != 0) +
+                        "; fromSystem= " + isFromSystem);
+
+                if (isFromSystem && !isTaskLocked(mContext) && down && event.getRepeatCount() == 0) {
+                    if (!mWasPressed) {
+                        XposedHook.logD(TAG, "HW recents clicked");
+                        mWasPressed = true;
+                        mHandler.postDelayed(resetPressedState, mDoubletapSpeed);
+                    } else {
+                        XposedHook.logD(TAG, "Double tap detected");
+                        mHandler.removeCallbacks(resetPressedState);
+                        mWasPressed = false;
+                        switchToLastApp(mContext, mHandler);
+                    }
+                    param.setResult(-1);
                 }
-                param.setResult(-1);
             }
 
         }

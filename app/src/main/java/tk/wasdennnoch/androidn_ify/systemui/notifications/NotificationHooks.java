@@ -186,7 +186,7 @@ public class NotificationHooks {
             return (CharSequence) XposedHelpers.callMethod(notifBuilder, "processLegacyText", text);
         } catch (Throwable t) {
             return (CharSequence) XposedHelpers.callMethod(notifBuilder, "processText",
-                    XposedHelpers.callMethod(notifBuilder, "getTextColor", 255));
+                    XposedHelpers.callMethod(notifBuilder, "getTextColor", 255), text);
         }
     }
 
