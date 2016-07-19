@@ -830,10 +830,6 @@ public class NotificationHooks {
             button.setAllCaps(true);
             button.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
             button.setPadding(dismissButtonPadding, dismissButtonPaddingTop, dismissButtonPadding, dismissButtonPadding);
-
-            FrameLayout.LayoutParams buttonLp = (FrameLayout.LayoutParams) button.getLayoutParams();
-            buttonLp.width = FrameLayout.LayoutParams.WRAP_CONTENT;
-            button.setLayoutParams(buttonLp);
         }
     };
 

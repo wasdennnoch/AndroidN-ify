@@ -97,6 +97,7 @@ public class TilesManager {
             } catch (Throwable ignore) {
                 try {
                     hookClass = XposedHelpers.findClass(QSTile.CLASS_VOLUME_TILE, classLoader);
+                    XposedHook.logI(TAG, "Using volume tile for custom tiles");
                     useVolumeTile = true;
                 } catch (Throwable t) {
                     XposedHook.logE(TAG, "Couldn't find required tile class, aborting hook", null);

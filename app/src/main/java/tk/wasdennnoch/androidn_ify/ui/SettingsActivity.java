@@ -270,6 +270,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         @Override
         public void onFinish(UpdateUtils.UpdateData updateData) {
             Context mContext = getActivity();
+            if (mContext == null) return;
             if (updateData.getNumber() > mContext.getResources().getInteger(R.integer.version) && updateData.hasArtifact())
                 UpdateUtils.showNotification(updateData, mContext);
         }
