@@ -152,6 +152,9 @@
     <string name="notification_blacklisted_apps">所选应用将使用旧风格的通知</string>
     <string name="notifications_custom_actions_color_title">使用自定义的通知操作背景色</string>
     <string name="notifications_actions_color_title">通知操作背景色</string>
+    <string name="notification_experimental_title">实验性 Android N 式通知行为</string>
+    <string name="notification_experimental">Android N 式滚动行为（无顶部堆叠）和通知阴影</string>
+    <string name="notification_keyguard_max_title">最大化锁屏内通知</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
