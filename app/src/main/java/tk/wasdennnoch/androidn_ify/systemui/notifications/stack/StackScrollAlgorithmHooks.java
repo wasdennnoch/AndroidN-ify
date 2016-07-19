@@ -106,9 +106,9 @@ public class StackScrollAlgorithmHooks {
                             panelShadow.setVisibility(View.GONE);
                             mStackScrollLayout.setClipBounds(null);
                         } else {
-                            int stackLeft = mStackScrollLayout.getLeft();
-                            int stackRight = mStackScrollLayout.getRight();
                             if (updateShadowVisibility()) {
+                                int stackLeft = mStackScrollLayout.getLeft();
+                                int stackRight = mStackScrollLayout.getRight();
                                 if (stackLeft != mShadowLeft) {
                                     FrameLayout.LayoutParams shadowLp = NotificationHooks.mShadowLp;
                                     shadowLp.leftMargin = stackLeft;

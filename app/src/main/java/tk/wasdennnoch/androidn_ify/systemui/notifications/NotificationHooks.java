@@ -121,7 +121,7 @@ public class NotificationHooks {
                     appName.setText(privateAppName.getText());
                 }
                 if (icon != null) {
-                    icon.setColorFilter(color);
+                    icon.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
                 }
             }
 
@@ -417,6 +417,8 @@ public class NotificationHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_mid_height", modRes.fwd(R.dimen.notification_mid_height));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_max_height", modRes.fwd(R.dimen.notification_max_height));
 
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "integer", "keyguard_max_notification_count", config.notifications.keyguard_max);
+
                 /*try {
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_children_divider_height", zero);
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_children_padding", zero);
@@ -457,6 +459,7 @@ public class NotificationHooks {
                 }
 
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
+                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
                 try {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
                 } catch (Throwable ignore) {

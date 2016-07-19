@@ -158,6 +158,7 @@ public class ConfigUtils {
         public boolean dismiss_button;
         public boolean custom_actions_color;
         public boolean experimental;
+        public int keyguard_max;
         public int actions_color;
 
         public List<String> blacklistedApps;
@@ -167,6 +168,7 @@ public class ConfigUtils {
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
             experimental = M && prefs.getBoolean("notification_experimental", false);
+            keyguard_max = prefs.getInt("notification_keyguard_max", 3);
             actions_color = prefs.getInt("actions_background_colors", 0);
         }
 
