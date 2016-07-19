@@ -1,9 +1,11 @@
 package tk.wasdennnoch.androidn_ify.systemui.recents.stack;
 
+import android.content.Context;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.util.TypedValue;
 
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
@@ -64,6 +66,14 @@ public class RecentsStackHooks {
                 XposedHelpers.findAndHookMethod(classRecentsViewLayoutAlgorithm, "computeStackRects", List.class, Rect.class, computeStackRectsHook);
                 */
 
+                // Bliss...
+                XposedHelpers.findAndHookMethod("com.android.systemui.recents.RecentsConfiguration", classLoader, "update", Context.class, new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        XposedHelpers.setObjectField(param.thisObject, "taskViewRoundedCornerRadiusPx",
+                                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, ((Context) param.args[0]).getResources().getDisplayMetrics()));
+                    }
+                });
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI", t);
