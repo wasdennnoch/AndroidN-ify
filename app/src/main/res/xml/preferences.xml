@@ -329,10 +329,10 @@
             android:summary="@string/debug_log"
             android:title="@string/debug_log_title"/>
 
-        <Preference
+        <!--<Preference
             android:key="share_logcat"
             android:summary="@string/share_logcat_summary"
-            android:title="@string/share_logcat_title"/>
+            android:title="@string/share_logcat_title"/>-->
 
     </PreferenceCategory>
 

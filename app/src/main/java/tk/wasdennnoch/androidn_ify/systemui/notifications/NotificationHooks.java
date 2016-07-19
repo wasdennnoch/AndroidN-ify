@@ -44,7 +44,6 @@ import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -469,13 +468,13 @@ public class NotificationHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", new XResources.DrawableLoader() {
                     @Override
                     public Drawable newDrawable(XResources xResources, int i) throws Throwable {
-                        return getNotificationBackground(xResources, modRes);
+                        return getNotificationBackground(xResources);
                     }
                 });
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg_dim", new XResources.DrawableLoader() {
                     @Override
                     public Drawable newDrawable(XResources xResources, int i) throws Throwable {
-                        return getNotificationBackgroundDimmed(xResources, modRes);
+                        return getNotificationBackgroundDimmed(xResources);
                     }
                 });
 
@@ -495,7 +494,7 @@ public class NotificationHooks {
     }
 
     @SuppressWarnings("deprecation")
-    private static RippleDrawable getNotificationBackground(XResources xRes, XModuleResources modRes) {
+    private static RippleDrawable getNotificationBackground(XResources xRes) {
         mNotificationBgColor = xRes.getColor(xRes.getIdentifier("notification_material_background_color", "color", PACKAGE_SYSTEMUI));
         return new RippleDrawable(
                 ColorStateList.valueOf(xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI))),
@@ -504,7 +503,7 @@ public class NotificationHooks {
     }
 
     @SuppressWarnings("deprecation")
-    private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes, XModuleResources modRes) {
+    private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes) {
         return new RippleDrawable(
                 ColorStateList.valueOf(xRes.getColor(android.R.color.transparent)),
                 getBackgroundRippleContent(xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI))),
