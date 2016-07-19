@@ -214,6 +214,7 @@ public class ConfigUtils {
         add(b, "fix_sound_notif_tile", s.fix_sound_notif_tile);
         add(b, "enable_n_platlogo", s.enable_n_platlogo);
         add(b, "use_namey_mcnameface", s.use_namey_mcnameface);
+        add(b, "install_source", s.install_source);
         b.append("  Recents---------------\n");
         add(b, "double_tap", r.double_tap);
         add(b, "alternative_method", r.alternative_method);

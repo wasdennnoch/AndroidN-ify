@@ -138,7 +138,6 @@ public class StatusBarHeaderHooks {
 
     private static float mExpansion = 0;
     private static int mGridHeight = 0;
-    public static int mHeaderHeight = 0;
 
     private static Class<?> onMeasureHookedClass;
 
@@ -152,18 +151,16 @@ public class StatusBarHeaderHooks {
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHook.logD(TAG, "onFinishInflateHook called");
 
             mStatusBarHeaderView = (RelativeLayout) param.thisObject;
-            Context context = mStatusBarHeaderView.getContext();
-            ResourceUtils res = ResourceUtils.getInstance(context);
-            ConfigUtils config = ConfigUtils.getInstance();
-
             mContext = mStatusBarHeaderView.getContext();
-            mHeaderHeight = res.getDimensionPixelSize(R.dimen.status_bar_header_height);
+            ResourceUtils res = ResourceUtils.getInstance(mContext);
+            ConfigUtils config = ConfigUtils.getInstance();
 
             try {
                 //noinspection deprecation
-                mStatusBarHeaderView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                mStatusBarHeaderView.setBackgroundColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Couldn't change header background color", t);
             }
@@ -199,12 +196,12 @@ public class StatusBarHeaderHooks {
             } catch (Throwable t) {
                 mSettingsContainer = mSettingsButton;
             }
-            mTunerIcon = mSettingsContainer.findViewById(context.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
+            mTunerIcon = mSettingsContainer.findViewById(mContext.getResources().getIdentifier("tuner_icon", "id", PACKAGE_SYSTEMUI));
             mHideTunerIcon = config.qs.hide_tuner_icon;
             mHideEditTiles = config.qs.hide_edit_tiles;
             mHideCarrierLabel = config.qs.hide_carrier_label;
             // workaround for a bug where the clock would get a wrong position when opening the detail view
-            View dummyClock = new View(context);
+            View dummyClock = new View(mContext);
             dummyClock.setVisibility(View.GONE);
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
             try {
@@ -246,7 +243,7 @@ public class StatusBarHeaderHooks {
                 } catch (Throwable ignore) {
                 }
 
-                int rippleRes = context.getResources().getIdentifier("ripple_drawable", "drawable", XposedHook.PACKAGE_SYSTEMUI);
+                int rippleRes = mContext.getResources().getIdentifier("ripple_drawable", "drawable", XposedHook.PACKAGE_SYSTEMUI);
                 int rightIconHeight = res.getDimensionPixelSize(R.dimen.right_icon_size);
                 int rightIconWidth = mTaskManagerButton != null && mShowTaskManager ? res.getDimensionPixelSize(R.dimen.right_icon_width_small) : rightIconHeight;
                 int expandIndicatorPadding = res.getDimensionPixelSize(R.dimen.expand_indicator_padding);
@@ -256,7 +253,7 @@ public class StatusBarHeaderHooks {
                 int dateTimeTextColor = mTime.getCurrentTextColor();
                 int dateCollapsedDrawablePadding = res.getDimensionPixelSize(R.dimen.date_collapsed_drawable_padding);
                 int dateTimeMarginLeft = res.getDimensionPixelSize(R.dimen.date_time_alarm_group_margin_left);
-                Drawable alarmSmall = context.getDrawable(context.getResources().getIdentifier("ic_access_alarms_small", "drawable", XposedHook.PACKAGE_SYSTEMUI));
+                Drawable alarmSmall = mContext.getDrawable(mContext.getResources().getIdentifier("ic_access_alarms_small", "drawable", XposedHook.PACKAGE_SYSTEMUI));
 
                 ((ViewGroup) mClock.getParent()).removeView(mClock);
                 ((ViewGroup) mMultiUserSwitch.getParent()).removeView(mMultiUserSwitch);
@@ -269,7 +266,7 @@ public class StatusBarHeaderHooks {
                 rightContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
                 rightContainerLp.rightMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_right);
                 rightContainerLp.topMargin = res.getDimensionPixelSize(R.dimen.right_layout_margin_top);
-                mRightContainer = new LinearLayout(context);
+                mRightContainer = new LinearLayout(mContext);
                 mRightContainer.setLayoutParams(rightContainerLp);
                 mRightContainer.setGravity(Gravity.CENTER);
                 mRightContainer.setOrientation(LinearLayout.HORIZONTAL);
@@ -282,7 +279,7 @@ public class StatusBarHeaderHooks {
                 mSettingsContainer.setLayoutParams(settingsContainerLp);
 
                 LinearLayout.LayoutParams expandIndicatorLp = new LinearLayout.LayoutParams(rightIconHeight, rightIconHeight); // Requires full width
-                mExpandIndicator = new ExpandableIndicator(context);
+                mExpandIndicator = new ExpandableIndicator(mContext);
                 mExpandIndicator.setLayoutParams(expandIndicatorLp);
                 mExpandIndicator.setPadding(expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding, expandIndicatorPadding);
                 mExpandIndicator.setClickable(true);
@@ -297,7 +294,7 @@ public class StatusBarHeaderHooks {
                 leftContainerLp.addRule(RelativeLayout.ALIGN_PARENT_START);
                 leftContainerLp.leftMargin = dateTimeMarginLeft;
                 leftContainerLp.topMargin = headerItemsMarginTop;
-                mLeftContainer = new LinearLayout(context);
+                mLeftContainer = new LinearLayout(mContext);
                 mLeftContainer.setLayoutParams(leftContainerLp);
                 mLeftContainer.setOrientation(LinearLayout.VERTICAL);
 
@@ -314,7 +311,7 @@ public class StatusBarHeaderHooks {
                 dateTimeAlarmGroupLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 dateTimeAlarmGroupLp.topMargin = res.getDimensionPixelSize(R.dimen.date_time_alarm_group_margin_top);
                 dateTimeAlarmGroupLp.leftMargin = dateTimeMarginLeft;
-                mDateTimeAlarmGroup = new LinearLayout(context);
+                mDateTimeAlarmGroup = new LinearLayout(mContext);
                 mDateTimeAlarmGroup.setLayoutParams(dateTimeAlarmGroupLp);
                 mDateTimeAlarmGroup.setId(View.generateViewId());
                 mDateTimeAlarmGroup.setGravity(Gravity.START);
@@ -333,7 +330,7 @@ public class StatusBarHeaderHooks {
 
 
                 LinearLayout.LayoutParams dateTimeGroupLp = new LinearLayout.LayoutParams(WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.date_time_group_height));
-                mDateTimeGroup = new LinearLayout(context);
+                mDateTimeGroup = new LinearLayout(mContext);
                 mDateTimeGroup.setLayoutParams(dateTimeGroupLp);
                 mDateTimeGroup.setId(View.generateViewId());
                 mDateTimeGroup.setOrientation(LinearLayout.HORIZONTAL);
@@ -343,7 +340,7 @@ public class StatusBarHeaderHooks {
 
                 LinearLayout.LayoutParams clockLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 mClock.setLayoutParams(clockLp);
-                mClock.findViewById(context.getResources().getIdentifier("empty_time_view", "id", XposedHook.PACKAGE_SYSTEMUI)).setVisibility(View.GONE);
+                mClock.findViewById(mContext.getResources().getIdentifier("empty_time_view", "id", XposedHook.PACKAGE_SYSTEMUI)).setVisibility(View.GONE);
 
                 mTime.setTextColor(dateTimeTextColor);
                 mTime.setTextSize(TypedValue.COMPLEX_UNIT_PX, dateTimeCollapsedSize);
@@ -360,7 +357,7 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setCompoundDrawablePadding(dateCollapsedDrawablePadding);
 
                 LinearLayout.LayoutParams alarmStatusCollapsedLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-                mAlarmStatusCollapsed = new AlphaOptimizedButton(context);
+                mAlarmStatusCollapsed = new AlphaOptimizedButton(mContext);
                 mAlarmStatusCollapsed.setLayoutParams(alarmStatusCollapsedLp);
                 mAlarmStatusCollapsed.setId(View.generateViewId());
                 mAlarmStatusCollapsed.setGravity(Gravity.TOP);
@@ -375,7 +372,7 @@ public class StatusBarHeaderHooks {
 
 
                 RelativeLayout.LayoutParams headerQsPanelLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
-                mHeaderQsPanel = new QuickQSPanel(context);
+                mHeaderQsPanel = new QuickQSPanel(mContext);
                 mHeaderQsPanel.setLayoutParams(headerQsPanelLp);
                 mHeaderQsPanel.setClipChildren(false);
                 mHeaderQsPanel.setClipToPadding(false);
@@ -434,7 +431,7 @@ public class StatusBarHeaderHooks {
                 return;
             }
 
-            updateResources(context);
+            updateResources(mContext);
 
         }
     };
