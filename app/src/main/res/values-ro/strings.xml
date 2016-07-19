@@ -70,6 +70,7 @@
     <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete &amp; Notificări. Activează această setare pentru a afișa titlul corect</string>
     <string name="enable_n_platlogo_title">Logo-ul N în versiune Android</string>
     <string name="use_namey_mcnameface_title">Folosește imaginea \"Namey McNameface\"</string>
+    <string name="enable_install_source_title">Afișează sursă de instalare a aplicațiilor</string>    
 
     <string name="disconnected">Deconectat/ă</string>
     <string name="disabled">Dezactivat/ă</string>

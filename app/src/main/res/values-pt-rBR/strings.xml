@@ -71,6 +71,7 @@
     <string name="fix_sound_notif_tile">Algumas ROMs juntam o módulo de Sons e notificações. Ative esta opção para que o sumário correto seja mostrado.</string>
     <string name="enable_n_platlogo_title">Logo do Android N no easter egg</string>
     <string name="use_namey_mcnameface_title">Usar ícone \"Namey McNameface\"</string>
+    <string name="enable_install_source_title">Mostrar fonte de instalação dos aplicativos</string>
 
     <string name="disabled">Desativado</string>
     <string name="disconnected">Desconectado</string>
