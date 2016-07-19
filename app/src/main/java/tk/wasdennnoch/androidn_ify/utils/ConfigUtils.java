@@ -81,12 +81,14 @@ public class ConfigUtils {
         public boolean fix_sound_notif_tile;
         public boolean enable_n_platlogo;
         public boolean use_namey_mcnameface;
+        public boolean install_source;
 
         public SettingsConfig(XSharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
             fix_sound_notif_tile = prefs.getBoolean("fix_sound_notif_tile", false);
             enable_n_platlogo = prefs.getBoolean("enable_n_platlogo", true);
             use_namey_mcnameface = prefs.getBoolean("use_namey_mcnameface", false);
+            install_source = M && prefs.getBoolean("enable_install_source", true);
         }
     }
 

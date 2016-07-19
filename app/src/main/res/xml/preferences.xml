@@ -26,6 +26,11 @@
 
             <SwitchPreference
                 android:defaultValue="true"
+                android:key="enable_install_source"
+                android:title="@string/enable_install_source_title"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
                 android:key="enable_n_platlogo"
                 android:title="@string/enable_n_platlogo_title"/>
 
