@@ -198,6 +198,13 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             experimentalPref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         }
                         break;
+                    case "settings_settings":
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                            Preference installSourcePref = screen.findPreference("enable_install_source");
+                            installSourcePref.setEnabled(false);
+                            installSourcePref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        }
+                        break;
                 }
             } else {
                 switch (preference.getKey()) {

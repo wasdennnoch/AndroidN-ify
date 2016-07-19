@@ -88,6 +88,10 @@
     <string name="location_on_device">ON / Device only</string>
     <string name="location_on_high">ON / High accuracy</string>
     <string name="print_summary">%1$d print jobs</string>
+    <string name="store">Store</string>
+    <string name="app_details">App details</string>
+    <string name="install_source">App installed from %1$s</string>
+    <string name="from_pm">App installed from Package Installer</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -226,6 +230,7 @@
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on color to apply</string>
+    <string name="enable_install_source_title">Show app installation source</string>
     <!-- /Color Picker -->
 
 </resources>
