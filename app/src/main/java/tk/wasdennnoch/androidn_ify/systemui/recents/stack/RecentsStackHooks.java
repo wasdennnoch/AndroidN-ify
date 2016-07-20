@@ -71,10 +71,9 @@ public class RecentsStackHooks {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         try {
-                            XposedHelpers.setObjectField(param.thisObject, "taskViewRoundedCornerRadiusPx",
-                                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, ((Context) param.args[0]).getResources().getDisplayMetrics()));
+                            XposedHelpers.setIntField(param.thisObject, "taskViewRoundedCornerRadiusPx",
+                                    (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, ((Context) param.args[0]).getResources().getDisplayMetrics()));
                         } catch (Throwable ignore) {
-                            
                         }
                     }
                 });
