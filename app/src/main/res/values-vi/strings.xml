@@ -149,7 +149,7 @@
     <string name="live_display">LiveDisplay</string>
     <string name="use_namey_mcnameface_title">Dùng biểu tượng \"Namey McNameface\" </string>
     <string name="alternative_double_tap_title">Phát hiện chạm đôi kiểu khác</string>
-    <string name="alternative_double_tap">Bật nếu Chuyển ứ.dụng nhanh không hoạt động như mong mong muốn</string>
+    <string name="alternative_double_tap">Bật nếu Chuyển ứ.dụng nhanh hoạt động không đúng </string>
     <string name="dialog_color_picker">Bảng chọn màu </string>
     <string name="header_clock_size_normal">Bình thường </string>
     <string name="header_clock_size_small">Nhỏ </string>
@@ -160,4 +160,12 @@
     <string name="press_color_to_apply">Bấm vào màu để áp dụng </string>
     <string name="hide_edit_tiles_summary">Chỉ ẩn nút tùy chỉnh ô nguyên gốc!</string>
     <string name="share_logcat_summary">Lưu những thông tin quan trọng lấy từ logcat thành tệp</string>
+    <string name="app_details">Chi tiết ứng dụng </string>
+    <string name="enable_install_source_title">Hiện nguồn cài đặt ứng dụng</string>
+    <string name="from_pm">Ứng dụng được cài từ Trình cài đặt Gói </string>
+    <string name="install_source">Ứng dụng được cài từ %1$s</string>
+    <string name="notification_experimental">Không chồng thông báo đầu tiên và đổ bóng cho các thông báo</string>
+    <string name="notification_experimental_title">Thử nghiệm hành vi thông báo kiểu N </string>
+    <string name="notification_keyguard_max_title">Số thông báo tối đa trên màn hình khóa </string>
+    <string name="store">Cửa hàng </string>
 </resources>
