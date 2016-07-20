@@ -96,7 +96,10 @@ public class ViewUtils {
         hsv[2] *= 0.8f;
         int colorPrimaryDark = Color.HSVToColor(hsv);
         dialog.getWindow().setStatusBarColor(colorPrimaryDark);
-        dialog.getActionBar().setBackgroundDrawable(new ColorDrawable(colorPrimary));
+        try {
+            dialog.getActionBar().setBackgroundDrawable(new ColorDrawable(colorPrimary));
+        } catch (NullPointerException ignore) {
+        }
     }
 
 }
