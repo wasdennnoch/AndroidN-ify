@@ -35,6 +35,7 @@
     <string name="debug_log_title">Włącz debugowanie</string>
     <string name="debug_log">Ostrzeżenie: generuje dużo wpisów w dzienniku debugowania</string>
     <string name="share_logcat_title">Udostępnij logcat</string>
+    <string name="share_logcat_summary">Zapisuje ważne dane z logcat do pliku</string>
     <string name="logcat_notif_ongoing_title">Zapisywanie logcat</string>
     <string name="logcat_notif_finished_title">Logcat zapisany</string>
     <string name="logcat_notif_preparing">Przygotowanie</string>
@@ -87,6 +88,10 @@
     <string name="location_on_device">WŁ. / Tylko urządzenie</string>
     <string name="location_on_high">WŁ. / Wysoka dokładność</string>
     <string name="print_summary">%1$d zadań drukowania</string>
+    <string name="store">Sklep</string>
+    <string name="app_details">Informacje o aplikacji</string>
+    <string name="install_source">Aplikacja zainstalowana z %1$s</string>
+    <string name="from_pm">Aplikacja zainstalowana z Menadżera Instalacji</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -126,11 +131,13 @@
     <string name="enable_large_first_row_summary">Jeśli posiadasz CyanogenMod, użyj menu konfiguracji aby edytować kafelki</string>
     <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
     <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
+
     <string name="header_clock_size_title">Rozmiar zegarka w nagłówku</string>
     <string name="header_clock_size_normal">Normalny</string>
     <string name="header_clock_size_small">Mały</string>
     <string name="header_clock_size_smaller">Mniejszy</string>
-    <string name="header_clock_size_tiny">Najmniejszy</string><!-- Hide header icons -->
+    <string name="header_clock_size_tiny">Najmniejszy</string>
+    <!-- Hide header icons -->
     <string name="hide_icons_title">Ukryj wybrane elementy nagłówka</string>
     <string name="hide_tuner_icon_title">Ukryj ikonę edycji SystemUI</string>
     <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
@@ -149,6 +156,9 @@
     <string name="notification_blacklisted_apps">Użyj starego stylu powiadomień dla tych aplikacji</string>
     <string name="notifications_custom_actions_color_title">Użyj niestandardowego koloru tła akcji</string>
     <string name="notifications_actions_color_title">Kolor tła akcji</string>
+    <string name="notification_experimental_title">Eksperymentalne zachowanie notyfikacji z N</string>
+    <string name="notification_experimental">Zachowanie scrolowania z N i cień notyfikacji</string>
+    <string name="notification_keyguard_max_title">Maksymalna ilośc notyfikacji z keyguard</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -220,6 +230,7 @@
     <!-- Color Picker -->
     <string name="dialog_color_picker">Wybór Koloru</string>
     <string name="press_color_to_apply">Naciśnij na kolorze, aby wybrać</string>
+    <string name="enable_install_source_title">Wyświetl źródło instalacji aplikacji</string>
     <!-- /Color Picker -->
 
 </resources>
