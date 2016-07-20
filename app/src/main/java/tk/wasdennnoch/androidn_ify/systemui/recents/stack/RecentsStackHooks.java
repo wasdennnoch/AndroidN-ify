@@ -70,8 +70,12 @@ public class RecentsStackHooks {
                 XposedHelpers.findAndHookMethod("com.android.systemui.recents.RecentsConfiguration", classLoader, "update", Context.class, new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        XposedHelpers.setObjectField(param.thisObject, "taskViewRoundedCornerRadiusPx",
-                                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, ((Context) param.args[0]).getResources().getDisplayMetrics()));
+                        try {
+                            XposedHelpers.setObjectField(param.thisObject, "taskViewRoundedCornerRadiusPx",
+                                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, ((Context) param.args[0]).getResources().getDisplayMetrics()));
+                        } catch (Throwable ignore) {
+                            
+                        }
                     }
                 });
             }
