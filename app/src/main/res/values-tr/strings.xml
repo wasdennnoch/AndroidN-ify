@@ -35,6 +35,7 @@
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
     <string name="debug_log">Dikkat: Log-flooding</string>
     <string name="share_logcat_title">Hata kaydını paylaş</string>
+    <string name="share_logcat_summary">LogCat önemli bilgileri bir dosyaya kaydeder</string>
     <string name="logcat_notif_ongoing_title">Hata kaydı kaydediliyor</string>
     <string name="logcat_notif_finished_title">Hata kaydı kaydedildi</string>
     <string name="logcat_notif_preparing">Hazırlanıyor&#8230;</string>
@@ -44,7 +45,7 @@
 
     <string name="requesting_root">Root erişimi isteniyor&#8230;</string>
     <string name="root_failed">READ_LOGS izni alma işlemi başarısız oldu</string>
-    <string name="permission_required">İizin gerekli</string>
+    <string name="permission_required">İzin gerekli</string>
     <string name="logs_permission_description">
         Android Jelly Bean sürümünden beri uygulamalara artık tam hata kaydı okumak için izin verilmez.
         Bununla birlikte manuel root erişimi ile READ_LOGS izni verebilebilir.
@@ -87,6 +88,10 @@
     <string name="location_on_device">AÇIK / Yalnızca cihaz</string>
     <string name="location_on_high">AÇIK / Yüksek doğruluk</string>
     <string name="print_summary">Bekleyen işlemler%1$d</string>
+    <string name="store">Mağaza</string>
+    <string name="app_details">Uygulama ayrıntıları</string>
+    <string name="install_source">Uygulama %1$s yüklendi</string>
+    <string name="from_pm">Uygulama Paket Yükleyicisi ile yüklendi</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -151,6 +156,9 @@
     <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullanın.</string>
     <string name="notifications_custom_actions_color_title">Özelleştirilmiş arkaplan rengini kullan</string>
     <string name="notifications_actions_color_title">Arkaplan renk eylemi</string>
+    <string name="notification_experimental_title">Deneysel N bildirimleri davranışı</string>
+    <string name="notification_experimental">N kaydırma davranışı (hiçbir üst yığın) ve bildirim gölgeleri</string>
+    <string name="notification_keyguard_max_title">Kilit ekranında maksimum bildirim sayısı</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -220,8 +228,9 @@
     <!-- /QS -->
 	
     <!-- Color Picker -->
-    <string name="dialog_color_picker">Renk Seçivi</string>
+    <string name="dialog_color_picker">Renk Seçici</string>
     <string name="press_color_to_apply">Rengi uygulamak için dokunun</string>
+    <string name="enable_install_source_title">Uygulama yükleme kaynağını göster</string>
     <!-- /Color Picker -->
 
 </resources>
