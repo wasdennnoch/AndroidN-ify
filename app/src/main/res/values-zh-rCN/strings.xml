@@ -35,6 +35,7 @@
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
     <string name="share_logcat_title">分享日志</string>
+    <string name="share_logcat_summary">将日志内的重要部分保存至文件</string>
     <string name="logcat_notif_ongoing_title">正在保存日志&#8230;</string>
     <string name="logcat_notif_finished_title">日志已保存</string>
     <string name="logcat_notif_preparing">正在准备&#8230;</string>
@@ -87,6 +88,10 @@
     <string name="location_on_device">开启 / 仅限设备</string>
     <string name="location_on_high">开启 / 高精确度</string>
     <string name="print_summary">%1$d 个打印任务</string>
+    <string name="store">商店</string>
+    <string name="app_details">应用详情</string>
+    <string name="install_source">应用安装自 %1$s</string>
+    <string name="from_pm">应用安装自软件包安装程序</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -149,8 +154,11 @@
     <string name="action_search">搜索</string>
     <string name="notification_blacklisted_apps_title">黑名单应用</string>
     <string name="notification_blacklisted_apps">所选应用将使用旧风格的通知</string>
-    <string name="notifications_custom_actions_color_title">使用自定义的通知操作背景色</string>
-    <string name="notifications_actions_color_title">通知操作背景色</string>
+    <string name="notifications_custom_actions_color_title">使用自定义的通知动作背景色</string>
+    <string name="notifications_actions_color_title">通知动作背景色</string>
+    <string name="notification_experimental_title">实验性 Android N 式通知行为</string>
+    <string name="notification_experimental">Android N 式通知滚动行为（无顶部堆叠）和阴影</string>
+    <string name="notification_keyguard_max_title">锁屏内显示通知的最大数量</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -222,6 +230,7 @@
     <!-- Color Picker -->
     <string name="dialog_color_picker">颜色选择器</string>
     <string name="press_color_to_apply">点击颜色以应用</string>
+    <string name="enable_install_source_title">显示应用安装来源</string>
     <!-- /Color Picker -->
 
 </resources>

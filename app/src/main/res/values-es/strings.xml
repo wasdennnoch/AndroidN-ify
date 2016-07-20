@@ -35,10 +35,12 @@
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
     <string name="share_logcat_title">Enviar informe de fallos</string>
+    <string name="share_logcat_summary">Guarda extractos de fallos importantes en un archivo</string>
     <string name="logcat_notif_ongoing_title">Guardando informe&#8230;</string>
     <string name="logcat_notif_finished_title">Informe guardado</string>
     <string name="logcat_notif_preparing">Preparando&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Guardadas %1$s líneas&#8230;</string>
+    <string name="logcat_notif_finished">%1$s líneas guardadas en %2$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Parar</string>
 
     <string name="requesting_root">Pidiendo acceso root&#8230;</string>
@@ -92,6 +94,8 @@
     <string name="header_recents">Recientes</string>
     <string name="enable_recents_double_tap_title">Doble pulsación</string>
     <string name="enable_recents_double_tap">Doble pulsación al botón de recientes para volver a la última aplicación</string>
+    <string name="alternative_double_tap_title">Doble pulsación alternativa</string>
+    <string name="alternative_double_tap">Activar si el doble toque no funciona correctamente</string>
     <string name="double_tap_speed_title">Velocidad del doble toque</string>
     <string name="recents_button_behavior_title">Comportamiento del botón recientes</string>
     <string name="recents_navigation_delay_title">Retraso de navegación</string>
@@ -123,10 +127,17 @@
     <string name="enable_large_first_row_summary">En CM usar el menú de configuración de ajustes rápidos propio</string>
     <string name="fix_stuck_inversion_title">Arreglar inversión bloqueada</string>
     <string name="fix_stuck_inversion">En algunos dispositivos la inversión de colores se bloquea al activarla. Selecciona para forzar desactivación</string>
+    
+    <string name="header_clock_size_title">Tamaño del reloj</string>
+    <string name="header_clock_size_normal">Normal</string>
+    <string name="header_clock_size_small">Pequeño</string>
+    <string name="header_clock_size_smaller">Muy pequeño</string>
+    <string name="header_clock_size_tiny">Minúsculo</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Ocultar información</string>
     <string name="hide_tuner_icon_title">Ocultar icono de SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
+    <string name="hide_edit_tiles_summary">Esto sólo oculta el botón de editar original</string>
     <string name="hide_carrier_label_title">Ocultar operador de red</string>
     <!-- /Hide header icons -->
     <!-- /QUICK SETTINGS -->
@@ -208,5 +219,10 @@
     <string name="live_display_night">Noche</string>
     <string name="live_display_outdoor">Ambiente muy luminoso</string>
     <!-- /QS -->
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Selector de color</string>
+    <string name="press_color_to_apply">Pulsa en el color para aplicar</string>
+    <!-- /Color Picker -->
     
 </resources>

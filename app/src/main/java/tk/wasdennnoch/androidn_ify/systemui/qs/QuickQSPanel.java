@@ -29,9 +29,12 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
+import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_QUICKQS_TILEVIEW;
 
 public class QuickQSPanel extends LinearLayout {
+
     private static final String TAG = "QuickQSPanel";
+
     private int mIconSizePx;
     private int mTileSpacingPx;
     private int mQuickTilePadding;
@@ -77,6 +80,7 @@ public class QuickQSPanel extends LinearLayout {
                 .setEndDelay(0.64F).build();
     }
 
+    // TODO add check if tiles actually changed
     public void setTiles(ArrayList<Object> tileRecords) {
         XposedHook.logD(TAG, "setTiles tile record count: " + tileRecords.size());
         if (tileRecords.size() == 0) {
@@ -99,19 +103,10 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
-    public void handleStateChanged(Object qstile, Object state) {
-        for (int i = 0; i < mRecords.size(); i++) {
-            Object tilerecord = mRecords.get(i);
-            Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
-            if (tile == qstile) {
-                if (i >= mTileViews.size()) {
-                    XposedHook.logD(TAG, "handleStateChanged; tilerecord index greater than or equals to tileViews size; index :" + i + "; views: " + mTileViews.size());
-                    return;
-                }
-                ViewGroup tileView = mTileViews.get(i);
-                XposedHelpers.callMethod(tileView, "onStateChanged", state);
-                XposedHook.logD(TAG, "handleStateChanged #" + i); // Spam
-            }
+    public void handleStateChanged(Object qsTile, Object state) {
+        ViewGroup tileView = (ViewGroup) XposedHelpers.getAdditionalInstanceField(qsTile, KEY_QUICKQS_TILEVIEW);
+        if (tileView != null) {
+            XposedHelpers.callMethod(tileView, "onStateChanged", state);
         }
     }
 
@@ -299,8 +294,10 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         public void addTile(Object tilerecord) {
-            XposedHook.logD(TAG, "addTile: original tileView class: " + XposedHelpers.getObjectField(tilerecord, "tileView").getClass().getSimpleName());
             final Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
+            XposedHook.logD(TAG, "addTile: original tileView class: " +
+                    XposedHelpers.getObjectField(tilerecord, "tileView").getClass().getSimpleName() +
+                    " for tile " + tile.getClass().getSimpleName());
             ViewGroup tileView = (ViewGroup) XposedHelpers.callMethod(tile, "createTileView", getContext());
             XposedHelpers.setAdditionalInstanceField(tileView, "headerTileRowItem", true);
             XposedHelpers.setAdditionalInstanceField(tileView, "headerTileRowType", tile.getClass().getSimpleName());
@@ -389,9 +386,10 @@ public class QuickQSPanel extends LinearLayout {
                 }
             }
 
+            XposedHelpers.setAdditionalInstanceField(tile, KEY_QUICKQS_TILEVIEW, tileView);
+
             mTileViews.add(tileView);
             int position = getChildCount() - 1;
-            XposedHook.logD(TAG, "addTile: adding tile at #" + position);
             if (iconView != null) {
                 ((ViewGroup) iconView.getParent()).removeView(iconView);
                 addViewToLayout(iconView, position, click, longClick);
@@ -430,7 +428,6 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         public void removeTiles() {
-            XposedHook.logD(TAG, "Removing all tiles");
             for (int i = 0; i < mMaxTiles && i < mRecords.size(); i++) {
                 removeViewAt(0); // Tile
                 removeViewAt(0); // Space

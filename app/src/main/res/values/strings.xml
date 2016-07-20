@@ -88,6 +88,10 @@
     <string name="location_on_device">ON / Device only</string>
     <string name="location_on_high">ON / High accuracy</string>
     <string name="print_summary">%1$d print jobs</string>
+    <string name="store">Store</string>
+    <string name="app_details">App details</string>
+    <string name="install_source">App installed from %1$s</string>
+    <string name="from_pm">App installed from Package Installer</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -95,7 +99,7 @@
     <string name="enable_recents_double_tap_title">Quick switch</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
     <string name="alternative_double_tap_title">Alternative double tap detection</string>
-    <string name="alternative_double_tap">Enable if Quick switch isn\'t working correcty</string>
+    <string name="alternative_double_tap">Enable if Quick switch isn\'t working correctly</string>
     <string name="double_tap_speed_title">Double tap speed</string>
     <string name="recents_button_behavior_title">Recents button click behavior</string>
     <string name="recents_navigation_delay_title">Navigation delay</string>
@@ -152,6 +156,9 @@
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
     <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
     <string name="notifications_actions_color_title">Actions background color</string>
+    <string name="notification_experimental_title">Experimental N notifications behavior</string>
+    <string name="notification_experimental">N scrolling behavior (no top stack) and notifications shadow</string>
+    <string name="notification_keyguard_max_title">Max notifications on keyguard</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -223,6 +230,7 @@
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on color to apply</string>
+    <string name="enable_install_source_title">Show app installation source</string>
     <!-- /Color Picker -->
 
 </resources>

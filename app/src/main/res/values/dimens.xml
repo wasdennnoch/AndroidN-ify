@@ -65,6 +65,7 @@
     <dimen name="notification_actions_margin_top">16dp</dimen>
     <dimen name="notification_dismiss_button_padding">16dp</dimen>
     <dimen name="notification_dismiss_button_padding_top">14dp</dimen>
+    <dimen name="notification_panel_shadow_height">6dp</dimen>
     <dimen name="task_progress_height">2dp</dimen>
     <dimen name="no_notifications_padding_top">28dp</dimen>
     <dimen name="no_notifications_text_size">16sp</dimen>

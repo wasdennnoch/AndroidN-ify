@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -30,6 +31,8 @@ public class QSTileHostHooks {
     public static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
     public static final String TILES_SETTING = "sysui_qs_tiles";
     public static final String TILE_SPEC_NAME = "tileSpec";
+    public static final String KEY_QUICKQS_TILEVIEW = "QuickQS_TileView";
+    public static final String KEY_EDIT_TILEVIEW = "Edit_TileView";
 
     private static TilesManager mTilesManager = null;
     public static List<String> mTileSpecs = null;
@@ -41,50 +44,56 @@ public class QSTileHostHooks {
 
     // MM
     private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
+        
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            // Thanks to GravityBox for this
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
-            if (!TILES_SETTING.equals(param.args[0]))
-                return;
-
-            Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
-            for (Entry<String, Object> entry : tileMap.entrySet()) {
-                XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
-            }
-            tileMap.clear();
-            ((List<?>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs")).clear();
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if (!TILES_SETTING.equals(param.args[0])) return;
 
             if (mTilesManager == null)
-                mTilesManager = new TilesManager(param.thisObject);
-
-            List<String> tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
-            Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
+                mTilesManager = new TilesManager(mTileHost);
 
             Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
 
+            List<String> tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
+            List<String> newTileSpecs = getTileSpecs(context);
+            Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
+            Map<String, Object> newTiles = new LinkedHashMap<>();
+
             tileSpecs.clear();
-            tileSpecs.addAll(getTileSpecs(context));
-            tileMap.clear();
+            tileSpecs.addAll(newTileSpecs);
+
+            for (Map.Entry<String, Object> tile : tileMap.entrySet()) {
+                if (!tileSpecs.contains(tile.getKey())) {
+                    Object qsTile = tile.getValue();
+                    XposedHelpers.removeAdditionalInstanceField(qsTile, KEY_QUICKQS_TILEVIEW);
+                    XposedHelpers.removeAdditionalInstanceField(qsTile, KEY_EDIT_TILEVIEW);
+                    XposedHelpers.callMethod(qsTile, "handleDestroy");
+                }
+            }
+
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
                 String spec = tileSpecs.get(i);
-                Object tile = createTile(param.thisObject, spec);
-                if (tile != null)
-                    tileMap.put(spec, tile);
+                if (tileMap.containsKey(spec)) {
+                    newTiles.put(spec, tileMap.get(spec));
+                } else {
+                    Object tile = createTile(param.thisObject, spec);
+                    if (tile != null)
+                        newTiles.put(spec, tile);
+                }
             }
+
+            tileMap.clear();
+            tileMap.putAll(newTiles);
 
             Object mCallback = XposedHelpers.getObjectField(param.thisObject, "mCallback");
             if (mCallback != null) XposedHelpers.callMethod(mCallback, "onTilesChanged");
+
+            param.setResult(null);
         }
     };
 

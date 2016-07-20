@@ -26,6 +26,11 @@
 
             <SwitchPreference
                 android:defaultValue="true"
+                android:key="enable_install_source"
+                android:title="@string/enable_install_source_title"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
                 android:key="enable_n_platlogo"
                 android:title="@string/enable_n_platlogo_title"/>
 
@@ -140,7 +145,7 @@
                 android:title="@string/enable_qs_editor"/>
 
             <SwitchPreference
-                android:defaultValue="true"
+                android:defaultValue="false"
                 android:dependency="enable_qs_editor"
                 android:key="battery_tile_show_percentage"
                 android:summary="@string/battery_tile_show_percentage_summary"
@@ -240,6 +245,24 @@
                 android:key="actions_background_colors"
                 android:title="@string/notifications_actions_color_title"/>
 
+            <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+                android:defaultValue="3"
+                android:dependency="notification_change_style"
+                android:key="notification_keyguard_max"
+                android:title="@string/notification_keyguard_max_title"
+                app:interval="1"
+                app:maximum="5"
+                app:minimum="0"
+                app:monitorBoxEnabled="true"
+                app:monitorBoxUnit=""/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="notification_change_style"
+                android:key="notification_experimental"
+                android:title="@string/notification_experimental_title"
+                android:summary="@string/notification_experimental"/>
+
         </PreferenceScreen>
 
         <PreferenceScreen
@@ -306,10 +329,10 @@
             android:summary="@string/debug_log"
             android:title="@string/debug_log_title"/>
 
-        <Preference
+        <!--<Preference
             android:key="share_logcat"
             android:summary="@string/share_logcat_summary"
-            android:title="@string/share_logcat_title"/>
+            android:title="@string/share_logcat_title"/>-->
 
     </PreferenceCategory>
 

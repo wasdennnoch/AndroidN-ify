@@ -191,6 +191,20 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             emergencyInfoPref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
                         }
                         break;
+                    case "settings_notifications":
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                            Preference experimentalPref = screen.findPreference("notification_experimental");
+                            experimentalPref.setEnabled(false);
+                            experimentalPref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        }
+                        break;
+                    case "settings_settings":
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                            Preference installSourcePref = screen.findPreference("enable_install_source");
+                            installSourcePref.setEnabled(false);
+                            installSourcePref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        }
+                        break;
                 }
             } else {
                 switch (preference.getKey()) {
@@ -256,6 +270,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         @Override
         public void onFinish(UpdateUtils.UpdateData updateData) {
             Context mContext = getActivity();
+            if (mContext == null) return;
             if (updateData.getNumber() > mContext.getResources().getInteger(R.integer.version) && updateData.hasArtifact())
                 UpdateUtils.showNotification(updateData, mContext);
         }

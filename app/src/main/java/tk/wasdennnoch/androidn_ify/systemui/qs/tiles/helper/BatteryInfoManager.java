@@ -24,11 +24,7 @@ import android.os.PowerManager;
 
 import java.util.ArrayList;
 
-import tk.wasdennnoch.androidn_ify.XposedHook;
-
 public class BatteryInfoManager extends BroadcastReceiver {
-
-    private static final String TAG = "BatteryInfoManager";
 
     private BatteryData mBatteryData;
     private final ArrayList<BatteryStatusListener> mListeners;
@@ -137,13 +133,6 @@ public class BatteryInfoManager extends BroadcastReceiver {
             mBatteryData.powerSource = newPowerSource;
             mBatteryData.temperature = newTemp;
             mBatteryData.voltage = newVoltage;
-
-            XposedHook.logD(TAG, "Updating battery info" +
-                    "; level= " + newLevel +
-                    "; charging= " + newCharging +
-                    "; powerSource= " + newPowerSource +
-                    "; temperature= " + newTemp +
-                    "; voltage= " + newVoltage);
 
             notifyListeners();
         }

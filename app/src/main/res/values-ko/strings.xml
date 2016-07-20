@@ -94,7 +94,7 @@
     <string name="enable_recents_double_tap_title">빠른 전환</string> <!-- That's how Google calls it -->
     <string name="enable_recents_double_tap">최근 실행 키를 두번 누를 경우 마지막으로 사용한 앱으로 전환합니다</string>
     <string name="alternative_double_tap_title">Alternative double tap detection</string>
-    <string name="alternative_double_tap">Enable if Quick switch isn\'t working correcty</string>
+    <string name="alternative_double_tap">빠른 전환 기능이 제대로 작동하지 않을 경우 활성화 하세요</string>
     <string name="double_tap_speed_title">더블 탭 속도</string>
     <string name="recents_button_behavior_title">최근 실행 버튼 클릭 시 행동</string>
     <string name="recents_navigation_delay_title">네비게이션 딜레이</string>
@@ -113,12 +113,12 @@
     <string name="header_qs">퀵세팅 설정</string>
     <string name="enable_notification_header">헤더 스타일</string>
     <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
-    <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
+    <string name="keep_qs_panel_bg">커스텀 퀵세팅 배경화면 테마를 설정할때 유용합니다</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">타일</string>
     <string name="battery_tile_show_percentage">배터리 타일에 퍼센트 표시</string>
     <string name="battery_tile_show_percentage_summary">배터리 타일에 남은 배터리의 퍼센트를 표시합니다</string>
-    <string name="enable_qs_editor">Enable QS editor</string>
+    <string name="enable_qs_editor">퀵세팅 수정 활성화</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
     <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
@@ -136,7 +136,7 @@
     <string name="hide_icons_title">헤더 아이템 숨기기</string>
     <string name="hide_tuner_icon_title">시스템UI 튜너 아이콘 숨기기</string>
     <string name="hide_edit_tiles_title">타일 수정 버튼 숨기기</string>
-    <string name="hide_edit_tiles_summary">This only hides the stock edit button!</string>
+    <string name="hide_edit_tiles_summary">이 기능은 순정의 수정 버튼만을 숨겨줍니다!</string>
     <string name="hide_carrier_label_title">통신사 라벨 숨기기</string>
     <!-- /Hide header icons -->
     <!-- /QUICK SETTINGS -->
@@ -222,7 +222,7 @@
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
-    <string name="press_color_to_apply">Press on Color to apply</string>
+    <string name="press_color_to_apply">색깔을 눌러 적용</string>
     <!-- /Color Picker -->
 
 </resources>

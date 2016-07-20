@@ -4,9 +4,11 @@
 
 - Emergency info
 - QS transition
-- Improved "prefs not reabable" warning message
 - "Namey McNameface" Icon
+- App install source in App info screen
+- Improved "prefs not reabable" warning message
 - Many fixes and improvements
+- Czech translation
 
 ### v0.2.0 (5):
 

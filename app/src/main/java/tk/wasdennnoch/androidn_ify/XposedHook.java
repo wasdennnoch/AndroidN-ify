@@ -17,6 +17,7 @@ import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgorithmHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.LiveDisplayObserver;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
@@ -94,9 +95,6 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             // user has never opened the preference screen before.
             logW(TAG, "Can't read prefs file, default values will be applied in hooks!");
         }
-        debug = sPrefs.getBoolean("debug_log", false);
-        if (debug)
-            ConfigUtils.log();
     }
 
     @Override
@@ -110,6 +108,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 SystemUIHooks.hookSystemUI(lpparam.classLoader);
                 StatusBarHeaderHooks.hook(lpparam.classLoader);
                 NotificationPanelHooks.hook(lpparam.classLoader);
+                StackScrollAlgorithmHooks.hook(lpparam.classLoader);
                 NotificationHooks.hookSystemUI(lpparam.classLoader);
                 RecentsStackHooks.hookSystemUI(lpparam.classLoader);
                 RecentsNavigation.hookSystemUI(lpparam.classLoader);

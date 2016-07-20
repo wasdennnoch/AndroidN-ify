@@ -39,6 +39,7 @@
     <string name="fix_sound_notif_tile">Niektoré ROM kombinujú Zvuky a Upozornenia. Povoľte pre zobrazenie správneho zhrnutia</string>
     <string name="enable_n_platlogo_title">N logo v easter egg</string>
     <string name="use_namey_mcnameface_title">Použiť \"Namey McNameface\" ikonu</string>
+    <string name="enable_install_source_title">Zobraziť zdroj nainštalovanej aplikácie</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -102,6 +103,9 @@
     <string name="notification_blacklisted_apps">Použije starý štýl upozornení pre vybrané aplikácie</string>
     <string name="notifications_custom_actions_color_title">Použiť vlastnú farbu pozadia pre akcie</string>
     <string name="notifications_actions_color_title">Farba pozadia akcií</string>
+    <string name="notification_experimental_title">N správanie upozornení (experimentálne)</string>
+    <string name="notification_experimental">N správanie skrolovania a tieň upozornení</string>
+    <string name="notification_keyguard_max_title">Max. upozornení</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- LOCKSCREEN -->
@@ -231,6 +235,10 @@
     <string name="location_on_device">ZAP. / Len senzory zariadenia</string>
     <string name="location_on_high">ZAP. / Vysoká presnosť</string>
     <string name="print_summary">%1$d tlačových úloh</string>
+    <string name="store">Obchod</string>
+    <string name="app_details">Podrobnosti o aplikácii</string>
+    <string name="install_source">Aplikácia bola nainštalovaná z %1$s</string>
+    <string name="from_pm">Aplikácia bola nainštalovaná pomocou Nástroj na inštaláciu balíčkov</string>
     <!-- /SETTINGS -->
 
 </resources>
