@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
 import android.preference.Preference;
@@ -36,6 +35,7 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.ui.misc.LogcatService;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -167,9 +167,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 switch (preference.getKey()) {
                     case "settings_recents":
                         DropDownPreference recentsBehaviorPref = (DropDownPreference) screen.findPreference("recents_button_behavior");
-                        if (Build.VERSION.SDK_INT < 23) {
-                            recentsBehaviorPref.setEnabled(false);
-                            recentsBehaviorPref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+                        if (!ConfigUtils.M) {
+                            lockPreference(recentsBehaviorPref);
                         } else {
                             final Preference delayPref = screen.findPreference("recents_navigation_delay");
                             if (recentsBehaviorPref.getValue().equals("2")) {
@@ -184,20 +183,13 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             });
                         }
                         break;
-                    case "settings_lockscreen":
                     case "settings_notifications":
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference experimentalPref = screen.findPreference("notification_experimental");
-                            experimentalPref.setEnabled(false);
-                            experimentalPref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
-                        }
+                        if (!ConfigUtils.M)
+                            lockPreference(screen.findPreference("notification_experimental"));
                         break;
                     case "settings_settings":
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference installSourcePref = screen.findPreference("enable_install_source");
-                            installSourcePref.setEnabled(false);
-                            installSourcePref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
-                        }
+                        if (!ConfigUtils.M)
+                            lockPreference(screen.findPreference("enable_install_source"));
                         break;
                 }
             } else {
@@ -216,6 +208,12 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 }
             }
             return false;
+        }
+
+        private void lockPreference(Preference pref) {
+            if (pref == null) return;
+            pref.setEnabled(false);
+            pref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
         }
 
         @Override
@@ -349,9 +347,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 }
             });
         } else {
-            /*if (getPackageManager().checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, getPackageName()) != PackageManager.PERMISSION_GRANTED) {
-
-            }*/
             action.run();
         }
     }
