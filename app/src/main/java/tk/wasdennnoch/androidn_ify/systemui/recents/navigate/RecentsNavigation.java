@@ -352,8 +352,7 @@ public class RecentsNavigation {
         }
     };
 
-    @SuppressWarnings("unused")
-    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
+    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam) {
         try {
             if (ConfigUtils.notifications().change_style) {
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_task_view_header", recents_task_view_header);

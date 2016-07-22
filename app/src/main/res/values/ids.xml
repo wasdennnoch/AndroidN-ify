@@ -13,5 +13,6 @@
     <item name="task_progress" type="id"/>
     <item name="qs_edit" type="id"/>
     <item name="notification_divider" type="id"/>
+    <item name="emergency_button" type="id"/>
 
 </resources>

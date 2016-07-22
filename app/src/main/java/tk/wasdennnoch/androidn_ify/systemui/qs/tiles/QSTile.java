@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs.tiles;
 
+import android.annotation.CallSuper;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -65,6 +66,7 @@ public class QSTile {
         return mKey;
     }
 
+    @CallSuper
     public void handleUpdateState(Object state, Object arg) {
         mState.visible = true;
         mState.apply(state);
@@ -107,6 +109,7 @@ public class QSTile {
     public void setListening(boolean listening) {
     }
 
+    @CallSuper
     public void handleDestroy() {
         mTilesManager.unregisterTile(this);
         mTilesManager = null;

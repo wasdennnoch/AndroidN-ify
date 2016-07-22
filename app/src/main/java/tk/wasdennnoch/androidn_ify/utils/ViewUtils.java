@@ -8,7 +8,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -21,45 +20,16 @@ public class ViewUtils {
 
     public static final float LARGE_TEXT_SCALE = 1.3f;
 
-    public static void setHeight(View view, int height, ResourceUtils res) {
-        setHeight(view, res.getDimensionPixelSize(height));
-    }
-
     public static void setHeight(View view, int height) {
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         layoutParams.height = height;
         view.setLayoutParams(layoutParams);
     }
 
-    public static void setWidth(View view, int width, ResourceUtils res) {
-        setWidth(view, res.getDimensionPixelSize(width));
-    }
-
-    public static void setWidth(View view, int width) {
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        layoutParams.width = width;
-        view.setLayoutParams(layoutParams);
-    }
-
-
     public static void setMarginEnd(View view, int margin) {
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         lp.rightMargin = margin;
         view.setLayoutParams(lp);
-    }
-
-
-    public static View inflate(Context context, int resId) {
-        return inflate(context, resId, null);
-    }
-
-    public static View inflate(Context context, int resId, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(resId, parent);
-    }
-
-
-    public static void updateFontSize(View parent, int viewId, int dimensId) {
-        updateFontSize((TextView) parent.findViewById(viewId), dimensId);
     }
 
     public static void updateFontSize(TextView v, int dimensId) {
