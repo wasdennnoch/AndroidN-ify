@@ -185,12 +185,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         }
                         break;
                     case "settings_lockscreen":
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            Preference emergencyInfoPref = screen.findPreference("enable_emergency_info");
-                            emergencyInfoPref.setEnabled(false);
-                            emergencyInfoPref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
-                        }
-                        break;
                     case "settings_notifications":
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                             Preference experimentalPref = screen.findPreference("notification_experimental");
