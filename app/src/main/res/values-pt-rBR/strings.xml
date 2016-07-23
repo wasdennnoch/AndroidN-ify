@@ -182,7 +182,9 @@
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Informações de emergência</string>
+    <string name="emergency_info_launch_hint">Toque novamente para abrir</string>
     <string name="enable_emergency_info_title">Ativar informações de emergência</string>
+    <string name="enable_emergency_info">Adiciona um botão \"Informações de emergência\" ao discador de emergência</string>	
     <string name="edit_emergency_info_title">Editar informações de emergência</string>
 
     <string name="header_personal">Pessoal</string>
