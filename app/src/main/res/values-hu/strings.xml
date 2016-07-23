@@ -89,6 +89,10 @@
     <string name="location_on_device">BEKAPCSOLVA / Csak a készüléken</string>
     <string name="location_on_high">BEKAPCSOLVA / Nagy pontosság</string>
     <string name="print_summary">%1$d nyomtatási művelet</string>
+    <string name="store">Áruház</string>
+    <string name="app_details">Alkalmazás részletek</string>
+    <string name="install_source">Telepítés forrása: %1$s</string>
+    <string name="from_pm">A Csomagtelepítő által telepítve</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -153,6 +157,9 @@
     <string name="notification_blacklisted_apps">Ezeknél az alkalmazásoknál a régi értesítési stílust használja</string>
     <string name="notifications_custom_actions_color_title">Egyéni műveletek háttérszín használata</string>
     <string name="notifications_actions_color_title">Műveletek háttérszín</string>
+    <string name="notification_experimental_title">Kísérleti N értesítés viselkedés</string>
+    <string name="notification_experimental">N görgetési viselkedés (nincs fölső csoport) és értesítés árnyék</string>
+    <string name="notification_keyguard_max_title">Max értesítés képernyőzárnál</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -224,6 +231,7 @@
     <!-- Color Picker -->
     <string name="dialog_color_picker">Színválasztó</string>
     <string name="press_color_to_apply">Koppints a Színre az alkalmazáshoz</string>
+    <string name="enable_install_source_title">Alkalmazás telepítési forrásának mutatása</string>
     <!-- /Color Picker -->
     
 </resources>
