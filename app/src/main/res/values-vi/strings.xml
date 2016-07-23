@@ -168,4 +168,6 @@
     <string name="notification_experimental_title">Thử nghiệm hành vi thông báo kiểu N </string>
     <string name="notification_keyguard_max_title">Số thông báo tối đa trên màn hình khóa </string>
     <string name="store">Cửa hàng </string>
+    <string name="enable_emergency_info">Thêm một nút Thông tin Khẩn cấp vào trình quay số khẩn cấp</string>
+    <string name="emergency_info_launch_hint">Chạm lần nữa để mở </string>
 </resources>
