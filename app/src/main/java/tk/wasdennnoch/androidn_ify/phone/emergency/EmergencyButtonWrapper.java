@@ -86,7 +86,7 @@ public class EmergencyButtonWrapper implements View.OnClickListener {
         try {
             XposedHook.logI("androidn_ify", "try");
             mContext.startActivity(new Intent("tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity")
-                    .setClassName("tk.wasdennnoch.androidn_ify", EmergencyInfoActivity.class.getName()));
+                    .setClassName("tk.wasdennnoch.androidn_ify", EmergencyInfoActivity.class.getName()).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS));
         } catch (Exception e) {
             XposedHook.logI("androidn_ify", "catch");
             XposedHook.logE(TAG, "Unable to start emergency activity!", e);

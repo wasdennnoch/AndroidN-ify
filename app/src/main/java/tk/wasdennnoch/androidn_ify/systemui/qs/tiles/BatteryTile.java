@@ -300,6 +300,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             mShapePath.lineTo(mButtonFrame.left, mFrame.top);
             mShapePath.lineTo(mButtonFrame.left, mButtonFrame.top);
 
+            boolean willDrawBolt = false;
             if (mBatteryData.charging) {
                 // define the bolt shape
                 final float bl = mFrame.left + mFrame.width() / 4.5f;
@@ -326,8 +327,8 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
                 float boltPct = (mBoltFrame.bottom - levelTop) / (mBoltFrame.bottom - mBoltFrame.top);
                 boltPct = Math.min(Math.max(boltPct, 0), 1);
                 if (boltPct <= BOLT_LEVEL_THRESHOLD) {
-                    // draw the bolt if opaque
-                    c.drawPath(mBoltPath, mBoltPaint);
+                    // draw the bolt later
+                    willDrawBolt = true;
                 } else {
                     // otherwise cut the bolt out of the overall shape
                     mShapePath.op(mBoltPath, Path.Op.DIFFERENCE);
@@ -375,6 +376,9 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
                     // draw the percentage text
                     c.drawText(pctText, pctX, pctY, mTextPaint);
                 }
+            } else if(willDrawBolt) {
+                // draw the bolt
+                c.drawPath(mBoltPath, mBoltPaint);
             }
         }
 
