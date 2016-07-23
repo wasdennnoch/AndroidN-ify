@@ -483,6 +483,7 @@ public class StatusBarHeaderHooks {
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable ignore) {
                 // Oh god, a massive spam wall coming right at you, quick, hide!
+
             }
         }
 

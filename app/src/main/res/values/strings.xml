@@ -178,7 +178,9 @@
 
     <!-- EMERGENCY -->
     <string name="emergency_info">Emergency Info</string>
+    <string name="emergency_info_launch_hint">Touch again to open</string>
     <string name="enable_emergency_info_title">Enable Emergency Info</string>
+    <string name="enable_emergency_info">Adds an Emergency Info button to the emergency dialer</string>
     <string name="edit_emergency_info_title">Edit Emergency Info</string>
 
     <string name="header_personal">Personal</string>

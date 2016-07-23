@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.utils;
 
+import android.annotation.ColorRes;
 import android.annotation.DimenRes;
 import android.annotation.DrawableRes;
 import android.annotation.LayoutRes;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
@@ -53,7 +55,8 @@ public class ResourceUtils {
         return mContext.getResources().getDimensionPixelSize(resId);
     }
 
-    public final int getColor(@DimenRes int resId) {
+    @ColorInt
+    public final int getColor(@ColorRes int resId) {
         //noinspection deprecation
         return mContext.getResources().getColor(resId);
     }
@@ -74,13 +77,16 @@ public class ResourceUtils {
         return mContext.getResources().getString(resId, formatArgs);
     }
 
+    @NonNull
+    public CharSequence getText(@StringRes int resId) {
+        return mContext.getResources().getText(resId);
+    }
+
+    @NonNull
     public Resources getResources() {
         return mContext.getResources();
     }
 
-    public CharSequence getText(@StringRes int resId) {
-        return mContext.getResources().getText(resId);
-    }
 }
 
 

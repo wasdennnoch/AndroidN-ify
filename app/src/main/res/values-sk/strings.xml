@@ -110,7 +110,9 @@
 
     <!-- LOCKSCREEN -->
     <string name="header_lockscreen">Uzamknutá obrazovka</string>
+    <string name="emergency_info_launch_hint">Kliknite znovu pre otvorenie</string>
     <string name="enable_emergency_info_title">Povoliť núdzové informácie</string>
+    <string name="enable_emergency_info">Pridá tlačidlo s núdzovými informáciami do núdzového vytáčania</string>
     <string name="edit_emergency_info_title">Upraviť núdzové informácie</string>
     <!-- /LOCKSCREEN -->
 

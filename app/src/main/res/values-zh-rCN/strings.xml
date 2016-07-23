@@ -178,7 +178,9 @@
 
     <!-- EMERGENCY -->
     <string name="emergency_info">急救信息</string>
+    <string name="emergency_info_launch_hint">再次触摸即可打开</string>
     <string name="enable_emergency_info_title">启用急救信息</string>
+    <string name="enable_emergency_info">向紧急拨号器内添加急救信息按钮</string>
     <string name="edit_emergency_info_title">编辑急救信息</string>
 
     <string name="header_personal">个人信息</string>

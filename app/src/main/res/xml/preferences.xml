@@ -272,7 +272,8 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:key="enable_emergency_info"
-                android:title="@string/enable_emergency_info_title"/>
+                android:title="@string/enable_emergency_info_title"
+                android:summary="@string/enable_emergency_info"/>
 
             <PreferenceScreen
                 android:dependency="enable_emergency_info"

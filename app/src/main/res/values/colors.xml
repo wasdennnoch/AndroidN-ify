@@ -8,8 +8,6 @@
     <color name="windowBackground">#333333</color>
     <!-- /App theme -->
 
-    <color name="md_red_500">#F44336</color>
-
     <!-- Notifications / Status bar header -->
     <color name="edit_btn_text">#40ffffff</color>
     <!-- /Notifications / Status bar header -->
