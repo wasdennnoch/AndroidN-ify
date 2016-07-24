@@ -88,7 +88,7 @@ public class StatusBarHeaderHooks {
     private static TouchAnimator mSecondHalfAnimator;
     private static TouchAnimator mSettingsAlpha;
 
-    public static RelativeLayout mStatusBarHeaderView;
+    public static ViewGroup mStatusBarHeaderView;
 
     private static View mSystemIconsSuperContainer;
     private static View mDateGroup;
@@ -153,7 +153,7 @@ public class StatusBarHeaderHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "onFinishInflateHook called");
 
-            mStatusBarHeaderView = (RelativeLayout) param.thisObject;
+            mStatusBarHeaderView = (ViewGroup) param.thisObject;
             mContext = mStatusBarHeaderView.getContext();
             ResourceUtils res = ResourceUtils.getInstance(mContext);
             ConfigUtils config = ConfigUtils.getInstance();
@@ -443,15 +443,17 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (mStatusBarHeaderView == null) return;
             try {
                 gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
                 if (gridHeight == oldGridHeight) {
                     XposedHook.logD(TAG, "onMeasureHook: Grid height unchanged");
                     if (mOnMeasureUnchagedCount > 5) {
-                        XposedHook.logD(TAG, "onMeasureHook: Unhook and setup");
+                        XposedHook.logD(TAG, "onMeasureHook: Unhook and setup with grid height " + gridHeight);
                         onMeasureUnhook.unhook();
+                        onMeasureUnhook = null;
                         mGridHeight = gridHeight;
-                        mHeaderQsPanel.setupAnimators();
+                        mHeaderQsPanel.setupAnimators(gridHeight);
                     }
                     mOnMeasureUnchagedCount++;
                 } else {
@@ -483,7 +485,6 @@ public class StatusBarHeaderHooks {
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable ignore) {
                 // Oh god, a massive spam wall coming right at you, quick, hide!
-
             }
         }
 
@@ -1021,7 +1022,8 @@ public class StatusBarHeaderHooks {
     }
 
     public static void hookQSOnMeasure() {
-        if (onMeasureHook == null || onMeasureHookedClass == null) return;
+        if (onMeasureHook == null || onMeasureHookedClass == null || onMeasureUnhook != null) return;
+        XposedHook.logD(TAG, "hookQSOnMeasure called");
         mOnMeasureUnchagedCount = 0;
         onMeasureUnhook = XposedHelpers.findAndHookMethod(onMeasureHookedClass, "onMeasure", int.class, int.class, onMeasureHook);
     }

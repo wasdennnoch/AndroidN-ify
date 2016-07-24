@@ -95,12 +95,12 @@ public class QuickQSPanel extends LinearLayout {
         mTranslationYAnimator = null;
         mFirstPageDelayedAnimator = null;
         mTopFiveQsAnimator = null;
-        StatusBarHeaderHooks.hookQSOnMeasure();
         for (int i = 0; i < mMaxTiles && i < tileRecords.size(); i++) {
             Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
             mTileLayout.addTile(tilerecord);
         }
+        StatusBarHeaderHooks.hookQSOnMeasure();
     }
 
     public void handleStateChanged(Object qsTile, Object state) {
@@ -110,9 +110,10 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
-    public void setupAnimators() {
+    public void setupAnimators(int gridHeight) {
+        XposedHook.logD(TAG, "setupAnimators called");
         mTopFiveQs.clear();
-        int gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
+        //int gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
         int j = 0;
         TouchAnimator.Builder builder = new TouchAnimator.Builder();
         TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
@@ -183,6 +184,7 @@ public class QuickQSPanel extends LinearLayout {
         boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null);
         boolean disableTranslation = StatusBarHeaderHooks.mDisableFancy;
         if (!readyToAnimate && (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD)) {
+            XposedHook.logD(TAG, "animateFancy: not ready to animate; not on kg: " + (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD));
             return;
         }
         if (!StatusBarHeaderHooks.mShowingDetail || f == 0) {
@@ -227,9 +229,12 @@ public class QuickQSPanel extends LinearLayout {
                         mBatteryView.postInvalidate();
                     }
                 }
+            } else {
+                XposedHook.logD(TAG, "animateFancy: not ready to animate");
             }
             oldPosition = f;
         } else {
+            XposedHook.logI(TAG, "animateFancy: StatusBarHeaderHooks.mShowingDetail || f != 0");
             if (getVisibility() != INVISIBLE)
                 setVisibility(INVISIBLE);
         }
