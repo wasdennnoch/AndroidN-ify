@@ -179,7 +179,9 @@
 
     <!-- EMERGENCY -->
     <string name="emergency_info">Vészhelyzeti információ</string>
+    <string name="emergency_info_launch_hint">Koppints újra a megnyitáshoz</string>
     <string name="enable_emergency_info_title">Vészhelyzeti információ engedélyezése</string>
+    <string name="enable_emergency_info">Egy vészhelyzeti információ gombot ad a vészhelyzeti tárcsázóhoz</string>
     <string name="edit_emergency_info_title">Vészhelyzeti információ szerkesztése</string>
 
     <string name="header_personal">Személyes</string>
