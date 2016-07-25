@@ -107,6 +107,7 @@ public class StatusBarHeaderHooks {
     private static View mWeatherContainer;
     private static View mTaskManagerButton;
     private static View mCustomQSEditButton;
+    private static View mCustomQSEditButton2;
     private static View mCarrierText = null;
 
     private static ExpandableIndicator mExpandIndicator;
@@ -206,31 +207,26 @@ public class StatusBarHeaderHooks {
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
             try {
                 mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
-            } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mWeatherContainer view (" + t.getClass().getSimpleName() + ")");
+            } catch (Throwable ignore) {
             }
             try {
                 mCarrierText = (View) XposedHelpers.getObjectField(param.thisObject, "mCarrierText");
-            } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mCarrierText view (" + t.getClass().getSimpleName() + ")");
+            } catch (Throwable ignore) {
             }
             try {
                 mTaskManagerButton = (View) XposedHelpers.getObjectField(param.thisObject, "mTaskManagerButton");
-            } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mTaskManagerButton view (" + t.getClass().getSimpleName() + ")");
+            } catch (Throwable ignore) {
             }
             try { // Sony
                 mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mSomcQuickSettings");
-            } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mSomcQuickSettings view (" + t.getClass().getSimpleName() + ")");
-                try { // OOS2
-                    mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mEditModeButton");
-                } catch (Throwable t2) {
-                    XposedHook.logD(TAG, "No mEditModeButton view (" + t2.getClass().getSimpleName() + ")");
-                    try { // PA
-                        mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mQsAddButton");
-                    } catch (Throwable t3) {
-                        XposedHook.logD(TAG, "No mQsAddButton view (" + t3.getClass().getSimpleName() + ")");
+            } catch (Throwable i) {
+                try { // PA
+                    mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mQsAddButton");
+                } catch (Throwable g) {
+                    try { // OOS2 & 3
+                        mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mEditModeButton");
+                        mCustomQSEditButton2 = (View) XposedHelpers.getObjectField(param.thisObject, "mResetButton");
+                    } catch (Throwable ignore) {
                     }
                 }
             }
@@ -525,8 +521,10 @@ public class StatusBarHeaderHooks {
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
                 mAlarmStatus.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
-                if (mHideEditTiles && mCustomQSEditButton != null)
-                    mCustomQSEditButton.setVisibility(View.INVISIBLE);
+                if (mHideEditTiles && mCustomQSEditButton != null) {
+                    mCustomQSEditButton.setVisibility(View.GONE);
+                    if (mCustomQSEditButton2 != null) mCustomQSEditButton2.setVisibility(View.GONE);
+                }
                 if (mHideCarrierLabel && mCarrierText != null)
                     mCarrierText.setVisibility(View.GONE);
                 if (mWeatherContainer != null) {
@@ -671,8 +669,6 @@ public class StatusBarHeaderHooks {
                     .addFloat(mTaskManagerButton, "translationY", -gearTranslation, 0.0F)
                     .addFloat(mTaskManagerButton, "alpha", 0.0F, 1.0F);
         }
-        if (mCustomQSEditButton != null)
-            settingsAlphaBuilder.addFloat(mCustomQSEditButton, "alpha", 0.0F, 1.0F);
         mSettingsAlpha = settingsAlphaBuilder.build();
 
         boolean rtl = (boolean) XposedHelpers.callMethod(mStatusBarHeaderView.getLayoutParams(), "isLayoutRtl");
