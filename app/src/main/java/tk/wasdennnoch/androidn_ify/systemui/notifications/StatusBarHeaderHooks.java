@@ -851,10 +851,27 @@ public class StatusBarHeaderHooks {
         if (mHasEditPanel)
             y += mStatusBarHeaderView.getHeight();
         mEditing = true;
-        if (Build.VERSION.SDK_INT < 23)
+        if (!ConfigUtils.M) {
             XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter);
-        else
-            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[]{x, y});
+        } else {
+            try {
+                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[]{x, y});
+            } catch (Throwable t) { // OOS3
+                ClassLoader classLoader = mContext.getClassLoader();
+                Class<?> classRemoteSetting = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".qs.RemoteSetting", classLoader);
+                Object remoteSetting = Proxy.newProxyInstance(classLoader, new Class[]{classRemoteSetting}, new InvocationHandler() {
+                    @Override
+                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        if (method.getName().equals("getSettingsIntent"))
+                            return new Intent(Intent.ACTION_MAIN)
+                                    .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        return null;
+                    }
+                });
+                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, remoteSetting, mEditAdapter, new int[]{x, y});
+            }
+        }
     }
 
     private static void createEditAdapter() {
