@@ -34,8 +34,6 @@
     <string name="hide_launcher_icon_title">Esconder icono en el lanzador</string>
     <string name="debug_log_title">Registro de depuración</string>
     <string name="debug_log">Atención: Registro invasivo</string>
-    <string name="share_logcat_title">Enviar informe de fallos</string>
-    <string name="share_logcat_summary">Guarda extractos de fallos importantes en un archivo</string>
     <string name="logcat_notif_ongoing_title">Guardando informe&#8230;</string>
     <string name="logcat_notif_finished_title">Informe guardado</string>
     <string name="logcat_notif_preparing">Preparando&#8230;</string>
@@ -113,7 +111,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Ajustes rápidos</string>
     <string name="enable_notification_header">Activar nueva barra de estado</string>
-    <string name="keep_qs_panel_bg_title">Mantener fondo de ajustes rápidos</string>
     <string name="keep_qs_panel_bg">Útil para temas que cambian el fondo de los ajustes rápidos</string>
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>

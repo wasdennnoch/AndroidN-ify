@@ -36,8 +36,6 @@
     <string name="hide_launcher_icon">Pode ser necessário reiniciar o lançador</string>
     <string name="debug_log_title">Registos de depuração</string>
     <string name="debug_log">Atenção: Registo invasivo</string>
-    <string name="share_logcat_title">Enviar relatório de erros</string>
-    <string name="share_logcat_summary">Guarda partes importantes do relatório em um ficheiro</string>    
     <string name="logcat_notif_ongoing_title">A guardar relatório&#8230;</string>
     <string name="logcat_notif_finished_title">Relatório salvo</string>
     <string name="logcat_notif_preparing">A preparar&#8230;</string>
@@ -120,8 +118,7 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Definições rápidas</string>
     <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
-    <string name="keep_qs_panel_bg_title">Manter fundo das definições rápidas</string>
-    <string name="keep_qs_panel_bg">Útil para temas que alteram o fundo das definições rápidas</string> 
+    <string name="keep_qs_panel_bg">Útil para temas que alteram o fundo das definições rápidas</string>
     <string name="notification_header_qs_tiles_count">Blocos de definições rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
     <string name="battery_tile_show_percentage">Mostrar porcentagem no bloco de bateria</string>

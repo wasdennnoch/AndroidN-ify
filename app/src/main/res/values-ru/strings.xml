@@ -34,7 +34,6 @@
     <string name="hide_launcher_icon">Может потребоватся перезагрузка рабочего стола</string>
     <string name="debug_log_title">Лог отладки</string>
     <string name="debug_log">Внимание: Лог может занимать много места</string>
-    <string name="share_logcat_title">Отправить logcat</string>
     <string name="logcat_notif_ongoing_title">Сохранение logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat сохранен</string>
     <string name="logcat_notif_preparing">Подготовка&#8230;</string>
@@ -109,7 +108,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Быстрые настройки</string>
     <string name="enable_notification_header">Изменить стиль панели быстрых настроек</string>
-    <string name="keep_qs_panel_bg_title">Не изменять фон быстрых настроек</string>
     <string name="keep_qs_panel_bg">Полезно для тем, которые используют свой фон для панели быстрых настроек</string>
     <string name="notification_header_qs_tiles_count">Количество плиток в верхней панели</string>
     <string name="notification_header_qs_tiles_count_monitor">плиток</string>

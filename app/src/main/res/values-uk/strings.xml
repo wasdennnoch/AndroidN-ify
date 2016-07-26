@@ -34,7 +34,6 @@
 	<string name="hide_launcher_icon">Може знадобитися перезавантаження робочого столу</string>
 	<string name="debug_log_title">Журнал для налагодження</string>
 	<string name="debug_log">Увага: Журнал може займати багато місця</string>
-	<string name="share_logcat_title">Поділитися logcat</string>
     <string name="logcat_notif_ongoing_title">Збереження logcat&#8230;</string>
 	<string name="logcat_notif_finished_title">Logcat збережено</string>
 	<string name="logcat_notif_preparing">Підготування&#8230;</string>
@@ -109,8 +108,7 @@
 	<!-- QUICK SETTINGS -->
 	<string name="header_qs">Швидкі налаштування</string>
 	<string name="enable_notification_header">Змінити стиль шапки статус-бару</string>
-	<string name="keep_qs_panel_bg_title">Не змінювати тло швидких налаштувань</string>
-	<string name="keep_qs_panel_bg">Корисно для тих, які використовують своє тло для панелі швидких налаштувань</string>
+    <string name="keep_qs_panel_bg">Корисно для тих, які використовують своє тло для панелі швидких налаштувань</string>
 	<string name="notification_header_qs_tiles_count">Кількість значків у верхній панелі</string>
 	<string name="notification_header_qs_tiles_count_monitor">значків</string>
 	<string name="battery_tile_show_percentage">Показувати відсотки на плитці з акумулятором</string>

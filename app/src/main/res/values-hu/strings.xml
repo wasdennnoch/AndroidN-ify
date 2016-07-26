@@ -35,8 +35,6 @@
     <string name="hide_launcher_icon">Ehhez lehet, hogy újra kell indítani az alkalmazásindítót</string>
     <string name="debug_log_title">Hibaelhárítási naplózás</string>
     <string name="debug_log">Vigyázat: teleírja a naplót</string>
-    <string name="share_logcat_title">Logcat megosztása</string>
-    <string name="share_logcat_summary">Elmenti a logcat fontos részleteit egy fájlba</string>
     <string name="logcat_notif_ongoing_title">Logcat mentése&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat mentve</string>
     <string name="logcat_notif_preparing">Előkészítés&#8230;</string>
@@ -118,7 +116,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Gyorsbeállítások</string>
     <string name="enable_notification_header">Fejléc stílusának módosítása</string>
-    <string name="keep_qs_panel_bg_title">Változatlan gyorsbeállítás háttér</string>
     <string name="keep_qs_panel_bg">Hasznos az egyedi gyorsbeállítás hátteret használó témákhoz</string>
     <string name="notification_header_qs_tiles_count">Gyorsbeállítás csempék száma</string>
     <string name="notification_header_qs_tiles_count_monitor">csempe</string>

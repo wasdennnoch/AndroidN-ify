@@ -6,7 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -127,6 +129,7 @@ public class ConfigUtils {
 
     public class QuickSettingsConfig {
         public boolean header;
+        public boolean keep_header_background;
         public boolean keep_qs_panel_background;
         public int qs_tiles_count;
         public boolean battery_tile_show_percentage;
@@ -141,7 +144,6 @@ public class ConfigUtils {
 
         public QuickSettingsConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
-            keep_qs_panel_background = prefs.getBoolean("keep_qs_panel_background", false);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
             battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", false);
             enable_qs_editor = prefs.getBoolean("enable_qs_editor", true);
@@ -152,6 +154,10 @@ public class ConfigUtils {
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
             header_clock_size = Integer.parseInt(prefs.getString("header_clock_size", "0"));
+
+            Set<String> keepBgs = prefs.getStringSet("keep_backgrounds", Collections.<String>emptySet());
+            keep_header_background = keepBgs.contains("header");
+            keep_qs_panel_background = keepBgs.contains("panel");
         }
     }
 

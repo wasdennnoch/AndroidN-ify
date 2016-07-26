@@ -113,12 +113,14 @@
                 android:key="enable_notification_header"
                 android:title="@string/enable_notification_header"/>
 
-            <SwitchPreference
-                android:defaultValue="false"
+            <MultiSelectListPreference
+                android:defaultValue="@array/empty_array"
                 android:dependency="enable_notification_header"
-                android:key="keep_qs_panel_background"
-                android:summary="@string/keep_qs_panel_bg"
-                android:title="@string/keep_qs_panel_bg_title"/>
+                android:entries="@array/keep_backgrounds"
+                android:entryValues="@array/keep_backgrounds_values"
+                android:key="keep_backgrounds"
+                android:summary="@string/keep_bg"
+                android:title="@string/keep_bg_title"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="5"
@@ -260,8 +262,8 @@
                 android:defaultValue="false"
                 android:dependency="notification_change_style"
                 android:key="notification_experimental"
-                android:title="@string/notification_experimental_title"
-                android:summary="@string/notification_experimental"/>
+                android:summary="@string/notification_experimental"
+                android:title="@string/notification_experimental_title"/>
 
         </PreferenceScreen>
 
@@ -272,8 +274,8 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:key="enable_emergency_info"
-                android:title="@string/enable_emergency_info_title"
-                android:summary="@string/enable_emergency_info"/>
+                android:summary="@string/enable_emergency_info"
+                android:title="@string/enable_emergency_info_title"/>
 
             <PreferenceScreen
                 android:dependency="enable_emergency_info"

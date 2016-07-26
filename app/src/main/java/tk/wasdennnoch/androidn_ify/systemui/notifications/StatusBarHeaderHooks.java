@@ -161,7 +161,8 @@ public class StatusBarHeaderHooks {
 
             try {
                 //noinspection deprecation
-                mStatusBarHeaderView.setBackgroundColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                if (!config.qs.keep_header_background)
+                    mStatusBarHeaderView.setBackgroundColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Couldn't change header background color", t);
             }
@@ -1035,7 +1036,8 @@ public class StatusBarHeaderHooks {
     }
 
     public static void hookQSOnMeasure() {
-        if (onMeasureHook == null || onMeasureHookedClass == null || onMeasureUnhook != null) return;
+        if (onMeasureHook == null || onMeasureHookedClass == null || onMeasureUnhook != null)
+            return;
         XposedHook.logD(TAG, "hookQSOnMeasure called");
         mOnMeasureUnchagedCount = 0;
         onMeasureUnhook = XposedHelpers.findAndHookMethod(onMeasureHookedClass, "onMeasure", int.class, int.class, onMeasureHook);

@@ -35,7 +35,6 @@
     <string name="hide_launcher_icon">Kan een herstart van de launcher vereisen</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Waarschuwing: Log-overstromingen</string>
-    <string name="share_logcat_title">Deel logcat</string>
     <string name="logcat_notif_ongoing_title">Logcat opslaan</string>
     <string name="logcat_notif_finished_title">Logcat opgeslagen</string>
     <string name="logcat_notif_preparing">Voorbereiden</string>
@@ -108,7 +107,6 @@
 
     <!-- STATUS BAR HEADER -->
     <string name="enable_notification_header">Header opmaken</string>
-    <string name="keep_qs_panel_bg_title">Onaangepaste QS achtergrond</string>
     <string name="keep_qs_panel_bg">Handig voor thema\'s die een aangepaste QS panel achtergrond toepassen</string>
     <string name="notification_header_qs_tiles_count">QS tegels om te tonen</string>
     <string name="notification_header_qs_tiles_count_monitor">tegels</string>
