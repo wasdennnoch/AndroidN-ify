@@ -131,7 +131,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         // Has to be hooked in every app as every app creates own instances of the Notification.Builder
         NotificationHooks.hook(lpparam.classLoader);
 
-        // Same here (probably)
+        // This actually is only used in the system process, but every app has access, so just to be sure hook everything
         if (ConfigUtils.qs().enable_qs_editor) {
             try {
                 Class<?> classCMStatusBarManager = XposedHelpers.findClass("cyanogenmod.app.CMStatusBarManager", lpparam.classLoader);
@@ -140,6 +140,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             } catch (Throwable ignore) {
             }
         }
+
     }
 
     @Override

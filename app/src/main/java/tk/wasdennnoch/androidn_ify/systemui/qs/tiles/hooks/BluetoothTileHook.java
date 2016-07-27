@@ -37,7 +37,7 @@ public class BluetoothTileHook extends QSTileHook {
     public void handleClick() {
         Object mState = getObjectField("mState");
         boolean enabled = XposedHelpers.getBooleanField(mState, "value");
-        if (!NotificationPanelHooks.isCollapsed()) {
+        if (NotificationPanelHooks.isExpanded()) {
             if (!enabled) {
                 XposedHelpers.setBooleanField(mState, "value", true);
                 XposedHelpers.callMethod(mController, "setBluetoothEnabled", true);

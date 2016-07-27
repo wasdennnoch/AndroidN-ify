@@ -1,7 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
@@ -10,13 +9,9 @@ import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
@@ -27,13 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.internal.logging.MetricsLogger;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -48,13 +37,12 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
-import tk.wasdennnoch.androidn_ify.systemui.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.BluetoothTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.WifiTileHook;
-import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -76,7 +64,6 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_CIRCLE_PAGE_INDICATOR = "com.viewpagerindicator.CirclePageIndicator";
     private static final String QS_PANEL_INDICATOR = "QSPanelIndicator";
 
-    private static boolean mHasEditPanel = false;
     private static boolean mCollapseAfterHideDatails = false;
     private static boolean mHideTunerIcon = false;
     private static boolean mHideEditTiles = false;
@@ -123,16 +110,14 @@ public class StatusBarHeaderHooks {
 
     private static Context mContext;
 
-    private static Object mEditAdapter;
-    private static RecyclerView mRecyclerView;
     public static Button mEditButton;
-    public static TileAdapter mTileAdapter;
     private static ResourceUtils mResUtils;
 
     private static int mBarState = 2;
     public static int mQsPage;
 
-    private static boolean mEditing;
+    private static boolean mHasEditPanel = false;
+    public static boolean mEditing;
     public static boolean mShowingDetail;
     public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
@@ -160,9 +145,10 @@ public class StatusBarHeaderHooks {
             ConfigUtils config = ConfigUtils.getInstance();
 
             try {
-                //noinspection deprecation
-                if (!config.qs.keep_header_background)
+                if (!config.qs.keep_header_background) {
+                    //noinspection deprecation
                     mStatusBarHeaderView.setBackgroundColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                }
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Couldn't change header background color", t);
             }
@@ -428,6 +414,8 @@ public class StatusBarHeaderHooks {
                 return;
             }
 
+            DetailViewManager.init(mContext, mStatusBarHeaderView, mQsPanel, mEditButton, mHasEditPanel);
+
             updateResources(mContext);
 
         }
@@ -557,7 +545,6 @@ public class StatusBarHeaderHooks {
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
             if (mHeaderQsPanel != null) {
-                mQsPanel = (ViewGroup) param.thisObject;
                 try {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
@@ -589,9 +576,6 @@ public class StatusBarHeaderHooks {
             // so we have to check if we are in the right one
             if (mHeaderQsPanel != null) {
                 mHeaderQsPanel.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState"));
-            }
-            if (mTileAdapter != null) {
-                mTileAdapter.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState"));
             }
         }
     };
@@ -780,7 +764,7 @@ public class StatusBarHeaderHooks {
             mQsDetailHeader.setClickable(false);
             if (mEditing) {
                 mEditing = false;
-                mTileAdapter.saveChanges();
+                DetailViewManager.getInstance().saveChanges();
                 QSTileHostHooks.recreateTiles();
             }
         }
@@ -825,7 +809,7 @@ public class StatusBarHeaderHooks {
             try {
                 switch (v.getId()) {
                     case R.id.qs_edit:
-                        showEdit();
+                        DetailViewManager.getInstance().showEditView(mRecords);
                         break;
                     case R.id.qs_up:
                         XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
@@ -839,187 +823,9 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static void showEdit() {
-        if (mRecords == null) {
-            Toast.makeText(mContext, "Couldn't open edit view; mRecords == null", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (mEditAdapter == null)
-            createEditAdapter();
-
-        int x = mEditButton.getLeft() + mEditButton.getWidth() / 2;
-        int y = mEditButton.getTop() + mEditButton.getHeight() / 2;
-        if (mHasEditPanel)
-            y += mStatusBarHeaderView.getHeight();
-        mEditing = true;
-        if (!ConfigUtils.M) {
-            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter);
-        } else {
-            try {
-                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[]{x, y});
-            } catch (Throwable t) { // OOS3
-                ClassLoader classLoader = mContext.getClassLoader();
-                Class<?> classRemoteSetting = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".qs.RemoteSetting", classLoader);
-                Object remoteSetting = Proxy.newProxyInstance(classLoader, new Class[]{classRemoteSetting}, new InvocationHandler() {
-                    @Override
-                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        if (method.getName().equals("getSettingsIntent"))
-                            return new Intent(Intent.ACTION_MAIN)
-                                    .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
-                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        return null;
-                    }
-                });
-                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, remoteSetting, mEditAdapter, new int[]{x, y});
-            }
-        }
-    }
-
-    private static void createEditAdapter() {
-        if (mRecyclerView == null)
-            createEditView();
-
-        Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
-
-        mEditAdapter = Proxy.newProxyInstance(classDetailAdapter.getClassLoader(), new Class<?>[]{classDetailAdapter}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                switch (method.getName()) {
-                    case "getTitle":
-                        return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", PACKAGE_SYSTEMUI);
-                    case "getToggleState":
-                        return false;
-                    case "getSettingsIntent":
-                        return new Intent(Intent.ACTION_MAIN)
-                                .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    case "setToggleState":
-                        return null;
-                    case "getMetricsCategory":
-                        return MetricsLogger.QS_INTENT;
-                    case "createDetailView":
-                        return mRecyclerView;
-                }
-                return null;
-            }
-        });
-    }
-
-    private static void createEditView() {
-        // Init tiles list
-        mTileAdapter = new TileAdapter(mRecords, mContext, mQsPanel);
-        TileTouchCallback callback = new TileTouchCallback();
-        ItemTouchHelper mItemTouchHelper = new CustomItemTouchHelper(callback);
-        XposedHelpers.setIntField(callback, "mCachedMaxScrollSpeed", getResUtils().getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
-        // With this, it's very easy to deal with drag & drop
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
-        gridLayoutManager.setSpanSizeLookup(mTileAdapter.getSizeLookup());
-        mRecyclerView = new RecyclerView(mContext);
-        mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mRecyclerView.setAdapter(mTileAdapter);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
-        /*mRecyclerView.setVerticalScrollBarEnabled(true);
-        mRecyclerView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mRecyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_DEFAULT);*/
-        // TODO these above have no effect; why? And why isn't the grid scrolling smoothly?
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
-        mTileAdapter.setTileTouchCallback(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-    }
-
     public static void onSetBarState(int state) {
         mBarState = state;
         setEditButtonVisible(state == NotificationPanelHooks.STATE_SHADE);
-    }
-
-    private static class CustomItemTouchHelper extends ItemTouchHelper {
-
-        public CustomItemTouchHelper(Callback callback) {
-            super(callback);
-        }
-
-        @Override
-        public void attachToRecyclerView(RecyclerView recyclerView) {
-            try {
-                RecyclerView oldRecyclerView = (RecyclerView) XposedHelpers.getObjectField(this, "mRecyclerView");
-                if (oldRecyclerView == recyclerView) {
-                    return; // nothing to do
-                }
-                if (oldRecyclerView != null) {
-                    XposedHelpers.findMethodBestMatch(ItemTouchHelper.class, "destroyCallbacks").invoke(this);
-                }
-                XposedHelpers.setObjectField(this, "mRecyclerView", recyclerView);
-                if (recyclerView != null) {
-                    XposedHelpers.findMethodBestMatch(ItemTouchHelper.class, "setupCallbacks").invoke(this);
-                }
-            } catch (Throwable t) {
-                XposedHook.logE(TAG, "Error attaching ItemTouchCallback to RecyclerView", t);
-            }
-        }
-    }
-
-    public static class TileTouchCallback extends ItemTouchHelper.Callback {
-        public TileAdapter.TileViewHolder mCurrentDrag;
-
-        @Override
-        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
-            if (viewHolder.getItemViewType() == 1) {
-                dragFlags = 0;
-            }
-            return makeMovementFlags(dragFlags, 0);
-        }
-
-        @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            return mTileAdapter.onItemMove(viewHolder.getAdapterPosition(),
-                    target.getAdapterPosition());
-        }
-
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        }
-
-        @Override
-        public boolean isLongPressDragEnabled() {
-            return true;
-        }
-
-        @Override
-        public boolean isItemViewSwipeEnabled() {
-            return false;
-        }
-
-        @Override
-        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-            if (mCurrentDrag != null) {
-                mCurrentDrag.stopDrag();
-                mCurrentDrag = null;
-            }
-            if (viewHolder != null) {
-                mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
-                mCurrentDrag.startDrag();
-            }
-            try {
-                mTileAdapter.notifyItemChanged(mTileAdapter.mDividerIndex);
-            } catch (Throwable ignore) {
-
-            }
-            super.onSelectedChanged(viewHolder, actionState);
-        }
-
-        @Override
-        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            ((TileAdapter.TileViewHolder) viewHolder).stopDrag();
-            super.clearView(recyclerView, viewHolder);
-        }
     }
 
     private static void setEditButtonVisible(boolean visible) {
