@@ -45,7 +45,8 @@ public class DetailViewManager {
     private TileAdapter mTileAdapter;
 
     public static DetailViewManager getInstance() {
-        if (sInstance == null) throw new IllegalStateException("Must initialize DetailViewManager first");
+        if (sInstance == null)
+            throw new IllegalStateException("Must initialize DetailViewManager first");
         return sInstance;
     }
 
@@ -151,10 +152,13 @@ public class DetailViewManager {
         mRecyclerView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mRecyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_DEFAULT);*/
         // TODO these above have no effect and the grid isn't scrolling smoothly
+        // Also a ScrollView seems to be used in the official version
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN && mRecyclerView.canScrollVertically(1)) {
+                    mRecyclerView.requestDisallowInterceptTouchEvent(true);
+                }
                 return false;
             }
         });
