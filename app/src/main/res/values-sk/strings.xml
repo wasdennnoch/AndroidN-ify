@@ -65,7 +65,10 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Rýchle nastavenia</string>
     <string name="enable_notification_header">Upraviť záhlavie</string>
-    <string name="keep_qs_panel_bg">Užitočné pre témy, ktoré používajú vlastné pozadie panela rýchlych nastavení</string>
+    <string name="keep_bg_title">Nemeniť pozadia</string>
+    <string name="keep_bg">Užitočné pre témy, ktoré používajú vlastné pozadia</string>
+    <string name="keep_header_bg">Záhlavie</string>
+    <string name="keep_panel_bg">Panel rýchlych nastavení</string>
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
     <string name="battery_tile_show_percentage">Zobraziť percentá v dlaždici s batériou</string>
