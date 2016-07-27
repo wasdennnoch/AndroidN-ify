@@ -1,73 +1,82 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks;
 
+import android.content.Context;
+import android.content.Intent;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
-public class QSTileHook {
+public abstract class QSTileHook {
 
-    private Class<?> mTileClass;
-    private Object mThisObject;
+    protected Class<?> mTileClass;
+    protected Context mContext;
+    protected Object mThisObject;
 
     public QSTileHook(ClassLoader classLoader, String className) {
         mTileClass = XposedHelpers.findClass(className, classLoader);
+        XposedBridge.hookAllConstructors(mTileClass, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                mThisObject = param.thisObject;
+                mContext = (Context) getObjectField("mContext");
+                afterConstructor(param);
+            }
+        });
     }
 
-    public void startActivityDismissingKeyguard(String intentFieldName) {
-        XposedHelpers.callMethod(XposedHelpers.getObjectField(getTile(), "mHost"), "startActivityDismissingKeyguard", XposedHelpers.getStaticObjectField(mTileClass, intentFieldName));
+    protected void afterConstructor(XC_MethodHook.MethodHookParam param) {
     }
 
-    public void startActivityDismissingKeyguard(Object intent) {
-        XposedHelpers.callMethod(XposedHelpers.getObjectField(getTile(), "mHost"), "startActivityDismissingKeyguard", intent);
+    protected abstract Intent getSettingsIntent();
+
+    protected void handleClick() {
     }
 
-    public boolean handleClick() {
-        return false;
+    protected void handleLongClick() {
     }
 
-    public void handleLongClick() {
-    }
-
-    public void hookClick() {
+    protected final void hookClick() {
         XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleClickHook);
     }
 
-    public void hookLongClick() {
-        //XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
+    protected final void hookLongClick() {
+        XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
     }
 
-    public void callSecondaryClick() {
-        XposedHelpers.callMethod(getTile(), "handleSecondaryClick");
+    protected final void startSettings() {
+        startActivityDismissingKeyguard(getSettingsIntent());
     }
 
-    public Object getState() {
-        return XposedHelpers.getObjectField(getTile(), "mState");
+    protected final void startActivityDismissingKeyguard(Intent intent) {
+        XposedHelpers.callMethod(XposedHelpers.getObjectField(mThisObject, "mHost"), "startActivityDismissingKeyguard", intent);
     }
 
-    public Object getTile() {
-        return mThisObject;
+    protected final void showDetail(boolean show) {
+        XposedHelpers.callMethod(mThisObject, "showDetail", show);
     }
 
-    public Class<?> getTileClass() {
-        return mTileClass;
+    protected Object getState() {
+        return XposedHelpers.getObjectField(mThisObject, "mState");
     }
 
-    public Object getObjectField(String name) {
-        return XposedHelpers.getObjectField(getTile(), name);
+    protected final Object getObjectField(String name) {
+        return XposedHelpers.getObjectField(mThisObject, name);
     }
 
-    private XC_MethodHook handleClickHook = new XC_MethodHook() {
+
+    protected XC_MethodHook handleClickHook = new XC_MethodReplacement() {
         @Override
-        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            mThisObject = param.thisObject;
-            if (handleClick()) param.setResult(null);
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            handleClick();
+            return null;
         }
     };
 
-    private XC_MethodReplacement handleLongClickHook = new XC_MethodReplacement() {
+    protected XC_MethodHook handleLongClickHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-            mThisObject = param.thisObject;
             handleLongClick();
             return null;
         }

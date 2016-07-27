@@ -1,5 +1,11 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks;
 
+import android.content.Intent;
+import android.provider.Settings;
+
+import com.android.internal.logging.MetricsLogger;
+
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
@@ -8,30 +14,49 @@ public class BluetoothTileHook extends QSTileHook {
 
     private static final String CLASS_BLUETOOTH_TILE = "com.android.systemui.qs.tiles.BluetoothTile";
 
+    private Object mController;
+
     public BluetoothTileHook(ClassLoader classLoader, boolean firstRowSmall) {
         super(classLoader, CLASS_BLUETOOTH_TILE);
         hookClick();
         hookLongClick();
         if (firstRowSmall) {
             try {
-                XposedHelpers.findAndHookMethod(getTileClass(), "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
+                XposedHelpers.findAndHookMethod(mTileClass, "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
             } catch (Throwable ignore) {
-
             }
         }
     }
 
     @Override
-    public boolean handleClick() {
+    protected void afterConstructor(XC_MethodHook.MethodHookParam param) {
+        mController = getObjectField("mController");
+    }
+
+    @Override
+    public void handleClick() {
+        Object mState = getObjectField("mState");
+        boolean enabled = XposedHelpers.getBooleanField(mState, "value");
         if (!NotificationPanelHooks.isCollapsed()) {
-            callSecondaryClick();
-            return true;
+            if (!enabled) {
+                XposedHelpers.setBooleanField(mState, "value", true);
+                XposedHelpers.callMethod(mController, "setBluetoothEnabled", true);
+            }
+            showDetail(true);
+        } else {
+            MetricsLogger.action(mContext, MetricsLogger.QS_BLUETOOTH, !enabled);
+            XposedHelpers.callMethod(mController, "setBluetoothEnabled", !enabled);
         }
-        return false;
     }
 
     @Override
     public void handleLongClick() {
-        startActivityDismissingKeyguard("BLUETOOTH_SETTINGS");
+        startSettings();
     }
+
+    @Override
+    protected Intent getSettingsIntent() {
+        return new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+    }
+
 }

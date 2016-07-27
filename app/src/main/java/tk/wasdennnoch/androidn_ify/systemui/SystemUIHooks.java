@@ -73,8 +73,6 @@ public class SystemUIHooks {
                     @Override
                     public void run() {
                         XposedHook.debug = ConfigUtils.getInstance().getPrefs().getBoolean("debug_log", false);
-                        if (XposedHook.debug)
-                            ConfigUtils.log();
                     }
                 }, 2000);
             }
