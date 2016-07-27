@@ -29,6 +29,7 @@ import java.util.Objects;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -213,6 +214,7 @@ public class StatusBarHeaderHooks {
                     try { // OOS2 & 3
                         mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mEditModeButton");
                         mCustomQSEditButton2 = (View) XposedHelpers.getObjectField(param.thisObject, "mResetButton");
+                        XposedHelpers.setObjectField(param.thisObject, "mEditModeButton", new ImageView(mContext));
                     } catch (Throwable ignore) {
                     }
                 }
@@ -862,8 +864,7 @@ public class StatusBarHeaderHooks {
                 try {
                     XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setEditing", boolean.class, setEditingHook);
                     mHasEditPanel = true;
-                } catch (NoSuchMethodError e) {
-                    mHasEditPanel = false;
+                } catch (NoSuchMethodError ignore) {
                 }
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
@@ -960,6 +961,11 @@ public class StatusBarHeaderHooks {
                 }
 
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
+
+                try { // OOS3
+                    XposedBridge.hookAllMethods(classQSTileView, "setOverlay", XC_MethodReplacement.DO_NOTHING);
+                } catch (Throwable ignore) {
+                }
 
                 if (Build.VERSION.SDK_INT >= 22) {
                     XposedHelpers.findAndHookMethod(classQSTileView, "setIcon", ImageView.class, CLASS_QS_STATE, new XC_MethodHook() {
