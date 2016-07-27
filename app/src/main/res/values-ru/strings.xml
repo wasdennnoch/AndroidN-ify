@@ -34,11 +34,11 @@
     <string name="hide_launcher_icon">Может потребоватся перезагрузка рабочего стола</string>
     <string name="debug_log_title">Лог отладки</string>
     <string name="debug_log">Внимание: Лог может занимать много места</string>
-    <string name="share_logcat_title">Отправить logcat</string>
     <string name="logcat_notif_ongoing_title">Сохранение logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat сохранен</string>
     <string name="logcat_notif_preparing">Подготовка&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Сохранено %1$s строк&#8230;</string>
+    <string name="logcat_notif_finished">%1$s строк сохранено в %2$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Остановить</string>
 
     <string name="requesting_root">Запрос корневого доступа&#8230;</string>
@@ -60,7 +60,7 @@
 
     <!-- SETTINGS -->
     <string name="header_settings">Настройки</string>
-    <string name="enable_settings_summaries_title">Включить твики настроек</string>
+    <string name="enable_settings_summaries_title">Подписи настроек</string>
     <string name="enable_settings_summaries">Показывает самую важную информацию под пунктами настроек</string>
     <string name="fix_sound_notif_tile_title">Исправить пункт \"Звуки и Уведомления\"</string>
     <string name="fix_sound_notif_tile">Некоторые прошивки объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения.</string>
@@ -86,18 +86,24 @@
     <string name="location_on_device">Вкл / По спутникам GPS</string>
     <string name="location_on_high">Вкл / По всем источникам</string>
     <string name="print_summary">%1$d задание на печать</string>
+    <string name="store">Магазин</string>
+    <string name="app_details">О приложении</string>
+    <string name="install_source">Приложение установлено из %1$s</string>
+    <string name="from_pm">Приложение установлено через Установщик Пакетов</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
     <string name="header_recents">Недавние</string>
     <string name="enable_recents_double_tap_title">Быстрое переключение</string>
     <string name="enable_recents_double_tap">Двойное нажатие на кнопку "Недавние" переключает к предыдущему приложению</string>
+    <string name="alternative_double_tap_title">Альтернативное определение двойного нажатия</string>
+    <string name="alternative_double_tap">Включите, если Быстрое переключение работает неправильно</string>
     <string name="double_tap_speed_title">Скорость двойного нажатия</string>
     <string name="recents_button_behavior_title">Переключение кнопкой \"Недавние\"</string>
     <string name="recents_navigation_delay_title">Задержка навигации</string>
     <string name="recents_navigation_delay">Время, за которое выделенное приложение получит фокус</string>
     <string name="enable_large_recents">Большие недавние приложения</string>
-    <string name="no_recents_image">Изменить изображение \"Нет недавних уведомлений\"</string>
+    <string name="no_recents_image">Изменить изображение \"Нет недавних приложений\"</string>
     
     <string name="no_previous_recents">Нет недавних приложений</string>
     
@@ -107,11 +113,13 @@
     <!-- /RECENTS -->
     
     <!-- QUICK SETTINGS -->
-    <string name="header_qs">Быстрые настройки</string>
-    <string name="enable_notification_header">Изменить стиль панели быстрых настроек</string>
-    <string name="keep_qs_panel_bg_title">Не изменять фон быстрых настроек</string>
-    <string name="keep_qs_panel_bg">Полезно для тем, которые используют свой фон для панели быстрых настроек</string>
-    <string name="notification_header_qs_tiles_count">Количество плиток в верхней панели</string>
+    <string name="header_qs">Быстрые Настройки</string>
+    <string name="enable_notification_header">Изменить стиль панели Быстрых настроек</string>
+    <string name="keep_bg_title">Не изменять фон панели Быстрых настроек</string>
+    <string name="keep_bg">Полезно для тем, которые используют свой фон для панели Быстрых настроек</string>
+    <string name="keep_header_bg">Шапка статус-бара</string>
+    <string name="keep_panel_bg">Панель Быстрых Настроек</string>
+    <string name="notification_header_qs_tiles_count">Количество плиток в панели Быстрого переключения</string>
     <string name="notification_header_qs_tiles_count_monitor">плиток</string>
     <string name="battery_tile_show_percentage">Показывать проценты на плитке с аккумулятором</string>
     <string name="battery_tile_show_percentage_summary">Показывать остаток батареи в процентах на плитке с аккумулятором</string>
@@ -123,10 +131,17 @@
     <string name="enable_large_first_row_summary">На CM используйте меню конфигурации в режиме редактирования плиток вместо этого переключателя</string>
     <string name="fix_stuck_inversion_title">Исправить инверсию</string>
     <string name="fix_stuck_inversion">На некоторых устройствах инверсия застрявает, когда включена. Нажмите для принудительного отключения</string>
+    
+    <string name="header_clock_size_title">Размер часов в шапке статус-бара</string>
+    <string name="header_clock_size_normal">Нормальный</string>
+    <string name="header_clock_size_small">Уменьшенный</string>
+    <string name="header_clock_size_smaller">Маленький</string>
+    <string name="header_clock_size_tiny">Крошечный</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">Спрятать элементы панели быстрых настроек</string>
     <string name="hide_tuner_icon_title">Скрыть иконку SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Скрыть кнопку редактирования плиток</string>
+    <string name="hide_edit_tiles_summary">Это прячет только стоковую кнопку редактирования плиток!</string>
     <string name="hide_carrier_label_title">Скрыть carrier надпись</string> 
     <!-- /Hide header icons -->
     <!-- /QUICK SETTINGS -->
@@ -140,7 +155,10 @@
     <string name="notification_blacklisted_apps_title">Черный список приложений</string>
     <string name="notification_blacklisted_apps">Использовать старый стиль уведомлений для этих приложений</string>
     <string name="notifications_custom_actions_color_title">Изменить цвет фона панели действий</string>
-    <string name="notifications_actions_color_title">Цвет фона панели действий</string> 
+    <string name="notifications_actions_color_title">Цвет фона панели действий</string>
+    <string name="notification_experimental_title">Эксперементальный стиль N уведомлений</string>
+    <string name="notification_experimental">Метод прокрутки из N (нет верхнего складывания) и тень уведомлений</string>
+    <string name="notification_keyguard_max_title">Максимальное количество уведомлений при заблокированной клавиатуре</string>
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->
@@ -160,7 +178,9 @@
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Экстренная Информация</string>
+    <string name="emergency_info_launch_hint">Коснитесь снова для открытия</string>
     <string name="enable_emergency_info_title">Активировать Экстренную Информацию</string>
+    <string name="enable_emergency_info">Добавить кнопку Экстренной Информации в экстренный телефон</string>
     <string name="edit_emergency_info_title">Редактировать Экстренную Информацию</string>
  
     <string name="header_personal">Персональная информация</string>
@@ -177,8 +197,8 @@
  
     <string name="info_unspecified">Не указано</string>
  
-    <string name="info_bloodtype_op">0+</string>
-    <string name="info_bloodtype_on">0-</string>
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>
@@ -208,5 +228,11 @@
     <string name="live_display_night">Ночь</string>
     <string name="live_display_outdoor">На улице (яркое солнце)</string>
     <!-- /QS -->
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Выбор цвета</string>
+    <string name="press_color_to_apply">Нажмите на цвет для применения</string>
+    <string name="enable_install_source_title">Показывать источник установки приложения</string>
+    <!-- /Color Picker -->
     
 </resources>

@@ -34,7 +34,6 @@
     <string name="hide_launcher_icon">홈 런처를 다시 시작해야할 수도 있습니다</string>
     <string name="debug_log_title">디버그 로그</string>
     <string name="debug_log">경고: Log-flooding</string>
-    <string name="share_logcat_title">로그켓 공유</string>
     <string name="logcat_notif_ongoing_title">로그켓을 저장하는 중&#8230;</string>
     <string name="logcat_notif_finished_title">로그켓 저장됨</string>
     <string name="logcat_notif_preparing">Preparing&#8230;</string>
@@ -112,7 +111,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">퀵세팅 설정</string>
     <string name="enable_notification_header">헤더 스타일</string>
-    <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
     <string name="keep_qs_panel_bg">커스텀 퀵세팅 배경화면 테마를 설정할때 유용합니다</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">타일</string>

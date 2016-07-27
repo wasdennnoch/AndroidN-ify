@@ -59,7 +59,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Rychlé nastavení</string>
     <string name="enable_notification_header">Upravit záhlaví</string>
-    <string name="keep_qs_panel_bg_title">Neměnit pozadí rychlých nastavení</string>
     <string name="keep_qs_panel_bg">Užitečné pro témata, která používají vlastní pozadí panelu rychlých nastavení</string>
     <string name="notification_header_qs_tiles_count">Zobrazit maximální</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaždice.</string>
@@ -170,7 +169,6 @@
     <string name="hide_launcher_icon">Může vyžadovat restart spouštěče</string>
     <string name="debug_log_title">Zaznamenávání chyb</string>
     <string name="debug_log">Upozornění: způsobuje zahlcování záznamu</string>
-    <string name="share_logcat_title">Sdílet logcat</string>
     <string name="logcat_notif_ongoing_title">Ukládání záznamu</string>
     <string name="logcat_notif_finished_title">Záznam uložen</string>
     <string name="logcat_notif_preparing">Příprava</string>

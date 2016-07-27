@@ -34,8 +34,6 @@
     <string name="hide_launcher_icon">可能需要重启启动器</string>
     <string name="debug_log_title">调试日志</string>
     <string name="debug_log">警告：将生成大量日志</string>
-    <string name="share_logcat_title">分享日志</string>
-    <string name="share_logcat_summary">将日志内的重要部分保存至文件</string>
     <string name="logcat_notif_ongoing_title">正在保存日志&#8230;</string>
     <string name="logcat_notif_finished_title">日志已保存</string>
     <string name="logcat_notif_preparing">正在准备&#8230;</string>
@@ -117,8 +115,10 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">快速设置</string>
     <string name="enable_notification_header">调整顶栏</string>
-    <string name="keep_qs_panel_bg_title">不更改快速设置面板背景</string>
-    <string name="keep_qs_panel_bg">对所用主题内包含有自定义快速设置面板背景的用户有帮助</string>
+    <string name="keep_bg_title">不更改背景</string>
+    <string name="keep_bg">适用于包含有自定义背景的主题</string>
+    <string name="keep_header_bg">顶栏</string>
+    <string name="keep_panel_bg">快速设置面板</string>
     <string name="notification_header_qs_tiles_count">顶栏内的磁贴数量</string>
     <string name="notification_header_qs_tiles_count_monitor">个</string>
     <string name="battery_tile_show_percentage">显示百分比</string>

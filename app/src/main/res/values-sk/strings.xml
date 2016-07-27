@@ -65,8 +65,10 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Rýchle nastavenia</string>
     <string name="enable_notification_header">Upraviť záhlavie</string>
-    <string name="keep_qs_panel_bg_title">Nemeniť pozadie rýchlych nastavení</string>
-    <string name="keep_qs_panel_bg">Užitočné pre témy, ktoré používajú vlastné pozadie panela rýchlych nastavení</string>
+    <string name="keep_bg_title">Nemeniť pozadia</string>
+    <string name="keep_bg">Užitočné pre témy, ktoré používajú vlastné pozadia</string>
+    <string name="keep_header_bg">Záhlavie</string>
+    <string name="keep_panel_bg">Panel rýchlych nastavení</string>
     <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
     <string name="battery_tile_show_percentage">Zobraziť percentá v dlaždici s batériou</string>
@@ -193,8 +195,6 @@
     <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
     <string name="debug_log_title">Zaznamenávanie chýb</string>
     <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
-    <string name="share_logcat_title">Zdieľať záznam</string>
-    <string name="share_logcat_summary">Uloží dôležité informácie zo záznamu do súboru</string>
     <string name="logcat_notif_ongoing_title">Ukladanie záznamu</string>
     <string name="logcat_notif_finished_title">Záznam uložený</string>
     <string name="logcat_notif_preparing">Príprava</string>

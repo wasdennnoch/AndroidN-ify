@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.UserManager;
@@ -53,7 +51,11 @@ public class SettingsHooks {
             }
             if (config.settings.install_source) {
                 Class<?> classInstalledAppDetails = XposedHelpers.findClass("com.android.settings.applications.InstalledAppDetails", classLoader);
-                XposedHelpers.findAndHookMethod(classInstalledAppDetails, "onActivityCreated", Bundle.class, onActivityCreatedHook);
+                if (ConfigUtils.M) {
+                    XposedHelpers.findAndHookMethod(classInstalledAppDetails, "onActivityCreated", Bundle.class, onActivityCreatedHook);
+                }/* else {
+                    XposedHelpers.findAndHookMethod(classInstalledAppDetails, "onCreateView", LayoutInflater.class, ViewGroup.class, Bundle.class, onCreateViewHook);
+                }*/
                 XposedHelpers.findAndHookMethod(classInstalledAppDetails, "refreshUi", refreshUiHook);
             }
         } catch (Throwable t) {
@@ -76,7 +78,7 @@ public class SettingsHooks {
                 System.arraycopy(mHits, 1, mHits, 0, mHits.length-1);
                 mHits[mHits.length-1] = SystemClock.uptimeMillis();
                 if (mHits[0] >= (SystemClock.uptimeMillis()-500)) {
-                    if (Build.VERSION.SDK_INT >= 23) {
+                    if (ConfigUtils.M) {
                         UserManager um = (UserManager) fragment.getActivity().getSystemService(Context.USER_SERVICE);
                         if (um.hasUserRestriction(UserManager.DISALLOW_FUN)) {
                             Log.d(LOG_TAG, "Sorry, no fun for you!");
@@ -99,6 +101,31 @@ public class SettingsHooks {
         }
     };
 
+    // LP
+    /*private static XC_MethodHook onCreateViewHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+
+            View view = (View) param.getResult();
+            Context context = view.getContext();
+            ResourceUtils res = ResourceUtils.getInstance(context);
+            LinearLayout allDetails = (LinearLayout) view.findViewById(
+                    context.getResources().getIdentifier("all_details", "id", XposedHook.PACKAGE_SETTINGS));
+
+            LinearLayout.LayoutParams panelLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout panel = new LinearLayout(context);
+            panel.setLayoutParams(panelLp);
+            panel.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout.LayoutParams headerLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            TextView header = new TextView(context);
+            header.setLayoutParams(headerLp);
+            header.setText(res.getString(R.string.store));
+
+        }
+    };*/
+
+    // MM
     private static XC_MethodHook onActivityCreatedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {

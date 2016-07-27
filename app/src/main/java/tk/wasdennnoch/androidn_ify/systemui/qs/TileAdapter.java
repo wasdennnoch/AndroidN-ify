@@ -18,11 +18,9 @@ import java.util.List;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_TILEVIEW;
-import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_QUICKQS_TILEVIEW;
 
 public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder> {
 
@@ -37,7 +35,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     protected int mCellHeight;
     protected int mCellWidth;
     private List<String> mTileSpecs;
-    private StatusBarHeaderHooks.TileTouchCallback mTileTouchCallback;
+    private DetailViewManager.TileTouchCallback mTileTouchCallback;
     private ResourceUtils mRes;
     public int mDividerIndex;
 
@@ -104,13 +102,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
         XposedHelpers.setAdditionalInstanceField(tile, KEY_EDIT_TILEVIEW, tileView);
         mTileViews.add(i, tileView);
-    }
-
-    public void handleStateChanged(Object qsTile, Object state) {
-        ViewGroup tileView = (ViewGroup) XposedHelpers.getAdditionalInstanceField(qsTile, KEY_EDIT_TILEVIEW);
-        if (tileView != null) {
-            XposedHelpers.callMethod(tileView, "onStateChanged", state);
-        }
     }
 
     private int getWidth() {
@@ -202,7 +193,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         list.remove(removeIndex);
     }
 
-    public void setTileTouchCallback(StatusBarHeaderHooks.TileTouchCallback tileTouchCallback) {
+    public void setTileTouchCallback(DetailViewManager.TileTouchCallback tileTouchCallback) {
         mTileTouchCallback = tileTouchCallback;
     }
 

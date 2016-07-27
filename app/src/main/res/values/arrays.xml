@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="empty_array"/> <!-- Required as the default value of e.g. a MultiSelectListPreference -->
+
+
+    <string-array name="keep_backgrounds" translatable="false">
+        <item>@string/keep_header_bg</item>
+        <item>@string/keep_panel_bg</item>
+    </string-array>
+
+    <string-array name="keep_backgrounds_values" translatable="false">
+        <item>header</item>
+        <item>panel</item>
+    </string-array>
+
+
     <string-array name="recents_button_behaviors" translatable="false">
         <item>@string/recents_button_behavior_previous</item>
         <item>@string/recents_button_behavior_current</item>

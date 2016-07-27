@@ -35,8 +35,6 @@
     <string name="hide_launcher_icon">Poate necesita repornirea lansatorului</string>
     <string name="debug_log_title">Loguri de depanare</string>
     <string name="debug_log">Atentie: încărcare log</string>
-    <string name="share_logcat_title">Împărtășește logcat</string>
-    <string name="share_logcat_summary">Salvează părți importante ale logcat-ului dvs. la un fișier</string>
     <string name="logcat_notif_ongoing_title">Se salvează logcat-ul&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat-ul salvat</string>
     <string name="logcat_notif_preparing">Se pregătească&#8230;</string>
@@ -120,7 +118,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Setările rapide</string>
     <string name="enable_notification_header">Schimbă stilul antetului</string>
-    <string name="keep_qs_panel_bg_title">Fundal al SR nealterat</string>
     <string name="keep_qs_panel_bg">Folosiți aceasta dacă utilizați o temă care aplică un fundal propriu pt. SR</string>
     <string name="notification_header_qs_tiles_count">Afișare titluri SR</string>
     <string name="notification_header_qs_tiles_count_monitor">titluri</string>
@@ -181,7 +178,9 @@
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Informații de urgență</string>
+    <string name="emergency_info_launch_hint">Apăsați din nou pentru a deschide</string>	
     <string name="enable_emergency_info_title">Activează informații de urgență</string>
+    <string name="enable_emergency_info">Adaugă un buton „Informații de urgență” la apelatorul de urgență</string>	
     <string name="edit_emergency_info_title">Editează informații de urgență</string>
 
     <string name="header_personal">Personală</string>

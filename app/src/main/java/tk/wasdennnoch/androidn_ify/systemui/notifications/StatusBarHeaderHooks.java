@@ -1,7 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
@@ -10,13 +9,9 @@ import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
@@ -27,19 +22,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.internal.logging.MetricsLogger;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -48,13 +38,12 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
-import tk.wasdennnoch.androidn_ify.systemui.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.BluetoothTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.WifiTileHook;
-import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -76,7 +65,6 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_CIRCLE_PAGE_INDICATOR = "com.viewpagerindicator.CirclePageIndicator";
     private static final String QS_PANEL_INDICATOR = "QSPanelIndicator";
 
-    private static boolean mHasEditPanel = false;
     private static boolean mCollapseAfterHideDatails = false;
     private static boolean mHideTunerIcon = false;
     private static boolean mHideEditTiles = false;
@@ -88,7 +76,7 @@ public class StatusBarHeaderHooks {
     private static TouchAnimator mSecondHalfAnimator;
     private static TouchAnimator mSettingsAlpha;
 
-    public static RelativeLayout mStatusBarHeaderView;
+    public static ViewGroup mStatusBarHeaderView;
 
     private static View mSystemIconsSuperContainer;
     private static View mDateGroup;
@@ -107,6 +95,7 @@ public class StatusBarHeaderHooks {
     private static View mWeatherContainer;
     private static View mTaskManagerButton;
     private static View mCustomQSEditButton;
+    private static View mCustomQSEditButton2;
     private static View mCarrierText = null;
 
     private static ExpandableIndicator mExpandIndicator;
@@ -122,16 +111,14 @@ public class StatusBarHeaderHooks {
 
     private static Context mContext;
 
-    private static Object mEditAdapter;
-    private static RecyclerView mRecyclerView;
     public static Button mEditButton;
-    public static TileAdapter mTileAdapter;
     private static ResourceUtils mResUtils;
 
     private static int mBarState = 2;
     public static int mQsPage;
 
-    private static boolean mEditing;
+    private static boolean mHasEditPanel = false;
+    public static boolean mEditing;
     public static boolean mShowingDetail;
     public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
@@ -153,14 +140,16 @@ public class StatusBarHeaderHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "onFinishInflateHook called");
 
-            mStatusBarHeaderView = (RelativeLayout) param.thisObject;
+            mStatusBarHeaderView = (ViewGroup) param.thisObject;
             mContext = mStatusBarHeaderView.getContext();
             ResourceUtils res = ResourceUtils.getInstance(mContext);
             ConfigUtils config = ConfigUtils.getInstance();
 
             try {
-                //noinspection deprecation
-                mStatusBarHeaderView.setBackgroundColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                if (!config.qs.keep_header_background) {
+                    //noinspection deprecation
+                    mStatusBarHeaderView.setBackgroundColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                }
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Couldn't change header background color", t);
             }
@@ -206,31 +195,27 @@ public class StatusBarHeaderHooks {
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
             try {
                 mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
-            } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mWeatherContainer view (" + t.getClass().getSimpleName() + ")");
+            } catch (Throwable ignore) {
             }
             try {
                 mCarrierText = (View) XposedHelpers.getObjectField(param.thisObject, "mCarrierText");
-            } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mCarrierText view (" + t.getClass().getSimpleName() + ")");
+            } catch (Throwable ignore) {
             }
             try {
                 mTaskManagerButton = (View) XposedHelpers.getObjectField(param.thisObject, "mTaskManagerButton");
-            } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mTaskManagerButton view (" + t.getClass().getSimpleName() + ")");
+            } catch (Throwable ignore) {
             }
             try { // Sony
                 mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mSomcQuickSettings");
-            } catch (Throwable t) {
-                XposedHook.logD(TAG, "No mSomcQuickSettings view (" + t.getClass().getSimpleName() + ")");
-                try { // OOS2
-                    mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mEditModeButton");
-                } catch (Throwable t2) {
-                    XposedHook.logD(TAG, "No mEditModeButton view (" + t2.getClass().getSimpleName() + ")");
-                    try { // PA
-                        mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mQsAddButton");
-                    } catch (Throwable t3) {
-                        XposedHook.logD(TAG, "No mQsAddButton view (" + t3.getClass().getSimpleName() + ")");
+            } catch (Throwable i) {
+                try { // PA
+                    mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mQsAddButton");
+                } catch (Throwable g) {
+                    try { // OOS2 & 3
+                        mCustomQSEditButton = (View) XposedHelpers.getObjectField(param.thisObject, "mEditModeButton");
+                        mCustomQSEditButton2 = (View) XposedHelpers.getObjectField(param.thisObject, "mResetButton");
+                        XposedHelpers.setObjectField(param.thisObject, "mEditModeButton", new ImageView(mContext));
+                    } catch (Throwable ignore) {
                     }
                 }
             }
@@ -431,6 +416,8 @@ public class StatusBarHeaderHooks {
                 return;
             }
 
+            DetailViewManager.init(mContext, mStatusBarHeaderView, mQsPanel, mEditButton, mHasEditPanel);
+
             updateResources(mContext);
 
         }
@@ -443,15 +430,17 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (mStatusBarHeaderView == null) return;
             try {
                 gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
                 if (gridHeight == oldGridHeight) {
                     XposedHook.logD(TAG, "onMeasureHook: Grid height unchanged");
                     if (mOnMeasureUnchagedCount > 5) {
-                        XposedHook.logD(TAG, "onMeasureHook: Unhook and setup");
+                        XposedHook.logD(TAG, "onMeasureHook: Unhook and setup with grid height " + gridHeight);
                         onMeasureUnhook.unhook();
+                        onMeasureUnhook = null;
                         mGridHeight = gridHeight;
-                        mHeaderQsPanel.setupAnimators();
+                        mHeaderQsPanel.setupAnimators(gridHeight);
                     }
                     mOnMeasureUnchagedCount++;
                 } else {
@@ -483,7 +472,6 @@ public class StatusBarHeaderHooks {
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable ignore) {
                 // Oh god, a massive spam wall coming right at you, quick, hide!
-
             }
         }
 
@@ -524,8 +512,10 @@ public class StatusBarHeaderHooks {
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
                 mAlarmStatus.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
-                if (mHideEditTiles && mCustomQSEditButton != null)
-                    mCustomQSEditButton.setVisibility(View.INVISIBLE);
+                if (mHideEditTiles && mCustomQSEditButton != null) {
+                    mCustomQSEditButton.setVisibility(View.GONE);
+                    if (mCustomQSEditButton2 != null) mCustomQSEditButton2.setVisibility(View.GONE);
+                }
                 if (mHideCarrierLabel && mCarrierText != null)
                     mCarrierText.setVisibility(View.GONE);
                 if (mWeatherContainer != null) {
@@ -557,7 +547,6 @@ public class StatusBarHeaderHooks {
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
             if (mHeaderQsPanel != null) {
-                mQsPanel = (ViewGroup) param.thisObject;
                 try {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
@@ -589,9 +578,6 @@ public class StatusBarHeaderHooks {
             // so we have to check if we are in the right one
             if (mHeaderQsPanel != null) {
                 mHeaderQsPanel.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState"));
-            }
-            if (mTileAdapter != null) {
-                mTileAdapter.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState"));
             }
         }
     };
@@ -670,8 +656,6 @@ public class StatusBarHeaderHooks {
                     .addFloat(mTaskManagerButton, "translationY", -gearTranslation, 0.0F)
                     .addFloat(mTaskManagerButton, "alpha", 0.0F, 1.0F);
         }
-        if (mCustomQSEditButton != null)
-            settingsAlphaBuilder.addFloat(mCustomQSEditButton, "alpha", 0.0F, 1.0F);
         mSettingsAlpha = settingsAlphaBuilder.build();
 
         boolean rtl = (boolean) XposedHelpers.callMethod(mStatusBarHeaderView.getLayoutParams(), "isLayoutRtl");
@@ -782,7 +766,7 @@ public class StatusBarHeaderHooks {
             mQsDetailHeader.setClickable(false);
             if (mEditing) {
                 mEditing = false;
-                mTileAdapter.saveChanges();
+                DetailViewManager.getInstance().saveChanges();
                 QSTileHostHooks.recreateTiles();
             }
         }
@@ -827,7 +811,7 @@ public class StatusBarHeaderHooks {
             try {
                 switch (v.getId()) {
                     case R.id.qs_edit:
-                        showEdit();
+                        DetailViewManager.getInstance().showEditView(mRecords);
                         break;
                     case R.id.qs_up:
                         XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
@@ -841,170 +825,9 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static void showEdit() {
-        if (mRecords == null) {
-            Toast.makeText(mContext, "Couldn't open edit view; mRecords == null", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (mEditAdapter == null)
-            createEditAdapter();
-
-        int x = mEditButton.getLeft() + mEditButton.getWidth() / 2;
-        int y = mEditButton.getTop() + mEditButton.getHeight() / 2;
-        if (mHasEditPanel)
-            y += mStatusBarHeaderView.getHeight();
-        mEditing = true;
-        if (Build.VERSION.SDK_INT < 23)
-            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter);
-        else
-            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[]{x, y});
-    }
-
-    private static void createEditAdapter() {
-        if (mRecyclerView == null)
-            createEditView();
-
-        Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
-
-        mEditAdapter = Proxy.newProxyInstance(classDetailAdapter.getClassLoader(), new Class<?>[]{classDetailAdapter}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                switch (method.getName()) {
-                    case "getTitle":
-                        return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", PACKAGE_SYSTEMUI);
-                    case "getToggleState":
-                        return false;
-                    case "getSettingsIntent":
-                        return new Intent(Intent.ACTION_MAIN)
-                                .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    case "setToggleState":
-                        return null;
-                    case "getMetricsCategory":
-                        return MetricsLogger.QS_INTENT;
-                    case "createDetailView":
-                        return mRecyclerView;
-                }
-                return null;
-            }
-        });
-    }
-
-    private static void createEditView() {
-        // Init tiles list
-        mTileAdapter = new TileAdapter(mRecords, mContext, mQsPanel);
-        TileTouchCallback callback = new TileTouchCallback();
-        ItemTouchHelper mItemTouchHelper = new CustomItemTouchHelper(callback);
-        XposedHelpers.setIntField(callback, "mCachedMaxScrollSpeed", getResUtils().getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
-        // With this, it's very easy to deal with drag & drop
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
-        gridLayoutManager.setSpanSizeLookup(mTileAdapter.getSizeLookup());
-        mRecyclerView = new RecyclerView(mContext);
-        mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mRecyclerView.setAdapter(mTileAdapter);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
-        /*mRecyclerView.setVerticalScrollBarEnabled(true);
-        mRecyclerView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mRecyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_DEFAULT);*/
-        // TODO these above have no effect; why? And why isn't the grid scrolling smoothly?
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
-        mTileAdapter.setTileTouchCallback(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-    }
-
     public static void onSetBarState(int state) {
         mBarState = state;
         setEditButtonVisible(state == NotificationPanelHooks.STATE_SHADE);
-    }
-
-    private static class CustomItemTouchHelper extends ItemTouchHelper {
-
-        public CustomItemTouchHelper(Callback callback) {
-            super(callback);
-        }
-
-        @Override
-        public void attachToRecyclerView(RecyclerView recyclerView) {
-            try {
-                RecyclerView oldRecyclerView = (RecyclerView) XposedHelpers.getObjectField(this, "mRecyclerView");
-                if (oldRecyclerView == recyclerView) {
-                    return; // nothing to do
-                }
-                if (oldRecyclerView != null) {
-                    XposedHelpers.findMethodBestMatch(ItemTouchHelper.class, "destroyCallbacks").invoke(this);
-                }
-                XposedHelpers.setObjectField(this, "mRecyclerView", recyclerView);
-                if (recyclerView != null) {
-                    XposedHelpers.findMethodBestMatch(ItemTouchHelper.class, "setupCallbacks").invoke(this);
-                }
-            } catch (Throwable t) {
-                XposedHook.logE(TAG, "Error attaching ItemTouchCallback to RecyclerView", t);
-            }
-        }
-    }
-
-    public static class TileTouchCallback extends ItemTouchHelper.Callback {
-        public TileAdapter.TileViewHolder mCurrentDrag;
-
-        @Override
-        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
-            if (viewHolder.getItemViewType() == 1) {
-                dragFlags = 0;
-            }
-            return makeMovementFlags(dragFlags, 0);
-        }
-
-        @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            return mTileAdapter.onItemMove(viewHolder.getAdapterPosition(),
-                    target.getAdapterPosition());
-        }
-
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        }
-
-        @Override
-        public boolean isLongPressDragEnabled() {
-            return true;
-        }
-
-        @Override
-        public boolean isItemViewSwipeEnabled() {
-            return false;
-        }
-
-        @Override
-        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-            if (mCurrentDrag != null) {
-                mCurrentDrag.stopDrag();
-                mCurrentDrag = null;
-            }
-            if (viewHolder != null) {
-                mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
-                mCurrentDrag.startDrag();
-            }
-            try {
-                mTileAdapter.notifyItemChanged(mTileAdapter.mDividerIndex);
-            } catch (Throwable ignore) {
-
-            }
-            super.onSelectedChanged(viewHolder, actionState);
-        }
-
-        @Override
-        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            ((TileAdapter.TileViewHolder) viewHolder).stopDrag();
-            super.clearView(recyclerView, viewHolder);
-        }
     }
 
     private static void setEditButtonVisible(boolean visible) {
@@ -1021,7 +844,9 @@ public class StatusBarHeaderHooks {
     }
 
     public static void hookQSOnMeasure() {
-        if (onMeasureHook == null || onMeasureHookedClass == null) return;
+        if (onMeasureHook == null || onMeasureHookedClass == null || onMeasureUnhook != null)
+            return;
+        XposedHook.logD(TAG, "hookQSOnMeasure called");
         mOnMeasureUnchagedCount = 0;
         onMeasureUnhook = XposedHelpers.findAndHookMethod(onMeasureHookedClass, "onMeasure", int.class, int.class, onMeasureHook);
     }
@@ -1039,8 +864,7 @@ public class StatusBarHeaderHooks {
                 try {
                     XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setEditing", boolean.class, setEditingHook);
                     mHasEditPanel = true;
-                } catch (NoSuchMethodError e) {
-                    mHasEditPanel = false;
+                } catch (NoSuchMethodError ignore) {
                 }
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
@@ -1138,6 +962,11 @@ public class StatusBarHeaderHooks {
 
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
 
+                try { // OOS3
+                    XposedBridge.hookAllMethods(classQSTileView, "setOverlay", XC_MethodReplacement.DO_NOTHING);
+                } catch (Throwable ignore) {
+                }
+
                 if (Build.VERSION.SDK_INT >= 22) {
                     XposedHelpers.findAndHookMethod(classQSTileView, "setIcon", ImageView.class, CLASS_QS_STATE, new XC_MethodHook() {
                         boolean forceAnim = false;
@@ -1191,11 +1020,8 @@ public class StatusBarHeaderHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_date_collapsed_size", modRes.fwd(R.dimen.date_time_collapsed_size));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_collapsed_size", modRes.fwd(R.dimen.multi_user_avatar_size));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_brightness_padding_top", modRes.fwd(R.dimen.brightness_slider_padding_top));
-                try {
+                if (!ConfigUtils.M)
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", modRes.fwd(R.dimen.multi_user_avatar_size));
-                } catch (Throwable ignore) {
-                    // Not in LP
-                }
 
                 if (!ConfigUtils.qs().large_first_row) {
                     try {
@@ -1301,6 +1127,17 @@ public class StatusBarHeaderHooks {
                         }
                     }
                 });
+
+                if (ConfigUtils.qs().enable_qs_editor) {
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "quick_settings_brightness_dialog", new XC_LayoutInflated() {
+                        @Override
+                        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                            liparam.view.findViewById(
+                                    liparam.view.getResources().getIdentifier("brightness_icon", "id", PACKAGE_SYSTEMUI))
+                                    .setVisibility(View.GONE);
+                        }
+                    });
+                }
 
             }
         } catch (Throwable t) {

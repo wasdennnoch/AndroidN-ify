@@ -34,8 +34,6 @@
     <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
     <string name="debug_log_title">Włącz debugowanie</string>
     <string name="debug_log">Ostrzeżenie: generuje dużo wpisów w dzienniku debugowania</string>
-    <string name="share_logcat_title">Udostępnij logcat</string>
-    <string name="share_logcat_summary">Zapisuje ważne dane z logcat do pliku</string>
     <string name="logcat_notif_ongoing_title">Zapisywanie logcat</string>
     <string name="logcat_notif_finished_title">Logcat zapisany</string>
     <string name="logcat_notif_preparing">Przygotowanie</string>
@@ -117,7 +115,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Szybkie ustawienia</string>
     <string name="enable_notification_header">Styl nagłówka</string>
-    <string name="keep_qs_panel_bg_title">Nie zmieniaj tła szybkich ustawień</string>
     <string name="keep_qs_panel_bg">Użyteczne dla stylów, które zmieniają tło panelu szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>

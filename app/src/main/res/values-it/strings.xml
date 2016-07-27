@@ -49,7 +49,6 @@
     <string name="alternative_double_tap">Abilita se il cambio rapido delle applicazioni non funziona correttamente</string>
     <string name="double_tap_speed_title">Velocità doppio tap</string>
     <string name="recents_navigation_delay_title">Velocità navigazione</string>
-    <string name="keep_qs_panel_bg_title">Background QuickSettings inalterato</string>
     <string name="keep_qs_panel_bg">Utile per temi che applicano un background personalizzato nel pannello dei QuickSettings</string>
 
 
@@ -182,7 +181,6 @@
     <string name="update_notification_downloading_details">Scarico build %1$d</string>
     <string name="update_notification_download_fail">Download fallito</string>
     <string name="update_notification_download_fail_details">Impossibile scaricare la build %1$d</string>
-    <string name="share_logcat_title">Condividi logcat</string>
     <string name="logcat_notif_ongoing_title">Salvo il logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat salvato</string>
     <string name="logcat_notif_preparing">Preparazione&#8230;</string>

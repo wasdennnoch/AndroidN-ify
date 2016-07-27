@@ -228,7 +228,11 @@ public class QSTileHostHooks {
             }
 
             if (ConfigUtils.qs().hide_edit_tiles) {
-                XposedHelpers.findAndHookMethod(classTileHost, "loadTileSpecs", String.class, loadTileSpecsHook);
+                try {
+                    XposedHelpers.findAndHookMethod(classTileHost, "loadTileSpecs", String.class, loadTileSpecsHook);
+                } catch (Throwable t) { // OOS3
+                    XposedHelpers.findAndHookMethod(classTileHost, "loadTileSpecs", loadTileSpecsHook);
+                }
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
@@ -332,7 +336,7 @@ public class QSTileHostHooks {
                 "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine", "music", "next_alarm",
                 "ime_selector", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenshot", "expanded_desktop",
                 "reboot", "configurations", "navbar", "appcirclebar", "kernel_adiutor", "screenrecord", "gesture_anywhere",
-                "power_menu", "app_picker", "kill_app", "hw_keys", "sound", "pulse", "pie", "float_mode"};
+                "power_menu", "app_picker", "kill_app", "hw_keys", "sound", "pulse", "pie", "float_mode", "nightmode"};
         for (String s : possibleSpecs) {
             if (bruteForceSpec(s)) specs.add(s);
         }

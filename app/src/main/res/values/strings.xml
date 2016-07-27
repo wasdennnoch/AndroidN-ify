@@ -34,8 +34,6 @@
     <string name="hide_launcher_icon">May require launcher restart</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
-    <string name="share_logcat_title">Share logcat</string>
-    <string name="share_logcat_summary">Saves important extracts of the logcat to a file</string>
     <string name="logcat_notif_ongoing_title">Saving logcat&#8230;</string>
     <string name="logcat_notif_finished_title">Logcat saved</string>
     <string name="logcat_notif_preparing">Preparing&#8230;</string>
@@ -117,8 +115,10 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Quick Settings</string>
     <string name="enable_notification_header">Style header</string>
-    <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
-    <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
+    <string name="keep_bg_title">Unaltered backgrounds</string>
+    <string name="keep_bg">Useful for themes that apply custom backgrounds</string>
+    <string name="keep_header_bg">Header</string>
+    <string name="keep_panel_bg">QS Panel</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="battery_tile_show_percentage">Show percentage in battery tile</string>

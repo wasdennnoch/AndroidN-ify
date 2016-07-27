@@ -67,7 +67,6 @@ public class NotificationPanelHooks {
         }
     };
 
-    @SuppressWarnings("unused")
     public static boolean isExpanded() {
         return (mExpandIndicator != null && mExpandIndicator.isExpanded());
     }
@@ -86,7 +85,7 @@ public class NotificationPanelHooks {
         if (mExpandIndicator.isExpanded()) flingSettings(false);
     }
 
-    public static void flingSettings(boolean expanded) {
+    private static void flingSettings(boolean expanded) {
         try {
             XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", new Class[]{float.class, boolean.class, Runnable.class, boolean.class}, 0, expanded, null, true);
         } catch (Throwable t) {

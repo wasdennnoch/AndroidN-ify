@@ -36,8 +36,6 @@
     <string name="hide_launcher_icon">Pode ser preciso reiniciar o launcher</string>
     <string name="debug_log_title">Registros de depuração</string>
     <string name="debug_log">Atenção: Registro invasivo</string>
-    <string name="share_logcat_title">Enviar relatório de erros</string>
-    <string name="share_logcat_summary">Salva partes importantes do relatório em um arquivo</string>
     <string name="logcat_notif_ongoing_title">Salvando relatório&#8230;</string>
     <string name="logcat_notif_finished_title">Relatório salvo</string>
     <string name="logcat_notif_preparing">Preparando&#8230;</string>
@@ -121,7 +119,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Configurações rápidas</string>
     <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
-    <string name="keep_qs_panel_bg_title">Manter fundo das configurações rápidas</string>
     <string name="keep_qs_panel_bg">Útil para temas que alteram o fundo das configurações rápidas</string>
     <string name="notification_header_qs_tiles_count">Blocos de configurações rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
@@ -182,7 +179,9 @@
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Informações de emergência</string>
+    <string name="emergency_info_launch_hint">Toque novamente para abrir</string>
     <string name="enable_emergency_info_title">Ativar informações de emergência</string>
+    <string name="enable_emergency_info">Adiciona um botão \"Informações de emergência\" ao discador de emergência</string>	
     <string name="edit_emergency_info_title">Editar informações de emergência</string>
 
     <string name="header_personal">Pessoal</string>

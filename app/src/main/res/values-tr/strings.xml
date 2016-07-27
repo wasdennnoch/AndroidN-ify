@@ -34,8 +34,6 @@
     <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
     <string name="debug_log_title">Hata ayıklama günlüğü</string>
     <string name="debug_log">Dikkat: Log-flooding</string>
-    <string name="share_logcat_title">Hata kaydını paylaş</string>
-    <string name="share_logcat_summary">LogCat önemli bilgileri bir dosyaya kaydeder</string>
     <string name="logcat_notif_ongoing_title">Hata kaydı kaydediliyor</string>
     <string name="logcat_notif_finished_title">Hata kaydı kaydedildi</string>
     <string name="logcat_notif_preparing">Hazırlanıyor&#8230;</string>
@@ -117,7 +115,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Hızlı Ayarlar</string>
     <string name="enable_notification_header">Başlık stili</string>
-    <string name="keep_qs_panel_bg_title">Değiştirilmemiş Hızlı Ayarlar arka planı</string>
     <string name="keep_qs_panel_bg">Özel bir Hızlı Ayarlar paneli arka planı uygulamak temalar için faydalıdır.</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
     <string name="notification_header_qs_tiles_count_monitor">kareler</string>
