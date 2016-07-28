@@ -111,7 +111,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">퀵세팅 설정</string>
     <string name="enable_notification_header">헤더 스타일</string>
-    <string name="keep_qs_panel_bg">커스텀 퀵세팅 배경화면 테마를 설정할때 유용합니다</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">타일</string>
     <string name="battery_tile_show_percentage">배터리 타일에 퍼센트 표시</string>

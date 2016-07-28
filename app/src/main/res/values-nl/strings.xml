@@ -107,7 +107,6 @@
 
     <!-- STATUS BAR HEADER -->
     <string name="enable_notification_header">Header opmaken</string>
-    <string name="keep_qs_panel_bg">Handig voor thema\'s die een aangepaste QS panel achtergrond toepassen</string>
     <string name="notification_header_qs_tiles_count">QS tegels om te tonen</string>
     <string name="notification_header_qs_tiles_count_monitor">tegels</string>
     <string name="battery_tile_show_percentage">Toon percentage in battery tegel</string>

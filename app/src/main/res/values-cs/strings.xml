@@ -59,7 +59,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Rychlé nastavení</string>
     <string name="enable_notification_header">Upravit záhlaví</string>
-    <string name="keep_qs_panel_bg">Užitečné pro témata, která používají vlastní pozadí panelu rychlých nastavení</string>
     <string name="notification_header_qs_tiles_count">Zobrazit maximální</string>
     <string name="notification_header_qs_tiles_count_monitor">dlaždice.</string>
     <string name="battery_tile_show_percentage">Zobrazit procenta v dlaždici s baterií</string>
