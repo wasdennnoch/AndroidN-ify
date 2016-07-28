@@ -79,7 +79,6 @@
 
     <!-- STATUS BAR HEADER -->
     <string name="enable_notification_header">Style entête</string>
-    <string name="keep_qs_panel_bg">Utile pour les thèmes qui appliquent un arrière-plan modifié pour le panneau QS</string>
     <string name="notification_header_qs_tiles_count">Tuiles QS à afficher</string>
     <string name="notification_header_qs_tiles_count_monitor">tuiles</string>
     <string name="battery_tile_show_percentage">Afficher le pourcentage dans la tuile batterie</string>

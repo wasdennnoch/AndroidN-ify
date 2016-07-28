@@ -118,7 +118,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Setările rapide</string>
     <string name="enable_notification_header">Schimbă stilul antetului</string>
-    <string name="keep_qs_panel_bg">Folosiți aceasta dacă utilizați o temă care aplică un fundal propriu pt. SR</string>
     <string name="notification_header_qs_tiles_count">Afișare titluri SR</string>
     <string name="notification_header_qs_tiles_count_monitor">titluri</string>
     <string name="battery_tile_show_percentage">Afișează procentaj</string>

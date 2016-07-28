@@ -115,7 +115,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Szybkie ustawienia</string>
     <string name="enable_notification_header">Styl nagłówka</string>
-    <string name="keep_qs_panel_bg">Użyteczne dla stylów, które zmieniają tło panelu szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
     <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
     <string name="battery_tile_show_percentage">Pokaż procent naładowania baterii w kafelku</string>

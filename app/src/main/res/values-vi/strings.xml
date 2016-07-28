@@ -88,7 +88,6 @@
     <string name="update_notification_title">Có bản cập nhật mới</string>
     <string name="user_summary">Đăng nhập với tên %1$s</string>
     <string name="xposed_description">Dùng những tính năng của Android N trên các thiết bị chạy Lollipop và Marshmallow!</string>
-    <string name="keep_qs_panel_bg">Hữu ích khi dùng Giao diện có tùy chỉnh màu nền C.đặt nhanh</string>
     <string name="qs_edit">Sửa</string>
     <string name="qs_edit_detail">Sửa các ô</string>
     <string name="prefs_not_readable_description"><![CDATA[         Xposed không thể đọc file cấu hình của module này, sẽ nạp dữ liệu mặc định         Có nhiều cách để sửa lỗi này. Ngoài ra thông báo này có thể hiện ra nếu         bạn chưa từng mở app này bao giờ.<br><br>         Trước tiên, hãy khởi động lại (Không khởi động lại mềm!).<br>         Nếu không được, thử cài đặt lại module.<br>         Nếu vẫn không được, hãy đặt SELinux ở chế độ <i>không thực thi</i>.         <i>Thực thi</i> SELinux có thể cản trở việc đọc file cài đặt. Để có thể đặt lại,         sử dụng app <tt>SELinuxModeChanger</tt> tải về trên XDA tại         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">đây</a>.<br>         Nếu vẫn không được, bạn phải chấp nhận dùng giá trị cài đặt mặc định, rất tiếc :(         ]]></string>

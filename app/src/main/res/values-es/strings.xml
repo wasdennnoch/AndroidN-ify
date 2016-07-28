@@ -111,7 +111,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Ajustes rápidos</string>
     <string name="enable_notification_header">Activar nueva barra de estado</string>
-    <string name="keep_qs_panel_bg">Útil para temas que cambian el fondo de los ajustes rápidos</string>
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
     <string name="battery_tile_show_percentage">Mostrar porcentaje de batería</string>
