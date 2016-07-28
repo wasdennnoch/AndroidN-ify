@@ -166,4 +166,8 @@
     <string name="store">Cửa hàng </string>
     <string name="enable_emergency_info">Thêm một nút Thông tin Khẩn cấp vào trình quay số khẩn cấp</string>
     <string name="emergency_info_launch_hint">Chạm lần nữa để mở </string>
+    <string name="keep_bg">Hữu ích cho giao diện áp dụng tùy biến màu nền</string>
+    <string name="keep_bg_title">Không đổi màu nền</string>
+    <string name="keep_header_bg">Tiêu đề </string>
+    <string name="keep_panel_bg">Thanh C.đặt nhanh</string>
 </resources>
