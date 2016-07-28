@@ -115,7 +115,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Hızlı Ayarlar</string>
     <string name="enable_notification_header">Başlık stili</string>
-    <string name="keep_qs_panel_bg">Özel bir Hızlı Ayarlar paneli arka planı uygulamak temalar için faydalıdır.</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
     <string name="notification_header_qs_tiles_count_monitor">kareler</string>
     <string name="battery_tile_show_percentage">Pil yüzde skalasını göster</string>

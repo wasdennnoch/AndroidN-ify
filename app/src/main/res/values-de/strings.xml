@@ -111,7 +111,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Schnelleinstellungen</string>
     <string name="enable_notification_header">Header stylen</string>
-    <string name="keep_qs_panel_bg">Nützlich für Designs, die einen eigenen Hintergrund nutzen</string>
     <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
     <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
     <string name="battery_tile_show_percentage">Prozent in der Batterie-Kachel</string>

@@ -119,7 +119,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Configurações rápidas</string>
     <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
-    <string name="keep_qs_panel_bg">Útil para temas que alteram o fundo das configurações rápidas</string>
     <string name="notification_header_qs_tiles_count">Blocos de configurações rápidas a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
     <string name="battery_tile_show_percentage">Mostrar porcentagem no bloco de bateria</string>

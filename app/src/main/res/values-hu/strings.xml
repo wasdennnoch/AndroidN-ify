@@ -116,7 +116,6 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Gyorsbeállítások</string>
     <string name="enable_notification_header">Fejléc stílusának módosítása</string>
-    <string name="keep_qs_panel_bg">Hasznos az egyedi gyorsbeállítás hátteret használó témákhoz</string>
     <string name="notification_header_qs_tiles_count">Gyorsbeállítás csempék száma</string>
     <string name="notification_header_qs_tiles_count_monitor">csempe</string>
     <string name="battery_tile_show_percentage">Mutassa a százalékot az akkumulátor csempénél</string>
