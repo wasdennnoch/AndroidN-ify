@@ -43,7 +43,6 @@ public class QuickQSPanel extends LinearLayout {
     private HeaderTileLayout mTileLayout;
     private ResourceUtils mRes;
     private ArrayList<Object> mRecords = new ArrayList<>();
-    private ArrayList<ViewGroup> mTileViews = new ArrayList<>();
     private ArrayList<View> mIconViews = new ArrayList<>();
     private ArrayList<View> mTopFiveQs = new ArrayList<>();
     private BatteryTile.BatteryView mBatteryView;
@@ -80,7 +79,6 @@ public class QuickQSPanel extends LinearLayout {
                 .setEndDelay(0.64F).build();
     }
 
-    // TODO add check if tiles actually changed
     public void setTiles(ArrayList<Object> tileRecords) {
         XposedHook.logD(TAG, "setTiles tile record count: " + tileRecords.size());
         if (tileRecords.size() == 0) {
@@ -88,7 +86,6 @@ public class QuickQSPanel extends LinearLayout {
             return;
         }
         mTileLayout.removeTiles();
-        mTileViews.clear();
         mRecords.clear();
         mIconViews.clear();
         mTranslationXAnimator = null;
@@ -113,7 +110,6 @@ public class QuickQSPanel extends LinearLayout {
     public void setupAnimators(int gridHeight) {
         XposedHook.logD(TAG, "setupAnimators called");
         mTopFiveQs.clear();
-        //int gridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
         int j = 0;
         TouchAnimator.Builder builder = new TouchAnimator.Builder();
         TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
@@ -234,7 +230,6 @@ public class QuickQSPanel extends LinearLayout {
             }
             oldPosition = f;
         } else {
-            XposedHook.logI(TAG, "animateFancy: StatusBarHeaderHooks.mShowingDetail || f != 0");
             if (getVisibility() != INVISIBLE)
                 setVisibility(INVISIBLE);
         }
@@ -393,7 +388,6 @@ public class QuickQSPanel extends LinearLayout {
 
             XposedHelpers.setAdditionalInstanceField(tile, KEY_QUICKQS_TILEVIEW, tileView);
 
-            mTileViews.add(tileView);
             int position = getChildCount() - 1;
             if (iconView != null) {
                 ((ViewGroup) iconView.getParent()).removeView(iconView);
@@ -433,7 +427,7 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         public void removeTiles() {
-            for (int i = 0; i < mMaxTiles && i < mRecords.size(); i++) {
+            for (int i = 0; i < mMaxTiles && i < mIconViews.size(); i++) {
                 removeViewAt(0); // Tile
                 removeViewAt(0); // Space
             }

@@ -127,6 +127,7 @@ public class StatusBarHeaderHooks {
 
     private static Class<?> onMeasureHookedClass;
 
+    private static ArrayList<String> mPreviousTiles = new ArrayList<>();
     private static ArrayList<Object> mRecords;
 
     private static int mOnMeasureUnchagedCount;
@@ -541,11 +542,31 @@ public class StatusBarHeaderHooks {
     };
 
     private static XC_MethodHook setTilesHook = new XC_MethodHook() {
+        boolean cancelled = false;
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            if (mHeaderQsPanel != null) { // keep
+                // Only set up views if the tiles actually changed
+                if (param.args.length == 0) return; // PA already checks itself
+                Collection tiles = (Collection) param.args[0];
+                ArrayList<String> newTiles = new ArrayList<>();
+                for (Object qstile : tiles) {
+                    newTiles.add(qstile.getClass().getSimpleName());
+                }
+                cancelled = false;
+                if (mPreviousTiles.equals(newTiles)) {
+                    cancelled = true;
+                    XposedHook.logD(TAG, "setTilesHook: Cancelling original method");
+                    param.setResult(null);
+                }
+                mPreviousTiles.clear();
+                mPreviousTiles.addAll(newTiles);
+            }
+        }
+
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            // This method gets called from two different processes,
-            // so we have to check if we are in the right one
-            if (mHeaderQsPanel != null) {
+            if (mHeaderQsPanel != null && !cancelled) { // keep
                 try {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
