@@ -10,20 +10,36 @@ import de.robv.android.xposed.XposedHelpers;
 
 public abstract class QSTileHook {
 
+    private String mClassName;
     protected Class<?> mTileClass;
     protected Context mContext;
     protected Object mThisObject;
 
-    public QSTileHook(ClassLoader classLoader, String className) {
+    public QSTileHook(Class classQSTile, ClassLoader classLoader, String className) {
+        mClassName = className;
         mTileClass = XposedHelpers.findClass(className, classLoader);
         XposedBridge.hookAllConstructors(mTileClass, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 mThisObject = param.thisObject;
                 mContext = (Context) getObjectField("mContext");
+                XposedHelpers.setAdditionalInstanceField(mThisObject, "hookedClass", mClassName);
                 afterConstructor(param);
             }
         });
+        XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleClickHook);
+        try {
+            XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleLongClickHook);
+        } catch (Throwable t) {
+            XposedHelpers.findAndHookMethod(classQSTile, "handleLongClick", handleLongClickHook2);
+        }
+    }
+
+    protected void setDualTargets() {
+        try {
+            XposedHelpers.findAndHookMethod(mTileClass, "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
+        } catch (Throwable ignore) {
+        }
     }
 
     protected void afterConstructor(XC_MethodHook.MethodHookParam param) {
@@ -35,14 +51,6 @@ public abstract class QSTileHook {
     }
 
     protected void handleLongClick() {
-    }
-
-    protected final void hookClick() {
-        XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleClickHook);
-    }
-
-    protected final void hookLongClick() {
-        //XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
     }
 
     protected final void startSettings() {
@@ -79,6 +87,17 @@ public abstract class QSTileHook {
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             handleLongClick();
             return null;
+        }
+    };
+
+    protected XC_MethodHook handleLongClickHook2 = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            String clazz = (String) XposedHelpers.getAdditionalInstanceField(mThisObject, "hookedClass");
+            if (clazz != null && clazz.equals(mClassName)) {
+                param.setResult(null);
+                handleLongClick();
+            }
         }
     };
 

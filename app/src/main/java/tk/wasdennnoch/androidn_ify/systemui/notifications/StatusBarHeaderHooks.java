@@ -976,9 +976,9 @@ public class StatusBarHeaderHooks {
 
                 boolean firstRowLarge = ConfigUtils.qs().large_first_row;
                 if (ConfigUtils.qs().new_click_behavior) {
-                    new WifiTileHook(classLoader, (!mUseDragPanel && !firstRowLarge));
-                    new BluetoothTileHook(classLoader, (!mUseDragPanel && !firstRowLarge));
-                    new CellularTileHook(classLoader);
+                    new WifiTileHook(classQSTile, classLoader, (!mUseDragPanel && !firstRowLarge));
+                    new BluetoothTileHook(classQSTile, classLoader, (!mUseDragPanel && !firstRowLarge));
+                    new CellularTileHook(classQSTile, classLoader);
                 }
 
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);

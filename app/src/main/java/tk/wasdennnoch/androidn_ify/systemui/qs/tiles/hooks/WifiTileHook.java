@@ -6,7 +6,6 @@ import android.provider.Settings;
 import com.android.internal.logging.MetricsLogger;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 
@@ -17,16 +16,9 @@ public class WifiTileHook extends QSTileHook {
     private Object mController;
     private Object mWifiController;
 
-    public WifiTileHook(ClassLoader classLoader, boolean firstRowSmall) {
-        super(classLoader, CLASS_WIFI_TILE);
-        hookClick();
-        hookLongClick();
-        if (firstRowSmall) {
-            try {
-                XposedHelpers.findAndHookMethod(mTileClass, "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
-            } catch (Throwable ignore) {
-            }
-        }
+    public WifiTileHook(Class classQSTile, ClassLoader classLoader, boolean firstRowSmall) {
+        super(classQSTile, classLoader, CLASS_WIFI_TILE);
+        if (firstRowSmall) setDualTargets();
     }
 
     @Override
