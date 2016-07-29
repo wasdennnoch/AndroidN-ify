@@ -29,7 +29,6 @@ import java.util.Objects;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -865,6 +864,7 @@ public class StatusBarHeaderHooks {
                     XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setEditing", boolean.class, setEditingHook);
                     mHasEditPanel = true;
                 } catch (NoSuchMethodError ignore) {
+                    mHasEditPanel = false;
                 }
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onFinishInflate", onFinishInflateHook);
@@ -963,7 +963,7 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
 
                 try { // OOS3
-                    XposedBridge.hookAllMethods(classQSTileView, "setOverlay", XC_MethodReplacement.DO_NOTHING);
+                    XposedHelpers.findAndHookMethod(classQSTileView, "setOverlay", CLASS_QS_TILE + "$Mode", XC_MethodReplacement.DO_NOTHING);
                 } catch (Throwable ignore) {
                 }
 
@@ -1020,7 +1020,7 @@ public class StatusBarHeaderHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_date_collapsed_size", modRes.fwd(R.dimen.date_time_collapsed_size));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_collapsed_size", modRes.fwd(R.dimen.multi_user_avatar_size));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_brightness_padding_top", modRes.fwd(R.dimen.brightness_slider_padding_top));
-                if (!ConfigUtils.M)
+                if (ConfigUtils.M)
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", modRes.fwd(R.dimen.multi_user_avatar_size));
 
                 if (!ConfigUtils.qs().large_first_row) {
@@ -1128,16 +1128,16 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                if (ConfigUtils.qs().enable_qs_editor) {
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "quick_settings_brightness_dialog", new XC_LayoutInflated() {
-                        @Override
-                        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                /*resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "quick_settings_brightness_dialog", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        if (ConfigUtils.qs().enable_qs_editor) {
                             liparam.view.findViewById(
                                     liparam.view.getResources().getIdentifier("brightness_icon", "id", PACKAGE_SYSTEMUI))
                                     .setVisibility(View.GONE);
                         }
-                    });
-                }
+                    }
+                });*/
 
             }
         } catch (Throwable t) {
