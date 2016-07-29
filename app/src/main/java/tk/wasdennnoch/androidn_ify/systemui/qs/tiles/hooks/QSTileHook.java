@@ -42,7 +42,7 @@ public abstract class QSTileHook {
     }
 
     protected final void hookLongClick() {
-        XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
+        //XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
     }
 
     protected final void startSettings() {
