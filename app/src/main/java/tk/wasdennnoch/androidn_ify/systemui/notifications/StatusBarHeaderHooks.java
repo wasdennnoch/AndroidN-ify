@@ -545,6 +545,7 @@ public class StatusBarHeaderHooks {
         boolean cancelled = false;
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            if (mUseDragPanel) return; // Causes problem with "Enlarge first row" setting
             if (mHeaderQsPanel != null) { // keep
                 // Only set up views if the tiles actually changed
                 if (param.args.length == 0) return; // PA already checks itself

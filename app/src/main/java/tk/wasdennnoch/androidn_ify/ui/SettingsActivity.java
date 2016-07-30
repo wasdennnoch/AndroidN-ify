@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.os.Process;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -233,7 +232,11 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             if (sharedPrefsFile.exists()) {
                 //noinspection ResultOfMethodCallIgnored
                 sharedPrefsFile.setReadable(true, false);
-                FileUtils.setPermissions(sharedPrefsFile, 664, -1, -1);
+                try {
+                    Runtime.getRuntime().exec("chmod 664" + sharedPrefsFile.getAbsolutePath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
