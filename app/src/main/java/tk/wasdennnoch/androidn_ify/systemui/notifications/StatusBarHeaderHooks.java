@@ -45,6 +45,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.WifiTileHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class StatusBarHeaderHooks {
 
@@ -545,7 +546,7 @@ public class StatusBarHeaderHooks {
         boolean cancelled = false;
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            if (mUseDragPanel) return; // Causes problem with "Enlarge first row" setting
+            if (mUseDragPanel && !RomUtils.isAicp()) return; // Causes problem with "Enlarge first row" setting
             if (mHeaderQsPanel != null) { // keep
                 // Only set up views if the tiles actually changed
                 if (param.args.length == 0) return; // PA already checks itself

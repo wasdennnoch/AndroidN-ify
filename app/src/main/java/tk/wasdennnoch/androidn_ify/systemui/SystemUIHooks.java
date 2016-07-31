@@ -15,6 +15,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class SystemUIHooks {
 
@@ -73,6 +74,7 @@ public class SystemUIHooks {
                     @Override
                     public void run() {
                         XposedHook.debug = ConfigUtils.getInstance().getPrefs().getBoolean("debug_log", false);
+                        RomUtils.init(ConfigUtils.getInstance().getPrefs());
                     }
                 }, 2000);
             }
