@@ -544,9 +544,11 @@ public class StatusBarHeaderHooks {
 
     private static XC_MethodHook setTilesHook = new XC_MethodHook() {
         boolean cancelled = false;
+
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            if (mUseDragPanel && !RomUtils.isAicp()) return; // Causes problem with "Enlarge first row" setting
+            if (mUseDragPanel && !RomUtils.isAicp())
+                return; // Causes problem with "Enlarge first row" setting
             if (mHeaderQsPanel != null) { // keep
                 // Only set up views if the tiles actually changed
                 if (param.args.length == 0) return; // PA already checks itself
@@ -1022,6 +1024,16 @@ public class StatusBarHeaderHooks {
                     });
                 }
 
+                if (ConfigUtils.qs().enable_qs_editor) {
+                    XposedHelpers.findAndHookMethod(PACKAGE_SYSTEMUI + ".settings.BrightnessController", classLoader, "updateIcon", boolean.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            View icon = (View) XposedHelpers.getObjectField(param.thisObject, "mIcon");
+                            if (icon != null) icon.setVisibility(View.GONE);
+                        }
+                    });
+                }
+
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
@@ -1150,17 +1162,6 @@ public class StatusBarHeaderHooks {
                         }
                     }
                 });
-
-                /*resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "quick_settings_brightness_dialog", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        if (ConfigUtils.qs().enable_qs_editor) {
-                            liparam.view.findViewById(
-                                    liparam.view.getResources().getIdentifier("brightness_icon", "id", PACKAGE_SYSTEMUI))
-                                    .setVisibility(View.GONE);
-                        }
-                    }
-                });*/
 
             }
         } catch (Throwable t) {

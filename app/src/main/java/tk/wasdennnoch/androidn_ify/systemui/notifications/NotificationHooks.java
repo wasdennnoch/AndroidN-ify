@@ -73,8 +73,6 @@ public class NotificationHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
-            // TODO check if app is blacklisted for hooks in SystemUI
-
             Object entry = param.args[0];
             Object row = XposedHelpers.getObjectField(entry, "row");
             Object contentContainer = XposedHelpers.getObjectField(row, "mPrivateLayout"); // NotificationContentView
@@ -112,7 +110,7 @@ public class NotificationHooks {
             }
             if (icon != null) {
                 icon.setBackgroundResource(0);
-                icon.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+                icon.setBackgroundColor(0x00000000);
                 icon.setPadding(0, 0, 0, 0);
             }
 
