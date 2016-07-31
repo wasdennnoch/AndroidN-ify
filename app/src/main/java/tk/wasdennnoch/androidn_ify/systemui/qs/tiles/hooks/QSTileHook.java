@@ -29,7 +29,7 @@ public abstract class QSTileHook {
         });
         XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleClickHook);
         try {
-            XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleLongClickHook);
+            XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
         } catch (Throwable t) {
             XposedHelpers.findAndHookMethod(classQSTile, "handleLongClick", handleLongClickHook2);
         }
