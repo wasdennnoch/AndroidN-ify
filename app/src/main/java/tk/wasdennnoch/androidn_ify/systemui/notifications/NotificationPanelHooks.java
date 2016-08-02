@@ -77,15 +77,23 @@ public class NotificationPanelHooks {
     }
 
     public static boolean expandIfNecessary() {
-        if (mExpandIndicator == null || mNotificationPanelView == null) return false;
-        if (!mExpandIndicator.isExpanded()) flingSettings(true);
-        return true;
+        if (mExpandIndicator != null && mNotificationPanelView != null) {
+            if (!mExpandIndicator.isExpanded()) {
+                flingSettings(true);
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean collapseIfNecessary() {
-        if (mExpandIndicator == null || mNotificationPanelView == null) return false;
-        if (mExpandIndicator.isExpanded()) flingSettings(false);
-        return true;
+        if (mExpandIndicator != null && mNotificationPanelView != null) {
+            if (mExpandIndicator.isExpanded()) {
+                flingSettings(false);
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void flingSettings(boolean expanded) {
