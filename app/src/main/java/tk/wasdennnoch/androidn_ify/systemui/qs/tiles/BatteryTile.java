@@ -83,7 +83,8 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     public void setListening(boolean listening) {
         mListening = listening;
         if (mListening) {
-            mBatteryView.invalidate();
+            refreshState();
+            mBatteryView.postInvalidate();
         }
     }
 
