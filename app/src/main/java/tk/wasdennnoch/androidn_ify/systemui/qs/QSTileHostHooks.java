@@ -331,7 +331,7 @@ public class QSTileHostHooks {
     private static List<String> bruteForceSpecs() {
         XposedHook.logI(TAG, "Brute forcing tile specs!");
         List<String> specs = new ArrayList<>();
-        String[] possibleSpecs = new String[]{"notifications", "data", "roaming", "dds", "apn", "profiles", "performance",
+        String[] possibleSpecs = new String[]{"cell1", "cell2", "notifications", "data", "roaming", "dds", "apn", "profiles", "performance",
                 "adb_network", "nfc", "compass", "lockscreen", "lte", /*"visualizer",*/ "volume_panel", "screen_timeout",
                 "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine", "music", "next_alarm",
                 "ime_selector", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenshot", "expanded_desktop",

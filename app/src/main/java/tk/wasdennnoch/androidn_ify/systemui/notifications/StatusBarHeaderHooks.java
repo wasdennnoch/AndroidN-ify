@@ -1003,10 +1003,6 @@ public class StatusBarHeaderHooks {
                             forceAnim = headerItem != null && (boolean) headerItem &&
                                     !Objects.equals(XposedHelpers.getObjectField(param.args[1], "icon"),
                                             iv.getTag(iv.getResources().getIdentifier("qs_icon_tag", "id", PACKAGE_SYSTEMUI)));
-                            if (forceAnim) {
-                                String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
-                                XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
-                            }
                         }
 
                         @Override
@@ -1017,6 +1013,8 @@ public class StatusBarHeaderHooks {
                                     Drawable icon = ((ImageView) iconView).getDrawable();
                                     if (icon instanceof Animatable) {
                                         ((Animatable) icon).start();
+                                        String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
+                                        XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
                                     }
                                 }
                             }
