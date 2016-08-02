@@ -83,7 +83,8 @@ public class DetailViewManager {
         int y = mEditButton.getTop() + mEditButton.getHeight() / 2;
         if (mHasEditPanel)
             y += mStatusBarHeaderView.getHeight();
-        StatusBarHeaderHooks.mEditing = true;
+        if (adapter == mEditAdapter)
+            StatusBarHeaderHooks.mEditing = true;
         if (!ConfigUtils.M) {
             XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, adapter);
         } else {
@@ -111,30 +112,77 @@ public class DetailViewManager {
         if (mRecyclerView == null)
             createEditView(records);
 
-        Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
+        mEditAdapter = createProxy(new DetailAdapter() {
+            @Override
+            public int getTitle() {
+                return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", XposedHook.PACKAGE_SYSTEMUI);
+            }
 
-        mEditAdapter = Proxy.newProxyInstance(classDetailAdapter.getClassLoader(), new Class<?>[]{classDetailAdapter}, new InvocationHandler() {
+            @Override
+            public Boolean getToggleState() {
+                return false;
+            }
+
+            @Override
+            public View createDetailView(Context context, View convertView, ViewGroup parent) {
+                return mRecyclerView;
+            }
+
+            @Override
+            public Intent getSettingsIntent() {
+                return new Intent(Intent.ACTION_MAIN)
+                        .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+
+            @Override
+            public void setToggleState(boolean state) {
+            }
+
+            @Override
+            public int getMetricsCategory() {
+                return MetricsLogger.QS_INTENT;
+            }
+        });
+    }
+
+    private Object createProxy(final DetailAdapter adapter) {
+        Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
+        return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{classDetailAdapter}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 switch (method.getName()) {
                     case "getTitle":
-                        return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", XposedHook.PACKAGE_SYSTEMUI);
+                        return adapter.getTitle();
                     case "getToggleState":
-                        return false;
+                        return adapter.getToggleState();
+                    case "createDetailView":
+                        return adapter.createDetailView((Context) args[0], (View) args[1], (ViewGroup) args[2]);
                     case "getSettingsIntent":
-                        return new Intent(Intent.ACTION_MAIN)
-                                .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        return adapter.getSettingsIntent();
                     case "setToggleState":
+                        adapter.setToggleState((boolean) args[0]);
                         return null;
                     case "getMetricsCategory":
-                        return MetricsLogger.QS_INTENT;
-                    case "createDetailView":
-                        return mRecyclerView;
+                        return adapter.getMetricsCategory();
                 }
                 return null;
             }
         });
+    }
+
+    public interface DetailAdapter {
+        int getTitle();
+
+        Boolean getToggleState();
+
+        View createDetailView(Context context, View convertView, ViewGroup parent);
+
+        Intent getSettingsIntent();
+
+        void setToggleState(boolean state);
+
+        int getMetricsCategory();
     }
 
     private void createEditView(ArrayList<Object> records) {

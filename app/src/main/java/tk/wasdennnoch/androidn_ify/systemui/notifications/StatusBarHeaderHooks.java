@@ -112,7 +112,6 @@ public class StatusBarHeaderHooks {
     private static Context mContext;
 
     public static Button mEditButton;
-    private static ResourceUtils mResUtils;
 
     private static int mBarState = 2;
     public static int mQsPage;
@@ -733,6 +732,7 @@ public class StatusBarHeaderHooks {
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);
+        transition(mHeaderQsPanel, !showingDetail);
         setEditButtonVisible(!(showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE));
         if (mWeatherContainer != null) {
             try {
@@ -748,8 +748,8 @@ public class StatusBarHeaderHooks {
             View mDetailDoneButton = (View) XposedHelpers.getObjectField(mQsPanel, "mDetailDoneButton");
             LinearLayout mDetailButtons = (LinearLayout) mDetailDoneButton.getParent();
             mDetailButtons.setVisibility(mEditing ? View.GONE : View.VISIBLE);
-            mCollapseAfterHideDatails = NotificationPanelHooks.isCollapsed();
-            NotificationPanelHooks.expandIfNecessary();
+            mCollapseAfterHideDatails = NotificationPanelHooks.expandIfNecessary();
+            XposedHook.logD(TAG, "handleShowingDetail: showing detail; expanding: " + mCollapseAfterHideDatails);
             try {
                 mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
             } catch (Throwable t) {
@@ -770,7 +770,11 @@ public class StatusBarHeaderHooks {
                     public void onClick(View v) {
                         boolean checked = !mQsDetailHeaderSwitch.isChecked();
                         mQsDetailHeaderSwitch.setChecked(checked);
-                        XposedHelpers.callMethod(detail, "setToggleState", checked);
+                        try {
+                            XposedHelpers.callMethod(detail, "setToggleState", checked);
+                        } catch (Throwable t) {
+                            XposedHook.logE(TAG, "Error calling setToggleState", t);
+                        }
                     }
                 });
             }
@@ -783,9 +787,10 @@ public class StatusBarHeaderHooks {
                 }
             }
             if (mEditing) {
-                mQsDetailHeaderTitle.setText(getResUtils().getString(R.string.qs_edit_detail));
+                mQsDetailHeaderTitle.setText(ResourceUtils.getInstance(mContext).getString(R.string.qs_edit_detail));
             }
         } else {
+            XposedHook.logD(TAG, "handleShowingDetail: hiding detail; collapsing: " + mCollapseAfterHideDatails);
             if (mCollapseAfterHideDatails) NotificationPanelHooks.collapseIfNecessary();
             mQsDetailHeader.setClickable(false);
             if (mEditing) {
@@ -794,13 +799,6 @@ public class StatusBarHeaderHooks {
                 QSTileHostHooks.recreateTiles();
             }
         }
-    }
-
-    private static ResourceUtils getResUtils() {
-        if (mResUtils == null)
-            mResUtils = ResourceUtils.getInstance(mContext);
-
-        return mResUtils;
     }
 
     private static void transition(final View v, final boolean in) {
@@ -859,7 +857,7 @@ public class StatusBarHeaderHooks {
         FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
         if (visible) {
             mEditButton.setVisibility(View.VISIBLE);
-            qsPanelLp.bottomMargin = getResUtils().getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
+            qsPanelLp.bottomMargin = ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
         } else {
             mEditButton.setVisibility(View.GONE);
             qsPanelLp.bottomMargin = 0;
