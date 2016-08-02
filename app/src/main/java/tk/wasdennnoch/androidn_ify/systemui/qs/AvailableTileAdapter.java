@@ -127,7 +127,7 @@ public class AvailableTileAdapter extends TileAdapter {
         if (spec.equals("wifi")) return res.getIdentifier("ic_qs_wifi_full_3", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("bt")) return res.getIdentifier("ic_qs_bluetooth_connected", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("inversion")) return res.getIdentifier("ic_invert_colors_enable", "drawable", PACKAGE_SYSTEMUI);
-        else if (spec.equals("cell")) return res.getIdentifier("ic_qs_signal_full_3", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("cell") || spec.equals("cell1") || spec.equals("cell2")) return res.getIdentifier("ic_qs_signal_full_3", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("airplane")) return res.getIdentifier("ic_signal_airplane_enable", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("dnd")) return res.getIdentifier("ic_qs_dnd_on", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("rotation")) return res.getIdentifier("ic_portrait_from_auto_rotate", "drawable", PACKAGE_SYSTEMUI);

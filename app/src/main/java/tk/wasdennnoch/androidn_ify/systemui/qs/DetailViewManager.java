@@ -75,16 +75,20 @@ public class DetailViewManager {
         if (mEditAdapter == null)
             createEditAdapter(records);
 
+        showDetailAdapter(mEditAdapter);
+    }
+
+    private void showDetailAdapter(Object adapter) {
         int x = mEditButton.getLeft() + mEditButton.getWidth() / 2;
         int y = mEditButton.getTop() + mEditButton.getHeight() / 2;
         if (mHasEditPanel)
             y += mStatusBarHeaderView.getHeight();
         StatusBarHeaderHooks.mEditing = true;
         if (!ConfigUtils.M) {
-            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter);
+            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, adapter);
         } else {
             try {
-                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[]{x, y});
+                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, adapter, new int[]{x, y});
             } catch (Throwable t) { // OOS3
                 ClassLoader classLoader = mContext.getClassLoader();
                 Class<?> classRemoteSetting = XposedHelpers.findClass(XposedHook.PACKAGE_SYSTEMUI + ".qs.RemoteSetting", classLoader);
@@ -98,10 +102,9 @@ public class DetailViewManager {
                         return null;
                     }
                 });
-                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, remoteSetting, mEditAdapter, new int[]{x, y});
+                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, remoteSetting, adapter, new int[]{x, y});
             }
         }
-
     }
 
     private void createEditAdapter(ArrayList<Object> records) {

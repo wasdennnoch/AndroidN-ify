@@ -332,7 +332,7 @@ public class QSTileHostHooks {
         XposedHook.logI(TAG, "Brute forcing tile specs!");
         List<String> specs = new ArrayList<>();
         String[] possibleSpecs = new String[]{"cell1", "cell2", "notifications", "data", "roaming", "dds", "apn", "profiles", "performance",
-                "adb_network", "nfc", "compass", "lockscreen", "lte", /*"visualizer",*/ "volume_panel", "screen_timeout",
+                "adb_network", "nfc", "compass", "lockscreen", "lte", "volume_panel", "screen_timeout",
                 "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine", "music", "next_alarm",
                 "ime_selector", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenshot", "expanded_desktop",
                 "reboot", "configurations", "navbar", "appcirclebar", "kernel_adiutor", "screenrecord", "gesture_anywhere",
@@ -350,7 +350,7 @@ public class QSTileHostHooks {
         } catch (Throwable ignore) {
             XposedHook.logD(TAG, "bruteForceSpecs: spec \"" + spec + "\" doesn't exist");
             return false;
-            // Not a applicable tile spec
+            // Not an applicable tile spec
         }
     }
 
