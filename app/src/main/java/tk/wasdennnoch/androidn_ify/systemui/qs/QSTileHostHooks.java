@@ -27,6 +27,7 @@ public class QSTileHostHooks {
     public static final String TAG = "QSTileHostHooks";
 
     public static final String CLASS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
+    public static final String CLASS_CUSTOM_HOST = "com.android.systemui.tuner.QsTuner$CustomHost";
     public static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
     public static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
     public static final String TILES_SETTING = "sysui_qs_tiles";
@@ -39,6 +40,7 @@ public class QSTileHostHooks {
 
     private static Class<?> classQSUtils;
     private static Class<?> classQSConstants;
+    private static Class<?> classCustomHost;
 
     protected static Object mTileHost = null;
 
@@ -48,6 +50,8 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass())) return;
+
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
@@ -102,6 +106,7 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass())) return;
             // Thanks to GravityBox for this
             if (mTileHost == null)
                 mTileHost = param.thisObject;
@@ -129,6 +134,7 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass())) return;
             if (mTilesManager == null)
                 mTilesManager = new TilesManager(param.thisObject);
 
@@ -198,6 +204,10 @@ public class QSTileHostHooks {
                     } catch (Throwable ignore) {
                     }
                 }
+                try {
+                    classCustomHost = XposedHelpers.findClass(CLASS_CUSTOM_HOST, classLoader);
+                } catch (Throwable ignore) {
+                }
 
                 if (!ConfigUtils.M) {
                     XposedHelpers.findAndHookMethod(classTileHost, "recreateTiles", recreateTilesHook);
@@ -214,9 +224,9 @@ public class QSTileHostHooks {
                 }
 
                 XposedHelpers.findAndHookMethod(classTileHost, "createTile", String.class, new XC_MethodHook() {
-
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass())) return;
                         if (mTilesManager == null)
                             mTilesManager = new TilesManager(param.thisObject);
                         String tileSpec = (String) param.args[0];
