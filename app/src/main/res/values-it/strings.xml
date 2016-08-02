@@ -63,12 +63,18 @@
     <string name="requires_android_version">Richiede Android %1$s</string>
     <string name="battery_tile_show_percentage">Mostra percentuale nel tile della batteria</string>
     <string name="battery_tile_show_percentage_summary">Mostra percentuale residua nel tile della batteria</string>
+    <string name="keep_bg_title">Background inalterato</string>
+    <string name="keep_bg">Utile per i temi che applicano un background personalizzato</string>
+    <string name="keep_header_bg">Intestazione</string>
+    <string name="keep_panel_bg">Pannello QS</string>
     <!-- /prefs -->
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Info Emergenza</string>
     <string name="enable_emergency_info_title">Abilita Informazioni di Emergenza</string>
     <string name="edit_emergency_info_title">Modifica Informazioni di Emergenza</string>
+    <string name="emergency_info_launch_hint">Tocca ancora per aprire</string>
+    <string name="enable_emergency_info">Aggiunge un bottone per le Informazioni di Emergenza sul dialer per le chiamate di Emergenza</string>
 
     <string name="header_personal">Personale</string>
     <string name="info_fullname">Nome completo</string>
@@ -163,6 +169,16 @@
     <string name="live_display_day">Giorno</string>
     <string name="live_display_night">Notte</string>
     <string name="live_display_outdoor">Esterno (sole luminoso)</string>
+    <string name="hide_edit_tiles_summary">Questo nasconde solo l\'Edit Button originale!</string>
+    <string name="notifications_auto_color_title">Usa colore automatico nelle notifiche</string>
+    <string name="share_logcat_summary">Salva le righe più importanti del logcat in un file</string>
+    <string name="notification_experimental_title">Funzione sperimentale delle notifiche in stile N</string>
+    <string name="notification_experimental">N scrolling (senza notifica in alto) e ombra delle notifiche</string>
+    <string name="notification_keyguard_max_title">Notifiche massime nel keyguard</string>
+    <string name="store">Store</string>
+    <string name="app_details">Dettagli app</string>
+    <string name="install_source">App installata da %1$s</string>
+    <string name="from_pm">App installata da Installazione Pacchetti</string>
     <string name="fix_stuck_inversion_title">Fix per l\'inversione bloccata</string>
     <string name="fix_stuck_inversion">In alcuni dispositivi l\'inversione rimane bloccata quando abilitata. Clicca per forzare la disattivazione</string>
      <!-- /QUICK SETTINGS -->
@@ -184,17 +200,28 @@
     <string name="logcat_notif_finished_title">Logcat salvato</string>
     <string name="logcat_notif_preparing">Preparazione&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Salvate %1$s righe&#8230;</string>
-    <string name="logcat_notif_finished">%1$s righte salvate in %2$s</string> <!-- %2$s == file path -->
+    <string name="logcat_notif_finished">%1$s righe salvate in %2$s</string> <!-- %2$s == file path -->
     <string name="action_stop">Ferma</string>
     <string name="requesting_root">Chiedo permesso root&#8230;</string>
     <string name="root_failed">Impossibile ottenere il permesso READ_LOGS</string>
     <string name="permission_required">Permesso richiesto</string>
+    <string name="enable_install_source_title">Mostra sorgente installazione dell\'app</string>
     <string name="logs_permission_description">
         Nelle versioni di Android a partire da Jelly Bean le applicazioni non possono più leggere il logcat.
         Puoi comunque manualmente garantire il permesso READ_LOGS con l\'accesso root.
         Dopo ciò l\'app deve essere riavviata per poter applicare i nuovi permessi.
     </string>
      <!-- /UPDATE -->
- 
+     
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Scegli colorer</string>
+    <string name="press_color_to_apply">Premi sul colore per applicare</string>
+    <!-- /Color Picker -->
+    
+    <string name="header_clock_size_title">Grandezza orologio nell\'intestazione</string>
+    <string name="header_clock_size_normal">Normale</string>
+    <string name="header_clock_size_small">Piccolo</string>
+    <string name="header_clock_size_smaller">Più piccolo</string>
+    <string name="header_clock_size_tiny">Minuscolo</string>
 
 </resources>
