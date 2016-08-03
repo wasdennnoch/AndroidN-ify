@@ -86,6 +86,10 @@
     <string name="location_on_device">사용함 / 기기 전용</string>
     <string name="location_on_high">사용함 / 높은 정확성</string>
     <string name="print_summary">인쇄 작업 %1$d개</string>
+    <string name="store">Store</string>
+    <string name="app_details">App details</string>
+    <string name="install_source">App installed from %1$s</string>
+    <string name="from_pm">App installed from Package Installer</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -111,6 +115,10 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">퀵세팅 설정</string>
     <string name="enable_notification_header">헤더 스타일</string>
+    <string name="keep_bg_title">Unaltered backgrounds</string>
+    <string name="keep_bg">Useful for themes that apply custom backgrounds</string>
+    <string name="keep_header_bg">Header</string>
+    <string name="keep_panel_bg">QS Panel</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
     <string name="notification_header_qs_tiles_count_monitor">타일</string>
     <string name="battery_tile_show_percentage">배터리 타일에 퍼센트 표시</string>
@@ -148,6 +156,9 @@
     <string name="notification_blacklisted_apps">이 앱에 대해서는 기존의 알림 스타일을 사용합니다</string>
     <string name="notifications_custom_actions_color_title">커스텀 액션 배경 색상 사용</string>
     <string name="notifications_actions_color_title">액션 배경 색상</string>
+    <string name="notification_experimental_title">Experimental N notifications behavior</string>
+    <string name="notification_experimental">N scrolling behavior (no top stack) and notifications shadow</string>
+    <string name="notification_keyguard_max_title">Max notifications on keyguard</string>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -167,7 +178,9 @@
 
     <!-- EMERGENCY -->
     <string name="emergency_info">비상 정보</string>
+    <string name="emergency_info_launch_hint">한번 더 터치하면 열립니다</string>
     <string name="enable_emergency_info_title">비상 정보 활성화</string>
+    <string name="enable_emergency_info">비상 정보를 긴급 전화 다이얼에 추가합니다</string>
     <string name="edit_emergency_info_title">비상 정보 수정</string>
 
     <string name="header_personal">개인</string>
@@ -184,8 +197,8 @@
 
     <string name="info_unspecified">명시된 내용 없음</string>
 
-    <string name="info_bloodtype_op">0+</string>
-    <string name="info_bloodtype_on">0-</string>
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>
@@ -216,10 +229,10 @@
     <string name="live_display_outdoor">자동 야외 모드</string>
     <!-- /QS -->
 
-
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">색깔을 눌러 적용</string>
+    <string name="enable_install_source_title">Show app installation source</string>
     <!-- /Color Picker -->
 
 </resources>
