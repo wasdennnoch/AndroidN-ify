@@ -108,7 +108,7 @@
     <string name="enable_new_tile_click_behavior">התנהגות של נוגט בלחיצה על אריחים</string>
     <string name="enable_new_tile_click_behavior_summary">לחיצה על אריח בלוח ההתראות תאפשר או תכבה את ההגדרה, ולחיצה בלוח ההגדרות המהירות תפתח את תפריט האפשרויות</string>
     <string name="enable_large_first_row">הגדל שורה ראשונה</string>
-    <string name="enable_large_first_row_summary">משתמשים של סיאנוג'/נמוד צריכים לשנות את ההגדרה בתפריט המובנה במערכת, ולא הגדרה זו</string>
+    <string name="enable_large_first_row_summary">משתמשים של סיאנוג\'/נמוד צריכים לשנות את ההגדרה בתפריט המובנה במערכת, ולא הגדרה זו</string>
     <string name="fix_stuck_inversion_title">תיקון היפוך תקוע</string>
     <string name="fix_stuck_inversion">במכשירים מסוימים ההיפוך עלול להיתקע פעיל עם הפעלתו. הגדרה זו תכריח את ההיפוך להיכבות</string>
 
