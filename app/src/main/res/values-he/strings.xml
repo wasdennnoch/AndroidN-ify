@@ -161,7 +161,7 @@
     <string name="header_personal">אישי</string>
     <string name="info_fullname">שם מלא</string>
     <string name="info_address">כתובת</string>
-    <string name="info_birthdate"תאריך לידה</string>
+    <string name="info_birthdate">תאריך לידה</string>
 
     <string name="header_medical">רפואי</string>
     <string name="info_bloodtype">סוג דם</string>
