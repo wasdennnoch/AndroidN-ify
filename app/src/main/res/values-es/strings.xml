@@ -86,6 +86,10 @@
     <string name="location_on_device">Activada: Solo dispositivo</string>
     <string name="location_on_high">Activada: Máxima precisión</string>
     <string name="print_summary">%1$d trabajos de impresión</string>
+    <string name="store">Tienda</string>
+    <string name="app_details">Detalles de la aplicación</string>
+    <string name="install_source">Aplicación instalada desde %1$s</string>
+    <string name="from_pm">Aplicación instalada desde Instalador de Paquetes</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -111,6 +115,10 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Ajustes rápidos</string>
     <string name="enable_notification_header">Activar nueva barra de estado</string>
+    <string name="keep_bg_title">No cambiar fondos</string>
+    <string name="keep_bg">Útil para temas que usan fondos personalizados</string>
+    <string name="keep_header_bg">Encaberzado</string>
+    <string name="keep_panel_bg">Pabel de ajustes rápidos</string>
     <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
     <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
     <string name="battery_tile_show_percentage">Mostrar porcentaje de batería</string>
@@ -148,6 +156,9 @@
     <string name="notification_blacklisted_apps">Usar el estilo antigüo para estas aplicaciones</string>
     <string name="notifications_custom_actions_color_title">Usar color personalizado para fondo</string>
     <string name="notifications_actions_color_title">Color de fondo de acciones</string>
+    <string name="notification_experimental_title">Comportamiento de notificaciones de N experimental</string>
+    <string name="notification_experimental">Sombras y deslizamiento de Android N</string>
+    <string name="notification_keyguard_max_title">Máximas notificaciones en la pantalla de bloqueo</string>
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->
@@ -167,7 +178,9 @@
     
     <!-- EMERGENCY -->
     <string name="emergency_info">Información de emergencia</string>
+    <string name="emergency_info_launch_hint">Toca de nuevo para abrir</string>
     <string name="enable_emergency_info_title">Activar info. de emergencia</string>
+    <string name="enable_emergency_info">Añade información de emergencia a la pantalla de llamada de emergencia</string>
     <string name="edit_emergency_info_title">Editar info. de emergencia</string>
 
     <string name="header_personal">Personal</string>
@@ -219,6 +232,7 @@
     <!-- Color Picker -->
     <string name="dialog_color_picker">Selector de color</string>
     <string name="press_color_to_apply">Pulsa en el color para aplicar</string>
+    <string name="enable_install_source_title">Mostrar fuente de instalación</string>
     <!-- /Color Picker -->
     
 </resources>
