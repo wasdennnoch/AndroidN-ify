@@ -8,10 +8,23 @@
     <string name="restart_broadcast_sent">Demande de redémarrage envoyée</string>
     <string name="activity_about">À propos d\'Android N-ify</string>
 	<string name="about_author">Developpé par @MrWasdennnoch</string>
-    <string name="about_translator">Traduit par cab13140, dekefake, prisciou et Toumz42</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_translator">Traduit par cab13140, dekefake, prisciou, Toumz42 et Riichard63</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">Version %1$s (%2$d)</string>
 
     <!-- prefs -->
+<string name="prefs_not_readable"><![CDATA[<b>Attention:</b> Le fichier de préférences n\'est pas lisible par Xposed. Appuyez pour plus d\'info&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed ne peut pas lire le fichier de préférences de ce module, Les valeurs par défaut seront utilisées.
+        Il existe plusieurs méthodes pour corriger ce problème. Veuillez noter que cette erreur s\'affiche si vous n\'avez jamais
+        ouvert l\'application avant.<br><br>
+        Premièrement, redémarrez le périphérique (Pas de redémarrage doux!).<br>
+        Si celà n\'aide pas, tentez de re-installer le module.<br>
+        Si chacun des essai échoue, assurez vous que le mode SELinux est paramétré sur <i>permissive</i>.
+        Un SELinux <i>Application</i> peut bloquer l\'accès au fichier de préférences. Afin de changer le mode,
+        utilisez l\'application <tt>SELinuxModeChanger</tt> que vous pouvez télécharger
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">dans ce thread XDA</a>.<br>
+        Si celà échoue, vous devrez probablement vivre avec les valeurs par défaut, désolé :(
+        ]]></string>
 
     <string name="header_tweaks">Réglages</string>
     <string name="header_app">App</string>
@@ -21,6 +34,21 @@
     <string name="hide_launcher_icon">Peut nécessiter un redémarrage du lanceur</string>
     <string name="debug_log_title">Log de Débogage</string>
     <string name="debug_log">Attention : Beaucoup de Log</string>
+    <string name="logcat_notif_ongoing_title">Enregistrer logcat&#8230;</string>
+    <string name="logcat_notif_finished_title">Logcat enregistré</string>
+    <string name="logcat_notif_preparing">Préparation&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">%1$s lignes enregistrées&#8230;</string>
+    <string name="logcat_notif_finished">%1$s lignes enregistrées sous %2$s</string> <!-- %2$s == file path -->
+    <string name="action_stop">Stop</string>
+    
+    <string name="requesting_root">Requète de l\'accès root&#8230;</string>
+    <string name="root_failed">Echec de l\'obtention de la permission READ_LOGS</string>
+    <string name="permission_required">Permission requise</string>
+    <string name="logs_permission_description">
+        Depuis Jelly Bean les applications n\'ont pas l\'autorisation de lire le logcat en entier.
+        Vous pouvez malgré tout accorder manuellement la permission READ_LOGS avec l\'accès root.
+        Après ça l\'appli doit être relancée afin d\'appliquer cette nouvelle permission.
+    </string>
 
     <string name="requires_android_version">Nécessite Android %1$s</string>
     <string name="not_activated">Module désactivé</string>
@@ -37,6 +65,7 @@
     <string name="fix_sound_notif_tile_title">Correction "Son &amp; notifications" </string>
     <string name="fix_sound_notif_tile">Certaines ROMs combine les Sons et Notifications. Activer pour afficher le bon résumé</string>
     <string name="enable_n_platlogo_title">Logo N dans easter egg</string>
+    <string name="use_namey_mcnameface_title">utiliser \"Namey McNameface\" icon</string>
 
     <string name="disconnected">Déconnecté</string>
     <string name="disabled">Désactivé</string>
@@ -57,12 +86,18 @@
     <string name="location_on_device">Activée / Appareil uniquement</string>
     <string name="location_on_high">Activée / Haute précision</string>
     <string name="print_summary">%1$d impressions</string>
+    <string name="store">Store</string>
+    <string name="app_details">Détails de l\'appli</string>
+    <string name="install_source">Appli installée depuis %1$s</string>
+    <string name="from_pm">Appli installée depuis le Package Installer</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
     <string name="header_recents">Applications Récentes</string>
-	<string name="enable_recents_double_tap_title">Changer d\'app par double-tap</string>
+    <string name="enable_recents_double_tap_title">Changer d\'app par double-tap</string>
     <string name="enable_recents_double_tap">Double-tap sur la touche récents pour passer à la dernière app utilisée</string>
+    <string name="alternative_double_tap_title">Détection alternative de double-tap</string>
+    <string name="alternative_double_tap">Activez si Quick switch ne fonctionne pas correctement</string>
     <string name="double_tap_speed_title">Vitesse de double-tap</string>
     <string name="recents_button_behavior_title">Comportement à l\'appui du bouton récent</string>
     <string name="recents_navigation_delay_title">Délai de navigation</string>
@@ -76,25 +111,40 @@
     <string name="recents_button_behavior_current">Retourner à l\'application actuelle</string>
     <string name="recents_button_behavior_cycle">Tourner dans les applis</string>
     <!-- /RECENTS -->
-
-    <!-- STATUS BAR HEADER -->
-    <string name="enable_notification_header">Style entête</string>
+    
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Paramètres rapides</string>
+    <string name="enable_notification_header">Style en-tête</string>
+    <string name="keep_bg_title">Arrière plan non altéré</string>
+    <string name="keep_bg">Utile pour les thèmes qui appliquent un arrière plan custom</string>
+    <string name="keep_header_bg">En-tête</string>
+    <string name="keep_panel_bg">Panneau QS</string>
     <string name="notification_header_qs_tiles_count">Tuiles QS à afficher</string>
     <string name="notification_header_qs_tiles_count_monitor">tuiles</string>
-    <string name="battery_tile_show_percentage">Afficher le pourcentage dans la tuile batterie</string>
-    <string name="enable_qs_editor">Activer éditeur QS</string>
-    <string name="allow_fancy_qs_transition">Transition QS améliorée</string>
-    <string name="enable_new_tile_click_behavior">Comportement d\'Android N à l\'appui.</string>
-    <string name="enable_new_tile_click_behavior_summary">Un clic sur une tuile de l\'entête la basculeras et un appui sur une tuile du panneau ouvrira directement ses paramètres</string>
-    <string name="enable_large_first_row">Aggrandir la première rangée</string>
-    <string name="enable_large_first_row_summary">Sur CM utilisez à la place le menu de configuration du mode d\'édition</string>
+    <string name="battery_tile_show_percentage">Afficher le pourcentage dans la tuile de batterie</string>
+    <string name="battery_tile_show_percentage_summary">Affiche le pourcentage dans la tuile de batterie</string>
+    <string name="enable_qs_editor">Activer l\'éditeur QS</string>
+    <string name="allow_fancy_qs_transition">Transitions QS améliorées</string>
+    <string name="enable_new_tile_click_behavior">Comportement d\'Android N à l\'appui</string>
+    <string name="enable_new_tile_click_behavior_summary">Appuyer sur une tuile dans l\'en-tête va l\'activer et appuyer sur une tuile dans le panneau va l\'étendre</string>
+    <string name="enable_large_first_row">Elargir première ligne</string>
+    <string name="enable_large_first_row_summary">Sur CM utilise le menu de configuration de l\'édition des tuiles</string>
+    <string name="fix_stuck_inversion_title">Corriger le blocage d\'inversion</string>
+    <string name="fix_stuck_inversion">Sur certains périphériques l\'inversion se bloque lorsqu\'elle est activée. Appuyez pour forcer la désactivation</string>
+
+    <string name="header_clock_size_title">Taille de l\'horloge d\'en-tête</string>
+    <string name="header_clock_size_normal">Normale</string>
+    <string name="header_clock_size_small">Petite</string>
+    <string name="header_clock_size_smaller">Plus petite</string>
+    <string name="header_clock_size_tiny">Minime</string>
     <!-- Hide header icons -->
-    <string name="hide_icons_title">Cacher les éléments d\'entête</string>
-    <string name="hide_tuner_icon_title">Cacher l\'icone de SystemUI Tuner</string>
+    <string name="hide_icons_title">Cacher les éléments d\'en-tête</string>
+    <string name="hide_tuner_icon_title">Cacher l\'icone de  SystemUI Tuner</string>
     <string name="hide_edit_tiles_title">Cacher le bouton d\'édition des tuiles</string>
-	<string name="hide_carrier_label_title">Cacher nom du réseau</string>
+    <string name="hide_edit_tiles_summary">Ceci ne cache que le bouton d\'origine!</string>
+    <string name="hide_carrier_label_title">Cacher le label opérateur</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 	
 	<!-- NOTIFICATIONS -->
     <string name="header_notifications">Notifications</string>
@@ -106,6 +156,9 @@
     <string name="notification_blacklisted_apps">Utilisation de l\'ancien style de notifications pour ces applis.</string>
     <string name="notifications_custom_actions_color_title">Utiliser une couleur personnalisée pour le fond des actions</string>
     <string name="notifications_actions_color_title">Couleur fond des actions</string>
+    <string name="notification_experimental_title">Comportement des notifications N expérimental</string>
+    <string name="notification_experimental">Comportement de déroulement N et ombres de notification</string>
+    <string name="notification_keyguard_max_title">Notifications max sur vérouillage</string>
     <!-- /NOTIFICATIONS -->
 	
     <!-- UPDATE -->
@@ -125,7 +178,9 @@
 	
     <!-- EMERGENCY -->
     <string name="emergency_info">Informations d\'urgence</string>
+    <string name="emergency_info_launch_hint">Appuyez encore pour ouvrir</string>
     <string name="enable_emergency_info_title">Activer informations d\'urgence</string>
+    <string name="enable_emergency_info">Ajoute un buton d\'info d\'urgence dans le dialer d\'urgence</string>
     <string name="edit_emergency_info_title">Editer informations d\'urgence</string>
 
     <string name="header_personal">Personnel</string>
@@ -141,6 +196,15 @@
     <string name="info_organdonor">Donneur d\'organes</string>
 
     <string name="info_unspecified">Non spécifié</string>
+    
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
 	<!-- /EMERGENCY -->
 	
     <string name="yes">Oui</string>
@@ -155,5 +219,20 @@
     <!-- QS -->
     <string name="qs_edit">Editer</string>
     <string name="qs_edit_detail">Editer les tuiles</string>
+    <string name="drag_to_add_tiles">Déposez pour ajouter des tuiles</string>
+    <string name="drag_to_remove_tiles">Déposez ici pour supprimer</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automatique</string>
+    <string name="live_display_off">Off</string>
+    <string name="live_display_day">Jour</string>
+    <string name="live_display_night">Nuit</string>
+    <string name="live_display_outdoor">Exterieur (soleil brillant)</string>
     <!-- /QS -->
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Sélection de couleur</string>
+    <string name="press_color_to_apply">Appuyez sur une couleur pour appliquer</string>
+    <string name="enable_install_source_title">Afficher les sources d\'installation de l\'appli</string>
+    <!-- /Color Picker -->
+
 </resources>
