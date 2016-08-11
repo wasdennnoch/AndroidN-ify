@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="xposed_description">Користите функције Андроида Н на Лолипоп и Маршмелоу уређајима!</string>
+
+    <string name="restart_systemui">Поново покрени системски УИ</string>
+    <string name="restart_systemui_message">Желите ли заиста поново да покренете системски УИ?</string>
+    <string name="restart_broadcast_sent">Послата наредба за рестарт</string>
+    <string name="activity_about">О Андроид Н-у</string>
+    <string name="about_author">Програмер: @MrWasdennnoch</string>
+    <string name="about_translator">Превео: Младен Пејаковић</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_version">Издање %1$s (%2$d)</string>
+
+    <!-- prefs -->
+    <string name="prefs_not_readable"><![CDATA[<b>Упозорење:</b> Фајл поставки није читљив за Xposed. Тапните за више информација&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed не може да прочита фајл поставки за овај модул, биће коришћене подразумеване вредности у кукама.
+        Неколико је начина да се ово поправи. Такође имајте на уму да се ова грешка појављује ако никад пре нисте 
+        отварали апликацију.<br><br>
+        Најпре, поново покрените уређај (не софтверски!).<br>
+        Ако то не помогне, поново инсталирајте модул.<br>
+        Ако ни то не успе, проверите да ли је ваш SELinux режим постављен на <i>permissive</i>.
+        <i>Enforcing</i> SELinux може да блокира приступ фајлу поставки. Да промените режим,
+        користите апликацију <tt>SELinuxModeChanger</tt> коју можете да преузмете
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">са ове XDA теме</a>.<br>
+        Ако чак ни то не успе, нажалост, мораћете да живите са подразумеваним вредностима. :(
+        ]]></string>
+
+    <string name="header_tweaks">Штимања</string>
+    <string name="header_app">Апликација</string>
+
+    <string name="app_dark_theme_title">Тамна тема</string>
+    <string name="hide_launcher_icon_title">Сакриј икону покретача</string>
+    <string name="hide_launcher_icon">Можда ће бити потребан рестарт покретача</string>
+    <string name="debug_log_title">Евиденција грешака</string>
+    <string name="debug_log">Упозорење: преплављује записе</string>
+    <string name="logcat_notif_ongoing_title">Уписујем логкат&#8230;</string>
+    <string name="logcat_notif_finished_title">Логкат сачуван</string>
+    <string name="logcat_notif_preparing">Припремам&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">Сачувано %1$s редова&#8230;</string>
+    <string name="logcat_notif_finished">%1$s редова сачувано у %2$s</string> <!-- %2$s == file path -->
+    <string name="action_stop">Заустави</string>
+
+    <string name="requesting_root">Захтевам корени приступ&#8230;</string>
+    <string name="root_failed">Неуспех добијања READ_LOGS дозволе</string>
+    <string name="permission_required">Захтевана је дозвола</string>
+    <string name="logs_permission_description">
+        Од Џелибин издања Андроида апликацијама више није дозвољено да читају логкат.
+        Међутим, можете ручно да одобрите READ_LOGS дозволу уз помоћ кореног приступа.
+        Након тога, апликацију је потребно поново покренути да бисте применили новоодобрену дозволу.
+    </string>
+
+    <string name="requires_android_version">Захтева Андроид %1$s</string>
+    <string name="not_activated">Модул није активиран</string>
+
+    <string name="theme_colorPrimary">Примарна боја</string>
+
+    <string name="header_lockscreen">Закључан екран</string>
+    <!-- /prefs -->
+
+    <!-- SETTINGS -->
+    <string name="header_settings">Поставке</string>
+    <string name="enable_settings_summaries_title">Кратки прегледи поставки</string>
+    <string name="enable_settings_summaries">Приказ најважнијих података директно на екрану поставки</string>
+    <string name="fix_sound_notif_tile_title">Поправи плочицу „Звуци и обавештења“</string>
+    <string name="fix_sound_notif_tile">Неки РОМови комбинују плочице за звук и обавештења. Укључите ово да бисте имали тачне прегледе за ове плочице</string>
+    <string name="enable_n_platlogo_title">Н лого у ускршњем јајету</string>
+    <string name="use_namey_mcnameface_title">Користи „Namey McNameface“ икону</string>
+
+    <string name="disconnected">Неповезан</string>
+    <string name="disabled">Искључено</string>
+    <string name="off">ИСК</string>
+    <string name="on">УКЉ</string>
+    <string name="data_usage_summary">Коришћено %1$s података</string>
+    <string name="display_summary">Прилагодљива осветљеност је %1$s</string>
+    <string name="sound_summary">Јачина звука звона на %1$s</string>
+    <string name="apps_summary">%1$d апликација инсталирано</string>
+    <string name="storage_summary">%1$s од %2$s искоришћено</string>
+    <string name="battery_summary">%1$s — прибл. %2$s преостало</string>
+    <string name="battery_charging_wireless">%1$s — бежично пуњење</string>
+    <string name="battery_charging_usb">%1$s — пуњење на УСБ</string>
+    <string name="battery_charging_ac">%1$s — пуњење на кабал</string>
+    <string name="memory_summary">Тренутно %1$s од %2$s меморије искоришћено</string>
+    <string name="user_summary">Пријављен као %1$s</string>
+    <string name="location_on_power">УКЉ / уштеда батерије</string>
+    <string name="location_on_device">УКЉ / само уређај</string>
+    <string name="location_on_high">УКЉ / велика прецизност</string>
+    <string name="print_summary">%1$d послова штампања</string>
+    <string name="store">Продавница</string>
+    <string name="app_details">Детаљи апликације</string>
+    <string name="install_source">Апликација инсталирана са %1$s</string>
+    <string name="from_pm">Апликација инсталирана Инсталатером пакета</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="header_recents">Недавне</string>
+    <string name="enable_recents_double_tap_title">Брзи прекидач</string> <!-- That's how Google calls it -->
+    <string name="enable_recents_double_tap">Двотап на тастер недавних пребацује последње коришћену апликацију</string>
+    <string name="alternative_double_tap_title">Алтернативно откривање двотапа</string>
+    <string name="alternative_double_tap">Укључите ако Брзи прекидач не ради исправно</string>
+    <string name="double_tap_speed_title">Брзина двотапа</string>
+    <string name="recents_button_behavior_title">Понашање тастера за недавне по тапу</string>
+    <string name="recents_navigation_delay_title">Застој у навигацији</string>
+    <string name="recents_navigation_delay">Време до фокусирања изабране апликације</string>
+    <string name="enable_large_recents">Велике недавне апликације</string>
+    <string name="no_recents_image">Промени слику „нема недавних“</string>
+
+    <string name="no_previous_recents">Нема недавних ставки</string>
+
+    <string name="recents_button_behavior_previous">Врати на претходну апликацију</string>
+    <string name="recents_button_behavior_current">Врати на текућу апликацију</string>
+    <string name="recents_button_behavior_cycle">Кружи кроз апликације</string>
+    <!-- /RECENTS -->
+
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Брзе пречице</string>
+    <string name="enable_notification_header">Уобличи заглавље</string>
+    <string name="keep_bg_title">Неизмењене позадине</string>
+    <string name="keep_bg">Корисно за теме које примењују посебне позадине</string>
+    <string name="keep_header_bg">Заглавље</string>
+    <string name="keep_panel_bg">Панел брзих пречица</string>
+    <string name="notification_header_qs_tiles_count">Број плочица за приказ</string>
+    <string name="notification_header_qs_tiles_count_monitor">плочица</string>
+    <string name="battery_tile_show_percentage">Постотак на плочици батерије</string>
+    <string name="battery_tile_show_percentage_summary">Приказ постотка на плочици батерије</string>
+    <string name="enable_qs_editor">Уређивач брзих поставки</string>
+    <string name="allow_fancy_qs_transition">Китњасти прелази</string>
+    <string name="enable_new_tile_click_behavior">Понашање плочица у стилу Андроида Н</string>
+    <string name="enable_new_tile_click_behavior_summary">Тап на плочицу у заглављу мења вредност а тап на плочицу на панелу је проширује</string>
+    <string name="enable_large_first_row">Увећај први ред</string>
+    <string name="enable_large_first_row_summary">На ЦМ-у користите мени подешавања режима измене плочица</string>
+    <string name="fix_stuck_inversion_title">Поправи заглављену инверзију</string>
+    <string name="fix_stuck_inversion">Не неким уређајима инверзија боја заблокира. Тапните овде за деактивацију</string>
+
+    <string name="header_clock_size_title">Величина сата заглавља</string>
+    <string name="header_clock_size_normal">Нормалан</string>
+    <string name="header_clock_size_small">Мали</string>
+    <string name="header_clock_size_smaller">Мањи</string>
+    <string name="header_clock_size_tiny">Сићушан</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Сакриј ставке заглавља</string>
+    <string name="hide_tuner_icon_title">Сакриј икону штимера системског УИ-ја</string>
+    <string name="hide_edit_tiles_title">Сакриј дугме уређивача плочица</string>
+    <string name="hide_edit_tiles_summary">Ово сакрива само уграђену икону уређивача!</string>
+    <string name="hide_carrier_label_title">Сакриј етикету провајдера</string>
+    <!-- /Hide header icons -->
+    <!-- /QUICK SETTINGS -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Обавештења</string>
+    <string name="notifications_change_style">Уобличи обавештења</string>
+    <string name="notification_dismiss_button_title">Промени дугме отпуштања</string>
+    <string name="notification_dismiss_button">Прикажи „ОБРИШИ СВЕ“ уместо иконе отпуштања</string>
+    <string name="action_search">Тражи</string>
+    <string name="notification_blacklisted_apps_title">Црна листа апликација</string>
+    <string name="notification_blacklisted_apps">Стари стил обавештења за ове апликације</string>
+    <string name="notifications_custom_actions_color_title">Прилагођена боја позадине за радње</string>
+    <string name="notifications_actions_color_title">Боја позадине за радње</string>
+    <string name="notification_experimental_title">Експериментално Н-понашање обавештења</string>
+    <string name="notification_experimental">Н-понашање клизања (без слагања на врху) и сенка обавештења</string>
+    <string name="notification_keyguard_max_title">Највише обавештења на закључаном екрану</string>
+    <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">Доступна надоградња</string>
+    <string name="update_notification">Издање %1$d је доступно!</string>
+    <string name="update_notification_download">Надогради</string>
+    <string name="check_for_updates_title">Потрага надоградњи</string>
+    <string name="check_for_updates">Потражи надоградње по покретању апликације</string>
+    <string name="checking_for_update">Тражим надоградње…</string>
+    <string name="check_for_update_fail">Нисам могао да потражим надоградње</string>
+    <string name="no_updates">Нема новијих издања</string>
+    <string name="update_notification_downloading">Преузимам надоградњу</string>
+    <string name="update_notification_downloading_details">Преузимам издање %1$d</string>
+    <string name="update_notification_download_fail">Преузимање није успело</string>
+    <string name="update_notification_download_fail_details">Неуспех преузимања издања %1$d</string>
+    <!-- /UPDATE -->
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Подаци за случај нужде</string>
+    <string name="emergency_info_launch_hint">Тапните поново да отворите</string>
+    <string name="enable_emergency_info_title">Омогући податке</string>
+    <string name="enable_emergency_info">Додавање података за случај нужде на бројчаник за хитни позив</string>
+    <string name="edit_emergency_info_title">Уреди податке</string>
+
+    <string name="header_personal">Лично</string>
+    <string name="info_fullname">Пуно име</string>
+    <string name="info_address">Адреса</string>
+    <string name="info_birthdate">Датум рођења</string>
+
+    <string name="header_medical">Медицински</string>
+    <string name="info_bloodtype">Крвна група</string>
+    <string name="info_allergies">Алергије</string>
+    <string name="info_medications">Лекови</string>
+    <string name="info_medicalnotes">Здравствена стања и белешке</string>
+    <string name="info_organdonor">Донор органа</string>
+
+    <string name="info_unspecified">Није наведено</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Да</string>
+    <string name="no">Не</string>
+
+    <!-- BATTERY -->
+    <string name="battery">Батерија</string>
+    <string name="charged">Напуњена</string>
+    <string name="charging">Пуњење, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Уреди</string>
+    <string name="qs_edit_detail">Уреди плочице</string>
+    <string name="drag_to_add_tiles">Превуците да додате плочице</string>
+    <string name="drag_to_remove_tiles">Превуците овде да уклоните</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Аутоматски</string>
+    <string name="live_display_off">Искљ</string>
+    <string name="live_display_day">Дан</string>
+    <string name="live_display_night">Ноћ</string>
+    <string name="live_display_outdoor">Вани (јарко сунце)</string>
+    <!-- /QS -->
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Бирач боја</string>
+    <string name="press_color_to_apply">Тапните на боју да је примените</string>
+    <string name="enable_install_source_title">Прикажи извор инсталације апликације</string>
+    <!-- /Color Picker -->
+
+</resources>
