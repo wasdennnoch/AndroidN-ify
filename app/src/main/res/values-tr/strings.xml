@@ -115,6 +115,10 @@
     <!-- QUICK SETTINGS -->
     <string name="header_qs">Hızlı Ayarlar</string>
     <string name="enable_notification_header">Başlık stili</string>
+    <string name="keep_bg_title">Değiştirilmemiş arka plan</string>
+    <string name="keep_bg">Özel arka planlara uygulanan temalar için faydalı</string>
+    <string name="keep_header_bg">Başlık</string>
+    <string name="keep_panel_bg">Hızlı Ayarlar Paneli</string>
     <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
     <string name="notification_header_qs_tiles_count_monitor">kareler</string>
     <string name="battery_tile_show_percentage">Pil yüzde skalasını göster</string>
@@ -174,7 +178,9 @@
 
     <!-- EMERGENCY -->
     <string name="emergency_info">Acil Durum Bilgisi</string>
+    <string name="emergency_info_launch_hint">Açmak için tekrar dokunun</string>
     <string name="enable_emergency_info_title">Acil durum bilgisini etkinleştirme</string>
+    <string name="enable_emergency_info">Acil arama ekranına Acil durum bilgisi tuşunu ekler</string>
     <string name="edit_emergency_info_title">Acil durum bilgisini düzenle</string>
 
     <string name="header_personal">Kişisel</string>
