@@ -382,6 +382,16 @@ public class StatusBarHeaderHooks {
                     mTaskManagerButton.setLayoutParams(taskManagerButtonLp);
                 }
 
+                try { // OOS (and maybe more in the future)
+                    XposedHelpers.findMethodBestMatch(mStatusBarHeaderView.getClass(), "startDateActivity");
+                    if (mStatusBarHeaderView instanceof View.OnClickListener) {
+                        View.OnClickListener l = (View.OnClickListener) mStatusBarHeaderView;
+                        mDateCollapsed.setOnClickListener(l);
+                        mDateExpanded.setOnClickListener(l);
+                    }
+                } catch (Throwable ignore) {
+                }
+
 
                 if (mCarrierText != null)
                     mLeftContainer.addView(mCarrierText);
@@ -928,9 +938,15 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onClick", View.class, new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        if (param.args[0] == mClock) {
+                        Object v = param.args[0];
+                        if (v == mClock) {
                             try {
                                 XposedHelpers.callMethod(param.thisObject, "startClockActivity");
+                            } catch (Throwable ignore) {
+                            }
+                        } else if (v == mDateCollapsed || v == mDateExpanded) {
+                            try {
+                                XposedHelpers.callMethod(param.thisObject, "startDateActivity");
                             } catch (Throwable ignore) {
                             }
                         }
