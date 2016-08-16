@@ -353,7 +353,7 @@ public class QSTileHostHooks {
                 "ime_selector", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenshot", "expanded_desktop",
                 "reboot", "configurations", "navbar", "appcirclebar", "kernel_adiutor", "screenrecord", "gesture_anywhere",
                 "power_menu", "app_picker", "kill_app", "hw_keys", "sound", "pulse", "pie", "float_mode", "nightmode", "immersive",
-                "floating", "halo"};
+                "floating", "halo", "stamina"};
         for (String s : possibleSpecs) {
             if (bruteForceSpec(s)) specs.add(s);
         }
