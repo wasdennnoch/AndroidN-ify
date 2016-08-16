@@ -15,8 +15,8 @@ public class BluetoothTileHook extends QSTileHook {
 
     private Object mController;
 
-    public BluetoothTileHook(Class classQSTile, ClassLoader classLoader, boolean firstRowSmall) {
-        super(classQSTile, classLoader, CLASS_BLUETOOTH_TILE);
+    public BluetoothTileHook(ClassLoader classLoader, boolean firstRowSmall) {
+        super(classLoader, CLASS_BLUETOOTH_TILE);
         if (firstRowSmall) setDualTargets();
     }
 

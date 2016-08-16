@@ -10,28 +10,27 @@ import de.robv.android.xposed.XposedHelpers;
 
 public abstract class QSTileHook {
 
-    private String mClassName;
+    private QSTileHook mHook;
     protected Class<?> mTileClass;
     protected Context mContext;
     protected Object mThisObject;
 
-    public QSTileHook(Class classQSTile, ClassLoader classLoader, String className) {
-        mClassName = className;
+    public QSTileHook(ClassLoader classLoader, String className) {
+        mHook = this;
         mTileClass = XposedHelpers.findClass(className, classLoader);
         XposedBridge.hookAllConstructors(mTileClass, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 mThisObject = param.thisObject;
                 mContext = (Context) getObjectField("mContext");
-                XposedHelpers.setAdditionalInstanceField(mThisObject, "hookedClass", mClassName);
+                XposedHelpers.setAdditionalInstanceField(mThisObject, "hookingClass", mHook.getClass().getSimpleName());
                 afterConstructor(param);
             }
         });
         XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleClickHook);
         try {
             XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
-        } catch (Throwable t) {
-            XposedHelpers.findAndHookMethod(classQSTile, "handleLongClick", handleLongClickHook2);
+        } catch (Throwable ignore) {
         }
     }
 
@@ -73,7 +72,6 @@ public abstract class QSTileHook {
         return XposedHelpers.getObjectField(mThisObject, name);
     }
 
-
     protected XC_MethodHook handleClickHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
@@ -90,15 +88,13 @@ public abstract class QSTileHook {
         }
     };
 
-    protected XC_MethodHook handleLongClickHook2 = new XC_MethodHook() {
-        @Override
-        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            String clazz = (String) XposedHelpers.getAdditionalInstanceField(mThisObject, "hookedClass");
-            if (clazz != null && clazz.equals(mClassName)) {
-                param.setResult(null);
-                handleLongClick();
-            }
+    public boolean maybeHandle(Object tile) {
+        String clazz = (String) XposedHelpers.getAdditionalInstanceField(tile, "hookingClass");
+        if (clazz != null && clazz.equals(getClass().getSimpleName())) {
+            handleLongClick();
+            return true;
         }
-    };
+        return false;
+    }
 
 }

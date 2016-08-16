@@ -16,8 +16,8 @@ public class WifiTileHook extends QSTileHook {
     private Object mController;
     private Object mWifiController;
 
-    public WifiTileHook(Class classQSTile, ClassLoader classLoader, boolean firstRowSmall) {
-        super(classQSTile, classLoader, CLASS_WIFI_TILE);
+    public WifiTileHook(ClassLoader classLoader, boolean firstRowSmall) {
+        super(classLoader, CLASS_WIFI_TILE);
         if (firstRowSmall) setDualTargets();
     }
 

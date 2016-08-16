@@ -14,8 +14,8 @@ public class CellularTileHook extends QSTileHook {
 
     private Object mDataController;
 
-    public CellularTileHook(Class classQSTile, ClassLoader classLoader) {
-        super(classQSTile, classLoader, CLASS_CELLULAR_TILE);
+    public CellularTileHook(ClassLoader classLoader) {
+        super(classLoader, CLASS_CELLULAR_TILE);
     }
 
     @Override
