@@ -46,11 +46,12 @@ public class QSTileHostHooks {
 
     // MM
     private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
-        
+
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass())) return;
+            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass()))
+                return;
 
             if (mTileHost == null)
                 mTileHost = param.thisObject;
@@ -62,7 +63,13 @@ public class QSTileHostHooks {
 
             Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
 
-            List<String> tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
+            List<String> tileSpecs;
+            try {
+                tileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
+            } catch (Throwable t) { // PA
+                Object tileSpecsWrapper = XposedHelpers.callMethod(param.thisObject, "loadTileSpecs");
+                tileSpecs = (List<String>) XposedHelpers.getObjectField(tileSpecsWrapper, "list");
+            }
             List<String> newTileSpecs = getTileSpecs(context);
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
             Map<String, Object> newTiles = new LinkedHashMap<>();
@@ -106,22 +113,13 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass())) return;
+            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass()))
+                return;
             // Thanks to GravityBox for this
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
             mTileSpecs = new ArrayList<>(); // Do this since mTileSpecs doesn't exist on LP
-
-            if (mTilesManager != null) {
-                Map<String, Object> tileMap = (Map<String, Object>)
-                        XposedHelpers.getObjectField(param.thisObject, "mTiles");
-                for (Entry<String, Object> entry : tileMap.entrySet()) {
-                    XposedHelpers.callMethod(entry.getValue(), "handleDestroy");
-                }
-                tileMap.clear();
-                mTileSpecs.clear();
-            }
 
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
             for (Entry<String, Object> entry : tileMap.entrySet()) {
@@ -134,7 +132,8 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass())) return;
+            if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass()))
+                return;
             if (mTilesManager == null)
                 mTilesManager = new TilesManager(param.thisObject);
 
@@ -162,7 +161,12 @@ public class QSTileHostHooks {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            List<String> tiles = (List<String>) param.getResult();
+            List<String> tiles;
+            try {
+                tiles = (List<String>) param.getResult();
+            } catch (ClassCastException e) { // PA
+                tiles = (List<String>) XposedHelpers.getObjectField(param.getResult(), "list");
+            }
             if (tiles.contains("edit")) {
                 tiles.remove("edit");
             }
@@ -183,6 +187,7 @@ public class QSTileHostHooks {
             } else {
                 tile = XposedHelpers.callMethod(tileHost, "createTile", tileSpec);
             }
+            if (tile == null) return null;
             XposedHelpers.setAdditionalInstanceField(tile, TILE_SPEC_NAME, tileSpec);
             return tile;
         } catch (Throwable t) {
@@ -226,7 +231,8 @@ public class QSTileHostHooks {
                 XposedHelpers.findAndHookMethod(classTileHost, "createTile", String.class, new XC_MethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass())) return;
+                        if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass()))
+                            return;
                         if (mTilesManager == null)
                             mTilesManager = new TilesManager(param.thisObject);
                         String tileSpec = (String) param.args[0];
@@ -341,12 +347,13 @@ public class QSTileHostHooks {
     private static List<String> bruteForceSpecs() {
         XposedHook.logI(TAG, "Brute forcing tile specs!");
         List<String> specs = new ArrayList<>();
-        String[] possibleSpecs = new String[]{"cell1", "cell2", "notifications", "data", "roaming", "dds", "apn", "profiles", "performance",
-                "adb_network", "nfc", "compass", "lockscreen", "lte", "volume_panel", "screen_timeout",
+        String[] possibleSpecs = new String[]{"cell1", "cell2", "notifications", "data", "roaming", "dds", "apn", "profiles",
+                "performance", "adb_network", "nfc", "compass", "lockscreen", "lte", "volume_panel", "screen_timeout",
                 "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine", "music", "next_alarm",
                 "ime_selector", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenshot", "expanded_desktop",
                 "reboot", "configurations", "navbar", "appcirclebar", "kernel_adiutor", "screenrecord", "gesture_anywhere",
-                "power_menu", "app_picker", "kill_app", "hw_keys", "sound", "pulse", "pie", "float_mode", "nightmode"};
+                "power_menu", "app_picker", "kill_app", "hw_keys", "sound", "pulse", "pie", "float_mode", "nightmode", "immersive",
+                "floating", "halo"};
         for (String s : possibleSpecs) {
             if (bruteForceSpec(s)) specs.add(s);
         }

@@ -3,12 +3,14 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.content.Context;
 import android.view.View;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -37,7 +39,8 @@ public class TilesManager {
     }
 
     public static int getLabelResource(String spec) throws Exception {
-        if (!mCustomTileSpecs.contains(spec)) throw new Exception("Saved custom tile specs don't contain the spec '" + spec + "'!");
+        if (!mCustomTileSpecs.contains(spec))
+            throw new Exception("Saved custom tile specs don't contain the spec '" + spec + "'!");
         switch (spec) {
             case BatteryTile.TILE_SPEC:
                 return R.string.battery;
@@ -122,12 +125,13 @@ public class TilesManager {
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                             mCreateTileViewTileKey = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME);
                         }
+
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                             if (mCreateTileViewTileKey == null) return;
                             final QSTile tile = mTiles.get(mCreateTileViewTileKey);
                             if (tile != null)
-                                tile.onCreateTileView((View)param.getResult());
+                                tile.onCreateTileView((View) param.getResult());
                             mCreateTileViewTileKey = null;
                         }
                     });
@@ -157,8 +161,13 @@ public class TilesManager {
                         }
                     });
 
-            XposedHelpers.findAndHookMethod(hookClass, "handleClick",
-                    new XC_MethodHook() {
+            Method clickMethod;
+            try {
+                clickMethod = XposedHelpers.findMethodExact(hookClass, "handleClick");
+            } catch (Throwable t) { // PA
+                clickMethod = XposedHelpers.findMethodExact(hookClass, "handleToggleClick");
+            }
+            XposedBridge.hookMethod(clickMethod, new XC_MethodHook() {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -170,8 +179,13 @@ public class TilesManager {
                         }
                     });
 
-            XposedHelpers.findAndHookMethod(hookClass, "handleLongClick",
-                    new XC_MethodHook() {
+            Method longClickMethod;
+            try {
+                longClickMethod = XposedHelpers.findMethodExact(hookClass, "handleLongClick");
+            } catch (Throwable t) { // PA
+                longClickMethod = XposedHelpers.findMethodExact(hookClass, "handleDetailClick");
+            }
+            XposedBridge.hookMethod(longClickMethod, new XC_MethodHook() {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {

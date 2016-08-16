@@ -550,7 +550,8 @@ public class StatusBarHeaderHooks {
                 return; // Causes problem with "Enlarge first row" setting
             if (mHeaderQsPanel != null) { // keep
                 // Only set up views if the tiles actually changed
-                if (param.args.length == 0) return; // PA already checks itself
+                if (param.args == null || param.args.length == 0)
+                    return; // PA already checks itself
                 Collection tiles = (Collection) param.args[0];
                 ArrayList<String> newTiles = new ArrayList<>();
                 for (Object qstile : tiles) {

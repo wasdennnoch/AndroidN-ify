@@ -27,10 +27,15 @@ public abstract class QSTileHook {
                 afterConstructor(param);
             }
         });
-        XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleClickHook);
+        try {
+            XposedHelpers.findAndHookMethod(mTileClass, "handleClick", handleClickHook);
+        } catch (Throwable t) { // PA
+            XposedHelpers.findAndHookMethod(mTileClass, "handleToggleClick", handleClickHook);
+        }
         try {
             XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
-        } catch (Throwable ignore) {
+        } catch (Throwable t) {
+            XposedHelpers.findAndHookMethod(mTileClass, "handleDetailClick", handleLongClickHook);
         }
     }
 

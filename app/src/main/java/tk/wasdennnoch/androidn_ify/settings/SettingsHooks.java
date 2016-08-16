@@ -69,7 +69,7 @@ public class SettingsHooks {
             Preference preference = (Preference) param.args[1];
             PreferenceFragment fragment = (PreferenceFragment) param.thisObject;
 
-            XposedHook.logI(TAG, "onPreferenceTreeClick" + mHits[0]);
+            XposedHook.logD(TAG, "onPreferenceTreeClick " + mHits[0]);
 
             final String LOG_TAG = "DeviceInfoSettings";
             final String KEY_FIRMWARE_VERSION = "firmware_version";
