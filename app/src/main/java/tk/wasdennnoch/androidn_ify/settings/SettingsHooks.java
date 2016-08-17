@@ -186,6 +186,7 @@ public class SettingsHooks {
         @SuppressWarnings("ConstantConditions")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (!(boolean) param.getResult()) return;
             Context context;
             String packageName;
             PackageManager pm;
@@ -198,7 +199,6 @@ public class SettingsHooks {
                 if (appDetailsPreference == null) return;
                 packageName = (String) XposedHelpers.getObjectField(param.thisObject, "mPackageName");
             } else {
-                if (!(boolean) param.getResult()) return;
                 lpText = (TextView) XposedHelpers.getAdditionalInstanceField(param.thisObject, KEY_APP_DETAILS);
                 if (lpText == null) return;
                 packageName = ((PackageInfo) XposedHelpers.getObjectField(param.thisObject, "mPackageInfo")).packageName;

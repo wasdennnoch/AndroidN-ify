@@ -73,6 +73,8 @@ public class NotificationHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
+            if (!(boolean) param.getResult()) return;
+
             Object entry = param.args[0];
             Object row = XposedHelpers.getObjectField(entry, "row");
             Object contentContainer = XposedHelpers.getObjectField(row, "mPrivateLayout"); // NotificationContentView
