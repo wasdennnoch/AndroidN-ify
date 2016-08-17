@@ -187,10 +187,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         if (!ConfigUtils.M)
                             lockPreference(screen.findPreference("notification_experimental"));
                         break;
-                    case "settings_settings":
-                        if (!ConfigUtils.M)
-                            lockPreference(screen.findPreference("enable_install_source"));
-                        break;
                 }
             } else {
                 switch (preference.getKey()) {

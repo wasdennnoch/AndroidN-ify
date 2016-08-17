@@ -1,10 +1,13 @@
 package tk.wasdennnoch.androidn_ify.settings;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.UserManager;
@@ -13,6 +16,12 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
@@ -53,9 +62,9 @@ public class SettingsHooks {
                 Class<?> classInstalledAppDetails = XposedHelpers.findClass("com.android.settings.applications.InstalledAppDetails", classLoader);
                 if (ConfigUtils.M) {
                     XposedHelpers.findAndHookMethod(classInstalledAppDetails, "onActivityCreated", Bundle.class, onActivityCreatedHook);
-                }/* else {
+                } else {
                     XposedHelpers.findAndHookMethod(classInstalledAppDetails, "onCreateView", LayoutInflater.class, ViewGroup.class, Bundle.class, onCreateViewHook);
-                }*/
+                }
                 XposedHelpers.findAndHookMethod(classInstalledAppDetails, "refreshUi", refreshUiHook);
             }
         } catch (Throwable t) {
@@ -75,9 +84,9 @@ public class SettingsHooks {
             final String KEY_FIRMWARE_VERSION = "firmware_version";
 
             if (preference.getKey().equals(KEY_FIRMWARE_VERSION)) {
-                System.arraycopy(mHits, 1, mHits, 0, mHits.length-1);
-                mHits[mHits.length-1] = SystemClock.uptimeMillis();
-                if (mHits[0] >= (SystemClock.uptimeMillis()-500)) {
+                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+                if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
                     if (ConfigUtils.M) {
                         UserManager um = (UserManager) fragment.getActivity().getSystemService(Context.USER_SERVICE);
                         if (um.hasUserRestriction(UserManager.DISALLOW_FUN)) {
@@ -102,10 +111,9 @@ public class SettingsHooks {
     };
 
     // LP
-    /*private static XC_MethodHook onCreateViewHook = new XC_MethodHook() {
+    private static XC_MethodHook onCreateViewHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-
             View view = (View) param.getResult();
             Context context = view.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
@@ -118,12 +126,35 @@ public class SettingsHooks {
             panel.setOrientation(LinearLayout.VERTICAL);
 
             LinearLayout.LayoutParams headerLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            TextView header = new TextView(context);
+            //TextView header = new TextView(new ContextThemeWrapper(context, com.android.internal.R.style.Widget_DeviceDefault_TextView_ListSeparator), null, 0);
+            //TextView header = new TextView(context, null, com.android.internal.R.attr.listSeparatorTextViewStyle, com.android.internal.R.style.Widget_DeviceDefault_TextView_ListSeparator);
+            TextView header = new TextView(context, null, com.android.internal.R.attr.listSeparatorTextViewStyle);
             header.setLayoutParams(headerLp);
             header.setText(res.getString(R.string.store));
 
+            LinearLayout.LayoutParams contentLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            int ps = context.getResources().getDimensionPixelSize(attrToDimension(context, com.android.internal.R.attr.listPreferredItemPaddingStart));
+            int pe = context.getResources().getDimensionPixelSize(attrToDimension(context, com.android.internal.R.attr.listPreferredItemPaddingEnd));
+            TextView content = new TextView(context);
+            content.setLayoutParams(contentLp);
+            content.setPadding(ps, 0, pe, 0);
+
+            panel.addView(header);
+            panel.addView(content);
+            allDetails.addView(panel);
+
+            XposedHelpers.setAdditionalInstanceField(param.thisObject, KEY_APP_DETAILS, content);
         }
-    };*/
+    };
+
+    private static int attrToDimension(Context context, int attr) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attr, typedValue, true);
+        TypedArray a = context.obtainStyledAttributes(typedValue.resourceId, new int[]{attr});
+        int textSize = a.getDimensionPixelSize(0, 0);
+        a.recycle();
+        return textSize;
+    }
 
     // MM
     private static XC_MethodHook onActivityCreatedHook = new XC_MethodHook() {
@@ -152,29 +183,46 @@ public class SettingsHooks {
     };
 
     private static XC_MethodHook refreshUiHook = new XC_MethodHook() {
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            PreferenceFragment fragment = (PreferenceFragment) param.thisObject;
-            PreferenceCategory storeCat = (PreferenceCategory) XposedHelpers.getAdditionalInstanceField(fragment, KEY_APP_DETAILS_CATEGORY);
-            if (storeCat == null) return;
-            Preference appDetailsPreference = storeCat.findPreference(KEY_APP_DETAILS);
-            if (appDetailsPreference == null) return;
-            String packageName = (String) XposedHelpers.getObjectField(fragment, "mPackageName");
-            PackageManager pm = (PackageManager) XposedHelpers.getObjectField(fragment, "mPm");
+            Context context;
+            String packageName;
+            PackageManager pm;
+            Preference appDetailsPreference = null;
+            TextView lpText = null;
+            if (ConfigUtils.M) {
+                PreferenceCategory storeCat = (PreferenceCategory) XposedHelpers.getAdditionalInstanceField(param.thisObject, KEY_APP_DETAILS_CATEGORY);
+                if (storeCat == null) return;
+                appDetailsPreference = storeCat.findPreference(KEY_APP_DETAILS);
+                if (appDetailsPreference == null) return;
+                packageName = (String) XposedHelpers.getObjectField(param.thisObject, "mPackageName");
+            } else {
+                if (!(boolean) param.getResult()) return;
+                lpText = (TextView) XposedHelpers.getAdditionalInstanceField(param.thisObject, KEY_APP_DETAILS);
+                if (lpText == null) return;
+                packageName = ((PackageInfo) XposedHelpers.getObjectField(param.thisObject, "mPackageInfo")).packageName;
+            }
+            context = ((Fragment) param.thisObject).getActivity();
+            pm = (PackageManager) XposedHelpers.getObjectField(param.thisObject, "mPm");
             String installerName = pm.getInstallerPackageName(packageName);
-            Activity context = fragment.getActivity();
             ResourceUtils res = ResourceUtils.getInstance(context);
+            String text;
             if (installerName != null) {
                 try {
                     ApplicationInfo applicationInfo = pm.getApplicationInfo(installerName, 0);
                     String installerLabel = (String) pm.getApplicationLabel(applicationInfo);
-                    appDetailsPreference.setSummary(String.format(res.getString(R.string.install_source), installerLabel));
+                    text = String.format(res.getString(R.string.install_source), installerLabel);
                 } catch (Throwable ignore) {
-                    appDetailsPreference.setSummary(res.getString(R.string.from_pm));
+                    text = res.getString(R.string.from_pm);
                 }
             } else {
-                appDetailsPreference.setSummary(res.getString(R.string.from_pm));
+                text = res.getString(R.string.from_pm);
             }
+            if (ConfigUtils.M)
+                appDetailsPreference.setSummary(text);
+            else
+                lpText.setText(text);
         }
     };
 
