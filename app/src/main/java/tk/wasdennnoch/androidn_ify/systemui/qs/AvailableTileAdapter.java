@@ -144,13 +144,13 @@ public class AvailableTileAdapter extends TileAdapter {
         else if (spec.equals("sync")) return res.getIdentifier("ic_qs_sync_on", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("volume_panel")) return res.getIdentifier("ic_qs_volume_panel", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("usb_tether")) return res.getIdentifier("ic_qs_usb_tether_on", "drawable", PACKAGE_SYSTEMUI);
-        else if (spec.equals("screen_timeout")) return res.getIdentifier("ic_qs_screen_timeout_short_avd", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("screen_timeout") || spec.equals("timeout")) return res.getIdentifier("ic_qs_screen_timeout_short_avd", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("performance")) return res.getIdentifier("ic_qs_perf_profile", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("ambient_display")) return res.getIdentifier("ic_qs_ambientdisplay_on", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("live_display")) return res.getIdentifier("ic_livedisplay_auto", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("music")) return res.getIdentifier("ic_qs_media_play", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("brightness")) return res.getIdentifier("ic_qs_brightness_auto_on", "drawable", PACKAGE_SYSTEMUI);
-        else if (spec.equals("screen_off")) return res.getIdentifier("ic_qs_power", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("screen_off") || spec.equals("screenoff")) return res.getIdentifier("ic_qs_power", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("screenshot")) return res.getIdentifier("ic_qs_screenshot", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("expanded_desktop")) return res.getIdentifier("ic_qs_expanded_desktop", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("reboot")) return res.getIdentifier("ic_qs_reboot", "drawable", PACKAGE_SYSTEMUI);
