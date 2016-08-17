@@ -1002,7 +1002,7 @@ public class StatusBarHeaderHooks {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                             Object that = param.thisObject;
-                            if (w.maybeHandle(that) || b.maybeHandle(that) || c.maybeHandle(that))
+                            if (w.maybeHandleLongClick(that) || b.maybeHandleLongClick(that) || c.maybeHandleLongClick(that))
                                 param.setResult(null);
                         }
                     });

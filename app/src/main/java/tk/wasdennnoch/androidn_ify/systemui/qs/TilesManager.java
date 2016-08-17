@@ -166,6 +166,12 @@ public class TilesManager {
                 clickMethod = XposedHelpers.findMethodExact(hookClass, "handleClick");
             } catch (Throwable t) { // PA
                 clickMethod = XposedHelpers.findMethodExact(hookClass, "handleToggleClick");
+                XposedHelpers.findAndHookMethod(hookClass, "handleClick", boolean.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        param.args[0] = true; // So that handleToggleClick gets called
+                    }
+                });
             }
             XposedBridge.hookMethod(clickMethod, new XC_MethodHook() {
                         @SuppressWarnings("SuspiciousMethodCalls")

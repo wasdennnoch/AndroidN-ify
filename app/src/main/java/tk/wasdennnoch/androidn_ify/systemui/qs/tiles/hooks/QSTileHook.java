@@ -34,8 +34,11 @@ public abstract class QSTileHook {
         }
         try {
             XposedHelpers.findAndHookMethod(mTileClass, "handleLongClick", handleLongClickHook);
-        } catch (Throwable t) {
-            XposedHelpers.findAndHookMethod(mTileClass, "handleDetailClick", handleLongClickHook);
+        } catch (Throwable t) { // PA
+            try {
+                XposedHelpers.findAndHookMethod(mTileClass, "handleDetailClick", handleLongClickHook);
+            } catch (Throwable ignore) { // Not implemented, let maybeHandleLongClick do the job
+            }
         }
     }
 
@@ -93,7 +96,7 @@ public abstract class QSTileHook {
         }
     };
 
-    public boolean maybeHandle(Object tile) {
+    public boolean maybeHandleLongClick(Object tile) {
         String clazz = (String) XposedHelpers.getAdditionalInstanceField(tile, "hookingClass");
         if (clazz != null && clazz.equals(getClass().getSimpleName())) {
             handleLongClick();
