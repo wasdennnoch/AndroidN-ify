@@ -642,6 +642,13 @@ public class NotificationHooks {
                     classDismissViewButton = XposedHelpers.findClass("com.android.systemui.statusbar.DismissViewImageButton", classLoader);
                 }
                 XposedHelpers.findAndHookConstructor(classDismissViewButton, Context.class, AttributeSet.class, int.class, int.class, dismissViewButtonConstructorHook);
+                XposedHelpers.findAndHookMethod("com.android.systemui.statusbar.DismissView", classLoader, "setOnButtonClickListener", View.OnClickListener.class, new XC_MethodReplacement() {
+                    @Override
+                    protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                        ((View) XposedHelpers.callMethod(param.thisObject, "findContentView")).setOnClickListener((View.OnClickListener) param.args[0]);
+                        return null;
+                    }
+                });
             }
 
         } catch (Throwable t) {
@@ -814,10 +821,9 @@ public class NotificationHooks {
                 buttonView = ((LinearLayout) buttonView).getChildAt(1);
             }
             if (buttonView instanceof ImageButton) {
-                int oldId = buttonView.getId();
                 layout.removeView(buttonView);
                 buttonView = new Button(context);
-                buttonView.setId(oldId);
+                buttonView.setId(context.getResources().getIdentifier("dismiss_text", "id", PACKAGE_SYSTEMUI));
                 buttonView.setFocusable(true);
                 buttonView.setContentDescription(context.getResources().getString(context.getResources().getIdentifier("accessibility_clear_all", "string", PACKAGE_SYSTEMUI)));
                 layout.addView(buttonView);
