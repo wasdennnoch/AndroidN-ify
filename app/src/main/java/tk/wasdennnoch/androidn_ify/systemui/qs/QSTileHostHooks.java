@@ -350,7 +350,7 @@ public class QSTileHostHooks {
         String[] possibleSpecs = new String[]{"cell1", "cell2", "notifications", "data", "roaming", "dds", "apn", "profiles",
                 "performance", "adb_network", "nfc", "compass", "lockscreen", "lte", "volume_panel", "screen_timeout", "timeout",
                 "usb_tether", "heads_up", "ambient_display", "sync", "battery_saver", "caffeine", "music", "next_alarm",
-                "ime_selector", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenoff", "screenshot",
+                "ime_selector", "ime", "su", "adb", "live_display", "themes", "brightness", "screen_off", "screenoff", "screenshot",
                 "expanded_desktop", "reboot", "configurations", "navbar", "appcirclebar", "kernel_adiutor", "screenrecord",
                 "gesture_anywhere", "power_menu", "app_picker", "kill_app", "hw_keys", "sound", "pulse", "pie", "float_mode",
                 "nightmode", "immersive", "floating", "halo", "stamina"};
