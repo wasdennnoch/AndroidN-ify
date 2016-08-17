@@ -122,6 +122,8 @@ public class AvailableTileAdapter extends TileAdapter {
     }
 
     private int getIconResource(String spec) {
+        // On RR this is an instance method of the DraggableTile in the QsTuner, to get an instance we would
+        // need to pass a QSTile.Host which we don't have, so just extract the method here and adapt it.
         Resources res = mContext.getResources();
         //noinspection IfCanBeSwitch
         if (spec.equals("wifi")) return res.getIdentifier("ic_qs_wifi_full_3", "drawable", PACKAGE_SYSTEMUI);
@@ -173,6 +175,10 @@ public class AvailableTileAdapter extends TileAdapter {
         else if (spec.equals("pie")) return res.getIdentifier("ic_qs_pie", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("float_mode")) return res.getIdentifier("ic_qs_floating_on", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("visualizer")) return res.getIdentifier("ic_qs_visualizer_static", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("halo")) return res.getIdentifier("ic_notify_halo_normal", "drawable", PACKAGE_SYSTEMUI);
+
+        else if (spec.equals("immersive")) return res.getIdentifier("ic_immersive_full_enable_animation", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("floating")) return res.getIdentifier("ic_qs_floating_peek", "drawable", PACKAGE_SYSTEMUI);
         return 0;
     }
 
