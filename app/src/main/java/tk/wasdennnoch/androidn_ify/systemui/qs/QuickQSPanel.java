@@ -97,7 +97,7 @@ public class QuickQSPanel extends LinearLayout {
             mRecords.add(tilerecord);
             mTileLayout.addTile(tilerecord);
         }
-        StatusBarHeaderHooks.hookQSOnMeasure();
+        StatusBarHeaderHooks.postSetupAnimators();
     }
 
     public void handleStateChanged(Object qsTile, Object state) {
