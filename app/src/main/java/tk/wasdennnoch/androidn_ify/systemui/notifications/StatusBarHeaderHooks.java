@@ -1152,13 +1152,8 @@ public class StatusBarHeaderHooks {
 
                         try {
                             mQsPanel = (ViewGroup) layout.getChildAt(0);
-                        } catch (Throwable t1) {
-                            try { // RR added an ImageView (background) first
-                                mQsPanel = (ViewGroup) layout.getChildAt(1);
-                                if (mQsPanel == null) throw new Throwable();
-                            } catch (Throwable t2) {
-                                mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
-                            }
+                        } catch (Throwable t1) { // RR added 5 ImageViews in between...
+                            mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
                         }
 
                         if (ConfigUtils.qs().enable_qs_editor) {
