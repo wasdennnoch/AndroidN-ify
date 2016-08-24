@@ -18,6 +18,7 @@ import android.graphics.drawable.Icon;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
+import android.os.SystemClock;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.graphics.ColorUtils;
 import android.text.TextUtils;
@@ -45,6 +46,7 @@ import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -60,6 +62,7 @@ public class NotificationHooks {
 
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
+    private static final String KEY_EXPANDABLE = "ncv_expandable";
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;
@@ -166,23 +169,12 @@ public class NotificationHooks {
                     ? XposedHelpers.getObjectField(param.thisObject, "mSummaryText")
                     : XposedHelpers.getObjectField(mBuilder, "mSubText"));
             if (overflowText != null) {
-                contentView.setTextViewText(R.id.notification_summary, processLegacyText(mBuilder, overflowText));
-                contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
-                contentView.setViewVisibility(R.id.notification_summary, View.VISIBLE);
+                contentView.setTextViewText(R.id.header_text, processLegacyText(mBuilder, overflowText));
+                contentView.setViewVisibility(R.id.header_text_divider, View.VISIBLE);
+                contentView.setViewVisibility(R.id.header_text, View.VISIBLE);
             }
         }
     };
-
-    private static void processIcon(RemoteViews contentView, Context context, int mColor, Notification.Builder builder) {
-        if ((boolean) XposedHelpers.callMethod(builder, "isLegacy")) {
-            Object mColorUtil = XposedHelpers.getObjectField(builder, "mColorUtil");
-            Object mSmallIcon = XposedHelpers.getObjectField(builder, "mSmallIcon"); // Icon if Marshmallow, int if Lollipop. So we shouldn't specify which type is this.
-            if (!(boolean) XposedHelpers.callMethod(mColorUtil, "isGrayscaleIcon", context, mSmallIcon)) {
-                return;
-            }
-        }
-        contentView.setInt(R.id.notification_icon, "setColorFilter", mColor);
-    }
 
     private static CharSequence processLegacyText(Object notifBuilder, CharSequence text) {
         try {
@@ -193,6 +185,119 @@ public class NotificationHooks {
         }
     }
 
+    private static void bindNotificationHeader(RemoteViews contentView, XC_MethodHook.MethodHookParam param) {
+        Object builder = param.thisObject;
+        Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
+        int color = resolveColor(builder);
+        bindSmallIcon(contentView, builder, color);
+        bindHeaderAppName(contentView, context, color);
+        bindHeaderText(contentView, builder, context, (Integer) param.args[0]);
+        bindHeaderChronometerAndTime(contentView, builder);
+        bindExpandButton(contentView, color);
+    }
+
+    private static void bindHeaderChronometerAndTime(RemoteViews contentView, Object builder) {
+        long mWhen = XposedHelpers.getLongField(builder, "mWhen");
+        if ((boolean) XposedHelpers.callMethod(builder, "showsTimeOrChronometer")) {
+            contentView.setViewVisibility(R.id.time_divider, View.VISIBLE);
+            if (XposedHelpers.getBooleanField(builder, "mUseChronometer")) {
+                contentView.setViewVisibility(R.id.chronometer, View.VISIBLE);
+                contentView.setLong(R.id.chronometer, "setBase",
+                        mWhen + (SystemClock.elapsedRealtime() - System.currentTimeMillis()));
+                contentView.setBoolean(R.id.chronometer, "setStarted", true);
+            } else {
+                contentView.setViewVisibility(R.id.time, View.VISIBLE);
+                contentView.setLong(R.id.time, "setTime", mWhen);
+            }
+        } else {
+            contentView.setLong(R.id.time, "setTime", mWhen);
+        }
+    }
+
+    private static void bindHeaderText(RemoteViews contentView, Object builder, Context context, int resId) {
+        if (resId == context.getResources().getIdentifier("notification_template_material_big_media", "layout", PACKAGE_ANDROID) ||
+                resId == context.getResources().getIdentifier("notification_template_material_media", "layout", PACKAGE_ANDROID)) {
+            CharSequence mContentText = (CharSequence) XposedHelpers.getObjectField(builder, "mContentText");
+            CharSequence mSubText = (CharSequence) XposedHelpers.getObjectField(builder, "mSubText");
+            if (mContentText != null && mSubText != null) {
+                contentView.setTextViewText(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID),
+                        processLegacyText(builder, mContentText));
+                contentView.setViewVisibility(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID), View.GONE);
+                contentView.setTextViewText(R.id.header_text, processLegacyText(builder, mSubText));
+                contentView.setViewVisibility(R.id.header_text, View.VISIBLE);
+                contentView.setViewVisibility(R.id.header_text_divider, View.VISIBLE);
+                try {
+                    // TODO Why it's crashing here
+                    XposedHelpers.callMethod(builder, "unshrinkLine3Text");
+                } catch (Throwable ignore) {
+
+                }
+            }
+        }
+    }
+
+    private static void bindSmallIcon(RemoteViews contentView, Object builder, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Icon mSmallIcon = (Icon) XposedHelpers.getObjectField(builder, "mSmallIcon");
+            contentView.setImageViewIcon(R.id.icon, mSmallIcon);
+        } else {
+            int mSmallIcon = XposedHelpers.getIntField(builder, "mSmallIcon");
+            contentView.setImageViewResource(R.id.icon, mSmallIcon);
+        }
+
+        processSmallIconColor(contentView, builder, color);
+    }
+
+    private static void bindHeaderAppName(RemoteViews contentView, Context context, int color) {
+        contentView.setTextViewText(R.id.app_name_text, loadHeaderAppName(context));
+        contentView.setTextColor(R.id.app_name_text, color);
+    }
+
+    private static void processSmallIconColor(RemoteViews contentView, Object builder, int resolveColor) {
+        boolean colorable = true;
+        int color = NotificationHeaderView.NO_COLOR;
+        Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
+        if ((boolean) XposedHelpers.callMethod(builder, "isLegacy")) {
+            Object mColorUtil = XposedHelpers.getObjectField(builder, "mColorUtil");
+            Object mSmallIcon = XposedHelpers.getObjectField(builder, "mSmallIcon"); // Icon if Marshmallow, int if Lollipop. So we shouldn't specify which type is this.
+            if (!(boolean) XposedHelpers.callMethod(mColorUtil, "isGrayscaleIcon", context, mSmallIcon)) {
+                colorable = false;
+            }
+        }
+
+        if (colorable) {
+            color = resolveColor;
+            XposedHelpers.callMethod(contentView, "setDrawableParameters", R.id.icon, false, -1, color,
+                    PorterDuff.Mode.SRC_ATOP, -1);
+        }
+
+        contentView.setInt(R.id.notification_header, "setOriginalIconColor", color);
+    }
+
+    private static void bindExpandButton(RemoteViews contentView, int color) {
+        XposedHelpers.callMethod(contentView, "setDrawableParameters", R.id.expand_button, false, -1, color,
+                PorterDuff.Mode.SRC_ATOP, -1);
+        contentView.setInt(R.id.notification_header, "setOriginalIconColor", color);
+    }
+
+    private static int resolveColor(Object builder) {
+        return (int) XposedHelpers.callMethod(builder, "resolveColor");
+    }
+
+    public static String loadHeaderAppName(Context context) {
+        CharSequence appname = context.getPackageName();
+        try {
+            appname = context.getString(context.getApplicationInfo().labelRes);
+        } catch (Throwable t) {
+            try {
+                appname = context.getApplicationInfo().loadLabel(context.getPackageManager());
+            } catch (Throwable ignore) {
+            }
+        }
+
+        return String.valueOf(appname);
+    }
+
     private static XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
 
         @Override
@@ -200,65 +305,18 @@ public class NotificationHooks {
             Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
             Resources res = context.getResources();
             RemoteViews contentView = (RemoteViews) param.getResult();
-            int mColor = (int) XposedHelpers.callMethod(param.thisObject, "resolveColor");
-            processIcon(contentView, context, mColor, (Notification.Builder) param.thisObject);
-            CharSequence appname = context.getPackageName();
-            try {
-                appname = context.getString(context.getApplicationInfo().labelRes);
-            } catch (Throwable t) {
-                try {
-                    appname = context.getApplicationInfo().loadLabel(context.getPackageManager());
-                } catch (Throwable ignore) {
-                }
-            }
-            contentView.setTextViewText(R.id.app_name_text, appname);
-            contentView.setTextColor(R.id.app_name_text, mColor);
+
+            bindNotificationHeader(contentView, param);
+
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Icon mSmallIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mSmallIcon");
-                contentView.setImageViewIcon(R.id.notification_icon, mSmallIcon);
                 Icon mLargeIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
-                if (mLargeIcon != null) {
-                    contentView.setImageViewIcon(res.getIdentifier("right_icon", "id", "android"), mLargeIcon);
-                }
+                contentView.setImageViewIcon(res.getIdentifier("right_icon", "id", "android"), mLargeIcon);
             } else {
-                int mSmallIcon = XposedHelpers.getIntField(param.thisObject, "mSmallIcon");
-                contentView.setImageViewResource(R.id.notification_icon, mSmallIcon);
                 Bitmap mLargeIcon = (Bitmap) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
-                if (mLargeIcon != null) {
-                    contentView.setImageViewBitmap(res.getIdentifier("right_icon", "id", PACKAGE_ANDROID), mLargeIcon);
-                }
-            }
-            CharSequence mContentInfo = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mContentInfo");
-            int mNumber = XposedHelpers.getIntField(param.thisObject, "mNumber");
-            contentView.setViewVisibility(R.id.notification_info_divider,
-                    (mContentInfo != null || mNumber > 0) ? View.VISIBLE : View.GONE);
-            if ((boolean) XposedHelpers.callMethod(param.thisObject, "showsTimeOrChronometer")) {
-                contentView.setViewVisibility(R.id.time_divider, View.VISIBLE);
+                contentView.setImageViewBitmap(res.getIdentifier("right_icon", "id", PACKAGE_ANDROID), mLargeIcon);
             }
             contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
-
-            int resId = (int) param.args[0];
-            if (resId == context.getResources().getIdentifier("notification_template_material_big_media", "layout", PACKAGE_ANDROID) ||
-                    resId == context.getResources().getIdentifier("notification_template_material_media", "layout", PACKAGE_ANDROID)) {
-                CharSequence mContentText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mContentText");
-                CharSequence mSubText = (CharSequence) XposedHelpers.getObjectField(param.thisObject, "mSubText");
-                if (mContentText != null && mSubText != null) {
-                    contentView.setTextViewText(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID),
-                            processLegacyText(param.thisObject, mContentText));
-                    contentView.setViewVisibility(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID), View.GONE);
-                    contentView.setTextViewText(R.id.notification_summary, processLegacyText(param.thisObject, mSubText));
-                    contentView.setViewVisibility(R.id.notification_summary, View.VISIBLE);
-                    contentView.setViewVisibility(R.id.notification_summary_divider, View.VISIBLE);
-                    contentView.setTextColor(R.id.notification_summary, mColor);
-                    contentView.setTextColor(R.id.notification_summary_divider, mColor);
-                    try {
-                        // TODO Why it's crashing here
-                        XposedHelpers.callMethod(param.thisObject, "unshrinkLine3Text");
-                    } catch (Throwable ignore) {
-
-                    }
-                }
-            }
         }
     };
 
@@ -266,10 +324,10 @@ public class NotificationHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             RemoteViews contentView = (RemoteViews) param.args[0];
-            contentView.setViewVisibility(R.id.notification_summary_divider, View.GONE);
+            contentView.setViewVisibility(R.id.header_text_divider, View.GONE);
             contentView.setViewVisibility(R.id.notification_info_divider, View.GONE);
             contentView.setViewVisibility(R.id.time_divider, View.GONE);
-            contentView.setTextViewText(R.id.notification_summary, null);
+            contentView.setTextViewText(R.id.header_text, null);
         }
     };
 
@@ -554,6 +612,7 @@ public class NotificationHooks {
 
             if (config.notifications.change_style) {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
+                //Class classNotificationContentView = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationContentView", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
                 Class classNotificationGuts = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationGuts", classLoader);
@@ -626,6 +685,22 @@ public class NotificationHooks {
                     }
                 });
 
+                /*
+                XposedBridge.hookAllMethods(classNotificationContentView, "onLayout", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        updateExpandButtons((View) param.thisObject, (boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, KEY_EXPANDABLE));
+                    }
+                });
+
+                XposedBridge.hookAllMethods(classNotificationContentView, "setHeadsUp", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        updateExpandButtons((View) param.thisObject, (boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, KEY_EXPANDABLE));
+                    }
+                });
+                */
+
                 if (ConfigUtils.M) {
                     Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
                     XposedHelpers.findAndHookMethod(classVolumeDialog, "updateWindowWidthH", updateWindowWidthHHook);
@@ -658,6 +733,35 @@ public class NotificationHooks {
         }
     }
 
+    /*
+    private static void updateExpandButtons(View notificationContentView, boolean expandable) {
+        XposedHelpers.setAdditionalInstanceField(notificationContentView, KEY_EXPANDABLE, expandable);
+        boolean mIsHeadsUp = XposedHelpers.getBooleanField(notificationContentView, "mIsHeadsUp");
+        View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
+        View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
+        View mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        // if the expanded child has the same height as the collapsed one we hide it.
+        if (mExpandedChild != null && mExpandedChild.getHeight() != 0) {
+            if ((!mIsHeadsUp || mHeadsUpChild == null)) {
+                if (mExpandedChild.getHeight() == mContractedChild.getHeight()) {
+                    expandable = false;
+                }
+            } else if (mExpandedChild.getHeight() == mHeadsUpChild.getHeight()) {
+                expandable = false;
+            }
+        }
+        if (mExpandedChild != null) {
+            mExpandedWrapper.updateExpandability(expandable, mExpandClickListener);
+        }
+        if (mContractedChild != null) {
+            mContractedWrapper.updateExpandability(expandable, mExpandClickListener);
+        }
+        if (mHeadsUpChild != null) {
+            mHeadsUpWrapper.updateExpandability(expandable,  mExpandClickListener);
+        }
+    }
+    */
+
     private static Class<?> getClassMediaExpandableNotificationRow(ClassLoader classLoader) {
         try {
             return XposedHelpers.findClass("com.android.systemui.statusbar.MediaExpandableNotificationRow", classLoader);
@@ -689,7 +793,7 @@ public class NotificationHooks {
             if (ConfigUtils.notifications().change_style) {
 
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action", notification_material_action);
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_icon_group", notification_template_icon_group);
+                //resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_icon_group", notification_template_icon_group);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_base", notification_template_material_base);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_media", notification_template_material_media);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_base", notification_template_material_base);
@@ -842,6 +946,7 @@ public class NotificationHooks {
         }
     };
 
+    /*
     @SuppressWarnings("deprecation")
     private static XC_LayoutInflated notification_template_icon_group = new XC_LayoutInflated() {
         @Override
@@ -960,6 +1065,7 @@ public class NotificationHooks {
             layout.addView(linearLayout);
         }
     };
+    */
 
     private static XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
         @Override
@@ -968,7 +1074,10 @@ public class NotificationHooks {
             Context context = layout.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
 
-            int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height);
+            layout.removeViewAt(0);
+            layout.addView(NotificationHeaderView.newHeader(context), 0);
+
+            //int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height);
             int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
             int notificationContentPaddingTop = res.getDimensionPixelSize(R.dimen.notification_content_margin_top);
             int rightIconSize = res.getDimensionPixelSize(R.dimen.notification_right_icon_size);
@@ -976,15 +1085,15 @@ public class NotificationHooks {
             int rightIconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_end);
             int actionsMarginTop = res.getDimensionPixelSize(R.dimen.notification_actions_margin_top);
 
-            FrameLayout headerLayout = (FrameLayout) layout.getChildAt(0);
+            //FrameLayout headerLayout = (FrameLayout) layout.getChildAt(0);
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
             if (notificationMain == null) { // Some ROMs completely removed the ID
                 notificationMain = (LinearLayout) layout.getChildAt(layout.getChildCount() - 1);
             }
             ImageView rightIcon = new ImageView(context);
 
-            FrameLayout.LayoutParams headerLayoutLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, headerHeight);
-            headerLayout.setLayoutParams(headerLayoutLParams);
+            //FrameLayout.LayoutParams headerLayoutLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, headerHeight);
+            //headerLayout.setLayoutParams(headerLayoutLParams);
 
             FrameLayout.LayoutParams notificationMainLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             notificationMainLParams.setMargins(0, notificationContentPaddingTop, 0, 0);
