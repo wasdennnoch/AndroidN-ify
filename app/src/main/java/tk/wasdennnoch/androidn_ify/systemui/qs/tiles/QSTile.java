@@ -27,6 +27,7 @@ public class QSTile {
     public static final String DUMMY_INTENT = "intent(dummy)";
     public static final String CLASS_INTENT_TILE = "com.android.systemui.qs.tiles.IntentTile";
     public static final String CLASS_VOLUME_TILE = "com.android.systemui.qs.tiles.VolumeTile"; // Used on CM12.1 where IntentTile doesn't exist
+    public static final String CLASS_VISUALIZER_TILE = "com.android.systemui.qs.tiles.VisualizerTile"; // To fix a SystemUI crash caused by it
     public static final String CLASS_TILE_STATE = "com.android.systemui.qs.QSTile.State";
     public static final String CLASS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     public static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";

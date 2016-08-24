@@ -228,6 +228,17 @@ public class TilesManager {
                         }
                     });
 
+            try { // Fix a SystemUI crash caused by this tile
+                XposedBridge.hookAllMethods(XposedHelpers.findClass(QSTile.CLASS_VISUALIZER_TILE, classLoader), "handleUpdateState", new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        if (XposedHelpers.getObjectField(param.thisObject, "mVisualizer") == null)
+                            param.setResult(null);
+                    }
+                });
+            } catch (Throwable ignore) {
+            }
+
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
         }
