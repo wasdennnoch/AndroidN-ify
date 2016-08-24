@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -295,33 +296,37 @@ public class QSTileHostHooks {
 
     @SuppressWarnings("unchecked")
     public static List<String> getAvailableTiles(Context context) {
-        List<String> specs = null;
-        if (RomUtils.isCmBased()) {
-            try {
-                specs = (List<String>) XposedHelpers.callStaticMethod(classQSUtils, "getAvailableTiles", context);
-            } catch (Throwable t) {
-                try {
-                    specs = (ArrayList<String>) ((ArrayList<String>) XposedHelpers.getStaticObjectField(classQSConstants, "TILES_AVAILABLE")).clone();
-                } catch (Throwable t2) {
-                    XposedHook.logW(TAG, "Couldn't fetch available tiles (" + t.getClass().getSimpleName() + " and " + t2.getClass().getSimpleName() + ")");
-                }
+        List<String> specs = new ArrayList<>();
+        try { // Get the available tiles from the SystemUI config.xml
+            String[] availableSpeccs = context.getString(
+                    context.getResources().getIdentifier("quick_settings_tiles_default", "string", XposedHook.PACKAGE_SYSTEMUI))
+                    .split(",");
+            for (String s : availableSpeccs) {
+                if (!TextUtils.isEmpty(s))
+                    specs.add(s);
             }
-        }
-        if (specs == null) {
-            specs = new ArrayList<>();
-            specs.add("wifi");
-            specs.add("bt");
-            specs.add("inversion");
-            specs.add("cell");
-            specs.add("airplane");
-            if (Build.VERSION.SDK_INT >= 23)
-                specs.add("dnd");
-            specs.add("rotation");
-            specs.add("flashlight");
-            specs.add("location");
-            specs.add("cast");
-            specs.add("hotspot");
-            specs.addAll(bruteForceSpecs());
+        } catch (Throwable t) {
+            try { // On CM use the QSUtils
+                try {
+                    specs = (List<String>) XposedHelpers.callStaticMethod(classQSUtils, "getAvailableTiles", context);
+                } catch (Throwable t2) {
+                    specs = (ArrayList<String>) ((ArrayList<String>) XposedHelpers.getStaticObjectField(classQSConstants, "TILES_AVAILABLE")).clone();
+                }
+            } catch (Throwable t2) { // If that fails too try them all
+                specs.add("wifi");
+                specs.add("bt");
+                specs.add("inversion");
+                specs.add("cell");
+                specs.add("airplane");
+                if (Build.VERSION.SDK_INT >= 23)
+                    specs.add("dnd");
+                specs.add("rotation");
+                specs.add("flashlight");
+                specs.add("location");
+                specs.add("cast");
+                specs.add("hotspot");
+                specs.addAll(bruteForceSpecs());
+            }
         }
         specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
@@ -365,7 +370,6 @@ public class QSTileHostHooks {
             XposedHelpers.callMethod(mTileHost, "createTile", spec);
             return true;
         } catch (Throwable ignore) {
-            XposedHook.logD(TAG, "bruteForceSpecs: spec \"" + spec + "\" doesn't exist");
             return false;
             // Not an applicable tile spec
         }

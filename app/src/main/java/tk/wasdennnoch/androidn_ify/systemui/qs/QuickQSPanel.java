@@ -180,7 +180,6 @@ public class QuickQSPanel extends LinearLayout {
         boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null);
         boolean disableTranslation = StatusBarHeaderHooks.mDisableFancy;
         if (!readyToAnimate && (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD)) {
-            XposedHook.logD(TAG, "animateFancy: not ready to animate; not on kg: " + (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD));
             return;
         }
         if (!StatusBarHeaderHooks.mShowingDetail || f == 0) {
@@ -225,8 +224,6 @@ public class QuickQSPanel extends LinearLayout {
                         mBatteryView.postInvalidate();
                     }
                 }
-            } else {
-                XposedHook.logD(TAG, "animateFancy: not ready to animate");
             }
             oldPosition = f;
         } else {
