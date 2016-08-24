@@ -53,15 +53,16 @@
     <dimen name="notification_app_name_margin_end">3dp</dimen>
     <dimen name="notification_actions_margin_start">8dp</dimen>
     <dimen name="notification_content_margin_start">16dp</dimen>
-    <dimen name="notification_content_margin_top">24dp</dimen>
-    <dimen name="notification_header_height">37.5dp</dimen>
+    <dimen name="notification_content_margin_top">25.5dp</dimen> <!-- 37.5 - 12 -->
+    <dimen name="notification_header_height">53dp</dimen>
     <dimen name="notification_header_margin_top">10dp</dimen>
     <dimen name="notification_right_icon_size">40dp</dimen>
     <dimen name="notification_right_icon_margin_top">36dp</dimen>
     <dimen name="notification_right_icon_margin_end">16dp</dimen>
-    <dimen name="notification_min_height">88dp</dimen>
-    <dimen name="notification_mid_height">152dp</dimen>
-    <dimen name="notification_max_height">280dp</dimen>
+    <dimen name="notification_min_height_legacy">64dp</dimen>
+    <dimen name="notification_min_height">92dp</dimen>
+    <dimen name="notification_mid_height">156dp</dimen>
+    <dimen name="notification_max_height">284dp</dimen>
     <dimen name="notification_time_margin_start">1dp</dimen>
     <dimen name="notification_divider_margin_top">1dp</dimen>
     <dimen name="notification_header_height_exclude_top">34dp</dimen>
@@ -76,6 +77,13 @@
     <dimen name="no_notifications_text_size">16sp</dimen>
 
     <dimen name="notification_separator_size">1dp</dimen>
+    <dimen name="notification_header_shrink_min_width">72dp</dimen>
+    <dimen name="notification_content_margin_end">16dp</dimen>
+    <dimen name="notification_badge_size">12dp</dimen>
     <!-- /Notifications / Status bar header -->
 
+    <dimen name="notification_header_background_height">45.5dp</dimen>
+    <dimen name="notification_header_padding_top">10dp</dimen>
+    <dimen name="notification_header_padding_bottom">16dp</dimen>
+    <dimen name="notification_header_padding_end">16dp</dimen>
 </resources>

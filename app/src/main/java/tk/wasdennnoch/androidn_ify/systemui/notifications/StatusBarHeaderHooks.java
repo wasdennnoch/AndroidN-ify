@@ -484,6 +484,7 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
+                mAlarmStatus.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
                 if (mHideEditTiles && mCustomQSEditButton != null) {
                     mCustomQSEditButton.setVisibility(View.GONE);
@@ -706,6 +707,7 @@ public class StatusBarHeaderHooks {
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);
+        transition(mHeaderQsPanel, !showingDetail);
         setEditButtonVisible(!(showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE));
         if (mWeatherContainer != null) {
             try {
@@ -852,11 +854,7 @@ public class StatusBarHeaderHooks {
                             @Override
                             public void run() {
                                 try {
-                                    try {
-                                        mGridHeight = (int) XposedHelpers.callMethod(mQsPanel, "getGridHeight");
-                                    } catch (Throwable t) {
-                                        mGridHeight = XposedHelpers.getIntField(mQsPanel, "mGridHeight");
-                                    }
+                                    mGridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
                                     mHeaderQsPanel.setupAnimators(mGridHeight);
                                 } catch (Throwable ignore) {
                                 }
