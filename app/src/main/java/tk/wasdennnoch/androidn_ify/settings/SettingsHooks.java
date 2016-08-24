@@ -133,8 +133,10 @@ public class SettingsHooks {
             header.setText(res.getString(R.string.store));
 
             LinearLayout.LayoutParams contentLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            int ps = context.getResources().getDimensionPixelSize(attrToDimension(context, com.android.internal.R.attr.listPreferredItemPaddingStart));
-            int pe = context.getResources().getDimensionPixelSize(attrToDimension(context, com.android.internal.R.attr.listPreferredItemPaddingEnd));
+            //int ps = context.getResources().getDimensionPixelSize(attrToDimension(context, com.android.internal.R.attr.listPreferredItemPaddingStart));
+            //int pe = context.getResources().getDimensionPixelSize(attrToDimension(context, com.android.internal.R.attr.listPreferredItemPaddingEnd));
+            int ps = context.getResources().getDimensionPixelSize(attrToDimension(context, context.getResources().getIdentifier("listPreferredItemPaddingStart", "attr", XposedHook.PACKAGE_ANDROID)));
+            int pe = context.getResources().getDimensionPixelSize(attrToDimension(context, context.getResources().getIdentifier("listPreferredItemPaddingEnd", "attr", XposedHook.PACKAGE_ANDROID)));
             TextView content = new TextView(context);
             content.setLayoutParams(contentLp);
             content.setPadding(ps, 0, pe, 0);
