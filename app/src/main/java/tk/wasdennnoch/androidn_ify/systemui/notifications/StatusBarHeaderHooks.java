@@ -37,6 +37,8 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
+import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
@@ -724,7 +726,7 @@ public class StatusBarHeaderHooks {
             LinearLayout mDetailButtons = (LinearLayout) mDetailDoneButton.getParent();
             mDetailButtons.setVisibility(mEditing ? View.GONE : View.VISIBLE);
             mCollapseAfterHideDatails = NotificationPanelHooks.expandIfNecessary();
-            XposedHook.logD(TAG, "handleShowingDetail: showing detail; expanding: " + mCollapseAfterHideDatails);
+            XposedHook.logD(TAG, "handleShowingDetail: showing detail; expanding: " + mCollapseAfterHideDatails + "; " + detail.getClass().getSimpleName());
             try {
                 mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
             } catch (Throwable t) {
@@ -740,16 +742,12 @@ public class StatusBarHeaderHooks {
                 mQsDetailHeaderSwitch.setVisibility(View.VISIBLE);
                 mQsDetailHeaderSwitch.setChecked(toggleState);
                 mQsDetailHeader.setClickable(true);
-                mQsDetailHeader.setOnClickListener(new View.OnClickListener() {
+                mQsDetailHeader.setOnClickListener(new SafeOnClickListener(TAG, "Error in mQsDetailHeader click listener") {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickSafe(View v) {
                         boolean checked = !mQsDetailHeaderSwitch.isChecked();
                         mQsDetailHeaderSwitch.setChecked(checked);
-                        try {
-                            XposedHelpers.callMethod(detail, "setToggleState", checked);
-                        } catch (Throwable t) {
-                            XposedHook.logE(TAG, "Error calling setToggleState", t);
-                        }
+                        XposedHelpers.callMethod(detail, "setToggleState", checked);
                     }
                 });
             }
@@ -786,38 +784,31 @@ public class StatusBarHeaderHooks {
         }
         v.animate()
                 .alpha(in ? 1 : 0)
-                .withEndAction(new Runnable() {
+                .withEndAction(new SafeRunnable() {
                     @Override
-                    public void run() {
+                    public void runSafe() {
                         if (!in) {
                             v.setVisibility(View.INVISIBLE);
                         }
-                        try {
+                        if (!ConfigUtils.M)
                             XposedHelpers.setBooleanField(mStatusBarHeaderView, "mDetailTransitioning", false);
-                        } catch (Throwable ignore) {
-                            // Not in LP
-                        }
                     }
                 })
                 .start();
     }
 
-    private static View.OnClickListener onClickListener = new View.OnClickListener() {
+    private static View.OnClickListener onClickListener = new SafeOnClickListener(TAG, "Error in onClickListener") {
         @Override
-        public void onClick(View v) {
-            try {
-                switch (v.getId()) {
-                    case R.id.qs_edit:
-                        DetailViewManager.getInstance().showEditView(mRecords);
-                        break;
-                    case R.id.qs_up:
-                        XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
-                                mContext.getString(mContext.getResources().getIdentifier("accessibility_desc_quick_settings", "string", PACKAGE_SYSTEMUI)));
-                        XposedHelpers.callMethod(mQsPanel, "closeDetail");
-                        break;
-                }
-            } catch (Throwable t) {
-                XposedHook.logE(TAG, "Error in onClickListener", t);
+        public void onClickSafe(View v) {
+            switch (v.getId()) {
+                case R.id.qs_edit:
+                    DetailViewManager.getInstance().showEditView(mRecords);
+                    break;
+                case R.id.qs_up:
+                    XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
+                            mContext.getString(mContext.getResources().getIdentifier("accessibility_desc_quick_settings", "string", PACKAGE_SYSTEMUI)));
+                    XposedHelpers.callMethod(mQsPanel, "closeDetail");
+                    break;
             }
         }
     };
@@ -850,14 +841,11 @@ public class StatusBarHeaderHooks {
                 mQsPanel.post(new Runnable() {
                     @Override
                     public void run() {
-                        mQsPanel.post(new Runnable() {
+                        mQsPanel.post(new SafeRunnable() {
                             @Override
-                            public void run() {
-                                try {
-                                    mGridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
-                                    mHeaderQsPanel.setupAnimators(mGridHeight);
-                                } catch (Throwable ignore) {
-                                }
+                            public void runSafe() {
+                                mGridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
+                                mHeaderQsPanel.setupAnimators(mGridHeight);
                             }
                         });
                     }

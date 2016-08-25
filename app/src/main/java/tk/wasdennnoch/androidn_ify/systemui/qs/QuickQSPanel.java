@@ -22,6 +22,8 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
+import tk.wasdennnoch.androidn_ify.misc.SafeOnLongClickListener;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
@@ -312,22 +314,16 @@ public class QuickQSPanel extends LinearLayout {
                     }
                 }
             };
-            View.OnClickListener clickSecondary = new View.OnClickListener() {
+            View.OnClickListener clickSecondary = new SafeOnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    try {
-                        XposedHelpers.callMethod(tile, "secondaryClick");
-                    } catch (Throwable ignore) {
-                    }
+                public void onClickSafe(View v) {
+                    XposedHelpers.callMethod(tile, "secondaryClick");
                 }
             };
-            View.OnLongClickListener longClick = new View.OnLongClickListener() {
+            View.OnLongClickListener longClick = new SafeOnLongClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
-                    try {
-                        XposedHelpers.callMethod(tile, "longClick");
-                    } catch (Throwable ignore) {
-                    }
+                public boolean onLongClickSafe(View v) {
+                    XposedHelpers.callMethod(tile, "longClick");
                     return true;
                 }
             };

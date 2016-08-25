@@ -9,6 +9,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
+import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class NotificationPanelHooks {
@@ -58,10 +59,9 @@ public class NotificationPanelHooks {
         }
     };
 
-    private static View.OnClickListener mExpandIndicatorListener = new View.OnClickListener() {
-
+    private static View.OnClickListener mExpandIndicatorListener = new SafeOnClickListener() {
         @Override
-        public void onClick(View v) {
+        public void onClickSafe(View v) {
             // Fixes an issue with the indicator having two backgrounds when layer type is hardware
             mExpandIndicator.setLayerType(View.LAYER_TYPE_NONE, null);
             flingSettings(!mExpandIndicator.isExpanded());

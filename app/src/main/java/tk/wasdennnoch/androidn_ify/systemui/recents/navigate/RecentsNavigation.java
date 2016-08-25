@@ -306,31 +306,6 @@ public class RecentsNavigation {
         }
     }
 
-    /*private static Context mContext;
-    private static Handler mHandler;
-    private static XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "prepareNavigationBarViewHook called");
-
-            mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
-            mHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
-
-            mContext.registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            XposedHook.logD(TAG, "Kill broadcast received, sending kill signal");
-                            Process.sendSignal(Process.myPid(), Process.SIGNAL_KILL);
-                        }
-                    }, 100);
-                }
-            }, new IntentFilter(SettingsActivity.ACTION_KILL_SYSTEMUI));
-        }
-    };*/
-
     private static XC_LayoutInflated recents_task_view_header = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {

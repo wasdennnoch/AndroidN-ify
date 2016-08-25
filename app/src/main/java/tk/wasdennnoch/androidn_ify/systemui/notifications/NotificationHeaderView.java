@@ -46,8 +46,6 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 /**
  * A header of a notification view
- *
- * @hide
  */
 @RemoteViews.RemoteView
 public class NotificationHeaderView extends ViewGroup {
