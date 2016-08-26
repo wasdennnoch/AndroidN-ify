@@ -26,6 +26,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.RemotableViewMethod;
@@ -34,6 +35,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Chronometer;
+import android.widget.DateTimeView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
@@ -69,6 +72,7 @@ public class NotificationHeaderView extends ViewGroup {
 
     private Resources mModuleRes;
 
+    @SuppressWarnings("deprecation")
     public static NotificationHeaderView newHeader(Context context) {
         ResourceUtils res = ResourceUtils.getInstance(context);
 
@@ -83,6 +87,68 @@ public class NotificationHeaderView extends ViewGroup {
                 res.getDimensionPixelSize(R.dimen.notification_header_padding_bottom));
         headerView.setLayoutParams(headerLp);
 
+        int iconSize = res.getDimensionPixelSize(R.dimen.notification_icon_size);
+        int iconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_icon_margin_end);
+
+        ViewGroup.MarginLayoutParams iconLp = new MarginLayoutParams(iconSize, iconSize);
+        iconLp.setMarginEnd(iconMarginEnd);
+        ImageView icon = new ImageView(context);
+        icon.setId(R.id.icon);
+        icon.setLayoutParams(iconLp);
+        headerView.addView(icon);
+
+        MarginLayoutParams appNameLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        appNameLp.setMarginStart(res.getDimensionPixelSize(R.dimen.notification_app_name_margin_start));
+        appNameLp.setMarginEnd(res.getDimensionPixelSize(R.dimen.notification_app_name_margin_end));
+        TextView appName = new TextView(context);
+        appName.setId(R.id.app_name_text);
+        appName.setLayoutParams(appNameLp);
+        appName.setSingleLine(true);
+        appName.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Info);
+        headerView.addView(appName);
+
+        TextView headerTextDivider = newDivider(context, res);
+        headerTextDivider.setId(R.id.header_text_divider);
+        headerView.addView(headerTextDivider);
+
+        int textMargin = res.getDimensionPixelSize(R.dimen.notification_header_text_margin);
+
+        MarginLayoutParams headerTextLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        headerTextLp.setMargins(textMargin, 0, textMargin, 0);
+        TextView headerText = new TextView(context);
+        headerText.setId(R.id.header_text);
+        headerText.setLayoutParams(headerTextLp);
+        headerText.setSingleLine(true);
+        headerText.setVisibility(GONE);
+        headerText.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Info);
+        headerView.addView(headerText);
+
+        TextView timeDivider = newDivider(context, res);
+        timeDivider.setId(R.id.time_divider);
+        headerView.addView(timeDivider);
+
+        MarginLayoutParams timeLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        timeLp.setMargins(textMargin, 0, textMargin, 0);
+        RelativeDateTimeView time = new RelativeDateTimeView(context);
+        time.setId(R.id.time);
+        time.setLayoutParams(timeLp);
+        time.setSingleLine(true);
+        time.setVisibility(GONE);
+        time.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Time);
+        time.setGravity(TEXT_ALIGNMENT_CENTER);
+        headerView.addView(time);
+
+        MarginLayoutParams chronometerLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        chronometerLp.setMargins(textMargin, 0, textMargin, 0);
+        Chronometer chronometer = new Chronometer(context);
+        chronometer.setId(R.id.chronometer);
+        chronometer.setLayoutParams(chronometerLp);
+        chronometer.setSingleLine(true);
+        chronometer.setVisibility(GONE);
+        chronometer.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Time);
+        headerView.addView(chronometer);
+
+        /*
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewGroup template = (ViewGroup) inflater.inflate(res.getLayout(R.layout.notification_template_header), null, false);
         int childCount = template.getChildCount();
@@ -95,8 +161,22 @@ public class NotificationHeaderView extends ViewGroup {
         String dividerSymbol = res.getString(R.string.notification_header_divider_symbol);
         ((TextView) headerView.findViewById(R.id.header_text_divider)).setText(dividerSymbol);
         ((TextView) headerView.findViewById(R.id.time_divider)).setText(dividerSymbol);
+        */
 
         return headerView;
+    }
+
+    private static TextView newDivider(Context context, ResourceUtils res) {
+        int dividerMargin = res.getDimensionPixelSize(R.dimen.notification_header_text_margin);
+        String dividerSymbol = res.getString(R.string.notification_header_divider_symbol);
+        MarginLayoutParams dividerLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        dividerLp.setMargins(dividerMargin, 0, dividerMargin, 0);
+        TextView divider = new TextView(context);
+        divider.setLayoutParams(dividerLp);
+        divider.setVisibility(GONE);
+        divider.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Info);
+        divider.setText(dividerSymbol);
+        return divider;
     }
 
     ViewOutlineProvider mProvider = new ViewOutlineProvider() {

@@ -50,7 +50,7 @@
     <dimen name="notification_icon_size">18dp</dimen>
     <dimen name="notification_icon_margin_end">3dp</dimen>
     <dimen name="notification_app_name_margin_start">3dp</dimen>
-    <dimen name="notification_app_name_margin_end">3dp</dimen>
+    <dimen name="notification_app_name_margin_end">2dp</dimen>
     <dimen name="notification_actions_margin_start">8dp</dimen>
     <dimen name="notification_content_margin_start">16dp</dimen>
     <dimen name="notification_content_margin_top">25.5dp</dimen> <!-- 37.5 - 12 -->
@@ -86,4 +86,5 @@
     <dimen name="notification_header_padding_top">10dp</dimen>
     <dimen name="notification_header_padding_bottom">16dp</dimen>
     <dimen name="notification_header_padding_end">16dp</dimen>
+    <dimen name="notification_header_text_margin">2dp</dimen>
 </resources>
