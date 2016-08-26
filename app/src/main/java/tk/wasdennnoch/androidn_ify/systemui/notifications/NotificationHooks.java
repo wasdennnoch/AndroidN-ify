@@ -643,13 +643,15 @@ public class NotificationHooks {
                         boolean running = (boolean) param.args[0];
                         View child = (View) param.args[1];
                         if (child != null) {
-                            ImageView icon = (ImageView) child.findViewById(R.id.notification_icon);
+                            ImageView icon = (ImageView) child.findViewById(R.id.icon);
                             if (icon == null)
                                 icon = (ImageView) child.findViewById(com.android.internal.R.id.icon);
-                            setIconRunning(param.thisObject, icon, running);
+                            if (icon != null)
+                                setIconRunning(param.thisObject, icon, running);
                             ImageView rightIcon = (ImageView) child.findViewById(
                                     com.android.internal.R.id.right_icon);
-                            setIconRunning(param.thisObject, rightIcon, running);
+                            if (rightIcon != null)
+                                setIconRunning(param.thisObject, rightIcon, running);
                         }
                         return null;
                     }
