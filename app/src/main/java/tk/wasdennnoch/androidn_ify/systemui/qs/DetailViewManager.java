@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.internal.logging.MetricsLogger;
@@ -38,7 +37,7 @@ public class DetailViewManager {
     private Context mContext;
     private ViewGroup mStatusBarHeaderView;
     private ViewGroup mQsPanel;
-    private TextView mEditButton;
+    private Button mEditButton;
     private boolean mHasEditPanel;
 
     private RecyclerView mRecyclerView;
@@ -51,11 +50,11 @@ public class DetailViewManager {
         return sInstance;
     }
 
-    public static void init(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, TextView editButton, boolean hasEditPanel) {
+    public static void init(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, Button editButton, boolean hasEditPanel) {
         sInstance = new DetailViewManager(context, statusBarHeaderView, qsPanel, editButton, hasEditPanel);
     }
 
-    private DetailViewManager(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, TextView editButton, boolean hasEditPanel) {
+    private DetailViewManager(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, Button editButton, boolean hasEditPanel) {
         mContext = context;
         mStatusBarHeaderView = statusBarHeaderView;
         mQsPanel = qsPanel;
@@ -67,7 +66,7 @@ public class DetailViewManager {
         mTileAdapter.saveChanges();
     }
 
-    public void showEditView(ArrayList<Object> records, int x, int y) {
+    public void showEditView(ArrayList<Object> records) {
         if (records == null) {
             Toast.makeText(mContext, "Couldn't open edit view; mRecords == null", Toast.LENGTH_SHORT).show();
             XposedHook.logE(TAG, "Couldn't open edit view; mRecords == null", null);
@@ -76,10 +75,12 @@ public class DetailViewManager {
         if (mEditAdapter == null)
             createEditAdapter(records);
 
-        showDetailAdapter(mEditAdapter, x, y);
+        showDetailAdapter(mEditAdapter);
     }
 
-    private void showDetailAdapter(Object adapter, int x, int y) {
+    private void showDetailAdapter(Object adapter) {
+        int x = mEditButton.getLeft() + mEditButton.getWidth() / 2;
+        int y = mEditButton.getTop() + mEditButton.getHeight() / 2;
         if (mHasEditPanel)
             y += mStatusBarHeaderView.getHeight();
         if (adapter == mEditAdapter)
