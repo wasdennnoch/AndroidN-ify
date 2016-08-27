@@ -777,13 +777,12 @@ public class StatusBarHeaderHooks {
         final boolean showingDetail = detail != null;
         // Fixes an issue with the indicator having two backgrounds when layer type is hardware
         mExpandIndicator.setLayerType(View.LAYER_TYPE_NONE, null);
-        mPageIndicator.setVisibility(showingDetail ? View.INVISIBLE : View.VISIBLE);
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);
         if (mExpansion < 1)
             transition(mHeaderQsPanel, !showingDetail);
-        setEditButtonVisible(!showingDetail);
+        setQSDecorVisible(!showingDetail);
         if (mWeatherContainer != null) {
             try {
                 if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather"))
@@ -909,11 +908,11 @@ public class StatusBarHeaderHooks {
         if (mUseDragPanel)
             mEditBtn.setVisibility(state == NotificationPanelHooks.STATE_SHADE ? View.VISIBLE : View.GONE);
         else
-            setEditButtonVisible(state == NotificationPanelHooks.STATE_SHADE);
+            setQSDecorVisible(state == NotificationPanelHooks.STATE_SHADE);
             */
     }
 
-    private static void setEditButtonVisible(boolean visible) {
+    private static void setQSDecorVisible(boolean visible) {
         if (mDecorLayout == null || mQsPanel == null) return;
         FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
         if (visible) {
@@ -1055,6 +1054,12 @@ public class StatusBarHeaderHooks {
                     Class<?> classCirclePageIndicator = XposedHelpers.findClass(CLASS_CIRCLE_PAGE_INDICATOR, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
+                    XposedHelpers.findAndHookMethod(classQSDragPanel, "getLeft", int.class, int.class, int.class, boolean.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            param.args[2] = 3;
+                        }
+                    });
                     //XposedHelpers.findAndHookMethod(classQSDragPanel, "onMeasure", int.class, int.class, onMeasureHook);
                     //XposedHelpers.findAndHookMethod(classQSDragPanel, "onLayout", boolean.class, int.class, int.class, int.class, int.class, onLayoutHook);
                     XposedBridge.hookAllMethods(classQSDragPanel, "setEditing", qsSetEditingHook);

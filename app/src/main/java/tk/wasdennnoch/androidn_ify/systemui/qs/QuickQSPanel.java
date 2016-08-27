@@ -1,6 +1,9 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -36,6 +39,8 @@ import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_QUICKQ
 public class QuickQSPanel extends LinearLayout {
 
     private static final String TAG = "QuickQSPanel";
+    private static final float EXPANDED_TILE_DELAY = .7f;
+    private static final float LAST_ROW_EXPANDED_DELAY = .86f;
 
     private int mIconSizePx;
     private int mTileSpacingPx;
@@ -50,14 +55,32 @@ public class QuickQSPanel extends LinearLayout {
     private BatteryTile.BatteryView mBatteryView;
     private TouchAnimator mTranslationXAnimator;
     private TouchAnimator mTranslationYAnimator;
-    private TouchAnimator mTranslationXAnimator2;
-    private TouchAnimator mTranslationYAnimator2;
+    private TouchAnimator mLabelTranslationXAnimator;
+    private TouchAnimator mLabelTranslationYAnimator;
+    private TouchAnimator mFirstPageAnimator;
     private TouchAnimator mFirstPageDelayedAnimator;
-    private TouchAnimator mTopFiveQsAnimator;
+    private TouchAnimator mLastRowAnimator;
     private TouchAnimator mFadeAnimator;
     private float oldPosition = 0;
     private boolean mShowPercent;
     private boolean mAllowFancy;
+    private boolean mIsLandscape;
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case Intent.ACTION_CONFIGURATION_CHANGED:
+                    if (!mAllowFancy) return;
+                    updateLandscape();
+                    if (mIsLandscape) {
+                        showTopFive();
+                    } else {
+                        onAnimationStarted();
+                    }
+                    break;
+            }
+        }
+    };
 
     public QuickQSPanel(Context context) {
         super(context);
@@ -79,6 +102,26 @@ public class QuickQSPanel extends LinearLayout {
         mFadeAnimator = new TouchAnimator.Builder()
                 .addFloat(this, "alpha", 1.0F, 0.0F)
                 .setEndDelay(0.64F).build();
+
+        updateLandscape();
+    }
+
+    private void updateLandscape() {
+        mIsLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
+        getContext().registerReceiver(mBroadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        getContext().unregisterReceiver(mBroadcastReceiver);
     }
 
     public void setTiles(ArrayList<Object> tileRecords) {
@@ -92,12 +135,16 @@ public class QuickQSPanel extends LinearLayout {
         mIconViews.clear();
         mTranslationXAnimator = null;
         mTranslationYAnimator = null;
+        mLabelTranslationXAnimator = null;
+        mLabelTranslationYAnimator = null;
         mFirstPageDelayedAnimator = null;
-        mTopFiveQsAnimator = null;
-        for (int i = 0; i < mMaxTiles && i < tileRecords.size(); i++) {
+        mLastRowAnimator = null;
+
+        for (int i = 0; i < tileRecords.size(); i++) {
             Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
-            mTileLayout.addTile(tilerecord);
+            if (i < mMaxTiles)
+                mTileLayout.addTile(tilerecord);
         }
         StatusBarHeaderHooks.postSetupAnimators();
     }
@@ -113,56 +160,74 @@ public class QuickQSPanel extends LinearLayout {
         XposedHook.logD(TAG, "setupAnimators called");
         mTopFiveQs.clear();
         int j = 0;
-        TouchAnimator.Builder builder = new TouchAnimator.Builder();
-        TouchAnimator.Builder builder1 = new TouchAnimator.Builder();
-        TouchAnimator.Builder builder2 = new TouchAnimator.Builder();
-        TouchAnimator.Builder builder3 = new TouchAnimator.Builder();
-        TouchAnimator.Builder builder4 = new TouchAnimator.Builder();
-        TouchAnimator.Builder builder5 = new TouchAnimator.Builder();
-        for (int i = 0; i < mIconViews.size(); i++) {
-            Object tilerecord = mRecords.get(i);
-            View tileView = mIconViews.get(i);
-            final ViewGroup qsTileView = (ViewGroup) XposedHelpers.getObjectField(tilerecord, "tileView");
+        int iconViewsCount = mIconViews.size();
+        int qsPanelMarginBottom = ResourceUtils.getInstance(getContext()).getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
+        TouchAnimator.Builder translationXBuilder = new TouchAnimator.Builder();
+        TouchAnimator.Builder translationYBuilder = new TouchAnimator.Builder();
+        TouchAnimator.Builder labelTranslationXBuilder = new TouchAnimator.Builder();
+        TouchAnimator.Builder labelTranslationYBuilder = new TouchAnimator.Builder();
+        TouchAnimator.Builder firstPageBuilder = new TouchAnimator.Builder();
+        TouchAnimator.Builder lastRowBuilder = new TouchAnimator.Builder();
+        for (int i = 0; i < mRecords.size(); i++) {
+            Object tileRecord = mRecords.get(i);
+            final ViewGroup qsTileView = (ViewGroup) XposedHelpers.getObjectField(tileRecord, "tileView");
+            if (i < iconViewsCount) {
 
-            int ai[] = new int[2];
-            int ai1[] = new int[2];
+                View tileView = mIconViews.get(i);
 
-            getRelativePosition(ai, tileView, StatusBarHeaderHooks.mStatusBarHeaderView);
-            getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
+                int ai[] = new int[2];
+                int ai1[] = new int[2];
 
-            int k = ai1[0] - ai[0];
-            int i1 = ai1[1] - ai[1] +
-                    XposedHelpers.getIntField(qsTileView, "mTilePaddingTopPx") + mTileSpacingPx
-                    + getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
+                getRelativePosition(ai, tileView, StatusBarHeaderHooks.mStatusBarHeaderView);
+                getRelativePosition(ai1, qsTileView, StatusBarHeaderHooks.mQsPanel);
 
-            j = ai[0] - j;
-            builder.addFloat(tileView, "translationX", 0f, (float) k);
-            builder1.addFloat(tileView, "translationY", 0f, (float) i1);
+                int k = ai1[0] - ai[0];
+                int i1 = ai1[1] - ai[1] +
+                        XposedHelpers.getIntField(qsTileView, "mTilePaddingTopPx") + mTileSpacingPx
+                        + getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
 
-            builder4.addFloat(qsTileView, "translationX", (float) -k, 0f);
-            builder5.addFloat(qsTileView, "translationY", gridHeight - StatusBarHeaderHooks.mQsContainer.getPaddingBottom(), 0f);
+                j = ai[0] - j;
+                translationXBuilder.addFloat(tileView, "translationX", 0f, (float) k);
+                translationYBuilder.addFloat(tileView, "translationY", 0f, (float) i1);
 
-            mTopFiveQs.add(findIcon(qsTileView));
+                boolean dual = XposedHelpers.getBooleanField(qsTileView, "mDual");
+                View label = (View) XposedHelpers.getObjectField(qsTileView, dual ? "mDualLabel" : "mLabel");
+
+                labelTranslationXBuilder.addFloat(label, "translationX", (float) -k, 0f);
+                labelTranslationYBuilder.addFloat(label, "translationY", (float) -i1, 0f);
+
+                firstPageBuilder.addFloat(qsTileView, "translationY", gridHeight + qsPanelMarginBottom, 0f);
+
+                mTopFiveQs.add(findIcon(qsTileView));
+            } else {
+                lastRowBuilder.addFloat(qsTileView, "alpha", 0f, 1f);
+            }
         }
 
         Path path = new Path();
         path.moveTo(0.0F, 0.0F);
         path.cubicTo(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         PathInterpolatorBuilder b = new PathInterpolatorBuilder(0.0F, 0.0F, 0.0F, 1.0F);
-        builder.setInterpolator(b.getXInterpolator());
-        builder1.setInterpolator(b.getYInterpolator());
+        translationXBuilder.setInterpolator(b.getXInterpolator());
+        translationYBuilder.setInterpolator(b.getYInterpolator());
+        labelTranslationXBuilder.setInterpolator(b.getXInterpolator());
+        labelTranslationYBuilder.setInterpolator(b.getYInterpolator());
 
-        builder2.setStartDelay(0.86f);
-        builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
+        mTranslationXAnimator = translationXBuilder.build();
+        mTranslationYAnimator = translationYBuilder.build();
+        mLabelTranslationXAnimator = labelTranslationXBuilder.build();
+        mLabelTranslationYAnimator = labelTranslationYBuilder.build();
+        mFirstPageAnimator = firstPageBuilder.build();
+        mLastRowAnimator = lastRowBuilder
+                .setStartDelay(LAST_ROW_EXPANDED_DELAY)
+                .build();
+
+        TouchAnimator.Builder firstPageDelayedBuilder = new TouchAnimator.Builder();
+        firstPageDelayedBuilder.setStartDelay(EXPANDED_TILE_DELAY);
+        firstPageDelayedBuilder.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
         if (StatusBarHeaderHooks.mDecorLayout != null)
-            builder2.addFloat(StatusBarHeaderHooks.mDecorLayout, "alpha", 0f, 1f);
-        builder3.setStartDelay(0.9f);
-        mTranslationXAnimator = builder.build();
-        mTranslationYAnimator = builder1.build();
-        mFirstPageDelayedAnimator = builder2.build();
-        mTopFiveQsAnimator = builder3.build();
-        mTranslationXAnimator2 = builder4.build();
-        mTranslationYAnimator2 = builder5.build();
+            firstPageDelayedBuilder.addFloat(StatusBarHeaderHooks.mDecorLayout, "alpha", 0f, 1f);
+        mFirstPageDelayedAnimator = firstPageDelayedBuilder.build();
     }
 
     public void setPosition(float f) {
@@ -179,8 +244,9 @@ public class QuickQSPanel extends LinearLayout {
     }
 
     private void animateFancy(float f) {
-        boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null || mFirstPageDelayedAnimator == null || mTopFiveQsAnimator == null);
-        boolean disableTranslation = StatusBarHeaderHooks.mDisableFancy;
+        boolean readyToAnimate = !(mTranslationXAnimator == null || mTranslationYAnimator == null
+                || mFirstPageDelayedAnimator == null || mFirstPageAnimator == null || mLastRowAnimator == null);
+        boolean disableTranslation = StatusBarHeaderHooks.mDisableFancy || mIsLandscape;
         if (!readyToAnimate && (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD)) {
             return;
         }
@@ -206,8 +272,9 @@ public class QuickQSPanel extends LinearLayout {
                 if (!disableTranslation) {
                     mTranslationXAnimator.setPosition(f);
                     mTranslationYAnimator.setPosition(f);
-                    mTranslationXAnimator2.setPosition(f);
-                    mTranslationYAnimator2.setPosition(f);
+                    mLabelTranslationXAnimator.setPosition(f);
+                    mLabelTranslationYAnimator.setPosition(f);
+                    mFirstPageAnimator.setPosition(f);
                     mFadeAnimator.setPosition(0);
                 } else {
                     mTranslationXAnimator.setPosition(0);
@@ -215,7 +282,7 @@ public class QuickQSPanel extends LinearLayout {
                     mFadeAnimator.setPosition(f);
                 }
                 mFirstPageDelayedAnimator.setPosition(f);
-                mTopFiveQsAnimator.setPosition(f);
+                mLastRowAnimator.setPosition(f);
                 if (mBatteryView != null) {
                     if (mShowPercent && oldPosition < 0.7f && f >= 0.7f) {
                         mBatteryView.setShowPercent(false);
@@ -250,6 +317,10 @@ public class QuickQSPanel extends LinearLayout {
 
     public void onAnimationAtEnd() {
         setVisibility(INVISIBLE);
+        showTopFive();
+    }
+
+    private void showTopFive() {
         for (View v : mTopFiveQs)
             v.setVisibility(VISIBLE);
     }
