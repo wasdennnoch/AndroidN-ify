@@ -92,5 +92,5 @@
     <dimen name="qs_edit_min_width">88dp</dimen>
     <dimen name="qs_edit_padding">12dp</dimen>
     <dimen name="borderless_button_radius">2dp</dimen>
-    <dimen name="qs_panel_margin_bottom">28dp</dimen>
+    <dimen name="qs_panel_margin_bottom">34dp</dimen>
 </resources>

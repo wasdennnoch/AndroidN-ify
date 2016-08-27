@@ -783,7 +783,7 @@ public class StatusBarHeaderHooks {
         transition(mExpandIndicator, !showingDetail);
         if (mExpansion < 1)
             transition(mHeaderQsPanel, !showingDetail);
-        setEditButtonVisible(!(showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE));
+        setEditButtonVisible(!showingDetail);
         if (mWeatherContainer != null) {
             try {
                 if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather"))
@@ -918,7 +918,7 @@ public class StatusBarHeaderHooks {
         FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
         if (visible) {
             mDecorLayout.setVisibility(View.VISIBLE);
-            qsPanelLp.bottomMargin = ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_panel_decor_height);
+            qsPanelLp.bottomMargin = ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
         } else {
             mDecorLayout.setVisibility(View.GONE);
             qsPanelLp.bottomMargin = 0;
