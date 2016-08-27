@@ -38,6 +38,8 @@
     <string name="enable_n_platlogo_title">N logo v easter egg</string>
     <string name="use_namey_mcnameface_title">Použiť \"Namey McNameface\" ikonu</string>
     <string name="enable_install_source_title">Zobraziť zdroj nainštalovanej aplikácie</string>
+    <string name="battery_detail_switch_title">Šetrič batérie</string>
+    <string name="battery_detail_switch_summary">Zníži výkonnosť a dátové prenosy na pozadí</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
@@ -230,6 +232,45 @@
     <string name="live_display_day">Deň</string>
     <string name="live_display_night">Noc</string>
     <string name="live_display_outdoor">Vonku (jasné slnešné svetlo)</string>
+    <string name="charge_length_format">pred <xliff:g name="time" example="3 hours">%1$s</xliff:g></string>
+    <string name="remaining_length_format">zostáva <xliff:g name="time" example="3 hours">%1$s</xliff:g></string>
+    <string name="power_remaining_duration_only">Zostáva cca. <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="power_remaining_duration_only_short">Zostáva <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
+        - zostáva cca. <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g>
+        - zostáva <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="state">%2$s</xliff:g></string>
+    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> do úplného nabitia</string>
+    <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> do úplného nabitia zo zásuvky</string>
+    <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> do úplného nabitia cez USB</string>
+    <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> do úplného nabitia bezdrôtovo</string>
+    <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="battery_info_status_unknown">Neznáme</string>
+    <string name="battery_info_status_charging">Nabíjanie</string>
+    <string name="battery_info_status_charging_ac">Nabíjanie zo zásuvky</string>
+    <string name="battery_info_status_charging_ac_short">Nabíjanie</string>
+    <string name="battery_info_status_charging_usb">Nabíjanie cez USB</string>
+    <string name="battery_info_status_charging_usb_short">Nabíjanie</string>
+    <string name="battery_info_status_charging_wireless">Bezdrôtové nabíjanie</string>
+    <string name="battery_info_status_charging_wireless_short">Nabíjanie</string>
+    <string name="battery_info_status_discharging">Vybíja sa</string>
+    <string name="battery_info_status_not_charging">Nenabíja sa</string>
+    <string name="battery_info_status_full">Nabitá</string>
+    <string name="battery_panel_title">Využitie batérie</string>
+    <string name="battery_detail_charging_summary">Šetrič batérie nie je dostupný pri nabíjaní</string>
     <!-- /QS -->
   
     <!-- Color Picker -->
