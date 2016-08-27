@@ -105,6 +105,10 @@ public class QSTile {
         }
     }
 
+    public void showDetail(boolean show) {
+        XposedHelpers.callMethod(mTile, "showDetail", show);
+    }
+
     public void handleClick() {
     }
 
@@ -125,6 +129,10 @@ public class QSTile {
 
     public Drawable getResourceIconDrawable() {
         return mState.icon;
+    }
+
+    public Object getDetailAdapter() {
+        return null;
     }
 
     public static class State {

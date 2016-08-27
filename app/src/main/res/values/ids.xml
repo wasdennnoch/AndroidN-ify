@@ -15,5 +15,7 @@
     <item name="expand_button" type="id" />
     <item name="profile_badge" type="id" />
     <item name="notification_header" type="id" />
+    <item name="usage_graph" type="id" />
+    <item name="battery_usage" type="id" />
 
 </resources>

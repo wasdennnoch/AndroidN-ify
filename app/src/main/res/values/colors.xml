@@ -11,6 +11,9 @@
     <!-- Notifications / Status bar header -->
     <color name="edit_btn_text">#64FFFFFF</color>
     <color name="qs_detail_button">#FFB0BEC5</color>
+    <color name="usage_graph_dots">#455A64</color>
+    <color name="qs_text">#FFFFFFFF</color>
+    <color name="system_accent_color">#ff80CBC4</color>
     <!-- /Notifications / Status bar header -->
 
 </resources>

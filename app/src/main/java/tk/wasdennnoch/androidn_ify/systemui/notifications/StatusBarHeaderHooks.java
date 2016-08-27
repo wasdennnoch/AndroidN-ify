@@ -1054,12 +1054,14 @@ public class StatusBarHeaderHooks {
                     Class<?> classCirclePageIndicator = XposedHelpers.findClass(CLASS_CIRCLE_PAGE_INDICATOR, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
-                    XposedHelpers.findAndHookMethod(classQSDragPanel, "getLeft", int.class, int.class, int.class, boolean.class, new XC_MethodHook() {
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            param.args[2] = 3;
-                        }
-                    });
+                    if (!ConfigUtils.qs().large_first_row) {
+                        XposedHelpers.findAndHookMethod(classQSDragPanel, "getLeft", int.class, int.class, int.class, boolean.class, new XC_MethodHook() {
+                            @Override
+                            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                                param.args[2] = 3;
+                            }
+                        });
+                    }
                     //XposedHelpers.findAndHookMethod(classQSDragPanel, "onMeasure", int.class, int.class, onMeasureHook);
                     //XposedHelpers.findAndHookMethod(classQSDragPanel, "onLayout", boolean.class, int.class, int.class, int.class, int.class, onLayoutHook);
                     XposedBridge.hookAllMethods(classQSDragPanel, "setEditing", qsSetEditingHook);
@@ -1146,6 +1148,7 @@ public class StatusBarHeaderHooks {
         }
     }
 
+    public static int R_string_battery_panel_title;
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
             if (ConfigUtils.qs().header) {
@@ -1153,6 +1156,8 @@ public class StatusBarHeaderHooks {
                 XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
 
                 XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
+
+                R_string_battery_panel_title = resparam.res.addResource(modRes, R.string.battery_panel_title);
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", modRes.fwd(R.dimen.status_bar_header_height));

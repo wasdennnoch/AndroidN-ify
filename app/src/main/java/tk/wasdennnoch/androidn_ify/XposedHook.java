@@ -24,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.navigate.RecentsNavigation;
 import tk.wasdennnoch.androidn_ify.systemui.recents.stack.RecentsStackHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.PermissionGranter;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 /**
@@ -117,6 +118,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             case PACKAGE_ANDROID:
                 DoubleTapHwKeys.hook(lpparam.classLoader);
                 LiveDisplayObserver.hook(lpparam.classLoader);
+                PermissionGranter.initAndroid(lpparam.classLoader);
                 break;
             case PACKAGE_PHONE:
                 EmergencyHooks.hook(lpparam.classLoader);

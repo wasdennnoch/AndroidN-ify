@@ -93,4 +93,27 @@
     <dimen name="qs_edit_padding">12dp</dimen>
     <dimen name="borderless_button_radius">2dp</dimen>
     <dimen name="qs_panel_margin_bottom">34dp</dimen>
+    <dimen name="qs_detail_header_text_size">20sp</dimen>
+    <dimen name="qs_detail_item_primary_text_size">16sp</dimen>
+    <dimen name="qs_detail_item_secondary_text_size">14sp</dimen>
+
+    <!-- Usage graph dimens -->
+    <dimen name="usage_graph_area_height">122dp</dimen>
+    <dimen name="usage_graph_margin_top_bottom">9dp</dimen>
+    <dimen name="usage_graph_labels_width">56dp</dimen>
+    <dimen name="usage_graph_labels_padding">16dp</dimen>
+
+    <dimen name="usage_graph_divider_size">1dp</dimen>
+
+    <dimen name="usage_graph_line_width">3dp</dimen>
+    <dimen name="usage_graph_line_corner_radius">6dp</dimen>
+
+    <dimen name="usage_graph_dot_size">.75dp</dimen>
+    <dimen name="usage_graph_dot_interval">7dp</dimen>
+
+    <dimen name="battery_detail_graph_space_top">27dp</dimen>
+    <dimen name="battery_detail_graph_space_bottom">27dp</dimen>
+    <dimen name="battery_usage_height">141dp</dimen>
+    <dimen name="battery_usage_margin_start">16dp</dimen>
+    <dimen name="battery_usage_margin_end">24dp</dimen>
 </resources>

@@ -145,7 +145,7 @@ public class DetailViewManager {
         });
     }
 
-    private Object createProxy(final DetailAdapter adapter) {
+    public Object createProxy(final DetailAdapter adapter) {
         Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
         return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{classDetailAdapter}, new InvocationHandler() {
             @Override
