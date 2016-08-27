@@ -27,4 +27,25 @@
         <attr name="android:entryValues"/>
     </declare-styleable>
 
+    <style name="TextAppearance" />
+
+    <style name="TextAppearance.QS">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/qs_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.QS.DetailHeader">
+        <item name="android:textSize">@dimen/qs_detail_header_text_size</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.QS.DetailItemPrimary">
+        <item name="android:textSize">@dimen/qs_detail_item_primary_text_size</item>
+    </style>
+
+    <style name="TextAppearance.QS.DetailItemSecondary">
+        <item name="android:textSize">@dimen/qs_detail_item_secondary_text_size</item>
+        <item name="android:textColor">@color/system_accent_color</item>
+    </style>
 </resources>

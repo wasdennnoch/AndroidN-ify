@@ -24,8 +24,12 @@ import android.os.PowerManager;
 
 import java.util.ArrayList;
 
+import de.robv.android.xposed.XposedBridge;
+import de.robv.android.xposed.XposedHelpers;
+
 public class BatteryInfoManager extends BroadcastReceiver {
 
+    private PowerManager mPowerManager;
     private BatteryData mBatteryData;
     private final ArrayList<BatteryStatusListener> mListeners;
 
@@ -76,8 +80,8 @@ public class BatteryInfoManager extends BroadcastReceiver {
     public BatteryInfoManager(Context context) {
         mBatteryData = new BatteryData();
         mListeners = new ArrayList<>();
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        mBatteryData.isPowerSaving = pm.isPowerSaveMode();
+        mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        mBatteryData.isPowerSaving = mPowerManager.isPowerSaveMode();
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
@@ -143,5 +147,21 @@ public class BatteryInfoManager extends BroadcastReceiver {
             mBatteryData.isPowerSaving = enabled;
             notifyListeners();
         }
+    }
+
+    public void setPowerSaving(boolean enabled) {
+        try {
+            XposedHelpers.callMethod(mPowerManager, "setPowerSaveMode", enabled);
+        } catch (Throwable t) {
+            XposedBridge.log("Error setting power saving mode: " + t.getMessage());
+        }
+    }
+
+    public void togglePowerSaving() {
+        setPowerSaving(!isPowerSaveMode());
+    }
+
+    public boolean isPowerSaveMode() {
+        return mPowerManager.isPowerSaveMode();
     }
 }

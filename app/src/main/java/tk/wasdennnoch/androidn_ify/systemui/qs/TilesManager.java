@@ -161,6 +161,17 @@ public class TilesManager {
                         }
                     });
 
+            XposedHelpers.findAndHookMethod(QSTile.CLASS_QS_TILE, classLoader, "getDetailAdapter",
+                    new XC_MethodHook() {
+                        @SuppressWarnings("SuspiciousMethodCalls")
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            if (tile != null)
+                                param.setResult(tile.getDetailAdapter());
+                        }
+                    });
+
             Method clickMethod;
             try {
                 clickMethod = XposedHelpers.findMethodExact(hookClass, "handleClick");
