@@ -63,7 +63,6 @@ public class NotificationHooks {
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String KEY_EXPANDABLE = "ncv_expandable";
-    public static final int ANIMATION_DURATION_GO_TO_FULL_SHADE = 448;
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;
@@ -325,13 +324,10 @@ public class NotificationHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             RemoteViews contentView = (RemoteViews) param.args[0];
-            contentView.setImageViewResource(R.id.icon, 0);
-            contentView.setTextViewText(R.id.app_name_text, null);
-            contentView.setViewVisibility(R.id.chronometer, View.GONE);
-            contentView.setViewVisibility(R.id.header_text, View.GONE);
             contentView.setViewVisibility(R.id.header_text_divider, View.GONE);
+            contentView.setViewVisibility(R.id.notification_info_divider, View.GONE);
             contentView.setViewVisibility(R.id.time_divider, View.GONE);
-            contentView.setViewVisibility(R.id.time, View.GONE);
+            contentView.setTextViewText(R.id.header_text, null);
         }
     };
 

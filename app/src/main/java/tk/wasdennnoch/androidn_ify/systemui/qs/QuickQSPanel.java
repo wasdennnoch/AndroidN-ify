@@ -154,8 +154,8 @@ public class QuickQSPanel extends LinearLayout {
 
         builder2.setStartDelay(0.86f);
         builder2.addFloat(StatusBarHeaderHooks.mQsPanel, "alpha", 0f, 1f);
-        if (StatusBarHeaderHooks.mDecorLayout != null)
-            builder2.addFloat(StatusBarHeaderHooks.mDecorLayout, "alpha", 0f, 1f);
+        if (StatusBarHeaderHooks.mEditButton != null)
+            builder2.addFloat(StatusBarHeaderHooks.mEditButton, "alpha", 0f, 1f);
         builder3.setStartDelay(0.9f);
         mTranslationXAnimator = builder.build();
         mTranslationYAnimator = builder1.build();
