@@ -63,6 +63,7 @@ public class NotificationHooks {
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String KEY_EXPANDABLE = "ncv_expandable";
+    public static final int ANIMATION_DURATION_GO_TO_FULL_SHADE = 448;
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;

@@ -6,9 +6,11 @@ import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.graphics.Outline;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import java.util.Objects;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -40,6 +43,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.PageIndicator;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.BluetoothTileHook;
@@ -110,22 +114,27 @@ public class StatusBarHeaderHooks {
     private static QuickQSPanel mHeaderQsPanel;
     public static ViewGroup mQsPanel;
     public static ViewGroup mQsContainer;
+    private static PageIndicator mPageIndicator;
 
     private static Context mContext;
 
-    public static Button mEditButton;
+    public static FrameLayout mDecorLayout;
+    public static TextView mEditBtn;
 
     private static int mBarState = 2;
     public static int mQsPage;
 
     private static boolean mHasEditPanel = false;
-    public static boolean mEditing;
+    public static boolean mEditing = false;
     public static boolean mShowingDetail;
     public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
 
+    public static boolean mExpanded;
     private static float mExpansion = 0;
     private static int mGridHeight = 0;
+    private static int mQsPages = 0;
+    private static boolean mQsEditing = false;
 
     private static ArrayList<String> mPreviousTiles = new ArrayList<>();
     private static ArrayList<Object> mRecords;
@@ -423,7 +432,7 @@ public class StatusBarHeaderHooks {
                 return;
             }
 
-            DetailViewManager.init(mContext, mStatusBarHeaderView, mQsPanel, mEditButton, mHasEditPanel);
+            DetailViewManager.init(mContext, mStatusBarHeaderView, mQsPanel, mEditBtn, mHasEditPanel);
             postSetupAnimators();
             updateResources(mContext);
 
@@ -434,6 +443,7 @@ public class StatusBarHeaderHooks {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             float f = (float) param.args[0];
+            mExpanded = f > 0;
             mExpansion = f;
             try {
                 if (mAlarmTranslation != null)
@@ -568,6 +578,8 @@ public class StatusBarHeaderHooks {
                 }
                 mHeaderQsPanel.setTiles(mRecords);
             }
+            if (mUseDragPanel)
+                updatePageCount(param.thisObject);
         }
     };
 
@@ -585,10 +597,58 @@ public class StatusBarHeaderHooks {
     private static XC_MethodHook setupViewsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            Object mPageIndicator = XposedHelpers.getObjectField(param.thisObject, "mPageIndicator");
-            XposedHelpers.setAdditionalInstanceField(mPageIndicator, QS_PANEL_INDICATOR, true);
+            View pageIndicator = (View) XposedHelpers.getObjectField(param.thisObject, "mPageIndicator");
+            pageIndicator.setAlpha(0);
+            XposedHelpers.setAdditionalInstanceField(pageIndicator, QS_PANEL_INDICATOR, true);
+
+            /*
+            mPageIndicator = new PageIndicator(pageIndicator.getContext());
+            ViewGroup qsPanel = (ViewGroup) param.thisObject;
+            qsPanel.addView(mPageIndicator);
+            */
         }
     };
+
+    private static XC_MethodHook onMeasureHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            final int width = View.MeasureSpec.getSize((Integer) param.args[0]);
+            mPageIndicator.measure(
+                    View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(mPageIndicator.getPageIndicatorHeight(), View.MeasureSpec.AT_MOST));
+        }
+    };
+
+    private static XC_MethodHook onLayoutHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            int b = (int) param.args[4];
+            mPageIndicator.layout(0, b - mPageIndicator.getPageIndicatorHeight(), ((View) param.thisObject).getWidth(), b);
+        }
+    };
+
+    private static XC_MethodHook qsSetEditingHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            mQsEditing = (boolean) param.args[0];
+            updatePageCount(param.thisObject);
+        }
+    };
+
+    private static XC_MethodHook updatePageCountHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            updatePageCount(param.thisObject);
+        }
+    };
+
+    private static void updatePageCount(Object qsPanel) {
+        int qsPages = Math.max((Integer) XposedHelpers.callMethod(qsPanel, "getCurrentMaxPageCount"), 1);
+        if (mQsPages != qsPages && mPageIndicator != null) {
+            mQsPages = qsPages;
+            mPageIndicator.setNumPages(qsPages + (mQsEditing ? 1 : 0));
+        }
+    }
 
     private static XC_MethodHook onPageSelectedHook = new XC_MethodHook() {
         @Override
@@ -596,6 +656,17 @@ public class StatusBarHeaderHooks {
             if ((boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, QS_PANEL_INDICATOR)) {
                 mQsPage = (int) param.args[0];
                 mDisableFancy = mQsPage != 0;
+            }
+        }
+    };
+
+    private static XC_MethodHook onPageScrolledHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (mPageIndicator != null && (boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, QS_PANEL_INDICATOR)) {
+                int position = (int) param.args[0];
+                float positionOffset = (float) param.args[1];
+                mPageIndicator.setLocation(position + positionOffset);
             }
         }
     };
@@ -706,10 +777,12 @@ public class StatusBarHeaderHooks {
         final boolean showingDetail = detail != null;
         // Fixes an issue with the indicator having two backgrounds when layer type is hardware
         mExpandIndicator.setLayerType(View.LAYER_TYPE_NONE, null);
+        mPageIndicator.setVisibility(showingDetail ? View.INVISIBLE : View.VISIBLE);
         transition(mDateTimeAlarmGroup, !showingDetail);
         transition(mRightContainer, !showingDetail);
         transition(mExpandIndicator, !showingDetail);
-        transition(mHeaderQsPanel, !showingDetail);
+        if (mExpansion < 1)
+            transition(mHeaderQsPanel, !showingDetail);
         setEditButtonVisible(!(showingDetail || mBarState != NotificationPanelHooks.STATE_SHADE));
         if (mWeatherContainer != null) {
             try {
@@ -802,7 +875,15 @@ public class StatusBarHeaderHooks {
         public void onClickSafe(View v) {
             switch (v.getId()) {
                 case R.id.qs_edit:
-                    DetailViewManager.getInstance().showEditView(mRecords);
+                    final int x = mEditBtn.getLeft() + mEditBtn.getWidth() / 2;
+                    final int y = mEditBtn.getTop() + mEditBtn.getHeight() / 2;
+
+                    startRunnableDismissingKeyguard(new Runnable() {
+                        @Override
+                        public void run() {
+                            showEdit(x, y);
+                        }
+                    });
                     break;
                 case R.id.qs_up:
                     XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
@@ -813,19 +894,33 @@ public class StatusBarHeaderHooks {
         }
     };
 
+    private static void showEdit(final int x, final int y) {
+        mQsPanel.post(new Runnable() {
+            @Override
+            public void run() {
+                DetailViewManager.getInstance().showEditView(mRecords, x, y);
+            }
+        });
+    }
+
     public static void onSetBarState(int state) {
         mBarState = state;
-        setEditButtonVisible(state == NotificationPanelHooks.STATE_SHADE);
+        /*
+        if (mUseDragPanel)
+            mEditBtn.setVisibility(state == NotificationPanelHooks.STATE_SHADE ? View.VISIBLE : View.GONE);
+        else
+            setEditButtonVisible(state == NotificationPanelHooks.STATE_SHADE);
+            */
     }
 
     private static void setEditButtonVisible(boolean visible) {
-        if (mEditButton == null || mQsPanel == null) return;
+        if (mDecorLayout == null || mQsPanel == null) return;
         FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
         if (visible) {
-            mEditButton.setVisibility(View.VISIBLE);
-            qsPanelLp.bottomMargin = ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
+            mDecorLayout.setVisibility(View.VISIBLE);
+            qsPanelLp.bottomMargin = ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_panel_decor_height);
         } else {
-            mEditButton.setVisibility(View.GONE);
+            mDecorLayout.setVisibility(View.GONE);
             qsPanelLp.bottomMargin = 0;
         }
         mQsPanel.setLayoutParams(qsPanelLp);
@@ -850,6 +945,19 @@ public class StatusBarHeaderHooks {
                         });
                     }
                 });
+            }
+        });
+    }
+
+    private static void startRunnableDismissingKeyguard(final Runnable runnable) {
+        Object qsTileHost = XposedHelpers.getObjectField(mQsPanel, "mHost");
+        final Object statusBar = XposedHelpers.getObjectField(qsTileHost, "mStatusBar");
+        Handler mHandler = (Handler) XposedHelpers.getObjectField(statusBar, "mHandler");
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
+                XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
             }
         });
     }
@@ -947,7 +1055,13 @@ public class StatusBarHeaderHooks {
                     Class<?> classCirclePageIndicator = XposedHelpers.findClass(CLASS_CIRCLE_PAGE_INDICATOR, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
+                    //XposedHelpers.findAndHookMethod(classQSDragPanel, "onMeasure", int.class, int.class, onMeasureHook);
+                    //XposedHelpers.findAndHookMethod(classQSDragPanel, "onLayout", boolean.class, int.class, int.class, int.class, int.class, onLayoutHook);
+                    XposedBridge.hookAllMethods(classQSDragPanel, "setEditing", qsSetEditingHook);
+                    XposedBridge.hookAllMethods(classQSDragPanel, "restoreDraggingTilePosition", updatePageCountHook);
+                    XposedBridge.hookAllMethods(classQSDragPanel, "shiftTiles", updatePageCountHook);
                     XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageSelected", int.class, onPageSelectedHook);
+                    XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageScrolled", int.class, float.class, int.class, onPageScrolledHook);
                     mUseDragPanel = true;
                 } catch (Throwable ignore) {
                     try {
@@ -1122,25 +1236,48 @@ public class StatusBarHeaderHooks {
                             mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
                         }
 
-                        if (ConfigUtils.qs().enable_qs_editor) {
+                        if (ConfigUtils.qs().enable_qs_editor || mUseDragPanel) {
                             FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
                             qsPanelLp.bottomMargin = res.getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
                             mQsPanel.setLayoutParams(qsPanelLp);
 
-                            FrameLayout.LayoutParams buttonLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            buttonLp.gravity = Gravity.BOTTOM | Gravity.END;
-                            Button editBtn = new Button(context);
-                            editBtn.setGravity(Gravity.CENTER);
-                            editBtn.setLayoutParams(buttonLp);
-                            editBtn.setText(res.getString(R.string.qs_edit));
-                            editBtn.setTextColor(res.getColor(R.color.edit_btn_text));
-                            editBtn.setAllCaps(true);
-                            editBtn.setId(R.id.qs_edit);
-                            editBtn.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
-                            editBtn.setOnClickListener(onClickListener);
-                            layout.addView(editBtn);
+                            FrameLayout.LayoutParams decorLayoutLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.qs_panel_decor_height));
+                            decorLayoutLp.gravity = Gravity.BOTTOM;
+                            mDecorLayout = new FrameLayout(context);
+                            mDecorLayout.setLayoutParams(decorLayoutLp);
 
-                            mEditButton = editBtn;
+                            if (mUseDragPanel) {
+                                FrameLayout.LayoutParams pageIndicatorLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                pageIndicatorLp.gravity = Gravity.CENTER;
+                                mPageIndicator = new PageIndicator(context);
+                                mPageIndicator.setLayoutParams(pageIndicatorLp);
+                                mDecorLayout.addView(mPageIndicator);
+                            }
+
+                            if (ConfigUtils.qs().enable_qs_editor) {
+                                int editBtnPadding = res.getDimensionPixelSize(R.dimen.qs_edit_padding);
+
+                                FrameLayout.LayoutParams editBtnLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                editBtnLp.gravity = Gravity.END;
+                                mEditBtn = new TextView(context);
+                                mEditBtn.setLayoutParams(editBtnLp);
+                                mEditBtn.setId(R.id.qs_edit);
+                                mEditBtn.setMinWidth(res.getDimensionPixelSize(R.dimen.qs_edit_min_width));
+                                mEditBtn.setText(res.getString(R.string.qs_edit));
+                                mEditBtn.setTextColor(res.getColor(R.color.edit_btn_text));
+                                mEditBtn.setFocusable(true);
+                                mEditBtn.setGravity(Gravity.CENTER);
+                                mEditBtn.setBackground(res.getDrawable(R.drawable.qs_btn_borderless_rect));
+                                mEditBtn.setOnClickListener(onClickListener);
+                                mEditBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                                mEditBtn.setTextColor(res.getColor(R.color.qs_detail_button));
+                                mEditBtn.setAllCaps(true);
+                                mEditBtn.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+                                mEditBtn.setPadding(editBtnPadding, editBtnPadding, editBtnPadding, editBtnPadding);
+                                mDecorLayout.addView(mEditBtn);
+                            }
+
+                            layout.addView(mDecorLayout);
                         }
                     }
                 });

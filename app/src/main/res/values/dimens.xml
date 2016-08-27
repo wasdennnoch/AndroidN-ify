@@ -23,7 +23,7 @@
     <dimen name="qs_quick_tile_padding">12dip</dimen>
 
     <dimen name="lib_item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
-    <dimen name="qs_panel_margin_bottom">40dp</dimen>
+    <dimen name="qs_panel_decor_height">48dp</dimen>
 
     <dimen name="header_items_margin_top">8dp</dimen>
     <dimen name="brightness_slider_padding_top">-12dp</dimen>
@@ -87,4 +87,10 @@
     <dimen name="notification_header_padding_bottom">16dp</dimen>
     <dimen name="notification_header_padding_end">16dp</dimen>
     <dimen name="notification_header_text_margin">2dp</dimen>
+    <dimen name="qs_page_indicator_width">16dp</dimen>
+    <dimen name="qs_page_indicator_height">8dp</dimen>
+    <dimen name="qs_edit_min_width">88dp</dimen>
+    <dimen name="qs_edit_padding">12dp</dimen>
+    <dimen name="borderless_button_radius">2dp</dimen>
+    <dimen name="qs_panel_margin_bottom">28dp</dimen>
 </resources>
