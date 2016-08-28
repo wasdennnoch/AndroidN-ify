@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
     
     <string name="xposed_description">把 Android N 的功能移植到 Android 5.x(Lollipop) 和 Android 6.x(Marshmallow)！</string>
 
-    <string name="restart_systemui">重新啟動 SystemUI</string>
-    <string name="restart_systemui_message">你確定要重新啟動 SystemUI 嗎？</string>
-    <string name="restart_broadcast_sent">重新啟動廣播推送</string>
+    <string name="restart_systemui">重新啟動 系統UI</string>
+    <string name="restart_systemui_message">你確定要 重新啟動系統UI 嗎？</string>
+    <string name="restart_broadcast_sent">重新啟動系統UI 廣播指令已推送</string>
     <string name="activity_about">關於 Android N-ify</string>
     <string name="about_author">程式開發 來自 @MrWasdennnoch</string>
     <string name="about_translator">繁體中文翻譯 來自 ㄚ龍@阿榮中文化俱樂部</string> <!-- Insert your (preferably XDA) username here -->
     <string name="about_version">版本 %1$s (%2$d)</string>
 
     <!-- prefs -->
+	<string name="prefs_not_readable"><![CDATA[<b>警告：</b> 您目前的設定檔無法被 Xposed 讀取。 點擊獲得更多資訊&#8230;]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        若您是第一次使用本軟體而出現這個錯誤的彈出式視窗，您可以忽略。
+		若本問題持續發生，表示 Xposed 無法讀取到您的設定檔，以下方式可以嘗試修復此問題：<br><br>
+        首先，請先重新啟動
+		(不是軟體重新開機[Soft Reboot]哦~~)。<br>
+        如果無效，請嘗試重新安裝本模組。<br>
+        如果前面兩種方式都失敗，請確認 SELinux 模式是在 <i>permissive</i>。
+        如果 SELinux 模式位於 <i>Enforcing</i> 可能會封鎖設定檔的權限。若想變更這個模式
+        ，請使用 <tt>SELinuxModeChanger</tt> 可以在 XDA 論壇中
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">下載</a>.<br>
+        如果還是不行，那就使用現有的預設值吧，很抱歉 :(
+        ]]></string>
+		
     <string name="header_tweaks">調整</string>
     <string name="header_app">應用程式</string>
 
@@ -20,8 +34,23 @@
     <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
     <string name="debug_log_title">除錯紀錄</string>
     <string name="debug_log">警告：紀錄如洪水</string>
+    <string name="logcat_notif_ongoing_title">儲存 紀錄(logcat) 中&#8230&#8230;</string>
+    <string name="logcat_notif_finished_title">紀錄(Logcat) 已儲存</string>
+    <string name="logcat_notif_preparing">準備中&#8230;</string>
+    <string name="logcat_notif_ongoing_lines">已儲存 %1$s 行&#8230;</string>
+    <string name="logcat_notif_finished">%1$s 行 已儲存到 %2$s</string> <!-- %2$s == file path -->
+    <string name="action_stop">停止</string>
 
-    <string name="requires_android_version">建議執行於 Android %1$s 以上</string>
+    <string name="requesting_root">正在等待 Root 權限的回應&#8230;</string>
+    <string name="root_failed">獲得 READ_LOGS permission 權限失敗</string>
+    <string name="permission_required">建議需要 Permission 模式</string>
+    <string name="logs_permission_description">
+        在 Jelly Bean (Android 4.1~)版本之後，應用程式不再被允許讀取完整的 紀錄(Logcat)
+        但是你可以透過 Root 權限手動獲得 READ_LOGS 的權限
+        在應用程式重新啟動之後，新的權限才會被套用。
+    </string>
+    
+	<string name="requires_android_version">建議執行於 Android %1$s 以上</string>
     <string name="not_activated">模組尚未啟用！</string>
 	
     <string name="theme_colorPrimary">選擇顏色&#8230;</string>
@@ -36,6 +65,7 @@
     <string name="fix_sound_notif_tile_title">修復 "音效和通知" 的資訊顯示錯誤</string>
     <string name="fix_sound_notif_tile">有些系統會結合"音效"和"通知"的選項。啟用它使摘要正確的顯示</string>
     <string name="enable_n_platlogo_title">N 的標誌有彩蛋</string>
+    <string name="use_namey_mcnameface_title">使用 \"Namey McNameface\" 圖示</string>
 
     <string name="disconnected">未連線</string>
     <string name="disabled">已關閉</string>
@@ -56,18 +86,24 @@
     <string name="location_on_device">開啟 / 僅限裝置</string>
     <string name="location_on_high">開啟 / 高精度</string>
     <string name="print_summary">%1$d 個列印工作</string>
+	<string name="store">Store</string>
+    <string name="app_details">應用程式詳細資料</string>
+    <string name="install_source">應用程式從 %1$s 安裝</string>
+    <string name="from_pm">應用程式已經從 安裝包(Package Installer) 完成安裝</string>
     <!-- /SETTINGS -->
 
     <!-- RECENTS -->
     <string name="header_recents">最近使用的應用程式</string>
-    <string name="enable_recents_double_tap_title">雙擊應用程式 開關</string>
-    <string name="enable_recents_double_tap">雙擊多工鍵來開啟或關閉最近使用的應用程式</string>
-    <string name="double_tap_speed_title">雙擊速度</string>
+    <string name="enable_recents_double_tap_title">快速開關(Quick switch)</string>
+    <string name="enable_recents_double_tap">連續點兩下多工鍵來開啟或關閉 最近使用的應用程式</string>
+	<string name="alternative_double_tap_title">取代連續點兩下顯示</string>
+    <string name="alternative_double_tap">作用於如果上面的 快速開關(Quick Switch) 無法正常運作</string>
+    <string name="double_tap_speed_title">連續點兩下的速度</string>
     <string name="recents_button_behavior_title">多工鍵 點擊的行為</string>
-    <string name="recents_navigation_delay_title">導航延遲</string>
+    <string name="recents_navigation_delay_title">導航攔延遲</string>
     <string name="recents_navigation_delay">所選的應用程式被打開的時間</string>
-    <string name="enable_large_recents">顯示更多最近使用的應用程式</string>
-    <string name="no_recents_image">變更 \"沒有最近使用的應用程式\" 圖像</string>
+    <string name="enable_large_recents">開啟更多的 最近使用的應用程式 數量</string>
+    <string name="no_recents_image">變更 \"沒有最近使用的應用程式\" 圖案</string>
 
     <string name="no_previous_recents">你最近的螢幕會顯示在這裡</string>
 
@@ -76,34 +112,106 @@
     <string name="recents_button_behavior_cycle">應用程式的循環週期</string>
     <!-- /RECENTS -->
 
-    <!-- STATUS BAR HEADER -->
-    <string name="enable_notification_header">調整狀態列</string>
-    <string name="notification_header_qs_tiles_count">狀態列內瓷磚的數量</string>
-    <string name="notification_header_qs_tiles_count_monitor">個</string>
-    <string name="enable_new_tile_click_behavior">Android N 瓷磚的點擊行為</string>
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">快速設定</string>
+    <string name="enable_notification_header">啟用 風格化應用程式通知設定</string>
+    <string name="keep_bg_title">不改變背景</string>
+    <string name="keep_bg">適用於使用自訂的快速設定背景</string>
+    <string name="keep_header_bg">應用程式通知</string>
+    <string name="keep_panel_bg">快速設定 面板</string>
+    <string name="notification_header_qs_tiles_count">顯示快速設定的抽屜</string>
+    <string name="notification_header_qs_tiles_count_monitor">瓷磚</string>
+    <string name="battery_tile_show_percentage">在電池瓷磚顯示 % </string>
+    <string name="battery_tile_show_percentage_summary">在電池的瓷磚裏面顯示 % 符號</string>
+    <string name="enable_qs_editor">啟用 快速設定編輯器</string>
+    <string name="allow_fancy_qs_transition">花俏的快速設定過渡動畫</string>
+    <string name="enable_new_tile_click_behavior">Android N 的瓷磚點擊行為</string>
     <string name="enable_new_tile_click_behavior_summary">點擊下拉式狀態列內的瓷磚時直接切換狀態\n點擊快速設定内的顯示項目时展開設定項目</string>
-    <string name="enable_large_first_row">首行瓷磚強制放大</string>
+    <string name="enable_large_first_row">強制放大首行瓷磚</string>
     <string name="enable_large_first_row_summary">使用 CyanogenMod 的使用者請透過編輯瓷磚模式中的設定選單進行設定</string>
+    <string name="fix_stuck_inversion_title">修復 官方ROM 所造成的倒置問題</string>
+    <string name="fix_stuck_inversion">部分裝置的官方系統開啟此功能可能會造成倒置\n點此進行強制停用</string>
+
+    <string name="header_clock_size_title">標題列的時鐘大小</string>
+    <string name="header_clock_size_normal">正常</string>
+    <string name="header_clock_size_small">小</string>
+    <string name="header_clock_size_smaller">更小</string>
+    <string name="header_clock_size_tiny">最小
     <!-- Hide header icons -->
-    <string name="hide_icons_title">隱藏的項目</string>
+    <string name="hide_icons_title">隱藏標題列的項目</string>
     <string name="hide_tuner_icon_title">隱藏 系統使用介面調整 圖示</string>
     <string name="hide_edit_tiles_title">隱藏 編輯瓷磚 按鈕</string>
+    <string name="hide_edit_tiles_summary">僅隱藏官方系統的編輯按鈕</string>
     <string name="hide_carrier_label_title">隱藏 標籤文字</string>
     <!-- /Hide header icons -->
-    <!-- /STATUS BAR HEADER -->
+    <!-- /QUICK SETTINGS -->
 
     <!-- NOTIFICATIONS -->
     <string name="header_notifications">通知</string>
-    <string name="notifications_change_style">通知的風格</string>
+    <string name="notifications_change_style">風格化通知</string>
     <string name="notification_dismiss_button_title">更改 清除 按鈕</string>
     <string name="notification_dismiss_button">顯示\"全部清除\" 取代原本的圖示</string>
     <string name="action_search">搜尋</string>
-    <string name="notification_blacklisted_apps_title">黑名單</string>
+    <string name="notification_blacklisted_apps_title">黑名單應用程式</string>
     <string name="notification_blacklisted_apps">給這些應用程式使用舊式的通知風格</string>
     <string name="notifications_custom_actions_color_title">使用自訂的動作背景顏色</string>
     <string name="notifications_actions_color_title">動作背景顏色</string>
-    <!-- /NOTIFICATIONS -->
+    <string name="notification_experimental_title">試驗性 N 的通知行為</string>
+    <string name="notification_experimental">N 的滾動行為（無頂層堆疊）和通知陰影</string>
+    <string name="notification_keyguard_max_title">在鎖定螢幕裡開啟最大量的通知顯示</string>
+    
+    <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+    <string name="now_string_shortest">現在時間</string>
 
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_minutes_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>分</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>分</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_hours_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>時</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>時</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_days_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>天</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>天</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_years_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>年</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>年</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_minutes_shortest_future">
+        <item quantity="one">在 <xliff:g example="1" id="count">%d</xliff:g> 分鐘內</item>
+        <item quantity="other">在 <xliff:g example="2" id="count">%d</xliff:g> 分鐘內</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_hours_shortest_future">
+        <item quantity="one">在 <xliff:g example="1" id="count">%d</xliff:g> 小時內</item>
+        <item quantity="other">在 <xliff:g example="2" id="count">%d</xliff:g> 小時內</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_days_shortest_future">
+        <item quantity="one">在 <xliff:g example="1" id="count">%d</xliff:g> 天內</item>
+        <item quantity="other">在 <xliff:g example="2" id="count">%d</xliff:g> 天內</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_years_shortest_future">
+        <item quantity="one">在 <xliff:g example="1" id="count">%d</xliff:g> 年內</item>
+        <item quantity="other">在 <xliff:g example="2" id="count">%d</xliff:g> 年內</item>
+    </plurals>
+    <!-- /NOTIFICATIONS -->
+	
     <!-- UPDATE -->
     <string name="update_notification_title">發現新大陸&#8230;呃，不對是發現新版本！</string>
     <string name="update_notification">發現可用的更新可以下載：組建 %1$d！</string>
@@ -121,7 +229,9 @@
 
     <!-- EMERGENCY -->
     <string name="emergency_info">緊急資訊(Emergency Info)</string>
+	<string name="emergency_info_launch_hint">再次點擊以開啟</string>
     <string name="enable_emergency_info_title">開啟 緊急資訊</string>
+	<string name="enable_emergency_info">新增一個緊急資訊按鈕到緊急撥號</string>
     <string name="edit_emergency_info_title">編輯 緊急資訊</string>
 
     <string name="header_personal">私人</string>
@@ -160,5 +270,61 @@
     <!-- QS -->
     <string name="qs_edit">編輯</string>
     <string name="qs_edit_detail">編輯瓷磚</string>
+    <string name="drag_to_add_tiles">拖曳以新增瓷磚</string>
+    <string name="drag_to_remove_tiles">拖曳到這裡移除</string>
+    <string name="live_display">即時顯示(LiveDisplay)</string>
+    <string name="live_display_auto">自動</string>
+    <string name="live_display_off">關閉</string>
+    <string name="live_display_day">白天</string>
+    <string name="live_display_night">晚上</string>
+    <string name="live_display_outdoor">外出(強光下)</string>
+	<string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> ago</string>
+    <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> left</string>
+    <string name="power_remaining_duration_only">還可用大約 <xliff:g id="time">%1$s</xliff:g> left</string>
+    <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> left</string>
+    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
+        - approx. <xliff:g id="time">%2$s</xliff:g> left</string>
+    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g>
+        - <xliff:g id="time">%2$s</xliff:g> left</string>
+    <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="state">%2$s</xliff:g></string>
+    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> until full</string>
+    <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> until full on AC</string>
+    <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> until full over USB</string>
+    <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> until full from wireless</string>
+    <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="battery_info_status_unknown">未知電量</string>
+    <string name="battery_info_status_charging">充電中...</string>
+    <string name="battery_info_status_charging_ac">正在透過 AC 變壓器 充電中..</string>
+    <string name="battery_info_status_charging_ac_short">以 AC 變壓器 充電中...</string>
+    <string name="battery_info_status_charging_usb">正在透過 USB 充電中...</string>
+    <string name="battery_info_status_charging_usb_short">以 USB 充電中...</string>
+    <string name="battery_info_status_charging_wireless">正在透過 AC 變壓器 充電中...</string>
+    <string name="battery_info_status_charging_wireless_short">以 無線模組 充電中...</string>
+    <string name="battery_info_status_discharging">尚未充電中...</string>
+    <string name="battery_info_status_not_charging">放電中...</string>
+    <string name="battery_info_status_full">電量已滿</string>
+    <string name="battery_panel_title">電量使用</string>
+    <string name="battery_detail_charging_summary">充電中省電模式將無法作用</string>
     <!-- /QS -->
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">取色器</string>
+    <string name="press_color_to_apply">點擊顏色以套用</string>
+    <string name="enable_install_source_title">顯示應用程式安裝資源</string>
+	<string name="battery_detail_switch_title">省電模式</string>
+    <string name="battery_detail_switch_summary">減少效能和背景資料傳輸</string>
+    <!-- /Color Picker -->
+	
 </resources>
