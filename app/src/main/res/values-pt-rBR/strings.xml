@@ -231,7 +231,23 @@
     <string name="live_display_day">Dia</string>
     <string name="live_display_night">Noite</string>
     <string name="live_display_outdoor">Externo (sol forte)</string>
-    <string name="battery_detail_charging_summary">A economia de bateria não fica disponível durante o carregamento</string>
+    <string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> atrás</string>
+    <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> restantes</string>
+    <string name="power_remaining_duration_only">Aprox. <xliff:g id="time">%1$s</xliff:g> restantes</string>
+    <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> restantes</string>
+    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
+        - aprox. <xliff:g id="time">%2$s</xliff:g> restantes</string>
+    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g>
+        - <xliff:g id="time">%2$s</xliff:g> restantes</string>
+    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> até concluir</string>
+    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> até concluir via CA</string>
+    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> até concluir via USB</string>
+    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> até concluir via sem fio</string>
+    <string name="battery_info_status_unknown">Desconhecido</string>
     <string name="battery_info_status_charging">Carregando</string>
     <string name="battery_info_status_charging_ac">Carregamento CA</string>
     <string name="battery_info_status_charging_ac_short">Carregando</string>
@@ -240,25 +256,10 @@
     <string name="battery_info_status_charging_wireless">Carregamento sem fio</string>
     <string name="battery_info_status_charging_wireless_short">Carregando</string>
     <string name="battery_info_status_discharging">Não está carregando</string>
-    <string name="battery_info_status_full">Cheio</string>
     <string name="battery_info_status_not_charging">Não está carregando</string>
-    <string name="battery_info_status_unknown">Desconhecido</string>
+    <string name="battery_info_status_full">Cheio</string>
     <string name="battery_panel_title">Uso da bateria</string>
-    <string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> atrás</string>
-    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> - 
-            <xliff:g id="time">%2$s</xliff:g> até concluir</string>
-    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> - 
-            <xliff:g id="time">%2$s</xliff:g> até concluir via CA</string>
-    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> - 
-            <xliff:g id="time">%2$s</xliff:g> até concluir via USB</string>
-    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> - 
-            <xliff:g id="time">%2$s</xliff:g> até concluir via sem fio</string>
-    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g> - aprox. 
-            <xliff:g id="time">%2$s</xliff:g> restantes</string>
-    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g> - 
-            <xliff:g id="time">%2$s</xliff:g> restantes</string>
-    <string name="power_remaining_duration_only">Aprox. <xliff:g id="time">%1$s</xliff:g> restantes</string>
-    <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> restantes</string>    
+    <string name="battery_detail_charging_summary">A economia de bateria não fica disponível durante o carregamento</string>	
     <!-- /QS -->
     
     <!-- Color Picker -->
