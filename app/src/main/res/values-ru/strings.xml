@@ -8,7 +8,7 @@
     <string name="restart_broadcast_sent">Запрос на перезапуск отправлен</string>
     <string name="activity_about">Об Android N-ify</string>
     <string name="about_author">Разработчик @MrWasdennnoch</string>
-    <string name="about_translator">Перевёл @vl_w</string>
+    <string name="about_translator">Перевёл @vl_w, @Semen8991</string>
     <string name="about_version">Версия %1$s (%2$d)</string>
 
     <!-- prefs -->
@@ -69,14 +69,14 @@
     
     <string name="disconnected">Разъединено</string>
     <string name="disabled">Отключено</string>
-    <string name="off">Выкл</string>
-    <string name="on">Вкл</string>
+    <string name="off">выкл.</string>
+    <string name="on">вкл.</string>
     <string name="data_usage_summary">%1$s данных использовано</string>
     <string name="display_summary">Адаптивная регулировка %1$s</string>
     <string name="sound_summary">Громкость %1$s</string>
     <string name="apps_summary">%1$d приложений установлено</string>
     <string name="storage_summary">%1$s из %2$s занято</string>
-    <string name="battery_summary">%1$s - осталось. Приблизительно %2$s</string>
+    <string name="battery_summary">%1$s - осталось приблизительно %2$s</string>
     <string name="battery_charging_wireless">%1$s - Беспроводная зарядка</string>
     <string name="battery_charging_usb">%1$s - Зарядка по USB</string>
     <string name="battery_charging_ac">%1$s - Зарядка от сети</string>
