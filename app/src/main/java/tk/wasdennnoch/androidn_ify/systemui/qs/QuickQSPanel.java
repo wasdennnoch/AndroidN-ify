@@ -276,19 +276,22 @@ public class QuickQSPanel extends LinearLayout {
                     mLabelTranslationYAnimator.setPosition(f);
                     mFirstPageAnimator.setPosition(f);
                     mFadeAnimator.setPosition(0);
+                    mLastRowAnimator.setPosition(f);
                 } else {
                     mTranslationXAnimator.setPosition(0);
                     mTranslationYAnimator.setPosition(0);
+                    mLabelTranslationXAnimator.setPosition(1);
+                    mLabelTranslationYAnimator.setPosition(1);
                     mFadeAnimator.setPosition(f);
+                    mLastRowAnimator.setPosition(1);
                 }
                 mFirstPageDelayedAnimator.setPosition(f);
-                mLastRowAnimator.setPosition(f);
-                if (mBatteryView != null) {
-                    if (mShowPercent && oldPosition < 0.7f && f >= 0.7f) {
+                if (mShowPercent && mBatteryView != null) {
+                    if (oldPosition < 0.7f && f >= 0.7f) {
                         mBatteryView.setShowPercent(false);
                         mBatteryView.postInvalidate();
                     }
-                    if (mShowPercent && oldPosition >= 0.7f && f < 0.7f) {
+                    if (oldPosition >= 0.7f && f < 0.7f) {
                         mBatteryView.setShowPercent(true);
                         mBatteryView.postInvalidate();
                     }
@@ -296,6 +299,7 @@ public class QuickQSPanel extends LinearLayout {
             }
             oldPosition = f;
         } else {
+            mFirstPageDelayedAnimator.setPosition(1);
             if (getVisibility() != INVISIBLE)
                 setVisibility(INVISIBLE);
         }

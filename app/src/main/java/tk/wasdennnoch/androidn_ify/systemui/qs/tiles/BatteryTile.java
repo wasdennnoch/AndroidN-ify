@@ -447,7 +447,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
                 ResourceUtils res = ResourceUtils.getInstance(context);
 
                 LinearLayout layout = (LinearLayout) convertView;
-                layout.addView(new ResizingSpace(context, ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.battery_detail_graph_space_top)), 1);
+                layout.addView(new ResizingSpace(context, 0, R.dimen.battery_detail_graph_space_top), 1);
 
                 LinearLayout.LayoutParams usageViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.battery_usage_height));
                 usageViewLp.setMarginStart(res.getDimensionPixelSize(R.dimen.battery_usage_margin_start));
@@ -459,7 +459,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
                 usageView.setSideLabels(res.getResources().getTextArray(R.array.battery_labels));
                 layout.addView(usageView, 2);
 
-                layout.addView(new ResizingSpace(context, ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.battery_detail_graph_space_bottom)), 3);
+                layout.addView(new ResizingSpace(context, 0, R.dimen.battery_detail_graph_space_bottom), 3);
 
             }
             mCurrentView = convertView;

@@ -25,7 +25,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -46,7 +45,6 @@ import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -63,6 +61,7 @@ public class NotificationHooks {
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String KEY_EXPANDABLE = "ncv_expandable";
+    private static final String KEY_EXPAND_CLICK_LISTENER = "expandClickListener";
     public static final int ANIMATION_DURATION_GO_TO_FULL_SHADE = 448;
 
     private static int mNotificationBgColor;
@@ -70,6 +69,8 @@ public class NotificationHooks {
     public static View mPanelShadow;
     public static FrameLayout.LayoutParams mShadowLp;
     private static Map<String, Integer> mGeneratedColors = new HashMap<>();
+
+    private static Object mPhoneStatusBar;
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -616,7 +617,6 @@ public class NotificationHooks {
 
             if (config.notifications.change_style) {
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
-                //Class classNotificationContentView = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationContentView", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
                 Class classNotificationGuts = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationGuts", classLoader);
@@ -674,6 +674,12 @@ public class NotificationHooks {
                     }
                 });
 
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        mPhoneStatusBar = param.thisObject;
+                    }
+                });
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "updateNotificationShade", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -691,21 +697,50 @@ public class NotificationHooks {
                     }
                 });
 
-                /*
-                XposedBridge.hookAllMethods(classNotificationContentView, "onLayout", new XC_MethodHook() {
+                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setExpandable", boolean.class, new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        updateExpandButtons((View) param.thisObject, (boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, KEY_EXPANDABLE));
+                        Object row = param.thisObject;
+                        boolean expandable = (boolean) param.args[0];
+                        Object listener = XposedHelpers.getAdditionalInstanceField(row, KEY_EXPAND_CLICK_LISTENER);
+                        View.OnClickListener onClickListener = null;
+                        if (listener != null && listener instanceof View.OnClickListener) {
+                            onClickListener = (View.OnClickListener) listener;
+                        }
+                        updateExpandButtons(XposedHelpers.getObjectField(row, "mPublicLayout"), expandable, onClickListener);
+                        updateExpandButtons(XposedHelpers.getObjectField(row, "mPrivateLayout"), expandable, onClickListener);
                     }
                 });
 
-                XposedBridge.hookAllMethods(classNotificationContentView, "setHeadsUp", new XC_MethodHook() {
+                XC_MethodHook expandedHook = new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        updateExpandButtons((View) param.thisObject, (boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, KEY_EXPANDABLE));
+                        Object row = param.thisObject;
+                        boolean userExpanded = (boolean) param.args[0];
+                        updateChildrenExpanded(XposedHelpers.getObjectField(row, "mPublicLayout"), userExpanded);
+                        updateChildrenExpanded(XposedHelpers.getObjectField(row, "mPrivateLayout"), userExpanded);
+                    }
+                };
+                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setUserExpanded", boolean.class, expandedHook);
+                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setSystemExpanded", boolean.class, expandedHook);
+
+                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "onFinishInflate", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        final Object row = param.thisObject;
+                        XposedHelpers.setAdditionalInstanceField(param.thisObject, KEY_EXPAND_CLICK_LISTENER, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                boolean nowExpanded = !(boolean) XposedHelpers.callMethod(row, "isExpanded");
+                                XposedHelpers.callMethod(row, "setUserExpanded", nowExpanded);
+                                XposedHelpers.callMethod(row, "notifyHeightChanged", true);
+                                if (mPhoneStatusBar != null) {
+                                    //XposedHelpers.callMethod(mPhoneStatusBar, "goToLockedShade", row);
+                                }
+                            }
+                        });
                     }
                 });
-                */
 
                 if (ConfigUtils.M) {
                     Class classVolumeDialog = XposedHelpers.findClass("com.android.systemui.volume.VolumeDialog", classLoader);
@@ -739,9 +774,29 @@ public class NotificationHooks {
         }
     }
 
-    /*
-    private static void updateExpandButtons(View notificationContentView, boolean expandable) {
-        XposedHelpers.setAdditionalInstanceField(notificationContentView, KEY_EXPANDABLE, expandable);
+    private static void updateChildrenExpanded(Object notificationContentView, boolean expanded) {
+        View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
+        View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
+        View mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        if (mExpandedChild != null) {
+            setExpanded(mExpandedChild, expanded);
+        }
+        if (mContractedChild != null) {
+            setExpanded(mContractedChild, expanded);
+        }
+        if (mHeadsUpChild != null) {
+            setExpanded(mHeadsUpChild, expanded);
+        }
+    }
+
+    private static void setExpanded(View child, boolean expanded) {
+        NotificationHeaderView header = (NotificationHeaderView) child.findViewById(R.id.notification_header);
+        if (header != null) {
+            header.setExpanded(expanded);
+        }
+    }
+
+    private static void updateExpandButtons(Object notificationContentView, boolean expandable, View.OnClickListener onClickListener) {
         boolean mIsHeadsUp = XposedHelpers.getBooleanField(notificationContentView, "mIsHeadsUp");
         View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
         View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
@@ -757,16 +812,24 @@ public class NotificationHooks {
             }
         }
         if (mExpandedChild != null) {
-            mExpandedWrapper.updateExpandability(expandable, mExpandClickListener);
+            updateExpandability(mExpandedChild, expandable, onClickListener);
         }
         if (mContractedChild != null) {
-            mContractedWrapper.updateExpandability(expandable, mExpandClickListener);
+            updateExpandability(mContractedChild, expandable, onClickListener);
         }
         if (mHeadsUpChild != null) {
-            mHeadsUpWrapper.updateExpandability(expandable,  mExpandClickListener);
+            updateExpandability(mHeadsUpChild, expandable, onClickListener);
         }
     }
-    */
+
+    private static void updateExpandability(View target, boolean expandable, View.OnClickListener onClickListener) {
+        ImageView expandButton = (ImageView) target.findViewById(R.id.expand_button);
+        if (expandButton != null) {
+            expandButton.setVisibility(expandable ? View.VISIBLE : View.GONE);
+            NotificationHeaderView header = (NotificationHeaderView) target.findViewById(R.id.notification_header);
+            header.setOnClickListener(expandable ? onClickListener : null);
+        }
+    }
 
     private static Class<?> getClassMediaExpandableNotificationRow(ClassLoader classLoader) {
         try {
@@ -1310,7 +1373,8 @@ public class NotificationHooks {
             ResourceUtils res = ResourceUtils.getInstance(context);
 
             int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
-            int notificationHeaderMarginTop = res.getDimensionPixelSize(R.dimen.notification_header_margin_top);
+            int notificationContentMarginTop = res.getDimensionPixelSize(R.dimen.notification_content_margin_top);
+            int notificationHeaderMarginTop = res.getDimensionPixelSize(R.dimen.notification_fake_header_margin_top);
             int iconSize = res.getDimensionPixelSize(R.dimen.notification_icon_size);
             int iconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_icon_margin_end);
             int appNameMarginStart = res.getDimensionPixelSize(R.dimen.notification_app_name_margin_start);
@@ -1337,8 +1401,8 @@ public class NotificationHooks {
             timeLParams.addRule(RelativeLayout.ALIGN_TOP, iconId);
 
             RelativeLayout.LayoutParams titleLParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            titleLParams.setMargins(notificationContentPadding, 0, 0, 0);
-            titleLParams.addRule(RelativeLayout.BELOW, iconId);
+            titleLParams.setMargins(notificationContentPadding, notificationContentMarginTop, 0, 0);
+            //titleLParams.addRule(RelativeLayout.BELOW, iconId);
 
             RelativeLayout.LayoutParams textViewLParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             textViewLParams.setMarginStart(appNameMarginStart);
