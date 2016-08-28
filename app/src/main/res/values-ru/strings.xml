@@ -280,7 +280,7 @@
     <string name="live_display_outdoor">На улице (яркое солнце)</string>
         <string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> назад</string>
     <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> осталось</string>
-    <string name="power_remaining_duration_only">Примерно. <xliff:g id="time">%1$s</xliff:g> осталось</string>
+    <string name="power_remaining_duration_only">Примерно <xliff:g id="time">%1$s</xliff:g> осталось</string>
     <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> left</string>
     <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
         - approx. <xliff:g id="time">%2$s</xliff:g> left</string>
@@ -315,15 +315,15 @@
     <string name="battery_info_status_discharging">Not charging</string>
     <string name="battery_info_status_not_charging">Not charging</string>
     <string name="battery_info_status_full">Full</string>
-    <string name="battery_panel_title">Использование батареи</string>
-    <string name="battery_detail_charging_summary">Battery Saver not available during charging</string>
+    <string name="battery_panel_title">Уровень заряда</string>
+    <string name="battery_detail_charging_summary">Режим энергосбережения не доступен во время зарядки</string>
     <!-- /QS -->
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Выбор цвета</string>
     <string name="press_color_to_apply">Нажмите на цвет для применения</string>
     <string name="enable_install_source_title">Показывать источник установки приложения</string>
-    <string name="battery_detail_switch_title">Энергосбережение</string>
+    <string name="battery_detail_switch_title">Режим энергосбережения</string>
     <string name="battery_detail_switch_summary">Сокращает данные о производительности и фоновых программ</string>
     <!-- /Color Picker -->
     
