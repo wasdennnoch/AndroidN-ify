@@ -299,6 +299,7 @@ public class QuickQSPanel extends LinearLayout {
             }
             oldPosition = f;
         } else {
+            mFirstPageDelayedAnimator.setPosition(1);
             if (getVisibility() != INVISIBLE)
                 setVisibility(INVISIBLE);
         }
