@@ -17,11 +17,16 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class ResizingSpace extends View {
 
@@ -35,6 +40,7 @@ public class ResizingSpace extends View {
         }
         mWidth = width;
         mHeight = height;
+        updateDimens();
     }
 
     public ResizingSpace(Context context, AttributeSet attrs) {
@@ -51,17 +57,22 @@ public class ResizingSpace extends View {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        updateDimens();
+    }
+
+    private void updateDimens() {
         LayoutParams params = getLayoutParams();
         boolean changed = false;
+        Resources res = ResourceUtils.getInstance(getContext()).getResources();
         if (mWidth > 0) {
-            int width = getContext().getResources().getDimensionPixelOffset(mWidth);
+            int width = res.getDimensionPixelOffset(mWidth);
             if (width != params.width) {
                 params.width = width;
                 changed = true;
             }
         }
         if (mHeight > 0) {
-            int height = getContext().getResources().getDimensionPixelOffset(mHeight);
+            int height = res.getDimensionPixelOffset(mHeight);
             if (height != params.height) {
                 params.height = height;
                 changed = true;

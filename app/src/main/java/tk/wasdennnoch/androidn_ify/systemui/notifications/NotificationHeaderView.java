@@ -30,6 +30,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.RemotableViewMethod;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -148,6 +149,18 @@ public class NotificationHeaderView extends ViewGroup {
         chronometer.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Time);
         headerView.addView(chronometer);
 
+        int expandButtonPaddingTop = res.getDimensionPixelSize(R.dimen.notification_header_expand_button_padding_top);
+
+        MarginLayoutParams expandButtonLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        ImageView expandButton = new ImageView(context);
+        expandButton.setId(R.id.expand_button);
+        expandButton.setLayoutParams(expandButtonLp);
+        expandButton.setVisibility(GONE);
+        expandButton.setPadding(0, expandButtonPaddingTop, 0, 0);
+        headerView.addView(expandButton);
+
+        headerView.initViews();
+
         /*
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewGroup template = (ViewGroup) inflater.inflate(res.getLayout(R.layout.notification_template_header), null, false);
@@ -241,9 +254,7 @@ public class NotificationHeaderView extends ViewGroup {
                 R.dimen.notification_header_background_height);
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
+    private void initViews() {
         mAppName = findViewById(R.id.app_name_text);
         mHeaderText = findViewById(R.id.header_text);
         mExpandButton = (ImageView) findViewById(R.id.expand_button);
@@ -252,6 +263,28 @@ public class NotificationHeaderView extends ViewGroup {
         }
         mIcon = findViewById(com.android.internal.R.id.icon);
         mProfileBadge = findViewById(R.id.profile_badge);
+
+        post(new Runnable() {
+            @Override
+            public void run() {
+                Rect r = new Rect();
+                r.top = 0;
+                r.bottom = (int) (32 * getResources().getDisplayMetrics().density);
+                r.left = 0;
+                r.right = getWidth();
+
+                TouchDelegate touchDelegate = new TouchDelegate(r, mExpandButton);
+                setTouchDelegate(touchDelegate);
+            }
+        });
+
+        updateTouchListener();
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        initViews();
     }
 
     @Override
@@ -380,7 +413,7 @@ public class NotificationHeaderView extends ViewGroup {
     }
 
     private void updateTouchListener() {
-        if (mExpandClickListener != null) {
+        if (mExpandClickListener != null && mIcon != null) {
             mTouchListener.bindTouchRects();
         }
     }
@@ -424,8 +457,8 @@ public class NotificationHeaderView extends ViewGroup {
         } else {
             drawableId = R.drawable.ic_expand_notification;
         }
-        mExpandButton.setImageDrawable(getContext().getDrawable(drawableId));
-        mExpandButton.setColorFilter(mOriginalNotificationColor);
+        mExpandButton.setImageDrawable(mModuleRes.getDrawable(drawableId));
+        mExpandButton.setColorFilter(mIconColor);
     }
 
     public void setShowWorkBadgeAtEnd(boolean showWorkBadgeAtEnd) {
@@ -456,6 +489,7 @@ public class NotificationHeaderView extends ViewGroup {
             addRectAroundViewView(mExpandButton);
             addWidthRect();
             mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+
         }
 
         private void addWidthRect() {

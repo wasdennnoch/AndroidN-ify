@@ -116,4 +116,5 @@
     <dimen name="battery_usage_height">141dp</dimen>
     <dimen name="battery_usage_margin_start">16dp</dimen>
     <dimen name="battery_usage_margin_end">24dp</dimen>
+    <dimen name="notification_header_expand_button_padding_top">1dp</dimen>
 </resources>
