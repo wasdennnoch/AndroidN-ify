@@ -40,6 +40,7 @@ public class ResizingSpace extends View {
         }
         mWidth = width;
         mHeight = height;
+        setLayoutParams(new ViewGroup.MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         updateDimens();
     }
 

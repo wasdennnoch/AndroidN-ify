@@ -1373,7 +1373,8 @@ public class NotificationHooks {
             ResourceUtils res = ResourceUtils.getInstance(context);
 
             int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
-            int notificationHeaderMarginTop = res.getDimensionPixelSize(R.dimen.notification_header_margin_top);
+            int notificationContentMarginTop = res.getDimensionPixelSize(R.dimen.notification_content_margin_top);
+            int notificationHeaderMarginTop = res.getDimensionPixelSize(R.dimen.notification_fake_header_margin_top);
             int iconSize = res.getDimensionPixelSize(R.dimen.notification_icon_size);
             int iconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_icon_margin_end);
             int appNameMarginStart = res.getDimensionPixelSize(R.dimen.notification_app_name_margin_start);
@@ -1400,8 +1401,8 @@ public class NotificationHooks {
             timeLParams.addRule(RelativeLayout.ALIGN_TOP, iconId);
 
             RelativeLayout.LayoutParams titleLParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            titleLParams.setMargins(notificationContentPadding, 0, 0, 0);
-            titleLParams.addRule(RelativeLayout.BELOW, iconId);
+            titleLParams.setMargins(notificationContentPadding, notificationContentMarginTop, 0, 0);
+            //titleLParams.addRule(RelativeLayout.BELOW, iconId);
 
             RelativeLayout.LayoutParams textViewLParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             textViewLParams.setMarginStart(appNameMarginStart);

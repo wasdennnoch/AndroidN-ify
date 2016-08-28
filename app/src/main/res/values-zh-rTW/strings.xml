@@ -34,7 +34,7 @@
     <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
     <string name="debug_log_title">除錯紀錄</string>
     <string name="debug_log">警告：紀錄如洪水</string>
-    <string name="logcat_notif_ongoing_title">儲存 紀錄(logcat) 中&#8230&#8230;</string>
+    <string name="logcat_notif_ongoing_title">儲存 紀錄(logcat) 中&#8230;</string>
     <string name="logcat_notif_finished_title">紀錄(Logcat) 已儲存</string>
     <string name="logcat_notif_preparing">準備中&#8230;</string>
     <string name="logcat_notif_ongoing_lines">已儲存 %1$s 行&#8230;</string>
@@ -136,7 +136,7 @@
     <string name="header_clock_size_normal">正常</string>
     <string name="header_clock_size_small">小</string>
     <string name="header_clock_size_smaller">更小</string>
-    <string name="header_clock_size_tiny">最小
+    <string name="header_clock_size_tiny">最小</string>
     <!-- Hide header icons -->
     <string name="hide_icons_title">隱藏標題列的項目</string>
     <string name="hide_tuner_icon_title">隱藏 系統使用介面調整 圖示</string>
