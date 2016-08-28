@@ -280,7 +280,7 @@
     <string name="live_display_outdoor">На улице (яркое солнце)</string>
         <string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> назад</string>
     <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> осталось</string>
-    <string name="power_remaining_duration_only">Примерно <xliff:g id="time">%1$s</xliff:g> осталось</string>
+    <string name="power_remaining_duration_only">Примерно<xliff:g id="time">%1$s</xliff:g> осталось</string>
     <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> left</string>
     <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
         - approx. <xliff:g id="time">%2$s</xliff:g> left</string>
@@ -304,19 +304,19 @@
             <xliff:g id="time">%2$s</xliff:g> until full from wireless</string>
     <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> -
         <xliff:g id="time">%2$s</xliff:g></string>
-    <string name="battery_info_status_unknown">Unknown</string>
-    <string name="battery_info_status_charging">Charging</string>
-    <string name="battery_info_status_charging_ac">Charging on AC</string>
-    <string name="battery_info_status_charging_ac_short">Charging</string>
-    <string name="battery_info_status_charging_usb">Charging over USB</string>
-    <string name="battery_info_status_charging_usb_short">Charging</string>
-    <string name="battery_info_status_charging_wireless">Charging wirelessly</string>
-    <string name="battery_info_status_charging_wireless_short">Charging</string>
-    <string name="battery_info_status_discharging">Not charging</string>
-    <string name="battery_info_status_not_charging">Not charging</string>
-    <string name="battery_info_status_full">Full</string>
+    <string name="battery_info_status_unknown">Неизвестно</string>
+    <string name="battery_info_status_charging">Зарядка</string>
+    <string name="battery_info_status_charging_ac">Зарядка on адаптера</string>
+    <string name="battery_info_status_charging_ac_short">Зарядка</string>
+    <string name="battery_info_status_charging_usb">Зарядка от USB</string>
+    <string name="battery_info_status_charging_usb_short">Зарядка</string>
+    <string name="battery_info_status_charging_wireless">Беспроводная зарядка</string>
+    <string name="battery_info_status_charging_wireless_short">Зарядка</string>
+    <string name="battery_info_status_discharging">Не заряжается</string>
+    <string name="battery_info_status_not_charging">Не заряжается</string>
+    <string name="battery_info_status_full">Полностью заряжено</string>
     <string name="battery_panel_title">Уровень заряда</string>
-    <string name="battery_detail_charging_summary">Battery Saver not available during charging</string>
+    <string name="battery_detail_charging_summary">Режим энергосбережения не доступен во время зарядки</string>
     <!-- /QS -->
     
     <!-- Color Picker -->
