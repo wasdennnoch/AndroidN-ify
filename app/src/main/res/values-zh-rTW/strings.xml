@@ -34,7 +34,7 @@
     <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
     <string name="debug_log_title">除錯紀錄</string>
     <string name="debug_log">警告：紀錄如洪水</string>
-    <string name="logcat_notif_ongoing_title">儲存 紀錄(logcat) 中&#8230&#8230;</string>
+    <string name="logcat_notif_ongoing_title">儲存 紀錄(logcat) 中&#8230;</string>
     <string name="logcat_notif_finished_title">紀錄(Logcat) 已儲存</string>
     <string name="logcat_notif_preparing">準備中&#8230;</string>
     <string name="logcat_notif_ongoing_lines">已儲存 %1$s 行&#8230;</string>
