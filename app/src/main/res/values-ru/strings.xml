@@ -159,6 +159,57 @@
     <string name="notification_experimental_title">Эксперементальный стиль N уведомлений</string>
     <string name="notification_experimental">Метод прокрутки из N (нет верхнего складывания) и тень уведомлений</string>
     <string name="notification_keyguard_max_title">Максимальное количество уведомлений при заблокированной клавиатуре</string>
+    
+     <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+    <string name="now_string_shortest">сейчас</string>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_minutes_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> мин.</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> мин.</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_hours_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> ч</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> ч</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_days_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>d</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>d</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_years_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>y</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>y</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_minutes_shortest_future">
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>m</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>m</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_hours_shortest_future">
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>h</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>h</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_days_shortest_future">
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>d</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>d</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_years_shortest_future">
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>y</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>y</item>
+    </plurals>
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->
