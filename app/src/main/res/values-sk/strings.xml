@@ -271,6 +271,9 @@
     <string name="battery_info_status_full">Nabitá</string>
     <string name="battery_panel_title">Využitie batérie</string>
     <string name="battery_detail_charging_summary">Šetrič batérie nie je dostupný pri nabíjaní</string>
+    <string name="add">Pridať</string>
+    <string name="add_custom_tile">Pridať vlastnú dlaždicu</string>
+    <string name="spec_shouldnt_be_blank">Nastavenia dlaždice by nemali byť prázdne</string>
     <!-- /QS -->
   
     <!-- Color Picker -->
