@@ -1,8 +1,10 @@
 # AndroidN-ify
-An Xposed module to use features introduced in Android N on Lollipop and Marshmallow devices.
+A Xposed module which allows you to use features introduced in Android N on devices running Lollipop and Marshmallow!
 
 
 ### Translation help
+
+I'll try to move the translations to Crowdin, untl then use this little guide to translate:
 
 The original English strings can be found here: https://github.com/wasdennnoch/AndroidN-ify/blob/master/app/src/main/res/values/strings.xml
 
@@ -10,6 +12,11 @@ If you are familiar with creating pull requests, create a new values folder with
 Alternatively you can import the project to Android Studio and use it to translate.
 If you don't know how to create pull requests you can also send me the translated file.
 While translating **make sure to keep variables like `%1$s`**, otherwise I get build errors.
+
+
+### Builds
+
+If you always want to be up to date with the latest code changes: You can find automated builds here: https://ci.paphonb.xyz/jenkins/job/AndroidN-ify/. Note that they may be buggy or crash as they are built every time a commit gets pushed.
 
 
 ### Links
