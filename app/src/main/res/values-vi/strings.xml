@@ -170,4 +170,30 @@
     <string name="keep_bg_title">Không đổi màu nền</string>
     <string name="keep_header_bg">Tiêu đề </string>
     <string name="keep_panel_bg">Thanh C.đặt nhanh</string>
+    <string name="battery_detail_charging_summary">Tiết kiệm pin không dùng được khi sạc </string>
+    <string name="battery_detail_switch_summary">Giảm hiệu năng và dữ liệu nền </string>
+    <string name="battery_detail_switch_title">Tiết kiệm pin</string>
+    <string name="battery_info_status_charging">Đang sạc </string>
+    <string name="battery_info_status_charging_ac">Đang sạc bằng điện lưới</string>
+    <string name="battery_info_status_charging_ac_short">Đang sạc </string>
+    <string name="battery_info_status_charging_usb">Đang sạc qua cổng USB</string>
+    <string name="battery_info_status_charging_usb_short">Đang sạc </string>
+    <string name="battery_info_status_charging_wireless">Đang sạc không dây </string>
+    <string name="battery_info_status_charging_wireless_short">Đang sạc </string>
+    <string name="battery_info_status_discharging">Không sạc </string>
+    <string name="battery_info_status_full">Đầy</string>
+    <string name="battery_info_status_not_charging">Không sạc</string>
+    <string name="battery_info_status_unknown">Không biết</string>
+    <string name="battery_panel_title">Sử dụng pin</string>
+    <string name="charge_length_format"><xliff:g name="time" example="3 giờ">%1$s</xliff:g> trước</string>
+    <string name="now_string_shortest">ngay bây giờ</string>
+    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> -             <xliff:g id="time">%2$s</xliff:g> đến khi đầy </string>
+    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -             <xliff:g id="time">%2$s</xliff:g> đến khi đầy qua điện lưới</string>
+    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -             <xliff:g id="time">%2$s</xliff:g> đến khi đầy qua cổng USB </string>
+    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -             <xliff:g id="time">%2$s</xliff:g> đến khi đầy qua không dây </string>
+    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>         -còn lại khoảng <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g>         - <xliff:g id="time">%2$s</xliff:g> còn lại </string>
+    <string name="power_remaining_duration_only">Còn khoảng <xliff:g id="time">%1$s</xliff:g> </string>
+    <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> còn lại </string>
+    <string name="remaining_length_format"><xliff:g name="time" example="3 giờ">%1$s</xliff:g> còn lại</string>
 </resources>

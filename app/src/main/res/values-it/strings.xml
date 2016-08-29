@@ -222,8 +222,6 @@
     <string name="live_display_night">Notte</string>
     <string name="live_display_outdoor">Esterno (sole luminoso)</string>
     <string name="hide_edit_tiles_summary">Questo nasconde solo l\'Edit Button originale!</string>
-    <string name="notifications_auto_color_title">Usa colore automatico nelle notifiche</string>
-    <string name="share_logcat_summary">Salva le righe più importanti del logcat in un file</string>
     <string name="notification_experimental_title">Funzione sperimentale delle notifiche in stile N</string>
     <string name="notification_experimental">N scrolling (senza notifica in alto) e ombra delle notifiche</string>
     <string name="notification_keyguard_max_title">Notifiche massime nel keyguard</string>
