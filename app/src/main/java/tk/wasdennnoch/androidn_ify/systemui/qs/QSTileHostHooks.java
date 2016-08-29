@@ -333,6 +333,22 @@ public class QSTileHostHooks {
         return specs;
     }
 
+    public static List<String> getCurrentTileSpecs() {
+        List<String> specs = new ArrayList<>();
+        for (String spec : mTileSpecs) {
+            if (spec == null) return specs;
+            specs.add(spec);
+        }
+        return specs;
+    }
+
+    public static void addSpec(Context context, String spec) {
+        List<String> specs = getCurrentTileSpecs();
+        specs.add(spec);
+        saveTileSpecs(context, specs);
+        recreateTiles();
+    }
+
     public static void recreateTiles() {
         try {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {

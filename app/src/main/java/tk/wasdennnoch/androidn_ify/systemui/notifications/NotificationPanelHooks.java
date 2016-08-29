@@ -68,6 +68,18 @@ public class NotificationPanelHooks {
         }
     };
 
+    public static void expandWithQs() {
+        try {
+            if (ConfigUtils.M) {
+                XposedHelpers.callMethod(mNotificationPanelView, "expandWithQs");
+            } else {
+                XposedHelpers.callMethod(mNotificationPanelView, "expand");
+            }
+        } catch (Throwable ignore) {
+
+        }
+    }
+
     public static boolean isExpanded() {
         return (mExpandIndicator != null && mExpandIndicator.isExpanded());
     }

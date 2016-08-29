@@ -13,7 +13,11 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
@@ -44,6 +48,7 @@ public class SystemUIHooks {
                 intentFilter.addAction(SettingsActivity.ACTION_GENERAL);
                 intentFilter.addAction(SettingsActivity.ACTION_FIX_INVERSION);
                 intentFilter.addAction(SettingsActivity.ACTION_KILL_SYSTEMUI);
+                intentFilter.addAction(AddTileActivity.ACTION_ADD_TILE);
                 app.registerReceiver(new BroadcastReceiver() {
                     @Override
                     public void onReceive(Context context, Intent intent) {
@@ -65,6 +70,14 @@ public class SystemUIHooks {
                                         Process.killProcess(Process.myPid());
                                     }
                                 }, 100);
+                                break;
+                            case AddTileActivity.ACTION_ADD_TILE:
+                                if (intent.hasExtra(AddTileActivity.EXTRA_TILE_SPEC)) {
+                                    DetailViewManager.getInstance().invalidTileAdapter();
+                                    QSTileHostHooks.addSpec(context, intent.getStringExtra(AddTileActivity.EXTRA_TILE_SPEC));
+                                    QSTileHostHooks.recreateTiles();
+                                }
+                                NotificationPanelHooks.expandWithQs();
                                 break;
                         }
                     }

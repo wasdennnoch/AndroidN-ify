@@ -49,6 +49,10 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
     public TileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
         this(context, qsPanel);
+        init(records, context);
+    }
+
+    private void init(ArrayList<Object> records, Context context) {
         mRes = ResourceUtils.getInstance(context);
 
         setRecords(records);
@@ -58,6 +62,13 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         addAvailableTiles();
 
         mDividerIndex = mTileViews.indexOf(null);
+    }
+
+    public void reInit(ArrayList<Object> records, Context context) {
+        mRecords.clear();
+        mTileSpecs.clear();
+        mTileViews.clear();
+        init(records, context);
     }
 
     private void addDivider() {
@@ -114,7 +125,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
     private GridLayoutManager.LayoutParams generateLayoutParams() {
         int i = getWidth();
-        return new GridLayoutManager.LayoutParams(i, i);
+        return new GridLayoutManager.LayoutParams(i, (int) (getWidth() / TILE_ASPECT));
     }
 
     @Override
