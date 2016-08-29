@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
-import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.views.FakeQSTileView;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
-import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class AvailableTileAdapter extends TileAdapter {
 
@@ -47,7 +45,7 @@ public class AvailableTileAdapter extends TileAdapter {
             availableTiles.remove(spec);
         }
 
-        if (RomUtils.isCmBased()) {
+        /*if (RomUtils.isCmBased()) {
             try {
                 Class<?> classQSUtils = XposedHelpers.findClass(QSTileHostHooks.CLASS_QS_UTILS, mContext.getClassLoader());
                 for (String spec : availableTiles) {
@@ -59,7 +57,7 @@ public class AvailableTileAdapter extends TileAdapter {
                 XposedHook.logW(TAG, "Couldn't determine static tiles (" + t.getClass().getSimpleName() + ")");
                 // TODO crashing although the CMSDK is clearly there?
             }
-        }
+        }*/
 
         for (String spec : availableTiles) {
             addSpec(spec);
