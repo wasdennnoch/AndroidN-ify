@@ -10,6 +10,47 @@
     <string name="about_author">Sviluppato da @MrWasdennnoch</string>
     <string name="about_translator">Tradotto da @SlimShady\'s</string>
     <string name="about_version">Versione %1$s (%2$d)</string>
+    <string name="battery_detail_switch_title">Risparmio Energetico</string>
+    <string name="battery_detail_switch_summary">Riduce le prestazioni e i dati in background</string>
+    <string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> fa</string>
+    <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> rimanenti</string>
+    <string name="power_remaining_duration_only">Approx. <xliff:g id="time">%1$s</xliff:g> rimanenti</string>
+    <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> rimanenti</string>
+    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
+        - approx. <xliff:g id="time">%2$s</xliff:g> rimanenti</string>
+    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g>
+        - <xliff:g id="time">%2$s</xliff:g> rimanenti</string>
+    <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="state">%2$s</xliff:g></string>
+    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> fino alla ricarica completa</string>
+    <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> fino alla ricarica completa tramite AC</string>
+    <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> fino alla ricarica completa tramite USB</string>
+    <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> fino alla ricarica completa tramite wireless</string>
+    <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="battery_info_status_unknown">Sconosciuto</string>
+    <string name="battery_info_status_charging">In carica</string>
+    <string name="battery_info_status_charging_ac">In carica tramite AC</string>
+    <string name="battery_info_status_charging_ac_short">In carica</string>
+    <string name="battery_info_status_charging_usb">In carica tramite USB</string>
+    <string name="battery_info_status_charging_usb_short">In carica</string>
+    <string name="battery_info_status_charging_wireless">In carica tramite wireless</string>
+    <string name="battery_info_status_charging_wireless_short">In carica</string>
+    <string name="battery_info_status_discharging">Non in carica</string>
+    <string name="battery_info_status_not_charging">Non in carica</string>
+    <string name="battery_info_status_full">Carico</string>
+    <string name="battery_panel_title">Utilizzo batteria</string>
+    <string name="battery_detail_charging_summary">Risparmio energetico non disponibile durante caricamento</string>
     
 
     <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
