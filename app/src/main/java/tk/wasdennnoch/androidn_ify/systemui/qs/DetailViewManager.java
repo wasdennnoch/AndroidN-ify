@@ -2,13 +2,17 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +28,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -40,8 +45,9 @@ public class DetailViewManager {
     private ViewGroup mQsPanel;
     private TextView mEditButton;
     private boolean mHasEditPanel;
+    private boolean mTileAdapterIsInvalid;
 
-    private RecyclerView mRecyclerView;
+    private EditRecyclerView mRecyclerView;
     private Object mEditAdapter;
     private TileAdapter mTileAdapter;
 
@@ -67,6 +73,10 @@ public class DetailViewManager {
         mTileAdapter.saveChanges();
     }
 
+    public void invalidTileAdapter() {
+        mTileAdapterIsInvalid = true;
+    }
+
     public void showEditView(ArrayList<Object> records, int x, int y) {
         if (records == null) {
             Toast.makeText(mContext, "Couldn't open edit view; mRecords == null", Toast.LENGTH_SHORT).show();
@@ -75,6 +85,10 @@ public class DetailViewManager {
         }
         if (mEditAdapter == null)
             createEditAdapter(records);
+        if (mTileAdapterIsInvalid) {
+            mTileAdapterIsInvalid = false;
+            mTileAdapter.reInit(records, mContext);
+        }
 
         showDetailAdapter(mEditAdapter, x, y);
     }
@@ -123,7 +137,7 @@ public class DetailViewManager {
             }
 
             @Override
-            public View createDetailView(Context context, View convertView, ViewGroup parent) {
+            public DetailViewAdapter createDetailView(Context context, View convertView, ViewGroup parent) {
                 return mRecyclerView;
             }
 
@@ -170,12 +184,19 @@ public class DetailViewManager {
         });
     }
 
+    public DetailViewAdapter getDetailViewAdapter(View detailView) {
+        if (detailView != null && detailView instanceof DetailViewAdapter) {
+            return (DetailViewAdapter) detailView;
+        }
+        return null;
+    }
+
     public interface DetailAdapter {
         int getTitle();
 
         Boolean getToggleState();
 
-        View createDetailView(Context context, View convertView, ViewGroup parent);
+        DetailViewAdapter createDetailView(Context context, View convertView, ViewGroup parent);
 
         Intent getSettingsIntent();
 
@@ -184,7 +205,16 @@ public class DetailViewManager {
         int getMetricsCategory();
     }
 
+    public interface DetailViewAdapter {
+        boolean hasRightButton();
+
+        int getRightButtonResId();
+
+        void handleRightButtonClick();
+    }
+
     private void createEditView(ArrayList<Object> records) {
+        mTileAdapterIsInvalid = false;
         // Init tiles list
         mTileAdapter = new TileAdapter(records, mContext, mQsPanel);
         TileTouchCallback callback = new TileTouchCallback();
@@ -193,7 +223,7 @@ public class DetailViewManager {
         // With this, it's very easy to deal with drag & drop
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         gridLayoutManager.setSpanSizeLookup(mTileAdapter.getSizeLookup());
-        mRecyclerView = new RecyclerView(mContext);
+        mRecyclerView = new EditRecyclerView(mContext);
         mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mRecyclerView.setAdapter(mTileAdapter);
         mRecyclerView.setLayoutManager(gridLayoutManager);
@@ -214,6 +244,61 @@ public class DetailViewManager {
         });
         mTileAdapter.setTileTouchCallback(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
+    private class EditRecyclerView extends RecyclerView implements DetailViewAdapter {
+
+        private int mColor;
+
+        public EditRecyclerView(Context context) {
+            super(context);
+            init();
+        }
+
+        public EditRecyclerView(Context context, @Nullable AttributeSet attrs) {
+            super(context, attrs);
+            init();
+        }
+
+        public EditRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
+            init();
+        }
+
+        private void init() {
+            Resources res = mContext.getResources();
+            mColor = res.getColor(res.getIdentifier("system_primary_color", "color", XposedHook.PACKAGE_SYSTEMUI));
+        }
+
+        @Override
+        public boolean hasRightButton() {
+            return true;
+        }
+
+        @Override
+        public int getRightButtonResId() {
+            return R.drawable.ic_add;
+        }
+
+        @Override
+        public void handleRightButtonClick() {
+            Object qsTileHost = XposedHelpers.getObjectField(StatusBarHeaderHooks.mQsPanel, "mHost");
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.setClassName("tk.wasdennnoch.androidn_ify", AddTileActivity.class.getName());
+            intent.putExtra("color", mColor);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            try {
+                XposedHelpers.callMethod(qsTileHost, "startActivityDismissingKeyguard", intent);
+            } catch (Throwable t) {
+                try {
+                    XposedHelpers.callMethod(qsTileHost, "startSettingsActivity", intent);
+                } catch (Throwable t2) {
+                    XposedHook.logE(TAG, "Error starting settings activity", null);
+                }
+            }
+        }
     }
 
     private class CustomItemTouchHelper extends ItemTouchHelper {
@@ -296,6 +381,30 @@ public class DetailViewManager {
         public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             ((TileAdapter.TileViewHolder) viewHolder).stopDrag();
             super.clearView(recyclerView, viewHolder);
+        }
+    }
+
+    public static class DetailFrameLayout extends FrameLayout implements DetailViewAdapter {
+        private DetailViewAdapter mAdapter;
+
+        public DetailFrameLayout(Context context, DetailViewAdapter adapter) {
+            super(context);
+            mAdapter = adapter;
+        }
+
+        @Override
+        public boolean hasRightButton() {
+            return mAdapter.hasRightButton();
+        }
+
+        @Override
+        public int getRightButtonResId() {
+            return mAdapter.getRightButtonResId();
+        }
+
+        @Override
+        public void handleRightButtonClick() {
+            mAdapter.handleRightButtonClick();
         }
     }
 

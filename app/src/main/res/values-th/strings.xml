@@ -298,6 +298,9 @@
     <string name="battery_info_status_full">"เต็ม"</string>
     <string name="battery_panel_title">"การใช้งานแบตเตอรี่"</string>
     <string name="battery_detail_charging_summary">"ไม่สามารถใช้โหมดประหยัดแบตเตอรี่ระหว่างการชาร์จ"</string>
+    <string name="add">เพิ่ม</string>
+    <string name="add_custom_tile">เพิ่มชิ้นส่วนกำหนดเอง</string>
+    <string name="spec_shouldnt_be_blank">Tile spec shouldn\'t be blank</string>
     <!-- /QS -->
 
     <!-- Color Picker -->

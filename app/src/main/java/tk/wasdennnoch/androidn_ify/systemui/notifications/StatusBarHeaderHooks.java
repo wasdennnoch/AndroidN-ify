@@ -117,9 +117,12 @@ public class StatusBarHeaderHooks {
     private static PageIndicator mPageIndicator;
 
     private static Context mContext;
+    private static ResourceUtils mResUtils;
+    private static View mCurrentDetailView;
 
     public static FrameLayout mDecorLayout;
     public static TextView mEditBtn;
+    private static ImageView mQsRightButton;
 
     private static int mBarState = 2;
     public static int mQsPage;
@@ -148,7 +151,8 @@ public class StatusBarHeaderHooks {
 
             mStatusBarHeaderView = (ViewGroup) param.thisObject;
             mContext = mStatusBarHeaderView.getContext();
-            ResourceUtils res = ResourceUtils.getInstance(mContext);
+            mResUtils = ResourceUtils.getInstance(mContext);
+            ResourceUtils res = mResUtils;
             ConfigUtils config = ConfigUtils.getInstance();
 
             try {
@@ -775,6 +779,14 @@ public class StatusBarHeaderHooks {
 
     private static void handleShowingDetail(final Object detail) {
         final boolean showingDetail = detail != null;
+        mCurrentDetailView = getCurrentDetailView();
+        int rightButtonVisibility = View.GONE;
+        DetailViewManager.DetailViewAdapter detailViewAdapter = DetailViewManager.getInstance().getDetailViewAdapter(mCurrentDetailView);
+        if (detailViewAdapter != null && detailViewAdapter.hasRightButton()) {
+            rightButtonVisibility = View.VISIBLE;
+            mQsRightButton.setImageDrawable(mResUtils.getDrawable(detailViewAdapter.getRightButtonResId()));
+        }
+        mQsRightButton.setVisibility(rightButtonVisibility);
         // Fixes an issue with the indicator having two backgrounds when layer type is hardware
         mExpandIndicator.setLayerType(View.LAYER_TYPE_NONE, null);
         transition(mDateTimeAlarmGroup, !showingDetail);
@@ -846,6 +858,17 @@ public class StatusBarHeaderHooks {
         }
     }
 
+    private static View getCurrentDetailView() {
+        Object detailRecord = XposedHelpers.getObjectField(mQsPanel, "mDetailRecord");
+        if (detailRecord != null) {
+            Object detailView = XposedHelpers.getObjectField(detailRecord, "detailView");
+            if (detailView != null && detailView instanceof View) {
+                return (View) detailView;
+            }
+        }
+        return null;
+    }
+
     private static void transition(final View v, final boolean in) {
         if (in) {
             v.bringToFront();
@@ -888,6 +911,11 @@ public class StatusBarHeaderHooks {
                     XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
                             mContext.getString(mContext.getResources().getIdentifier("accessibility_desc_quick_settings", "string", PACKAGE_SYSTEMUI)));
                     XposedHelpers.callMethod(mQsPanel, "closeDetail");
+                    break;
+                case R.id.qs_right:
+                    if (mCurrentDetailView != null && mCurrentDetailView instanceof DetailViewManager.DetailViewAdapter) {
+                        ((DetailViewManager.DetailViewAdapter) mCurrentDetailView).handleRightButtonClick();
+                    }
                     break;
             }
         }
@@ -1203,10 +1231,14 @@ public class StatusBarHeaderHooks {
                         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         View upButton = inflater.inflate(res.getLayout(R.layout.qs_up_button), null);
                         upButton.setOnClickListener(onClickListener);
+                        mQsRightButton = (ImageView) inflater.inflate(res.getLayout(R.layout.qs_right_button), null);
+                        mQsRightButton.setOnClickListener(onClickListener);
+                        mQsRightButton.setVisibility(View.GONE);
 
                         int padding = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_panel_padding", "dimen", PACKAGE_SYSTEMUI));
 
                         layout.addView(upButton, 0);
+                        layout.addView(mQsRightButton);
                         layout.setPadding(0, 0, padding, 0);
                         layout.setGravity(Gravity.CENTER);
                     }

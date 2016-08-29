@@ -13,4 +13,6 @@
     <string name="updater_url">null</string>
     <!-- /UPDATER -->
 
+    <string name="tile_spec_example">CUSTOMTILE0</string>
+
 </resources>

@@ -425,7 +425,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     }
 
     private final class BatteryDetail implements DetailViewManager.DetailAdapter, View.OnClickListener,
-            View.OnAttachStateChangeListener {
+            View.OnAttachStateChangeListener, DetailViewManager.DetailViewAdapter {
         private View mCurrentView;
 
         @Override
@@ -439,14 +439,14 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         }
 
         @Override
-        public View createDetailView(Context context, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(ResourceUtils.createOwnContext(mContext)).inflate(R.layout.battery_detail, parent,
-                        false);
+        public DetailViewManager.DetailViewAdapter createDetailView(Context context, View convertView, ViewGroup parent) {
+            if (convertView == null || !(convertView instanceof DetailViewManager.DetailFrameLayout)) {
+                DetailViewManager.DetailFrameLayout frameLayout = new DetailViewManager.DetailFrameLayout(context, this);
 
                 ResourceUtils res = ResourceUtils.getInstance(context);
 
-                LinearLayout layout = (LinearLayout) convertView;
+                LinearLayout layout = (LinearLayout) LayoutInflater.from(ResourceUtils.createOwnContext(mContext)).inflate(R.layout.battery_detail, parent,
+                        false);
                 layout.addView(new ResizingSpace(context, 0, R.dimen.battery_detail_graph_space_top), 1);
 
                 LinearLayout.LayoutParams usageViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.battery_usage_height));
@@ -461,11 +461,13 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
                 layout.addView(new ResizingSpace(context, 0, R.dimen.battery_detail_graph_space_bottom), 3);
 
+                frameLayout.addView(layout);
+                convertView = frameLayout;
             }
             mCurrentView = convertView;
             mCurrentView.addOnAttachStateChangeListener(this);
             bindView();
-            return convertView;
+            return (DetailViewManager.DetailViewAdapter) convertView;
         }
 
         private void postBindView() {
@@ -555,6 +557,21 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
         @Override
         public int getMetricsCategory() {
             return MetricsLogger.QS_INTENT;
+        }
+
+        @Override
+        public boolean hasRightButton() {
+            return false;
+        }
+
+        @Override
+        public int getRightButtonResId() {
+            return 0;
+        }
+
+        @Override
+        public void handleRightButtonClick() {
+
         }
 
         @Override
