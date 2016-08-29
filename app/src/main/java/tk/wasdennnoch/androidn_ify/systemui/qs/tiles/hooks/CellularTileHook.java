@@ -16,8 +16,6 @@ public class CellularTileHook extends QSTileHook {
 
     public CellularTileHook(ClassLoader classLoader) {
         super(classLoader, CLASS_CELLULAR_TILE);
-        hookClick();
-        hookLongClick();
     }
 
     @Override

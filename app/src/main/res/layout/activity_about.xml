@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <tk.wasdennnoch.androidn_ify.systemui.qs.ResizingSpace
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/battery_detail_graph_space_bottom" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

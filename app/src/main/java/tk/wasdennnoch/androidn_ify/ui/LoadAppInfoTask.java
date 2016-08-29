@@ -33,7 +33,12 @@ public class LoadAppInfoTask extends AsyncTask<Object, Void, List<CachedResolveI
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         mAppsInfo = packageManager.queryIntentActivities(mainIntent, 0);
         Collections.sort(mAppsInfo, new ResolveInfo.DisplayNameComparator(packageManager));
-        for (ResolveInfo app : mAppsInfo) {
+        Loop: for (ResolveInfo app : mAppsInfo) {
+            // Some apps (like .Wave) add multiple launcher icons, this bugs blacklist selection, so only add one item per package name
+            for (int i = 0; i < mCachedAppsInfo.size(); i++) {
+                if (mCachedAppsInfo.get(i).getPackageName().equals(app.activityInfo.packageName))
+                    continue Loop;
+            }
             CachedResolveInfo cachedResolveInfo = new CachedResolveInfo();
             cachedResolveInfo.setIcon(app.loadIcon(packageManager));
             cachedResolveInfo.setLabel(app.loadLabel(packageManager));

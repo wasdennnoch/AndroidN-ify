@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="xposed_description">Koristite funkcije Androida N na Lolipop i Maršmelou uređajima!</string>
+
+    <string name="restart_systemui">Ponovo pokreni sistemski UI</string>
+    <string name="restart_systemui_message">Želite li zaista ponovo da pokrenete sistemski UI?</string>
+    <string name="restart_broadcast_sent">Poslata naredba za restart</string>
+    <string name="activity_about">О Android N-u</string>
+    <string name="about_author">O autoru: @MrWasdennnoch</string>
+    <string name="about_translator">Preveo: Fahrudin Husukić</string> <!-- Insert your (preferably XDA) username here -->
+    <string name="about_version">Verzija %1$s (%2$d)</string>
+
+    <!-- prefs -->
+    <string name="prefs_not_readable"><![CDATA[<b>Upozorenje:</b> Fajl postavki nije čitljiv za Xposed. Kliknite za više informacija…]]></string>
+    <string name="prefs_not_readable_description"><![CDATA[
+        Xposed ne može da pročita fajl postavki za ovaj modul, biće korištene podrazumijevane vrijednosti u kukama.
+        Nekoliko je načina da se ovo popravi. Takođe imajte na umu da se ova greška pojavljuje ako nikad prije nistе
+        otvarali aplikaciju.<br><br>
+        Najprije, ponovo pokrenite uređaj (ne softverski!).<br>
+        Ako to ne pomogne, ponovo instalirajte modul.<br>
+        Ako ni to ne uspije, provjerite da li je vaš SELinux režim postavljen na <i>permissive</i>.
+        <i>Enforcing</i> SELinux može da blokira pristup fajlu postavki. Da promijenite režim,
+        koristite aplikaciju <tt>SELinuxModeChanger</tt> koju možete da preuzmete
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">sa ove XDA teme</a>.<br>
+        Ako čak ni to ne uspije, nažalost, moraćete da koristite podrazumijevane vrijednosti. :(
+        ]]></string>
+
+    <string name="header_tweaks">Podešavanja</string>
+    <string name="header_app">Aplikacija</string>
+
+    <string name="app_dark_theme_title">Tamna tema</string>
+    <string name="hide_launcher_icon_title">Sakrij ikonu pokretača</string>
+    <string name="hide_launcher_icon">Možda će biti potreban restart pokretača</string>
+    <string name="debug_log_title">Evidencija grešaka</string>
+    <string name="debug_log">Upozorenje: preplavljuje zapise</string>
+    <string name="logcat_notif_ongoing_title">Upisujem logkat…</string>
+    <string name="logcat_notif_finished_title">Logkat sačuvan</string>
+    <string name="logcat_notif_preparing">Pripremam…</string>
+    <string name="logcat_notif_ongoing_lines">Sačuvano %1$s redova…</string>
+    <string name="logcat_notif_finished">%1$s redova sačuvano u %2$s</string> <!-- %2$s == file path -->
+    <string name="action_stop">Zaustavi</string>
+
+    <string name="requesting_root">Zahtijevam root pristup…</string>
+    <string name="root_failed">Neuspješno dobijanje READ_LOGS dozvole</string>
+    <string name="permission_required">Zahtijevana je dozvola</string>
+    <string name="logs_permission_description">
+        Od JellyBean izdanja Androida aplikacijama više nije dozvoljeno da čitaju logkat.
+        Međutim, možete ručno da odobrite READ_LOGS dozvolu uz pomoć root pristupa.
+        Nakon toga, aplikaciju je potrebno ponovo pokrenuti da biste primjenili novoodobrenu dozvolu.
+    </string>
+
+    <string name="requires_android_version">Zahtijeva Android %1$s</string>
+    <string name="not_activated">Modul nije aktiviran</string>
+
+    <string name="theme_colorPrimary">Primarna boja</string>
+
+    <string name="header_lockscreen">Zaključan ekran</string>
+    <!-- /prefs -->
+
+    <!-- SETTINGS -->
+    <string name="header_settings">Postavke</string>
+    <string name="enable_settings_summaries_title">Kratki pregledi postavki</string>
+    <string name="enable_settings_summaries">Prikaz najvažnijih podataka direktno na ekranu postavki</string>
+    <string name="fix_sound_notif_tile_title">Popravi pločicu „Zvuci i obaviještenja“</string>
+    <string name="fix_sound_notif_tile">Neki ROM-ovi kombinuju pločice za zvuk i obaviještenja. Uključite ovo da biste imali tačne preglede sa ove pločice</string>
+    <string name="enable_n_platlogo_title">N logo u uskršnjem jajetu</string>
+    <string name="use_namey_mcnameface_title">Koristi „Namey McNameface“ ikonu</string>
+
+    <string name="disconnected">Nepovezan</string>
+    <string name="disabled">Isključeno</string>
+    <string name="off">ISK</string>
+    <string name="on">UKLJ</string>
+    <string name="data_usage_summary">Korišteno %1$s podataka</string>
+    <string name="display_summary">Prilagodljiva osvijetljenost je %1$s</string>
+    <string name="sound_summary">Jačina zvuka zvona na %1$s</string>
+    <string name="apps_summary">%1$d aplikacija instalirano</string>
+    <string name="storage_summary">%1$s od %2$s iskorišteno</string>
+    <string name="battery_summary">%1$s — pribl. %2$s preostalo</string>
+    <string name="battery_charging_wireless">%1$s — bežično punjenje</string>
+    <string name="battery_charging_usb">%1$s — punjenje na USB</string>
+    <string name="battery_charging_ac">%1$s — punjenje na kabal</string>
+    <string name="memory_summary">Trenutno %1$s od %2$s memorije iskorišteno</string>
+    <string name="user_summary">Prijavljen kao %1$s</string>
+    <string name="location_on_power">UKLJ / ušteda baterije</string>
+    <string name="location_on_device">UKLJ / samo uređaj</string>
+    <string name="location_on_high">UKLJ / velika preciznost</string>
+    <string name="print_summary">%1$d poslova štampanja</string>
+    <string name="store">Prodavnica</string>
+    <string name="app_details">Detalji aplikacije</string>
+    <string name="install_source">Aplikacija instalirana sa %1$s</string>
+    <string name="from_pm">Aplikacija instalirana Instalaterom paketa</string>
+    <!-- /SETTINGS -->
+
+    <!-- RECENTS -->
+    <string name="header_recents">Nedavne</string>
+    <string name="enable_recents_double_tap_title">Brzi prekidač</string> <!-- That's how Google calls it -->
+    <string name="enable_recents_double_tap">Dvoklik na taster nedavnih prebacuje na posljednje korištenu aplikaciju</string>
+    <string name="alternative_double_tap_title">Alternativno otkrivanje dvoklika</string>
+    <string name="alternative_double_tap">Uključite ako brzi prekidač ne radi ispravno</string>
+    <string name="double_tap_speed_title">Brzina dvoklika</string>
+    <string name="recents_button_behavior_title">Ponašanje tastera za nedavne po kliku</string>
+    <string name="recents_navigation_delay_title">Zastoj u navigaciji</string>
+    <string name="recents_navigation_delay">Vrijeme do fokusiranja izabrane aplikacije</string>
+    <string name="enable_large_recents">Velike nedavne aplikacije</string>
+    <string name="no_recents_image">Promijeni sliku „nema nedavnih“</string>
+
+    <string name="no_previous_recents">Nema nedavnih stavki</string>
+
+    <string name="recents_button_behavior_previous">Vrati na prethodnu aplikaciju</string>
+    <string name="recents_button_behavior_current">Vrati na tekuću aplikaciju</string>
+    <string name="recents_button_behavior_cycle">Kruži kroz aplikacije</string>
+    <!-- /RECENTS -->
+
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">Brze prečice</string>
+    <string name="enable_notification_header">Uobliči zaglavlje</string>
+    <string name="keep_bg_title">Neizmjenjene pozadine</string>
+    <string name="keep_bg">Korisno za teme koje primjenjuju posebne pozadine</string>
+    <string name="keep_header_bg">Zaglavlje</string>
+    <string name="keep_panel_bg">Panel brzih prečica</string>
+    <string name="notification_header_qs_tiles_count">Broj pločica za prikaz</string>
+    <string name="notification_header_qs_tiles_count_monitor"> pločica</string>
+    <string name="battery_tile_show_percentage">Postotak na pločici baterije</string>
+    <string name="battery_tile_show_percentage_summary">Prikaz postotka na pločici baterije</string>
+    <string name="enable_qs_editor">Uređivač brzih postavki</string>
+    <string name="allow_fancy_qs_transition">Kitnjasti prelazi</string>
+    <string name="enable_new_tile_click_behavior">Ponašanje pločica u stilu Androida N</string>
+    <string name="enable_new_tile_click_behavior_summary">Klik na pločicu u zaglavlju mijenja vrijednost a klik na pločicu na panelu je proširuje</string>
+    <string name="enable_large_first_row">Uvećaj prvi red</string>
+    <string name="enable_large_first_row_summary">Na CM-u koristite meni podešavanja režima izmjene pločica</string>
+    <string name="fix_stuck_inversion_title">Popravi zaglavljenu inverziju</string>
+    <string name="fix_stuck_inversion">Na nekim uređajima inverzija boja zablokira. Kliknite ovdje za deaktivaciju</string>
+
+    <string name="header_clock_size_title">Veličina sata zaglavlja</string>
+    <string name="header_clock_size_normal">Normalan</string>
+    <string name="header_clock_size_small">Mali</string>
+    <string name="header_clock_size_smaller">Manji</string>
+    <string name="header_clock_size_tiny">Sićušan</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">Sakrij stavke zaglavlja</string>
+    <string name="hide_tuner_icon_title">Sakrij ikonu štimera sistemskog UI-ja</string>
+    <string name="hide_edit_tiles_title">Sakrij dugme uređivača pločica</string>
+    <string name="hide_edit_tiles_summary">Ovo sakriva samo ugrađenu ikonu uređivača!</string>
+    <string name="hide_carrier_label_title">Sakrij ime-naziv provajdera</string>
+    <!-- /Hide header icons -->
+    <!-- /QUICK SETTINGS -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">Obaviještenja</string>
+    <string name="notifications_change_style">Uobliči obaviještenja</string>
+    <string name="notification_dismiss_button_title">Promijeni dugme otpuštanja</string>
+    <string name="notification_dismiss_button">Prikaži „OBRIŠI SVE“ umjesto ikone otpuštanja</string>
+    <string name="action_search">Traži</string>
+    <string name="notification_blacklisted_apps_title">Crna lista aplikacija</string>
+    <string name="notification_blacklisted_apps">Stari stil obaviještenja za ove aplikacije</string>
+    <string name="notifications_custom_actions_color_title">Pr ilagođena boja pozadine za radnje</string>
+    <string name="notifications_actions_color_title">Boja pozadine za radnje</string>
+    <string name="notification_experimental_title">Eksperiment alno N-ponašanje obaviještenja</string>
+    <string name="notification_experimental">N-ponašanje klizanja (bez slaganja na vrhu) i sijenka obaviještenja</string>
+    <string name="notification_keyguard_max_title">Najviše obaviještenja na zaključanom ekranu</string>
+    <!-- /NOTIFICATIONS -->
+
+    <!-- UPDATE -->
+    <string name="update_notification_title">Dostupna nadogradnja</string>
+    <string name="update_notification">Izdanje %1$d je dostupno!</string>
+    <string name="update_notification_download">Nadogradi</string>
+    <string name="check_for_updates_title">Pretraživanje nadogradnji</string>
+    <string name="check_for_updates">Potraži nadogradnje po pokretanju aplikacije</string>
+    <string name="checking_for_update">Tražim nadogradnje…</string>
+    <string name="check_for_update_fail">Nisam mogao da potražim nadogradnje</string>
+    <string name="no_updates">Nema novijih izdanja</string>
+    <string name="update_notification_downloading">Preuzimam nadogradnju</string>
+    <string name="update_notification_downloading_details">Pre uzimam izdanje %1$d</string>
+    <string name="update_notification_download_fail">Preuziman je nije uspjelo</string>
+    <string name="update_notification_download_fail_details">N euspješno preuzimanje izdanja %1$d</string>
+    <!-- /UPDATE -->
+
+    <!-- EMERGENCY -->
+    <string name="emergency_info">Podaci za slučaj nužde</string>
+    <string name="emergency_info_launch_hint">Kliknite ponovo da otvorite</string>
+    <string name="enable_emergency_info_title">Omogući podatke</string>
+    <string name="enable_emergency_info">Dodavanje podataka za slučaj nužde na brojčanik za hitni poziv</string>
+    <string name="edit_emergency_info_title">Uredi podatke</string>
+
+    <string name="header_personal">Lično</string>
+    <string name="info_fullname">Puno ime</string>
+    <string name="info_address">Adresa</string>
+    <string name="info_birthdate">Datum rođenja</string>
+
+    <string name="header_medical">Medicinski</string>
+    <string name="info_bloodtype">Krvna grupa</string>
+    <string name="info_allergies">Alergije</string>
+    <string name="info_medications">Lijekovi</string>
+    <string name="info_medicalnotes">Zdravstvena stanja i bilješke</string>
+    <string name="info_organdonor">Donor organa</string>
+
+    <string name="info_unspecified">Nije navedeno</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
+
+    <!-- BATTERY -->
+    <string name="battery">Baterija</string>
+    <string name="charged">Napunjena</string>
+    <string name="charging">Punjenje, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">Uredi</string>
+    <string name="qs_edit_detail">Uredi pločice</string>
+    <string name="drag_to_add_tiles">Prevucite da dodate pločice</string>
+    <string name="drag_to_remove_tiles">Prevucite ovdje da uklonite</string>
+    <string name="live_display">LiveDisplay</string>
+    <string name="live_display_auto">Automatski</string>
+    <string name="live_display_off">Isklj</string>
+    <string name="live_display_day">Dan</string>
+    <string name="live_display_night">Noć</string>
+    <string name="live_display_outdoor">Vani (jako sunce)</string>
+    <!-- /QS -->
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Birač boja</string>
+    <string name="press_color_to_apply">Kliknite na boju da je primjenite</string>
+    <string name="enable_install_source_title">Prikaži izvor instalacije aplikacije</string>
+    <!-- /Color Picker -->
+
+</resources> 

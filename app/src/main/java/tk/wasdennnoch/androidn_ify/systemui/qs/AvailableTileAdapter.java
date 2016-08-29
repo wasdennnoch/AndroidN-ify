@@ -122,12 +122,14 @@ public class AvailableTileAdapter extends TileAdapter {
     }
 
     private int getIconResource(String spec) {
+        // On RR this is an instance method of the DraggableTile in the QsTuner, to get an instance we would
+        // need to pass a QSTile.Host which we don't have, so just extract the method here and adapt it.
         Resources res = mContext.getResources();
         //noinspection IfCanBeSwitch
         if (spec.equals("wifi")) return res.getIdentifier("ic_qs_wifi_full_3", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("bt")) return res.getIdentifier("ic_qs_bluetooth_connected", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("inversion")) return res.getIdentifier("ic_invert_colors_enable", "drawable", PACKAGE_SYSTEMUI);
-        else if (spec.equals("cell")) return res.getIdentifier("ic_qs_signal_full_3", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("cell") || spec.equals("cell1") || spec.equals("cell2")) return res.getIdentifier("ic_qs_signal_full_3", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("airplane")) return res.getIdentifier("ic_signal_airplane_enable", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("dnd")) return res.getIdentifier("ic_qs_dnd_on", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("rotation")) return res.getIdentifier("ic_portrait_from_auto_rotate", "drawable", PACKAGE_SYSTEMUI);
@@ -142,13 +144,13 @@ public class AvailableTileAdapter extends TileAdapter {
         else if (spec.equals("sync")) return res.getIdentifier("ic_qs_sync_on", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("volume_panel")) return res.getIdentifier("ic_qs_volume_panel", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("usb_tether")) return res.getIdentifier("ic_qs_usb_tether_on", "drawable", PACKAGE_SYSTEMUI);
-        else if (spec.equals("screen_timeout")) return res.getIdentifier("ic_qs_screen_timeout_short_avd", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("screen_timeout") || spec.equals("timeout")) return res.getIdentifier("ic_qs_screen_timeout_short_avd", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("performance")) return res.getIdentifier("ic_qs_perf_profile", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("ambient_display")) return res.getIdentifier("ic_qs_ambientdisplay_on", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("live_display")) return res.getIdentifier("ic_livedisplay_auto", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("music")) return res.getIdentifier("ic_qs_media_play", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("brightness")) return res.getIdentifier("ic_qs_brightness_auto_on", "drawable", PACKAGE_SYSTEMUI);
-        else if (spec.equals("screen_off")) return res.getIdentifier("ic_qs_power", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("screen_off") || spec.equals("screenoff")) return res.getIdentifier("ic_qs_power", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("screenshot")) return res.getIdentifier("ic_qs_screenshot", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("expanded_desktop")) return res.getIdentifier("ic_qs_expanded_desktop", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("reboot")) return res.getIdentifier("ic_qs_reboot", "drawable", PACKAGE_SYSTEMUI);
@@ -173,6 +175,10 @@ public class AvailableTileAdapter extends TileAdapter {
         else if (spec.equals("pie")) return res.getIdentifier("ic_qs_pie", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("float_mode")) return res.getIdentifier("ic_qs_floating_on", "drawable", PACKAGE_SYSTEMUI);
         else if (spec.equals("visualizer")) return res.getIdentifier("ic_qs_visualizer_static", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("halo")) return res.getIdentifier("ic_notify_halo_normal", "drawable", PACKAGE_SYSTEMUI);
+
+        else if (spec.equals("immersive")) return res.getIdentifier("ic_immersive_full_enable_animation", "drawable", PACKAGE_SYSTEMUI);
+        else if (spec.equals("floating")) return res.getIdentifier("ic_qs_floating_peek", "drawable", PACKAGE_SYSTEMUI);
         return 0;
     }
 

@@ -32,6 +32,11 @@ public class RomUtils {
             sPrefs.edit().putString("rom", "rr").commit();
             return;
         }
+        String aicpVersion = SystemProperties.get("ro.aicp.version", "");
+        if (!aicpVersion.equals("")) {
+            sPrefs.edit().putString("rom", "aicp").commit();
+            return;
+        }
         int cmSdkVersion = SystemProperties.getInt("ro.cm.build.version.plat.sdk", 0);
         if (cmSdkVersion != 0) {
             sPrefs.edit().putString("rom", "cm").commit();
@@ -48,10 +53,15 @@ public class RomUtils {
         return sPrefs.getString("rom", "").equals("rr");
     }
 
+    public static boolean isAicp() {
+        return sPrefs.getString("rom", "").equals("aicp");
+    }
+
     public static boolean isCmBased() {
         String rom = sPrefs.getString("rom", "");
         switch (rom) {
             case "rr":
+            case "aicp":
             case "cm":
                 return true;
             default:

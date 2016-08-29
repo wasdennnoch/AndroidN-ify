@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.internal.logging.MetricsLogger;
@@ -37,7 +38,7 @@ public class DetailViewManager {
     private Context mContext;
     private ViewGroup mStatusBarHeaderView;
     private ViewGroup mQsPanel;
-    private Button mEditButton;
+    private TextView mEditButton;
     private boolean mHasEditPanel;
 
     private RecyclerView mRecyclerView;
@@ -50,11 +51,11 @@ public class DetailViewManager {
         return sInstance;
     }
 
-    public static void init(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, Button editButton, boolean hasEditPanel) {
+    public static void init(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, TextView editButton, boolean hasEditPanel) {
         sInstance = new DetailViewManager(context, statusBarHeaderView, qsPanel, editButton, hasEditPanel);
     }
 
-    private DetailViewManager(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, Button editButton, boolean hasEditPanel) {
+    private DetailViewManager(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, TextView editButton, boolean hasEditPanel) {
         mContext = context;
         mStatusBarHeaderView = statusBarHeaderView;
         mQsPanel = qsPanel;
@@ -66,7 +67,7 @@ public class DetailViewManager {
         mTileAdapter.saveChanges();
     }
 
-    public void showEditView(ArrayList<Object> records) {
+    public void showEditView(ArrayList<Object> records, int x, int y) {
         if (records == null) {
             Toast.makeText(mContext, "Couldn't open edit view; mRecords == null", Toast.LENGTH_SHORT).show();
             XposedHook.logE(TAG, "Couldn't open edit view; mRecords == null", null);
@@ -75,16 +76,19 @@ public class DetailViewManager {
         if (mEditAdapter == null)
             createEditAdapter(records);
 
-        int x = mEditButton.getLeft() + mEditButton.getWidth() / 2;
-        int y = mEditButton.getTop() + mEditButton.getHeight() / 2;
+        showDetailAdapter(mEditAdapter, x, y);
+    }
+
+    private void showDetailAdapter(Object adapter, int x, int y) {
         if (mHasEditPanel)
             y += mStatusBarHeaderView.getHeight();
-        StatusBarHeaderHooks.mEditing = true;
+        if (adapter == mEditAdapter)
+            StatusBarHeaderHooks.mEditing = true;
         if (!ConfigUtils.M) {
-            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter);
+            XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, adapter);
         } else {
             try {
-                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, mEditAdapter, new int[]{x, y});
+                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, adapter, new int[]{x, y});
             } catch (Throwable t) { // OOS3
                 ClassLoader classLoader = mContext.getClassLoader();
                 Class<?> classRemoteSetting = XposedHelpers.findClass(XposedHook.PACKAGE_SYSTEMUI + ".qs.RemoteSetting", classLoader);
@@ -98,40 +102,86 @@ public class DetailViewManager {
                         return null;
                     }
                 });
-                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, remoteSetting, mEditAdapter, new int[]{x, y});
+                XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, remoteSetting, adapter, new int[]{x, y});
             }
         }
-
     }
 
     private void createEditAdapter(ArrayList<Object> records) {
         if (mRecyclerView == null)
             createEditView(records);
 
-        Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
+        mEditAdapter = createProxy(new DetailAdapter() {
+            @Override
+            public int getTitle() {
+                return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", XposedHook.PACKAGE_SYSTEMUI);
+            }
 
-        mEditAdapter = Proxy.newProxyInstance(classDetailAdapter.getClassLoader(), new Class<?>[]{classDetailAdapter}, new InvocationHandler() {
+            @Override
+            public Boolean getToggleState() {
+                return false;
+            }
+
+            @Override
+            public View createDetailView(Context context, View convertView, ViewGroup parent) {
+                return mRecyclerView;
+            }
+
+            @Override
+            public Intent getSettingsIntent() {
+                return new Intent(Intent.ACTION_MAIN)
+                        .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+
+            @Override
+            public void setToggleState(boolean state) {
+            }
+
+            @Override
+            public int getMetricsCategory() {
+                return MetricsLogger.QS_INTENT;
+            }
+        });
+    }
+
+    public Object createProxy(final DetailAdapter adapter) {
+        Class<?> classDetailAdapter = XposedHelpers.findClass(CLASS_DETAIL_ADAPTER, mContext.getClassLoader());
+        return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{classDetailAdapter}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 switch (method.getName()) {
                     case "getTitle":
-                        return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", XposedHook.PACKAGE_SYSTEMUI);
+                        return adapter.getTitle();
                     case "getToggleState":
-                        return false;
+                        return adapter.getToggleState();
+                    case "createDetailView":
+                        return adapter.createDetailView((Context) args[0], (View) args[1], (ViewGroup) args[2]);
                     case "getSettingsIntent":
-                        return new Intent(Intent.ACTION_MAIN)
-                                .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        return adapter.getSettingsIntent();
                     case "setToggleState":
+                        adapter.setToggleState((boolean) args[0]);
                         return null;
                     case "getMetricsCategory":
-                        return MetricsLogger.QS_INTENT;
-                    case "createDetailView":
-                        return mRecyclerView;
+                        return adapter.getMetricsCategory();
                 }
                 return null;
             }
         });
+    }
+
+    public interface DetailAdapter {
+        int getTitle();
+
+        Boolean getToggleState();
+
+        View createDetailView(Context context, View convertView, ViewGroup parent);
+
+        Intent getSettingsIntent();
+
+        void setToggleState(boolean state);
+
+        int getMetricsCategory();
     }
 
     private void createEditView(ArrayList<Object> records) {

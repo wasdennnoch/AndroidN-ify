@@ -12,9 +12,11 @@ import android.provider.Settings;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class SystemUIHooks {
 
@@ -69,10 +71,11 @@ public class SystemUIHooks {
                 }, intentFilter);
 
                 // Give the settings enough time to load in the background
-                handler.postDelayed(new Runnable() {
+                handler.postDelayed(new SafeRunnable() {
                     @Override
-                    public void run() {
+                    public void runSafe() {
                         XposedHook.debug = ConfigUtils.getInstance().getPrefs().getBoolean("debug_log", false);
+                        RomUtils.init(ConfigUtils.getInstance().getPrefs());
                     }
                 }, 2000);
             }

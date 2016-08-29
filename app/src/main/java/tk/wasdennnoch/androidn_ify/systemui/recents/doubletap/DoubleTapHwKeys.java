@@ -12,26 +12,25 @@ import android.view.WindowManagerPolicy;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class DoubleTapHwKeys extends DoubleTapBase {
 
     private static final String TAG = "DoubleTapHwKeys";
 
-    private static final String CLASS_PHONE_WINDOW_MANAGER;
-
-    static {
-        CLASS_PHONE_WINDOW_MANAGER = Build.VERSION.SDK_INT >= 23 ? "com.android.server.policy.PhoneWindowManager" : "com.android.internal.policy.impl.PhoneWindowManager";
-    }
+    private static final String CLASS_PHONE_WINDOW_MANAGER =
+            Build.VERSION.SDK_INT >= 23 ? "com.android.server.policy.PhoneWindowManager" :
+                    "com.android.internal.policy.impl.PhoneWindowManager";
 
     private static Object mPhoneWindowManager;
     private static Context mContext;
     private static Handler mHandler;
 
     private static boolean mWasPressed = false;
-    private static Runnable resetPressedState = new Runnable() {
+    private static Runnable resetPressedState = new SafeRunnable() {
         @Override
-        public void run() {
+        public void runSafe() {
             XposedHook.logD(TAG, "Double tap timed out after " + mDoubletapSpeed + "ms, injecting original KeyEvent");
             mWasPressed = false;
             injectKey(KeyEvent.KEYCODE_APP_SWITCH);

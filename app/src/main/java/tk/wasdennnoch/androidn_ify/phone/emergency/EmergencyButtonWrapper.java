@@ -94,7 +94,7 @@ public class EmergencyButtonWrapper implements View.OnClickListener {
     }
 
     private void revealTheButton(Button v) {
-        XposedHook.logI("androidn_ify", "reveal");
+        XposedHook.logD("androidn_ify", "reveal");
         mSelectedContainer.setVisibility(View.VISIBLE);
         int centerX = v.getLeft() + v.getWidth() / 2;
         int centerY = v.getTop() + v.getHeight() / 2;
@@ -136,7 +136,7 @@ public class EmergencyButtonWrapper implements View.OnClickListener {
     }
 
     private void hideTheButton() {
-        XposedHook.logI("androidn_ify", "hide");
+        XposedHook.logD("androidn_ify", "hide");
         if (mHiding || mSelectedContainer.getVisibility() != View.VISIBLE) {
             return;
         }
@@ -173,7 +173,7 @@ public class EmergencyButtonWrapper implements View.OnClickListener {
     }
 
     private void startRipple() {
-        XposedHook.logI("androidn_ify", "ripple");
+        XposedHook.logD("androidn_ify", "ripple");
         final View ripple = mRippleView;
         ripple.animate().cancel();
         ripple.setVisibility(View.VISIBLE);

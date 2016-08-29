@@ -90,7 +90,7 @@ public class ConfigUtils {
             fix_sound_notif_tile = prefs.getBoolean("fix_sound_notif_tile", false);
             enable_n_platlogo = prefs.getBoolean("enable_n_platlogo", true);
             use_namey_mcnameface = prefs.getBoolean("use_namey_mcnameface", false);
-            install_source = M && prefs.getBoolean("enable_install_source", true);
+            install_source = prefs.getBoolean("enable_install_source", true);
         }
     }
 

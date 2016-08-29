@@ -6,7 +6,6 @@ import android.provider.Settings;
 import com.android.internal.logging.MetricsLogger;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 
@@ -18,14 +17,7 @@ public class BluetoothTileHook extends QSTileHook {
 
     public BluetoothTileHook(ClassLoader classLoader, boolean firstRowSmall) {
         super(classLoader, CLASS_BLUETOOTH_TILE);
-        hookClick();
-        hookLongClick();
-        if (firstRowSmall) {
-            try {
-                XposedHelpers.findAndHookMethod(mTileClass, "supportsDualTargets", XC_MethodReplacement.returnConstant(false));
-            } catch (Throwable ignore) {
-            }
-        }
+        if (firstRowSmall) setDualTargets();
     }
 
     @Override

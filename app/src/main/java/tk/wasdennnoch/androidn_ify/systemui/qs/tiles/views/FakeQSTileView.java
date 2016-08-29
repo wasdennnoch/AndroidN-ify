@@ -35,14 +35,16 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
-/** View that represents a standard quick settings tile. **/
+/**
+ * View that represents a standard quick settings tile.
+ */
 public class FakeQSTileView extends ViewGroup {
-    private static final Typeface CONDENSED = Typeface.create("sans-serif-condensed",
-            Typeface.NORMAL);
+    private static final Typeface CONDENSED = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
 
-    private static final String PACKAGE_SYSTEMUI = "com.android.systemui";
+    private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
 
     protected final Context mContext;
     private final View mIcon;

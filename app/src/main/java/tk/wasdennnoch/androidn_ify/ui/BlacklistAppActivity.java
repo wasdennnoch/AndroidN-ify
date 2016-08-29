@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +51,7 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
         setupApps();
 
         mAdapter = new AppsAdapter(mApps, mBlacklistedApps, getPackageManager(), this);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -142,6 +143,9 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
         } else {
             itemView.mCheckBox.setChecked(true);
             mBlacklistedApps.add(app.getPackageName());
+            if (mBlacklistedApps.size() == mAdapter.getItemCount()) {
+                Toast.makeText(this, "ಠ_ಠ", Toast.LENGTH_LONG).show();
+            }
         }
         mAdapter.setBlacklistedApps(mBlacklistedApps);
         SharedPreferences.Editor editor = mSharedPrefs.edit();

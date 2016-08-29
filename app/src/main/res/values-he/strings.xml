@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="xposed_description">השגת היכולות של אנדרואיד 7 נוגט באנדרואיד 5-6</string>
+
+    <string name="restart_systemui">הפעל מחדש את SystemUI</string>
+    <string name="restart_systemui_message">האם את/ה מעוניינ/ת להפעיל מחדש את SystemUI</string>
+    <string name="restart_broadcast_sent">הוראת הפעלה מחדש נשלחה</string>
+    <string name="activity_about">אודות Android N-ify</string>
+    <string name="about_author">\@MrWasdennnoch אודות המפתח</string>
+    <string name="about_translator">\@lirannl אודות המתרגם</string>
+    <string name="about_version">%1$s (%2$d) אודות גרסה</string>
+
+    <string name="header_tweaks">שינויים</string>
+    <string name="header_app">יישום</string>
+    
+    <string name="app_dark_theme_title">ערכת נושא כהה</string>
+    <string name="hide_launcher_icon_title">הסתר סמל</string>
+    <string name="hide_launcher_icon">ייתכן שיהיה צורך להפעיל מחדש את מריץ האפליקציות</string>
+    <string name="debug_log_title">רישום לצורכי תיקון שגיאות</string>
+    <string name="debug_log">אזהרה: מציף רישומים</string>
+    <string name="logcat_notif_finished_title">רישום נשמר</string>
+    <string name="action_stop">עצור</string>
+    
+    <string name="root_failed">השגת הרשאת READ_LOGS נכשלה</string>
+    <string name="permission_required">נדרשת הרשאה</string>
+    <string name="logs_permission_description">
+        In Android versions since Jelly Bean applications aren\'t allowed to read the full logcat anymore.
+        You can however manually grant the READ_LOGS permission with root access.
+        After that the app needs to be restarted in order to apply the newly granted permissions.
+        בגרסאות אנדרואיד מאז 4.1 יישומים לא מסוגלים לקרוא את הרישומים המלאים.
+        ניתן לתת ליישום הרשאת READ_LOGS בעזרת גישת רוט.
+        לאחר מכן, היישום צריך להידלק מחדש כדי להחיל את ההרשאה שהתקבלה.
+    </string>
+    
+    <string name="requires_android_version">נדרשת גרסת אנדרואיד %1$s</string>
+  <string name="not_activated">המודול לא אופשר</string>
+
+    <string name="theme_colorPrimary">צבע ראשי</string>
+
+    <string name="header_lockscreen">מסך נעילה</string>
+    <!-- /prefs -->
+
+    <!-- SETTINGS -->
+    <string name="header_settings">הגדרות</string>
+    <string name="enable_settings_summaries_title">תמציתי הגדרות</string>
+    <string name="enable_settings_summaries">ראה את המידע החשוב ביותר ישירות בלוח ההגדרות</string>
+    <string name="fix_sound_notif_tile_title">תיקון התראת הקול</string>
+    <string name="fix_sound_notif_tile">גרסאות מסוימות משלבות את צליל הצלצולים וצליל ההתראות, אפשרו הגדרה זו כדי להראות את הכותרת המתאימה</string>
+    <string name="enable_n_platlogo_title">לוגו N ביכולת הנסתרת</string>
+    <string name="use_namey_mcnameface_title">שימוש בתמונת \"Namey McNameface\"</string>
+
+    <string name="disconnected">מנותק</string>
+    <string name="disabled">לא פעיל</string>
+    <string name="off">כבוי</string>
+    <string name="on">דולק</string>
+    <string name="data_usage_summary"> %1$sהשתמשת ב</string>
+    <string name="display_summary">%1$sהבהירות המסתגלת ב</string>
+    <string name="sound_summary">%1$s עוצמת הצלצולים היא</string>
+    <string name="apps_summary">%1$d מספר היישומים המותקנים הוא</string>
+    <string name="battery_charging_wireless">%1$s נטען אלחוטית, כרגע ב</string>
+    <string name="battery_charging_usb">%1$s - נטען בכבל נתונים</string>
+    <string name="battery_charging_ac">%1$s - נטען במטען</string>
+    <string name="user_summary">%1$s מחובר כ</string>
+    <string name="location_on_power">פעיל - חיסכון בסוללה</string>
+    <string name="location_on_device">פעיל - מכשיר בלבד</string>
+    <string name="location_on_high">פעיל - דיוק מרבי</string>
+    <string name="print_summary">%1$d מספר עבודות ההדפסה הוא</string>
+    <string name="store">חנות</string>
+    <string name="app_details">פרטי יישום</string>
+    <string name="install_source">%1$sיישום הותקן מ</string>
+    <string name="from_pm">יישום הותקן באמצעות מתקין החבילות</string>
+    <!-- /SETTINGS -->
+   
+   <!-- RECENTS -->
+    <string name="header_recents">יישומים אחרונים</string>
+    <string name="enable_recents_double_tap_title">החלפה מהירה</string> <!-- That's how Google calls it -->
+    <string name="enable_recents_double_tap">שתי לחיצות על לחצן "אחרונים" יפתח את האפליקציה הפתוחה הקודמת</string>
+    <string name="alternative_double_tap_title">זיהויי לחיצה כפולה חלופי</string>
+    <string name="alternative_double_tap">נא לאפשר אפשרות זו אם ההחלפה המהירה אינה עובדת כראוי</string>
+    <string name="double_tap_speed_title">מהירות לחיצה כפולה</string>
+    <string name="recents_button_behavior_title">התנהגות לחיצה על לחצן היישומים האחרונים</string>
+    <string name="recents_navigation_delay_title">השהיית ניווט</string>
+    <string name="recents_navigation_delay">ההשהייה עד שהיישום הנבחר ייפתח</string>
+    <string name="enable_large_recents">הגדלת יישומים אחרונים</string>
+    <string name="no_recents_image">החלף את התמונה כאשר אין יישומים פתוחים</string>
+
+    <string name="no_previous_recents">אין יישומים</string>
+
+    <string name="recents_button_behavior_previous">חזור ליישום הקודם</string>
+    <string name="recents_button_behavior_current">חזור ליישום הנוכחי</string>
+    <string name="recents_button_behavior_cycle">גלגל בין היישומים</string>
+    <!-- /RECENTS -->
+
+    <!-- QUICK SETTINGS -->
+    <string name="header_qs">הגדרות מהירות</string>
+    <string name="enable_notification_header">עיצוב הראש</string>
+    <string name="keep_bg_title">השאר רקע מקורי</string>
+    <string name="keep_bg">הגדרה זו בשביל ערכות נושא המשנות רקע זה</string>
+    <string name="keep_header_bg">ראש</string>
+    <string name="keep_panel_bg">לוח הגדרות מהירות</string>
+    <string name="notification_header_qs_tiles_count">מספר הגדרות מהירות להצגה</string>
+    <string name="notification_header_qs_tiles_count_monitor">אריחים</string>
+    <string name="battery_tile_show_percentage">הצגת אחוז באריח סוללה</string>
+    <string name="battery_tile_show_percentage_summary">הצגת אחוז באריח סוללה</string>
+    <string name="enable_qs_editor">אפשר את עורך ההגדרות המהירות</string>
+    <string name="allow_fancy_qs_transition">מעבר הגדרות מהירות משוכלל</string>
+    <string name="enable_new_tile_click_behavior">התנהגות של נוגט בלחיצה על אריחים</string>
+    <string name="enable_new_tile_click_behavior_summary">לחיצה על אריח בלוח ההתראות תאפשר או תכבה את ההגדרה, ולחיצה בלוח ההגדרות המהירות תפתח את תפריט האפשרויות</string>
+    <string name="enable_large_first_row">הגדל שורה ראשונה</string>
+    <string name="enable_large_first_row_summary">משתמשים של סיאנוג\'/נמוד צריכים לשנות את ההגדרה בתפריט המובנה במערכת, ולא הגדרה זו</string>
+    <string name="fix_stuck_inversion_title">תיקון היפוך תקוע</string>
+    <string name="fix_stuck_inversion">במכשירים מסוימים ההיפוך עלול להיתקע פעיל עם הפעלתו. הגדרה זו תכריח את ההיפוך להיכבות</string>
+
+    <string name="header_clock_size_title">גודל השעון בראש</string>
+    <string name="header_clock_size_normal">רגיל</string>
+    <string name="header_clock_size_small">קטן</string>
+    <string name="header_clock_size_smaller">קטן יותר</string>
+    <string name="header_clock_size_tiny">מזערי</string>
+    <!-- Hide header icons -->
+    <string name="hide_icons_title">הסתר פריטי ראש</string>
+    <string name="hide_tuner_icon_title">הסתר צלמית "מגדיר SystemUI"</string>
+    <string name="hide_edit_tiles_title">הסתר את לחצן עורך האריחים</string>
+    <string name="hide_edit_tiles_summary">!הגדרה זו מסירה רק את לחצן העריכה המובנה</string>
+    <string name="hide_carrier_label_title">הסתרת תווית מפעיל סלולרי</string>
+    <!-- /Hide header icons -->
+    <!-- /QUICK SETTINGS -->
+
+    <!-- NOTIFICATIONS -->
+    <string name="header_notifications">התראות</string>
+    <string name="notifications_change_style">סגנון הגדרות של אנדרואיד נוגט</string>
+    <string name="notification_dismiss_button_title">Cambiar botón descartar</string>
+    <string name="notification_dismiss_button">הראה "נקה הכל" במקום שחרר התראות</string>
+    <string name="action_search">חפש</string>
+    <string name="notification_blacklisted_apps_title">יישומים ברשימה השחורה</string>
+    <string name="notification_blacklisted_apps">התשמש בסגנון הישן בשביל האפליקציות ברשימה השחורה</string>
+    <string name="notifications_custom_actions_color_title">התשמש בצבע מותאם אישית לרקע של הפעולות המותאמות אישית</string>
+    <string name="notifications_actions_color_title">רקע לפעולות</string>
+    <!-- /NOTIFICATIONS -->
+    
+    <!-- UPDATE -->
+    <string name="update_notification_title">עדכון חדש זמין</string>
+    <string name="update_notification">גרסה %1$d זמינה להורדה!</string>
+    <string name="update_notification_download">עדכן</string>
+    <string name="check_for_updates_title">חפש עדכונים</string>
+    <string name="check_for_updates">חפש עדכונים כאשר היישום מופעל</string>
+    <string name="checking_for_update">מחפש עדכונים</string>
+    <string name="check_for_update_fail">בדיקת עדכונים נכשלה</string>
+    <string name="no_updates">אין עדכונים</string>
+    <string name="update_notification_downloading">מוריד עדכון</string>
+    <string name="update_notification_downloading_details">מוריד גרסה %1$d</string>
+    <string name="update_notification_download_fail">ההורדה נכשלה</string>
+    <string name="update_notification_download_fail_details">ההורדה נכשלה %1$d</string>
+    <!-- /UPDATE -->
+    
+    <!-- EMERGENCY -->
+    <string name="emergency_info">מידע למצבי חירום</string>
+    <string name="enable_emergency_info_title">הפעלת מידע חירום</string>
+    <string name="edit_emergency_info_title">עריכת מידע חירום</string>
+
+    <string name="header_personal">אישי</string>
+    <string name="info_fullname">שם מלא</string>
+    <string name="info_address">כתובת</string>
+    <string name="info_birthdate">תאריך לידה</string>
+
+    <string name="header_medical">רפואי</string>
+    <string name="info_bloodtype">סוג דם</string>
+    <string name="info_allergies">אלרגיות</string>
+    <string name="info_medications">תרופות</string>
+    <string name="info_medicalnotes">בעיות רפואיות</string>
+    <string name="info_organdonor">תורם איברים</string>
+
+    <string name="info_unspecified">המידע לא צוין</string>
+
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
+    <string name="info_bloodtype_ap">A+</string>
+    <string name="info_bloodtype_an">A-</string>
+    <string name="info_bloodtype_bp">B+</string>
+    <string name="info_bloodtype_bn">B-</string>
+    <string name="info_bloodtype_abp">AB+</string>
+    <string name="info_bloodtype_abn">AB-</string>
+    <!-- /EMERGENCY -->
+
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    
+    <!-- BATTERY -->
+    <string name="battery">סוללה</string>
+    <string name="charged">טעונה</string>
+    <string name="charging">בטעינה, %1$s</string>
+    <!-- /BATTERY -->
+
+    <!-- QS -->
+    <string name="qs_edit">עריכה</string>
+    <string name="qs_edit_detail">עריכת פרטים</string>
+    <string name="drag_to_add_tiles">גרור כדי להוסיף אריח</string>
+    <string name="drag_to_remove_tiles">גרור כדי להסיר אריח</string>
+    <string name="live_display">תצוגה חיה</string>
+    <string name="live_display_auto">אוטומטשי</string>
+    <string name="live_display_off">כבוי</string>
+    <string name="live_display_day">יום</string>
+    <string name="live_display_night">לילה</string>
+    <string name="live_display_outdoor">תאורה חיצונית (שמש בהירה)</string>
+    <!-- /QS -->
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">בוחר צבעים</string>
+    <string name="press_color_to_apply">לחץ על צבע כדי להחיל</string>
+    <!-- /Color Picker -->
+    
+</resources>

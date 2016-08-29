@@ -8,6 +8,7 @@ import android.view.View;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class DoubleTapSwKeys extends DoubleTapBase {
@@ -21,9 +22,9 @@ public class DoubleTapSwKeys extends DoubleTapBase {
     private static boolean sWasPressed = false;
     private static View.OnClickListener sOriginalRecentsClickListener;
     private static View sRecentsButton;
-    private static Runnable sResetPressedStateRunnable = new Runnable() {
+    private static Runnable sResetPressedStateRunnable = new SafeRunnable() {
         @Override
-        public void run() {
+        public void runSafe() {
             XposedHook.logD(TAG, "Double tap timed out after " + mDoubletapSpeed + "ms, invoking original mRecentsClickListener");
             sWasPressed = false;
             sOriginalRecentsClickListener.onClick(sRecentsButton);

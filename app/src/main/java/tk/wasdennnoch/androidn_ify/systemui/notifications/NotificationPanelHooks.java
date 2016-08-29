@@ -9,6 +9,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
+import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class NotificationPanelHooks {
@@ -53,14 +54,14 @@ public class NotificationPanelHooks {
     private static XC_MethodHook setBarStateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHook.logD(TAG, "setBarStateHook: Setting state to " + (int) param.args[0]);
             StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
         }
     };
 
-    private static View.OnClickListener mExpandIndicatorListener = new View.OnClickListener() {
-
+    private static View.OnClickListener mExpandIndicatorListener = new SafeOnClickListener() {
         @Override
-        public void onClick(View v) {
+        public void onClickSafe(View v) {
             // Fixes an issue with the indicator having two backgrounds when layer type is hardware
             mExpandIndicator.setLayerType(View.LAYER_TYPE_NONE, null);
             flingSettings(!mExpandIndicator.isExpanded());
@@ -75,14 +76,24 @@ public class NotificationPanelHooks {
         return (mExpandIndicator != null && !mExpandIndicator.isExpanded());
     }
 
-    public static void expandIfNecessary() {
-        if (mExpandIndicator == null || mNotificationPanelView == null) return;
-        if (!mExpandIndicator.isExpanded()) flingSettings(true);
+    public static boolean expandIfNecessary() {
+        if (mExpandIndicator != null && mNotificationPanelView != null) {
+            if (!mExpandIndicator.isExpanded()) {
+                flingSettings(true);
+                return true;
+            }
+        }
+        return false;
     }
 
-    public static void collapseIfNecessary() {
-        if (mExpandIndicator == null || mNotificationPanelView == null) return;
-        if (mExpandIndicator.isExpanded()) flingSettings(false);
+    public static boolean collapseIfNecessary() {
+        if (mExpandIndicator != null && mNotificationPanelView != null) {
+            if (mExpandIndicator.isExpanded()) {
+                flingSettings(false);
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void flingSettings(boolean expanded) {

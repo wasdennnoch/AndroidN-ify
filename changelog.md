@@ -4,11 +4,16 @@
 
 - Emergency info
 - QS transition
-- "Namey McNameface" Icon
+- QS editor
+- Battery tile
+- New QS tile click behaviour
 - App install source in App info screen
-- Improved "prefs not reabable" warning message
-- Many fixes and improvements
-- Czech translation
+- "Namey McNameface" icon in easter egg
+- Option to keep header and QS panel background (theming)
+- Improved compatibility with PA and OOS
+- Fix preferences not readable
+- Many other fixes and improvements
+- Bosnian, Brazilian, Czech, Hebrew, Hungarian and Serbian translation
 
 ### v0.2.0 (5):
 

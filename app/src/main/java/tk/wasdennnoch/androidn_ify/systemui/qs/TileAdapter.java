@@ -99,7 +99,11 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             // CM13
             XposedHelpers.callMethod(tileView, "setDual", false, false);
         }
-        XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
+        try {
+            XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));
+        } catch (Throwable t) {
+            XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.getObjectField(tile, "mState"));
+        }
         XposedHelpers.setAdditionalInstanceField(tile, KEY_EDIT_TILEVIEW, tileView);
         mTileViews.add(i, tileView);
     }
