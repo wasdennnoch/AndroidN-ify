@@ -665,14 +665,16 @@ public class NotificationHooks {
                     }
                 });
 
-                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        boolean isHeadsUp = (boolean) param.args[0];
-                        FrameLayout row = (FrameLayout) param.thisObject;
-                        row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
-                    }
-                });
+                if (ConfigUtils.M) {
+                    XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            boolean isHeadsUp = (boolean) param.args[0];
+                            FrameLayout row = (FrameLayout) param.thisObject;
+                            row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
+                        }
+                    });
+                }
 
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
                     @Override
@@ -680,6 +682,7 @@ public class NotificationHooks {
                         mPhoneStatusBar = param.thisObject;
                     }
                 });
+
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "updateNotificationShade", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
