@@ -159,6 +159,57 @@
     <string name="notification_experimental_title">实验性 Android N 式通知行为</string>
     <string name="notification_experimental">Android N 式通知滚动行为（无顶部堆叠）和阴影</string>
     <string name="notification_keyguard_max_title">锁屏内显示通知的最大数量</string>
+    
+    <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+    <string name="now_string_shortest">现在</string>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_minutes_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>分</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>分</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_hours_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>小时</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>小时</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_days_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>天</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>天</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_years_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>年</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>年</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_minutes_shortest_future">
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>分内</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>分内</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_hours_shortest_future">
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>小时内</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>小时内</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_days_shortest_future">
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>天内</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>天</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_years_shortest_future">
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>年内</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>年内</item>
+    </plurals>
     <!-- /NOTIFICATIONS -->
 
     <!-- UPDATE -->
@@ -227,6 +278,48 @@
     <string name="live_display_day">白天</string>
     <string name="live_display_night">夜晚</string>
     <string name="live_display_outdoor">室外（阳光环境）</string>
+    <string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g>前</string>
+    <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g>剩余</string>
+    <string name="power_remaining_duration_only">大约<xliff:g id="time">%1$s</xliff:g>剩余</string>
+    <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g>剩余</string>
+    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
+        -大约<xliff:g id="time">%2$s</xliff:g>剩余</string>
+    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g>
+        - <xliff:g id="time">%2$s</xliff:g>剩余</string>
+    <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="state">%2$s</xliff:g></string>
+    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g>距充满</string>
+    <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> until full on AC</string>
+    <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> until full over USB</string>
+    <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> until full from wireless</string>
+    <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="battery_info_status_unknown">未知</string>
+    <string name="battery_info_status_charging">正在充电</string>
+    <string name="battery_info_status_charging_ac">正在通过交流电源充电</string>
+    <string name="battery_info_status_charging_ac_short">正在充电</string>
+    <string name="battery_info_status_charging_usb">正在通过USB充电</string>
+    <string name="battery_info_status_charging_usb_short">正在充电</string>
+    <string name="battery_info_status_charging_wireless">正在无线充电</string>
+    <string name="battery_info_status_charging_wireless_short">正在充电</string>
+    <string name="battery_info_status_discharging">没有充电</string>
+    <string name="battery_info_status_not_charging">没有充电</string>
+    <string name="battery_info_status_full">已充满</string>
+    <string name="battery_panel_title">电池用量</string>
+    <string name="battery_detail_charging_summary">节电助手在充电时不可用</string>
+    <string name="add">添加</string>
+    <string name="add_custom_tile">添加广播磁贴</string>
+    <string name="spec_shouldnt_be_blank">磁贴说明不能为空</string>
     <!-- /QS -->
 
     <!-- Color Picker -->
