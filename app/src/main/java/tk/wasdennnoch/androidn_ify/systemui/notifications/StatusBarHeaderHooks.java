@@ -25,6 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -132,6 +135,7 @@ public class StatusBarHeaderHooks {
     public static boolean mShowingDetail;
     public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
+    private static boolean mFirstRowLarge = true;
 
     public static boolean mExpanded;
     private static float mExpansion = 0;
@@ -143,6 +147,8 @@ public class StatusBarHeaderHooks {
     private static ArrayList<Object> mRecords;
 
     private static final Rect mClipBounds = new Rect();
+
+    private static Class<?> mClassOnDismissAction;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -536,8 +542,10 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            if (mUseDragPanel && !RomUtils.isAicp())
+            if (mUseDragPanel && !RomUtils.isAicp()) {
+                updateFirstRowLarge();
                 return; // Causes problem with "Enlarge first row" setting
+            }
             if (mHeaderQsPanel != null) { // keep
                 // Only set up views if the tiles actually changed
                 if (param.args == null || param.args.length == 0)
@@ -980,11 +988,29 @@ public class StatusBarHeaderHooks {
         Object qsTileHost = XposedHelpers.getObjectField(mQsPanel, "mHost");
         final Object statusBar = XposedHelpers.getObjectField(qsTileHost, "mStatusBar");
         Handler mHandler = (Handler) XposedHelpers.getObjectField(statusBar, "mHandler");
-        mHandler.post(new Runnable() {
+        mHandler.post(new SafeRunnable() {
             @Override
-            public void run() {
-                XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
-                XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
+            public void runSafe() {
+                if (ConfigUtils.M) {
+                    XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
+                    XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
+                } else {
+                    XposedHelpers.callMethod(statusBar, "dismissKeyguardThenExecute", createOnDismissAction(runnable), true);
+                }
+            }
+        });
+    }
+
+    private static Object createOnDismissAction(final Runnable runnable) {
+        return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{mClassOnDismissAction}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                switch (method.getName()) {
+                    case "onDismiss":
+                        runnable.run();
+                        return null;
+                }
+                return null;
             }
         });
     }
@@ -1082,14 +1108,7 @@ public class StatusBarHeaderHooks {
                     Class<?> classCirclePageIndicator = XposedHelpers.findClass(CLASS_CIRCLE_PAGE_INDICATOR, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
-                    if (!ConfigUtils.qs().large_first_row) {
-                        XposedHelpers.findAndHookMethod(classQSDragPanel, "getLeft", int.class, int.class, int.class, boolean.class, new XC_MethodHook() {
-                            @Override
-                            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                                param.args[2] = 3;
-                            }
-                        });
-                    }
+                    hookDragPanelGetLeft(classQSDragPanel);
                     //XposedHelpers.findAndHookMethod(classQSDragPanel, "onMeasure", int.class, int.class, onMeasureHook);
                     //XposedHelpers.findAndHookMethod(classQSDragPanel, "onLayout", boolean.class, int.class, int.class, int.class, int.class, onLayoutHook);
                     XposedBridge.hookAllMethods(classQSDragPanel, "setEditing", qsSetEditingHook);
@@ -1168,12 +1187,37 @@ public class StatusBarHeaderHooks {
                             if (icon != null) icon.setVisibility(View.GONE);
                         }
                     });
+                    if (!ConfigUtils.M) {
+                        mClassOnDismissAction = XposedHelpers.findClass("com.android.keyguard.KeyguardHostView.OnDismissAction", classLoader);
+                    }
                 }
 
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
         }
+    }
+
+    private static void updateFirstRowLarge() {
+        boolean firstRowLarge = XposedHelpers.getBooleanField(mQsPanel, "mFirstRowLarge");
+        if (firstRowLarge == mFirstRowLarge) return;
+        mFirstRowLarge = firstRowLarge;
+        if (mFirstRowLarge && mUnhookDragPanelGetLeft == null) {
+            hookDragPanelGetLeft(XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, mContext.getClassLoader()));
+        } else if(!mFirstRowLarge && mUnhookDragPanelGetLeft != null) {
+            mUnhookDragPanelGetLeft.unhook();
+            mUnhookDragPanelGetLeft = null;
+        }
+    }
+
+    private static XC_MethodHook.Unhook mUnhookDragPanelGetLeft;
+    private static void hookDragPanelGetLeft(Class<?> classQSDragPanel) {
+        mUnhookDragPanelGetLeft = XposedHelpers.findAndHookMethod(classQSDragPanel, "getLeft", int.class, int.class, int.class, boolean.class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                param.args[2] = 3;
+            }
+        });
     }
 
     public static int R_string_battery_panel_title;

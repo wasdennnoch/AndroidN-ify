@@ -305,6 +305,7 @@ public class QSTileHostHooks {
                 if (!TextUtils.isEmpty(s))
                     specs.add(s);
             }
+            XposedHook.logD(TAG, "Read tiles from config.xml");
         } catch (Throwable t) {
             try { // On CM use the QSUtils
                 try {

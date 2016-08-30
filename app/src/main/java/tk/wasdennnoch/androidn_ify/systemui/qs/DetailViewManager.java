@@ -272,7 +272,7 @@ public class DetailViewManager {
 
         @Override
         public boolean hasRightButton() {
-            return true;
+            return ConfigUtils.M;
         }
 
         @Override

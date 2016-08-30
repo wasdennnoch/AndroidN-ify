@@ -4,9 +4,7 @@
 
     <string name="force_english_title" translatable="false">Force English language</string>
 
-    <!-- NOTIFICATIONS -->
     <string name="notification_header_divider_symbol" translatable="false">•</string>
-    <!-- /NOTIFICATIONS -->
 
     <!-- UPDATER -->
     <!-- Will be injected by build server. Don't touch it. -->
@@ -14,5 +12,7 @@
     <!-- /UPDATER -->
 
     <string name="tile_spec_example">CUSTOMTILE0</string>
+
+    <string name="qs_edit_detail">@string/qs_edit</string>
 
 </resources>
