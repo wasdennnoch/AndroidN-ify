@@ -318,7 +318,7 @@
     <string name="battery_panel_title">Battery usage</string>
     <string name="battery_detail_charging_summary">Battery Saver not available during charging</string>
     <string name="add">Add</string>
-    <string name="add_custom_tile">Add custom tile</string>
+    <string name="add_custom_tile">Add broadcast tile</string>
     <string name="spec_shouldnt_be_blank">Tile spec shouldn\'t be blank</string>
     <!-- /QS -->
 
