@@ -265,14 +265,14 @@
   <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> –
             <xliff:g id="time">%2$s</xliff:g> до повного зарядження</string>
   <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
-            <xliff:g id="time">%2$s</xliff:g> до повного зарядження з розетки</string>
+            <xliff:g id="time">%2$s</xliff:g> до повного зарядження від мережі</string>
   <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
             <xliff:g id="time">%2$s</xliff:g> до повного зарядження через USB</string>
   <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
             <xliff:g id="time">%2$s</xliff:g> до повного з бездротового зарядження</string>
   <string name="battery_info_status_unknown">Невідомо</string>
   <string name="battery_info_status_charging">Заряджається</string>
-  <string name="battery_info_status_charging_ac">Заряджання з розетки</string>
+  <string name="battery_info_status_charging_ac">Заряджання від мережі</string>
   <string name="battery_info_status_charging_ac_short">Заряджається</string>
   <string name="battery_info_status_charging_usb">Заряджання через USB</string>
   <string name="battery_info_status_charging_usb_short">Заряджається</string>
