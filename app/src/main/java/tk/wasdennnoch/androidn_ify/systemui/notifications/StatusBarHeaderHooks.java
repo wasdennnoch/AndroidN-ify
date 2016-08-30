@@ -988,9 +988,9 @@ public class StatusBarHeaderHooks {
         Object qsTileHost = XposedHelpers.getObjectField(mQsPanel, "mHost");
         final Object statusBar = XposedHelpers.getObjectField(qsTileHost, "mStatusBar");
         Handler mHandler = (Handler) XposedHelpers.getObjectField(statusBar, "mHandler");
-        mHandler.post(new Runnable() {
+        mHandler.post(new SafeRunnable() {
             @Override
-            public void run() {
+            public void runSafe() {
                 if (ConfigUtils.M) {
                     XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
                     XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
