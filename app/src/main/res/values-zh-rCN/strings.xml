@@ -326,6 +326,8 @@
     <string name="dialog_color_picker">颜色选择器</string>
     <string name="press_color_to_apply">点击颜色以应用</string>
     <string name="enable_install_source_title">显示应用安装来源</string>
+    <string name="battery_detail_switch_title">节电助手</string>
+    <string name="battery_detail_switch_summary">降低性能并减少后台数据流量</string>
     <!-- /Color Picker -->
 
 </resources>
