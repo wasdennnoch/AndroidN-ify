@@ -988,14 +988,19 @@ public class StatusBarHeaderHooks {
         Object qsTileHost = XposedHelpers.getObjectField(mQsPanel, "mHost");
         final Object statusBar = XposedHelpers.getObjectField(qsTileHost, "mStatusBar");
         Handler mHandler = (Handler) XposedHelpers.getObjectField(statusBar, "mHandler");
-        mHandler.post(new SafeRunnable() {
+        mHandler.post(new Runnable() {
             @Override
-            public void runSafe() {
-                if (ConfigUtils.M) {
-                    XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
-                    XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
-                } else {
-                    XposedHelpers.callMethod(statusBar, "dismissKeyguardThenExecute", createOnDismissAction(runnable), true);
+            public void run() {
+                try {
+                    if (ConfigUtils.M) {
+                        XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
+                        XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
+                    } else {
+                        XposedHelpers.callMethod(statusBar, "dismissKeyguardThenExecute", createOnDismissAction(runnable), true);
+                    }
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Error in startRunnableDismissingKeyguard, executing instantly (" + t.toString() + ")", null);
+                    runnable.run();
                 }
             }
         });

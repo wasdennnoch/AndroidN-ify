@@ -797,10 +797,14 @@ public class NotificationHooks {
     }
 
     private static void updateExpandButtons(Object notificationContentView, boolean expandable, View.OnClickListener onClickListener) {
-        boolean mIsHeadsUp = XposedHelpers.getBooleanField(notificationContentView, "mIsHeadsUp");
+        boolean mIsHeadsUp = false;
         View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
         View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
-        View mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        View mHeadsUpChild = null;
+        if (ConfigUtils.M) {
+            mIsHeadsUp = XposedHelpers.getBooleanField(notificationContentView, "mIsHeadsUp");
+            mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        }
         // if the expanded child has the same height as the collapsed one we hide it.
         if (mExpandedChild != null && mExpandedChild.getHeight() != 0) {
             if ((!mIsHeadsUp || mHeadsUpChild == null)) {
