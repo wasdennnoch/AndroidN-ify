@@ -65,7 +65,12 @@ public abstract class QSTileHook {
     }
 
     protected final void startActivityDismissingKeyguard(Intent intent) {
-        XposedHelpers.callMethod(XposedHelpers.getObjectField(mThisObject, "mHost"), "startActivityDismissingKeyguard", intent);
+        Object host = XposedHelpers.getObjectField(mThisObject, "mHost");
+        try {
+            XposedHelpers.callMethod(host, "startActivityDismissingKeyguard", intent);
+        } catch (Throwable t) { // CM 12.1
+            XposedHelpers.callMethod(host, "startSettingsActivity", intent);
+        }
     }
 
     protected final void showDetail(boolean show) {
