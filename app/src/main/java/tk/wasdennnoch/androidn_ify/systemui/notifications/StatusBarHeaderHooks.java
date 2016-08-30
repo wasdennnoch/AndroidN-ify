@@ -25,6 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -143,6 +146,8 @@ public class StatusBarHeaderHooks {
     private static ArrayList<Object> mRecords;
 
     private static final Rect mClipBounds = new Rect();
+
+    private static Class<?> mClassOnDismissAction;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -983,8 +988,26 @@ public class StatusBarHeaderHooks {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
-                XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
+                if (ConfigUtils.M) {
+                    XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
+                    XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
+                } else {
+                    XposedHelpers.callMethod(statusBar, "dismissKeyguardThenExecute", createOnDismissAction(runnable), true);
+                }
+            }
+        });
+    }
+
+    private static Object createOnDismissAction(final Runnable runnable) {
+        return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{mClassOnDismissAction}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                switch (method.getName()) {
+                    case "onDismiss":
+                        runnable.run();
+                        return null;
+                }
+                return null;
             }
         });
     }
@@ -1168,6 +1191,9 @@ public class StatusBarHeaderHooks {
                             if (icon != null) icon.setVisibility(View.GONE);
                         }
                     });
+                    if (!ConfigUtils.M) {
+                        mClassOnDismissAction = XposedHelpers.findClass("com.android.keyguard.KeyguardHostView.OnDismissAction", classLoader);
+                    }
                 }
 
             }
