@@ -165,8 +165,8 @@
 
     <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
     <plurals name="duration_minutes_shortest">
-        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>分</item>
-        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>分</item>
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>分钟</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>分钟</item>
     </plurals>
 
     <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -189,8 +189,8 @@
 
     <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
     <plurals name="duration_minutes_shortest_future">
-        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>分内</item>
-        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>分内</item>
+        <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>分钟内</item>
+        <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>分钟内</item>
     </plurals>
 
     <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
@@ -319,7 +319,7 @@
     <string name="battery_detail_charging_summary">节电助手在充电时不可用</string>
     <string name="add">添加</string>
     <string name="add_custom_tile">添加广播磁贴</string>
-    <string name="spec_shouldnt_be_blank">磁贴说明不能为空</string>
+    <string name="spec_shouldnt_be_blank">磁贴描述不能为空</string>
     <!-- /QS -->
 
     <!-- Color Picker -->
@@ -327,7 +327,7 @@
     <string name="press_color_to_apply">点击颜色以应用</string>
     <string name="enable_install_source_title">显示应用安装来源</string>
     <string name="battery_detail_switch_title">节电助手</string>
-    <string name="battery_detail_switch_summary">降低性能并减少后台数据流量</string>
+    <string name="battery_detail_switch_summary">降低性能的同时减少后台数据流量</string>
     <!-- /Color Picker -->
 
 </resources>
