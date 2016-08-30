@@ -159,6 +159,57 @@
     <string name="notification_experimental_title">Comportamiento de notificaciones de N experimental</string>
     <string name="notification_experimental">Sombras y deslizamiento de Android N</string>
     <string name="notification_keyguard_max_title">Máximas notificaciones en la pantalla de bloqueo</string>
+    
+    <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+    <string name="now_string_shortest">ahora</string>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_minutes_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>m</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>m</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_hours_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>h</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>h</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_days_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>d</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>d</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_years_shortest">
+        <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>a</item>
+        <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>a</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_minutes_shortest_future">
+        <item quantity="one">en <xliff:g example="1" id="count">%d</xliff:g>m</item>
+        <item quantity="other">en <xliff:g example="2" id="count">%d</xliff:g>m</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_hours_shortest_future">
+        <item quantity="one">en <xliff:g example="1" id="count">%d</xliff:g>h</item>
+        <item quantity="other">en <xliff:g example="2" id="count">%d</xliff:g>h</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_days_shortest_future">
+        <item quantity="one">en <xliff:g example="1" id="count">%d</xliff:g>d</item>
+        <item quantity="other">en <xliff:g example="2" id="count">%d</xliff:g>d</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_years_shortest_future">
+        <item quantity="one">en <xliff:g example="1" id="count">%d</xliff:g>a</item>
+        <item quantity="other">en <xliff:g example="2" id="count">%d</xliff:g>a</item>
+    </plurals>
     <!-- /NOTIFICATIONS -->
     
     <!-- UPDATE -->
@@ -227,12 +278,56 @@
     <string name="live_display_day">Día</string>
     <string name="live_display_night">Noche</string>
     <string name="live_display_outdoor">Ambiente muy luminoso</string>
+    <string name="charge_length_format">Hace <xliff:g name="time" example="3 hours">%1$s</xliff:g></string>
+    <string name="remaining_length_format">Quedan <xliff:g name="time" example="3 hours">%1$s</xliff:g></string>
+    <string name="power_remaining_duration_only">Quedan aprox. <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="power_remaining_duration_only_short">Quedan <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
+        - quedan aprox. <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g>
+        - quedan <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="state">%2$s</xliff:g></string>
+    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> - 
+            <xliff:g id="time">%2$s</xliff:g> para terminar</string>
+    <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> para terminar en CA</string>
+    <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> para terminar por USB</string>
+    <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> para terminar con carga inalámbrica</string>
+    <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> -
+        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="battery_info_status_unknown">Desconocido</string>
+    <string name="battery_info_status_charging">Cargando</string>
+    <string name="battery_info_status_charging_ac">Cargando en CA</string>
+    <string name="battery_info_status_charging_ac_short">Cargando</string>
+    <string name="battery_info_status_charging_usb">Cargando por USB</string>
+    <string name="battery_info_status_charging_usb_short">Cargando</string>
+    <string name="battery_info_status_charging_wireless">Cargando inalámbricamente</string>
+    <string name="battery_info_status_charging_wireless_short">Cargando</string>
+    <string name="battery_info_status_discharging">Cargador desenchufado</string>
+    <string name="battery_info_status_not_charging">Cargador desenchufado</string>
+    <string name="battery_info_status_full">Cargado</string>
+    <string name="battery_panel_title">Uso de batería</string>
+    <string name="battery_detail_charging_summary">Ahorro de battería no disponible durante la carga</string>
+    <string name="add">Añadir</string>
+    <string name="add_custom_tile">Añadir ajuste de emisión</string>
+    <string name="spec_shouldnt_be_blank">Los detalles no pueden estar en blanco</string>
     <!-- /QS -->
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Selector de color</string>
     <string name="press_color_to_apply">Pulsa en el color para aplicar</string>
     <string name="enable_install_source_title">Mostrar fuente de instalación</string>
+    <string name="battery_detail_switch_title">Ahorro de energía</string>
+    <string name="battery_detail_switch_summary">Reduce el rendimiento y el consumo de datos en segundo plano</string>
     <!-- /Color Picker -->
     
 </resources>
