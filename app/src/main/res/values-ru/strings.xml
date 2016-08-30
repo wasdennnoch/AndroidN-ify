@@ -306,7 +306,7 @@
         <xliff:g id="time">%2$s</xliff:g></string>
     <string name="battery_info_status_unknown">Неизвестно</string>
     <string name="battery_info_status_charging">Зарядка</string>
-    <string name="battery_info_status_charging_ac">Зарядка on адаптера</string>
+    <string name="battery_info_status_charging_ac">Зарядка от сети</string>
     <string name="battery_info_status_charging_ac_short">Зарядка</string>
     <string name="battery_info_status_charging_usb">Зарядка от USB</string>
     <string name="battery_info_status_charging_usb_short">Зарядка</string>
