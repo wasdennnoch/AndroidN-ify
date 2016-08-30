@@ -157,7 +157,47 @@ public class NotificationHooks {
                     }
                 }
             }
+            Notification.Action[] actions = sbn.getNotification().actions;
+            if (actions != null) {
+                for (int i = 0; i < actions.length; i++) {
+                    final Notification.Action action = actions[i];
+                    if (hasValidRemoteInput(action)) {
+                        View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
 
+                        final RemoteInputHelperView remoteInputHelperView = RemoteInputHelperView.newInstance(context, 
+action.actionIntent,
+                                privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
+                        LinearLayout actionsLayout = (LinearLayout) 
+expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                        ViewGroup parent = (ViewGroup) actionsLayout.getParent();
+                        parent.removeView(actionsLayout);
+                        parent.addView(remoteInputHelperView, actionsLayout.getLayoutParams());
+                        remoteInputHelperView.addView(actionsLayout, 0);
+
+                        RemoteInput[] remoteInputs = action.getRemoteInputs();
+                        RemoteInput remoteInput = null;
+                        for (RemoteInput ri : remoteInputs) {
+                            if (ri.getAllowFreeFormInput()) {
+                                remoteInput = ri;
+                                break;
+                            }
+                        }
+                        if (remoteInput == null) {
+                            break;
+                        }
+                        remoteInputHelperView.setRemoteInput(remoteInputs, remoteInput);
+
+                        Button actionButton = (Button) actionsLayout.getChildAt(i);
+                        actionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                remoteInputHelperView.show();
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
         }
     };
 
