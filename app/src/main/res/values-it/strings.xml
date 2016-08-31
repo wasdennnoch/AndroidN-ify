@@ -314,5 +314,9 @@
     <string name="header_clock_size_small">Piccolo</string>
     <string name="header_clock_size_smaller">Più piccolo</string>
     <string name="header_clock_size_tiny">Minuscolo</string>
-
+    
+    <string name="add">Aggiungi</string>
+    <string name="add_custom_tile">Aggiungi tile personalizzato</string>
+    <string name="spec_shouldnt_be_blank">Il nome del tile non può essere lasciato vuoto</string>
+    
 </resources>
