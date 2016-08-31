@@ -1207,9 +1207,9 @@ public class StatusBarHeaderHooks {
         boolean firstRowLarge = XposedHelpers.getBooleanField(mQsPanel, "mFirstRowLarge");
         if (firstRowLarge == mFirstRowLarge) return;
         mFirstRowLarge = firstRowLarge;
-        if (mFirstRowLarge && mUnhookDragPanelGetLeft == null) {
+        if (!mFirstRowLarge && mUnhookDragPanelGetLeft == null) {
             hookDragPanelGetLeft(XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, mContext.getClassLoader()));
-        } else if(!mFirstRowLarge && mUnhookDragPanelGetLeft != null) {
+        } else if(mFirstRowLarge && mUnhookDragPanelGetLeft != null) {
             mUnhookDragPanelGetLeft.unhook();
             mUnhookDragPanelGetLeft = null;
         }
