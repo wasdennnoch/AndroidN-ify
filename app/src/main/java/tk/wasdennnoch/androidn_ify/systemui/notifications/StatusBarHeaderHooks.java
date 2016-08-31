@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -135,7 +137,7 @@ public class StatusBarHeaderHooks {
     public static boolean mShowingDetail;
     public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
-    private static boolean mFirstRowLarge = true;
+    private static boolean mFirstRowLarge;
 
     public static boolean mExpanded;
     private static float mExpansion = 0;
@@ -612,30 +614,6 @@ public class StatusBarHeaderHooks {
             View pageIndicator = (View) XposedHelpers.getObjectField(param.thisObject, "mPageIndicator");
             pageIndicator.setAlpha(0);
             XposedHelpers.setAdditionalInstanceField(pageIndicator, QS_PANEL_INDICATOR, true);
-
-            /*
-            mPageIndicator = new PageIndicator(pageIndicator.getContext());
-            ViewGroup qsPanel = (ViewGroup) param.thisObject;
-            qsPanel.addView(mPageIndicator);
-            */
-        }
-    };
-
-    private static XC_MethodHook onMeasureHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            final int width = View.MeasureSpec.getSize((Integer) param.args[0]);
-            mPageIndicator.measure(
-                    View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.makeMeasureSpec(mPageIndicator.getPageIndicatorHeight(), View.MeasureSpec.AT_MOST));
-        }
-    };
-
-    private static XC_MethodHook onLayoutHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            int b = (int) param.args[4];
-            mPageIndicator.layout(0, b - mPageIndicator.getPageIndicatorHeight(), ((View) param.thisObject).getWidth(), b);
         }
     };
 
@@ -651,6 +629,32 @@ public class StatusBarHeaderHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             updatePageCount(param.thisObject);
+        }
+    };
+
+    private static XC_MethodHook handleShowDetailImplHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            boolean show = (boolean) param.args[1];
+            if (show ? NotificationPanelHooks.isCollapsed() : mCollapseAfterHideDatails) {
+                Object r = param.args[0];
+                param.args[2] = mHeaderQsPanel.getTileViewX(r);
+                param.args[3] = 0;
+                if (!show) {
+                    NotificationPanelHooks.collapseIfNecessary();
+                }
+            }
+            mCollapseAfterHideDatails = false;
+        }
+
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            boolean show = (boolean) param.args[1];
+            XposedHook.logD(TAG, "handleShowDetailImpl: " + (show ? "showing" : "hiding") + " detail; expanding: " + NotificationPanelHooks.isCollapsed() + ";");
+            if (show && NotificationPanelHooks.isCollapsed()) {
+                mCollapseAfterHideDatails = true;
+                NotificationPanelHooks.expandIfNecessary();
+            }
         }
     };
 
@@ -817,8 +821,7 @@ public class StatusBarHeaderHooks {
             View mDetailDoneButton = (View) XposedHelpers.getObjectField(mQsPanel, "mDetailDoneButton");
             LinearLayout mDetailButtons = (LinearLayout) mDetailDoneButton.getParent();
             mDetailButtons.setVisibility(mEditing ? View.GONE : View.VISIBLE);
-            mCollapseAfterHideDatails = NotificationPanelHooks.expandIfNecessary();
-            XposedHook.logD(TAG, "handleShowingDetail: showing detail; expanding: " + mCollapseAfterHideDatails + "; " + detail.getClass().getSimpleName());
+            XposedHook.logD(TAG, "handleShowingDetail: showing detail; " + detail.getClass().getSimpleName());
             try {
                 mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
             } catch (Throwable t) {
@@ -856,7 +859,6 @@ public class StatusBarHeaderHooks {
             }
         } else {
             XposedHook.logD(TAG, "handleShowingDetail: hiding detail; collapsing: " + mCollapseAfterHideDatails);
-            if (mCollapseAfterHideDatails) NotificationPanelHooks.collapseIfNecessary();
             mQsDetailHeader.setClickable(false);
             if (mEditing) {
                 mEditing = false;
@@ -1119,10 +1121,12 @@ public class StatusBarHeaderHooks {
                     XposedBridge.hookAllMethods(classQSDragPanel, "setEditing", qsSetEditingHook);
                     XposedBridge.hookAllMethods(classQSDragPanel, "restoreDraggingTilePosition", updatePageCountHook);
                     XposedBridge.hookAllMethods(classQSDragPanel, "shiftTiles", updatePageCountHook);
+                    XposedBridge.hookAllMethods(classQSDragPanel, "handleShowDetailImpl", handleShowDetailImplHook);
                     XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageSelected", int.class, onPageSelectedHook);
                     XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageScrolled", int.class, float.class, int.class, onPageScrolledHook);
                     mUseDragPanel = true;
                 } catch (Throwable ignore) {
+                    XposedBridge.hookAllMethods(classQSPanel, "handleShowDetailImpl", handleShowDetailImplHook);
                     try {
                         XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
                     } catch (Throwable t) { // PA
@@ -1217,6 +1221,7 @@ public class StatusBarHeaderHooks {
 
     private static XC_MethodHook.Unhook mUnhookDragPanelGetLeft;
     private static void hookDragPanelGetLeft(Class<?> classQSDragPanel) {
+        mFirstRowLarge = false;
         mUnhookDragPanelGetLeft = XposedHelpers.findAndHookMethod(classQSDragPanel, "getLeft", int.class, int.class, int.class, boolean.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
