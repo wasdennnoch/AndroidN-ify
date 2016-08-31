@@ -52,6 +52,7 @@ public class QuickQSPanel extends LinearLayout {
     private ArrayList<Object> mRecords = new ArrayList<>();
     private ArrayList<View> mIconViews = new ArrayList<>();
     private ArrayList<View> mTopFiveQs = new ArrayList<>();
+    private ArrayList<Integer> mTopFiveX = new ArrayList<>();
     private BatteryTile.BatteryView mBatteryView;
     private TouchAnimator mTranslationXAnimator;
     private TouchAnimator mTranslationYAnimator;
@@ -124,6 +125,15 @@ public class QuickQSPanel extends LinearLayout {
         getContext().unregisterReceiver(mBroadcastReceiver);
     }
 
+    public int getTileViewX(Object r) {
+        for (int i = 0; i < mRecords.size() && i < mTopFiveX.size(); i++) {
+            if (mRecords.get(i).equals(r)) {
+                return mTopFiveX.get(i);
+            }
+        }
+        return 0;
+    }
+
     public void setTiles(ArrayList<Object> tileRecords) {
         XposedHook.logD(TAG, "setTiles tile record count: " + tileRecords.size());
         if (tileRecords.size() == 0) {
@@ -159,6 +169,7 @@ public class QuickQSPanel extends LinearLayout {
     public void setupAnimators(int gridHeight) {
         XposedHook.logD(TAG, "setupAnimators called");
         mTopFiveQs.clear();
+        mTopFiveX.clear();
         int j = 0;
         int iconViewsCount = mIconViews.size();
         int qsPanelMarginBottom = ResourceUtils.getInstance(getContext()).getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
@@ -199,6 +210,7 @@ public class QuickQSPanel extends LinearLayout {
                 firstPageBuilder.addFloat(qsTileView, "translationY", gridHeight + qsPanelMarginBottom, 0f);
 
                 mTopFiveQs.add(findIcon(qsTileView));
+                mTopFiveX.add(ai[0]);
             } else {
                 lastRowBuilder.addFloat(qsTileView, "alpha", 0f, 1f);
             }
@@ -305,13 +317,13 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
-    private void getRelativePosition(int ai[], View view, View view1) {
+    public static void getRelativePosition(int ai[], View view, View view1) {
         ai[0] = view.getWidth() / 2;
         ai[1] = 0;
         getRelativePositionInt(ai, view, view1);
     }
 
-    private void getRelativePositionInt(int ai[], View view, View view1) {
+    private static void getRelativePositionInt(int ai[], View view, View view1) {
         if (view != null && view != view1) {
             ai[0] = (int) ((float) ai[0] + view.getX());
             ai[1] = ai[1] + view.getTop();
