@@ -87,6 +87,15 @@
         <service
             android:name=".ui.misc.LogcatService"
             android:exported="false" />
+        <service
+            android:name=".ui.misc.UpdateWarningService"
+            android:exported="false" />
+
+        <receiver android:name=".ui.misc.OnUpdateReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

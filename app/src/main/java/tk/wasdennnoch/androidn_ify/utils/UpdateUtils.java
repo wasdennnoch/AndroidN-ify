@@ -60,7 +60,7 @@ public class UpdateUtils {
                 .build();
 
         Notification.Builder notificationBuider = new Notification.Builder(context)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_n)
                 .setContentTitle(context.getString(R.string.update_notification_title))
                 .setContentText(String.format(context.getString(R.string.update_notification), updateData.getNumber()))
                 .setColor(context.getResources().getColor(R.color.colorAccent));
