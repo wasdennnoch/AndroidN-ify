@@ -34,7 +34,7 @@ public class DownloadService extends IntentService {
         int number = intent.getIntExtra("number", 0);
         boolean hasArtifact = intent.getBooleanExtra("hasartifact", false);
 
-        UpdateUtils.UpdateData updateData = new UpdateUtils.UpdateData(number, hasArtifact, url);
+        UpdateUtils.UpdateData updateData = new UpdateUtils.UpdateData(number, hasArtifact, url, null);
 
         Notification.Builder mNotificationBuider = new Notification.Builder(this)
                 .setSmallIcon(R.drawable.ic_stat_n)
