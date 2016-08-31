@@ -162,7 +162,7 @@ public class NotificationHooks {
                 }
             }
             Notification.Action[] actions = sbn.getNotification().actions;
-            if (actions != null) {
+            if (RemoteInputHelperView.DIRECT_REPLY_ENABLED && actions != null) {
                 for (int i = 0; i < actions.length; i++) {
                     final Notification.Action action = actions[i];
                     if (hasValidRemoteInput(action)) {
