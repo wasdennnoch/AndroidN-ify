@@ -4,59 +4,53 @@ import android.app.PendingIntent;
 import android.app.RemoteInput;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import org.xmlpull.v1.XmlPullParser;
-
-import tk.wasdennnoch.androidn_ify.BuildConfig;
+import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static de.robv.android.xposed.XposedBridge.log;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
+import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
-public class RemoteInputHelperView extends RelativeLayout implements View.OnClickListener, TextView.OnEditorActionListener {
+public class RemoteInputHelperView extends FrameLayout implements View.OnClickListener, View.OnFocusChangeListener {
 
-    private RelativeLayout remoteInputView;
+    private LinearLayout remoteInputView;
     private EditText remoteInputText;
     private ImageButton sendButton;
     private ProgressBar sendProgress;
     private PendingIntent pendingIntent;
     private RemoteInput[] remoteInputs;
     private RemoteInput remoteInput;
-    //private ViewGroup scrollContainer = null;
+
+    private ViewGroup mScrollContainer = null;
+    private View mScrollContainerChild = null;
 
     private RemoteInputHelperView(Context context) {
         super(context);
-        try {
-            Resources res = getContext().getPackageManager().getResourcesForApplication(BuildConfig.APPLICATION_ID);
-            XmlPullParser layout = res.getLayout(res.getIdentifier("reply_layout", "layout", BuildConfig.APPLICATION_ID));
-            LayoutInflater.from(getContext().createPackageContext(BuildConfig.APPLICATION_ID, 
-Context.CONTEXT_IGNORE_SECURITY)).inflate(layout, this, true);
-        } catch (PackageManager.NameNotFoundException e) {
-            return;
-        }
-        remoteInputView = (RelativeLayout) findViewById(android.R.id.custom);
+        LayoutInflater.from(ResourceUtils.createOwnContext(getContext())).inflate(ResourceUtils.getInstance(getContext()).getLayout(R.layout.reply_layout), this, true);
+        remoteInputView = (LinearLayout) findViewById(android.R.id.custom);
         remoteInputText = (EditText) findViewById(android.R.id.input);
-        remoteInputText.setOnEditorActionListener(this);
         sendButton = (ImageButton) findViewById(android.R.id.button1);
         sendProgress = (ProgressBar) findViewById(android.R.id.progress);
 
+        remoteInputText.setOnFocusChangeListener(this);
+        remoteInputText.setOnClickListener(this);
         sendButton.setOnClickListener(this);
     }
 
@@ -70,34 +64,16 @@ Context.CONTEXT_IGNORE_SECURITY)).inflate(layout, this, true);
     public void setRemoteInput(RemoteInput[] ris, RemoteInput ri) {
         remoteInputs = ris;
         remoteInput = ri;
-
         remoteInputText.setHint(remoteInput.getLabel());
     }
 
     public void show() {
         remoteInputView.setVisibility(VISIBLE);
-        remoteInputText.setCursorVisible(true);
-        unblockFocus();
-        remoteInputText.requestFocus();
-        showKeyboard();
-    }
-
-    private void showKeyboard() {
-        InputMethodManager imm = (InputMethodManager) callStaticMethod(InputMethodManager.class, "getInstance");
-        try {
-            WindowManager.LayoutParams attrs = (WindowManager.LayoutParams) getObjectField(callMethod(this, "getViewRootImpl"), 
-"mWindowAttributes");
-
-            callMethod(imm, "onPreWindowFocus", getRootView(), true);
-            callMethod(imm, "onPostWindowFocus", getRootView(), this, attrs.softInputMode, false, attrs.flags);
-
-            imm.showSoftInput(this, 0, null);
-        } catch (Throwable t) {
-            log(t);
-        }
-    }
-
-    private void unblockFocus() {
+        setWindowManagerFocus(true);
+        remoteInputText.setFocusableInTouchMode(true);
+        remoteInputText.setFocusable(true);
+        remoteInputText.setSelection(remoteInputText.getText().length());
+        // Unblock focus
         ViewParent ancestor = getParent();
         while (ancestor instanceof ViewGroup) {
             final ViewGroup vgAncestor = (ViewGroup) ancestor;
@@ -108,12 +84,59 @@ Context.CONTEXT_IGNORE_SECURITY)).inflate(layout, this, true);
                 ancestor = vgAncestor.getParent();
             }
         }
+        remoteInputText.requestFocus();
+        remoteInputText.setCursorVisible(true);
+
+        // Handle IME
+        InputMethodManager imm = (InputMethodManager) callStaticMethod(InputMethodManager.class, "getInstance");
+        try {
+            WindowManager.LayoutParams attrs = (WindowManager.LayoutParams) getObjectField(callMethod(this, "getViewRootImpl"), "mWindowAttributes");
+            callMethod(imm, "onPreWindowFocus", getRootView(), true);
+            callMethod(imm, "onPostWindowFocus", getRootView(), this, attrs.softInputMode, false, attrs.flags);
+
+            imm.showSoftInput(this, 0, null);
+        } catch (Throwable t) {
+            log(t);
+        }
     }
 
+    public boolean requestScrollTo() {
+        findScrollContainer();
+        callMethod(mScrollContainer, "lockScrollTo", mScrollContainerChild);
+        return true;
+    }
+
+    private void findScrollContainer() {
+        if (mScrollContainer == null) {
+            mScrollContainerChild = null;
+            ViewParent p = this;
+            while (p != null) {
+                if (mScrollContainerChild == null && findClass("ExpandableView", getClass().getClassLoader()).isInstance(p)) {
+                    mScrollContainerChild = (View) p;
+                }
+                if (findClass("ScrollContainer", getClass().getClassLoader()).isInstance(p.getParent())) {
+                    mScrollContainer = (ViewGroup) p.getParent();
+                    if (mScrollContainerChild == null) {
+                        mScrollContainerChild = (View) p;
+                    }
+                    break;
+                }
+                p = p.getParent();
+            }
+        }
+    }
+
+    public void setWindowManagerFocus(boolean focus) {
+        NotificationHooks.remoteInputActive = focus;
+        if (NotificationHooks.statusBarWindowManager != null)
+            callMethod(NotificationHooks.statusBarWindowManager, "apply", getObjectField(NotificationHooks.statusBarWindowManager, "mCurrentState"));
+    }
 
     @Override
     public void onClick(View v) {
         if (v == sendButton) {
+            setWindowManagerFocus(false);
+            remoteInputText.setFocusable(false);
             remoteInputText.setEnabled(false);
             sendButton.setVisibility(INVISIBLE);
             sendProgress.setVisibility(VISIBLE);
@@ -128,44 +151,14 @@ Context.CONTEXT_IGNORE_SECURITY)).inflate(layout, this, true);
                 e.printStackTrace();
             }
         } else if (v == remoteInputText) {
-            showKeyboard();
+            show();
         }
     }
 
     @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        switch (actionId) {
-            case EditorInfo.IME_ACTION_SEND:
-                onClick(sendButton);
-                return true;
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (view == remoteInputText) {
+            setWindowManagerFocus(hasFocus);
         }
-        return false;
     }
-
-    /*
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent motionevent) {
-        if (motionevent.getAction() == MotionEvent.ACTION_DOWN) {
-            findScrollContainer();
-            if (scrollContainer != null) {
-                scrollContainer.requestDisallowInterceptTouchEvent(true);
-                callMethod(scrollContainer, "removeLongPressCallback");
-            }
-        }
-        return super.onInterceptTouchEvent(motionevent);
-    }
-
-    private void findScrollContainer() {
-        if (scrollContainer != null) {
-            return;
-        }
-        ViewParent current = getParent();
-        for (int depth = 0; depth < 12; depth++) {
-            if (current.getClass().getName().contains("NotificationStackScrollLayout")) {
-                scrollContainer = (ViewGroup) current.getParent();
-                return;
-            }
-            current = current.getParent();
-        }
-    }//*/
 }

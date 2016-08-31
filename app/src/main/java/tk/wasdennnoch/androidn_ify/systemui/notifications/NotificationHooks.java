@@ -50,6 +50,7 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -71,6 +72,9 @@ public class NotificationHooks {
     private static Map<String, Integer> mGeneratedColors = new HashMap<>();
 
     private static Object mPhoneStatusBar;
+
+    public static boolean remoteInputActive = false;
+    public static Object statusBarWindowManager = null;
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -164,15 +168,17 @@ public class NotificationHooks {
                     if (hasValidRemoteInput(action)) {
                         View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
 
-                        final RemoteInputHelperView remoteInputHelperView = RemoteInputHelperView.newInstance(context, 
-action.actionIntent,
-                                privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
-                        LinearLayout actionsLayout = (LinearLayout) 
-expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                        final RemoteInputHelperView remoteInputHelperView = RemoteInputHelperView.newInstance(context,
+                                action.actionIntent, privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
+                        LinearLayout actionsLayout = (LinearLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                        int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
                         ViewGroup parent = (ViewGroup) actionsLayout.getParent();
                         parent.removeView(actionsLayout);
-                        parent.addView(remoteInputHelperView, actionsLayout.getLayoutParams());
+                        parent.addView(remoteInputHelperView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         remoteInputHelperView.addView(actionsLayout, 0);
+                        ViewUtils.setHeight(actionsLayout, ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_action_list_height));
+                        ViewUtils.setMarginStart(actionsLayout, startMargin);
+                        ((ViewGroup.MarginLayoutParams) remoteInputHelperView.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
 
                         RemoteInput[] remoteInputs = action.getRemoteInputs();
                         RemoteInput remoteInput = null;
@@ -663,6 +669,9 @@ expandedChild.findViewById(context.getResources().getIdentifier("actions", "id",
                 final Class<?> classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
                 final Class<?> classMediaExpandableNotificationRow = getClassMediaExpandableNotificationRow(classLoader);
                 Class classPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
+                Class classStatusBarWindowManager = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager", classLoader);
+                Class classStatusBarWindowManagerState = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager.State", classLoader);
+
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
@@ -675,6 +684,27 @@ expandedChild.findViewById(context.getResources().getIdentifier("actions", "id",
                         } catch (ClassCastException e) {
                             //noinspection ConstantConditions
                             ((GradientDrawable) bg).setCornerRadius(0);
+                        }
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "addStatusBarWindow", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        statusBarWindowManager = XposedHelpers.getObjectField(param.thisObject, "mStatusBarWindowManager");
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classStatusBarWindowManager, "applyFocusableFlag", classStatusBarWindowManagerState, new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        WindowManager.LayoutParams windowParams = (WindowManager.LayoutParams) XposedHelpers.getObjectField(param.thisObject, "mLpChanged");
+                        if (remoteInputActive) {
+                            windowParams.flags &= ~WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                            windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+                        } else {
+                            windowParams.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                            windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
                         }
                     }
                 });
@@ -880,7 +910,7 @@ expandedChild.findViewById(context.getResources().getIdentifier("actions", "id",
         return null;
     }
 
-    private boolean hasValidRemoteInput(Notification.Action action) {
+    private static boolean hasValidRemoteInput(Notification.Action action) {
         if ((TextUtils.isEmpty(action.title)) || (action.actionIntent == null)) {
             return false;
         }
