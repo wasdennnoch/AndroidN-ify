@@ -780,7 +780,7 @@ public class NotificationHooks {
     private static void updateChildrenExpanded(Object notificationContentView, boolean expanded) {
         View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
         View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
-        View mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        View mHeadsUpChild = ConfigUtils.M ? (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild") : null;
         if (mExpandedChild != null) {
             setExpanded(mExpandedChild, expanded);
         }
