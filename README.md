@@ -4,6 +4,8 @@ A Xposed module which allows you to use features introduced in Android N on devi
 
 ### Translating
 
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/android-n-ify/localized.svg)](https://crowdin.com/project/android-n-ify)
+
 You can translate this project on Crowdin: https://crowdin.com/project/android-n-ify
 
 
