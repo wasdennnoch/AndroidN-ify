@@ -49,6 +49,7 @@ public class SystemUIHooks {
                 intentFilter.addAction(SettingsActivity.ACTION_FIX_INVERSION);
                 intentFilter.addAction(SettingsActivity.ACTION_KILL_SYSTEMUI);
                 intentFilter.addAction(AddTileActivity.ACTION_ADD_TILE);
+                intentFilter.addAction(XposedHook.ACTION_MARK_UNSTABLE);
                 app.registerReceiver(new BroadcastReceiver() {
                     @Override
                     public void onReceive(Context context, Intent intent) {
@@ -78,6 +79,9 @@ public class SystemUIHooks {
                                     QSTileHostHooks.recreateTiles();
                                 }
                                 NotificationPanelHooks.expandWithQs();
+                                break;
+                            case XposedHook.ACTION_MARK_UNSTABLE:
+                                XposedHook.markUnstable();
                                 break;
                         }
                     }
