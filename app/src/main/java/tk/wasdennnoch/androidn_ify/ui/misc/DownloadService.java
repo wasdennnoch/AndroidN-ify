@@ -34,10 +34,10 @@ public class DownloadService extends IntentService {
         int number = intent.getIntExtra("number", 0);
         boolean hasArtifact = intent.getBooleanExtra("hasartifact", false);
 
-        UpdateUtils.UpdateData updateData = new UpdateUtils.UpdateData(number, hasArtifact, url);
+        UpdateUtils.UpdateData updateData = new UpdateUtils.UpdateData(number, hasArtifact, url, null);
 
         Notification.Builder mNotificationBuider = new Notification.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_n)
                 .setContentTitle(getString(R.string.update_notification_downloading))
                 .setContentText(String.format(getString(R.string.update_notification_downloading_details), updateData.getNumber()))
                 .setColor(getResources().getColor(R.color.colorAccent))
@@ -59,7 +59,7 @@ public class DownloadService extends IntentService {
             startActivity(installIntent);
         } else {
             Notification.Builder builder = new Notification.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_stat_n)
                     .setContentTitle(getString(R.string.update_notification_download_fail))
                     .setContentText(String.format(getString(R.string.update_notification_download_fail_details), updateData.getNumber()))
                     .setColor(getResources().getColor(R.color.colorAccent));

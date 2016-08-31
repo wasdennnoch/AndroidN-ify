@@ -23,7 +23,7 @@ public class NotificationPanelHooks {
     public static final int STATE_SHADE = 0;
     public static final int STATE_KEYGUARD = 1;
 
-    private static ViewGroup mNotificationPanelView;
+    public static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
@@ -106,6 +106,18 @@ public class NotificationPanelHooks {
             }
         }
         return false;
+    }
+
+    public static void flingToHeight(float vel, boolean expand, float target) {
+        try {
+            XposedHelpers.callMethod(mNotificationPanelView, "flingToHeight", new Class[]{float.class, boolean.class, float.class, float.class, boolean.class}, vel, expand, target, 1.0f, false);
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error in flingToHeight", t);
+        }
+    }
+
+    public static int getMaxPanelHeight() {
+        return (int) XposedHelpers.callMethod(mNotificationPanelView, "getMaxPanelHeight");
     }
 
     private static void flingSettings(boolean expanded) {
