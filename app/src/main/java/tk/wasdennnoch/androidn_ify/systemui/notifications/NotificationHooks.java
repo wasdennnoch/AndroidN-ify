@@ -23,6 +23,7 @@ import android.service.notification.StatusBarNotification;
 import android.support.v4.graphics.ColorUtils;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -176,7 +177,6 @@ public class NotificationHooks {
                         parent.removeView(actionsLayout);
                         parent.addView(remoteInputHelperView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         remoteInputHelperView.addView(actionsLayout, 0);
-                        ViewUtils.setHeight(actionsLayout, ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_action_list_height));
                         ViewUtils.setMarginStart(actionsLayout, startMargin);
                         ((ViewGroup.MarginLayoutParams) remoteInputHelperView.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
 
@@ -197,7 +197,7 @@ public class NotificationHooks {
                         actionButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                remoteInputHelperView.show();
+                                remoteInputHelperView.show(v, true);
                             }
                         });
                         break;
@@ -1276,6 +1276,7 @@ public class NotificationHooks {
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
 
+                    childLp.height = res.getDimensionPixelSize(R.dimen.notification_action_list_height);
                     if (!isInboxLayout) {
                         childLp.topMargin += actionsMarginTop;
                     }
@@ -1335,6 +1336,7 @@ public class NotificationHooks {
             Button button = (Button) liparam.view;
 
             LinearLayout.LayoutParams buttonLp = (LinearLayout.LayoutParams) button.getLayoutParams();
+            buttonLp.height = ViewGroup.LayoutParams.MATCH_PARENT;
             buttonLp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             buttonLp.weight = 0;
             button.setLayoutParams(buttonLp);

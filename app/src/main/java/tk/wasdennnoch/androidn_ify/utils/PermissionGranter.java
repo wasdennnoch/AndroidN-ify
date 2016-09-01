@@ -110,6 +110,7 @@ public class PermissionGranter {
                 int[] bpGids = (int[]) XposedHelpers.getObjectField(pCns, "gids");
                 gpGids = (int[]) XposedHelpers.callStaticMethod(param.thisObject.getClass(),
                         "appendInts", gpGids, bpGids);
+                XposedHelpers.setObjectField(sharedUser, "gids", gpGids);
 
                 if (DEBUG) log(pkgName + ": Permission added: " + pCns);
             }
