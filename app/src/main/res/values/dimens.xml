@@ -69,6 +69,7 @@
     <dimen name="notification_text_margin_end">56dp</dimen>
     <dimen name="notification_text_inbox_margin_end">48dp</dimen>
     <dimen name="notification_actions_margin_top">16dp</dimen>
+    <dimen name="notification_action_list_height">56dp</dimen>
     <dimen name="notification_dismiss_button_padding">16dp</dimen>
     <dimen name="notification_dismiss_button_padding_top">14dp</dimen>
     <dimen name="notification_panel_shadow_height">6dp</dimen>

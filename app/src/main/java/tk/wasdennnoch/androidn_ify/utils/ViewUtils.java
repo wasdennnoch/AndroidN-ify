@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
@@ -20,16 +21,26 @@ public class ViewUtils {
 
     public static final float LARGE_TEXT_SCALE = 1.3f;
 
+    public static int dpToPx(Resources res, int dp) {
+        return (int) (res.getDisplayMetrics().density * dp);
+    }
+
     public static void setHeight(View view, int height) {
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         layoutParams.height = height;
         view.setLayoutParams(layoutParams);
     }
 
+    public static void setMarginStart(View view, int margin) {
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        lp.leftMargin = margin;
+        lp.setMarginStart(margin);
+    }
+
     public static void setMarginEnd(View view, int margin) {
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         lp.rightMargin = margin;
-        view.setLayoutParams(lp);
+        lp.setMarginEnd(margin);
     }
 
     public static void updateFontSize(TextView v, int dimensId) {
@@ -71,5 +82,4 @@ public class ViewUtils {
         } catch (NullPointerException ignore) {
         }
     }
-
 }
