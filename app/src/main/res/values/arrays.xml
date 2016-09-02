@@ -55,6 +55,19 @@
         <item>@string/info_unspecified</item>
     </string-array>
 
+    <string-array name="blood_type_entries">
+        <item>@string/info_bloodtype_op</item>
+        <item>@string/info_bloodtype_on</item>
+        <item>@string/info_bloodtype_ap</item>
+        <item>@string/info_bloodtype_an</item>
+        <item>@string/info_bloodtype_bp</item>
+        <item>@string/info_bloodtype_bn</item>
+        <item>@string/info_bloodtype_abp</item>
+        <item>@string/info_bloodtype_abn</item>
+        <item>@string/info_bloodtype_h_h</item>
+        <item>@string/unknown_blood_type</item>
+    </string-array>
+
     <string-array name="info_organdonor_values" translatable="false">
         <item>@string/yes</item>
         <item>@string/no</item>

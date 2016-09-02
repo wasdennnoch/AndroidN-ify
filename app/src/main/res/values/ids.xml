@@ -17,5 +17,6 @@
     <item name="notification_header" type="id" />
     <item name="usage_graph" type="id" />
     <item name="battery_usage" type="id" />
+    <item name="edit" type="id" />
 
 </resources>
