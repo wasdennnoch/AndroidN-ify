@@ -15,4 +15,34 @@
 
     <string name="qs_edit_detail">@string/qs_edit</string>
 
+    <string-array name="blood_type_values">
+        <!-- Do not translate -->
+        <item>0+</item>
+        <!-- Do not translate -->
+        <item>O-</item>
+        <!-- Do not translate -->
+        <item>A+</item>
+        <!-- Do not translate -->
+        <item>A-</item>
+        <!-- Do not translate -->
+        <item>B+</item>
+        <!-- Do not translate -->
+        <item>B-</item>
+        <!-- Do not translate -->
+        <item>AB+</item>
+        <!-- Do not translate -->
+        <item>AB-</item>
+        <!-- Do not translate -->
+        <item>H/H</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="organ_donor_values">
+        <!-- Do not translate -->
+        <item>Yes</item>
+        <!-- Do not translate -->
+        <item>No</item>
+        <item></item>
+    </string-array>
+
 </resources>

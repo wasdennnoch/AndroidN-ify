@@ -122,7 +122,13 @@
     <dimen name="battery_usage_margin_end">24dp</dimen>
     <dimen name="notification_header_expand_button_padding_top">1dp</dimen>
     <dimen name="notification_fake_header_margin_top">14.5dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!-- Emergency info -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="circle_avatar_size">40dp</dimen>
+    <dimen name="tab_elevation">4dp</dimen>
+    <dimen name="action_bar_size">56dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+
 </resources>

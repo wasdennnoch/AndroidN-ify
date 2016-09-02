@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity;
+import tk.wasdennnoch.androidn_ify.ui.emergency.view.ViewInfoActivity;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class EmergencyButtonWrapper implements View.OnClickListener {
@@ -85,8 +85,8 @@ public class EmergencyButtonWrapper implements View.OnClickListener {
     private void startEmergencyActivity() {
         try {
             XposedHook.logI("androidn_ify", "try");
-            mContext.startActivity(new Intent("tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity")
-                    .setClassName("tk.wasdennnoch.androidn_ify", EmergencyInfoActivity.class.getName()).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS));
+            mContext.startActivity(new Intent("tk.wasdennnoch.androidn_ify.EMERGENCY_ASSISTANCE")
+                    .setClassName("tk.wasdennnoch.androidn_ify", ViewInfoActivity.class.getName()).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS));
         } catch (Exception e) {
             XposedHook.logI("androidn_ify", "catch");
             XposedHook.logE(TAG, "Unable to start emergency activity!", e);

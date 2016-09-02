@@ -4,7 +4,9 @@
     package="tk.wasdennnoch.androidn_ify"
     android:installLocation="internalOnly">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
@@ -63,23 +65,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.EmergencyInfoActivity"
-            android:exported="true"
-            android:label="@string/emergency_info"
+            android:name=".ui.AddTileActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/add_custom_tile"
+            android:theme="@style/QSTheme" />
+        <activity
+            android:name=".ui.emergency.view.ViewInfoActivity"
+            android:icon="@mipmap/ic_launcher_settings"
             android:launchMode="singleTask"
             android:showOnLockScreen="true"
-            android:theme="@android:style/Theme.Material.Light.DarkActionBar">
+            android:taskAffinity="com.android.settings"
+            android:theme="@style/AppThemeEmergency">
             <intent-filter>
-                <action android:name="tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity" />
+                <action android:name="tk.wasdennnoch.androidn_ify.EMERGENCY_ASSISTANCE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.emergency.edit.EditInfoActivity"
+            android:icon="@mipmap/ic_launcher_settings"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.android.settings"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="tk.wasdennnoch.androidn_ify.EDIT_EMERGENGY_INFO" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.AddTileActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/add_custom_tile"
-            android:theme="@style/QSTheme" />
+        <activity android:name=".ui.emergency.edit.LaunchEditInfoActivity"
+            android:theme="@style/TransparentTheme">
+            <intent-filter>
+                <action android:name="tk.wasdennnoch.androidn_ify.LAUNCH_EDIT_EMERGENGY_INFO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".ui.misc.DownloadService"
