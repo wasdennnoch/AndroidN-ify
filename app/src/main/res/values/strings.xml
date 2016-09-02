@@ -232,25 +232,62 @@
     <string name="update_notification_download_fail">Download failed</string>
     <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
 
-    <string name="emergency_info">Emergency Info</string>
+    <string name="emergency_info">Emergency information</string>
     <string name="emergency_info_launch_hint">Touch again to open</string>
-    <string name="enable_emergency_info_title">Enable Emergency Info</string>
-    <string name="enable_emergency_info">Adds an Emergency Info button to the emergency dialer</string>
-    <string name="edit_emergency_info_title">Edit Emergency Info</string>
-
-    <string name="header_personal">Personal</string>
-    <string name="info_fullname">Full name</string>
-    <string name="info_address">Address</string>
-    <string name="info_birthdate">Date of birth</string>
-
-    <string name="header_medical">Medical</string>
-    <string name="info_bloodtype">Blood type</string>
-    <string name="info_allergies">Allergies</string>
-    <string name="info_medications">Medications</string>
-    <string name="info_medicalnotes">Medical conditions and notes</string>
-    <string name="info_organdonor">Organ donor</string>
-
-    <string name="info_unspecified">None specified</string>
+    <string name="enable_emergency_info_title">Enable emergency information</string>
+    <string name="enable_emergency_info">Adds an emergency information button to the emergency dialer</string>
+    <string name="edit_emergency_info_title">Edit emergency information</string>
+    <string name="clear_all">Clear all</string>
+    <string name="tab_title_info">Info</string>
+    <string name="tab_title_contacts">Contacts</string>
+    <string name="add_emergency_contact">Add contact</string>
+    <string name="user_emergency_info_title">Emergency information</string>
+    <string name="user_emergency_info_consent">Information you enter here can help first responders in an emergency. It is stored on your device only, and anyone can read it from the emergency dialer without unlocking your phone.</string>
+    <string name="emergency_info_continue">Continue</string>
+    <string name="clear">Clear</string>
+    <string name="clear_all_message">Clear all information and contacts?</string>
+    <string name="phone_type_and_phone_number">
+        <xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>
+    </string>
+    <string name="remove_contact">
+        Remove <xliff:g example="John Doe" id="contact_name">%1$s</xliff:g> from emergency contacts?
+    </string>
+    <string name="remove_contact_icon_text">Remove contact</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_info_provided">No emergency information provided</string>
+    <string name="emergency_contacts_title">Emergency contacts</string>
+    <string name="name">Name</string>
+    <string name="unknown_name">Unknown</string>
+    <string name="address">Address</string>
+    <string name="unknown_address">Unknown</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="unknown_date_of_birth">Unknown</string>
+    <string name="dob">
+        (<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
+    </string>
+    <string name="age">
+        Age: <xliff:g example="29" id="numerical_age">%1$d</xliff:g>
+    </string>
+    <string name="remove_dob_icon_text">Remove date of birth</string>
+    <string name="blood_type">Blood type</string>
+    <string name="unknown_blood_type">Unknown</string>
+    <string name="allergies">Allergies</string>
+    <string name="unknown_allergies">Unknown</string>
+    <string name="allergies_hint">For example, peanuts</string>
+    <string name="medications">Medications</string>
+    <string name="unknown_medications">Unknown</string>
+    <string name="medications_hint">For example, aspirin</string>
+    <string name="medical_conditions">Medical notes</string>
+    <string name="unknown_medical_conditions">Unknown</string>
+    <string name="medical_conditions_hint">For example, asthma</string>
+    <string name="organ_donor">Organ donor</string>
+    <string name="unknown_organ_donor">Unknown</string>
+    <string-array name="organ_donor_entries">
+        <item>@string/yes</item>
+        <item>@string/no</item>
+        <item>@string/unknown_organ_donor</item>
+    </string-array>
 
     <string name="info_bloodtype_op">O+</string>
     <string name="info_bloodtype_on">O-</string>
@@ -260,6 +297,7 @@
     <string name="info_bloodtype_bn">B-</string>
     <string name="info_bloodtype_abp">AB+</string>
     <string name="info_bloodtype_abn">AB-</string>
+    <string name="info_bloodtype_h_h">H H</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
