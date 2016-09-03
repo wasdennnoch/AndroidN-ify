@@ -335,6 +335,8 @@ public class NotificationHooks {
 
     public static String loadHeaderAppName(Context context) {
         CharSequence appname = context.getPackageName();
+        if (appname.equals(PACKAGE_SYSTEMUI))
+            return context.getString(context.getResources().getIdentifier("android_system_label", "string", PACKAGE_ANDROID));
         try {
             appname = context.getString(context.getApplicationInfo().labelRes);
         } catch (Throwable t) {
