@@ -31,16 +31,28 @@ public class ViewUtils {
         view.setLayoutParams(layoutParams);
     }
 
+    public static void setWidth(View view, int width) {
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.width = width;
+        view.setLayoutParams(layoutParams);
+    }
+
     public static void setMarginStart(View view, int margin) {
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        lp.leftMargin = margin;
         lp.setMarginStart(margin);
+        view.setLayoutParams(lp);
     }
 
     public static void setMarginEnd(View view, int margin) {
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        lp.rightMargin = margin;
         lp.setMarginEnd(margin);
+        view.setLayoutParams(lp);
+    }
+
+    public static void setMarginBottom(View view, int margin) {
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        lp.bottomMargin = margin;
+        view.setLayoutParams(lp);
     }
 
     public static void updateFontSize(TextView v, int dimensId) {

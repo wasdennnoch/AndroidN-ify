@@ -14,6 +14,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
@@ -74,11 +75,12 @@ public class SystemUIHooks {
                                 break;
                             case AddTileActivity.ACTION_ADD_TILE:
                                 if (intent.hasExtra(AddTileActivity.EXTRA_TILE_SPEC)) {
-                                    DetailViewManager.getInstance().invalidTileAdapter();
+                                    NotificationPanelHooks.invalidateTileAdapter();
                                     QSTileHostHooks.addSpec(context, intent.getStringExtra(AddTileActivity.EXTRA_TILE_SPEC));
                                     QSTileHostHooks.recreateTiles();
                                 }
                                 NotificationPanelHooks.expandWithQs();
+                                NotificationPanelHooks.showQsCustomizer(StatusBarHeaderHooks.mRecords, true);
                                 break;
                             case XposedHook.ACTION_MARK_UNSTABLE:
                                 XposedHook.markUnstable();

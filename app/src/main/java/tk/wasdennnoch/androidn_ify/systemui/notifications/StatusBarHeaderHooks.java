@@ -121,7 +121,7 @@ public class StatusBarHeaderHooks {
     public static ViewGroup mQsContainer;
     private static PageIndicator mPageIndicator;
 
-    private static Context mContext;
+    public static Context mContext;
     private static ResourceUtils mResUtils;
     private static View mCurrentDetailView;
 
@@ -133,7 +133,6 @@ public class StatusBarHeaderHooks {
     public static int mQsPage;
 
     private static boolean mHasEditPanel = false;
-    public static boolean mEditing = false;
     public static boolean mShowingDetail;
     public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
@@ -146,7 +145,7 @@ public class StatusBarHeaderHooks {
     private static boolean mQsEditing = false;
 
     private static ArrayList<String> mPreviousTiles = new ArrayList<>();
-    private static ArrayList<Object> mRecords;
+    public static ArrayList<Object> mRecords;
 
     private static final Rect mClipBounds = new Rect();
 
@@ -820,7 +819,6 @@ public class StatusBarHeaderHooks {
         if (showingDetail) {
             View mDetailDoneButton = (View) XposedHelpers.getObjectField(mQsPanel, "mDetailDoneButton");
             LinearLayout mDetailButtons = (LinearLayout) mDetailDoneButton.getParent();
-            mDetailButtons.setVisibility(mEditing ? View.GONE : View.VISIBLE);
             XposedHook.logD(TAG, "handleShowingDetail: showing detail; " + detail.getClass().getSimpleName());
             try {
                 mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
@@ -830,7 +828,7 @@ public class StatusBarHeaderHooks {
                 mQsDetailHeaderTitle.setText((String) XposedHelpers.callStaticMethod(classQSTile, "getDetailAdapterTitle", context, detail));
             }
             final Boolean toggleState = (Boolean) XposedHelpers.callMethod(detail, "getToggleState");
-            if (mEditing || toggleState == null) {
+            if (toggleState == null) {
                 mQsDetailHeaderSwitch.setVisibility(View.INVISIBLE);
                 mQsDetailHeader.setClickable(false);
             } else {
@@ -854,17 +852,9 @@ public class StatusBarHeaderHooks {
                     mEditTileDoneText.setVisibility(View.GONE);
                 }
             }
-            if (mEditing) {
-                mQsDetailHeaderTitle.setText(ResourceUtils.getInstance(mContext).getString(R.string.qs_edit_detail));
-            }
         } else {
             XposedHook.logD(TAG, "handleShowingDetail: hiding detail; collapsing: " + mCollapseAfterHideDatails);
             mQsDetailHeader.setClickable(false);
-            if (mEditing) {
-                mEditing = false;
-                DetailViewManager.getInstance().saveChanges();
-                QSTileHostHooks.recreateTiles();
-            }
         }
     }
 
@@ -908,7 +898,7 @@ public class StatusBarHeaderHooks {
             switch (v.getId()) {
                 case R.id.qs_edit:
                     final int x = mEditBtn.getLeft() + mEditBtn.getWidth() / 2;
-                    final int y = mEditBtn.getTop() + mEditBtn.getHeight() / 2;
+                    final int y = mStatusBarHeaderView.getHeight() + mDecorLayout.getTop() + mDecorLayout.getHeight() / 2;
 
                     startRunnableDismissingKeyguard(new Runnable() {
                         @Override
@@ -935,7 +925,7 @@ public class StatusBarHeaderHooks {
         mQsPanel.post(new Runnable() {
             @Override
             public void run() {
-                DetailViewManager.getInstance().showEditView(mRecords, x, y);
+                NotificationPanelHooks.showQsCustomizer(mRecords, x, y);
             }
         });
     }

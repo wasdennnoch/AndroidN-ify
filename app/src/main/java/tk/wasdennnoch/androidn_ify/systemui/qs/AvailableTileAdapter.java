@@ -22,8 +22,8 @@ public class AvailableTileAdapter extends TileAdapter {
     private Class<?> classResourceIcon;
     private Class<?> classQSTuner;
 
-    public AvailableTileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
-        super(context, qsPanel);
+    public AvailableTileAdapter(ArrayList<Object> records, Context context) {
+        super(context);
 
         mRecords = new ArrayList<>();
 
