@@ -20,6 +20,7 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -56,7 +57,7 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
  * This adds itself to the status bar window, so it can appear on top of quick settings and
  * *someday* do fancy animations to get into/out of it.
  */
-public class QSCustomizer extends LinearLayout implements OnMenuItemClickListener, TileAdapter.QSPanelWidthListener {
+public class QSCustomizer extends LinearLayout implements OnMenuItemClickListener {
 
     private static final int MENU_ADD_BROADCAST_TILE = Menu.FIRST;
     private final Context mContext;
@@ -65,6 +66,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private final Point mSizePoint = new Point();
     private final int mColor;
 
+    private boolean mHasNavBar;
     private boolean isShown;
     private RecyclerView mRecyclerView;
     private TileAdapter mTileAdapter;
@@ -75,6 +77,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private int mLastX = 0;
     private int mLastY = 0;
     private int mNavigationBarSize;
+    private int mNotificationPanelWidth;
 
     public QSCustomizer(Context context) {
         super(context, null);
@@ -83,8 +86,10 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         mOwnContext = ResourceUtils.createOwnContext(mContext);
 
         ResourceUtils res = ResourceUtils.getInstance(mContext);
+        mHasNavBar = true;
         mColor = res.getColor(R.color.m_blue_grey_900);
-        mNavigationBarSize = res.getDimensionPixelSize(R.dimen.navigation_bar_size);
+        mNavigationBarSize = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("navigation_bar_size", "dimen", XposedHook.PACKAGE_SYSTEMUI));
+        mNotificationPanelWidth = context.getResources().getIdentifier("notification_panel_width", "dimen", XposedHook.PACKAGE_SYSTEMUI);
 
         setGravity(Gravity.CENTER_HORIZONTAL);
         setOrientation(VERTICAL);
@@ -123,7 +128,6 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         mRecyclerView = (RecyclerView) findViewById(android.R.id.list);
         setBottomMargin(mNavigationBarSize);
         mTileAdapter = new TileAdapter(mContext);
-        mTileAdapter.setWidthListener(this);
         mRecyclerView.setAdapter(mTileAdapter);
         mTileAdapter.getItemTouchHelper().attachToRecyclerView(mRecyclerView);
         GridLayoutManager layout = new GridLayoutManager(getContext(), 3);
@@ -302,15 +306,29 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     };
 
     @Override
-    public void onWidthChanged(int width) {
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        int width = getResources().getDimensionPixelSize(mNotificationPanelWidth);
         ViewUtils.setWidth(mRecyclerView, width);
-        getDisplay().getRealSize(mSizePoint);
-        boolean portrait = mSizePoint.y >= mSizePoint.x;
-        setBottomMargin(portrait ? mNavigationBarSize : 0);
-        findViewById(R.id.nav_bar_background).setVisibility(portrait ? VISIBLE : GONE);
+
+        if (!mHasNavBar) return;
+        boolean shouldShow = newConfig.smallestScreenWidthDp >= 600
+                || newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE;
+        setBottomMargin(shouldShow ? mNavigationBarSize : 0);
+        findViewById(R.id.nav_bar_background).setVisibility(shouldShow ? VISIBLE : GONE);
+        mRecyclerView.setAdapter(mTileAdapter);
     }
 
     private void setBottomMargin(int margin) {
         ViewUtils.setMarginBottom(mRecyclerView, margin);
+    }
+
+    public void setHasNavBar(boolean hasNavBar) {
+        mHasNavBar = hasNavBar;
+        if (!mHasNavBar) {
+            setBottomMargin(0);
+            findViewById(R.id.nav_bar_background).setVisibility(GONE);
+        }
     }
 }

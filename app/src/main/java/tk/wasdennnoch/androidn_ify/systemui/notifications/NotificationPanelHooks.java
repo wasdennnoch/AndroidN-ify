@@ -12,15 +12,12 @@ import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
-import de.robv.android.xposed.callbacks.XC_InitPackageResources;
-import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
-import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class NotificationPanelHooks {
 
