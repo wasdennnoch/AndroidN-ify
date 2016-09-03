@@ -27,6 +27,7 @@
         ]]></string>
 
     <string name="header_tweaks">Tweaks</string>
+    <!-- The header of the app settings like dark theme and language. Short for application. -->
     <string name="header_app">App</string>
 
     <string name="app_dark_theme_title">Dark app theme</string>
@@ -40,7 +41,7 @@
     <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
     <!-- %2$s == file path -->
     <string name="logcat_notif_finished">%1$s lines saved to %2$s</string>
-    <!-- Stop logcat recording from notification. -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
     <string name="action_stop">Stop</string>
 
     <string name="requesting_root">Requesting root access&#8230;</string>
@@ -283,11 +284,6 @@
     <string name="medical_conditions_hint">For example, asthma</string>
     <string name="organ_donor">Organ donor</string>
     <string name="unknown_organ_donor">Unknown</string>
-    <string-array name="organ_donor_entries">
-        <item>@string/yes</item>
-        <item>@string/no</item>
-        <item>@string/unknown_organ_donor</item>
-    </string-array>
 
     <string name="info_bloodtype_op">O+</string>
     <string name="info_bloodtype_on">O-</string>
