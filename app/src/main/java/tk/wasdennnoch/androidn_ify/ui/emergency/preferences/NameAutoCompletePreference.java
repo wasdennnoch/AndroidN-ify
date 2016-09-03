@@ -35,7 +35,7 @@ public class NameAutoCompletePreference extends AutoCompleteEditTextPreference i
         try {
             getAutoCompleteTextView().setAdapter(createAdapter());
         } catch (Throwable t) {
-            Log.e("test", "fuck", t);
+            Log.e("test", "fudge", t);
         }
     }
 
