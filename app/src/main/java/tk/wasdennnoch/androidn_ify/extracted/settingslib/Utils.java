@@ -1,7 +1,6 @@
 package tk.wasdennnoch.androidn_ify.extracted.settingslib;
 
 import android.content.Intent;
-import android.content.pm.Signature;
 import android.content.res.Resources;
 import android.os.BatteryManager;
 
@@ -9,7 +8,7 @@ import java.text.NumberFormat;
 
 import tk.wasdennnoch.androidn_ify.R;
 
-public class Utils {
+class Utils {
 
     /** Formats an integer from 0..100 as a percentage. */
     public static String formatPercentage(int percentage) {

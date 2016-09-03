@@ -24,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("SameParameterValue")
 public class RecentsNavigation {
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
@@ -40,7 +41,7 @@ public class RecentsNavigation {
     private static boolean mBackPressed = false;
     private static boolean mSkipFirstApp = false;
 
-    private static XC_MethodHook startRecentsActivityHook = new XC_MethodHook() {
+    private static final XC_MethodHook startRecentsActivityHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mStartRecentsActivityTime = SystemClock.elapsedRealtime();
@@ -50,7 +51,7 @@ public class RecentsNavigation {
             }
         }
     };
-    private static XC_MethodHook recentsActivityOnStartHook = new XC_MethodHook() {
+    private static final XC_MethodHook recentsActivityOnStartHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             mRecentsActivity = param.thisObject;
@@ -58,11 +59,11 @@ public class RecentsNavigation {
     };
     private static boolean mResetScroll;
 
-    public static boolean isDoubleTap() {
+    private static boolean isDoubleTap() {
         return (mConfig.recents.force_double_tap || (mConfig.recents.double_tap && ((SystemClock.elapsedRealtime() - mStartRecentsActivityTime) < mConfig.recents.double_tap_speed)));
     }
 
-    private static XC_MethodHook onBackPressedHook = new XC_MethodHook() {
+    private static final XC_MethodHook onBackPressedHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             mIsNavigating = false;
@@ -70,21 +71,21 @@ public class RecentsNavigation {
         }
     };
 
-    private static XC_MethodHook resetNavigatingStatus = new XC_MethodHook() {
+    private static final XC_MethodHook resetNavigatingStatus = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             mIsNavigating = false;
         }
     };
 
-    private static XC_MethodHook dismissRecentsToFocusedTaskOrHomeHook = new XC_MethodReplacement() {
+    private static final XC_MethodHook dismissRecentsToFocusedTaskOrHomeHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             return dismissRecentsToFocusedTaskOrHome((boolean) param.args[0]);
         }
     };
 
-    public static boolean dismissRecentsToFocusedTaskOrHome(boolean checkFilteredStackState) {
+    private static boolean dismissRecentsToFocusedTaskOrHome(boolean checkFilteredStackState) {
         Object ssp = getSystemServicesProxy();
         Object mRecentsView = XposedHelpers.getObjectField(mRecentsActivity, "mRecentsView");
         if (isRecentsTopMost(ssp, getTopMostTask(ssp))) {
@@ -109,7 +110,7 @@ public class RecentsNavigation {
     }
 
     @SuppressWarnings("unchecked")
-    public static boolean launchFocusedTask() {
+    private static boolean launchFocusedTask() {
         XposedHook.logD(TAG, "launchFocusedTask");
         boolean isDoubleTap = isDoubleTap();
         boolean navigateRecents = mConfig.recents.navigate_recents;
@@ -211,13 +212,13 @@ public class RecentsNavigation {
     }
 
     private static class TaskProgress implements Animation.AnimationListener {
-        private FrameLayout mTaskView;
-        private FrameLayout mTaskViewHeader;
-        private View mProgressView;
+        private final FrameLayout mTaskView;
+        private final FrameLayout mTaskViewHeader;
+        private final View mProgressView;
         private ScaleAnimation mScaleAnim;
-        private Object mStackView;
-        private Object mStack;
-        private Object mTask;
+        private final Object mStackView;
+        private final Object mStack;
+        private final Object mTask;
 
         public TaskProgress(FrameLayout taskView, Object stackView, Object stack, Object task) {
             mTaskView = taskView;
@@ -267,15 +268,15 @@ public class RecentsNavigation {
         }
     }
 
-    public static boolean isRecentsTopMost(Object ssp, Object topMostTask) {
+    private static boolean isRecentsTopMost(Object ssp, Object topMostTask) {
         return (boolean) XposedHelpers.callMethod(ssp, "isRecentsTopMost", topMostTask, null);
     }
 
-    public static Object getTopMostTask(Object ssp) {
+    private static Object getTopMostTask(Object ssp) {
         return XposedHelpers.callMethod(ssp, "getTopMostTask");
     }
 
-    public static void dismissRecentsToHomeRaw(boolean animated) {
+    private static void dismissRecentsToHomeRaw(boolean animated) {
         XposedHelpers.callMethod(mRecentsActivity, "dismissRecentsToHomeRaw", animated);
     }
 
@@ -306,7 +307,7 @@ public class RecentsNavigation {
         }
     }
 
-    private static XC_LayoutInflated recents_task_view_header = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated recents_task_view_header = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
             FrameLayout header = (FrameLayout) liparam.view;
@@ -337,7 +338,7 @@ public class RecentsNavigation {
         }
     }
 
-    public static Object getSystemServicesProxy() {
+    private static Object getSystemServicesProxy() {
         Class<?> classRecentsTaskLoader = XposedHelpers.findClass("com.android.systemui.recents.model.RecentsTaskLoader", mClassLoader);
         return XposedHelpers.callMethod(XposedHelpers.callStaticMethod(classRecentsTaskLoader, "getInstance"), "getSystemServicesProxy");
     }

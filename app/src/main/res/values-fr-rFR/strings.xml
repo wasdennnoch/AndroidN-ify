@@ -169,15 +169,15 @@
   <string name="enable_emergency_info_title">Activer informations d\'urgence</string>
   <string name="enable_emergency_info">Ajoute un buton d\'info d\'urgence dans le dialer d\'urgence</string>
   <string name="edit_emergency_info_title">Editer informations d\'urgence</string>
-  <string name="header_personal">Personnel</string>
-  <string name="info_fullname">Nom complet</string>
-  <string name="info_address">Adresse</string>
-  <string name="info_birthdate">Date de naissance</string>
-  <string name="info_bloodtype">Groupe sanguin</string>
-  <string name="info_medications">Médications</string>
-  <string name="info_medicalnotes">Problèmes de santé et notes</string>
-  <string name="info_organdonor">Donneur d\'organes</string>
-  <string name="info_unspecified">Non spécifié</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Personnel</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Nom complet</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Adresse</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Date de naissance</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Groupe sanguin</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Médications</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Problèmes de santé et notes</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Donneur d\'organes</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Non spécifié</string>
   <string name="yes">Oui</string>
   <string name="no">Non</string>
   <string name="battery">Batterie</string>

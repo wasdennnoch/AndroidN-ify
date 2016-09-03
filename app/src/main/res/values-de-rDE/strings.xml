@@ -208,17 +208,17 @@
   <string name="enable_emergency_info_title">Notfallinformationen aktivieren</string>
   <string name="enable_emergency_info">Fügt einen Notfallinformations-Button zum Notfall-Wähler hinzu</string>
   <string name="edit_emergency_info_title">Notfallinformationen bearbeiten</string>
-  <string name="header_personal">Persönlich</string>
-  <string name="info_fullname">Voller Name</string>
-  <string name="info_address">Adresse</string>
-  <string name="info_birthdate">Geburtsdatum</string>
-  <string name="header_medical">Medizinisch</string>
-  <string name="info_bloodtype">Blutgruppe</string>
-  <string name="info_allergies">Allergien</string>
-  <string name="info_medications">Medikamente</string>
-  <string name="info_medicalnotes">Medizinische Bedingungen und Bemerkungen</string>
-  <string name="info_organdonor">Organspender</string>
-  <string name="info_unspecified">Keine ausgewählt</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Persönlich</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Voller Name</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Adresse</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Geburtsdatum</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">Medizinisch</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Blutgruppe</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">Allergien</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Medikamente</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Medizinische Bedingungen und Bemerkungen</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Organspender</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Keine ausgewählt</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="info_bloodtype_ap">A+</string>

@@ -35,7 +35,6 @@ import android.text.TextDirectionHeuristics;
 import android.view.View;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.logging.MetricsLogger;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.extracted.settingslib.CircleFramedDrawable;
@@ -45,6 +44,7 @@ import tk.wasdennnoch.androidn_ify.ui.emergency.EmergencyContactManager;
 /**
  * A {@link Preference} to display or call a contact using the specified URI string.
  */
+@SuppressWarnings("deprecation")
 public class ContactPreference extends Preference {
 
     private EmergencyContactManager.Contact mContact;
@@ -247,7 +247,7 @@ public class ContactPreference extends Preference {
         public SavedState(Parcel source) {
             super(source);
             isDialogShowing = source.readInt() == 1;
-            dialogBundle = source.readBundle();
+            dialogBundle = source.readBundle(getClass().getClassLoader());
         }
 
         @Override

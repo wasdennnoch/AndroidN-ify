@@ -57,19 +57,20 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
  *
  * @hide
  */
+@SuppressWarnings({"deprecation", "SameParameterValue", "UnusedParameters"})
 @RemoteView
 public class RelativeDateTimeView extends TextView {
     private static final int SHOW_TIME = 0;
     private static final int SHOW_MONTH_DAY_YEAR = 1;
 
-    Date mTime;
-    long mTimeMillis;
+    private Date mTime;
+    private long mTimeMillis;
 
-    int mLastDisplay = -1;
-    DateFormat mLastFormat;
+    private final int mLastDisplay = -1;
+    private DateFormat mLastFormat;
 
     private long mUpdateTimeMillis;
-    private static final ThreadLocal<ReceiverInfo> sReceiverInfo = new ThreadLocal<ReceiverInfo>();
+    private static final ThreadLocal<ReceiverInfo> sReceiverInfo = new ThreadLocal<>();
     private String mNowText;
     private boolean mShowRelativeTime;
 
@@ -112,7 +113,7 @@ public class RelativeDateTimeView extends TextView {
     }
 
     @android.view.RemotableViewMethod
-    public void setShowRelativeTime(boolean showRelativeTime) {
+    private void setShowRelativeTime(boolean showRelativeTime) {
         mShowRelativeTime = showRelativeTime;
         updateNowText();
         update();
@@ -128,7 +129,7 @@ public class RelativeDateTimeView extends TextView {
         }
     }
 
-    void update() {
+    private void update() {
         if (mTime == null || getVisibility() == GONE) {
             return;
         }
@@ -168,7 +169,6 @@ public class RelativeDateTimeView extends TextView {
             }
             // Else, show month day and year.
             display = SHOW_MONTH_DAY_YEAR;
-            break choose_display;
         }
 
         // Choose the format
@@ -315,13 +315,13 @@ public class RelativeDateTimeView extends TextView {
         return android.text.format.DateFormat.getTimeFormat(getContext());
     }
 
-    void clearFormatAndUpdate() {
+    private void clearFormatAndUpdate() {
         mLastFormat = null;
         update();
     }
 
     private static class ReceiverInfo {
-        private final ArrayList<RelativeDateTimeView> mAttachedViews = new ArrayList<RelativeDateTimeView>();
+        private final ArrayList<RelativeDateTimeView> mAttachedViews = new ArrayList<>();
         private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -380,7 +380,7 @@ public class RelativeDateTimeView extends TextView {
             return result;
         }
 
-        static final Context getApplicationContextIfAvailable(Context context) {
+        static Context getApplicationContextIfAvailable(Context context) {
             final Context ac = context.getApplicationContext();
             return ac != null ? ac : ActivityThread.currentApplication().getApplicationContext();
         }

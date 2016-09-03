@@ -42,10 +42,10 @@ public class PlatLogoActivity extends Activity {
 
     private static final String TAG = "PlatLogoActivity";
 
-    FrameLayout mLayout;
-    int mTapCount;
-    int mKeyCount;
-    PathInterpolator mInterpolator = new PathInterpolator(0f, 0f, 0.5f, 1f);
+    private FrameLayout mLayout;
+    private int mTapCount;
+    private int mKeyCount;
+    private final PathInterpolator mInterpolator = new PathInterpolator(0f, 0f, 0.5f, 1f);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

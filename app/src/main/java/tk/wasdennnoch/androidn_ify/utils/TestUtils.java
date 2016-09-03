@@ -7,7 +7,7 @@ import de.robv.android.xposed.XposedBridge;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
 @SuppressWarnings("unused")
-public class TestUtils {
+class TestUtils {
 
     private static final String TAG = "TestUtils";
 

@@ -29,7 +29,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.provider.Settings;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
@@ -37,6 +36,7 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 
+@SuppressWarnings({"deprecation", "SameParameterValue", "SuspiciousNameCombination"})
 public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager.BatteryStatusListener {
 
     private static final float ASPECT_RATIO = 9.5f / 14.5f;
@@ -52,18 +52,17 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
     private final int mIntrinsicHeight;
 
     private boolean mShowPercent;
-    private float mButtonHeightFraction;
-    private float mSubpixelSmoothingLeft;
-    private float mSubpixelSmoothingRight;
+    private final float mButtonHeightFraction;
+    private final float mSubpixelSmoothingLeft;
+    private final float mSubpixelSmoothingRight;
     private final Paint mFramePaint, mBatteryPaint, mWarningTextPaint, mTextPaint, mBoltPaint,
             mPlusPaint;
-    private float mTextHeight, mWarningTextHeight;
+    private float mWarningTextHeight;
     private int mIconTint = Color.WHITE;
     private float mOldDarkIntensity = 0f;
 
     private int mHeight;
     private int mWidth;
-    private String mWarningString = "!";
     private final int mCriticalLevel;
     private int mChargeColor;
     private final float[] mBoltPoints;
@@ -82,23 +81,21 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
 
     private boolean mPowerSaveEnabled;
 
-    private int mLightModeBackgroundColor;
-    private int mLightModeFillColor;
+    private final int mLightModeBackgroundColor;
+    private final int mLightModeFillColor;
 
-    private final Context mContext;
     private final Handler mHandler;
 
     private int mLevel = -1;
     private boolean mPluggedIn;
     private boolean mListening;
 
-    private ResourceUtils mRes;
     private boolean mHasIntrinsicSize = true;
 
     public BatteryMeterDrawable(Context context, Handler handler, int frameColor) {
-        mContext = context;
+        Context mContext = context;
         mHandler = handler;
-        mRes = ResourceUtils.getInstance(mContext);
+        ResourceUtils mRes = ResourceUtils.getInstance(mContext);
         final Resources res = context.getResources();
         Resources moduleRes = mRes.getResources();
         TypedArray levels = res.obtainTypedArray(res.getIdentifier("batterymeter_color_levels", "array", PACKAGE_SYSTEMUI));
@@ -430,7 +427,7 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
         if (!mPluggedIn && !mPowerSaveEnabled && level > mCriticalLevel && mShowPercent) {
             mTextPaint.setColor(getColorForLevel(level));
             mTextPaint.setTextSize(height * ((mLevel == 100 ? 0.38f : 0.5f)));
-            mTextHeight = -mTextPaint.getFontMetrics().ascent;
+            float mTextHeight = -mTextPaint.getFontMetrics().ascent;
             pctText = String.valueOf(level);
             pctX = mWidth * 0.5f;
             pctY = (mHeight + mTextHeight) * 0.47f;
@@ -458,6 +455,7 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
                 // draw the warning text
                 final float x = mWidth * 0.5f;
                 final float y = (mHeight + mWarningTextHeight) * 0.48f;
+                String mWarningString = "!";
                 c.drawText(mWarningString, x, y, mWarningTextPaint);
             } else if (pctOpaque) {
                 // draw the percentage text

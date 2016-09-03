@@ -12,16 +12,14 @@ import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
-import de.robv.android.xposed.callbacks.XC_InitPackageResources;
-import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
-import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("SameParameterValue")
 public class NotificationPanelHooks {
 
     private static final String TAG = "NotificationPanelHooks";
@@ -34,13 +32,13 @@ public class NotificationPanelHooks {
     public static final int STATE_SHADE = 0;
     public static final int STATE_KEYGUARD = 1;
 
-    public static ViewGroup mNotificationPanelView;
+    private static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
     private static QSCustomizer mQsCustomizer;
 
-    private static List<BarStateCallback> mBarStateCallbacks = new ArrayList<>();
+    private static final List<BarStateCallback> mBarStateCallbacks = new ArrayList<>();
 
-    private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
+    private static final XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mNotificationPanelView = (ViewGroup) param.thisObject;
@@ -71,7 +69,7 @@ public class NotificationPanelHooks {
         }
     };
 
-    private static XC_MethodHook setBarStateHook = new XC_MethodHook() {
+    private static final XC_MethodHook setBarStateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "setBarStateHook: Setting state to " + (int) param.args[0]);
@@ -82,7 +80,7 @@ public class NotificationPanelHooks {
         }
     };
 
-    private static View.OnClickListener mExpandIndicatorListener = new SafeOnClickListener() {
+    private static final View.OnClickListener mExpandIndicatorListener = new SafeOnClickListener() {
         @Override
         public void onClickSafe(View v) {
             // Fixes an issue with the indicator having two backgrounds when layer type is hardware
@@ -111,24 +109,22 @@ public class NotificationPanelHooks {
         return (mExpandIndicator != null && !mExpandIndicator.isExpanded());
     }
 
-    public static boolean expandIfNecessary() {
+    public static void expandIfNecessary() {
         if (mExpandIndicator != null && mNotificationPanelView != null) {
             if (!mExpandIndicator.isExpanded()) {
                 flingSettings(true);
-                return true;
+                return;
             }
         }
-        return false;
     }
 
-    public static boolean collapseIfNecessary() {
+    public static void collapseIfNecessary() {
         if (mExpandIndicator != null && mNotificationPanelView != null) {
             if (mExpandIndicator.isExpanded()) {
                 flingSettings(false);
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     public static void flingToHeight(float vel, boolean expand, float target) {

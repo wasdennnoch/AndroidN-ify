@@ -215,17 +215,17 @@
   <string name="enable_emergency_info_title">Activează informațiile de urgență</string>
   <string name="enable_emergency_info">Adaugă butonul „Informații de urgență” la apelatorul de urgență</string>
   <string name="edit_emergency_info_title">Editează informațiile de urgență</string>
-  <string name="header_personal">Personal</string>
-  <string name="info_fullname">Nume complet</string>
-  <string name="info_address">Adresă</string>
-  <string name="info_birthdate">Data nașterii</string>
-  <string name="header_medical">Medical</string>
-  <string name="info_bloodtype">Grupă sanguină</string>
-  <string name="info_allergies">Alergii</string>
-  <string name="info_medications">Medicamente</string>
-  <string name="info_medicalnotes">Condiții și note medicale</string>
-  <string name="info_organdonor">Donator de organe</string>
-  <string name="info_unspecified">Nespecificat</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Personal</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Nume complet</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Adresă</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Data nașterii</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">Medical</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Grupă sanguină</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">Alergii</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Medicamente</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Condiții și note medicale</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Donator de organe</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Nespecificat</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="info_bloodtype_ap">A+</string>

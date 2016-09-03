@@ -85,14 +85,14 @@ public class SummaryTweaks {
         sHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
     }*/
 
-    private static XC_MethodHook loadCategoriesFromResourceHook = new XC_MethodHook() {
+    private static final XC_MethodHook loadCategoriesFromResourceHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             afterLoadCategoriesFromResource(param);
         }
     };
 
-    private static XC_MethodHook updateTileViewHook = new XC_MethodHook() {
+    private static final XC_MethodHook updateTileViewHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             beforeUpdateTileView(param);
@@ -153,13 +153,13 @@ public class SummaryTweaks {
     }
 
 
-    public static void beforeUpdateTileView(XC_MethodHook.MethodHookParam param) {
+    private static void beforeUpdateTileView(XC_MethodHook.MethodHookParam param) {
         Context context = (Context) param.args[0];
         Object tile = param.args[2];
         setSummary(tile, context);
     }
 
-    public static void afterLoadCategoriesFromResource(XC_MethodHook.MethodHookParam param) {
+    private static void afterLoadCategoriesFromResource(XC_MethodHook.MethodHookParam param) {
         try {
 
             sFixSoundNotifTile = ConfigUtils.settings().fix_sound_notif_tile;

@@ -41,12 +41,13 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 /**
  * View that represents a standard quick settings tile.
  */
+@SuppressWarnings("SameParameterValue")
 public class FakeQSTileView extends ViewGroup {
     private static final Typeface CONDENSED = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
 
-    protected final Context mContext;
+    private final Context mContext;
     private final View mIcon;
     private final int mIconSizePx;
     private final int mTileSpacingPx;
@@ -56,7 +57,7 @@ public class FakeQSTileView extends ViewGroup {
 
     private TextView mLabel;
     private boolean mDual;
-    private Drawable mTileBackground;
+    private final Drawable mTileBackground;
     private RippleDrawable mRipple;
 
     public FakeQSTileView(Context context) {
@@ -151,7 +152,7 @@ public class FakeQSTileView extends ViewGroup {
         return changed;
     }
 
-    protected void setTileBackground() {
+    private void setTileBackground() {
         if (mTileBackground instanceof RippleDrawable) {
             setRipple((RippleDrawable) mTileBackground);
         } else {
@@ -168,14 +169,14 @@ public class FakeQSTileView extends ViewGroup {
         }
     }
 
-    protected View createIcon() {
+    private View createIcon() {
         final ImageView icon = new ImageView(mContext);
         icon.setId(android.R.id.icon);
         icon.setScaleType(ScaleType.CENTER_INSIDE);
         return icon;
     }
 
-    public Drawable newTileBackground() {
+    private Drawable newTileBackground() {
         final int[] attrs = new int[] { android.R.attr.selectableItemBackgroundBorderless };
         final TypedArray ta = mContext.obtainStyledAttributes(attrs);
         final Drawable d = ta.getDrawable(0);
@@ -249,7 +250,7 @@ public class FakeQSTileView extends ViewGroup {
         }
     }
 
-    protected void setIcon(ImageView iv, Drawable d) {
+    private void setIcon(ImageView iv, Drawable d) {
         int tagId = getResources().getIdentifier("qs_icon_tag", "id", PACKAGE_SYSTEMUI);
         if (!Objects.equals(d, iv.getTag(tagId))) {
             iv.setImageDrawable(d);

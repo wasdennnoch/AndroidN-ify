@@ -66,15 +66,15 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private final int mColor;
 
     private boolean isShown;
-    private RecyclerView mRecyclerView;
-    private TileAdapter mTileAdapter;
-    private Toolbar mToolbar;
+    private final RecyclerView mRecyclerView;
+    private final TileAdapter mTileAdapter;
+    private final Toolbar mToolbar;
     private boolean mCustomizing;
     private boolean mTileAdapterIsInvalid = true;
 
     private int mLastX = 0;
     private int mLastY = 0;
-    private int mNavigationBarSize;
+    private final int mNavigationBarSize;
 
     public QSCustomizer(Context context) {
         super(context, null);
@@ -188,14 +188,14 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         hide(mLastX, mLastY);
     }
 
-    public void hide(int x, int y) {
+    private void hide(int x, int y) {
         if (isShown) {
             saveAndHide();
             mClipper.animateCircularClip(x, y, false, mCollapseAnimationListener);
         }
     }
 
-    public void saveAndHide() {
+    private void saveAndHide() {
         isShown = false;
         mToolbar.dismissPopupMenus();
         setCustomizing(false);

@@ -3,14 +3,11 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -73,7 +70,7 @@ public class AddTileActivity extends Activity implements View.OnClickListener {
         close();
     }
 
-    public void close() {
+    private void close() {
         sendBroadcast(new Intent(ACTION_ADD_TILE).setPackage(XposedHook.PACKAGE_SYSTEMUI));
         finish();
     }

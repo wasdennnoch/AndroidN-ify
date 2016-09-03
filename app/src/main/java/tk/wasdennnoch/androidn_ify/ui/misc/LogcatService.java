@@ -38,7 +38,7 @@ public class LogcatService extends IntentService {
     private static final int UPDATE_INTERVAL = 1000;
 
     private String mNotifText;
-    private AtomicInteger mTotalLines = new AtomicInteger(0);
+    private final AtomicInteger mTotalLines = new AtomicInteger(0);
     private boolean mCancelled = false;
 
     private NotificationManager mNotif;

@@ -27,18 +27,17 @@ import tk.wasdennnoch.androidn_ify.ui.misc.DownloadService;
 
 public class UpdateUtils {
 
-    public static boolean check(Context context, UpdateListener listener) {
-        if (!isEnabled(context)) return false;
-        if (!isConnected(context)) return false;
+    public static void check(Context context, UpdateListener listener) {
+        if (!isEnabled(context)) return;
+        if (!isConnected(context)) return;
         new CheckUpdateTask(context).execute(context.getString(R.string.updater_url), listener);
-        return true;
     }
 
     public static boolean isEnabled(Context context) {
         return context.getResources().getBoolean(R.bool.enable_updater);
     }
 
-    public static boolean isConnected(Context context) {
+    private static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
@@ -88,7 +87,7 @@ public class UpdateUtils {
     public static class CheckUpdateTask extends AsyncTask<Object, Void, String> {
 
         HttpURLConnection urlConnection;
-        Context mContext;
+        final Context mContext;
         UpdateListener mListener;
         Exception mException;
 
@@ -138,9 +137,9 @@ public class UpdateUtils {
     }
 
     public static class UpdateData {
-        private int number;
-        private boolean hasArtifact;
-        private String artifactUrl;
+        private final int number;
+        private final boolean hasArtifact;
+        private final String artifactUrl;
         private final List<String> changes;
 
         public UpdateData(int number, boolean hasArtifact, String artifactUrl, List<String> changes) {

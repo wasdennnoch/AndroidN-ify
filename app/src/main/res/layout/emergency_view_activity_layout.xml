@@ -35,9 +35,6 @@
             android:layout_marginEnd="16dp"
             android:lineSpacingMultiplier="1.05026"
             android:textColor="#FFFFFF"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="18dp"></LinearLayout>
     </LinearLayout>
     <ViewFlipper
         android:id="@+id/view_flipper"

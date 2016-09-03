@@ -44,15 +44,14 @@ public class CircleFramedDrawable extends Drawable {
     private final Paint mPaint;
 
     private float mScale;
-    private Rect mSrcRect;
-    private RectF mDstRect;
+    private final Rect mSrcRect;
+    private final RectF mDstRect;
 
     public static CircleFramedDrawable getInstance(Context context, Bitmap icon) {
         Resources res = context.getResources();
         float iconSize = res.getDimension(R.dimen.circle_avatar_size);
 
-        CircleFramedDrawable instance = new CircleFramedDrawable(icon, (int) iconSize);
-        return instance;
+        return new CircleFramedDrawable(icon, (int) iconSize);
     }
 
     public CircleFramedDrawable(Bitmap icon, int size) {

@@ -50,9 +50,9 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
     private int mTmpValue;
     private boolean mTracking = false;
     private boolean mRapidlyPressing = false;
-    private Handler mHandler;
+    private final Handler mHandler;
 
-    private Runnable mRapidPressTimeout = new Runnable() {
+    private final Runnable mRapidPressTimeout = new Runnable() {
         @Override
         public void run() {
             mRapidlyPressing = false;
@@ -135,7 +135,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
         }
     }
 
-    public void setValue(int progress) {
+    private void setValue(int progress) {
         mValue = progress;
         if (isPersistent()) {
             persistInt(mValue);

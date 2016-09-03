@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v7.graphics.Palette;
 
+@SuppressWarnings("SameParameterValue")
 public class ColorUtils {
 
     public static int generateColor(Drawable drawable, int defaultColor) {
@@ -19,7 +20,7 @@ public class ColorUtils {
         return color;
     }
 
-    public static Bitmap convertToBitmap(Drawable drawable, int widthPixels, int heightPixels) {
+    private static Bitmap convertToBitmap(Drawable drawable, int widthPixels, int heightPixels) {
         Bitmap bitmap = Bitmap.createBitmap(widthPixels, heightPixels, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, widthPixels, heightPixels);

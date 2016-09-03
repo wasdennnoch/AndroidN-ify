@@ -39,6 +39,7 @@ import java.util.Locale;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+@SuppressWarnings({"SameParameterValue", "JavaDoc"})
 public class ColorPickerDialog extends Dialog implements ColorPickerView.OnColorChangedListener, View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     private ColorPickerView mColorPicker;
@@ -199,7 +200,7 @@ public class ColorPickerDialog extends Dialog implements ColorPickerView.OnColor
         }
     }
 
-    public boolean getAlphaSliderVisible() {
+    private boolean getAlphaSliderVisible() {
         return mColorPicker.getAlphaSliderVisible();
     }
 
@@ -213,7 +214,7 @@ public class ColorPickerDialog extends Dialog implements ColorPickerView.OnColor
         mListener = listener;
     }
 
-    public int getColor() {
+    private int getColor() {
         return mColorPicker.getColor();
     }
 

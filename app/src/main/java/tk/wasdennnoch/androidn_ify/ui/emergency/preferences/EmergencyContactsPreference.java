@@ -45,7 +45,7 @@ public class EmergencyContactsPreference extends PreferenceCategory
     private static final String CONTACT_SEPARATOR = "|";
     private static final String QUOTE_CONTACT_SEPARATOR = Pattern.quote(CONTACT_SEPARATOR);
     /** Stores the emergency contact's ContactsContract.CommonDataKinds.Phone.CONTENT_URI */
-    private List<Uri> mEmergencyContacts = new ArrayList<Uri>();
+    private List<Uri> mEmergencyContacts = new ArrayList<>();
     private boolean mEmergencyContactsSet = false;
     public EmergencyContactsPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -74,7 +74,7 @@ public class EmergencyContactsPreference extends PreferenceCategory
     public void onRemoveContactPreference(ContactPreference contactPreference) {
         Uri newContact = contactPreference.getContactUri();
         if (mEmergencyContacts.contains(newContact)) {
-            List<Uri> updatedContacts = new ArrayList<Uri>(mEmergencyContacts);
+            List<Uri> updatedContacts = new ArrayList<>(mEmergencyContacts);
             if (updatedContacts.remove(newContact) && callChangeListener(updatedContacts)) {
                 setEmergencyContacts(updatedContacts);
             }
@@ -87,7 +87,7 @@ public class EmergencyContactsPreference extends PreferenceCategory
      */
     public void addNewEmergencyContact(Uri contactUri) {
         if (!mEmergencyContacts.contains(contactUri)) {
-            List<Uri> updatedContacts = new ArrayList<Uri>(mEmergencyContacts);
+            List<Uri> updatedContacts = new ArrayList<>(mEmergencyContacts);
             if (updatedContacts.add(contactUri) && callChangeListener(updatedContacts)) {
                 setEmergencyContacts(updatedContacts);
             }
@@ -178,7 +178,7 @@ public class EmergencyContactsPreference extends PreferenceCategory
                                                  String emergencyContactString) {
         String[] emergencyContactsArray =
                 emergencyContactString.split(QUOTE_CONTACT_SEPARATOR);
-        List<Uri> filteredEmergencyContacts = new ArrayList<Uri>(emergencyContactsArray.length);
+        List<Uri> filteredEmergencyContacts = new ArrayList<>(emergencyContactsArray.length);
         for (String emergencyContact : emergencyContactsArray) {
             Uri contactUri = Uri.parse(emergencyContact);
             if (EmergencyContactManager.isValidEmergencyContact(context, contactUri)) {
@@ -192,7 +192,7 @@ public class EmergencyContactsPreference extends PreferenceCategory
             String emergencyContactStrings = serialize(filteredEmergencyContacts);
             SharedPreferences sharedPreferences =
                     PreferenceManager.getDefaultSharedPreferences(context);
-            sharedPreferences.edit().putString(key, emergencyContactStrings).commit();
+            sharedPreferences.edit().putString(key, emergencyContactStrings).apply();
         }
         return filteredEmergencyContacts;
     }

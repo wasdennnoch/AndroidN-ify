@@ -58,7 +58,7 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
         mProgress = (ProgressBar) findViewById(R.id.loading);
     }
 
-    public void loadBlacklistedApps() {
+    private void loadBlacklistedApps() {
         List<String> apps = new ArrayList<>();
         try {
             String jsonString = mSharedPrefs.getString("notification_blacklist_apps", "[]");
@@ -125,7 +125,7 @@ public class BlacklistAppActivity extends Activity implements SearchView.OnQuery
         return false;
     }
 
-    public static List<CachedResolveInfo> search(List<CachedResolveInfo> apps, String query) {
+    private static List<CachedResolveInfo> search(List<CachedResolveInfo> apps, String query) {
         query = query.toLowerCase();
         List<CachedResolveInfo> searchApps = new ArrayList<>();
         for (CachedResolveInfo app : apps) {

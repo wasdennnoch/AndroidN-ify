@@ -28,6 +28,7 @@ import android.widget.TextView;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings({"SameParameterValue", "unused"})
 public class UsageView extends FrameLayout {
 
     private final UsageGraph mUsageGraph;

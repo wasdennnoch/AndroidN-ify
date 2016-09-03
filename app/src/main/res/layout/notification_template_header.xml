@@ -15,7 +15,7 @@
   ~ limitations under the License
   -->
 
-<FrameLayout
+<FrameLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/notification_header_height"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -24,7 +24,7 @@
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginEnd="3dp"
-        />
+        tools:ignore="ContentDescription" />
     <TextView
         android:id="@+id/app_name_text"
         android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
         android:layout_marginEnd="2dp"
         android:layout="@layout/notification_template_part_chronometer"
         android:visibility="gone"
-        />
+        tools:ignore="PrivateResource" />
     <ImageView
         android:id="@+id/expand_button"
         android:background="@null"
@@ -88,5 +88,5 @@
         android:layout_height="wrap_content"
         android:paddingTop="1dp"
         android:visibility="gone"
-        />
+        tools:ignore="ContentDescription" />
 </FrameLayout>

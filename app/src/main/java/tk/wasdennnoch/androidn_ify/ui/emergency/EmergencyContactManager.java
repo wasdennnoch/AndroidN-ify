@@ -51,7 +51,7 @@ public class EmergencyContactManager {
                         ContactsContract.CommonDataKinds.Photo.PHOTO_ID},
                 null, null, null);
         try {
-            if (cursor.moveToNext()) {
+            if (cursor != null && cursor.moveToNext()) {
                 name = cursor.getString(0);
                 phoneNumber = cursor.getString(1);
                 phoneType = ContactsContract.CommonDataKinds.Phone.getTypeLabel(
@@ -67,7 +67,7 @@ public class EmergencyContactManager {
                             new String[]{ContactsContract.Contacts.Photo.PHOTO},
                             null, null, null);
                     try {
-                        if (cursor2.moveToNext()) {
+                        if (cursor2 != null && cursor2.moveToNext()) {
                             byte[] data = cursor2.getBlob(0);
                             photo = BitmapFactory.decodeStream(new ByteArrayInputStream(data));
                         }

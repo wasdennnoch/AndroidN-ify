@@ -32,12 +32,13 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings({"SameParameterValue", "unused"})
 public class BatteryInfo {
 
-    public String mChargeLabelString;
-    public int mBatteryLevel;
-    public boolean mDischarging = true;
-    public long remainingTimeUs = 0;
+    private String mChargeLabelString;
+    private int mBatteryLevel;
+    private boolean mDischarging = true;
+    private long remainingTimeUs = 0;
     public String batteryPercentString;
     public String remainingLabel;
     private BatteryStats mStats;
@@ -50,7 +51,7 @@ public class BatteryInfo {
 
     public void bindHistory(final UsageView view, BatteryDataParser... parsers) {
         BatteryDataParser parser = new BatteryDataParser() {
-            SparseIntArray points = new SparseIntArray();
+            final SparseIntArray points = new SparseIntArray();
 
             @Override
             public void onParsingStarted(long startTime, long endTime) {
@@ -81,9 +82,7 @@ public class BatteryInfo {
             }
         };
         BatteryDataParser[] parserList = new BatteryDataParser[parsers.length + 1];
-        for (int i = 0; i < parsers.length; i++) {
-            parserList[i] = parsers[i];
-        }
+        System.arraycopy(parsers, 0, parserList, 0, parsers.length);
         parserList[parsers.length] = parser;
         parse(mStats, remainingTimeUs, parserList);
         final Context context = view.getContext();
@@ -102,8 +101,8 @@ public class BatteryInfo {
         BatteryInfo.getBatteryInfo(context, callback, false);
     }
 
-    public static void getBatteryInfo(final Context context, final Callback callback,
-                                      final boolean shortString) {
+    private static void getBatteryInfo(final Context context, final Callback callback,
+                                       final boolean shortString) {
         new AsyncTask<Void, Void, BatteryStats>() {
             @Override
             protected BatteryStats doInBackground(Void... params) {
@@ -130,8 +129,8 @@ public class BatteryInfo {
                 false);
     }
 
-    public static BatteryInfo getBatteryInfo(Context context, Intent batteryBroadcast,
-                                             BatteryStats stats, long elapsedRealtimeUs, boolean shortString) {
+    private static BatteryInfo getBatteryInfo(Context context, Intent batteryBroadcast,
+                                              BatteryStats stats, long elapsedRealtimeUs, boolean shortString) {
         BatteryInfo info = new BatteryInfo();
         info.mStats = stats;
         info.mBatteryLevel = Utils.getBatteryLevel(batteryBroadcast);
@@ -208,8 +207,8 @@ public class BatteryInfo {
     private static void parse(BatteryStats stats, long remainingTimeUs,
                               BatteryDataParser... parsers) {
         long startWalltime = 0;
-        long endDateWalltime = 0;
-        long endWalltime = 0;
+        long endDateWalltime;
+        long endWalltime;
         long historyStart = 0;
         long historyEnd = 0;
         byte lastLevel = -1;
@@ -263,8 +262,8 @@ public class BatteryInfo {
         int i = 0;
         final int N = lastInteresting;
 
-        for (int j = 0; j < parsers.length; j++) {
-            parsers[j].onParsingStarted(startWalltime, endWalltime);
+        for (BatteryDataParser parser1 : parsers) {
+            parser1.onParsingStarted(startWalltime, endWalltime);
         }
         if (endDateWalltime > startWalltime && stats.startIteratingHistoryLocked()) {
             final HistoryItem rec = new HistoryItem();
@@ -276,8 +275,8 @@ public class BatteryInfo {
                     if (x < 0) {
                         x = 0;
                     }
-                    for (int j = 0; j < parsers.length; j++) {
-                        parsers[j].onDataPoint(x, rec);
+                    for (BatteryDataParser parser : parsers) {
+                        parser.onDataPoint(x, rec);
                     }
                 } else {
                     long lastWalltime = curWalltime;
@@ -294,8 +293,8 @@ public class BatteryInfo {
                     if (rec.cmd != HistoryItem.CMD_OVERFLOW
                             && (rec.cmd != HistoryItem.CMD_CURRENT_TIME
                             || Math.abs(lastWalltime - curWalltime) > (60 * 60 * 1000))) {
-                        for (int j = 0; j < parsers.length; j++) {
-                            parsers[j].onDataGap();
+                        for (BatteryDataParser parser : parsers) {
+                            parser.onDataGap();
                         }
                     }
                 }
@@ -305,8 +304,8 @@ public class BatteryInfo {
 
         stats.finishIteratingHistoryLocked();
 
-        for (int j = 0; j < parsers.length; j++) {
-            parsers[j].onParsingDone();
+        for (BatteryDataParser parser : parsers) {
+            parser.onParsingDone();
         }
     }
 }

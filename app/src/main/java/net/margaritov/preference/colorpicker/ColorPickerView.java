@@ -41,6 +41,7 @@ import android.view.View;
  *
  * @author Daniel Nilsson
  */
+@SuppressWarnings({"unused", "JavaDoc"})
 public class ColorPickerView extends View {
 
     private final static int PANEL_SAT_VAL = 0;
@@ -927,7 +928,7 @@ public class ColorPickerView extends View {
      *
      * @param text Text that should be shown.
      */
-    public void setAlphaSliderText(String text) {
+    private void setAlphaSliderText(String text) {
         mAlphaSliderText = text;
         invalidate();
     }

@@ -27,6 +27,7 @@ import android.view.ViewGroup.LayoutParams;
 
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("SameParameterValue")
 public class ResizingSpace extends View {
 
     private final int mWidth;
