@@ -74,7 +74,7 @@ public class EmergencyContactsPreference extends PreferenceCategory
     public void onRemoveContactPreference(ContactPreference contactPreference) {
         Uri newContact = contactPreference.getContactUri();
         if (mEmergencyContacts.contains(newContact)) {
-            List<Uri> updatedContacts = new ArrayList<Uri>(mEmergencyContacts);
+            List<Uri> updatedContacts = new ArrayList<>(mEmergencyContacts);
             if (updatedContacts.remove(newContact) && callChangeListener(updatedContacts)) {
                 setEmergencyContacts(updatedContacts);
             }
@@ -87,15 +87,11 @@ public class EmergencyContactsPreference extends PreferenceCategory
      */
     public void addNewEmergencyContact(Uri contactUri) {
         if (!mEmergencyContacts.contains(contactUri)) {
-            List<Uri> updatedContacts = new ArrayList<Uri>(mEmergencyContacts);
+            List<Uri> updatedContacts = new ArrayList<>(mEmergencyContacts);
             if (updatedContacts.add(contactUri) && callChangeListener(updatedContacts)) {
                 setEmergencyContacts(updatedContacts);
             }
         }
-    }
-    @VisibleForTesting
-    public List<Uri> getEmergencyContacts() {
-        return mEmergencyContacts;
     }
     public void setEmergencyContacts(List<Uri> emergencyContacts) {
         final boolean changed = !mEmergencyContacts.equals(emergencyContacts);
@@ -174,11 +170,12 @@ public class EmergencyContactsPreference extends PreferenceCategory
      * those corresponding to still existing contacts. It persists the contacts if at least one
      * contact was does not exist anymore.
      */
+    @SuppressLint("CommitPrefEdits")
     public static List<Uri> deserializeAndFilter(String key, Context context,
                                                  String emergencyContactString) {
         String[] emergencyContactsArray =
                 emergencyContactString.split(QUOTE_CONTACT_SEPARATOR);
-        List<Uri> filteredEmergencyContacts = new ArrayList<Uri>(emergencyContactsArray.length);
+        List<Uri> filteredEmergencyContacts = new ArrayList<>(emergencyContactsArray.length);
         for (String emergencyContact : emergencyContactsArray) {
             Uri contactUri = Uri.parse(emergencyContact);
             if (EmergencyContactManager.isValidEmergencyContact(context, contactUri)) {

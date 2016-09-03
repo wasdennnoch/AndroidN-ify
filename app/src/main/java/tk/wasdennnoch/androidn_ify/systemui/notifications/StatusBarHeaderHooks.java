@@ -1,6 +1,5 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
@@ -18,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -130,7 +128,6 @@ public class StatusBarHeaderHooks {
     public static TextView mEditBtn;
     private static ImageView mQsRightButton;
 
-    private static int mBarState = 2;
     public static int mQsPage;
 
     private static boolean mHasEditPanel = false;
@@ -818,8 +815,6 @@ public class StatusBarHeaderHooks {
         mShowingDetail = showingDetail;
         XposedHelpers.setBooleanField(mStatusBarHeaderView, "mShowingDetail", showingDetail);
         if (showingDetail) {
-            View mDetailDoneButton = (View) XposedHelpers.getObjectField(mQsPanel, "mDetailDoneButton");
-            LinearLayout mDetailButtons = (LinearLayout) mDetailDoneButton.getParent();
             XposedHook.logD(TAG, "handleShowingDetail: showing detail; " + detail.getClass().getSimpleName());
             try {
                 mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(detail, "getTitle"));
@@ -931,15 +926,11 @@ public class StatusBarHeaderHooks {
         });
     }
 
+    /*
     public static void onSetBarState(int state) {
-        mBarState = state;
-        /*
-        if (mUseDragPanel)
-            mEditBtn.setVisibility(state == NotificationPanelHooks.STATE_SHADE ? View.VISIBLE : View.GONE);
-        else
-            setQSDecorVisible(state == NotificationPanelHooks.STATE_SHADE);
-            */
+
     }
+    */
 
     private static void setQSDecorVisible(boolean visible) {
         if (mDecorLayout == null || mQsPanel == null) return;

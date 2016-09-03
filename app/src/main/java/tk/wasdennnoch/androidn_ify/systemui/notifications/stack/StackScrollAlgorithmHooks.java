@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -24,7 +23,6 @@ public class StackScrollAlgorithmHooks {
 
     private static final String TAG = "StackScrollAlgorithmHooks";
     public static final int LOCATION_TOP_STACK_HIDDEN = 0x02;
-    private static final String KEY_STACK_TOP = "StackTop";
     private static Rect mClipBounds = new Rect();
     public static ViewGroup mStackScrollLayout;
     private static float mStackTop = 0;

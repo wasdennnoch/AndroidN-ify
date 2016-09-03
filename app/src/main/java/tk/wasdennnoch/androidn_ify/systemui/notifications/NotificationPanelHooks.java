@@ -26,9 +26,7 @@ public class NotificationPanelHooks {
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
-    private static final String CLASS_NOTIFICATIONS_QUICK_SETTINGS_CONTAINER = "com.android.systemui.statusbar.phone.NotificationsQuickSettingsContainer";
 
-    public static final int STATE_SHADE = 0;
     public static final int STATE_KEYGUARD = 1;
 
     public static ViewGroup mNotificationPanelView;
@@ -72,7 +70,7 @@ public class NotificationPanelHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "setBarStateHook: Setting state to " + (int) param.args[0]);
-            StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
+            //StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
             for (BarStateCallback callback : mBarStateCallbacks) {
                 callback.onStateChanged();
             }
@@ -126,18 +124,6 @@ public class NotificationPanelHooks {
             }
         }
         return false;
-    }
-
-    public static void flingToHeight(float vel, boolean expand, float target) {
-        try {
-            XposedHelpers.callMethod(mNotificationPanelView, "flingToHeight", new Class[]{float.class, boolean.class, float.class, float.class, boolean.class}, vel, expand, target, 1.0f, false);
-        } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error in flingToHeight", t);
-        }
-    }
-
-    public static int getMaxPanelHeight() {
-        return (int) XposedHelpers.callMethod(mNotificationPanelView, "getMaxPanelHeight");
     }
 
     private static void flingSettings(boolean expanded) {
