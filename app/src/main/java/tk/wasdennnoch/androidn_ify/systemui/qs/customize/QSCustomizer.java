@@ -20,7 +20,6 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -45,6 +44,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSDetailClipper;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -135,7 +135,33 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         mRecyclerView.setItemAnimator(animator);
     }
 
+    public void invalidateTileAdapter() {
+        mTileAdapterIsInvalid = true;
+    }
+
+    public void show(ArrayList<Object> records, boolean animated) {
+        if (isShown) return;
+        initShow(records);
+        if (animated) {
+            setAlpha(0);
+            animate().alpha(1)
+                    .withEndAction(mShowAnimationListener)
+                    .start();
+        } else {
+            setAlpha(1);
+        }
+    }
+
     public void show(ArrayList<Object> records, int x, int y) {
+        if (isShown) return;
+        initShow(records);
+        setAlpha(1);
+        mClipper.animateCircularClip(x, y, true, mExpandAnimationListener);
+        mLastX = x;
+        mLastY = y;
+    }
+
+    private void initShow(ArrayList<Object> records) {
         if (mTileAdapterIsInvalid) {
             mTileAdapterIsInvalid = false;
             mTileAdapter.reInit(records, mContext);
@@ -143,13 +169,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
 
         if (!isShown) {
             isShown = true;
-            setVisibility(View.VISIBLE);
-            setAlpha(1);
-            mClipper.animateCircularClip(x, y, true, mExpandAnimationListener);
+            setVisibility(VISIBLE);
             NotificationPanelHooks.addBarStateCallback(mBarStateCallback);
-
-            mLastX = x;
-            mLastY = y;
         }
     }
 
@@ -157,11 +178,9 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         if (!isShown) return;
         saveAndHide();
         if (animated) {
-            animate().alpha(0)
+            animate().alpha(1)
                     .withEndAction(mHideAnimationListener)
                     .start();
-        } else {
-            setVisibility(GONE);
         }
     }
 
@@ -203,6 +222,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     }
 
     private void showAddBroadcastTile() {
+        hide(true);
         Object qsTileHost = XposedHelpers.getObjectField(StatusBarHeaderHooks.mQsPanel, "mHost");
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName("tk.wasdennnoch.androidn_ify", AddTileActivity.class.getName());
@@ -223,6 +243,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
 
     private void save() {
         mTileAdapter.saveChanges();
+        QSTileHostHooks.recreateTiles();
     }
 
     @Override
@@ -245,6 +266,13 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private final AnimatorListener mExpandAnimationListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationEnd(Animator animation) {
+            setCustomizing(true);
+        }
+    };
+
+    private final Runnable mShowAnimationListener = new Runnable() {
+        @Override
+        public void run() {
             setCustomizing(true);
         }
     };
@@ -276,7 +304,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     @Override
     public void onWidthChanged(int width) {
         ViewUtils.setWidth(mRecyclerView, width);
-        boolean portrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        getDisplay().getRealSize(mSizePoint);
+        boolean portrait = mSizePoint.y >= mSizePoint.x;
         setBottomMargin(portrait ? mNavigationBarSize : 0);
         findViewById(R.id.nav_bar_background).setVisibility(portrait ? VISIBLE : GONE);
     }

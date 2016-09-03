@@ -43,6 +43,22 @@
         <TextView
             android:id="@+id/warning"
             style="@style/TextAppearance.QS"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/notes_title"
+            style="@style/TextAppearance.QS.DetailHeader"
+            android:layout_marginTop="16dp"
+            android:text="@string/qs_add_notes_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/notes"
+            style="@style/TextAppearance.QS"
+            android:text="@string/qs_add_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications.views;
 
+import android.animation.Animator;
 import android.app.PendingIntent;
 import android.app.RemoteInput;
 import android.content.Context;
@@ -34,7 +35,7 @@ import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
-public class RemoteInputHelperView extends FrameLayout implements View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher {
+public class RemoteInputHelperView extends FrameLayout implements View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, Animator.AnimatorListener {
 
     public static boolean DIRECT_REPLY_ENABLED = false;
 
@@ -121,8 +122,9 @@ public class RemoteInputHelperView extends FrameLayout implements View.OnClickLi
         int r = Math.max(
                 Math.max(cx + cy, cx + (h - cy)),
                 Math.max((w - cx) + cy, (w - cx) + (h - cy)));
-        ViewAnimationUtils.createCircularReveal(remoteInputView, cx, cy, 0, r)
-                .start();
+        Animator animator = ViewAnimationUtils.createCircularReveal(remoteInputView, cx, cy, 0, r);
+        animator.addListener(this);
+        animator.start();
     }
 
     public boolean requestScrollTo() {
@@ -225,5 +227,25 @@ public class RemoteInputHelperView extends FrameLayout implements View.OnClickLi
     @Override
     public void afterTextChanged(Editable s) {
         updateSendButton();
+    }
+
+    @Override
+    public void onAnimationStart(Animator animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animator animation) {
+        remoteInputText.requestFocus();
+    }
+
+    @Override
+    public void onAnimationCancel(Animator animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animator animation) {
+
     }
 }

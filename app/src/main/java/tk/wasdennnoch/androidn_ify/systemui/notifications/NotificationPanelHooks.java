@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,5 +225,34 @@ public class NotificationPanelHooks {
 
     public interface BarStateCallback {
         void onStateChanged();
+    }
+
+    public static void invalidateTileAdapter() {
+        if (mQsCustomizer != null)
+            mQsCustomizer.invalidateTileAdapter();
+    }
+
+    public static void showQsCustomizer(ArrayList<Object> records, boolean animated) {
+        if (canShowCustomizer(records))
+            mQsCustomizer.show(records, animated);
+    }
+
+    public static void showQsCustomizer(ArrayList<Object> records, int x, int y) {
+        if (canShowCustomizer(records))
+            mQsCustomizer.show(records, x, y);
+    }
+
+    private static boolean canShowCustomizer(ArrayList<Object> records) {
+        if (records == null) {
+            Toast.makeText(StatusBarHeaderHooks.mContext, "Couldn't open edit view; mRecords == null", Toast.LENGTH_SHORT).show();
+            XposedHook.logE(TAG, "Couldn't open edit view; mRecords == null", null);
+            return false;
+        }
+        if (mQsCustomizer == null) {
+            Toast.makeText(StatusBarHeaderHooks.mContext, "Couldn't open edit view; mQsCustomizer == null", Toast.LENGTH_SHORT).show();
+            XposedHook.logE(TAG, "Couldn't open edit view; mQsCustomizer == null", null);
+            return false;
+        }
+        return true;
     }
 }

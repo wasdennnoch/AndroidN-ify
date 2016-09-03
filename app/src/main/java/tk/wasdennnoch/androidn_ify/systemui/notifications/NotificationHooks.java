@@ -73,8 +73,7 @@ public class NotificationHooks {
     public static FrameLayout.LayoutParams mShadowLp;
     private static Map<String, Integer> mGeneratedColors = new HashMap<>();
 
-    public static Object mPhoneStatusBar;
-    public static ViewGroup mStatusBarWindow;
+    private static Object mPhoneStatusBar;
 
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
@@ -684,14 +683,12 @@ public class NotificationHooks {
 
                     XposedHelpers.findAndHookMethod(classStatusBarWindowManager, "applyFocusableFlag", classStatusBarWindowManagerState, new XC_MethodHook() {
                         @Override
-                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                             WindowManager.LayoutParams windowParams = (WindowManager.LayoutParams) XposedHelpers.getObjectField(param.thisObject, "mLpChanged");
                             if (remoteInputActive) {
                                 windowParams.flags &= ~WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                                 windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-                            } else {
-                                windowParams.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-                                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+                                param.setResult(null);
                             }
                         }
                     });
@@ -749,11 +746,10 @@ public class NotificationHooks {
                     });
                 }
 
-                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "makeStatusBarView", new XC_MethodHook() {
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         mPhoneStatusBar = param.thisObject;
-                        mStatusBarWindow = (ViewGroup) XposedHelpers.getObjectField(mPhoneStatusBar, "mStatusBarWindow");
                     }
                 });
 

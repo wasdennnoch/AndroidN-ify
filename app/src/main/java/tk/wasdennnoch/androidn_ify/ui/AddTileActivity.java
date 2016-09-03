@@ -68,6 +68,11 @@ public class AddTileActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        close();
+    }
+
     public void close() {
         sendBroadcast(new Intent(ACTION_ADD_TILE).setPackage(XposedHook.PACKAGE_SYSTEMUI));
         finish();
@@ -79,6 +84,7 @@ public class AddTileActivity extends Activity implements View.OnClickListener {
             sendBroadcast(new Intent(ACTION_ADD_TILE).putExtra(EXTRA_TILE_SPEC, "intent(" + spec + ")").setPackage(XposedHook.PACKAGE_SYSTEMUI));
             finish();
         } else {
+            mWarning.setVisibility(View.VISIBLE);
             mWarning.setText(R.string.spec_shouldnt_be_blank);
         }
     }

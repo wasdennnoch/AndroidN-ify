@@ -356,5 +356,7 @@
     <string name="enable_install_source_title">Show app installation source</string>
     <string name="battery_detail_switch_title">Battery Saver</string>
     <string name="battery_detail_switch_summary">Reduces performance and background data</string>
+    <string name="qs_add_notes_title">Notes</string>
+    <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
 
 </resources>
