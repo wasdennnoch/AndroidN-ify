@@ -23,6 +23,7 @@ import android.service.notification.StatusBarNotification;
 import android.support.v4.graphics.ColorUtils;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -50,6 +51,8 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
+import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -71,6 +74,9 @@ public class NotificationHooks {
     private static Map<String, Integer> mGeneratedColors = new HashMap<>();
 
     private static Object mPhoneStatusBar;
+
+    public static boolean remoteInputActive = false;
+    public static Object statusBarWindowManager = null;
 
     private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -157,7 +163,48 @@ public class NotificationHooks {
                     }
                 }
             }
+            Notification.Action[] actions = sbn.getNotification().actions;
+            if (RemoteInputHelperView.DIRECT_REPLY_ENABLED && actions != null) {
+                for (int i = 0; i < actions.length; i++) {
+                    final Notification.Action action = actions[i];
+                    if (hasValidRemoteInput(action)) {
+                        View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
 
+                        final RemoteInputHelperView remoteInputHelperView = RemoteInputHelperView.newInstance(context,
+                                action.actionIntent, privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
+                        LinearLayout actionsLayout = (LinearLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                        int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
+                        ViewGroup parent = (ViewGroup) actionsLayout.getParent();
+                        parent.removeView(actionsLayout);
+                        parent.addView(remoteInputHelperView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        remoteInputHelperView.addView(actionsLayout, 0);
+                        ViewUtils.setMarginStart(actionsLayout, startMargin);
+                        ((ViewGroup.MarginLayoutParams) remoteInputHelperView.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
+
+                        RemoteInput[] remoteInputs = action.getRemoteInputs();
+                        RemoteInput remoteInput = null;
+                        for (RemoteInput ri : remoteInputs) {
+                            if (ri.getAllowFreeFormInput()) {
+                                remoteInput = ri;
+                                break;
+                            }
+                        }
+                        if (remoteInput == null) {
+                            break;
+                        }
+                        remoteInputHelperView.setRemoteInput(remoteInputs, remoteInput);
+
+                        Button actionButton = (Button) actionsLayout.getChildAt(i);
+                        actionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                remoteInputHelperView.show(v, true);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
         }
     };
 
@@ -288,6 +335,8 @@ public class NotificationHooks {
 
     public static String loadHeaderAppName(Context context) {
         CharSequence appname = context.getPackageName();
+        if (appname.equals(PACKAGE_SYSTEMUI))
+            return context.getString(context.getResources().getIdentifier("android_system_label", "string", PACKAGE_ANDROID));
         try {
             appname = context.getString(context.getApplicationInfo().labelRes);
         } catch (Throwable t) {
@@ -623,6 +672,29 @@ public class NotificationHooks {
                 final Class<?> classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
                 final Class<?> classMediaExpandableNotificationRow = getClassMediaExpandableNotificationRow(classLoader);
                 Class classPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
+                if (RemoteInputHelperView.DIRECT_REPLY_ENABLED) {
+                    Class classStatusBarWindowManager = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager", classLoader);
+                    Class classStatusBarWindowManagerState = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager.State", classLoader);
+
+                    XposedHelpers.findAndHookMethod(classPhoneStatusBar, "addStatusBarWindow", new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            statusBarWindowManager = XposedHelpers.getObjectField(param.thisObject, "mStatusBarWindowManager");
+                        }
+                    });
+
+                    XposedHelpers.findAndHookMethod(classStatusBarWindowManager, "applyFocusableFlag", classStatusBarWindowManagerState, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            WindowManager.LayoutParams windowParams = (WindowManager.LayoutParams) XposedHelpers.getObjectField(param.thisObject, "mLpChanged");
+                            if (remoteInputActive) {
+                                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+                                param.setResult(null);
+                            }
+                        }
+                    });
+                }
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
@@ -665,14 +737,16 @@ public class NotificationHooks {
                     }
                 });
 
-                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        boolean isHeadsUp = (boolean) param.args[0];
-                        FrameLayout row = (FrameLayout) param.thisObject;
-                        row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
-                    }
-                });
+                if (ConfigUtils.M) {
+                    XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            boolean isHeadsUp = (boolean) param.args[0];
+                            FrameLayout row = (FrameLayout) param.thisObject;
+                            row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
+                        }
+                    });
+                }
 
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
                     @Override
@@ -680,6 +754,28 @@ public class NotificationHooks {
                         mPhoneStatusBar = param.thisObject;
                     }
                 });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "onBackPressed", new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
+                        if (qsCustomizer != null && qsCustomizer.isCustomizing()) {
+                            param.setResult(true);
+                            qsCustomizer.hideCircular();
+                        }
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "animateCollapsePanels", int.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
+                        if (qsCustomizer != null && qsCustomizer.isCustomizing()) {
+                            qsCustomizer.hide(true);
+                        }
+                    }
+                });
+
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "updateNotificationShade", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -777,7 +873,7 @@ public class NotificationHooks {
     private static void updateChildrenExpanded(Object notificationContentView, boolean expanded) {
         View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
         View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
-        View mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        View mHeadsUpChild = ConfigUtils.M ? (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild") : null;
         if (mExpandedChild != null) {
             setExpanded(mExpandedChild, expanded);
         }
@@ -797,10 +893,14 @@ public class NotificationHooks {
     }
 
     private static void updateExpandButtons(Object notificationContentView, boolean expandable, View.OnClickListener onClickListener) {
-        boolean mIsHeadsUp = XposedHelpers.getBooleanField(notificationContentView, "mIsHeadsUp");
+        boolean mIsHeadsUp = false;
         View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
         View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
-        View mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        View mHeadsUpChild = null;
+        if (ConfigUtils.M) {
+            mIsHeadsUp = XposedHelpers.getBooleanField(notificationContentView, "mIsHeadsUp");
+            mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        }
         // if the expanded child has the same height as the collapsed one we hide it.
         if (mExpandedChild != null && mExpandedChild.getHeight() != 0) {
             if ((!mIsHeadsUp || mHeadsUpChild == null)) {
@@ -840,7 +940,7 @@ public class NotificationHooks {
         return null;
     }
 
-    private boolean hasValidRemoteInput(Notification.Action action) {
+    private static boolean hasValidRemoteInput(Notification.Action action) {
         if ((TextUtils.isEmpty(action.title)) || (action.actionIntent == null)) {
             return false;
         }
@@ -1199,6 +1299,7 @@ public class NotificationHooks {
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
 
+                    childLp.height = res.getDimensionPixelSize(R.dimen.notification_action_list_height);
                     if (!isInboxLayout) {
                         childLp.topMargin += actionsMarginTop;
                     }
@@ -1258,6 +1359,7 @@ public class NotificationHooks {
             Button button = (Button) liparam.view;
 
             LinearLayout.LayoutParams buttonLp = (LinearLayout.LayoutParams) button.getLayoutParams();
+            buttonLp.height = ViewGroup.LayoutParams.MATCH_PARENT;
             buttonLp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             buttonLp.weight = 0;
             button.setLayoutParams(buttonLp);

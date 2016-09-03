@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyEditTextPreference
+        android:enabled="false"
+        android:focusable="true"
+        android:icon="@drawable/ic_address_black_24dp"
+        android:key="address"
+        android:selectable="false"
+        android:shouldDisableView="false"
+        android:summary="@string/unknown_address"
+        android:title="@string/address" />
+
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyListPreference
+        android:enabled="false"
+        android:focusable="true"
+        android:icon="@drawable/ic_bloodtype_black_24dp"
+        android:entries="@array/blood_type_entries"
+        android:entryValues="@array/blood_type_values"
+        android:key="blood_type"
+        android:selectable="false"
+        android:shouldDisableView="false"
+        android:summary="@string/unknown_organ_donor"
+        android:title="@string/blood_type" />
+
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyEditTextPreference
+        android:enabled="false"
+        android:focusable="true"
+        android:icon="@drawable/ic_allergies_black_24dp"
+        android:key="allergies"
+        android:selectable="false"
+        android:shouldDisableView="false"
+        android:summary="@string/unknown_allergies"
+        android:title="@string/allergies" />
+
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyEditTextPreference
+        android:enabled="false"
+        android:focusable="true"
+        android:icon="@drawable/ic_medication_24dp"
+        android:key="medications"
+        android:selectable="false"
+        android:shouldDisableView="false"
+        android:summary="@string/unknown_medications"
+        android:title="@string/medications" />
+
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyListPreference
+        android:enabled="false"
+        android:focusable="true"
+        android:icon="@drawable/ic_heart_black_24dp"
+        android:entries="@array/organ_donor_entries"
+        android:entryValues="@array/organ_donor_values"
+        android:key="organ_donor"
+        android:selectable="false"
+        android:shouldDisableView="false"
+        android:summary="@string/unknown_organ_donor"
+        android:title="@string/organ_donor" />
+
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyEditTextPreference
+        android:enabled="false"
+        android:focusable="true"
+        android:icon="@drawable/ic_notes_black_24dp"
+        android:key="medical_conditions"
+        android:selectable="false"
+        android:shouldDisableView="false"
+        android:summary="@string/unknown_medical_conditions"
+        android:title="@string/medical_conditions" />
+</PreferenceScreen>

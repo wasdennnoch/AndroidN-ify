@@ -33,7 +33,10 @@ public class WifiTileHook extends QSTileHook {
         boolean enabled = XposedHelpers.getBooleanField(mState, "enabled");
         if (NotificationPanelHooks.isCollapsed()) {
             XposedHelpers.callMethod(mState, "copyTo", getObjectField("mStateBeforeClick"));
-            MetricsLogger.action(mContext, MetricsLogger.QS_WIFI, !enabled);
+            try {
+                MetricsLogger.action(mContext, MetricsLogger.QS_WIFI, !enabled);
+            } catch (NoClassDefFoundError ignore) {
+            }
             XposedHelpers.callMethod(mController, "setWifiEnabled", !enabled);
         } else {
             if ((boolean) XposedHelpers.callMethod(mWifiController, "canConfigWifi")) {

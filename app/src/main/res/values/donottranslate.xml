@@ -4,13 +4,45 @@
 
     <string name="force_english_title" translatable="false">Force English language</string>
 
-    <!-- NOTIFICATIONS -->
     <string name="notification_header_divider_symbol" translatable="false">•</string>
-    <!-- /NOTIFICATIONS -->
 
     <!-- UPDATER -->
     <!-- Will be injected by build server. Don't touch it. -->
     <string name="updater_url">null</string>
     <!-- /UPDATER -->
+
+    <string name="tile_spec_example">CUSTOMTILE0</string>
+
+    <string name="qs_edit_detail">@string/qs_edit</string>
+
+    <string-array name="blood_type_values">
+        <!-- Do not translate -->
+        <item>0+</item>
+        <!-- Do not translate -->
+        <item>O-</item>
+        <!-- Do not translate -->
+        <item>A+</item>
+        <!-- Do not translate -->
+        <item>A-</item>
+        <!-- Do not translate -->
+        <item>B+</item>
+        <!-- Do not translate -->
+        <item>B-</item>
+        <!-- Do not translate -->
+        <item>AB+</item>
+        <!-- Do not translate -->
+        <item>AB-</item>
+        <!-- Do not translate -->
+        <item>H/H</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="organ_donor_values">
+        <!-- Do not translate -->
+        <item>Yes</item>
+        <!-- Do not translate -->
+        <item>No</item>
+        <item></item>
+    </string-array>
 
 </resources>

@@ -43,7 +43,7 @@ import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookInitPackageResources {
 
     private static final String TAG = "XposedHook";
-    private static final String LOG_FORMAT = "[Android N-ify] %1$s %2$s: %3$s";
+    private static String LOG_FORMAT = "[Android N-ify] %1$s %2$s: %3$s";
     public static final String PACKAGE_ANDROID = "android";
     public static final String PACKAGE_SYSTEMUI = "com.android.systemui";
     public static final String PACKAGE_SETTINGS = "com.android.settings";
@@ -51,9 +51,16 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_OWN = "tk.wasdennnoch.androidn_ify";
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
 
+    public static final String ACTION_MARK_UNSTABLE = "tk.wasdennnoch.androidn_ify.action.ACTION_MARK_UNSTABLE";
+
     public static boolean debug = false;
     private static String sModulePath;
     private static XSharedPreferences sPrefs;
+
+    public static void markUnstable() {
+        LOG_FORMAT = "[Android N-ify] [UNSTABLE] %1$s %2$s: %3$s";
+        logE(TAG, "MARK_UNSTABLE", null);
+    }
 
     public static void logE(String tag, String msg, Throwable t) {
         XposedBridge.log(String.format(LOG_FORMAT, "[ERROR]", tag, msg));

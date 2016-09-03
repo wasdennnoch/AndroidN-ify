@@ -305,6 +305,7 @@ public class QSTileHostHooks {
                 if (!TextUtils.isEmpty(s))
                     specs.add(s);
             }
+            XposedHook.logD(TAG, "Read tiles from config.xml");
         } catch (Throwable t) {
             try { // On CM use the QSUtils
                 try {
@@ -331,6 +332,22 @@ public class QSTileHostHooks {
         specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
         return specs;
+    }
+
+    public static List<String> getCurrentTileSpecs() {
+        List<String> specs = new ArrayList<>();
+        for (String spec : mTileSpecs) {
+            if (spec == null) return specs;
+            specs.add(spec);
+        }
+        return specs;
+    }
+
+    public static void addSpec(Context context, String spec) {
+        List<String> specs = getCurrentTileSpecs();
+        specs.add(spec);
+        saveTileSpecs(context, specs);
+        recreateTiles();
     }
 
     public static void recreateTiles() {

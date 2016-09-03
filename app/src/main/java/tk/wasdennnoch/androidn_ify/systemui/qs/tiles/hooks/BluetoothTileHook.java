@@ -36,7 +36,10 @@ public class BluetoothTileHook extends QSTileHook {
             }
             showDetail(true);
         } else {
-            MetricsLogger.action(mContext, MetricsLogger.QS_BLUETOOTH, !enabled);
+            try {
+                MetricsLogger.action(mContext, MetricsLogger.QS_BLUETOOTH, !enabled);
+            } catch (NoClassDefFoundError ignore) {
+            }
             XposedHelpers.callMethod(mController, "setBluetoothEnabled", !enabled);
         }
     }

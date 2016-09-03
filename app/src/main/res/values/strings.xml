@@ -8,10 +8,10 @@
     <string name="restart_broadcast_sent">Restart broadcast sent</string>
     <string name="activity_about">About Android N-ify</string>
     <string name="about_author">Developed by @MrWasdennnoch</string>
-    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably XDA) username here -->
+    <!-- Insert your (preferably XDA) username here -->
+    <string name="about_translator">Translated by @MrWasdennnoch</string>
     <string name="about_version">Version %1$s (%2$d)</string>
 
-    <!-- prefs -->
     <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> The preference file isn\'t readable by Xposed. Click for more info&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed can\'t read the preference file of this module, default values will be used in hooks.
@@ -38,7 +38,9 @@
     <string name="logcat_notif_finished_title">Logcat saved</string>
     <string name="logcat_notif_preparing">Preparing&#8230;</string>
     <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
-    <string name="logcat_notif_finished">%1$s lines saved to %2$s</string> <!-- %2$s == file path -->
+    <!-- %2$s == file path -->
+    <string name="logcat_notif_finished">%1$s lines saved to %2$s</string>
+    <!-- Stop logcat recording from notification. -->
     <string name="action_stop">Stop</string>
 
     <string name="requesting_root">Requesting root access&#8230;</string>
@@ -53,12 +55,11 @@
     <string name="requires_android_version">Requires Android %1$s</string>
     <string name="not_activated">Module not activated</string>
 
+    <!-- Primary color of app theme -->
     <string name="theme_colorPrimary">Primary color</string>
 
     <string name="header_lockscreen">Lock screen</string>
-    <!-- /prefs -->
 
-    <!-- SETTINGS -->
     <string name="header_settings">Settings</string>
     <string name="enable_settings_summaries_title">Settings summaries</string>
     <string name="enable_settings_summaries">Show the most important information directly in the dashboard</string>
@@ -67,18 +68,25 @@
     <string name="enable_n_platlogo_title">N logo in easter egg</string>
     <string name="use_namey_mcnameface_title">Use \"Namey McNameface\" icon</string>
 
+    <!-- Wifi disconnected -->
     <string name="disconnected">Disconnected</string>
     <string name="disabled">Disabled</string>
     <string name="off">OFF</string>
     <string name="on">ON</string>
     <string name="data_usage_summary">%1$s of data used</string>
+    <!-- Is on or off -->
     <string name="display_summary">Adaptive brightness is %1$s</string>
     <string name="sound_summary">Ringer volume at %1$s</string>
     <string name="apps_summary">%1$d apps installed</string>
+    <!-- Storage settings summary: 10GB of 12GB used -->
     <string name="storage_summary">%1$s of %2$s used</string>
+    <!-- Battery settings summary: 58% - approx. 2h left -->
     <string name="battery_summary">%1$s - approx. %2$s left</string>
+    <!-- Battery settings summary: Percentage -->
     <string name="battery_charging_wireless">%1$s - Charging wirelessly</string>
+    <!-- Battery settings summary: Percentage -->
     <string name="battery_charging_usb">%1$s - Charging on USB</string>
+    <!-- Battery settings summary: Percentage -->
     <string name="battery_charging_ac">%1$s - Charging on AC</string>
     <string name="memory_summary">Currently %1$s of %2$s memory used</string>
     <string name="user_summary">Signed in as %1$s</string>
@@ -86,15 +94,16 @@
     <string name="location_on_device">ON / Device only</string>
     <string name="location_on_high">ON / High accuracy</string>
     <string name="print_summary">%1$d print jobs</string>
+    <!-- Header of app installation source -->
     <string name="store">Store</string>
+    <!-- Header of app installation source -->
     <string name="app_details">App details</string>
     <string name="install_source">App installed from %1$s</string>
     <string name="from_pm">App installed from Package Installer</string>
-    <!-- /SETTINGS -->
 
-    <!-- RECENTS -->
     <string name="header_recents">Recents</string>
-    <string name="enable_recents_double_tap_title">Quick switch</string> <!-- That's how Google calls it -->
+    <!-- That's how Google calls it -->
+    <string name="enable_recents_double_tap_title">Quick switch</string>
     <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
     <string name="alternative_double_tap_title">Alternative double tap detection</string>
     <string name="alternative_double_tap">Enable if Quick switch isn\'t working correctly</string>
@@ -105,14 +114,13 @@
     <string name="enable_large_recents">Large recent apps</string>
     <string name="no_recents_image">Change \"no recents\" image</string>
 
+    <!-- Appears as a toast if there's no recent app to switch to -->
     <string name="no_previous_recents">No recent items</string>
 
     <string name="recents_button_behavior_previous">Return to previous app</string>
     <string name="recents_button_behavior_current">Return to current app</string>
     <string name="recents_button_behavior_cycle">Cycle through apps</string>
-    <!-- /RECENTS -->
 
-    <!-- QUICK SETTINGS -->
     <string name="header_qs">Quick Settings</string>
     <string name="enable_notification_header">Style header</string>
     <string name="keep_bg_title">Unaltered backgrounds</string>
@@ -120,6 +128,7 @@
     <string name="keep_header_bg">Header</string>
     <string name="keep_panel_bg">QS Panel</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
+    <!-- The unit of the counter next to the slider -->
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="battery_tile_show_percentage">Show percentage in battery tile</string>
     <string name="battery_tile_show_percentage_summary">Show battery percentage in the battery tile</string>
@@ -137,20 +146,17 @@
     <string name="header_clock_size_small">Small</string>
     <string name="header_clock_size_smaller">Smaller</string>
     <string name="header_clock_size_tiny">Tiny</string>
-    <!-- Hide header icons -->
     <string name="hide_icons_title">Hide header items</string>
     <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
     <string name="hide_edit_tiles_title">Hide edit tiles button</string>
     <string name="hide_edit_tiles_summary">This only hides the stock edit button!</string>
     <string name="hide_carrier_label_title">Hide carrier label</string>
-    <!-- /Hide header icons -->
-    <!-- /QUICK SETTINGS -->
 
-    <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notifications</string>
     <string name="notifications_change_style">Style Notifications</string>
     <string name="notification_dismiss_button_title">Change dismiss button</string>
     <string name="notification_dismiss_button">Show \"CLEAR ALL\" instead of dismiss icon</string>
+    <!-- Search hint in the blacklist app Activity -->
     <string name="action_search">Search</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
@@ -210,12 +216,12 @@
         <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>y</item>
         <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>y</item>
     </plurals>
-    <!-- /NOTIFICATIONS -->
 
-    <!-- UPDATE -->
     <string name="update_notification_title">New update available</string>
     <string name="update_notification">Build %1$d is now available to update!</string>
     <string name="update_notification_download">Update</string>
+    <string name="update_warning">Module was updated</string>
+    <string name="update_warning_details">System may be unstable and bug reports will be ignored until a device restart</string>
     <string name="check_for_updates_title">Check for updates</string>
     <string name="check_for_updates">Check for updates on app start</string>
     <string name="checking_for_update">Checking for updates…</string>
@@ -225,28 +231,63 @@
     <string name="update_notification_downloading_details">Downloading build %1$d</string>
     <string name="update_notification_download_fail">Download failed</string>
     <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
-    <!-- /UPDATE -->
 
-    <!-- EMERGENCY -->
-    <string name="emergency_info">Emergency Info</string>
+    <string name="emergency_info">Emergency information</string>
     <string name="emergency_info_launch_hint">Touch again to open</string>
-    <string name="enable_emergency_info_title">Enable Emergency Info</string>
-    <string name="enable_emergency_info">Adds an Emergency Info button to the emergency dialer</string>
-    <string name="edit_emergency_info_title">Edit Emergency Info</string>
-
-    <string name="header_personal">Personal</string>
-    <string name="info_fullname">Full name</string>
-    <string name="info_address">Address</string>
-    <string name="info_birthdate">Date of birth</string>
-
-    <string name="header_medical">Medical</string>
-    <string name="info_bloodtype">Blood type</string>
-    <string name="info_allergies">Allergies</string>
-    <string name="info_medications">Medications</string>
-    <string name="info_medicalnotes">Medical conditions and notes</string>
-    <string name="info_organdonor">Organ donor</string>
-
-    <string name="info_unspecified">None specified</string>
+    <string name="enable_emergency_info_title">Enable emergency information</string>
+    <string name="enable_emergency_info">Adds an emergency information button to the emergency dialer</string>
+    <string name="edit_emergency_info_title">Edit emergency information</string>
+    <string name="clear_all">Clear all</string>
+    <string name="tab_title_info">Info</string>
+    <string name="tab_title_contacts">Contacts</string>
+    <string name="add_emergency_contact">Add contact</string>
+    <string name="user_emergency_info_title">Emergency information</string>
+    <string name="user_emergency_info_consent">Information you enter here can help first responders in an emergency. It is stored on your device only, and anyone can read it from the emergency dialer without unlocking your phone.</string>
+    <string name="emergency_info_continue">Continue</string>
+    <string name="clear">Clear</string>
+    <string name="clear_all_message">Clear all information and contacts?</string>
+    <string name="phone_type_and_phone_number">
+        <xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>
+    </string>
+    <string name="remove_contact">
+        Remove <xliff:g example="John Doe" id="contact_name">%1$s</xliff:g> from emergency contacts?
+    </string>
+    <string name="remove_contact_icon_text">Remove contact</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_info_provided">No emergency information provided</string>
+    <string name="emergency_contacts_title">Emergency contacts</string>
+    <string name="name">Name</string>
+    <string name="unknown_name">Unknown</string>
+    <string name="address">Address</string>
+    <string name="unknown_address">Unknown</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="unknown_date_of_birth">Unknown</string>
+    <string name="dob">
+        (<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
+    </string>
+    <string name="age">
+        Age: <xliff:g example="29" id="numerical_age">%1$d</xliff:g>
+    </string>
+    <string name="remove_dob_icon_text">Remove date of birth</string>
+    <string name="blood_type">Blood type</string>
+    <string name="unknown_blood_type">Unknown</string>
+    <string name="allergies">Allergies</string>
+    <string name="unknown_allergies">Unknown</string>
+    <string name="allergies_hint">For example, peanuts</string>
+    <string name="medications">Medications</string>
+    <string name="unknown_medications">Unknown</string>
+    <string name="medications_hint">For example, aspirin</string>
+    <string name="medical_conditions">Medical notes</string>
+    <string name="unknown_medical_conditions">Unknown</string>
+    <string name="medical_conditions_hint">For example, asthma</string>
+    <string name="organ_donor">Organ donor</string>
+    <string name="unknown_organ_donor">Unknown</string>
+    <string-array name="organ_donor_entries">
+        <item>@string/yes</item>
+        <item>@string/no</item>
+        <item>@string/unknown_organ_donor</item>
+    </string-array>
 
     <string name="info_bloodtype_op">O+</string>
     <string name="info_bloodtype_on">O-</string>
@@ -256,20 +297,16 @@
     <string name="info_bloodtype_bn">B-</string>
     <string name="info_bloodtype_abp">AB+</string>
     <string name="info_bloodtype_abn">AB-</string>
-    <!-- /EMERGENCY -->
+    <string name="info_bloodtype_h_h">H H</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <!-- BATTERY -->
     <string name="battery">Battery</string>
     <string name="charged">Charged</string>
     <string name="charging">Charging, %1$s</string>
-    <!-- /BATTERY -->
 
-    <!-- QS -->
     <string name="qs_edit">Edit</string>
-    <string name="qs_edit_detail">@string/qs_edit</string>
     <string name="drag_to_add_tiles">Drag to add tiles</string>
     <string name="drag_to_remove_tiles">Drag here to remove</string>
     <string name="live_display">LiveDisplay</string>
@@ -282,28 +319,20 @@
     <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> left</string>
     <string name="power_remaining_duration_only">Approx. <xliff:g id="time">%1$s</xliff:g> left</string>
     <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> left</string>
-    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>
-        - approx. <xliff:g id="time">%2$s</xliff:g> left</string>
-    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g>
-        - <xliff:g id="time">%2$s</xliff:g> left</string>
-    <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> -
-            <xliff:g id="state">%2$s</xliff:g></string>
-    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> -
-            <xliff:g id="time">%2$s</xliff:g> until full</string>
-    <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> -
-        <xliff:g id="time">%2$s</xliff:g></string>
-    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
-            <xliff:g id="time">%2$s</xliff:g> until full on AC</string>
-    <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> -
-        <xliff:g id="time">%2$s</xliff:g></string>
-    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
-            <xliff:g id="time">%2$s</xliff:g> until full over USB</string>
-    <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> -
-        <xliff:g id="time">%2$s</xliff:g></string>
-    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
-            <xliff:g id="time">%2$s</xliff:g> until full from wireless</string>
-    <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> -
-        <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g> - approx. <xliff:g id="time">%2$s</xliff:g> left</string>
+    <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> left</string>
+    <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="state">%2$s</xliff:g></string>
+    <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> until full</string>
+    <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> until full on AC</string>
+    <!-- Short description when charging on AC. For example: 12% - 2h -->
+    <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> until full over USB</string>
+    <!-- Short description when charging on USB. For example: 12% - 2h -->
+    <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> until full from wireless</string>
+    <!-- Short description when charging wirelessly. For example: 12% - 2h -->
+    <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
     <string name="battery_info_status_unknown">Unknown</string>
     <string name="battery_info_status_charging">Charging</string>
     <string name="battery_info_status_charging_ac">Charging on AC</string>
@@ -317,14 +346,17 @@
     <string name="battery_info_status_full">Full</string>
     <string name="battery_panel_title">Battery usage</string>
     <string name="battery_detail_charging_summary">Battery Saver not available during charging</string>
-    <!-- /QS -->
+    <!-- Add a custom tile -->
+    <string name="add">Add</string>
+    <string name="add_custom_tile">Add broadcast tile</string>
+    <string name="spec_shouldnt_be_blank">Tile spec shouldn\'t be blank</string>
 
-    <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on color to apply</string>
     <string name="enable_install_source_title">Show app installation source</string>
     <string name="battery_detail_switch_title">Battery Saver</string>
     <string name="battery_detail_switch_summary">Reduces performance and background data</string>
-    <!-- /Color Picker -->
+    <string name="qs_add_notes_title">Notes</string>
+    <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
 
 </resources>

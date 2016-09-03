@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="match_parent">-1px</dimen>
+
     <!-- Recents -->
     <dimen name="recents_empty_drawable_padding">25dp</dimen>
     <dimen name="recents_stack_top_padding">32dp</dimen>
@@ -69,6 +71,7 @@
     <dimen name="notification_text_margin_end">56dp</dimen>
     <dimen name="notification_text_inbox_margin_end">48dp</dimen>
     <dimen name="notification_actions_margin_top">16dp</dimen>
+    <dimen name="notification_action_list_height">56dp</dimen>
     <dimen name="notification_dismiss_button_padding">16dp</dimen>
     <dimen name="notification_dismiss_button_padding_top">14dp</dimen>
     <dimen name="notification_panel_shadow_height">6dp</dimen>
@@ -80,6 +83,9 @@
     <dimen name="notification_header_shrink_min_width">72dp</dimen>
     <dimen name="notification_content_margin_end">16dp</dimen>
     <dimen name="notification_badge_size">12dp</dimen>
+
+    <dimen name="notification_panel_width">@dimen/match_parent</dimen>
+    <dimen name="navigation_bar_size">48dp</dimen>
     <!-- /Notifications / Status bar header -->
 
     <dimen name="notification_header_background_height">45.5dp</dimen>
@@ -96,6 +102,9 @@
     <dimen name="qs_detail_header_text_size">20sp</dimen>
     <dimen name="qs_detail_item_primary_text_size">16sp</dimen>
     <dimen name="qs_detail_item_secondary_text_size">14sp</dimen>
+
+    <dimen name="battery_height">14.5dp</dimen>
+    <dimen name="battery_width">9.5dp</dimen>
 
     <!-- Usage graph dimens -->
     <dimen name="usage_graph_area_height">122dp</dimen>
@@ -118,4 +127,13 @@
     <dimen name="battery_usage_margin_end">24dp</dimen>
     <dimen name="notification_header_expand_button_padding_top">1dp</dimen>
     <dimen name="notification_fake_header_margin_top">14.5dp</dimen>
+
+    <!-- Emergency info -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="circle_avatar_size">40dp</dimen>
+    <dimen name="tab_elevation">4dp</dimen>
+    <dimen name="action_bar_size">56dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+
 </resources>

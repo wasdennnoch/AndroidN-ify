@@ -2,13 +2,17 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +27,9 @@ import java.util.ArrayList;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -38,12 +44,7 @@ public class DetailViewManager {
     private Context mContext;
     private ViewGroup mStatusBarHeaderView;
     private ViewGroup mQsPanel;
-    private TextView mEditButton;
     private boolean mHasEditPanel;
-
-    private RecyclerView mRecyclerView;
-    private Object mEditAdapter;
-    private TileAdapter mTileAdapter;
 
     public static DetailViewManager getInstance() {
         if (sInstance == null)
@@ -59,31 +60,12 @@ public class DetailViewManager {
         mContext = context;
         mStatusBarHeaderView = statusBarHeaderView;
         mQsPanel = qsPanel;
-        mEditButton = editButton;
         mHasEditPanel = hasEditPanel;
-    }
-
-    public void saveChanges() {
-        mTileAdapter.saveChanges();
-    }
-
-    public void showEditView(ArrayList<Object> records, int x, int y) {
-        if (records == null) {
-            Toast.makeText(mContext, "Couldn't open edit view; mRecords == null", Toast.LENGTH_SHORT).show();
-            XposedHook.logE(TAG, "Couldn't open edit view; mRecords == null", null);
-            return;
-        }
-        if (mEditAdapter == null)
-            createEditAdapter(records);
-
-        showDetailAdapter(mEditAdapter, x, y);
     }
 
     private void showDetailAdapter(Object adapter, int x, int y) {
         if (mHasEditPanel)
             y += mStatusBarHeaderView.getHeight();
-        if (adapter == mEditAdapter)
-            StatusBarHeaderHooks.mEditing = true;
         if (!ConfigUtils.M) {
             XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, adapter);
         } else {
@@ -105,44 +87,6 @@ public class DetailViewManager {
                 XposedHelpers.callMethod(mQsPanel, "showDetailAdapter", true, remoteSetting, adapter, new int[]{x, y});
             }
         }
-    }
-
-    private void createEditAdapter(ArrayList<Object> records) {
-        if (mRecyclerView == null)
-            createEditView(records);
-
-        mEditAdapter = createProxy(new DetailAdapter() {
-            @Override
-            public int getTitle() {
-                return mContext.getResources().getIdentifier("quick_settings_settings_label", "string", XposedHook.PACKAGE_SYSTEMUI);
-            }
-
-            @Override
-            public Boolean getToggleState() {
-                return false;
-            }
-
-            @Override
-            public View createDetailView(Context context, View convertView, ViewGroup parent) {
-                return mRecyclerView;
-            }
-
-            @Override
-            public Intent getSettingsIntent() {
-                return new Intent(Intent.ACTION_MAIN)
-                        .setClassName("tk.wasdennnoch.androidn_ify", SettingsActivity.class.getName())
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-
-            @Override
-            public void setToggleState(boolean state) {
-            }
-
-            @Override
-            public int getMetricsCategory() {
-                return MetricsLogger.QS_INTENT;
-            }
-        });
     }
 
     public Object createProxy(final DetailAdapter adapter) {
@@ -170,12 +114,19 @@ public class DetailViewManager {
         });
     }
 
+    public DetailViewAdapter getDetailViewAdapter(View detailView) {
+        if (detailView != null && detailView instanceof DetailViewAdapter) {
+            return (DetailViewAdapter) detailView;
+        }
+        return null;
+    }
+
     public interface DetailAdapter {
         int getTitle();
 
         Boolean getToggleState();
 
-        View createDetailView(Context context, View convertView, ViewGroup parent);
+        DetailViewAdapter createDetailView(Context context, View convertView, ViewGroup parent);
 
         Intent getSettingsIntent();
 
@@ -184,118 +135,35 @@ public class DetailViewManager {
         int getMetricsCategory();
     }
 
-    private void createEditView(ArrayList<Object> records) {
-        // Init tiles list
-        mTileAdapter = new TileAdapter(records, mContext, mQsPanel);
-        TileTouchCallback callback = new TileTouchCallback();
-        ItemTouchHelper mItemTouchHelper = new CustomItemTouchHelper(callback);
-        XposedHelpers.setIntField(callback, "mCachedMaxScrollSpeed", ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
-        // With this, it's very easy to deal with drag & drop
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
-        gridLayoutManager.setSpanSizeLookup(mTileAdapter.getSizeLookup());
-        mRecyclerView = new RecyclerView(mContext);
-        mRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mRecyclerView.setAdapter(mTileAdapter);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
-        /*mRecyclerView.setVerticalScrollBarEnabled(true);
-        mRecyclerView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mRecyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_DEFAULT);*/
-        // TODO these above have no effect and the grid isn't scrolling smoothly
-        // Also a ScrollView seems to be used in the official version
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getActionMasked() == MotionEvent.ACTION_DOWN && mRecyclerView.canScrollVertically(1)) {
-                    mRecyclerView.requestDisallowInterceptTouchEvent(true);
-                }
-                return false;
-            }
-        });
-        mTileAdapter.setTileTouchCallback(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+    public interface DetailViewAdapter {
+        boolean hasRightButton();
+
+        int getRightButtonResId();
+
+        void handleRightButtonClick();
     }
 
-    private class CustomItemTouchHelper extends ItemTouchHelper {
+    public static class DetailFrameLayout extends FrameLayout implements DetailViewAdapter {
+        private DetailViewAdapter mAdapter;
 
-        public CustomItemTouchHelper(Callback callback) {
-            super(callback);
+        public DetailFrameLayout(Context context, DetailViewAdapter adapter) {
+            super(context);
+            mAdapter = adapter;
         }
 
         @Override
-        public void attachToRecyclerView(RecyclerView recyclerView) {
-            try {
-                RecyclerView oldRecyclerView = (RecyclerView) XposedHelpers.getObjectField(this, "mRecyclerView");
-                if (oldRecyclerView == recyclerView) {
-                    return; // nothing to do
-                }
-                if (oldRecyclerView != null) {
-                    XposedHelpers.findMethodBestMatch(ItemTouchHelper.class, "destroyCallbacks").invoke(this);
-                }
-                XposedHelpers.setObjectField(this, "mRecyclerView", recyclerView);
-                if (recyclerView != null) {
-                    XposedHelpers.findMethodBestMatch(ItemTouchHelper.class, "setupCallbacks").invoke(this);
-                }
-            } catch (Throwable t) {
-                XposedHook.logE(TAG, "Error attaching ItemTouchCallback to RecyclerView", t);
-            }
-        }
-    }
-
-    public class TileTouchCallback extends ItemTouchHelper.Callback {
-        public TileAdapter.TileViewHolder mCurrentDrag;
-
-        @Override
-        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
-            if (viewHolder.getItemViewType() == 1) {
-                dragFlags = 0;
-            }
-            return makeMovementFlags(dragFlags, 0);
+        public boolean hasRightButton() {
+            return mAdapter.hasRightButton();
         }
 
         @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            return mTileAdapter.onItemMove(viewHolder.getAdapterPosition(),
-                    target.getAdapterPosition());
+        public int getRightButtonResId() {
+            return mAdapter.getRightButtonResId();
         }
 
         @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        }
-
-        @Override
-        public boolean isLongPressDragEnabled() {
-            return true;
-        }
-
-        @Override
-        public boolean isItemViewSwipeEnabled() {
-            return false;
-        }
-
-        @Override
-        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-            if (mCurrentDrag != null) {
-                mCurrentDrag.stopDrag();
-                mCurrentDrag = null;
-            }
-            if (viewHolder != null) {
-                mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
-                mCurrentDrag.startDrag();
-            }
-            try {
-                mTileAdapter.notifyItemChanged(mTileAdapter.mDividerIndex);
-            } catch (Throwable ignore) {
-
-            }
-            super.onSelectedChanged(viewHolder, actionState);
-        }
-
-        @Override
-        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            ((TileAdapter.TileViewHolder) viewHolder).stopDrag();
-            super.clearView(recyclerView, viewHolder);
+        public void handleRightButtonClick() {
+            mAdapter.handleRightButtonClick();
         }
     }
 
