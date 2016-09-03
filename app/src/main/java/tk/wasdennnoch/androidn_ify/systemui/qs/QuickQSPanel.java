@@ -66,6 +66,7 @@ public class QuickQSPanel extends LinearLayout {
     private boolean mShowPercent;
     private boolean mAllowFancy;
     private boolean mIsLandscape;
+    private float mLastPosition = 0;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -240,9 +241,11 @@ public class QuickQSPanel extends LinearLayout {
         if (StatusBarHeaderHooks.mDecorLayout != null)
             firstPageDelayedBuilder.addFloat(StatusBarHeaderHooks.mDecorLayout, "alpha", 0f, 1f);
         mFirstPageDelayedAnimator = firstPageDelayedBuilder.build();
+        setPosition(mLastPosition);
     }
 
     public void setPosition(float f) {
+        mLastPosition = f;
         if (mAllowFancy) {
             animateFancy(f);
         } else {

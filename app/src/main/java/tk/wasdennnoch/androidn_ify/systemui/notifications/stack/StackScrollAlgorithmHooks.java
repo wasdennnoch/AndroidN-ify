@@ -26,7 +26,7 @@ public class StackScrollAlgorithmHooks {
     public static final int LOCATION_TOP_STACK_HIDDEN = 0x02;
     private static final String KEY_STACK_TOP = "StackTop";
     private static Rect mClipBounds = new Rect();
-    private static ViewGroup mStackScrollLayout;
+    public static ViewGroup mStackScrollLayout;
     private static float mStackTop = 0;
     private static float mStateTop = 0;
     private static int mShadowLeft = 0;
@@ -48,6 +48,14 @@ public class StackScrollAlgorithmHooks {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
 
+            Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
+            XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "initView", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    mStackScrollLayout = (ViewGroup) param.thisObject;
+                }
+            });
+
             if (!config.notifications.experimental) return;
 
             if (config.notifications.change_style) {
@@ -56,7 +64,6 @@ public class StackScrollAlgorithmHooks {
                 Class classStackScrollState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollState", classLoader);
                 Class classStackViewState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackViewState", classLoader);
                 Class classAmbientState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.AmbientState", classLoader);
-                Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
                 Class classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
 
                 fieldCollapsedSize = XposedHelpers.findField(classStackScrollAlgorithm, "mCollapsedSize");
@@ -124,13 +131,6 @@ public class StackScrollAlgorithmHooks {
                                     mStackScrollLayout.getBottom());
                             mStackScrollLayout.setClipBounds(mClipBounds);
                         }
-                    }
-                });
-
-                XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "initView", new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        mStackScrollLayout = (ViewGroup) param.thisObject;
                     }
                 });
 

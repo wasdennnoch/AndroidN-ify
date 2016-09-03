@@ -73,7 +73,7 @@ public class NotificationHooks {
     public static FrameLayout.LayoutParams mShadowLp;
     private static Map<String, Integer> mGeneratedColors = new HashMap<>();
 
-    private static Object mPhoneStatusBar;
+    public static Object mPhoneStatusBar;
 
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
@@ -752,6 +752,18 @@ public class NotificationHooks {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         mPhoneStatusBar = param.thisObject;
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "makeStatusBarView", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        Object mNavigationBarView = XposedHelpers.getObjectField(NotificationHooks.mPhoneStatusBar, "mNavigationBarView");
+                        if (mNavigationBarView == null) {
+                            QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
+                            if (qsCustomizer != null)
+                                qsCustomizer.setHasNavBar(false);
+                        }
                     }
                 });
 

@@ -47,6 +47,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgorithmHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.PageIndicator;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
@@ -897,7 +898,7 @@ public class StatusBarHeaderHooks {
         public void onClickSafe(View v) {
             switch (v.getId()) {
                 case R.id.qs_edit:
-                    final int x = mEditBtn.getLeft() + mEditBtn.getWidth() / 2;
+                    final int x = StackScrollAlgorithmHooks.mStackScrollLayout.getLeft() + mEditBtn.getLeft() + mEditBtn.getWidth() / 2;
                     final int y = mStatusBarHeaderView.getHeight() + mDecorLayout.getTop() + mDecorLayout.getHeight() / 2;
 
                     startRunnableDismissingKeyguard(new Runnable() {

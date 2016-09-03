@@ -20,7 +20,6 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
-import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_TILEVIEW;
@@ -38,17 +37,13 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private List<String> mTileSpecs = new ArrayList<>();
     protected ArrayList<Object> mRecords = new ArrayList<>();
     protected ArrayList<ViewGroup> mTileViews = new ArrayList<>();
-    protected ViewGroup mQsPanel;
     protected Context mContext;
     protected int mCellHeight;
     protected int mCellWidth;
     private ResourceUtils mRes;
     public int mDividerIndex;
 
-    private int mPanelWidth = 0;
-
     public TileAdapter.TileViewHolder mCurrentDrag;
-    private QSPanelWidthListener mWidthListener;
 
     public TileAdapter(Context context) {
         mContext = context;
@@ -59,11 +54,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
         mItemTouchHelper = new CustomItemTouchHelper(mCallbacks);
         XposedHelpers.setIntField(mCallbacks, "mCachedMaxScrollSpeed", ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
-    }
-
-    public TileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
-        this(context);
-        init(records, context);
     }
 
     private void init(ArrayList<Object> records, Context context) {
@@ -134,13 +124,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     private int getWidth() {
-        int width = StatusBarHeaderHooks.mQsPanel.getWidth();
-        if (mPanelWidth != width) {
-            mPanelWidth = width;
-            if (mWidthListener != null)
-                mWidthListener.onWidthChanged(width);
-        }
-        return width / 3;
+        return StatusBarHeaderHooks.mQsPanel.getWidth() / 3;
     }
 
     private GridLayoutManager.LayoutParams generateLayoutParams() {
@@ -238,10 +222,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
     public ItemTouchHelper getItemTouchHelper() {
         return mItemTouchHelper;
-    }
-
-    public void setWidthListener(QSPanelWidthListener widthListener) {
-        mWidthListener = widthListener;
     }
 
     public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -434,10 +414,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
                 XposedHook.logE(TAG, "Error attaching ItemTouchCallback to RecyclerView", t);
             }
         }
-    }
-
-    public interface QSPanelWidthListener {
-        void onWidthChanged(int width);
     }
 
 }
