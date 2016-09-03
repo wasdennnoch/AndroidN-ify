@@ -98,6 +98,13 @@ public class SystemUIHooks {
                 }, 2000);
             }
         });
+        
+        XposedHelpers.findAndHookMethod("android.app.ContextImpl", classLoader, "enforceCallingPermission", String.class, String.class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                if (param.args[0].equals("android.permission.BATTERY_STATS")) param.setResult(null);
+            }
+        });
 
     }
 
