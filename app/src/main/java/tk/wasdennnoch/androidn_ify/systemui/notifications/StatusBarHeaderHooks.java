@@ -908,7 +908,7 @@ public class StatusBarHeaderHooks {
             switch (v.getId()) {
                 case R.id.qs_edit:
                     final int x = mEditBtn.getLeft() + mEditBtn.getWidth() / 2;
-                    final int y = mEditBtn.getTop() + mEditBtn.getHeight() / 2;
+                    final int y = mStatusBarHeaderView.getHeight() + mDecorLayout.getTop() + mDecorLayout.getHeight() / 2;
 
                     startRunnableDismissingKeyguard(new Runnable() {
                         @Override

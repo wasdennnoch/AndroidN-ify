@@ -1,16 +1,25 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
 import android.content.Context;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources;
+import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
+import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class NotificationPanelHooks {
 
@@ -19,12 +28,16 @@ public class NotificationPanelHooks {
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
+    private static final String CLASS_NOTIFICATIONS_QUICK_SETTINGS_CONTAINER = "com.android.systemui.statusbar.phone.NotificationsQuickSettingsContainer";
 
     public static final int STATE_SHADE = 0;
     public static final int STATE_KEYGUARD = 1;
 
     public static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
+    private static QSCustomizer mQsCustomizer;
+
+    private static List<BarStateCallback> mBarStateCallbacks = new ArrayList<>();
 
     private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -48,6 +61,12 @@ public class NotificationPanelHooks {
                     XposedHook.logE(TAG, "Couldn't change QS container background color", t);
                 }
             }
+
+            FrameLayout.LayoutParams qsCustomizerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            QSCustomizer qsCustomizer = new QSCustomizer(context);
+            mNotificationPanelView.addView(qsCustomizer, qsCustomizerLp);
+
+            mQsCustomizer = qsCustomizer;
         }
     };
 
@@ -56,6 +75,9 @@ public class NotificationPanelHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "setBarStateHook: Setting state to " + (int) param.args[0]);
             StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
+            for (BarStateCallback callback : mBarStateCallbacks) {
+                callback.onStateChanged();
+            }
         }
     };
 
@@ -143,6 +165,8 @@ public class NotificationPanelHooks {
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
+                //Class<?> classNotificationsQuickSettingsContainer = XposedHelpers.findClass(CLASS_NOTIFICATIONS_QUICK_SETTINGS_CONTAINER, classLoader);
+
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
 
@@ -153,9 +177,52 @@ public class NotificationPanelHooks {
                     }
                 });
 
+                /*
+                XposedHelpers.findAndHookMethod(classNotificationsQuickSettingsContainer, "onFinishInflate", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        FrameLayout container = (FrameLayout) param.thisObject;
+
+                        FrameLayout.LayoutParams qsCustomizerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        QSCustomizer qsCustomizer = new QSCustomizer(container.getContext());
+                        qsCustomizer.setLayoutParams(qsCustomizerLp);
+                        //container.addView(qsCustomizer, 2);
+
+                        mQsCustomizer = qsCustomizer;
+                    }
+                });
+                */
+
+                XC_MethodHook returnIfCustomizing = new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        if (mQsCustomizer != null && mQsCustomizer.isCustomizing())
+                            param.setResult(false);
+                    }
+                };
+
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onInterceptTouchEvent", MotionEvent.class, returnIfCustomizing);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onTouchEvent", MotionEvent.class, returnIfCustomizing);
+
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
         }
+    }
+
+    public static void addBarStateCallback(BarStateCallback callback) {
+        mBarStateCallbacks.add(callback);
+    }
+
+    public static void removeBarStateCallback(BarStateCallback callback) {
+        mBarStateCallbacks.remove(callback);
+    }
+
+    public static QSCustomizer getQsCustomizer() {
+        return mQsCustomizer;
+    }
+
+    public interface BarStateCallback {
+        void onStateChanged();
     }
 }

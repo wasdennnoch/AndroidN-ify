@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="match_parent">-1px</dimen>
+
     <!-- Recents -->
     <dimen name="recents_empty_drawable_padding">25dp</dimen>
     <dimen name="recents_stack_top_padding">32dp</dimen>
@@ -81,6 +83,9 @@
     <dimen name="notification_header_shrink_min_width">72dp</dimen>
     <dimen name="notification_content_margin_end">16dp</dimen>
     <dimen name="notification_badge_size">12dp</dimen>
+
+    <dimen name="notification_panel_width">@dimen/match_parent</dimen>
+    <dimen name="navigation_bar_size">48dp</dimen>
     <!-- /Notifications / Status bar header -->
 
     <dimen name="notification_header_background_height">45.5dp</dimen>

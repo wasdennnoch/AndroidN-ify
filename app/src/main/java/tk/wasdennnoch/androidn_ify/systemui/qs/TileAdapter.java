@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import java.util.List;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_TILEVIEW;
@@ -25,30 +28,41 @@ import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_T
 public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder> {
 
     protected static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
+    public static final long MOVE_DURATION = 150;
+    private static final long DRAG_LENGTH = 100;
+    private static final float DRAG_SCALE = 1.2f;
     public static final float TILE_ASPECT = 1.2f;
 
     public static final String TAG = "TileAdapter";
+    private final ItemTouchHelper mItemTouchHelper;
+    private List<String> mTileSpecs = new ArrayList<>();
     protected ArrayList<Object> mRecords = new ArrayList<>();
-    protected ViewGroup mQsPanel;
     protected ArrayList<ViewGroup> mTileViews = new ArrayList<>();
+    protected ViewGroup mQsPanel;
     protected Context mContext;
     protected int mCellHeight;
     protected int mCellWidth;
-    private List<String> mTileSpecs;
-    private DetailViewManager.TileTouchCallback mTileTouchCallback;
     private ResourceUtils mRes;
     public int mDividerIndex;
 
-    public TileAdapter(Context context, ViewGroup qsPanel) {
+    private int mPanelWidth = 0;
+
+    public TileAdapter.TileViewHolder mCurrentDrag;
+    private QSPanelWidthListener mWidthListener;
+
+    public TileAdapter(Context context) {
         mContext = context;
-        mQsPanel = qsPanel;
+        //mQsPanel = qsPanel;
 
         mCellHeight = mContext.getResources().getDimensionPixelSize(mContext.getResources().getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI));
         mCellWidth = (int) (mCellHeight * TILE_ASPECT);
+
+        mItemTouchHelper = new CustomItemTouchHelper(mCallbacks);
+        XposedHelpers.setIntField(mCallbacks, "mCachedMaxScrollSpeed", ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
     }
 
     public TileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
-        this(context, qsPanel);
+        this(context);
         init(records, context);
     }
 
@@ -79,7 +93,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
     private void addAvailableTiles() {
         // TODO completely remove AvailableTileAdapter
-        AvailableTileAdapter mAvailableTileAdapter = new AvailableTileAdapter(mRecords, mContext, mQsPanel);
+        AvailableTileAdapter mAvailableTileAdapter = new AvailableTileAdapter(mRecords, mContext);
         int count = mAvailableTileAdapter.getItemCount();
         for (int i = 0; i < count; i++) {
             mTileSpecs.add((String) mAvailableTileAdapter.mRecords.get(i));
@@ -120,7 +134,13 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     private int getWidth() {
-        return mQsPanel.getWidth() / 3;
+        int width = StatusBarHeaderHooks.mQsPanel.getWidth();
+        if (mPanelWidth != width) {
+            mPanelWidth = width;
+            if (mWidthListener != null)
+                mWidthListener.onWidthChanged(width);
+        }
+        return width / 3;
     }
 
     private GridLayoutManager.LayoutParams generateLayoutParams() {
@@ -148,7 +168,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         if (holder.getItemViewType() == 1) {
             TextView textView = (TextView) holder.itemView.findViewById(android.R.id.title);
             int textId;
-            if (mTileTouchCallback.mCurrentDrag == null) {
+            if (mCurrentDrag == null) {
                 textId = R.string.drag_to_add_tiles;
             } else {
                 textId = R.string.drag_to_remove_tiles;
@@ -208,16 +228,20 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         list.remove(removeIndex);
     }
 
-    public void setTileTouchCallback(DetailViewManager.TileTouchCallback tileTouchCallback) {
-        mTileTouchCallback = tileTouchCallback;
-    }
-
     private void addTile(int position) {
         onItemMove(position, mDividerIndex);
     }
 
     private void removeTile(int position) {
         onItemMove(position, mDividerIndex);
+    }
+
+    public ItemTouchHelper getItemTouchHelper() {
+        return mItemTouchHelper;
+    }
+
+    public void setWidthListener(QSPanelWidthListener widthListener) {
+        mWidthListener = widthListener;
     }
 
     public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -244,7 +268,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
         public void startDrag() {
             if (mItemView == null) return;
-            mItemView.animate().setDuration(100L).scaleX(1.2F).scaleY(1.2F);
+            mItemView.animate().setDuration(DRAG_LENGTH).scaleX(DRAG_SCALE).scaleY(DRAG_SCALE);
             try {
                 ((View) XposedHelpers.callMethod(mItemView.getChildAt(0), "labelView")).animate().setDuration(100L).alpha(0.0F);
             } catch (Throwable ignore) {
@@ -253,7 +277,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
         public void stopDrag() {
             if (mItemView == null) return;
-            mItemView.animate().setDuration(100L).scaleX(1.0F).scaleY(1.0F);
+            mItemView.animate().setDuration(DRAG_LENGTH).scaleX(1.0F).scaleY(1.0F);
             try {
                 ((View) XposedHelpers.callMethod(mItemView.getChildAt(0), "labelView")).animate().setDuration(100L).alpha(1.0F);
             } catch (Throwable ignore) {
@@ -329,5 +353,91 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             }
         }
     };
+
+    private final ItemTouchHelper.Callback mCallbacks = new ItemTouchHelper.Callback() {
+
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
+            if (viewHolder.getItemViewType() == 1) {
+                dragFlags = 0;
+            }
+            return makeMovementFlags(dragFlags, 0);
+        }
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return onItemMove(viewHolder.getAdapterPosition(),
+                    target.getAdapterPosition());
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+        }
+
+        @Override
+        public boolean isLongPressDragEnabled() {
+            return true;
+        }
+
+        @Override
+        public boolean isItemViewSwipeEnabled() {
+            return false;
+        }
+
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            if (mCurrentDrag != null) {
+                mCurrentDrag.stopDrag();
+                mCurrentDrag = null;
+            }
+            if (viewHolder != null) {
+                mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
+                mCurrentDrag.startDrag();
+            }
+            try {
+                notifyItemChanged(mDividerIndex);
+            } catch (Throwable ignore) {
+
+            }
+            super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            ((TileAdapter.TileViewHolder) viewHolder).stopDrag();
+            super.clearView(recyclerView, viewHolder);
+        }
+    };
+
+    private class CustomItemTouchHelper extends ItemTouchHelper {
+
+        public CustomItemTouchHelper(Callback callback) {
+            super(callback);
+        }
+
+        @Override
+        public void attachToRecyclerView(RecyclerView recyclerView) {
+            try {
+                RecyclerView oldRecyclerView = (RecyclerView) XposedHelpers.getObjectField(this, "mRecyclerView");
+                if (oldRecyclerView == recyclerView) {
+                    return; // nothing to do
+                }
+                if (oldRecyclerView != null) {
+                    XposedHelpers.findMethodBestMatch(ItemTouchHelper.class, "destroyCallbacks").invoke(this);
+                }
+                XposedHelpers.setObjectField(this, "mRecyclerView", recyclerView);
+                if (recyclerView != null) {
+                    XposedHelpers.findMethodBestMatch(ItemTouchHelper.class, "setupCallbacks").invoke(this);
+                }
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "Error attaching ItemTouchCallback to RecyclerView", t);
+            }
+        }
+    }
+
+    public interface QSPanelWidthListener {
+        void onWidthChanged(int width);
+    }
 
 }

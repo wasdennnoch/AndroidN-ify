@@ -52,6 +52,7 @@ import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
+import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -72,7 +73,8 @@ public class NotificationHooks {
     public static FrameLayout.LayoutParams mShadowLp;
     private static Map<String, Integer> mGeneratedColors = new HashMap<>();
 
-    private static Object mPhoneStatusBar;
+    public static Object mPhoneStatusBar;
+    public static ViewGroup mStatusBarWindow;
 
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
@@ -669,9 +671,31 @@ public class NotificationHooks {
                 final Class<?> classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
                 final Class<?> classMediaExpandableNotificationRow = getClassMediaExpandableNotificationRow(classLoader);
                 Class classPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
-                Class classStatusBarWindowManager = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager", classLoader);
-                Class classStatusBarWindowManagerState = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager.State", classLoader);
+                if (RemoteInputHelperView.DIRECT_REPLY_ENABLED) {
+                    Class classStatusBarWindowManager = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager", classLoader);
+                    Class classStatusBarWindowManagerState = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager.State", classLoader);
 
+                    XposedHelpers.findAndHookMethod(classPhoneStatusBar, "addStatusBarWindow", new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            statusBarWindowManager = XposedHelpers.getObjectField(param.thisObject, "mStatusBarWindowManager");
+                        }
+                    });
+
+                    XposedHelpers.findAndHookMethod(classStatusBarWindowManager, "applyFocusableFlag", classStatusBarWindowManagerState, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            WindowManager.LayoutParams windowParams = (WindowManager.LayoutParams) XposedHelpers.getObjectField(param.thisObject, "mLpChanged");
+                            if (remoteInputActive) {
+                                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+                            } else {
+                                windowParams.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+                            }
+                        }
+                    });
+                }
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
@@ -684,27 +708,6 @@ public class NotificationHooks {
                         } catch (ClassCastException e) {
                             //noinspection ConstantConditions
                             ((GradientDrawable) bg).setCornerRadius(0);
-                        }
-                    }
-                });
-
-                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "addStatusBarWindow", new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        statusBarWindowManager = XposedHelpers.getObjectField(param.thisObject, "mStatusBarWindowManager");
-                    }
-                });
-
-                XposedHelpers.findAndHookMethod(classStatusBarWindowManager, "applyFocusableFlag", classStatusBarWindowManagerState, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        WindowManager.LayoutParams windowParams = (WindowManager.LayoutParams) XposedHelpers.getObjectField(param.thisObject, "mLpChanged");
-                        if (remoteInputActive) {
-                            windowParams.flags &= ~WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-                            windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-                        } else {
-                            windowParams.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-                            windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
                         }
                     }
                 });
@@ -746,10 +749,32 @@ public class NotificationHooks {
                     });
                 }
 
-                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "makeStatusBarView", new XC_MethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         mPhoneStatusBar = param.thisObject;
+                        mStatusBarWindow = (ViewGroup) XposedHelpers.getObjectField(mPhoneStatusBar, "mStatusBarWindow");
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "onBackPressed", new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
+                        if (qsCustomizer != null && qsCustomizer.isCustomizing()) {
+                            param.setResult(true);
+                            qsCustomizer.hideCircular();
+                        }
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "animateCollapsePanels", int.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
+                        if (qsCustomizer != null && qsCustomizer.isCustomizing()) {
+                            qsCustomizer.hide(true);
+                        }
                     }
                 });
 

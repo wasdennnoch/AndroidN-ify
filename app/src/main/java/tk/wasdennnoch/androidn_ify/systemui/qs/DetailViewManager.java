@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
@@ -83,6 +84,7 @@ public class DetailViewManager {
             XposedHook.logE(TAG, "Couldn't open edit view; mRecords == null", null);
             return;
         }
+        /*
         if (mEditAdapter == null)
             createEditAdapter(records);
         if (mTileAdapterIsInvalid) {
@@ -91,6 +93,8 @@ public class DetailViewManager {
         }
 
         showDetailAdapter(mEditAdapter, x, y);
+        */
+        NotificationPanelHooks.getQsCustomizer().show(records, x, y);
     }
 
     private void showDetailAdapter(Object adapter, int x, int y) {
@@ -242,7 +246,7 @@ public class DetailViewManager {
                 return false;
             }
         });
-        mTileAdapter.setTileTouchCallback(callback);
+        //mTileAdapter.setTileTouchCallback(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
