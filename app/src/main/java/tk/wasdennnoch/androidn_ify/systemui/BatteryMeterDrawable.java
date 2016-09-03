@@ -29,7 +29,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.provider.Settings;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
@@ -41,7 +40,6 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
 
     private static final float ASPECT_RATIO = 9.5f / 14.5f;
     public static final String TAG = BatteryMeterDrawable.class.getSimpleName();
-    public static final String SHOW_PERCENT_SETTING = "status_bar_show_battery_percent";
 
     private static final int FULL = 96;
 
@@ -95,6 +93,7 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
     private ResourceUtils mRes;
     private boolean mHasIntrinsicSize = true;
 
+    @SuppressWarnings("deprecation")
     public BatteryMeterDrawable(Context context, Handler handler, int frameColor) {
         mContext = context;
         mHandler = handler;
@@ -297,6 +296,7 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
         return mLightModeFillColor;
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     public void draw(Canvas c) {
         final int level = mLevel;

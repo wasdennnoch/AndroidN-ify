@@ -179,6 +179,7 @@ public class NotificationHeaderView extends ViewGroup {
         return headerView;
     }
 
+    @SuppressWarnings("deprecation")
     private static TextView newDivider(Context context, ResourceUtils res) {
         int dividerMargin = res.getDimensionPixelSize(R.dimen.notification_header_text_margin);
         String dividerSymbol = res.getString(R.string.notification_header_divider_symbol);

@@ -16,6 +16,7 @@
 package tk.wasdennnoch.androidn_ify.ui.emergency.preferences;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +36,6 @@ import android.text.TextDirectionHeuristics;
 import android.view.View;
 
 import com.android.internal.annotations.VisibleForTesting;
-import com.android.internal.logging.MetricsLogger;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.extracted.settingslib.CircleFramedDrawable;
@@ -77,6 +77,7 @@ public class ContactPreference extends Preference {
         setPersistent(false);
     }
 
+    @SuppressWarnings("deprecation")
     public void setUri(@NonNull Uri contactUri) {
         if (mContact != null && !contactUri.equals(mContact.getContactUri()) &&
                 mRemoveContactDialog != null) {
@@ -165,16 +166,6 @@ public class ContactPreference extends Preference {
         return mContact.getContactUri();
     }
 
-    @VisibleForTesting
-    EmergencyContactManager.Contact getContact() {
-        return mContact;
-    }
-
-    @VisibleForTesting
-    AlertDialog getRemoveContactDialog() {
-        return mRemoveContactDialog;
-    }
-
     /**
      * Calls the contact.
      */
@@ -244,6 +235,7 @@ public class ContactPreference extends Preference {
         boolean isDialogShowing;
         Bundle dialogBundle;
 
+        @SuppressLint("ParcelClassLoader")
         public SavedState(Parcel source) {
             super(source);
             isDialogShowing = source.readInt() == 1;

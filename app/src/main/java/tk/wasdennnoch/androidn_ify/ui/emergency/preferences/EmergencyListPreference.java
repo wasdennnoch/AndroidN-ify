@@ -72,12 +72,6 @@ public class EmergencyListPreference extends ListPreference
         }
     }
 
-    @Nullable
-    @VisibleForTesting
-    CharSequence[] getContentDescriptions() {
-        return mContentDescriptions;
-    }
-
     private static CharSequence[] createAccessibleEntries(CharSequence entries[],
                                                           CharSequence[] contentDescriptions) {
         CharSequence[] accessibleEntries = new CharSequence[entries.length];
