@@ -241,7 +241,14 @@ public class QuickQSPanel extends LinearLayout {
         if (StatusBarHeaderHooks.mDecorLayout != null)
             firstPageDelayedBuilder.addFloat(StatusBarHeaderHooks.mDecorLayout, "alpha", 0f, 1f);
         mFirstPageDelayedAnimator = firstPageDelayedBuilder.build();
-        setPosition(mLastPosition);
+        if (mLastPosition != 0) {
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setPosition(mLastPosition);
+                }
+            }, 100);
+        }
     }
 
     public void setPosition(float f) {
