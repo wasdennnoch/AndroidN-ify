@@ -168,17 +168,17 @@
   <string name="enable_emergency_info_title">Activar informações de emergência</string>
   <string name="enable_emergency_info">Adiciona um botão \"Informações de emergência\" ao discador de emergência</string>
   <string name="edit_emergency_info_title">Editar informações de emergência</string>
-  <string name="header_personal">Pessoal</string>
-  <string name="info_fullname">Nome completo</string>
-  <string name="info_address">Endereço</string>
-  <string name="info_birthdate">Data de nascimento</string>
-  <string name="header_medical">Médica</string>
-  <string name="info_bloodtype">Tipo sanguíneo</string>
-  <string name="info_allergies">Alergias</string>
-  <string name="info_medications">Medicações</string>
-  <string name="info_medicalnotes">Condições e anotações médicas</string>
-  <string name="info_organdonor">Doador de órgãos</string>
-  <string name="info_unspecified">Não especificado</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Pessoal</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Nome completo</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Endereço</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Data de nascimento</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">Médica</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Tipo sanguíneo</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">Alergias</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Medicações</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Condições e anotações médicas</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Doador de órgãos</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Não especificado</string>
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="battery">Bateria</string>

@@ -78,7 +78,7 @@
     <!-- Is on or off -->
     <string name="display_summary">Adaptive brightness is %1$s</string>
     <string name="sound_summary">Ringer volume at %1$s</string>
-    <string name="apps_summary">%1$d apps installed</string>
+    <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d apps installed</string>
     <!-- Storage settings summary: 10GB of 12GB used -->
     <string name="storage_summary">%1$s of %2$s used</string>
     <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -94,7 +94,7 @@
     <string name="location_on_power">ON / Power saving</string>
     <string name="location_on_device">ON / Device only</string>
     <string name="location_on_high">ON / High accuracy</string>
-    <string name="print_summary">%1$d print jobs</string>
+    <string name="print_summary" tools:ignore="PluralsCandidate">%1$d print jobs</string>
     <!-- Header of app installation source -->
     <string name="store">Store</string>
     <!-- Header of app installation source -->
@@ -354,5 +354,8 @@
     <string name="battery_detail_switch_summary">Reduces performance and background data</string>
     <string name="qs_add_notes_title">Notes</string>
     <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
+    <string name="hex">HEX</string>
+    <string name="arrow_right">→</string>
+    <string name="arrow_down">↓</string>
 
 </resources>

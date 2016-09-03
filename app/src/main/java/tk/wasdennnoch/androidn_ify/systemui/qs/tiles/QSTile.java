@@ -11,6 +11,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("SameParameterValue")
 public class QSTile {
 
     private static final String TAG = "QSTile";
@@ -18,16 +19,16 @@ public class QSTile {
     private TilesManager mTilesManager;
     private Object mHost;
     private Object mTile;
-    private String mKey;
-    protected Context mContext;
-    protected ResourceUtils mResUtils;
-    protected State mState;
+    private final String mKey;
+    Context mContext;
+    final ResourceUtils mResUtils;
+    final State mState;
 
     public static final String TILE_KEY_NAME = "customTileKey";
-    public static final String DUMMY_INTENT = "intent(dummy)";
+    private static final String DUMMY_INTENT = "intent(dummy)";
     public static final String CLASS_INTENT_TILE = "com.android.systemui.qs.tiles.IntentTile";
     public static final String CLASS_VOLUME_TILE = "com.android.systemui.qs.tiles.VolumeTile"; // Used on CM12.1 where IntentTile doesn't exist
-    public static final String CLASS_VISUALIZER_TILE = "com.android.systemui.qs.tiles.VisualizerTile"; // To fix a SystemUI crash caused by it
+    public static final String CLASS_VISUALIZER_TILE = "com.android.systemui.qs.tiles.VisualizerTile"; // To fix a SystemUI crash caused by loading VolumeTile
     public static final String CLASS_TILE_STATE = "com.android.systemui.qs.QSTile.State";
     public static final String CLASS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     public static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
@@ -73,7 +74,7 @@ public class QSTile {
         mState.apply(state);
     }
 
-    public void onCreateTileView(View tileView) throws Throwable {
+    public void onCreateTileView(View tileView) {
         XposedHelpers.setAdditionalInstanceField(tileView, TILE_KEY_NAME, mKey);
     }
 
@@ -81,7 +82,7 @@ public class QSTile {
         return null;
     }
 
-    public void refreshState() {
+    void refreshState() {
         try {
             XposedHelpers.callMethod(mTile, "refreshState");
         } catch (Throwable t) {
@@ -89,11 +90,11 @@ public class QSTile {
         }
     }
 
-    public void startActivityDismissingKeyguard(String action) {
+    void startActivityDismissingKeyguard(String action) {
         startActivityDismissingKeyguard(new Intent(action));
     }
 
-    public void startActivityDismissingKeyguard(Intent intent) {
+    private void startActivityDismissingKeyguard(Intent intent) {
         try {
             XposedHelpers.callMethod(mHost, "startActivityDismissingKeyguard", intent);
         } catch (Throwable t) {
@@ -105,7 +106,7 @@ public class QSTile {
         }
     }
 
-    public void showDetail(boolean show) {
+    void showDetail(boolean show) {
         XposedHelpers.callMethod(mTile, "showDetail", show);
     }
 
@@ -140,9 +141,9 @@ public class QSTile {
         public boolean visible;
         public Drawable icon;
         public String label;
-        public boolean autoMirrorDrawable = true;
+        public final boolean autoMirrorDrawable = true;
 
-        private String mKey;
+        private final String mKey;
 
         public State(String key) {
             mKey = key;

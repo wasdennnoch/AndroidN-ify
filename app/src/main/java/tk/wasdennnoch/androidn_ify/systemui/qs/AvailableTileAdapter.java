@@ -3,7 +3,6 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -18,8 +17,8 @@ public class AvailableTileAdapter extends TileAdapter {
 
     private static final String CLASS_QS_TUNER = "com.android.systemui.tuner.QsTuner";
 
-    private Class<?> classQSTileHost;
-    private Class<?> classResourceIcon;
+    private final Class<?> classQSTileHost;
+    private final Class<?> classResourceIcon;
     private Class<?> classQSTuner;
 
     public AvailableTileAdapter(ArrayList<Object> records, Context context) {

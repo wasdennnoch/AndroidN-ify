@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -20,12 +19,13 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
+@SuppressWarnings("SameParameterValue")
 public class StackScrollAlgorithmHooks {
 
     private static final String TAG = "StackScrollAlgorithmHooks";
-    public static final int LOCATION_TOP_STACK_HIDDEN = 0x02;
+    private static final int LOCATION_TOP_STACK_HIDDEN = 0x02;
     private static final String KEY_STACK_TOP = "StackTop";
-    private static Rect mClipBounds = new Rect();
+    private static final Rect mClipBounds = new Rect();
     private static ViewGroup mStackScrollLayout;
     private static float mStackTop = 0;
     private static float mStateTop = 0;
@@ -238,7 +238,7 @@ public class StackScrollAlgorithmHooks {
         }
     }
 
-    public static boolean updateShadowVisibility() {
+    private static boolean updateShadowVisibility() {
         boolean visible = !NotificationPanelHooks.isOnKeyguard();
         NotificationHooks.mPanelShadow.setVisibility(visible ? View.VISIBLE : View.GONE);
         return visible;

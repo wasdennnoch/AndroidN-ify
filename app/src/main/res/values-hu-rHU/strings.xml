@@ -171,17 +171,17 @@
   <string name="enable_emergency_info_title">Vészhelyzeti információ engedélyezése</string>
   <string name="enable_emergency_info">Egy vészhelyzeti információ gombot ad a vészhelyzeti tárcsázóhoz</string>
   <string name="edit_emergency_info_title">Vészhelyzeti információ szerkesztése</string>
-  <string name="header_personal">Személyes</string>
-  <string name="info_fullname">Teljes név</string>
-  <string name="info_address">Cím</string>
-  <string name="info_birthdate">Születési dátum</string>
-  <string name="header_medical">Orvosi</string>
-  <string name="info_bloodtype">Vértípus</string>
-  <string name="info_allergies">Allergiák</string>
-  <string name="info_medications">Gyógyszerek</string>
-  <string name="info_medicalnotes">Betegségek és jegyzetek</string>
-  <string name="info_organdonor">Szervdonor</string>
-  <string name="info_unspecified">Nincs megadva</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Személyes</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Teljes név</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Cím</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Születési dátum</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">Orvosi</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Vértípus</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">Allergiák</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Gyógyszerek</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Betegségek és jegyzetek</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Szervdonor</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Nincs megadva</string>
   <string name="yes">Igen</string>
   <string name="no">Nem</string>
   <string name="battery">Akkumulátor</string>

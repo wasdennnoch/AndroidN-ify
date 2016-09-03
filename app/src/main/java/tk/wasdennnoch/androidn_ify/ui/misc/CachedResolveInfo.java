@@ -8,7 +8,7 @@ public class CachedResolveInfo {
     private CharSequence label;
     private Drawable icon;
     private int color;
-    public ResolveInfo resolveInfo;
+    private ResolveInfo resolveInfo;
 
     private String labelSearch;
     private String packageNameSearch;

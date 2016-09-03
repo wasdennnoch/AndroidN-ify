@@ -199,17 +199,17 @@
   <string name="enable_emergency_info_title">Abilita Informazioni di Emergenza</string>
   <string name="enable_emergency_info">Aggiunge un bottone per le Informazioni di Emergenza sul dialer per le chiamate di Emergenza</string>
   <string name="edit_emergency_info_title">Modifica Informazioni di Emergenza</string>
-  <string name="header_personal">Personale</string>
-  <string name="info_fullname">Nome completo</string>
-  <string name="info_address">Indirizzo</string>
-  <string name="info_birthdate">Data di nascita</string>
-  <string name="header_medical">Medico</string>
-  <string name="info_bloodtype">Tipo sangue</string>
-  <string name="info_allergies">Allergie</string>
-  <string name="info_medications">Medicazioni</string>
-  <string name="info_medicalnotes">Condizioni mediche e note</string>
-  <string name="info_organdonor">Donatore di organi</string>
-  <string name="info_unspecified">Non specificato</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Personale</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Nome completo</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Indirizzo</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Data di nascita</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">Medico</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Tipo sangue</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">Allergie</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Medicazioni</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Condizioni mediche e note</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Donatore di organi</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Non specificato</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="yes">Si</string>

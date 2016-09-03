@@ -35,10 +35,11 @@ import android.widget.LinearLayout;
  *
  * @author Sergey Margaritov
  */
+@SuppressWarnings({"UnusedParameters", "JavaDoc"})
 public class ColorPickerPreference extends Preference implements Preference.OnPreferenceClickListener, ColorPickerDialog.OnColorChangedListener {
 
-    View mView;
-    ColorPickerDialog mDialog;
+    private View mView;
+    private ColorPickerDialog mDialog;
     private int mValue = Color.BLACK;
     private float mDensity = 0;
     private boolean mAlphaSliderEnabled = false;
@@ -130,7 +131,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         Bitmap bm = Bitmap.createBitmap(d, d, Config.ARGB_8888);
         int w = bm.getWidth();
         int h = bm.getHeight();
-        int c = color;
+        int c;
         for (int i = 0; i < w; i++) {
             for (int j = i; j < h; j++) {
                 c = (i <= 1 || j <= 1 || i >= w - 2 || j >= h - 2) ? Color.GRAY : color;
@@ -153,7 +154,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         setPreviewColor();
         try {
             getOnPreferenceChangeListener().onPreferenceChange(this, color);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
 
         }
     }
@@ -163,7 +164,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         return false;
     }
 
-    protected void showDialog(Bundle state) {
+    private void showDialog(Bundle state) {
         mDialog = new ColorPickerDialog(getContext(), mValue);
         mDialog.setTitle(getTitle());
         mDialog.setOnColorChangedListener(this);
@@ -303,7 +304,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
         public SavedState(Parcel source) {
             super(source);
-            dialogBundle = source.readBundle();
+            dialogBundle = source.readBundle(getClass().getClassLoader());
         }
 
         @Override

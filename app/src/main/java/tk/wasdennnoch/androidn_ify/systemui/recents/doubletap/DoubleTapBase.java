@@ -18,13 +18,14 @@ import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-public class DoubleTapBase {
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+class DoubleTapBase {
 
     private static final String TAG = "DoubleTapBase";
     private static ActivityManager mAm;
-    protected static int mDoubletapSpeed = 180;
+    static int mDoubletapSpeed = 180;
 
-    private static BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
+    private static final BroadcastReceiver sBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             XposedHook.logD(TAG, "Broadcast received, action: " + intent.getAction());
@@ -43,11 +44,11 @@ public class DoubleTapBase {
         }
     };
 
-    protected static void loadPrefDoubleTapSpeed() {
+    static void loadPrefDoubleTapSpeed() {
         mDoubletapSpeed = ConfigUtils.recents().double_tap_speed;
     }
 
-    protected static void registerReceiver(Context context, boolean includeDebug) {
+    static void registerReceiver(Context context, boolean includeDebug) {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(SettingsActivity.ACTION_RECENTS_CHANGED);
         if (includeDebug)

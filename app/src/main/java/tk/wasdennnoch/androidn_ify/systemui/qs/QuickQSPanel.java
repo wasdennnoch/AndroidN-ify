@@ -42,17 +42,17 @@ public class QuickQSPanel extends LinearLayout {
     private static final float EXPANDED_TILE_DELAY = .7f;
     private static final float LAST_ROW_EXPANDED_DELAY = .86f;
 
-    private int mIconSizePx;
-    private int mTileSpacingPx;
-    private int mQuickTilePadding;
+    private final int mIconSizePx;
+    private final int mTileSpacingPx;
+    private final int mQuickTilePadding;
 
-    private int mMaxTiles;
-    private HeaderTileLayout mTileLayout;
-    private ResourceUtils mRes;
-    private ArrayList<Object> mRecords = new ArrayList<>();
-    private ArrayList<View> mIconViews = new ArrayList<>();
-    private ArrayList<View> mTopFiveQs = new ArrayList<>();
-    private ArrayList<Integer> mTopFiveX = new ArrayList<>();
+    private final int mMaxTiles;
+    private final HeaderTileLayout mTileLayout;
+    private final ResourceUtils mRes;
+    private final ArrayList<Object> mRecords = new ArrayList<>();
+    private final ArrayList<View> mIconViews = new ArrayList<>();
+    private final ArrayList<View> mTopFiveQs = new ArrayList<>();
+    private final ArrayList<Integer> mTopFiveX = new ArrayList<>();
     private BatteryTile.BatteryView mBatteryView;
     private TouchAnimator mTranslationXAnimator;
     private TouchAnimator mTranslationYAnimator;
@@ -61,12 +61,12 @@ public class QuickQSPanel extends LinearLayout {
     private TouchAnimator mFirstPageAnimator;
     private TouchAnimator mFirstPageDelayedAnimator;
     private TouchAnimator mLastRowAnimator;
-    private TouchAnimator mFadeAnimator;
+    private final TouchAnimator mFadeAnimator;
     private float oldPosition = 0;
-    private boolean mShowPercent;
-    private boolean mAllowFancy;
+    private final boolean mShowPercent;
+    private final boolean mAllowFancy;
     private boolean mIsLandscape;
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
@@ -317,7 +317,7 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
-    public static void getRelativePosition(int ai[], View view, View view1) {
+    private static void getRelativePosition(int ai[], View view, View view1) {
         ai[0] = view.getWidth() / 2;
         ai[1] = 0;
         getRelativePositionInt(ai, view, view1);
@@ -331,7 +331,7 @@ public class QuickQSPanel extends LinearLayout {
         }
     }
 
-    public void onAnimationAtEnd() {
+    private void onAnimationAtEnd() {
         setVisibility(INVISIBLE);
         showTopFive();
     }
@@ -341,7 +341,7 @@ public class QuickQSPanel extends LinearLayout {
             v.setVisibility(VISIBLE);
     }
 
-    public void onAnimationStarted() {
+    private void onAnimationStarted() {
         if (NotificationPanelHooks.getStatusBarState() != NotificationPanelHooks.STATE_KEYGUARD) {
             setVisibility(VISIBLE);
             for (View v : mTopFiveQs)
@@ -492,9 +492,9 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         private class GlobalLayoutListener {
-            private View mView;
+            private final View mView;
 
-            protected GlobalLayoutListener(View view) {
+            GlobalLayoutListener(View view) {
                 mView = view;
                 mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override

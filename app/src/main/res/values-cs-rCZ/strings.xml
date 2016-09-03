@@ -150,17 +150,17 @@
   <string name="emergency_info">Nouzové informace</string>
   <string name="enable_emergency_info_title">Povolit nouzové informace</string>
   <string name="edit_emergency_info_title">Upravit nouzové informace</string>
-  <string name="header_personal">Osobní</string>
-  <string name="info_fullname">Jméno</string>
-  <string name="info_address">Adresa</string>
-  <string name="info_birthdate">Datum narození</string>
-  <string name="header_medical">Zdravotní</string>
-  <string name="info_bloodtype">Krevní skupina</string>
-  <string name="info_allergies">Alergie</string>
-  <string name="info_medications">Léky</string>
-  <string name="info_medicalnotes">Poznámky lékaře</string>
-  <string name="info_organdonor">Dárce orgánů</string>
-  <string name="info_unspecified">Nespecifikované</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Osobní</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Jméno</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Adresa</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Datum narození</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">Zdravotní</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Krevní skupina</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">Alergie</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Léky</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Poznámky lékaře</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Dárce orgánů</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Nespecifikované</string>
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="battery">Baterie</string>

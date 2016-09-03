@@ -49,7 +49,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_SETTINGS = "com.android.settings";
     public static final String PACKAGE_PHONE = "com.android.phone";
     public static final String PACKAGE_OWN = "tk.wasdennnoch.androidn_ify";
-    public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
+    private static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
 
     public static final String ACTION_MARK_UNSTABLE = "tk.wasdennnoch.androidn_ify.action.ACTION_MARK_UNSTABLE";
 

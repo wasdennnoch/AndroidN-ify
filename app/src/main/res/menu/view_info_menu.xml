@@ -10,10 +10,11 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_mode_edit_24dp"
         android:title="@string/edit_emergency_info_title"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 </menu>

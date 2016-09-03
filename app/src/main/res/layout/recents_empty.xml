@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -12,7 +13,8 @@
         android:layout_gravity="center"
         android:layout_centerInParent="true"
         android:paddingBottom="@dimen/recents_empty_drawable_padding"
-        android:src="@drawable/recents_empty" />
+        android:src="@drawable/recents_empty"
+        tools:ignore="ContentDescription" />
     <TextView android:layout_below="@id/recentsEmptyImage" android:layout_centerInParent="true" android:textSize="16.0sp" android:textColor="#ffffffff" android:gravity="center" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no_previous_recents"
         xmlns:android="http://schemas.android.com/apk/res/android" />
 </RelativeLayout>

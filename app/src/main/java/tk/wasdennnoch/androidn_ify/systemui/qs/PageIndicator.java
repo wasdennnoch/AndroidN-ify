@@ -13,6 +13,7 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class PageIndicator extends ViewGroup {
 
     private static final String TAG = "PageIndicator";

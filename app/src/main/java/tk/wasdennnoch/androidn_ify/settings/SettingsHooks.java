@@ -38,7 +38,7 @@ public class SettingsHooks {
     private static final String KEY_APP_DETAILS_CATEGORY = "AppDetailsCategory";
     private static final String KEY_APP_DETAILS = "app_details";
 
-    private static long[] mHits = new long[3];
+    private static final long[] mHits = new long[3];
 
     /*private static XC_MethodHook onCreateHook = new XC_MethodHook() {
         @Override
@@ -72,7 +72,7 @@ public class SettingsHooks {
         }
     }
 
-    private static XC_MethodHook onPreferenceTreeClickHook = new XC_MethodHook() {
+    private static final XC_MethodHook onPreferenceTreeClickHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             Preference preference = (Preference) param.args[1];
@@ -111,7 +111,7 @@ public class SettingsHooks {
     };
 
     // LP
-    private static XC_MethodHook onCreateViewHook = new XC_MethodHook() {
+    private static final XC_MethodHook onCreateViewHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             View view = (View) param.getResult();
@@ -159,7 +159,7 @@ public class SettingsHooks {
     }
 
     // MM
-    private static XC_MethodHook onActivityCreatedHook = new XC_MethodHook() {
+    private static final XC_MethodHook onActivityCreatedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             PreferenceFragment fragment = (PreferenceFragment) param.thisObject;
@@ -184,7 +184,7 @@ public class SettingsHooks {
         }
     };
 
-    private static XC_MethodHook refreshUiHook = new XC_MethodHook() {
+    private static final XC_MethodHook refreshUiHook = new XC_MethodHook() {
         @SuppressWarnings("ConstantConditions")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {

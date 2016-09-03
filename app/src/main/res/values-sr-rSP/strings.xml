@@ -175,17 +175,17 @@
   <string name="enable_emergency_info_title">Омогући податке</string>
   <string name="enable_emergency_info">Додавање података за случај нужде на бројчаник за хитни позив</string>
   <string name="edit_emergency_info_title">Уреди податке</string>
-  <string name="header_personal">Лично</string>
-  <string name="info_fullname">Пуно име</string>
-  <string name="info_address">Адреса</string>
-  <string name="info_birthdate">Датум рођења</string>
-  <string name="header_medical">Медицински</string>
-  <string name="info_bloodtype">Крвна група</string>
-  <string name="info_allergies">Алергије</string>
-  <string name="info_medications">Лекови</string>
-  <string name="info_medicalnotes">Здравствена стања и белешке</string>
-  <string name="info_organdonor">Донор органа</string>
-  <string name="info_unspecified">Није наведено</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Лично</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Пуно име</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Адреса</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Датум рођења</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">Медицински</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Крвна група</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">Алергије</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Лекови</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Здравствена стања и белешке</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Донор органа</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Није наведено</string>
   <string name="yes">Да</string>
   <string name="no">Не</string>
   <string name="battery">Батерија</string>

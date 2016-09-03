@@ -175,17 +175,17 @@
   <string name="enable_emergency_info_title">فعالسازی اطلاعات شخصی</string>
   <string name="enable_emergency_info">اطلاعات اورژانسی و شخصی شما را اضافه می کند</string>
   <string name="edit_emergency_info_title">ویرایش اطلاعات شخصی</string>
-  <string name="header_personal">شخصی</string>
-  <string name="info_fullname">نام و نام خانوادگی</string>
-  <string name="info_address">آدرس</string>
-  <string name="info_birthdate">تاریخ تولد</string>
-  <string name="header_medical">اورژانسی</string>
-  <string name="info_bloodtype">گروه خونی</string>
-  <string name="info_allergies">حساسیت یا آلرژی</string>
-  <string name="info_medications">دارو های مورد مصرف</string>
-  <string name="info_medicalnotes">موارد دیگر پزشکلی</string>
-  <string name="info_organdonor">ادای اعضای بدن</string>
-  <string name="info_unspecified">مشخص نشده</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">شخصی</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">نام و نام خانوادگی</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">آدرس</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">تاریخ تولد</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">اورژانسی</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">گروه خونی</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">حساسیت یا آلرژی</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">دارو های مورد مصرف</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">موارد دیگر پزشکلی</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">ادای اعضای بدن</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">مشخص نشده</string>
   <string name="info_bloodtype_op">O مثبت</string>
   <string name="info_bloodtype_on">O منفی</string>
   <string name="info_bloodtype_ap">A مثبت</string>

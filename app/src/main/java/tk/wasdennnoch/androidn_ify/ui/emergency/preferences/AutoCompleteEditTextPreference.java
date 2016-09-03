@@ -92,10 +92,6 @@ public class AutoCompleteEditTextPreference extends DialogPreference {
         this(context, attrs, android.R.attr.dialogPreferenceStyle);
     }
 
-    public AutoCompleteEditTextPreference(Context context) {
-        this(context, null);
-    }
-
     public AutoCompleteTextView getAutoCompleteTextView() {
         return mAutoCompleteTextView;
     }

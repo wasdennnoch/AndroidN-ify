@@ -25,13 +25,13 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class QSTileHostHooks {
-    public static final String TAG = "QSTileHostHooks";
+    private static final String TAG = "QSTileHostHooks";
 
     public static final String CLASS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
-    public static final String CLASS_CUSTOM_HOST = "com.android.systemui.tuner.QsTuner$CustomHost";
-    public static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
-    public static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
-    public static final String TILES_SETTING = "sysui_qs_tiles";
+    private static final String CLASS_CUSTOM_HOST = "com.android.systemui.tuner.QsTuner$CustomHost";
+    private static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
+    private static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
+    private static final String TILES_SETTING = "sysui_qs_tiles";
     public static final String TILE_SPEC_NAME = "tileSpec";
     public static final String KEY_QUICKQS_TILEVIEW = "QuickQS_TileView";
     public static final String KEY_EDIT_TILEVIEW = "Edit_TileView";
@@ -43,10 +43,10 @@ public class QSTileHostHooks {
     private static Class<?> classQSConstants;
     private static Class<?> classCustomHost;
 
-    protected static Object mTileHost = null;
+    private static Object mTileHost = null;
 
     // MM
-    private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
+    private static final XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
 
         @SuppressWarnings("unchecked")
         @Override
@@ -110,7 +110,7 @@ public class QSTileHostHooks {
     };
 
     // LP
-    private static XC_MethodHook recreateTilesHook = new XC_MethodHook() {
+    private static final XC_MethodHook recreateTilesHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -158,7 +158,7 @@ public class QSTileHostHooks {
         }
     };
 
-    private static XC_MethodHook loadTileSpecsHook = new XC_MethodHook() {
+    private static final XC_MethodHook loadTileSpecsHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -174,13 +174,13 @@ public class QSTileHostHooks {
         }
     };
 
-    public static List<String> getTileSpecs(Context context) {
+    private static List<String> getTileSpecs(Context context) {
         loadTileSpecs(context);
         return mTileSpecs;
     }
 
     @Nullable
-    public static Object createTile(Object tileHost, String tileSpec) {
+    private static Object createTile(Object tileHost, String tileSpec) {
         try {
             Object tile;
             if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
@@ -256,7 +256,7 @@ public class QSTileHostHooks {
         }
     }
 
-    public static void loadTileSpecs(Context context) {
+    private static void loadTileSpecs(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         List<String> specs = new ArrayList<>();
         try {
@@ -280,7 +280,7 @@ public class QSTileHostHooks {
         editor.commit();
     }
 
-    public static String getDefaultTilesPref() {
+    private static String getDefaultTilesPref() {
         List<String> specs = new ArrayList<>();
         specs.add("wifi");
         specs.add("bt");
@@ -334,7 +334,7 @@ public class QSTileHostHooks {
         return specs;
     }
 
-    public static List<String> getCurrentTileSpecs() {
+    private static List<String> getCurrentTileSpecs() {
         List<String> specs = new ArrayList<>();
         for (String spec : mTileSpecs) {
             if (spec == null) return specs;

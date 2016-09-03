@@ -17,6 +17,7 @@ import java.util.Locale;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+@SuppressWarnings("SameParameterValue")
 public class ViewUtils {
 
     public static final float LARGE_TEXT_SCALE = 1.3f;

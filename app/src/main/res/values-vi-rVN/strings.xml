@@ -161,17 +161,17 @@
   <string name="enable_emergency_info_title">Bật Thông tin Khẩn cấp</string>
   <string name="enable_emergency_info">Thêm một nút Thông tin Khẩn cấp vào trình quay số khẩn cấp</string>
   <string name="edit_emergency_info_title">Sửa Thông tin Khẩn cấp</string>
-  <string name="header_personal">Cá nhân</string>
-  <string name="info_fullname">Tên đầy đủ</string>
-  <string name="info_address">Địa chỉ</string>
-  <string name="info_birthdate">Ngày sinh</string>
-  <string name="header_medical">Y tế</string>
-  <string name="info_bloodtype">Nhóm máu</string>
-  <string name="info_allergies">Bị dị ứng</string>
-  <string name="info_medications">Thuốc men</string>
-  <string name="info_medicalnotes">Tình trạng y tế và ghi chú</string>
-  <string name="info_organdonor">Người hiến tạng</string>
-  <string name="info_unspecified">Không quy định </string>
+  <string name="header_personal" tools:ignore="ExtraTranslation">Cá nhân</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation">Tên đầy đủ</string>
+  <string name="info_address" tools:ignore="ExtraTranslation">Địa chỉ</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation">Ngày sinh</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation">Y tế</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation">Nhóm máu</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation">Bị dị ứng</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation">Thuốc men</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation">Tình trạng y tế và ghi chú</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation">Người hiến tạng</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation">Không quy định </string>
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="battery">Pin</string>
