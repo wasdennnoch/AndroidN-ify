@@ -50,6 +50,7 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -833,9 +834,9 @@ public class NotificationHooks {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         final Object row = param.thisObject;
-                        XposedHelpers.setAdditionalInstanceField(param.thisObject, KEY_EXPAND_CLICK_LISTENER, new View.OnClickListener() {
+                        XposedHelpers.setAdditionalInstanceField(param.thisObject, KEY_EXPAND_CLICK_LISTENER, new SafeOnClickListener(TAG, "Error in notification expand icon click") {
                             @Override
-                            public void onClick(View v) {
+                            public void onClickSafe(View v) {
                                 boolean nowExpanded = !(boolean) XposedHelpers.callMethod(row, "isExpanded");
                                 XposedHelpers.callMethod(row, "setUserExpanded", nowExpanded);
                                 XposedHelpers.callMethod(row, "notifyHeightChanged", true);
