@@ -37,7 +37,7 @@ import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
 public class RemoteInputHelperView extends FrameLayout implements View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, Animator.AnimatorListener {
 
-    public static boolean DIRECT_REPLY_ENABLED = false;
+    public static boolean DIRECT_REPLY_ENABLED = true;
 
     private LinearLayout remoteInputView;
     private EditText remoteInputText;
