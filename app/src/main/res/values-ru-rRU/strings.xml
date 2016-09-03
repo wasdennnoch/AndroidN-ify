@@ -149,8 +149,10 @@
   <string name="notification_experimental_title">Эксперементальный стиль N уведомлений</string>
   <string name="notification_experimental">Метод прокрутки из N (нет верхнего складывания) и тень уведомлений</string>
   <string name="notification_keyguard_max_title">Максимальное количество уведомлений при заблокированной клавиатуре</string>
+  
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">сейчас</string>
+  
  <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
     <plurals name="duration_minutes_shortest">
         <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> мин.</item>
@@ -198,6 +200,7 @@
         <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>y</item>
         <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>y</item>
     </plurals>
+    
   <string name="update_notification_title">Обновление доступно</string>
   <string name="update_notification">Билд %1$d доступен!</string>
   <string name="update_notification_download">Обновить</string>
@@ -290,4 +293,7 @@
   <string name="enable_install_source_title">Показывать источник установки приложения</string>
   <string name="battery_detail_switch_title">Режим энергосбережения</string>
   <string name="battery_detail_switch_summary">Сокращает данные о производительности и фоновых программ</string>
+  <string name="qs_add_notes_title">Заметки</string>
+  <string name="qs_add_notes">Это используется только для приложений, которые обеспечивают широковещательные плитки (например "Custom Quick Settings"). Пожалуйста, прочитайте инструкцию в приложении поставщика плитки перед использованием этого.</string>
+
 </resources>
