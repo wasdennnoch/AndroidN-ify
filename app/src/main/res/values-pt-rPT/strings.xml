@@ -168,22 +168,22 @@
   <string name="enable_emergency_info_title">Activar informações de emergência</string>
   <string name="enable_emergency_info">Adiciona um botão \"Informações de emergência\" ao discador de emergência</string>
   <string name="edit_emergency_info_title">Editar informações de emergência</string>
-  <string name="header_personal">Pessoal</string>
-  <string name="info_fullname">Nome completo</string>
-  <string name="info_address">Endereço</string>
-  <string name="info_birthdate">Data de nascimento</string>
-  <string name="header_medical">Médica</string>
-  <string name="info_bloodtype">Tipo sanguíneo</string>
-  <string name="info_allergies">Alergias</string>
-  <string name="info_medications">Medicações</string>
-  <string name="info_medicalnotes">Condições e anotações médicas</string>
-  <string name="info_organdonor">Doador de órgãos</string>
-  <string name="info_unspecified">Não especificado</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Pessoal</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Nome completo</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Endereço</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Data de nascimento</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Médica</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Tipo sanguíneo</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergias</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Medicações</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Condições e anotações médicas</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Doador de órgãos</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Não especificado</string>
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="battery">Bateria</string>
-  <string name="charged">Carregado</string>
-  <string name="charging">A carregar, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Carregado</string>
+  <string name="charging" tools:ignore="UnusedResources">A carregar, %1$s</string>
   <string name="qs_edit">Editar</string>
   <string name="drag_to_add_tiles">Arraste para adicionar blocos</string>
   <string name="drag_to_remove_tiles">Arraste aqui para remover</string>

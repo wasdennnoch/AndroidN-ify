@@ -23,6 +23,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
+@SuppressWarnings({"WeakerAccess", "UnusedAssignment"})
 public class PermissionGranter {
     public static final String TAG = "GB:PermissionGranter";
     public static final boolean DEBUG = false;
@@ -63,7 +64,7 @@ public class PermissionGranter {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "UnusedAssignment"})
     private static void grantPermsMm(XC_MethodHook.MethodHookParam param, String pkgName, List<String> neededPermissions) {
         final Object extras = XposedHelpers.getObjectField(param.args[0], "mExtras");
         final Object ps = XposedHelpers.callMethod(extras, "getPermissionsState");

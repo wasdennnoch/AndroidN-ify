@@ -57,6 +57,7 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+@SuppressWarnings({"WeakerAccess", "UnusedAssignment"})
 public class NotificationHooks {
 
     private static final String TAG = "NotificationHooks";
@@ -69,16 +70,16 @@ public class NotificationHooks {
     private static int mAccentColor = 0;
     public static View mPanelShadow;
     public static FrameLayout.LayoutParams mShadowLp;
-    private static Map<String, Integer> mGeneratedColors = new HashMap<>();
+    private static final Map<String, Integer> mGeneratedColors = new HashMap<>();
 
     public static Object mPhoneStatusBar;
 
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
 
-    private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
+    private static final XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
-        @SuppressWarnings("deprecation")
+        @SuppressWarnings({"deprecation", "UnusedAssignment"})
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
@@ -206,7 +207,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook getStandardViewHook = new XC_MethodHook() {
+    private static final XC_MethodHook getStandardViewHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             RemoteViews contentView = (RemoteViews) param.getResult();
@@ -347,7 +348,7 @@ public class NotificationHooks {
         return String.valueOf(appname);
     }
 
-    private static XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
+    private static final XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -369,7 +370,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook resetStandardTemplateHook = new XC_MethodHook() {
+    private static final XC_MethodHook resetStandardTemplateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             RemoteViews contentView = (RemoteViews) param.args[0];
@@ -383,7 +384,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook processSmallIconAsLargeHook = new XC_MethodReplacement() {
+    private static final XC_MethodHook processSmallIconAsLargeHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
             if (!((boolean) XposedHelpers.callMethod(methodHookParam.thisObject, "isLegacy"))) {
@@ -401,7 +402,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook applyStandardTemplateWithActionsHook = new XC_MethodHook() {
+    private static final XC_MethodHook applyStandardTemplateWithActionsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
@@ -410,7 +411,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook generateActionButtonHook = new XC_MethodHook() {
+    private static final XC_MethodHook generateActionButtonHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
@@ -428,7 +429,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodReplacement resolveColorHook = new XC_MethodReplacement() {
+    private static final XC_MethodReplacement resolveColorHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             int mColor = XposedHelpers.getIntField(param.thisObject, "mColor");
@@ -452,14 +453,14 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook initConstantsHook = new XC_MethodHook() {
+    private static final XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHelpers.setBooleanField(param.thisObject, "mScaleDimmed", false);
         }
     };
 
-    private static XC_MethodHook updateWindowWidthHHook = new XC_MethodHook() {
+    private static final XC_MethodHook updateWindowWidthHHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Dialog mDialog = (Dialog) XposedHelpers.getObjectField(param.thisObject, "mDialog");
@@ -477,7 +478,7 @@ public class NotificationHooks {
             window.setAttributes(wlp);
         }
     };
-    private static XC_MethodHook updateWidthHook = new XC_MethodHook() {
+    private static final XC_MethodHook updateWidthHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Dialog mDialog = (Dialog) XposedHelpers.getObjectField(param.thisObject, "mDialog");
@@ -497,7 +498,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
+    private static final XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if (param.thisObject instanceof Button) {
@@ -1039,7 +1040,7 @@ public class NotificationHooks {
         }
     }
 
-    private static XC_LayoutInflated notification_template_material_big_base = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_big_base = new XC_LayoutInflated() {
 
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -1057,7 +1058,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated status_bar_no_notifications = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated status_bar_no_notifications = new XC_LayoutInflated() {
 
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -1084,7 +1085,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated status_bar_notification_dismiss_all = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated status_bar_notification_dismiss_all = new XC_LayoutInflated() {
 
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -1243,7 +1244,7 @@ public class NotificationHooks {
     };
     */
 
-    private static XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             FrameLayout layout = (FrameLayout) liparam.view;
@@ -1339,7 +1340,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated status_bar_notification_row = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated status_bar_notification_row = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             FrameLayout row = (FrameLayout) liparam.view;
@@ -1360,7 +1361,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated notification_material_action = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_material_action = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             Button button = (Button) liparam.view;
@@ -1373,7 +1374,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated notification_template_material_big_media = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_big_media = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
             RelativeLayout layout = (RelativeLayout) liparam.view;
@@ -1404,7 +1405,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated notification_template_material_media = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_media = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             LinearLayout layout = (LinearLayout) liparam.view;
@@ -1443,7 +1444,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated notification_template_material_big_picture = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_big_picture = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
             FrameLayout layout = (FrameLayout) liparam.view;
@@ -1474,7 +1475,7 @@ public class NotificationHooks {
     };
 
     @SuppressWarnings("deprecation")
-    private static XC_LayoutInflated notification_public_default = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_public_default = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             RelativeLayout layout = (RelativeLayout) liparam.view;

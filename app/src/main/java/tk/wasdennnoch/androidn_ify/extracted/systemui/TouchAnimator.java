@@ -58,8 +58,8 @@ public class TouchAnimator {
         private Interpolator mInterpolator;
         private Listener mListener;
         private float mStartDelay;
-        private List<View> mTargets = new ArrayList<>();
-        private List<KeyframeSet> mValues = new ArrayList<>();
+        private final List<View> mTargets = new ArrayList<>();
+        private final List<KeyframeSet> mValues = new ArrayList<>();
 
         private void add(View paramObject, KeyframeSet paramKeyframeSet) {
             mTargets.add(paramObject);

@@ -13,6 +13,7 @@ import java.util.Set;
 import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
+@SuppressWarnings("WeakerAccess")
 public class ConfigUtils {
 
     private static final String TAG = "ConfigUtils";
@@ -20,7 +21,7 @@ public class ConfigUtils {
     public static final boolean M = Build.VERSION.SDK_INT >= 23;
 
     private static ConfigUtils mInstance;
-    private XSharedPreferences mPrefs;
+    private final XSharedPreferences mPrefs;
 
     public SettingsConfig settings;
     public RecentsConfig recents;
@@ -78,12 +79,12 @@ public class ConfigUtils {
     }
 
     public class SettingsConfig {
-        public boolean enable_summaries;
+        public final boolean enable_summaries;
 
-        public boolean fix_sound_notif_tile;
-        public boolean enable_n_platlogo;
-        public boolean use_namey_mcnameface;
-        public boolean install_source;
+        public final boolean fix_sound_notif_tile;
+        public final boolean enable_n_platlogo;
+        public final boolean use_namey_mcnameface;
+        public final boolean install_source;
 
         public SettingsConfig(XSharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
@@ -95,14 +96,14 @@ public class ConfigUtils {
     }
 
     public class RecentsConfig {
-        public boolean double_tap;
-        public boolean alternative_method;
-        public int double_tap_speed;
+        public final boolean double_tap;
+        public final boolean alternative_method;
+        public final int double_tap_speed;
         public boolean navigate_recents;
         public boolean force_double_tap;
-        public int navigation_delay;
-        public boolean large_recents;
-        public boolean no_recents_image;
+        public final int navigation_delay;
+        public final boolean large_recents;
+        public final boolean no_recents_image;
 
         public RecentsConfig(XSharedPreferences prefs) {
             double_tap = prefs.getBoolean("enable_recents_double_tap", true);
@@ -128,19 +129,19 @@ public class ConfigUtils {
     }
 
     public class QuickSettingsConfig {
-        public boolean header;
-        public boolean keep_header_background;
-        public boolean keep_qs_panel_background;
-        public int qs_tiles_count;
-        public boolean battery_tile_show_percentage;
-        public boolean enable_qs_editor;
-        public boolean allow_fancy_qs_transition;
-        public boolean new_click_behavior;
-        public boolean large_first_row;
-        public int header_clock_size;
-        public boolean hide_tuner_icon;
-        public boolean hide_edit_tiles;
-        public boolean hide_carrier_label;
+        public final boolean header;
+        public final boolean keep_header_background;
+        public final boolean keep_qs_panel_background;
+        public final int qs_tiles_count;
+        public final boolean battery_tile_show_percentage;
+        public final boolean enable_qs_editor;
+        public final boolean allow_fancy_qs_transition;
+        public final boolean new_click_behavior;
+        public final boolean large_first_row;
+        public final int header_clock_size;
+        public final boolean hide_tuner_icon;
+        public final boolean hide_edit_tiles;
+        public final boolean hide_carrier_label;
 
         public QuickSettingsConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
@@ -162,12 +163,12 @@ public class ConfigUtils {
     }
 
     public class NotificationsConfig {
-        public boolean change_style;
-        public boolean dismiss_button;
-        public boolean custom_actions_color;
-        public boolean experimental;
-        public int keyguard_max;
-        public int actions_color;
+        public final boolean change_style;
+        public final boolean dismiss_button;
+        public final boolean custom_actions_color;
+        public final boolean experimental;
+        public final int keyguard_max;
+        public final int actions_color;
 
         public List<String> blacklistedApps;
 
@@ -198,7 +199,7 @@ public class ConfigUtils {
     }
 
     public class LockscreenConfig {
-        public boolean enable_emergency_info;
+        public final boolean enable_emergency_info;
 
         public LockscreenConfig(XSharedPreferences prefs) {
             enable_emergency_info = prefs.getBoolean("enable_emergency_info", false);

@@ -11,6 +11,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class QSTile {
 
     private static final String TAG = "QSTile";
@@ -18,10 +19,10 @@ public class QSTile {
     private TilesManager mTilesManager;
     private Object mHost;
     private Object mTile;
-    private String mKey;
+    private final String mKey;
     protected Context mContext;
-    protected ResourceUtils mResUtils;
-    protected State mState;
+    protected final ResourceUtils mResUtils;
+    protected final State mState;
 
     public static final String TILE_KEY_NAME = "customTileKey";
     public static final String DUMMY_INTENT = "intent(dummy)";
@@ -140,9 +141,9 @@ public class QSTile {
         public boolean visible;
         public Drawable icon;
         public String label;
-        public boolean autoMirrorDrawable = true;
+        public final boolean autoMirrorDrawable = true;
 
-        private String mKey;
+        private final String mKey;
 
         public State(String key) {
             mKey = key;

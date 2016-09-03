@@ -208,17 +208,17 @@
   <string name="enable_emergency_info_title">Activar info. de emergencia</string>
   <string name="enable_emergency_info">Añade información de emergencia a la pantalla de llamada de emergencia</string>
   <string name="edit_emergency_info_title">Editar info. de emergencia</string>
-  <string name="header_personal">Personal</string>
-  <string name="info_fullname">Nombre</string>
-  <string name="info_address">Dirección</string>
-  <string name="info_birthdate">Fecha de nacimiento</string>
-  <string name="header_medical">Medica</string>
-  <string name="info_bloodtype">Grupo sanguíneo</string>
-  <string name="info_allergies">Alergias</string>
-  <string name="info_medications">Medicación</string>
-  <string name="info_medicalnotes">Condición médica</string>
-  <string name="info_organdonor">Donante de órganos</string>
-  <string name="info_unspecified">Sin información</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Personal</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Nombre</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Dirección</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Fecha de nacimiento</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medica</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Grupo sanguíneo</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergias</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Medicación</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Condición médica</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Donante de órganos</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Sin información</string>
   <string name="info_bloodtype_op">O+</string>
   <string name="info_bloodtype_on">O-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -230,8 +230,8 @@
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="battery">Batería</string>
-  <string name="charged">Cargada</string>
-  <string name="charging">Cargando, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Cargada</string>
+  <string name="charging" tools:ignore="UnusedResources">Cargando, %1$s</string>
   <string name="qs_edit">Editar</string>
   <string name="drag_to_add_tiles">Arrastrar para añadir</string>
   <string name="drag_to_remove_tiles">Arrastra aquí para eliminar</string>

@@ -30,6 +30,7 @@ import android.view.View;
  *
  * @author Daniel Nilsson
  */
+@SuppressWarnings({"JavaDoc", "ConstantConditions"})
 public class ColorPickerPanelView extends View {
 
     /**

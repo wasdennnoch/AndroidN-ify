@@ -200,17 +200,17 @@
   <string name="enable_emergency_info_title">启用急救信息</string>
   <string name="enable_emergency_info">向紧急拨号器内添加急救信息按钮</string>
   <string name="edit_emergency_info_title">编辑急救信息</string>
-  <string name="header_personal">个人信息</string>
-  <string name="info_fullname">姓名</string>
-  <string name="info_address">地址</string>
-  <string name="info_birthdate">出生日期</string>
-  <string name="header_medical">医疗信息</string>
-  <string name="info_bloodtype">血型</string>
-  <string name="info_allergies">过敏史</string>
-  <string name="info_medications">常用药物</string>
-  <string name="info_medicalnotes">病症及注意事项</string>
-  <string name="info_organdonor">器官捐献志愿者</string>
-  <string name="info_unspecified">未指定</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">个人信息</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">姓名</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">地址</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">出生日期</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">医疗信息</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">血型</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">过敏史</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">常用药物</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">病症及注意事项</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">器官捐献志愿者</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">未指定</string>
   <string name="info_bloodtype_op">O 型 Rh 阳性</string>
   <string name="info_bloodtype_on">O 型 Rh 阴性</string>
   <string name="info_bloodtype_ap">A 型 Rh 阳性</string>
@@ -222,8 +222,8 @@
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">电池</string>
-  <string name="charged">已充满</string>
-  <string name="charging">正在充电, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">已充满</string>
+  <string name="charging" tools:ignore="UnusedResources">正在充电, %1$s</string>
   <string name="qs_edit">编辑</string>
   <string name="drag_to_add_tiles">拖动添加磁贴</string>
   <string name="drag_to_remove_tiles">拖至此处移除</string>

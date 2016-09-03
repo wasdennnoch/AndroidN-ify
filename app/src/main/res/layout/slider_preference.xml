@@ -16,6 +16,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
@@ -83,13 +84,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/arrow_up" />
+            android:src="@drawable/arrow_up"
+            tools:ignore="ContentDescription" />
         <ImageButton
             android:id="@+id/btnMinus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/arrow_down" />
+            android:src="@drawable/arrow_down"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
 </LinearLayout>

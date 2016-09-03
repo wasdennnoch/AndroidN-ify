@@ -44,11 +44,12 @@ import tk.wasdennnoch.androidn_ify.R;
  * Almost a copy of EditTextPreference that shows a {@link AutoCompleteTextView} instead of the
  * basic EditText. It always show the suggested options.
  */
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class AutoCompleteEditTextPreference extends DialogPreference {
     /**
      * The edit text shown in the dialog.
      */
-    private AutoCompleteTextView mAutoCompleteTextView;
+    private final AutoCompleteTextView mAutoCompleteTextView;
 
     private String mText;
     private boolean mTextSet;

@@ -57,6 +57,7 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
  * This adds itself to the status bar window, so it can appear on top of quick settings and
  * *someday* do fancy animations to get into/out of it.
  */
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class QSCustomizer extends LinearLayout implements OnMenuItemClickListener {
 
     private static final int MENU_ADD_BROADCAST_TILE = Menu.FIRST;
@@ -68,16 +69,16 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
 
     private boolean mHasNavBar;
     private boolean isShown;
-    private RecyclerView mRecyclerView;
-    private TileAdapter mTileAdapter;
-    private Toolbar mToolbar;
+    private final RecyclerView mRecyclerView;
+    private final TileAdapter mTileAdapter;
+    private final Toolbar mToolbar;
     private boolean mCustomizing;
     private boolean mTileAdapterIsInvalid = true;
 
     private int mLastX = 0;
     private int mLastY = 0;
-    private int mNavigationBarSize;
-    private int mNotificationPanelWidth;
+    private final int mNavigationBarSize;
+    private final int mNotificationPanelWidth;
 
     public QSCustomizer(Context context) {
         super(context, null);

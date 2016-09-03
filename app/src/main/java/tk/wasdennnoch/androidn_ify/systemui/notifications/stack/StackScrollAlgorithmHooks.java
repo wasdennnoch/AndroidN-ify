@@ -19,11 +19,12 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class StackScrollAlgorithmHooks {
 
     private static final String TAG = "StackScrollAlgorithmHooks";
     public static final int LOCATION_TOP_STACK_HIDDEN = 0x02;
-    private static Rect mClipBounds = new Rect();
+    private static final Rect mClipBounds = new Rect();
     public static ViewGroup mStackScrollLayout;
     private static float mStackTop = 0;
     private static float mStateTop = 0;

@@ -151,49 +151,49 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">зараз</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_minutes_shortest">
+  <plurals name="duration_minutes_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> хв</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g> хв</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> хв</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_hours_shortest">
+  <plurals name="duration_hours_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> год</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g> год</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> год</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_days_shortest">
+  <plurals name="duration_days_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> день</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g> дні</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> днів</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_years_shortest">
+  <plurals name="duration_years_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> рік</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g> роки</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> років</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_minutes_shortest_future">
+  <plurals name="duration_minutes_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">через <xliff:g example="1" id="count">%d</xliff:g>хв</item>
     <item quantity="few">через <xliff:g example="1" id="count">%d</xliff:g>хв</item>
     <item quantity="other">через <xliff:g example="1" id="count">%d</xliff:g>хв</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_hours_shortest_future">
+  <plurals name="duration_hours_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">через <xliff:g example="1" id="count">%d</xliff:g> год</item>
     <item quantity="few">через <xliff:g example="1" id="count">%d</xliff:g> год</item>
     <item quantity="other">через <xliff:g example="1" id="count">%d</xliff:g> год</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_days_shortest_future">
+  <plurals name="duration_days_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">через <xliff:g example="1" id="count">%d</xliff:g> день</item>
     <item quantity="few">через <xliff:g example="1" id="count">%d</xliff:g> дні</item>
     <item quantity="other">через <xliff:g example="1" id="count">%d</xliff:g> днів</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_years_shortest_future">
+  <plurals name="duration_years_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">через <xliff:g example="1" id="count">%d</xliff:g> рік</item>
     <item quantity="few">через <xliff:g example="1" id="count">%d</xliff:g> роки</item>
     <item quantity="other">через <xliff:g example="1" id="count">%d</xliff:g> років</item>
@@ -215,17 +215,17 @@
   <string name="enable_emergency_info_title">Увімкнути Екстрену Інформацію</string>
   <string name="enable_emergency_info">Додати кнопку Екстреної Інформації для екстреного виклику</string>
   <string name="edit_emergency_info_title">Редагувати Екстрену Інформацію</string>
-  <string name="header_personal">Персональна інформація</string>
-  <string name="info_fullname">Повне ім\'я</string>
-  <string name="info_address">Адреса</string>
-  <string name="info_birthdate">Дата народження</string>
-  <string name="header_medical">Медицина</string>
-  <string name="info_bloodtype">Група крові</string>
-  <string name="info_allergies">Алергії</string>
-  <string name="info_medications">Медикаменти</string>
-  <string name="info_medicalnotes">Медичні умови та примітки</string>
-  <string name="info_organdonor">Донор</string>
-  <string name="info_unspecified">Не вказано</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Персональна інформація</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Повне ім\'я</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Адреса</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Дата народження</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Медицина</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Група крові</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Алергії</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Медикаменти</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Медичні умови та примітки</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Донор</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Не вказано</string>
   <string name="info_bloodtype_op">І +</string>
   <string name="info_bloodtype_on">І -</string>
   <string name="info_bloodtype_ap">ІІ +</string>
@@ -237,8 +237,8 @@
   <string name="yes">Так</string>
   <string name="no">Ні</string>
   <string name="battery">Акумулятор</string>
-  <string name="charged">Заряджено</string>
-  <string name="charging">Зарядка, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Заряджено</string>
+  <string name="charging" tools:ignore="UnusedResources">Зарядка, %1$s</string>
   <string name="qs_edit">Змінити</string>
   <string name="drag_to_add_tiles">Перетягніть, щоб додати плитку</string>
   <string name="drag_to_remove_tiles">Перетягніть сюди, щоб видалити</string>

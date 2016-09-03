@@ -22,7 +22,7 @@ public class DoubleTapSwKeys extends DoubleTapBase {
     private static boolean sWasPressed = false;
     private static View.OnClickListener sOriginalRecentsClickListener;
     private static View sRecentsButton;
-    private static Runnable sResetPressedStateRunnable = new SafeRunnable() {
+    private static final Runnable sResetPressedStateRunnable = new SafeRunnable() {
         @Override
         public void runSafe() {
             XposedHook.logD(TAG, "Double tap timed out after " + mDoubletapSpeed + "ms, invoking original mRecentsClickListener");
@@ -31,7 +31,7 @@ public class DoubleTapSwKeys extends DoubleTapBase {
         }
     };
 
-    private static XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
+    private static final XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "prepareNavigationBarViewHook called");

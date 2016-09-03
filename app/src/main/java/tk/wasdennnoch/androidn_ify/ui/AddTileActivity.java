@@ -3,18 +3,16 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
+@SuppressWarnings("WeakerAccess")
 public class AddTileActivity extends Activity implements View.OnClickListener {
     public static final String ACTION_ADD_TILE = "tk.wasdennnoch.androidn_ify.action.ACTION_ADD_TILE";
     public static final String EXTRA_TILE_SPEC = "extra.TILE_SPEC";

@@ -15,6 +15,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class DoubleTapHwKeys extends DoubleTapBase {
 
     private static final String TAG = "DoubleTapHwKeys";
@@ -28,7 +29,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
     private static Handler mHandler;
 
     private static boolean mWasPressed = false;
-    private static Runnable resetPressedState = new SafeRunnable() {
+    private static final Runnable resetPressedState = new SafeRunnable() {
         @Override
         public void runSafe() {
             XposedHook.logD(TAG, "Double tap timed out after " + mDoubletapSpeed + "ms, injecting original KeyEvent");
@@ -37,7 +38,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
         }
     };
 
-    private static XC_MethodHook initHook = new XC_MethodHook() {
+    private static final XC_MethodHook initHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mPhoneWindowManager = param.thisObject;
@@ -47,7 +48,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             registerReceiver(mContext, true);
         }
     };
-    private static XC_MethodHook interceptKeyBeforeDispatchingHook = new XC_MethodHook() {
+    private static final XC_MethodHook interceptKeyBeforeDispatchingHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             if ((boolean) XposedHelpers.callMethod(mPhoneWindowManager, "keyguardOn")) return;

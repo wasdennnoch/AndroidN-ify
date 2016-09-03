@@ -38,6 +38,7 @@ import android.widget.FrameLayout;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+@SuppressWarnings("WeakerAccess")
 public class PlatLogoActivity extends Activity {
 
     private static final String TAG = "PlatLogoActivity";
@@ -45,7 +46,7 @@ public class PlatLogoActivity extends Activity {
     FrameLayout mLayout;
     int mTapCount;
     int mKeyCount;
-    PathInterpolator mInterpolator = new PathInterpolator(0f, 0f, 0.5f, 1f);
+    final PathInterpolator mInterpolator = new PathInterpolator(0f, 0f, 0.5f, 1f);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

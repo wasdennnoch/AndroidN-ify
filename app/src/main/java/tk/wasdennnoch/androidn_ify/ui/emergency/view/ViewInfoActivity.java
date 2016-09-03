@@ -32,7 +32,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
-import com.android.internal.logging.MetricsLogger;
+
 import java.util.ArrayList;
 
 import tk.wasdennnoch.androidn_ify.R;

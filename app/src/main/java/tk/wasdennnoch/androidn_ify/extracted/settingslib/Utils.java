@@ -1,7 +1,6 @@
 package tk.wasdennnoch.androidn_ify.extracted.settingslib;
 
 import android.content.Intent;
-import android.content.pm.Signature;
 import android.content.res.Resources;
 import android.os.BatteryManager;
 

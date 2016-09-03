@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,14 +34,15 @@ import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
+@SuppressWarnings("WeakerAccess")
 public class RemoteInputHelperView extends FrameLayout implements View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, Animator.AnimatorListener {
 
-    public static boolean DIRECT_REPLY_ENABLED = false;
+    public static final boolean DIRECT_REPLY_ENABLED = false;
 
-    private LinearLayout remoteInputView;
-    private EditText remoteInputText;
-    private ImageButton sendButton;
-    private ProgressBar sendProgress;
+    private final LinearLayout remoteInputView;
+    private final EditText remoteInputText;
+    private final ImageButton sendButton;
+    private final ProgressBar sendProgress;
     private PendingIntent pendingIntent;
     private RemoteInput[] remoteInputs;
     private RemoteInput remoteInput;

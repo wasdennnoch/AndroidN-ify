@@ -208,17 +208,17 @@
   <string name="enable_emergency_info_title">Notfallinformationen aktivieren</string>
   <string name="enable_emergency_info">Fügt einen Notfallinformations-Button zum Notfall-Wähler hinzu</string>
   <string name="edit_emergency_info_title">Notfallinformationen bearbeiten</string>
-  <string name="header_personal">Persönlich</string>
-  <string name="info_fullname">Voller Name</string>
-  <string name="info_address">Adresse</string>
-  <string name="info_birthdate">Geburtsdatum</string>
-  <string name="header_medical">Medizinisch</string>
-  <string name="info_bloodtype">Blutgruppe</string>
-  <string name="info_allergies">Allergien</string>
-  <string name="info_medications">Medikamente</string>
-  <string name="info_medicalnotes">Medizinische Bedingungen und Bemerkungen</string>
-  <string name="info_organdonor">Organspender</string>
-  <string name="info_unspecified">Keine ausgewählt</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Persönlich</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Voller Name</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresse</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Geburtsdatum</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medizinisch</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Blutgruppe</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Allergien</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Medikamente</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Medizinische Bedingungen und Bemerkungen</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Organspender</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Keine ausgewählt</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -230,8 +230,8 @@
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
   <string name="battery">Batterie</string>
-  <string name="charged">Geladen</string>
-  <string name="charging">Lädt, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Geladen</string>
+  <string name="charging" tools:ignore="UnusedResources">Lädt, %1$s</string>
   <string name="qs_edit">Bearbeiten</string>
   <string name="drag_to_add_tiles">Ziehen, um Kachel hinzuzufügen</string>
   <string name="drag_to_remove_tiles">Hierhin ziehen, um Kachel zu entfernen</string>

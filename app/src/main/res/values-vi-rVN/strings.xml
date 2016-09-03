@@ -161,22 +161,22 @@
   <string name="enable_emergency_info_title">Bật Thông tin Khẩn cấp</string>
   <string name="enable_emergency_info">Thêm một nút Thông tin Khẩn cấp vào trình quay số khẩn cấp</string>
   <string name="edit_emergency_info_title">Sửa Thông tin Khẩn cấp</string>
-  <string name="header_personal">Cá nhân</string>
-  <string name="info_fullname">Tên đầy đủ</string>
-  <string name="info_address">Địa chỉ</string>
-  <string name="info_birthdate">Ngày sinh</string>
-  <string name="header_medical">Y tế</string>
-  <string name="info_bloodtype">Nhóm máu</string>
-  <string name="info_allergies">Bị dị ứng</string>
-  <string name="info_medications">Thuốc men</string>
-  <string name="info_medicalnotes">Tình trạng y tế và ghi chú</string>
-  <string name="info_organdonor">Người hiến tạng</string>
-  <string name="info_unspecified">Không quy định </string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Cá nhân</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Tên đầy đủ</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Địa chỉ</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Ngày sinh</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Y tế</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Nhóm máu</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Bị dị ứng</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Thuốc men</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Tình trạng y tế và ghi chú</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Người hiến tạng</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Không quy định </string>
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="battery">Pin</string>
-  <string name="charged">Đã sạc xong</string>
-  <string name="charging">Đang sạc, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Đã sạc xong</string>
+  <string name="charging" tools:ignore="UnusedResources">Đang sạc, %1$s</string>
   <string name="qs_edit">Sửa</string>
   <string name="drag_to_add_tiles">Kéo để thêm ô</string>
   <string name="drag_to_remove_tiles">Kéo vào đây để xóa</string>

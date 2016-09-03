@@ -57,6 +57,7 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
  *
  * @hide
  */
+@SuppressWarnings({"deprecation", "SameParameterValue", "WeakerAccess", "ConstantConditions", "UnusedAssignment"})
 @RemoteView
 public class RelativeDateTimeView extends TextView {
     private static final int SHOW_TIME = 0;
@@ -65,11 +66,11 @@ public class RelativeDateTimeView extends TextView {
     Date mTime;
     long mTimeMillis;
 
-    int mLastDisplay = -1;
+    final int mLastDisplay = -1;
     DateFormat mLastFormat;
 
     private long mUpdateTimeMillis;
-    private static final ThreadLocal<ReceiverInfo> sReceiverInfo = new ThreadLocal<ReceiverInfo>();
+    private static final ThreadLocal<ReceiverInfo> sReceiverInfo = new ThreadLocal<>();
     private String mNowText;
     private boolean mShowRelativeTime;
 
@@ -128,6 +129,7 @@ public class RelativeDateTimeView extends TextView {
         }
     }
 
+    @SuppressWarnings("UnusedAssignment")
     void update() {
         if (mTime == null || getVisibility() == GONE) {
             return;
@@ -168,7 +170,6 @@ public class RelativeDateTimeView extends TextView {
             }
             // Else, show month day and year.
             display = SHOW_MONTH_DAY_YEAR;
-            break choose_display;
         }
 
         // Choose the format
@@ -321,7 +322,7 @@ public class RelativeDateTimeView extends TextView {
     }
 
     private static class ReceiverInfo {
-        private final ArrayList<RelativeDateTimeView> mAttachedViews = new ArrayList<RelativeDateTimeView>();
+        private final ArrayList<RelativeDateTimeView> mAttachedViews = new ArrayList<>();
         private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -380,7 +381,7 @@ public class RelativeDateTimeView extends TextView {
             return result;
         }
 
-        static final Context getApplicationContextIfAvailable(Context context) {
+        static Context getApplicationContextIfAvailable(Context context) {
             final Context ac = context.getApplicationContext();
             return ac != null ? ac : ActivityThread.currentApplication().getApplicationContext();
         }

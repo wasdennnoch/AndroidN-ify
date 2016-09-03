@@ -16,7 +16,6 @@
 package tk.wasdennnoch.androidn_ify.ui.emergency.preferences;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -45,6 +44,7 @@ import tk.wasdennnoch.androidn_ify.ui.emergency.EmergencyContactManager;
 /**
  * A {@link Preference} to display or call a contact using the specified URI string.
  */
+@SuppressWarnings("deprecation")
 public class ContactPreference extends Preference {
 
     private EmergencyContactManager.Contact mContact;
@@ -77,7 +77,6 @@ public class ContactPreference extends Preference {
         setPersistent(false);
     }
 
-    @SuppressWarnings("deprecation")
     public void setUri(@NonNull Uri contactUri) {
         if (mContact != null && !contactUri.equals(mContact.getContactUri()) &&
                 mRemoveContactDialog != null) {
@@ -166,6 +165,16 @@ public class ContactPreference extends Preference {
         return mContact.getContactUri();
     }
 
+    @VisibleForTesting
+    EmergencyContactManager.Contact getContact() {
+        return mContact;
+    }
+
+    @VisibleForTesting
+    AlertDialog getRemoveContactDialog() {
+        return mRemoveContactDialog;
+    }
+
     /**
      * Calls the contact.
      */
@@ -235,11 +244,10 @@ public class ContactPreference extends Preference {
         boolean isDialogShowing;
         Bundle dialogBundle;
 
-        @SuppressLint("ParcelClassLoader")
         public SavedState(Parcel source) {
             super(source);
             isDialogShowing = source.readInt() == 1;
-            dialogBundle = source.readBundle();
+            dialogBundle = source.readBundle(getClass().getClassLoader());
         }
 
         @Override

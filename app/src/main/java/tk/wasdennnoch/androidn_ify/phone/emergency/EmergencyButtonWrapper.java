@@ -29,14 +29,14 @@ public class EmergencyButtonWrapper implements View.OnClickListener {
     private static final long RIPPLE_PAUSE = 1000;
 
     private final Interpolator mFastOutLinearInInterpolator;
-    private Context mContext;
+    private final Context mContext;
 
-    private FrameLayout mLayout;
-    private Button mButton;
-    private ViewGroup mSelectedContainer;
-    private TextView mSelectedLabel;
-    private View mRippleView;
-    private TextView mLaunchHint;
+    private final FrameLayout mLayout;
+    private final Button mButton;
+    private final ViewGroup mSelectedContainer;
+    private final TextView mSelectedLabel;
+    private final View mRippleView;
+    private final TextView mLaunchHint;
 
     private boolean mHiding;
 

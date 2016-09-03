@@ -24,11 +24,11 @@ public class TilesManager {
 
     private static final String TAG = "TilesManager";
 
-    private Object mQSTileHost;
-    private Context mContext;
+    private final Object mQSTileHost;
+    private final Context mContext;
 
-    public static List<String> mCustomTileSpecs = new ArrayList<>();
-    private Map<String, QSTile> mTiles = new HashMap<>();
+    public static final List<String> mCustomTileSpecs = new ArrayList<>();
+    private final Map<String, QSTile> mTiles = new HashMap<>();
     private String mCreateTileViewTileKey;
     public boolean useVolumeTile = false;
 

@@ -78,7 +78,7 @@
     <!-- Is on or off -->
     <string name="display_summary">Adaptive brightness is %1$s</string>
     <string name="sound_summary">Ringer volume at %1$s</string>
-    <string name="apps_summary">%1$d apps installed</string>
+    <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d apps installed</string>
     <!-- Storage settings summary: 10GB of 12GB used -->
     <string name="storage_summary">%1$s of %2$s used</string>
     <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -94,7 +94,7 @@
     <string name="location_on_power">ON / Power saving</string>
     <string name="location_on_device">ON / Device only</string>
     <string name="location_on_high">ON / High accuracy</string>
-    <string name="print_summary">%1$d print jobs</string>
+    <string name="print_summary" tools:ignore="PluralsCandidate">%1$d print jobs</string>
     <!-- Header of app installation source -->
     <string name="store">Store</string>
     <!-- Header of app installation source -->
@@ -262,15 +262,15 @@
     <string name="unknown_name">Unknown</string>
     <string name="address">Address</string>
     <string name="unknown_address">Unknown</string>
-    <string name="date_of_birth">Date of birth</string>
-    <string name="unknown_date_of_birth">Unknown</string>
-    <string name="dob">
+    <string name="date_of_birth" tools:ignore="UnusedResources">Date of birth</string>
+    <string name="unknown_date_of_birth" tools:ignore="UnusedResources">Unknown</string>
+    <string name="dob" tools:ignore="UnusedResources">
         (<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
     </string>
-    <string name="age">
+    <string name="age" tools:ignore="UnusedResources">
         Age: <xliff:g example="29" id="numerical_age">%1$d</xliff:g>
     </string>
-    <string name="remove_dob_icon_text">Remove date of birth</string>
+    <string name="remove_dob_icon_text" tools:ignore="UnusedResources">Remove date of birth</string>
     <string name="blood_type">Blood type</string>
     <string name="unknown_blood_type">Unknown</string>
     <string name="allergies">Allergies</string>
@@ -299,8 +299,8 @@
     <string name="no">No</string>
 
     <string name="battery">Battery</string>
-    <string name="charged">Charged</string>
-    <string name="charging">Charging, %1$s</string>
+    <string name="charged" tools:ignore="UnusedResources">Charged</string>
+    <string name="charging" tools:ignore="UnusedResources">Charging, %1$s</string>
 
     <string name="qs_edit">Edit</string>
     <string name="drag_to_add_tiles">Drag to add tiles</string>
@@ -354,5 +354,8 @@
     <string name="battery_detail_switch_summary">Reduces performance and background data</string>
     <string name="qs_add_notes_title">Notes</string>
     <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
+    <string name="hex">HEX</string>
+    <string name="arrow_down">↓</string>
+    <string name="arrow_right">→</string>
 
 </resources>

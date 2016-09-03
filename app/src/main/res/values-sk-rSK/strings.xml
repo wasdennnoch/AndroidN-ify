@@ -216,17 +216,17 @@
   <string name="enable_emergency_info_title">Povoliť núdzové informácie</string>
   <string name="enable_emergency_info">Pridá tlačidlo s núdzovými informáciami do núdzového vytáčania</string>
   <string name="edit_emergency_info_title">Upraviť núdzové informácie</string>
-  <string name="header_personal">Osobné</string>
-  <string name="info_fullname">Meno</string>
-  <string name="info_address">Adresa</string>
-  <string name="info_birthdate">Dátum narodenia</string>
-  <string name="header_medical">Zdravotné</string>
-  <string name="info_bloodtype">Krvná skupina</string>
-  <string name="info_allergies">Alergie</string>
-  <string name="info_medications">Lieky</string>
-  <string name="info_medicalnotes">Poznámky od lekára</string>
-  <string name="info_organdonor">Darca orgánov</string>
-  <string name="info_unspecified">Nešpecifikované</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Osobné</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Meno</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresa</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Dátum narodenia</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Zdravotné</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Krvná skupina</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergie</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Lieky</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Poznámky od lekára</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Darca orgánov</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nešpecifikované</string>
   <string name="info_bloodtype_op">O+</string>
   <string name="info_bloodtype_on">O-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -238,8 +238,8 @@
   <string name="yes">Áno</string>
   <string name="no">Nie</string>
   <string name="battery">Batéria</string>
-  <string name="charged">Nabitá</string>
-  <string name="charging">Nabíjanie, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Nabitá</string>
+  <string name="charging" tools:ignore="UnusedResources">Nabíjanie, %1$s</string>
   <string name="qs_edit">Upraviť</string>
   <string name="drag_to_add_tiles">Potiahnite pre pridanie dlaždíc</string>
   <string name="drag_to_remove_tiles">Potiahnite sem pre odstránenie</string>

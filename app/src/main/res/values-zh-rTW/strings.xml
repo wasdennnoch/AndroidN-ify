@@ -199,17 +199,17 @@
   <string name="enable_emergency_info_title">開啟 緊急資訊</string>
   <string name="enable_emergency_info">新增一個緊急資訊按鈕到緊急撥號</string>
   <string name="edit_emergency_info_title">編輯 緊急資訊</string>
-  <string name="header_personal">私人</string>
-  <string name="info_fullname">全名</string>
-  <string name="info_address">地址</string>
-  <string name="info_birthdate">出生日期</string>
-  <string name="header_medical">就醫</string>
-  <string name="info_bloodtype">血型(台灣常見血型為 Rh+)</string>
-  <string name="info_allergies">過敏</string>
-  <string name="info_medications">藥物治療</string>
-  <string name="info_medicalnotes">就醫治療和注意事項</string>
-  <string name="info_organdonor">器官捐贈者</string>
-  <string name="info_unspecified">無</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">私人</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">全名</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">地址</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">出生日期</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">就醫</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">血型(台灣常見血型為 Rh+)</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">過敏</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">藥物治療</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">就醫治療和注意事項</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">器官捐贈者</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">無</string>
   <string name="info_bloodtype_op">O 型 Rh+</string>
   <string name="info_bloodtype_on">O 型 Rh-</string>
   <string name="info_bloodtype_ap">A 型 Rh+</string>
@@ -221,8 +221,8 @@
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">電池</string>
-  <string name="charged">已充滿</string>
-  <string name="charging">正在充電, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">已充滿</string>
+  <string name="charging" tools:ignore="UnusedResources">正在充電, %1$s</string>
   <string name="qs_edit">編輯</string>
   <string name="drag_to_add_tiles">拖曳以新增瓷磚</string>
   <string name="drag_to_remove_tiles">拖曳到這裡移除</string>
@@ -237,15 +237,15 @@
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <string name="battery_info_status_unknown">未知電量</string>
-  <string name="battery_info_status_charging">充電中...</string>
+  <string name="battery_info_status_charging">充電中…</string>
   <string name="battery_info_status_charging_ac">正在透過 AC 變壓器 充電中..</string>
-  <string name="battery_info_status_charging_ac_short">以 AC 變壓器 充電中...</string>
-  <string name="battery_info_status_charging_usb">正在透過 USB 充電中...</string>
-  <string name="battery_info_status_charging_usb_short">以 USB 充電中...</string>
-  <string name="battery_info_status_charging_wireless">正在透過 AC 變壓器 充電中...</string>
-  <string name="battery_info_status_charging_wireless_short">以 無線模組 充電中...</string>
-  <string name="battery_info_status_discharging">尚未充電中...</string>
-  <string name="battery_info_status_not_charging">放電中...</string>
+  <string name="battery_info_status_charging_ac_short">以 AC 變壓器 充電中…</string>
+  <string name="battery_info_status_charging_usb">正在透過 USB 充電中…</string>
+  <string name="battery_info_status_charging_usb_short">以 USB 充電中…</string>
+  <string name="battery_info_status_charging_wireless">正在透過 AC 變壓器 充電中…</string>
+  <string name="battery_info_status_charging_wireless_short">以 無線模組 充電中…</string>
+  <string name="battery_info_status_discharging">尚未充電中…</string>
+  <string name="battery_info_status_not_charging">放電中…</string>
   <string name="battery_info_status_full">電量已滿</string>
   <string name="battery_panel_title">電量使用</string>
   <string name="battery_detail_charging_summary">充電中省電模式將無法作用</string>

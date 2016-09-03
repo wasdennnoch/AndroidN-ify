@@ -17,6 +17,7 @@ package tk.wasdennnoch.androidn_ify.ui.emergency;
 /**
  * Contains the keys of the preferences used in this app.
  */
+@SuppressWarnings("UnnecessaryInterfaceModifier")
 public interface PreferenceKeys {
     /** Key for emergency contacts preference */
     public static final String KEY_EMERGENCY_CONTACTS = "emergency_contacts";

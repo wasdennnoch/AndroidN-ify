@@ -10,8 +10,8 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 public class ExpandableIndicator extends ImageView {
 
     private boolean mExpanded;
-    private AnimatedVectorDrawable mExpandedDrawable;
-    private AnimatedVectorDrawable mCollapsedDrawable;
+    private final AnimatedVectorDrawable mExpandedDrawable;
+    private final AnimatedVectorDrawable mCollapsedDrawable;
 
     public ExpandableIndicator(Context context) {
         super(context);

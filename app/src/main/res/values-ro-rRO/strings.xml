@@ -215,17 +215,17 @@
   <string name="enable_emergency_info_title">Activează informațiile de urgență</string>
   <string name="enable_emergency_info">Adaugă butonul „Informații de urgență” la apelatorul de urgență</string>
   <string name="edit_emergency_info_title">Editează informațiile de urgență</string>
-  <string name="header_personal">Personal</string>
-  <string name="info_fullname">Nume complet</string>
-  <string name="info_address">Adresă</string>
-  <string name="info_birthdate">Data nașterii</string>
-  <string name="header_medical">Medical</string>
-  <string name="info_bloodtype">Grupă sanguină</string>
-  <string name="info_allergies">Alergii</string>
-  <string name="info_medications">Medicamente</string>
-  <string name="info_medicalnotes">Condiții și note medicale</string>
-  <string name="info_organdonor">Donator de organe</string>
-  <string name="info_unspecified">Nespecificat</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Personal</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Nume complet</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresă</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Data nașterii</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medical</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Grupă sanguină</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergii</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Medicamente</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Condiții și note medicale</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Donator de organe</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nespecificat</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -237,8 +237,8 @@
   <string name="yes">Da</string>
   <string name="no">Nu</string>
   <string name="battery">Baterie</string>
-  <string name="charged">Încărcat</string>
-  <string name="charging">Se încarcă, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Încărcat</string>
+  <string name="charging" tools:ignore="UnusedResources">Se încarcă, %1$s</string>
   <string name="qs_edit">Editați</string>
   <string name="drag_to_add_tiles">Trageți pentru a adăuga tile-uri</string>
   <string name="drag_to_remove_tiles">Trageți aici pentru a elimina</string>

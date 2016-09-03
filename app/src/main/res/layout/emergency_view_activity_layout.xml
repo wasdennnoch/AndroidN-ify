@@ -37,7 +37,7 @@
             android:textColor="#FFFFFF"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="18dp"></LinearLayout>
+            android:layout_height="18dp"/>
     </LinearLayout>
     <ViewFlipper
         android:id="@+id/view_flipper"

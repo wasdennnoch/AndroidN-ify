@@ -152,22 +152,22 @@
   <string name="enable_emergency_info_title">긴급 상황 정보 활성화</string>
   <string name="enable_emergency_info">긴급 상황 정보를 긴급 전화 다이얼에 추가합니다</string>
   <string name="edit_emergency_info_title">긴급 상황 정보 수정</string>
-  <string name="header_personal">개인</string>
-  <string name="info_fullname">이름</string>
-  <string name="info_address">주소</string>
-  <string name="info_birthdate">생년월일</string>
-  <string name="header_medical">의학</string>
-  <string name="info_bloodtype">혈액형</string>
-  <string name="info_allergies">알레르기</string>
-  <string name="info_medications">약물</string>
-  <string name="info_medicalnotes">복용중인 약물과 의료 기록을 기록하세요</string>
-  <string name="info_organdonor">장기 기증자</string>
-  <string name="info_unspecified">명시된 내용 없음</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">개인</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">이름</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">주소</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">생년월일</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">의학</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">혈액형</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">알레르기</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">약물</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">복용중인 약물과 의료 기록을 기록하세요</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">장기 기증자</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">명시된 내용 없음</string>
   <string name="yes">예</string>
   <string name="no">아니오</string>
   <string name="battery">배터리</string>
-  <string name="charged">충전 됨</string>
-  <string name="charging">충전 중, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">충전 됨</string>
+  <string name="charging" tools:ignore="UnusedResources">충전 중, %1$s</string>
   <string name="qs_edit">수정</string>
   <string name="drag_to_add_tiles">타일을 추가하려면 드래그 하세요</string>
   <string name="drag_to_remove_tiles">제거하려면 여기로 드래그 하세요</string>

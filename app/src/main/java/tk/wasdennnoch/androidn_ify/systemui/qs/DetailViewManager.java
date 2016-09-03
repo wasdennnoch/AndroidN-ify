@@ -1,38 +1,21 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.internal.logging.MetricsLogger;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 
 import de.robv.android.xposed.XposedHelpers;
-import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
-import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
-import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class DetailViewManager {
 
@@ -41,10 +24,10 @@ public class DetailViewManager {
 
     private static DetailViewManager sInstance;
 
-    private Context mContext;
-    private ViewGroup mStatusBarHeaderView;
-    private ViewGroup mQsPanel;
-    private boolean mHasEditPanel;
+    private final Context mContext;
+    private final ViewGroup mStatusBarHeaderView;
+    private final ViewGroup mQsPanel;
+    private final boolean mHasEditPanel;
 
     public static DetailViewManager getInstance() {
         if (sInstance == null)
@@ -143,8 +126,9 @@ public class DetailViewManager {
         void handleRightButtonClick();
     }
 
+    @SuppressLint("ViewConstructor")
     public static class DetailFrameLayout extends FrameLayout implements DetailViewAdapter {
-        private DetailViewAdapter mAdapter;
+        private final DetailViewAdapter mAdapter;
 
         public DetailFrameLayout(Context context, DetailViewAdapter adapter) {
             super(context);

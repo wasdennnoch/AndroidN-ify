@@ -19,6 +19,7 @@ import android.content.Context;
 import android.os.UserManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import tk.wasdennnoch.androidn_ify.ui.emergency.ReloadablePreferenceInterface;
@@ -31,7 +32,11 @@ public class NameAutoCompletePreference extends AutoCompleteEditTextPreference i
         ReloadablePreferenceInterface {
     public NameAutoCompletePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        getAutoCompleteTextView().setAdapter(createAdapter());
+        try {
+            getAutoCompleteTextView().setAdapter(createAdapter());
+        } catch (Throwable t) {
+            Log.e("test", "fuck", t);
+        }
     }
 
     private ArrayAdapter createAdapter() {

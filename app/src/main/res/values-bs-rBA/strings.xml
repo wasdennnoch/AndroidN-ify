@@ -175,22 +175,22 @@
   <string name="enable_emergency_info_title">Omogući podatke</string>
   <string name="enable_emergency_info">Dodavanje podataka za slučaj nužde na brojčanik za hitni poziv</string>
   <string name="edit_emergency_info_title">Uredi podatke</string>
-  <string name="header_personal">Lično</string>
-  <string name="info_fullname">Puno ime</string>
-  <string name="info_address">Adresa</string>
-  <string name="info_birthdate">Datum rođenja</string>
-  <string name="header_medical">Medicinski</string>
-  <string name="info_bloodtype">Krvna grupa</string>
-  <string name="info_allergies">Alergije</string>
-  <string name="info_medications">Lijekovi</string>
-  <string name="info_medicalnotes">Zdravstvena stanja i bilješke</string>
-  <string name="info_organdonor">Donor organa</string>
-  <string name="info_unspecified">Nije navedeno</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Lično</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Puno ime</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresa</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Datum rođenja</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medicinski</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Krvna grupa</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergije</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Lijekovi</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Zdravstvena stanja i bilješke</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Donor organa</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nije navedeno</string>
   <string name="yes">Da</string>
   <string name="no">Ne</string>
   <string name="battery">Baterija</string>
-  <string name="charged">Napunjena</string>
-  <string name="charging">Punjenje, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Napunjena</string>
+  <string name="charging" tools:ignore="UnusedResources">Punjenje, %1$s</string>
   <string name="qs_edit">Uredi</string>
   <string name="drag_to_add_tiles">Prevucite da dodate pločice</string>
   <string name="drag_to_remove_tiles">Prevucite ovdje da uklonite</string>

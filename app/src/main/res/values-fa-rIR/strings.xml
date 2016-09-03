@@ -175,17 +175,17 @@
   <string name="enable_emergency_info_title">فعالسازی اطلاعات شخصی</string>
   <string name="enable_emergency_info">اطلاعات اورژانسی و شخصی شما را اضافه می کند</string>
   <string name="edit_emergency_info_title">ویرایش اطلاعات شخصی</string>
-  <string name="header_personal">شخصی</string>
-  <string name="info_fullname">نام و نام خانوادگی</string>
-  <string name="info_address">آدرس</string>
-  <string name="info_birthdate">تاریخ تولد</string>
-  <string name="header_medical">اورژانسی</string>
-  <string name="info_bloodtype">گروه خونی</string>
-  <string name="info_allergies">حساسیت یا آلرژی</string>
-  <string name="info_medications">دارو های مورد مصرف</string>
-  <string name="info_medicalnotes">موارد دیگر پزشکلی</string>
-  <string name="info_organdonor">ادای اعضای بدن</string>
-  <string name="info_unspecified">مشخص نشده</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">شخصی</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">نام و نام خانوادگی</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">آدرس</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">تاریخ تولد</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">اورژانسی</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">گروه خونی</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">حساسیت یا آلرژی</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">دارو های مورد مصرف</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">موارد دیگر پزشکلی</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">ادای اعضای بدن</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">مشخص نشده</string>
   <string name="info_bloodtype_op">O مثبت</string>
   <string name="info_bloodtype_on">O منفی</string>
   <string name="info_bloodtype_ap">A مثبت</string>
@@ -197,8 +197,8 @@
   <string name="yes">بله</string>
   <string name="no">خیر</string>
   <string name="battery">باتری</string>
-  <string name="charged">شارژ شده</string>
-  <string name="charging">%1$s در حال شارژ</string>
+  <string name="charged" tools:ignore="UnusedResources">شارژ شده</string>
+  <string name="charging" tools:ignore="UnusedResources">%1$s در حال شارژ</string>
   <string name="qs_edit">ویرایش</string>
   <string name="drag_to_add_tiles">برای افزودن نگه دارید</string>
   <string name="drag_to_remove_tiles">برای حذف کردن به اینجا منتقل کنید</string>

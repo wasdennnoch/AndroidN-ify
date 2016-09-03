@@ -78,7 +78,7 @@
   <string name="battery_charging_usb">%1$s - USB Şarj</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_ac">%1$s - Şarj Oluyor</string>
-  <string name="memory_summary">Ortalama bellek kullanımı %1$s</string>
+  <string name="memory_summary">Currently %1$s of %2$s memory used</string>
   <string name="user_summary">%1$s olarak giriş yapıldı</string>
   <string name="location_on_power">AÇIK / Pil tasarrufu</string>
   <string name="location_on_device">AÇIK / Yalnızca cihaz</string>
@@ -206,17 +206,17 @@
   <string name="enable_emergency_info_title">Acil durum bilgisini etkinleştirme</string>
   <string name="enable_emergency_info">Acil arama ekranına Acil durum bilgisi tuşunu ekler</string>
   <string name="edit_emergency_info_title">Acil durum bilgisini düzenle</string>
-  <string name="header_personal">Kişisel</string>
-  <string name="info_fullname">Tam isim</string>
-  <string name="info_address">Adres</string>
-  <string name="info_birthdate">Doğum tarihi</string>
-  <string name="header_medical">Medikal</string>
-  <string name="info_bloodtype">Kan grubu</string>
-  <string name="info_allergies">Alerjiler</string>
-  <string name="info_medications">İlaçlar</string>
-  <string name="info_medicalnotes">Tıbbi durumlar ve notlar</string>
-  <string name="info_organdonor">Organ Bağışı</string>
-  <string name="info_unspecified">Belirtilmemiş</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Kişisel</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Tam isim</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adres</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Doğum tarihi</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medikal</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Kan grubu</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alerjiler</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">İlaçlar</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Tıbbi durumlar ve notlar</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Organ Bağışı</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Belirtilmemiş</string>
   <string name="info_bloodtype_op">O+</string>
   <string name="info_bloodtype_on">O-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -228,8 +228,8 @@
   <string name="yes">Evet</string>
   <string name="no">Hayır</string>
   <string name="battery">Pil</string>
-  <string name="charged">Şarj</string>
-  <string name="charging">Şarj oluyor, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Şarj</string>
+  <string name="charging" tools:ignore="UnusedResources">Şarj oluyor, %1$s</string>
   <string name="qs_edit">Düzenle</string>
   <string name="drag_to_add_tiles">Kare eklemek için sürükleyin</string>
   <string name="drag_to_remove_tiles">Kaldırmak için buraya sürükleyin</string>

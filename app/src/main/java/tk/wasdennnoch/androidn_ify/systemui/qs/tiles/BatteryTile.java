@@ -1,19 +1,10 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs.tiles;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.SpannableStringBuilder;
@@ -135,7 +126,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     // A mix of GB BatteryView and AOSP BatteryMeterView
     public class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener {
-        private BatteryMeterDrawable mDrawable = newDrawable();
+        private final BatteryMeterDrawable mDrawable = newDrawable();
 
         public BatteryView(Context context) {
             super(context);
@@ -170,7 +161,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     private final class BatteryDetail implements DetailViewManager.DetailAdapter, View.OnClickListener,
             View.OnAttachStateChangeListener, DetailViewManager.DetailViewAdapter {
-        private BatteryMeterDrawable mDrawable = newDrawable();
+        private final BatteryMeterDrawable mDrawable = newDrawable();
         private View mCurrentView;
 
         @Override

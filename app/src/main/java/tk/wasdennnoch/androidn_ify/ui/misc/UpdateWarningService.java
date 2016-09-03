@@ -8,6 +8,7 @@ import android.os.IBinder;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
+@SuppressWarnings("deprecation")
 public class UpdateWarningService extends Service {
 
     @Override

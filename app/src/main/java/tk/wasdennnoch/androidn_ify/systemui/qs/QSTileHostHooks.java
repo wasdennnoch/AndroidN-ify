@@ -24,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class QSTileHostHooks {
     public static final String TAG = "QSTileHostHooks";
 
@@ -46,7 +47,7 @@ public class QSTileHostHooks {
     protected static Object mTileHost = null;
 
     // MM
-    private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
+    private static final XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
 
         @SuppressWarnings("unchecked")
         @Override
@@ -110,7 +111,7 @@ public class QSTileHostHooks {
     };
 
     // LP
-    private static XC_MethodHook recreateTilesHook = new XC_MethodHook() {
+    private static final XC_MethodHook recreateTilesHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -158,7 +159,7 @@ public class QSTileHostHooks {
         }
     };
 
-    private static XC_MethodHook loadTileSpecsHook = new XC_MethodHook() {
+    private static final XC_MethodHook loadTileSpecsHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {

@@ -24,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.ui.misc.AppsAdapter;
 import tk.wasdennnoch.androidn_ify.ui.misc.CachedResolveInfo;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class BlacklistAppActivity extends Activity implements SearchView.OnQueryTextListener, AppsAdapter.AppsAdapterListener, LoadAppInfoTask.OnFinishListener {
 
     private String mSearchQuery;
