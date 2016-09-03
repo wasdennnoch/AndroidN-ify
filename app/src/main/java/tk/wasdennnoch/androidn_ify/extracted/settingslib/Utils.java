@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+@SuppressWarnings("WeakerAccess")
 public class Utils {
 
     /** Formats an integer from 0..100 as a percentage. */

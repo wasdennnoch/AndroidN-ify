@@ -20,6 +20,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
+@SuppressWarnings("SameReturnValue")
 public class TilesManager {
 
     private static final String TAG = "TilesManager";

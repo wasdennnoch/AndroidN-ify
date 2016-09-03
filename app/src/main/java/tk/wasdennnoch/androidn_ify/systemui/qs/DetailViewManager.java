@@ -104,6 +104,7 @@ public class DetailViewManager {
         return null;
     }
 
+    @SuppressWarnings({"EmptyMethod", "SameReturnValue"})
     public interface DetailAdapter {
         int getTitle();
 

@@ -74,7 +74,7 @@ public class QSTile {
         mState.apply(state);
     }
 
-    public void onCreateTileView(View tileView) throws Throwable {
+    public void onCreateTileView(View tileView) {
         XposedHelpers.setAdditionalInstanceField(tileView, TILE_KEY_NAME, mKey);
     }
 

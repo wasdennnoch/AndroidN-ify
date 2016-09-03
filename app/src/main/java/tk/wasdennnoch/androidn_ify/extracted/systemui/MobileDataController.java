@@ -25,6 +25,7 @@ import static android.net.NetworkStatsHistory.FIELD_TX_BYTES;
 import static android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
 import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
 
+@SuppressWarnings("SameReturnValue")
 public class MobileDataController {
     private static final String TAG = "MobileDataController";
 

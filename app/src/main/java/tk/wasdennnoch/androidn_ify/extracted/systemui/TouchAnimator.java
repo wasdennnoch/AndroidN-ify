@@ -111,9 +111,8 @@ public class TouchAnimator {
             return this;
         }
 
-        public Builder setInterpolator(Interpolator paramInterpolator) {
+        public void setInterpolator(Interpolator paramInterpolator) {
             mInterpolator = paramInterpolator;
-            return this;
         }
 
         public Builder setListener(Listener paramListener) {
@@ -168,6 +167,7 @@ public class TouchAnimator {
         }
     }
 
+    @SuppressWarnings("EmptyMethod")
     public interface Listener {
         void onAnimationAtEnd();
 

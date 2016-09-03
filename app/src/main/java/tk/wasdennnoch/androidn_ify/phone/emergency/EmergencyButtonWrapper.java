@@ -20,6 +20,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.ui.emergency.view.ViewInfoActivity;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class EmergencyButtonWrapper implements View.OnClickListener {
 
     private static final String TAG = "EmergencyButton";

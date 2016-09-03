@@ -57,7 +57,7 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
-@SuppressWarnings({"WeakerAccess", "UnusedAssignment"})
+@SuppressWarnings({"WeakerAccess", "UnusedAssignment", "PointlessBooleanExpression"})
 public class NotificationHooks {
 
     private static final String TAG = "NotificationHooks";

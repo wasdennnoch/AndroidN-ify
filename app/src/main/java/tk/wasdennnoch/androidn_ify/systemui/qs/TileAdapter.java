@@ -331,15 +331,14 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         }
     }
 
-    public boolean saveChanges() {
+    public void saveChanges() {
         XposedHook.logD(TAG, "saveChanges called");
         List<String> tileSpecs = getAddedTileSpecs();
         if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
-            return true;
+            return;
         }
         XposedHook.logD(TAG, "saveChanges: No changes to save");
-        return false;
     }
 
     public List<String> getAddedTileSpecs() {

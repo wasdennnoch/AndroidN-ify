@@ -28,11 +28,10 @@ import tk.wasdennnoch.androidn_ify.ui.misc.DownloadService;
 @SuppressWarnings("WeakerAccess")
 public class UpdateUtils {
 
-    public static boolean check(Context context, UpdateListener listener) {
-        if (!isEnabled(context)) return false;
-        if (!isConnected(context)) return false;
+    public static void check(Context context, UpdateListener listener) {
+        if (!isEnabled(context)) return;
+        if (!isConnected(context)) return;
         new CheckUpdateTask(context).execute(context.getString(R.string.updater_url), listener);
-        return true;
     }
 
     public static boolean isEnabled(Context context) {
