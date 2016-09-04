@@ -998,9 +998,9 @@ public class StatusBarHeaderHooks {
                 switch (method.getName()) {
                     case "onDismiss":
                         runnable.run();
-                        return null;
+                        return false;
                 }
-                return null;
+                return false;
             }
         });
     }
