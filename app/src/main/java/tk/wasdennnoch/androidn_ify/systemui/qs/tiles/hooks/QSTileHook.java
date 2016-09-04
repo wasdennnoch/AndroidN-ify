@@ -8,10 +8,11 @@ import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class QSTileHook {
 
-    private QSTileHook mHook;
-    protected Class<?> mTileClass;
+    private final QSTileHook mHook;
+    protected final Class<?> mTileClass;
     protected Context mContext;
     protected Object mThisObject;
 
@@ -65,7 +66,12 @@ public abstract class QSTileHook {
     }
 
     protected final void startActivityDismissingKeyguard(Intent intent) {
-        XposedHelpers.callMethod(XposedHelpers.getObjectField(mThisObject, "mHost"), "startActivityDismissingKeyguard", intent);
+        Object host = XposedHelpers.getObjectField(mThisObject, "mHost");
+        try {
+            XposedHelpers.callMethod(host, "startActivityDismissingKeyguard", intent);
+        } catch (Throwable t) { // CM 12.1
+            XposedHelpers.callMethod(host, "startSettingsActivity", intent);
+        }
     }
 
     protected final void showDetail(boolean show) {
@@ -80,7 +86,7 @@ public abstract class QSTileHook {
         return XposedHelpers.getObjectField(mThisObject, name);
     }
 
-    protected XC_MethodHook handleClickHook = new XC_MethodReplacement() {
+    protected final XC_MethodHook handleClickHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             handleClick();
@@ -88,7 +94,7 @@ public abstract class QSTileHook {
         }
     };
 
-    protected XC_MethodHook handleLongClickHook = new XC_MethodReplacement() {
+    protected final XC_MethodHook handleLongClickHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             handleLongClick();

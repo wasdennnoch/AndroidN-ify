@@ -3,29 +3,26 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
-import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.views.FakeQSTileView;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
-import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 public class AvailableTileAdapter extends TileAdapter {
 
     private static final String CLASS_QS_TUNER = "com.android.systemui.tuner.QsTuner";
 
-    private Class<?> classQSTileHost;
-    private Class<?> classResourceIcon;
+    private final Class<?> classQSTileHost;
+    private final Class<?> classResourceIcon;
     private Class<?> classQSTuner;
 
-    public AvailableTileAdapter(ArrayList<Object> records, Context context, ViewGroup qsPanel) {
-        super(context, qsPanel);
+    public AvailableTileAdapter(ArrayList<Object> records, Context context) {
+        super(context);
 
         mRecords = new ArrayList<>();
 
@@ -47,7 +44,7 @@ public class AvailableTileAdapter extends TileAdapter {
             availableTiles.remove(spec);
         }
 
-        if (RomUtils.isCmBased()) {
+        /*if (RomUtils.isCmBased()) {
             try {
                 Class<?> classQSUtils = XposedHelpers.findClass(QSTileHostHooks.CLASS_QS_UTILS, mContext.getClassLoader());
                 for (String spec : availableTiles) {
@@ -59,7 +56,7 @@ public class AvailableTileAdapter extends TileAdapter {
                 XposedHook.logW(TAG, "Couldn't determine static tiles (" + t.getClass().getSimpleName() + ")");
                 // TODO crashing although the CMSDK is clearly there?
             }
-        }
+        }*/
 
         for (String spec : availableTiles) {
             addSpec(spec);

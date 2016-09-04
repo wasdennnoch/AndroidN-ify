@@ -13,7 +13,11 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
@@ -44,6 +48,8 @@ public class SystemUIHooks {
                 intentFilter.addAction(SettingsActivity.ACTION_GENERAL);
                 intentFilter.addAction(SettingsActivity.ACTION_FIX_INVERSION);
                 intentFilter.addAction(SettingsActivity.ACTION_KILL_SYSTEMUI);
+                intentFilter.addAction(AddTileActivity.ACTION_ADD_TILE);
+                intentFilter.addAction(XposedHook.ACTION_MARK_UNSTABLE);
                 app.registerReceiver(new BroadcastReceiver() {
                     @Override
                     public void onReceive(Context context, Intent intent) {
@@ -66,6 +72,18 @@ public class SystemUIHooks {
                                     }
                                 }, 100);
                                 break;
+                            case AddTileActivity.ACTION_ADD_TILE:
+                                if (intent.hasExtra(AddTileActivity.EXTRA_TILE_SPEC)) {
+                                    NotificationPanelHooks.invalidateTileAdapter();
+                                    QSTileHostHooks.addSpec(context, intent.getStringExtra(AddTileActivity.EXTRA_TILE_SPEC));
+                                    QSTileHostHooks.recreateTiles();
+                                }
+                                NotificationPanelHooks.expandWithQs();
+                                NotificationPanelHooks.showQsCustomizer(StatusBarHeaderHooks.mRecords, true);
+                                break;
+                            case XposedHook.ACTION_MARK_UNSTABLE:
+                                XposedHook.markUnstable();
+                                break;
                         }
                     }
                 }, intentFilter);
@@ -80,6 +98,16 @@ public class SystemUIHooks {
                 }, 2000);
             }
         });
+
+        if (!ConfigUtils.M) {
+            XposedHelpers.findAndHookMethod("android.app.ContextImpl", classLoader, "enforceCallingPermission", String.class, String.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    if (param.args[0].equals("android.permission.BATTERY_STATS"))
+                        param.setResult(null);
+                }
+            });
+        }
 
     }
 

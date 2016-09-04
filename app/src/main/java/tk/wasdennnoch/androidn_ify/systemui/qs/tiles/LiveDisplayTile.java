@@ -15,13 +15,14 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.LiveDisplayObserver;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class LiveDisplayTile extends QSTile {
 
     public static final String TILE_SPEC = "live_display";
     private static final String TAG = "LiveDisplayTile";
     private String[] mTileEntries;
     private int[] mTileEntryIconRes;
-    private ResourceUtils mResUtils;
+    private final ResourceUtils mResUtils;
     private int mCurrentMode = 0;
 
     public LiveDisplayTile(TilesManager tilesManager, Object host, String key) {
@@ -84,7 +85,7 @@ public class LiveDisplayTile extends QSTile {
         refreshState();
     }
 
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             XposedHook.logD(TAG, "Broadcast received, action: " + intent.getAction());

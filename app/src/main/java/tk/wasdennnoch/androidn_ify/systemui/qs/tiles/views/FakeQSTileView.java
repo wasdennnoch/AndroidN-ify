@@ -41,6 +41,7 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 /**
  * View that represents a standard quick settings tile.
  */
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class FakeQSTileView extends ViewGroup {
     private static final Typeface CONDENSED = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
 
@@ -56,7 +57,7 @@ public class FakeQSTileView extends ViewGroup {
 
     private TextView mLabel;
     private boolean mDual;
-    private Drawable mTileBackground;
+    private final Drawable mTileBackground;
     private RippleDrawable mRipple;
 
     public FakeQSTileView(Context context) {

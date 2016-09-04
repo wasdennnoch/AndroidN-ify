@@ -50,31 +50,36 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
+import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+@SuppressWarnings({"WeakerAccess", "UnusedAssignment", "PointlessBooleanExpression"})
 public class NotificationHooks {
 
     private static final String TAG = "NotificationHooks";
 
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
-    private static final String KEY_EXPANDABLE = "ncv_expandable";
     private static final String KEY_EXPAND_CLICK_LISTENER = "expandClickListener";
-    public static final int ANIMATION_DURATION_GO_TO_FULL_SHADE = 448;
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;
     public static View mPanelShadow;
     public static FrameLayout.LayoutParams mShadowLp;
-    private static Map<String, Integer> mGeneratedColors = new HashMap<>();
+    private static final Map<String, Integer> mGeneratedColors = new HashMap<>();
 
-    private static Object mPhoneStatusBar;
+    public static Object mPhoneStatusBar;
 
-    private static XC_MethodHook inflateViewsHook = new XC_MethodHook() {
+    public static boolean remoteInputActive = false;
+    public static Object statusBarWindowManager = null;
 
-        @SuppressWarnings("deprecation")
+    private static final XC_MethodHook inflateViewsHook = new XC_MethodHook() {
+
+        @SuppressWarnings({"deprecation", "UnusedAssignment"})
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
@@ -157,11 +162,52 @@ public class NotificationHooks {
                     }
                 }
             }
+            Notification.Action[] actions = sbn.getNotification().actions;
+            if (RemoteInputHelperView.DIRECT_REPLY_ENABLED && actions != null) {
+                for (int i = 0; i < actions.length; i++) {
+                    final Notification.Action action = actions[i];
+                    if (hasValidRemoteInput(action)) {
+                        View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
 
+                        final RemoteInputHelperView remoteInputHelperView = RemoteInputHelperView.newInstance(context,
+                                action.actionIntent, privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
+                        LinearLayout actionsLayout = (LinearLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                        int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
+                        ViewGroup parent = (ViewGroup) actionsLayout.getParent();
+                        parent.removeView(actionsLayout);
+                        parent.addView(remoteInputHelperView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        remoteInputHelperView.addView(actionsLayout, 0);
+                        ViewUtils.setMarginStart(actionsLayout, startMargin);
+                        ((ViewGroup.MarginLayoutParams) remoteInputHelperView.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
+
+                        RemoteInput[] remoteInputs = action.getRemoteInputs();
+                        RemoteInput remoteInput = null;
+                        for (RemoteInput ri : remoteInputs) {
+                            if (ri.getAllowFreeFormInput()) {
+                                remoteInput = ri;
+                                break;
+                            }
+                        }
+                        if (remoteInput == null) {
+                            break;
+                        }
+                        remoteInputHelperView.setRemoteInput(remoteInputs, remoteInput);
+
+                        Button actionButton = (Button) actionsLayout.getChildAt(i);
+                        actionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                remoteInputHelperView.show(v, true);
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
         }
     };
 
-    private static XC_MethodHook getStandardViewHook = new XC_MethodHook() {
+    private static final XC_MethodHook getStandardViewHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             RemoteViews contentView = (RemoteViews) param.getResult();
@@ -288,6 +334,8 @@ public class NotificationHooks {
 
     public static String loadHeaderAppName(Context context) {
         CharSequence appname = context.getPackageName();
+        if (appname.equals(PACKAGE_SYSTEMUI))
+            return context.getString(context.getResources().getIdentifier("android_system_label", "string", PACKAGE_ANDROID));
         try {
             appname = context.getString(context.getApplicationInfo().labelRes);
         } catch (Throwable t) {
@@ -300,7 +348,7 @@ public class NotificationHooks {
         return String.valueOf(appname);
     }
 
-    private static XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
+    private static final XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -322,7 +370,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook resetStandardTemplateHook = new XC_MethodHook() {
+    private static final XC_MethodHook resetStandardTemplateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             RemoteViews contentView = (RemoteViews) param.args[0];
@@ -336,7 +384,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook processSmallIconAsLargeHook = new XC_MethodReplacement() {
+    private static final XC_MethodHook processSmallIconAsLargeHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
             if (!((boolean) XposedHelpers.callMethod(methodHookParam.thisObject, "isLegacy"))) {
@@ -354,7 +402,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook applyStandardTemplateWithActionsHook = new XC_MethodHook() {
+    private static final XC_MethodHook applyStandardTemplateWithActionsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
@@ -363,7 +411,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook generateActionButtonHook = new XC_MethodHook() {
+    private static final XC_MethodHook generateActionButtonHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
@@ -381,7 +429,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodReplacement resolveColorHook = new XC_MethodReplacement() {
+    private static final XC_MethodReplacement resolveColorHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             int mColor = XposedHelpers.getIntField(param.thisObject, "mColor");
@@ -405,14 +453,14 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook initConstantsHook = new XC_MethodHook() {
+    private static final XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHelpers.setBooleanField(param.thisObject, "mScaleDimmed", false);
         }
     };
 
-    private static XC_MethodHook updateWindowWidthHHook = new XC_MethodHook() {
+    private static final XC_MethodHook updateWindowWidthHHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Dialog mDialog = (Dialog) XposedHelpers.getObjectField(param.thisObject, "mDialog");
@@ -430,7 +478,7 @@ public class NotificationHooks {
             window.setAttributes(wlp);
         }
     };
-    private static XC_MethodHook updateWidthHook = new XC_MethodHook() {
+    private static final XC_MethodHook updateWidthHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Dialog mDialog = (Dialog) XposedHelpers.getObjectField(param.thisObject, "mDialog");
@@ -450,7 +498,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
+    private static final XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if (param.thisObject instanceof Button) {
@@ -623,6 +671,29 @@ public class NotificationHooks {
                 final Class<?> classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
                 final Class<?> classMediaExpandableNotificationRow = getClassMediaExpandableNotificationRow(classLoader);
                 Class classPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
+                if (RemoteInputHelperView.DIRECT_REPLY_ENABLED) {
+                    Class classStatusBarWindowManager = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager", classLoader);
+                    Class classStatusBarWindowManagerState = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager.State", classLoader);
+
+                    XposedHelpers.findAndHookMethod(classPhoneStatusBar, "addStatusBarWindow", new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            statusBarWindowManager = XposedHelpers.getObjectField(param.thisObject, "mStatusBarWindowManager");
+                        }
+                    });
+
+                    XposedHelpers.findAndHookMethod(classStatusBarWindowManager, "applyFocusableFlag", classStatusBarWindowManagerState, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            WindowManager.LayoutParams windowParams = (WindowManager.LayoutParams) XposedHelpers.getObjectField(param.thisObject, "mLpChanged");
+                            if (remoteInputActive) {
+                                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+                                param.setResult(null);
+                            }
+                        }
+                    });
+                }
 
                 XposedHelpers.findAndHookMethod(classBaseStatusBar, "inflateViews", classEntry, ViewGroup.class, inflateViewsHook);
                 XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, initConstantsHook);
@@ -665,14 +736,16 @@ public class NotificationHooks {
                     }
                 });
 
-                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        boolean isHeadsUp = (boolean) param.args[0];
-                        FrameLayout row = (FrameLayout) param.thisObject;
-                        row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
-                    }
-                });
+                if (ConfigUtils.M) {
+                    XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            boolean isHeadsUp = (boolean) param.args[0];
+                            FrameLayout row = (FrameLayout) param.thisObject;
+                            row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
+                        }
+                    });
+                }
 
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
                     @Override
@@ -680,6 +753,40 @@ public class NotificationHooks {
                         mPhoneStatusBar = param.thisObject;
                     }
                 });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "makeStatusBarView", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        Object mNavigationBarView = XposedHelpers.getObjectField(NotificationHooks.mPhoneStatusBar, "mNavigationBarView");
+                        if (mNavigationBarView == null) {
+                            QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
+                            if (qsCustomizer != null)
+                                qsCustomizer.setHasNavBar(false);
+                        }
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "onBackPressed", new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
+                        if (qsCustomizer != null && qsCustomizer.isCustomizing()) {
+                            param.setResult(true);
+                            qsCustomizer.hideCircular();
+                        }
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "animateCollapsePanels", int.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
+                        if (qsCustomizer != null && qsCustomizer.isCustomizing()) {
+                            qsCustomizer.hide(true);
+                        }
+                    }
+                });
+
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "updateNotificationShade", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -728,15 +835,12 @@ public class NotificationHooks {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         final Object row = param.thisObject;
-                        XposedHelpers.setAdditionalInstanceField(param.thisObject, KEY_EXPAND_CLICK_LISTENER, new View.OnClickListener() {
+                        XposedHelpers.setAdditionalInstanceField(param.thisObject, KEY_EXPAND_CLICK_LISTENER, new SafeOnClickListener(TAG, "Error in notification expand icon click") {
                             @Override
-                            public void onClick(View v) {
+                            public void onClickSafe(View v) {
                                 boolean nowExpanded = !(boolean) XposedHelpers.callMethod(row, "isExpanded");
                                 XposedHelpers.callMethod(row, "setUserExpanded", nowExpanded);
                                 XposedHelpers.callMethod(row, "notifyHeightChanged", true);
-                                if (mPhoneStatusBar != null) {
-                                    //XposedHelpers.callMethod(mPhoneStatusBar, "goToLockedShade", row);
-                                }
                             }
                         });
                     }
@@ -777,7 +881,7 @@ public class NotificationHooks {
     private static void updateChildrenExpanded(Object notificationContentView, boolean expanded) {
         View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
         View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
-        View mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        View mHeadsUpChild = ConfigUtils.M ? (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild") : null;
         if (mExpandedChild != null) {
             setExpanded(mExpandedChild, expanded);
         }
@@ -797,10 +901,14 @@ public class NotificationHooks {
     }
 
     private static void updateExpandButtons(Object notificationContentView, boolean expandable, View.OnClickListener onClickListener) {
-        boolean mIsHeadsUp = XposedHelpers.getBooleanField(notificationContentView, "mIsHeadsUp");
+        boolean mIsHeadsUp = false;
         View mExpandedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mExpandedChild");
         View mContractedChild = (View) XposedHelpers.getObjectField(notificationContentView, "mContractedChild");
-        View mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        View mHeadsUpChild = null;
+        if (ConfigUtils.M) {
+            mIsHeadsUp = XposedHelpers.getBooleanField(notificationContentView, "mIsHeadsUp");
+            mHeadsUpChild = (View) XposedHelpers.getObjectField(notificationContentView, "mHeadsUpChild");
+        }
         // if the expanded child has the same height as the collapsed one we hide it.
         if (mExpandedChild != null && mExpandedChild.getHeight() != 0) {
             if ((!mIsHeadsUp || mHeadsUpChild == null)) {
@@ -840,7 +948,7 @@ public class NotificationHooks {
         return null;
     }
 
-    private boolean hasValidRemoteInput(Notification.Action action) {
+    private static boolean hasValidRemoteInput(Notification.Action action) {
         if ((TextUtils.isEmpty(action.title)) || (action.actionIntent == null)) {
             return false;
         }
@@ -932,7 +1040,7 @@ public class NotificationHooks {
         }
     }
 
-    private static XC_LayoutInflated notification_template_material_big_base = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_big_base = new XC_LayoutInflated() {
 
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -950,7 +1058,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated status_bar_no_notifications = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated status_bar_no_notifications = new XC_LayoutInflated() {
 
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -977,7 +1085,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated status_bar_notification_dismiss_all = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated status_bar_notification_dismiss_all = new XC_LayoutInflated() {
 
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -1136,7 +1244,7 @@ public class NotificationHooks {
     };
     */
 
-    private static XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             FrameLayout layout = (FrameLayout) liparam.view;
@@ -1199,6 +1307,7 @@ public class NotificationHooks {
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
 
+                    childLp.height = res.getDimensionPixelSize(R.dimen.notification_action_list_height);
                     if (!isInboxLayout) {
                         childLp.topMargin += actionsMarginTop;
                     }
@@ -1231,7 +1340,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated status_bar_notification_row = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated status_bar_notification_row = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             FrameLayout row = (FrameLayout) liparam.view;
@@ -1252,19 +1361,20 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated notification_material_action = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_material_action = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             Button button = (Button) liparam.view;
 
             LinearLayout.LayoutParams buttonLp = (LinearLayout.LayoutParams) button.getLayoutParams();
+            buttonLp.height = ViewGroup.LayoutParams.MATCH_PARENT;
             buttonLp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             buttonLp.weight = 0;
             button.setLayoutParams(buttonLp);
         }
     };
 
-    private static XC_LayoutInflated notification_template_material_big_media = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_big_media = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
             RelativeLayout layout = (RelativeLayout) liparam.view;
@@ -1295,7 +1405,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated notification_template_material_media = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_media = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             LinearLayout layout = (LinearLayout) liparam.view;
@@ -1334,7 +1444,7 @@ public class NotificationHooks {
         }
     };
 
-    private static XC_LayoutInflated notification_template_material_big_picture = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_template_material_big_picture = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
             FrameLayout layout = (FrameLayout) liparam.view;
@@ -1365,7 +1475,7 @@ public class NotificationHooks {
     };
 
     @SuppressWarnings("deprecation")
-    private static XC_LayoutInflated notification_public_default = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated notification_public_default = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             RelativeLayout layout = (RelativeLayout) liparam.view;

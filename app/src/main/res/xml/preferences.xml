@@ -281,12 +281,7 @@
                 android:dependency="enable_emergency_info"
                 android:key="edit_emergency_info"
                 android:title="@string/edit_emergency_info_title">
-                <intent android:action="tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity">
-                    <!--suppress AndroidElementNotAllowed -->
-                    <extra
-                        android:name="editable"
-                        android:value="true"/>
-                </intent>
+                <intent android:action="tk.wasdennnoch.androidn_ify.LAUNCH_EDIT_EMERGENGY_INFO" />
             </PreferenceScreen>
 
         </PreferenceScreen>

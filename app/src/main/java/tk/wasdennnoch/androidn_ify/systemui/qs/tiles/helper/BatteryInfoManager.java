@@ -27,10 +27,11 @@ import java.util.ArrayList;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
+@SuppressWarnings("WeakerAccess")
 public class BatteryInfoManager extends BroadcastReceiver {
 
-    private PowerManager mPowerManager;
-    private BatteryData mBatteryData;
+    private final PowerManager mPowerManager;
+    private final BatteryData mBatteryData;
     private final ArrayList<BatteryStatusListener> mListeners;
 
     @Override

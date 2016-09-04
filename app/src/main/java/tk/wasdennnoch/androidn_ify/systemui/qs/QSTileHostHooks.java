@@ -24,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class QSTileHostHooks {
     public static final String TAG = "QSTileHostHooks";
 
@@ -46,7 +47,7 @@ public class QSTileHostHooks {
     protected static Object mTileHost = null;
 
     // MM
-    private static XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
+    private static final XC_MethodHook onTuningChangedHook = new XC_MethodHook() {
 
         @SuppressWarnings("unchecked")
         @Override
@@ -110,7 +111,7 @@ public class QSTileHostHooks {
     };
 
     // LP
-    private static XC_MethodHook recreateTilesHook = new XC_MethodHook() {
+    private static final XC_MethodHook recreateTilesHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -158,7 +159,7 @@ public class QSTileHostHooks {
         }
     };
 
-    private static XC_MethodHook loadTileSpecsHook = new XC_MethodHook() {
+    private static final XC_MethodHook loadTileSpecsHook = new XC_MethodHook() {
         @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -305,6 +306,7 @@ public class QSTileHostHooks {
                 if (!TextUtils.isEmpty(s))
                     specs.add(s);
             }
+            XposedHook.logD(TAG, "Read tiles from config.xml");
         } catch (Throwable t) {
             try { // On CM use the QSUtils
                 try {
@@ -331,6 +333,22 @@ public class QSTileHostHooks {
         specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
         return specs;
+    }
+
+    public static List<String> getCurrentTileSpecs() {
+        List<String> specs = new ArrayList<>();
+        for (String spec : mTileSpecs) {
+            if (spec == null) return specs;
+            specs.add(spec);
+        }
+        return specs;
+    }
+
+    public static void addSpec(Context context, String spec) {
+        List<String> specs = getCurrentTileSpecs();
+        specs.add(spec);
+        saveTileSpecs(context, specs);
+        recreateTiles();
     }
 
     public static void recreateTiles() {

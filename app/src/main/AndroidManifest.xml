@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="tk.wasdennnoch.androidn_ify"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    package="tk.wasdennnoch.androidn_ify"
     android:installLocation="internalOnly">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:allowBackup="true"
@@ -16,24 +17,24 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/LightTheme"
+        android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning">
-
         <meta-data
             android:name="xposedmodule"
-            android:value="true"/>
+            android:value="true" />
         <meta-data
             android:name="xposedminversion"
-            android:value="81"/>
+            android:value="81" />
         <meta-data
             android:name="xposeddescription"
             android:value="@string/xposed_description"
-            tools:ignore="ManifestResource"/>
+            tools:ignore="ManifestResource" />
 
-        <activity
-            android:name=".ui.SettingsActivity">
+        <activity android:name=".ui.SettingsActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
             </intent-filter>
         </activity>
 
@@ -42,49 +43,83 @@
             android:enabled="true"
             android:targetActivity=".ui.SettingsActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
 
         <activity
             android:name=".ui.AboutActivity"
-            android:label="@string/activity_about"/>
+            android:label="@string/activity_about" />
         <activity
             android:name=".ui.PlatLogoActivity"
-            android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"/>
-
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen" />
         <activity
             android:name=".ui.BlacklistAppActivity"
             android:label="@string/notification_blacklisted_apps_title"
             android:parentActivityName=".ui.SettingsActivity">
             <intent-filter>
-                <action android:name="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.AddTileActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/add_custom_tile"
+            android:theme="@style/QSTheme" />
+        <activity
+            android:name=".ui.emergency.view.ViewInfoActivity"
+            android:icon="@mipmap/ic_launcher_settings"
+            android:launchMode="singleTask"
+            android:showOnLockScreen="true"
+            android:taskAffinity="com.android.settings"
+            android:theme="@style/AppThemeEmergency">
+            <intent-filter>
+                <action android:name="tk.wasdennnoch.androidn_ify.EMERGENCY_ASSISTANCE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.emergency.edit.EditInfoActivity"
+            android:icon="@mipmap/ic_launcher_settings"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.android.settings"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="tk.wasdennnoch.androidn_ify.EDIT_EMERGENGY_INFO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.EmergencyInfoActivity"
-            android:exported="true"
-            android:label="@string/emergency_info"
-            android:launchMode="singleTask"
-            android:showOnLockScreen="true"
-            android:theme="@android:style/Theme.Material.Light.DarkActionBar">
+        <activity android:name=".ui.emergency.edit.LaunchEditInfoActivity"
+            android:theme="@style/TransparentTheme">
             <intent-filter>
-                <action android:name="tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="tk.wasdennnoch.androidn_ify.LAUNCH_EDIT_EMERGENGY_INFO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <service
             android:name=".ui.misc.DownloadService"
-            android:exported="false"/>
-
+            android:exported="false" />
         <service
             android:name=".ui.misc.LogcatService"
-            android:exported="false"/>
+            android:exported="false" />
+        <service
+            android:name=".ui.misc.UpdateWarningService"
+            android:exported="false" />
 
+        <receiver android:name=".ui.misc.OnUpdateReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

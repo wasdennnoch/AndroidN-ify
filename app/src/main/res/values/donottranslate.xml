@@ -1,16 +1,45 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name" translatable="false">Android N-ify</string>
 
     <string name="force_english_title" translatable="false">Force English language</string>
 
-    <!-- NOTIFICATIONS -->
     <string name="notification_header_divider_symbol" translatable="false">•</string>
-    <!-- /NOTIFICATIONS -->
 
     <!-- UPDATER -->
     <!-- Will be injected by build server. Don't touch it. -->
     <string name="updater_url">null</string>
     <!-- /UPDATER -->
+
+    <string name="tile_spec_example">CUSTOMTILE0</string>
+
+    <string name="qs_edit_detail" tools:ignore="UnusedResources">@string/qs_edit</string>
+
+    <string-array name="blood_type_values">
+        <item>0+</item>
+        <item>O-</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>H/H</item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+    </string-array>
+
+    <string-array name="organ_donor_values">
+        <item>Yes</item>
+        <item>No</item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+    </string-array>
+
+    <string-array name="organ_donor_entries">
+        <item>@string/yes</item>
+        <item>@string/no</item>
+        <item>@string/unknown_organ_donor</item>
+    </string-array>
 
 </resources>

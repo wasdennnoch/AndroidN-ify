@@ -21,13 +21,13 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("SameParameterValue")
 public class ResizingSpace extends View {
 
     private final int mWidth;

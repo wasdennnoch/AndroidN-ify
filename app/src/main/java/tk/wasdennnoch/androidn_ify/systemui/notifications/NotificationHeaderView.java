@@ -26,8 +26,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.RemotableViewMethod;
 import android.view.TouchDelegate;
@@ -37,7 +35,6 @@ import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Chronometer;
-import android.widget.DateTimeView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
@@ -51,6 +48,7 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 /**
  * A header of a notification view
  */
+@SuppressWarnings({"deprecation", "SameParameterValue", "WeakerAccess"})
 @RemoteViews.RemoteView
 public class NotificationHeaderView extends ViewGroup {
     public static final int NO_COLOR = -1;
@@ -59,7 +57,7 @@ public class NotificationHeaderView extends ViewGroup {
     private View mAppName;
     private View mHeaderText;
     private OnClickListener mExpandClickListener;
-    private HeaderTouchListener mTouchListener = new HeaderTouchListener();
+    private final HeaderTouchListener mTouchListener = new HeaderTouchListener();
     private ImageView mExpandButton;
     private View mIcon;
     private View mProfileBadge;
@@ -69,9 +67,9 @@ public class NotificationHeaderView extends ViewGroup {
     private boolean mExpanded;
     private boolean mShowWorkBadgeAtEnd;
     private Drawable mBackground;
-    private int mHeaderBackgroundHeight;
+    private final int mHeaderBackgroundHeight;
 
-    private Resources mModuleRes;
+    private final Resources mModuleRes;
 
     @SuppressWarnings("deprecation")
     public static NotificationHeaderView newHeader(Context context) {
@@ -179,6 +177,7 @@ public class NotificationHeaderView extends ViewGroup {
         return headerView;
     }
 
+    @SuppressWarnings("deprecation")
     private static TextView newDivider(Context context, ResourceUtils res) {
         int dividerMargin = res.getDimensionPixelSize(R.dimen.notification_header_text_margin);
         String dividerSymbol = res.getString(R.string.notification_header_divider_symbol);
@@ -192,7 +191,7 @@ public class NotificationHeaderView extends ViewGroup {
         return divider;
     }
 
-    ViewOutlineProvider mProvider = new ViewOutlineProvider() {
+    final ViewOutlineProvider mProvider = new ViewOutlineProvider() {
         @Override
         public void getOutline(View view, Outline outline) {
             if (mBackground != null) {
@@ -583,9 +582,6 @@ public class NotificationHeaderView extends ViewGroup {
     }
 
     public boolean isInTouchRect(float x, float y) {
-        if (mExpandClickListener == null) {
-            return false;
-        }
-        return mTouchListener.isInside(x, y);
+        return mExpandClickListener != null && mTouchListener.isInside(x, y);
     }
 }

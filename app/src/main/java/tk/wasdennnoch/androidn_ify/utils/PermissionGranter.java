@@ -17,13 +17,13 @@ package tk.wasdennnoch.androidn_ify.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
+@SuppressWarnings({"WeakerAccess", "UnusedAssignment"})
 public class PermissionGranter {
     public static final String TAG = "GB:PermissionGranter";
     public static final boolean DEBUG = false;
@@ -55,8 +55,7 @@ public class PermissionGranter {
                                 neededPermissions.add(PERM_BATTERY_STATS);
                                 if (ConfigUtils.M)
                                     grantPermsMm(param, pkgName, neededPermissions);
-                                else
-                                    grantPermsLp(param, pkgName, neededPermissions);
+                                // Somehow we can't grant BATTERY_STATS on Lollipop. Use another way in SystemUIHooks.
                             }
                         }
                     });
@@ -65,7 +64,7 @@ public class PermissionGranter {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "UnusedAssignment"})
     private static void grantPermsMm(XC_MethodHook.MethodHookParam param, String pkgName, List<String> neededPermissions) {
         final Object extras = XposedHelpers.getObjectField(param.args[0], "mExtras");
         final Object ps = XposedHelpers.callMethod(extras, "getPermissionsState");
@@ -87,37 +86,6 @@ public class PermissionGranter {
         if (DEBUG) {
             log("List of permissions: ");
             for (Object perm : grantedPerms) {
-                log(pkgName + ": " + perm);
-            }
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static void grantPermsLp(XC_MethodHook.MethodHookParam param, String pkgName, List<String> neededPermissions) {
-        final Object extras = XposedHelpers.getObjectField(param.args[0], "mExtras");
-        final Object sharedUser = XposedHelpers.getObjectField(extras, "sharedUser");
-        final Set<String> grantedPerms =
-                (Set<String>) XposedHelpers.getObjectField(extras, "grantedPermissions");
-        final Object settings = XposedHelpers.getObjectField(param.thisObject, "mSettings");
-        final Object permissions = XposedHelpers.getObjectField(settings, "mPermissions");
-
-        for (String perm : neededPermissions) {
-            if (!grantedPerms.contains(perm)) {
-                final Object pCns = XposedHelpers.callMethod(permissions, "get",
-                        perm);
-                grantedPerms.add(perm);
-                int[] gpGids = (int[]) XposedHelpers.getObjectField(sharedUser, "gids");
-                int[] bpGids = (int[]) XposedHelpers.getObjectField(pCns, "gids");
-                gpGids = (int[]) XposedHelpers.callStaticMethod(param.thisObject.getClass(),
-                        "appendInts", gpGids, bpGids);
-
-                if (DEBUG) log(pkgName + ": Permission added: " + pCns);
-            }
-        }
-
-        if (DEBUG) {
-            log("List of permissions: ");
-            for (String perm : grantedPerms) {
                 log(pkgName + ": " + perm);
             }
         }

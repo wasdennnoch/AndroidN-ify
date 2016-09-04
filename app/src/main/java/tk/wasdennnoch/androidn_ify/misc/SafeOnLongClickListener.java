@@ -8,6 +8,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
  * An implementation of {@link View.OnLongClickListener} which catches
  * any exception thrown in {@link #onLongClickSafe(View)}.
  */
+@SuppressWarnings("SameReturnValue")
 public abstract class SafeOnLongClickListener implements View.OnLongClickListener {
 
     private String mLogTag;

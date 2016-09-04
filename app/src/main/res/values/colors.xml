@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App theme -->
     <color name="colorAccent">#F26522</color>
@@ -15,5 +15,18 @@
     <color name="qs_text">#FFFFFFFF</color>
     <color name="system_accent_color">#ff80CBC4</color>
     <!-- /Notifications / Status bar header -->
+
+    <!-- Emergency info -->
+    <color name="emergency_primary_dark">#C62828</color>
+    <color name="emergency_primary">#E53935</color>
+    <color name="emergency_accent">#FFFF00</color>
+    <color name="tab_text_color">#FFFFFF</color>
+    <color name="material_teal_200">#FF80CBC4</color>
+    <color name="white_with_alpha" tools:ignore="UnusedResources">#B2FFFFFF</color>
+    <color name="hint_text_color">#36000000</color>
+    <color name="m_blue_grey_900">#ff263238</color>
+    <color name="m_blue_grey_950">#ff21272b</color>
+    <color name="qs_detail_transition">#66FFFFFF</color>
+    <!-- /Emergency Info -->
 
 </resources>

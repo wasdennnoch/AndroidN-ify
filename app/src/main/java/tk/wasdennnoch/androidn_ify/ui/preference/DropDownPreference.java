@@ -31,13 +31,14 @@ import java.util.ArrayList;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class DropDownPreference extends Preference {
 
-    private Context mContext;
+    private final Context mContext;
     private String mSummary;
-    private ArrayAdapter<String> mAdapter;
-    private Spinner mSpinner;
-    private ArrayList<String> mValues = new ArrayList<>();
+    private final ArrayAdapter<String> mAdapter;
+    private final Spinner mSpinner;
+    private final ArrayList<String> mValues = new ArrayList<>();
     private String mValue;
 
     private int mSelectedPosition = -1;

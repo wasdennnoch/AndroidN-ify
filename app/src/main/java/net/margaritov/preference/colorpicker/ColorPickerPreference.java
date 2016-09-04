@@ -35,6 +35,7 @@ import android.widget.LinearLayout;
  *
  * @author Sergey Margaritov
  */
+@SuppressWarnings({"WeakerAccess", "JavaDoc", "UnusedAssignment"})
 public class ColorPickerPreference extends Preference implements Preference.OnPreferenceClickListener, ColorPickerDialog.OnColorChangedListener {
 
     View mView;
@@ -124,6 +125,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         iView.setImageBitmap(getPreviewBitmap());
     }
 
+    @SuppressWarnings("UnusedAssignment")
     private Bitmap getPreviewBitmap() {
         int d = (int) (mDensity * 31); //30dip
         int color = mValue;
@@ -153,7 +155,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
         setPreviewColor();
         try {
             getOnPreferenceChangeListener().onPreferenceChange(this, color);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
 
         }
     }
@@ -303,7 +305,7 @@ public class ColorPickerPreference extends Preference implements Preference.OnPr
 
         public SavedState(Parcel source) {
             super(source);
-            dialogBundle = source.readBundle();
+            dialogBundle = source.readBundle(getClass().getClassLoader());
         }
 
         @Override

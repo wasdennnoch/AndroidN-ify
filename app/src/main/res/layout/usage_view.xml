@@ -72,6 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/usage_graph_labels_width"
+        android:paddingEnd="0dp"
         android:orientation="horizontal">
 
         <include android:id="@+id/label_start"

@@ -7,7 +7,9 @@ import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 
 import de.robv.android.xposed.XSharedPreferences;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class RomUtils {
 
     private static SharedPreferences sPrefs;
@@ -46,7 +48,7 @@ public class RomUtils {
     }
 
     public static boolean isCm() {
-        return sPrefs.getString("rom", "").equals("cm");
+        return StatusBarHeaderHooks.mUseDragPanel;
     }
 
     public static boolean isRr() {

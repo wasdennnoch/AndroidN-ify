@@ -1,8 +1,14 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
 import android.content.Context;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
@@ -10,8 +16,10 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
+import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class NotificationPanelHooks {
 
     private static final String TAG = "NotificationPanelHooks";
@@ -20,13 +28,15 @@ public class NotificationPanelHooks {
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
 
-    public static final int STATE_SHADE = 0;
     public static final int STATE_KEYGUARD = 1;
 
-    private static ViewGroup mNotificationPanelView;
+    public static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
+    private static QSCustomizer mQsCustomizer;
 
-    private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
+    private static final List<BarStateCallback> mBarStateCallbacks = new ArrayList<>();
+
+    private static final XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mNotificationPanelView = (ViewGroup) param.thisObject;
@@ -48,18 +58,27 @@ public class NotificationPanelHooks {
                     XposedHook.logE(TAG, "Couldn't change QS container background color", t);
                 }
             }
+
+            FrameLayout.LayoutParams qsCustomizerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            QSCustomizer qsCustomizer = new QSCustomizer(context);
+            mNotificationPanelView.addView(qsCustomizer, qsCustomizerLp);
+
+            mQsCustomizer = qsCustomizer;
         }
     };
 
-    private static XC_MethodHook setBarStateHook = new XC_MethodHook() {
+    private static final XC_MethodHook setBarStateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "setBarStateHook: Setting state to " + (int) param.args[0]);
-            StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
+            //StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
+            for (BarStateCallback callback : mBarStateCallbacks) {
+                callback.onStateChanged();
+            }
         }
     };
 
-    private static View.OnClickListener mExpandIndicatorListener = new SafeOnClickListener() {
+    private static final View.OnClickListener mExpandIndicatorListener = new SafeOnClickListener() {
         @Override
         public void onClickSafe(View v) {
             // Fixes an issue with the indicator having two backgrounds when layer type is hardware
@@ -67,6 +86,18 @@ public class NotificationPanelHooks {
             flingSettings(!mExpandIndicator.isExpanded());
         }
     };
+
+    public static void expandWithQs() {
+        try {
+            if (ConfigUtils.M) {
+                XposedHelpers.callMethod(mNotificationPanelView, "expandWithQs");
+            } else {
+                XposedHelpers.callMethod(mNotificationPanelView, "expand");
+            }
+        } catch (Throwable ignore) {
+
+        }
+    }
 
     public static boolean isExpanded() {
         return (mExpandIndicator != null && mExpandIndicator.isExpanded());
@@ -76,24 +107,20 @@ public class NotificationPanelHooks {
         return (mExpandIndicator != null && !mExpandIndicator.isExpanded());
     }
 
-    public static boolean expandIfNecessary() {
+    public static void expandIfNecessary() {
         if (mExpandIndicator != null && mNotificationPanelView != null) {
             if (!mExpandIndicator.isExpanded()) {
                 flingSettings(true);
-                return true;
             }
         }
-        return false;
     }
 
-    public static boolean collapseIfNecessary() {
+    public static void collapseIfNecessary() {
         if (mExpandIndicator != null && mNotificationPanelView != null) {
             if (mExpandIndicator.isExpanded()) {
                 flingSettings(false);
-                return true;
             }
         }
-        return false;
     }
 
     private static void flingSettings(boolean expanded) {
@@ -119,6 +146,8 @@ public class NotificationPanelHooks {
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
+                //Class<?> classNotificationsQuickSettingsContainer = XposedHelpers.findClass(CLASS_NOTIFICATIONS_QUICK_SETTINGS_CONTAINER, classLoader);
+
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
 
@@ -129,9 +158,81 @@ public class NotificationPanelHooks {
                     }
                 });
 
+                /*
+                XposedHelpers.findAndHookMethod(classNotificationsQuickSettingsContainer, "onFinishInflate", new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        FrameLayout container = (FrameLayout) param.thisObject;
+
+                        FrameLayout.LayoutParams qsCustomizerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        QSCustomizer qsCustomizer = new QSCustomizer(container.getContext());
+                        qsCustomizer.setLayoutParams(qsCustomizerLp);
+                        //container.addView(qsCustomizer, 2);
+
+                        mQsCustomizer = qsCustomizer;
+                    }
+                });
+                */
+
+                XC_MethodHook returnIfCustomizing = new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        if (mQsCustomizer != null && mQsCustomizer.isCustomizing())
+                            param.setResult(false);
+                    }
+                };
+
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onInterceptTouchEvent", MotionEvent.class, returnIfCustomizing);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onTouchEvent", MotionEvent.class, returnIfCustomizing);
+
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
         }
+    }
+
+    public static void addBarStateCallback(BarStateCallback callback) {
+        mBarStateCallbacks.add(callback);
+    }
+
+    public static void removeBarStateCallback(BarStateCallback callback) {
+        mBarStateCallbacks.remove(callback);
+    }
+
+    public static QSCustomizer getQsCustomizer() {
+        return mQsCustomizer;
+    }
+
+    public interface BarStateCallback {
+        void onStateChanged();
+    }
+
+    public static void invalidateTileAdapter() {
+        if (mQsCustomizer != null)
+            mQsCustomizer.invalidateTileAdapter();
+    }
+
+    public static void showQsCustomizer(ArrayList<Object> records, boolean animated) {
+        if (canShowCustomizer(records))
+            mQsCustomizer.show(records, animated);
+    }
+
+    public static void showQsCustomizer(ArrayList<Object> records, int x, int y) {
+        if (canShowCustomizer(records))
+            mQsCustomizer.show(records, x, y);
+    }
+
+    private static boolean canShowCustomizer(ArrayList<Object> records) {
+        if (records == null) {
+            Toast.makeText(StatusBarHeaderHooks.mContext, "Couldn't open edit view; mRecords == null", Toast.LENGTH_SHORT).show();
+            XposedHook.logE(TAG, "Couldn't open edit view; mRecords == null", null);
+            return false;
+        }
+        if (mQsCustomizer == null) {
+            Toast.makeText(StatusBarHeaderHooks.mContext, "Couldn't open edit view; mQsCustomizer == null", Toast.LENGTH_SHORT).show();
+            XposedHook.logE(TAG, "Couldn't open edit view; mQsCustomizer == null", null);
+            return false;
+        }
+        return true;
     }
 }

@@ -17,9 +17,10 @@ import android.widget.TextView;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity;
+import tk.wasdennnoch.androidn_ify.ui.emergency.view.ViewInfoActivity;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class EmergencyButtonWrapper implements View.OnClickListener {
 
     private static final String TAG = "EmergencyButton";
@@ -29,14 +30,14 @@ public class EmergencyButtonWrapper implements View.OnClickListener {
     private static final long RIPPLE_PAUSE = 1000;
 
     private final Interpolator mFastOutLinearInInterpolator;
-    private Context mContext;
+    private final Context mContext;
 
-    private FrameLayout mLayout;
-    private Button mButton;
-    private ViewGroup mSelectedContainer;
-    private TextView mSelectedLabel;
-    private View mRippleView;
-    private TextView mLaunchHint;
+    private final FrameLayout mLayout;
+    private final Button mButton;
+    private final ViewGroup mSelectedContainer;
+    private final TextView mSelectedLabel;
+    private final View mRippleView;
+    private final TextView mLaunchHint;
 
     private boolean mHiding;
 
@@ -85,8 +86,8 @@ public class EmergencyButtonWrapper implements View.OnClickListener {
     private void startEmergencyActivity() {
         try {
             XposedHook.logI("androidn_ify", "try");
-            mContext.startActivity(new Intent("tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity")
-                    .setClassName("tk.wasdennnoch.androidn_ify", EmergencyInfoActivity.class.getName()).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS));
+            mContext.startActivity(new Intent("tk.wasdennnoch.androidn_ify.EMERGENCY_ASSISTANCE")
+                    .setClassName("tk.wasdennnoch.androidn_ify", ViewInfoActivity.class.getName()).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS));
         } catch (Exception e) {
             XposedHook.logI("androidn_ify", "catch");
             XposedHook.logE(TAG, "Unable to start emergency activity!", e);

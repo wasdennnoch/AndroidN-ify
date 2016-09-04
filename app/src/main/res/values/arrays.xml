@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string-array name="empty_array"/> <!-- Required as the default value of e.g. a MultiSelectListPreference -->
 
@@ -43,7 +43,7 @@
     </string-array>
 
 
-    <string-array name="info_blood_types" translatable="false">
+    <string-array name="info_blood_types" translatable="false" tools:ignore="UnusedResources">
         <item>@string/info_bloodtype_op</item>
         <item>@string/info_bloodtype_on</item>
         <item>@string/info_bloodtype_ap</item>
@@ -55,7 +55,20 @@
         <item>@string/info_unspecified</item>
     </string-array>
 
-    <string-array name="info_organdonor_values" translatable="false">
+    <string-array name="blood_type_entries">
+        <item>@string/info_bloodtype_op</item>
+        <item>@string/info_bloodtype_on</item>
+        <item>@string/info_bloodtype_ap</item>
+        <item>@string/info_bloodtype_an</item>
+        <item>@string/info_bloodtype_bp</item>
+        <item>@string/info_bloodtype_bn</item>
+        <item>@string/info_bloodtype_abp</item>
+        <item>@string/info_bloodtype_abn</item>
+        <item>@string/info_bloodtype_h_h</item>
+        <item>@string/unknown_blood_type</item>
+    </string-array>
+
+    <string-array name="info_organdonor_values" translatable="false" tools:ignore="UnusedResources">
         <item>@string/yes</item>
         <item>@string/no</item>
         <item>@string/info_unspecified</item>
@@ -69,10 +82,34 @@
         <item>@string/live_display_outdoor</item>
     </string-array>
 
-    <string-array name="battery_labels">
+    <string-array name="battery_labels" tools:ignore="MissingTranslation">
         <item>0%</item>
         <item>50%</item>
         <item>100%</item>
     </string-array>
+
+    <array name="batterymeter_bolt_points">
+        <item>73</item> <item>0</item>
+        <item>392</item><item>0</item>
+        <item>201</item><item>259</item>
+        <item>442</item><item>259</item>
+        <item>4</item>  <item>703</item>
+        <item>157</item><item>334</item>
+        <item>0</item>  <item>334</item>
+    </array>
+    <array name="batterymeter_plus_points">
+        <item>3</item><item>0</item>
+        <item>5</item><item>0</item>
+        <item>5</item><item>3</item>
+        <item>8</item><item>3</item>
+        <item>8</item><item>5</item>
+        <item>5</item><item>5</item>
+        <item>5</item><item>8</item>
+        <item>3</item><item>8</item>
+        <item>3</item><item>5</item>
+        <item>0</item><item>5</item>
+        <item>0</item><item>3</item>
+        <item>3</item><item>3</item>
+    </array>
 
 </resources>

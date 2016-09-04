@@ -25,7 +25,10 @@ public class CellularTileHook extends QSTileHook {
 
     @Override
     public void handleClick() {
-        MetricsLogger.action(mContext, MetricsLogger.QS_CELLULAR);
+        try {
+            MetricsLogger.action(mContext, MetricsLogger.QS_CELLULAR);
+        } catch (NoClassDefFoundError ignore) {
+        }
         if (NotificationPanelHooks.isCollapsed()) {
             // Only toggle
             Object mDetailAdapter = getObjectField("mDetailAdapter");
