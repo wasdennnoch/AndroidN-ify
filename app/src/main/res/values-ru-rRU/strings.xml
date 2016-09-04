@@ -154,7 +154,7 @@
   <string name="now_string_shortest">сейчас</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
-    <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> мин.</item></item>
+    <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> мин.</item>
     <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g> мин.</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> мин.</item>
   </plurals>
@@ -162,43 +162,27 @@
   <plurals name="duration_hours_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> ч</item>
     <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g> ч.</item>
-    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> ч.</item></item>
+    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> ч.</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> д.</item>
     <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g> д.</item>
-    <item quantity="other">% д.% д.</item>
-  </plurals>
-  <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_years_shortest">
-    <item quantity="one">% д.% д.</item>
-    <item quantity="few">% д.% д.</item>
-    <item quantity="other">% д.% д.</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g> мин.</item>
     <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g> мин.</item>
-    <item quantity="other">% д.% д.</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_hours_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g> ч.</item>
     <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g> ч.</item>
-    <item quantity="other">% д.</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_days_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g> д.</item>
     <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g> д.</item>
-    <item quantity="other">% д. % д.</item>
-  </plurals>
-  <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_years_shortest_future">
-    <item quantity="one">% д.% д.</item>
-    <item quantity="few">% д.% д.% д.</item>
-    <item quantity="other">% д.</item>
   </plurals>
   <string name="update_notification_title">Обновление доступно</string>
   <string name="update_notification">Билд %1$d доступен!</string>

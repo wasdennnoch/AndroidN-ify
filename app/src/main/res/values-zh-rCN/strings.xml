@@ -213,7 +213,7 @@
   <string name="clear">清除</string>
   <string name="clear_all_message">要清除所有信息和联系人吗？</string>
   <string name="phone_type_and_phone_number">
-<xliff:g example="Mobile"id="phone_type">%1$s </xliff:g> • <xliff:g example="333-444-5566"id="phone_number">%2$s </xliff:g>    </string>
+<xliff:g example="Mobile" id="phone_type">%1$s </xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s </xliff:g>    </string>
   <string name="remove_contact">
 要将<xliff:g example="John Doe" id="contact_name">%1$s</xliff:g>从紧急情况联系人中移除吗？
     </string>
@@ -229,9 +229,9 @@
   <string name="date_of_birth" tools:ignore="UnusedResources">出生日期</string>
   <string name="unknown_date_of_birth" tools:ignore="UnusedResources">未知</string>
   <string name="dob" tools:ignore="UnusedResources">
-(<xliff:g example="3 feb 1987"id="date_of_birth">%1$s </xliff:g>)    </string>
+(<xliff:g example="3 feb 1987" id="date_of_birth">%1$s </xliff:g>)    </string>
   <string name="age" tools:ignore="UnusedResources">
-年龄︰ <xliff:g example="29"id="numerical_age">%1$d </xliff:g>    </string>
+年龄︰ <xliff:g example="29" id="numerical_age">%1$d </xliff:g>    </string>
   <string name="remove_dob_icon_text" tools:ignore="UnusedResources">移除出生日期</string>
   <string name="blood_type">血型</string>
   <string name="unknown_blood_type">未知</string>

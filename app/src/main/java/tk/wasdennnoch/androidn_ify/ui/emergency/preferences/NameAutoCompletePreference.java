@@ -19,7 +19,6 @@ import android.content.Context;
 import android.os.UserManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import tk.wasdennnoch.androidn_ify.ui.emergency.ReloadablePreferenceInterface;
@@ -34,8 +33,8 @@ public class NameAutoCompletePreference extends AutoCompleteEditTextPreference i
         super(context, attrs);
         try {
             getAutoCompleteTextView().setAdapter(createAdapter());
-        } catch (Throwable t) {
-            Log.e("androidn_ify", "fudge", t);
+        } catch (Throwable ignore) {
+
         }
     }
 

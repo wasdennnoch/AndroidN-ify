@@ -48,6 +48,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.QSDetailClipper;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TileAdapter;
 import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
@@ -122,8 +123,10 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             }
         });
         mToolbar.setOnMenuItemClickListener(this);
-        mToolbar.getMenu().add(Menu.NONE, MENU_ADD_BROADCAST_TILE, 0,
-                res.getString(R.string.add_custom_tile));
+        if (ConfigUtils.M) {
+            mToolbar.getMenu().add(Menu.NONE, MENU_ADD_BROADCAST_TILE, 0,
+                    res.getString(R.string.add_custom_tile));
+        }
         mToolbar.setTitle(R.string.qs_edit);
 
         mRecyclerView = (RecyclerView) findViewById(android.R.id.list);

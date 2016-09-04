@@ -16,12 +16,16 @@
 package tk.wasdennnoch.androidn_ify.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
-import tk.wasdennnoch.androidn_ify.XposedHook;
+
+import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_OWN;
+import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 
 @SuppressWarnings({"WeakerAccess", "UnusedAssignment"})
 public class PermissionGranter {
@@ -32,9 +36,24 @@ public class PermissionGranter {
     private static final String CLASS_PACKAGE_PARSER_PACKAGE = "android.content.pm.PackageParser.Package";
 
     private static final String PERM_BATTERY_STATS = "android.permission.BATTERY_STATS";
+    private static final String PERM_MANAGE_USERS = "android.permission.MANAGE_USERS";
 
     private static void log(String message) {
         XposedBridge.log(TAG + ": " + message);
+    }
+
+    private static Map<String, List<String>> mPerms;
+
+    static {
+        mPerms = new HashMap<>();
+
+        List<String> systemUiPerms = new ArrayList<>();
+        systemUiPerms.add(PERM_BATTERY_STATS);
+        mPerms.put(PACKAGE_SYSTEMUI, systemUiPerms);
+
+        List<String> ownPerms = new ArrayList<>();
+        ownPerms.add(PERM_MANAGE_USERS);
+        mPerms.put(PACKAGE_OWN, ownPerms);
     }
 
     public static void initAndroid(final ClassLoader classLoader) {
@@ -48,15 +67,8 @@ public class PermissionGranter {
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                             final String pkgName = (String) XposedHelpers.getObjectField(param.args[0], "packageName");
 
-                            // SystemUI
-                            if (pkgName.equals(XposedHook.PACKAGE_SYSTEMUI)) {
-                                List<String> neededPermissions = new ArrayList<>();
-                                // Add android.permission.BATTERY_STATS needed by battery tile
-                                neededPermissions.add(PERM_BATTERY_STATS);
-                                if (ConfigUtils.M)
-                                    grantPermsMm(param, pkgName, neededPermissions);
-                                // Somehow we can't grant BATTERY_STATS on Lollipop. Use another way in SystemUIHooks.
-                            }
+                            if (ConfigUtils.M && mPerms.containsKey(pkgName))
+                                grantPermsMm(param, pkgName, mPerms.get(pkgName));
                         }
                     });
         } catch (Throwable t) {

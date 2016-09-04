@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.os.BatteryStats;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.UserManager;
@@ -20,13 +21,22 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.internal.os.BatteryStatsHelper;
+
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources;
+import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.settingslib.BatteryInfo;
+import tk.wasdennnoch.androidn_ify.extracted.settingslib.UsageView;
 import tk.wasdennnoch.androidn_ify.settings.summaries.SummaryTweaks;
 import tk.wasdennnoch.androidn_ify.ui.PlatLogoActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -37,15 +47,10 @@ public class SettingsHooks {
     private static final String TAG = "SettingsHooks";
     private static final String KEY_APP_DETAILS_CATEGORY = "AppDetailsCategory";
     private static final String KEY_APP_DETAILS = "app_details";
+    private static final String KEY_BATTERY_INFO = "battery_info";
+    private static final String KEY_CHART = "chart";
 
     private static final long[] mHits = new long[3];
-
-    /*private static XC_MethodHook onCreateHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            SummaryTweaks.afterOnCreate(param);
-        }
-    };*/
 
     public static void hook(ClassLoader classLoader) {
         try {
@@ -53,6 +58,28 @@ public class SettingsHooks {
             config.reload();
             if (config.settings.enable_summaries) {
                 SummaryTweaks.hookMethods(classLoader);
+                if (ConfigUtils.M) {
+                    Class<?> classBatteryHistoryPreference = XposedHelpers.findClass("com.android.settings.fuelgauge.BatteryHistoryPreference", classLoader);
+
+                    XposedHelpers.findAndHookMethod(classBatteryHistoryPreference, "setStats", BatteryStatsHelper.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            Preference preference = (Preference) param.thisObject;
+                            BatteryStatsHelper batteryStats = (BatteryStatsHelper) param.args[0];
+                            final long elapsedRealtimeUs = SystemClock.elapsedRealtime() * 1000;
+                            XposedHelpers.setAdditionalInstanceField(preference, KEY_BATTERY_INFO, BatteryInfo.getBatteryInfo(preference.getContext(), batteryStats.getBatteryBroadcast(),
+                                    batteryStats.getStats(), elapsedRealtimeUs));
+                        }
+                    });
+
+                    XposedHelpers.findAndHookMethod(classBatteryHistoryPreference, "onBindView", View.class, new XC_MethodReplacement() {
+                        @Override
+                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                            bindBatteryHistoryPreference((Preference) param.thisObject,(View) param.args[0]);
+                            return null;
+                        }
+                    });
+                }
             }
             if (config.settings.enable_n_platlogo) {
                 Class<?> classDeviceInfoSettings = XposedHelpers.findClass("com.android.settings.DeviceInfoSettings", classLoader);
@@ -69,6 +96,62 @@ public class SettingsHooks {
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private static void bindBatteryHistoryPreference(Preference preference, View view) {
+        Object field = XposedHelpers.getAdditionalInstanceField(preference, KEY_BATTERY_INFO);
+        Object mChart = XposedHelpers.getAdditionalInstanceField(preference, KEY_CHART);
+        if (field != null && field instanceof BatteryInfo) {
+            if (view.findViewById(R.id.battery_usage) == null) {
+                FrameLayout oldLayout = (FrameLayout) view;
+                oldLayout.removeAllViews();
+
+                Context context = oldLayout.getContext();
+                ResourceUtils res = ResourceUtils.getInstance(context);
+
+                LinearLayout layout = (LinearLayout) LayoutInflater.from(ResourceUtils.createOwnContext(context)).inflate(R.layout.battery_usage_graph, oldLayout, false);
+
+                TypedValue colorAccent = new TypedValue();
+                TypedValue textColorSecondary = new TypedValue();
+                context.getTheme().resolveAttribute(android.R.attr.colorAccent, colorAccent, true);
+                context.getTheme().resolveAttribute(android.R.attr.textColorSecondary, textColorSecondary, true);
+
+                int colorAccentValue = context.getResources().getColor(colorAccent.resourceId);
+                int textColorSecondaryValue = context.getResources().getColor(textColorSecondary.resourceId);
+
+                ((TextView) layout.findViewById(R.id.charge)).setTextColor(colorAccentValue);
+                ((TextView) layout.findViewById(R.id.estimation)).setTextColor(textColorSecondaryValue);
+
+                if (mChart == null || !(mChart instanceof UsageView)) {
+                    LinearLayout.LayoutParams usageViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.battery_usage_height));
+                    UsageView usageView = new UsageView(context, textColorSecondaryValue,
+                            colorAccentValue, true);
+                    usageView.setId(R.id.battery_usage);
+                    usageView.setLayoutParams(usageViewLp);
+                    usageView.setSideLabels(res.getResources().getTextArray(R.array.battery_labels));
+                    usageView.findViewById(R.id.label_group).setAlpha(.7f);
+                    mChart = usageView;
+                    XposedHelpers.setAdditionalInstanceField(preference, KEY_CHART, usageView);
+                } else {
+                    UsageView usageView = (UsageView) mChart;
+                    if (usageView.getParent() != null) {
+                        ((ViewGroup) usageView.getParent()).removeView(usageView);
+                    }
+                    mChart = usageView;
+                }
+                layout.addView((View) mChart);
+
+                oldLayout.addView(layout);
+            }
+
+            BatteryInfo batteryInfo = (BatteryInfo) field;
+
+            ((TextView) view.findViewById(R.id.charge)).setText(batteryInfo.batteryPercentString);
+            ((TextView) view.findViewById(R.id.estimation)).setText(batteryInfo.remainingLabel);
+            UsageView usageView = (UsageView) view.findViewById(R.id.battery_usage);
+            batteryInfo.bindHistory(usageView);
         }
     }
 
