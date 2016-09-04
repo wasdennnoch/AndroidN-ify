@@ -11,6 +11,7 @@
   <string name="about_version">เวอร์ชั่น %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>คำเตือน:</b> Xposed ไม่สามารถอ่านการตั้งค่าได้ คลิกเพื่อดูรายละเอียด&#8230;]]></string>
   <string name="header_tweaks">ปรับแต่ง</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">แอพ</string>
   <string name="hide_launcher_icon_title">ซ่อนไอคอนแอพ</string>
   <string name="hide_launcher_icon">อาจต้องการรีสตาร์ท Launcher</string>
@@ -20,7 +21,7 @@
   <string name="logcat_notif_ongoing_lines">บันทึกเสร็จสิ้น %1$s บรรทัด&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s บรรืัดถูกบันทึกไว้ที่ %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">หยุด</string>
   <string name="requesting_root">กำลังขอสิทธิการเข้าถึง root&#8230;</string>
   <string name="root_failed">ไม่สามารถรับสิทธิ READ_LOGS</string>
@@ -45,7 +46,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Adaptive brightness ถูก%1$s</string>
   <string name="sound_summary">ระดับเสียงเรียกเข้า %1$s</string>
-  <string name="apps_summary">%1$d แอพถูกติดตั้ง</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d แอพถูกติดตั้ง</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">ใช้ไป %1$s จาก %2$s</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -61,7 +62,7 @@
   <string name="location_on_power">เปิด / ประหยัดพลังงาน</string>
   <string name="location_on_device">เปิด / เฉพาะอุปกรณ์</string>
   <string name="location_on_high">เปิด / ความแม่นยำสูง</string>
-  <string name="print_summary">%1$d งานพิมพ์</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d งานพิมพ์</string>
   <!-- Header of app installation source -->
   <string name="store">ร้านค้า</string>
   <!-- Header of app installation source -->
@@ -147,21 +148,7 @@
   <string name="update_notification_downloading_details">กำลังดาวน์โหลด build %1$d</string>
   <string name="update_notification_download_fail">ดาวน์โหลดไม่สำเร็จ</string>
   <string name="update_notification_download_fail_details">ไม่สามารถดาวน์โหลด build %1$d</string>
-  <string name="emergency_info">ข้อมูลสำหรับกรณีฉุกเฉิน</string>
   <string name="emergency_info_launch_hint">แตะอีกครั้งเพื่อเปิด</string>
-  <string name="enable_emergency_info_title">เปิดใช้ข้อมูลสำหรับกรณีฉุกเฉิน</string>
-  <string name="edit_emergency_info_title">แก้ไขข้อมูลสำหรับกรณีฉุกเฉิน</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">ข้อมูล</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">ชื่อ</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">ที่อยู่</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">วันเกิด</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">การแพทย์</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">กรุ๊ปเลือก</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">การแพ้</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">ยารักษาโรค</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">หมายเหตุทางการแพทย์</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">ผู้บริจาคอวัยวะ</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">ไม่ทราบ</string>
   <string name="info_bloodtype_op">O บวก</string>
   <string name="info_bloodtype_on">O ลบ</string>
   <string name="info_bloodtype_ap">A บวก</string>
@@ -221,6 +208,7 @@
   <string name="spec_shouldnt_be_blank">ชื่อของชิ้นส่วนไม่ควรว่าง</string>
   <string name="dialog_color_picker">ตัวเลือกสี</string>
   <string name="press_color_to_apply">แตะที่สีเพื่อเลือกใช้</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">แสดงที่มาของแอพ</string>
   <string name="battery_detail_switch_title">โหมดประหยัดแบตเตอรี่</string>
   <string name="battery_detail_switch_summary">ลดประสิทธิภาพการทำงานและข้อมูลแบ็กกราวด์</string>

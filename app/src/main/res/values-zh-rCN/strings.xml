@@ -24,6 +24,7 @@
         如果即便如此依旧无效的话，您将可能需要继续忍受此问题了，在此深感抱歉 :(
         ]]></string>
   <string name="header_tweaks">调整</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">应用</string>
   <string name="app_dark_theme_title">使用暗色主题</string>
   <string name="hide_launcher_icon_title">隐藏应用图标</string>
@@ -36,7 +37,7 @@
   <string name="logcat_notif_ongoing_lines">已保存 %1$s 行&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s 行日志已保存至 %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">停止</string>
   <string name="requesting_root">正在请求 ROOT 权限&#8230;</string>
   <string name="root_failed">无法获取 READ_LOGS 权限</string>
@@ -67,7 +68,7 @@
   <!-- Is on or off -->
   <string name="display_summary">自动调节亮度已%1$s</string>
   <string name="sound_summary">铃声音量 %1$s</string>
-  <string name="apps_summary">已安装 %1$d 个应用</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">已安装 %1$d 个应用</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">已用 %1$s / %2$s</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -75,7 +76,7 @@
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_wireless">%1$s - 正在无线充电</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_usb">%1$s - 正在通过 USB 充电</string>
+  <string name="battery_charging_usb">%1$s - 正在通过USB充电</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_ac">%1$s - 正在通过交流电源充电</string>
   <string name="memory_summary">当前已用 %1$s / %2$s 内存</string>
@@ -83,7 +84,7 @@
   <string name="location_on_power">开启 / 节电</string>
   <string name="location_on_device">开启 / 仅限设备</string>
   <string name="location_on_high">开启 / 高精确度</string>
-  <string name="print_summary">%1$d 个打印任务</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d 个打印任务</string>
   <!-- Header of app installation source -->
   <string name="store">商店</string>
   <!-- Header of app installation source -->
@@ -107,23 +108,23 @@
   <string name="recents_button_behavior_previous">返回到上一个应用</string>
   <string name="recents_button_behavior_current">返回到当前应用</string>
   <string name="recents_button_behavior_cycle">依次浏览最近任务</string>
-  <string name="header_qs">快速设置</string>
+  <string name="header_qs">快捷设置</string>
   <string name="enable_notification_header">调整顶栏</string>
   <string name="keep_bg_title">不更改背景</string>
   <string name="keep_bg">适用于包含有自定义背景的主题</string>
   <string name="keep_header_bg">顶栏</string>
-  <string name="keep_panel_bg">快速设置面板</string>
-  <string name="notification_header_qs_tiles_count">顶栏内的磁贴数量</string>
+  <string name="keep_panel_bg">快捷设置面板</string>
+  <string name="notification_header_qs_tiles_count">顶栏内的图块数量</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">个</string>
   <string name="battery_tile_show_percentage">显示百分比</string>
-  <string name="battery_tile_show_percentage_summary">在电池磁贴内显示电量百分比</string>
-  <string name="enable_qs_editor">启用快速设置编辑器</string>
-  <string name="allow_fancy_qs_transition">快速设置过渡动画</string>
-  <string name="enable_new_tile_click_behavior">启用 Android N 式磁贴点击行为</string>
-  <string name="enable_new_tile_click_behavior_summary">点击顶栏内的磁贴时直接切换状态\n点击快速设置面板内的磁贴时展开设置项</string>
+  <string name="battery_tile_show_percentage_summary">在电池图块内显示电量百分比</string>
+  <string name="enable_qs_editor">启用快捷设置编辑器</string>
+  <string name="allow_fancy_qs_transition">快捷设置过渡动画</string>
+  <string name="enable_new_tile_click_behavior">启用 Android N 式图块点击行为</string>
+  <string name="enable_new_tile_click_behavior_summary">点击顶栏内的图块时直接切换状态\n点击快捷设置面板内的图块时展开设置项</string>
   <string name="enable_large_first_row">扩大首行磁贴</string>
-  <string name="enable_large_first_row_summary">使用 CyanogenMod 的用户请选择通过磁贴编辑模式中的配置菜单项进行该设置</string>
+  <string name="enable_large_first_row_summary">使用 CyanogenMod 的用户请选择通过图块编辑模式中的配置菜单项进行该设置</string>
   <string name="fix_stuck_inversion_title">修复颜色反转卡顿</string>
   <string name="fix_stuck_inversion">一些设备可能在启用反转磁贴后出现屏幕卡顿的问题。点此可强制停用</string>
   <string name="header_clock_size_title">顶栏时钟大小</string>
@@ -132,8 +133,8 @@
   <string name="header_clock_size_smaller">更小</string>
   <string name="header_clock_size_tiny">最小</string>
   <string name="hide_icons_title">隐藏顶栏内的项目</string>
-  <string name="hide_tuner_icon_title">隐藏系统界面调谐器图标</string>
-  <string name="hide_edit_tiles_title">隐藏编辑磁贴按钮</string>
+  <string name="hide_tuner_icon_title">隐藏系统界面调节工具</string>
+  <string name="hide_edit_tiles_title">隐藏编辑图块按钮</string>
   <string name="hide_edit_tiles_summary">该选项仅用于隐藏 ROM 内自带的编辑按钮！</string>
   <string name="hide_carrier_label_title">隐藏运营商名称</string>
   <string name="header_notifications">通知区域</string>
@@ -148,44 +149,46 @@
   <string name="notifications_actions_color_title">通知动作背景色</string>
   <string name="notification_experimental_title">实验性 Android N 式通知行为</string>
   <string name="notification_experimental">Android N 式通知滚动行为（无顶部堆叠）和阴影</string>
-  <string name="notification_keyguard_max_title">锁屏内显示通知的最大数量</string>
+  <string name="notification_keyguard_max_title">锁屏内显示通知的条数</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
-  <string name="now_string_shortest">当前</string>
+  <string name="now_string_shortest">现在</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>分钟</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> 分钟</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_hours_shortest">
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>小时</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> 小时</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>天</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> 天</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_years_shortest">
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>年</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> 年</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
-    <item quantity="other">在<xliff:g example="2" id="count">%d</xliff:g>分钟内</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> 分钟后</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_hours_shortest_future">
-    <item quantity="other">在<xliff:g example="2" id="count">%d</xliff:g>小时内</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> 小时后</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_days_shortest_future">
-    <item quantity="other">在<xliff:g example="2" id="count">%d</xliff:g>天内</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> 天后</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_years_shortest_future">
-    <item quantity="other">在<xliff:g example="2" id="count">%d</xliff:g>年内</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g> 年后</item>
   </plurals>
   <string name="update_notification_title">有可用的更新</string>
   <string name="update_notification">版本 %1$d 的更新已可供下载！</string>
   <string name="update_notification_download">下载</string>
+  <string name="update_warning">模块已更新</string>
+  <string name="update_warning_details">在重启设备之前系统将可能变得不稳定且相关的问题报告也将被忽略</string>
   <string name="check_for_updates_title">检查更新</string>
   <string name="check_for_updates">在启动应用时检查更新</string>
   <string name="checking_for_update">正在检查更新&#8230;</string>
@@ -199,34 +202,67 @@
   <string name="emergency_info_launch_hint">再次触摸即可打开</string>
   <string name="enable_emergency_info_title">启用急救信息</string>
   <string name="enable_emergency_info">向紧急拨号器内添加急救信息按钮</string>
-  <string name="edit_emergency_info_title">编辑急救信息</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">个人信息</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">姓名</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">地址</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">出生日期</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">医疗信息</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">血型</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">过敏史</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">常用药物</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">病症及注意事项</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">器官捐献志愿者</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">未指定</string>
-  <string name="info_bloodtype_op">O 型 Rh 阳性</string>
-  <string name="info_bloodtype_on">O 型 Rh 阴性</string>
-  <string name="info_bloodtype_ap">A 型 Rh 阳性</string>
-  <string name="info_bloodtype_an">A 型 Rh 阴性</string>
-  <string name="info_bloodtype_bp">B 型 Rh 阳性</string>
-  <string name="info_bloodtype_bn">B 型 Rh 阴性</string>
-  <string name="info_bloodtype_abp">AB 型 Rh 阳性</string>
-  <string name="info_bloodtype_abn">AB 型 Rh 阴性</string>
+  <string name="edit_emergency_info_title">修改急救信息</string>
+  <string name="clear_all">全部清除</string>
+  <string name="tab_title_info">信息</string>
+  <string name="tab_title_contacts">联系人</string>
+  <string name="add_emergency_contact">添加联系人</string>
+  <string name="user_emergency_info_title">急救信息</string>
+  <string name="user_emergency_info_consent">您在此处输入的信息可协助第一线救援人员在发生紧急事件时提供相关援助。系统只会将这项信息存储在您的设备上，但任何人都能在您的手机未解锁的情况下通过紧急呼救拨号器看到此信息。</string>
+  <string name="emergency_info_continue">继续</string>
+  <string name="clear">清除</string>
+  <string name="clear_all_message">要清除所有信息和联系人吗？</string>
+  <string name="phone_type_and_phone_number">
+<xliff:g example="Mobile"id="phone_type">%1$s </xliff:g> • <xliff:g example="333-444-5566"id="phone_number">%2$s </xliff:g>    </string>
+  <string name="remove_contact">
+要将<xliff:g example="John Doe" id="contact_name">%1$s</xliff:g>从紧急情况联系人中移除吗？
+    </string>
+  <string name="remove_contact_icon_text">移除联系人</string>
+  <string name="remove">移除</string>
+  <string name="cancel">取消</string>
+  <string name="no_info_provided">未提供急救信息</string>
+  <string name="emergency_contacts_title">紧急情况联系人</string>
+  <string name="name">姓名</string>
+  <string name="unknown_name">未知</string>
+  <string name="address">地址</string>
+  <string name="unknown_address">未知</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">出生日期</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">未知</string>
+  <string name="dob" tools:ignore="UnusedResources">
+(<xliff:g example="3 feb 1987"id="date_of_birth">%1$s </xliff:g>)    </string>
+  <string name="age" tools:ignore="UnusedResources">
+年龄︰ <xliff:g example="29"id="numerical_age">%1$d </xliff:g>    </string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">移除出生日期</string>
+  <string name="blood_type">血型</string>
+  <string name="unknown_blood_type">未知</string>
+  <string name="allergies">过敏症</string>
+  <string name="unknown_allergies">未知</string>
+  <string name="allergies_hint">例如，花生</string>
+  <string name="medications">用药</string>
+  <string name="unknown_medications">未知</string>
+  <string name="medications_hint">例如，阿司匹林</string>
+  <string name="medical_conditions">医疗注意事项</string>
+  <string name="unknown_medical_conditions">未知</string>
+  <string name="medical_conditions_hint">例如，哮喘</string>
+  <string name="organ_donor">器官捐献者</string>
+  <string name="unknown_organ_donor">未知</string>
+  <string name="info_bloodtype_op">O 型阳性</string>
+  <string name="info_bloodtype_on">O 型阴性</string>
+  <string name="info_bloodtype_ap">A 型阳性</string>
+  <string name="info_bloodtype_an">A 型阴性</string>
+  <string name="info_bloodtype_bp">B 型阳性</string>
+  <string name="info_bloodtype_bn">B 型阴性</string>
+  <string name="info_bloodtype_abp">AB 型阳性</string>
+  <string name="info_bloodtype_abn">AB 型阴性</string>
+  <string name="info_bloodtype_h_h">HH 型</string>
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">电池</string>
   <string name="charged" tools:ignore="UnusedResources">已充满</string>
   <string name="charging" tools:ignore="UnusedResources">正在充电, %1$s</string>
   <string name="qs_edit">编辑</string>
-  <string name="drag_to_add_tiles">拖动添加磁贴</string>
-  <string name="drag_to_remove_tiles">拖至此处移除</string>
+  <string name="drag_to_add_tiles">拖动即可添加图块</string>
+  <string name="drag_to_remove_tiles">拖动到此处即可移除</string>
   <string name="live_display">LiveDisplay</string>
   <string name="live_display_auto">自动</string>
   <string name="live_display_off">关闭</string>
@@ -234,43 +270,46 @@
   <string name="live_display_night">夜晚</string>
   <string name="live_display_outdoor">室外（阳光环境）</string>
   <string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g>前</string>
-  <string name="remaining_length_format">还需<xliff:g name="time" example="3 hours">%1$s</xliff:g></string>
-  <string name="power_remaining_duration_only">大约还需<xliff:g id="time">%1$s</xliff:g></string>
-  <string name="power_remaining_duration_only_short">还需<xliff:g id="time">%1$s</xliff:g></string>
+  <string name="remaining_length_format">还剩<xliff:g name="time" example="3 hours">%1$s</xliff:g></string>
+  <string name="power_remaining_duration_only">还剩大约<xliff:g id="time">%1$s</xliff:g></string>
+  <string name="power_remaining_duration_only_short">还可用<xliff:g id="time">%1$s</xliff:g></string>
   <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g> - 还可用大约<xliff:g id="time">%2$s</xliff:g></string>
   <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g> - 还可用<xliff:g id="time">%2$s</xliff:g></string>
   <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="state">%2$s</xliff:g></string>
   <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> - 还需<xliff:g id="time">%2$s</xliff:g>充满</string>
   <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
-  <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> - 通过交流电源充电还需<xliff:g id="time">%2$s</xliff:g>充满</string>
+  <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> - 还需<xliff:g id="time">%2$s</xliff:g>充满（交流电充电）</string>
   <!-- Short description when charging on AC. For example: 12% - 2h -->
   <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
-  <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> - 通过 USB 充电还需<xliff:g id="time">%2$s</xliff:g>充满</string>
+  <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> - 还需<xliff:g id="time">%2$s</xliff:g>充满（USB充电）</string>
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
-  <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> - 通过无线充电还需<xliff:g id="time">%2$s</xliff:g>充满</string>
+  <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> - 还需<xliff:g id="time">%2$s</xliff:g>充满（无线充电）</string>
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
   <string name="battery_info_status_unknown">未知</string>
   <string name="battery_info_status_charging">正在充电</string>
   <string name="battery_info_status_charging_ac">正在通过交流电源充电</string>
   <string name="battery_info_status_charging_ac_short">正在充电</string>
-  <string name="battery_info_status_charging_usb">正在通过 USB 充电</string>
+  <string name="battery_info_status_charging_usb">正在通过USB充电</string>
   <string name="battery_info_status_charging_usb_short">正在充电</string>
   <string name="battery_info_status_charging_wireless">正在无线充电</string>
   <string name="battery_info_status_charging_wireless_short">正在充电</string>
-  <string name="battery_info_status_discharging">没有充电</string>
-  <string name="battery_info_status_not_charging">没有充电</string>
-  <string name="battery_info_status_full">已充满</string>
-  <string name="battery_panel_title">电池用量</string>
-  <string name="battery_detail_charging_summary">节电助手在充电期间不可用</string>
+  <string name="battery_info_status_discharging">未在充电</string>
+  <string name="battery_info_status_not_charging">未在充电</string>
+  <string name="battery_info_status_full">电量充足</string>
+  <string name="battery_panel_title">电池使用情况</string>
+  <string name="battery_detail_charging_summary">充电过程中无法使用省电模式</string>
   <!-- Add a custom tile -->
   <string name="add">添加</string>
-  <string name="add_custom_tile">添加广播磁贴</string>
-  <string name="spec_shouldnt_be_blank">磁贴说明不能为空</string>
+  <string name="add_custom_tile">添加播送图块</string>
+  <string name="spec_shouldnt_be_blank">图块说明不能为空</string>
   <string name="dialog_color_picker">颜色选择器</string>
   <string name="press_color_to_apply">点击颜色以应用</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">显示应用安装来源</string>
-  <string name="battery_detail_switch_title">节电助手</string>
+  <string name="battery_detail_switch_title">省电模式</string>
   <string name="battery_detail_switch_summary">降低设备性能并限制后台流量</string>
+  <string name="qs_add_notes_title">说明</string>
+  <string name="qs_add_notes">仅适用于提供广播图块的应用（例如 \"Custom Quick Settings\"）。使用前请参阅图块提供应用内的说明。</string>
 </resources>

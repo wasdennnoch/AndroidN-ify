@@ -24,6 +24,7 @@
         Jeśli nawet to nie przyniesie rezultatu, będziesz musiał się obyć z domyślnymi ustawieniami, przepraszamy :(
         ]]></string>
   <string name="header_tweaks">Ulepszenia</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplikacja</string>
   <string name="app_dark_theme_title">Ciemny motyw aplikacji</string>
   <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
@@ -36,7 +37,7 @@
   <string name="logcat_notif_ongoing_lines">Zapisano %1$s linii&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s linni zapisanych w %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">Zatrzymaj</string>
   <string name="requesting_root">Wymaga dostępu do roota&#8230;</string>
   <string name="root_failed">Nie udało się uzyskać uprawnienia READ_LOGS</string>
@@ -67,7 +68,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Automatyczna jasność jest %1$s</string>
   <string name="sound_summary">Głośność dzwonka: %1$s</string>
-  <string name="apps_summary">%1$d zainstalowanych aplikacji</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d zainstalowanych aplikacji</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s z %2$s jest używane</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -83,7 +84,7 @@
   <string name="location_on_power">WŁ. / Oszczędzanie baterii</string>
   <string name="location_on_device">WŁ. / Tylko urządzenie</string>
   <string name="location_on_high">WŁ. / Wysoka dokładność</string>
-  <string name="print_summary">%1$d zadań drukowania</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d zadań drukowania</string>
   <!-- Header of app installation source -->
   <string name="store">Sklep</string>
   <!-- Header of app installation source -->
@@ -109,6 +110,8 @@
   <string name="recents_button_behavior_cycle">Przełączaj między aplikacjami</string>
   <string name="header_qs">Szybkie ustawienia</string>
   <string name="enable_notification_header">Styl nagłówka</string>
+  <string name="keep_bg_title">Niezmienione tła</string>
+  <string name="keep_bg">Przydatne dla motywów, które używają niestandardowe tła</string>
   <string name="keep_header_bg">Nagłówek</string>
   <string name="keep_panel_bg">Panel szybkich ustawień</string>
   <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
@@ -150,49 +153,49 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teraz</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_minutes_shortest" tools:ignore="MissingQuantity">
+  <plurals name="duration_minutes_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>m</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>m</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>m</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_hours_shortest" tools:ignore="MissingQuantity">
+  <plurals name="duration_hours_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>g</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>g</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>g</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_days_shortest" tools:ignore="MissingQuantity">
+  <plurals name="duration_days_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>d</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>d</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>d</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_years_shortest" tools:ignore="MissingQuantity">
+  <plurals name="duration_years_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>l</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>l</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>l</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_minutes_shortest_future" tools:ignore="MissingQuantity">
+  <plurals name="duration_minutes_shortest_future">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_hours_shortest_future" tools:ignore="MissingQuantity">
+  <plurals name="duration_hours_shortest_future">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_days_shortest_future" tools:ignore="MissingQuantity">
+  <plurals name="duration_days_shortest_future">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_years_shortest_future" tools:ignore="MissingQuantity">
+  <plurals name="duration_years_shortest_future">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>r</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>l</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>l</item>
@@ -200,6 +203,8 @@
   <string name="update_notification_title">Nowa wersja dostępna</string>
   <string name="update_notification">Wersja %1$d jest teraz dostępna do pobrania!</string>
   <string name="update_notification_download">Pobierz</string>
+  <string name="update_warning">Moduł został zaktualizowany</string>
+  <string name="update_warning_details">System może być niestabilny i raporty o błędach będą ignorowane do momentu ponownego uruchomienia urządzenia</string>
   <string name="check_for_updates_title">Sprawdzaj dostępność aktualizacji</string>
   <string name="check_for_updates">Sprawdzaj dostępność aktualizacji przy uruchamianiu aplikacji</string>
   <string name="checking_for_update">Sprawdzanie aktualizacji&#8230;</string>
@@ -209,21 +214,46 @@
   <string name="update_notification_downloading_details">Pobieranie wersji %1$d</string>
   <string name="update_notification_download_fail">Pobieranie nie udane</string>
   <string name="update_notification_download_fail_details">Nie udało się pobrać wersji %1$d</string>
-  <string name="emergency_info">Informacje Awaryjne</string>
+  <string name="emergency_info">Informacja awaryjna</string>
   <string name="emergency_info_launch_hint">Dotknij ponownie, aby otworzyć</string>
-  <string name="enable_emergency_info_title">Włącz Informacje Awaryjne</string>
-  <string name="edit_emergency_info_title">Edytuj Informacje Awaryjne</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Osobiste</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Imię i Nazwisko</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adres</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Data urodzenia</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medyczne</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Grupa krwi</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergie</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Zażywane leki</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Stan medyczny i notatki</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Dawca organów</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nie określono</string>
+  <string name="enable_emergency_info_title">Włączanie informacji dotyczących katastrof</string>
+  <string name="enable_emergency_info">Dodaje przycisk Informacja awaryjna do dialera awaryjnego</string>
+  <string name="edit_emergency_info_title">Edytuj informacje awaryjne</string>
+  <string name="clear_all">Wyczyść wszystko</string>
+  <string name="tab_title_info">Informacje</string>
+  <string name="tab_title_contacts">Kontakty</string>
+  <string name="add_emergency_contact">Dodaj kontakt</string>
+  <string name="clear_all_message">Wyczyścić wszystkie informacje i kontakty?</string>
+  <string name="phone_type_and_phone_number">
+        <xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>
+    </string>
+  <string name="remove_contact_icon_text">Usuń kontakt</string>
+  <string name="remove">Usuń</string>
+  <string name="cancel">Anuluj</string>
+  <string name="address">Adres</string>
+  <string name="unknown_address">Nieznany</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">Data urodzenia</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">Nieznana</string>
+  <string name="dob" tools:ignore="UnusedResources">
+        (<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
+    </string>
+  <string name="age" tools:ignore="UnusedResources">
+        Wiek: <xliff:g example="29" id="numerical_age">%1$d</xliff:g>
+    </string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">Usuń datę urodzenia</string>
+  <string name="blood_type">Grupa krwi</string>
+  <string name="unknown_blood_type">Nieznana</string>
+  <string name="allergies">Alergie</string>
+  <string name="unknown_allergies">Nieznane</string>
+  <string name="allergies_hint">Na przykład, orzeszki ziemne</string>
+  <string name="medications">Zażywane leki</string>
+  <string name="unknown_medications">Nieznane</string>
+  <string name="medications_hint">Na przykład, aspiryna</string>
+  <string name="medical_conditions">Dokumentacja medyczna</string>
+  <string name="unknown_medical_conditions">Nieznana</string>
+  <string name="medical_conditions_hint">Na przykład, astma</string>
+  <string name="organ_donor">Dawca organów</string>
+  <string name="unknown_organ_donor">Nieznane</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -232,6 +262,7 @@
   <string name="info_bloodtype_bn">B-</string>
   <string name="info_bloodtype_abp">AB+</string>
   <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
   <string name="battery">Bateria</string>
@@ -281,6 +312,7 @@
   <string name="add">Dodaj</string>
   <string name="dialog_color_picker">Wybór Koloru</string>
   <string name="press_color_to_apply">Naciśnij na kolorze, aby wybrać</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Wyświetl źródło instalacji aplikacji</string>
   <string name="battery_detail_switch_title">Oszczędzanie baterii</string>
   <string name="battery_detail_switch_summary">Zmniejsza wydajność i ogranicza dane w tle</string>

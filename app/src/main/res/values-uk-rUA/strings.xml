@@ -12,7 +12,7 @@
   <string name="about_version">Версія %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Попередження:</b> Файл конфігурації не може бути прочитаний Xposed. Натисніть для детальної інформації&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
-		Xposed не може прочитати файл конфігурації файла для цього модуля, будуть використані стандартні значення.
+		Xposed не може прочитати файл конфігурації файлу для цього модуля, будуть використані стандартні значення.
 		Наведемо кілька шляхів до вирішення даної проблеми. Також врахуйте, що ця помилка може виникнути, якщо
 		Ви відкрили цей додаток перший раз.<br><br>
 		Для початку, перезавантажте пристрій (Не швидким перезавантаженням!).<br>
@@ -20,13 +20,14 @@
 		Якщо попередні поради не допомогли, спробуйте змінити режим SELinux на <i>permissive</i>.
 		<i>Enforcing</i> режим SELinux може блокувати доступ до файлу конфігурації. Для зміни режиму SELinux
 		використовуйте додаток <tt>SELinuxModeChanger</tt>, який можете завантажити
-		<a href="http://forum.xda-developers.com/showthread.php?t=2524485">в цій темі на XDA</a>.<br>
+		<a href="http://forum.xda-developers.com/showthread.php?t=2524485">у цій темі на XDA</a>.<br>
 		Якщо нічого з перерахованого вище не допомогло, то, швидше за все, доведеться жити зі стандартними значеннями, вибачте :(
-		]]></string>
+        ]]></string>
   <string name="header_tweaks">Твіки</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Додаток</string>
   <string name="app_dark_theme_title">Темна тема додатку</string>
-  <string name="hide_launcher_icon_title">Приховати іконку  у лаунчері</string>
+  <string name="hide_launcher_icon_title">Приховати значок у лаунчері</string>
   <string name="hide_launcher_icon">Може знадобитися перезавантаження робочого столу</string>
   <string name="debug_log_title">Журнал налагодження</string>
   <string name="debug_log">Увага: Журнал може займати багато місця</string>
@@ -36,9 +37,9 @@
   <string name="logcat_notif_ongoing_lines">Збережено %1$s рядків&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s рядків збережено до %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">Зупинити</string>
-  <string name="requesting_root">Запит прав супер юзера&#8230;</string>
+  <string name="requesting_root">Запит прав суперкористувача&#8230;</string>
   <string name="root_failed">Не вдалося отримати дозвіл READ_LOGS</string>
   <string name="permission_required">Необхідний дозвіл</string>
   <string name="logs_permission_description">
@@ -54,19 +55,19 @@
   <string name="enable_settings_summaries_title">Увімкнути твіки налаштування</string>
   <string name="enable_settings_summaries">Показує найважливішу інформацію в панелі управління</string>
   <string name="fix_sound_notif_tile_title">Виправити плитку \"Звуки та сповіщення\"</string>
-  <string name="fix_sound_notif_tile">Деякі прошивки об\'єднують налаштування звуку і сповіщення. Увімкніть данну опцію для коректного відображення.</string>
+  <string name="fix_sound_notif_tile">Деякі прошивки об\'єднують налаштування звуку і сповіщення. Увімкніть дану опцію для коректного відображення</string>
   <string name="enable_n_platlogo_title">Логотип пасхалки у стилі N</string>
   <string name="use_namey_mcnameface_title">Використовувати значок \"Namey McNameface\"</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Від\'єднано</string>
   <string name="disabled">Вимкнено</string>
-  <string name="off">вимкненно</string>
-  <string name="on">увімкненно </string>
+  <string name="off">вимкнена</string>
+  <string name="on">увімкнена</string>
   <string name="data_usage_summary">%1$s даних використано</string>
   <!-- Is on or off -->
-  <string name="display_summary">Адаптивна яскравість %1$s</string>
+  <string name="display_summary">Регульована яскравість %1$s</string>
   <string name="sound_summary">Гучність %1$s</string>
-  <string name="apps_summary">%1$d додатків встановлено</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d додатків встановлено</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s із %2$s використано</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -76,13 +77,13 @@
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_usb">%1$s - Зарядка  через USB</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s - Зарядка від ПК</string>
+  <string name="battery_charging_ac">%1$s - Зарядка від мережі</string>
   <string name="memory_summary">Використовується %1$s з %2$s</string>
   <string name="user_summary">Ви увійшли як %1$s</string>
-  <string name="location_on_power">Увімкнено / Економія заряду батареї </string>
+  <string name="location_on_power">Увімкнено / Економія заряду акумулятора</string>
   <string name="location_on_device">Увімкнено / Лише датчики пристрою</string>
   <string name="location_on_high">Увімкнено / Висока точність</string>
-  <string name="print_summary">%1$d завдання на друкування</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d завдання на друкування</string>
   <!-- Header of app installation source -->
   <string name="store">Магазин</string>
   <!-- Header of app installation source -->
@@ -149,51 +150,51 @@
   <string name="notification_experimental">Метод прокрутки з N (немає верхнього складання) і тінь сповіщень</string>
   <string name="notification_keyguard_max_title">Максимальна кількість сповіщень при заблокованій клавіатурі</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
-  <string name="now_string_shortest">зараз</string>
+  <string name="now_string_shortest">щойно</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_minutes_shortest" tools:ignore="MissingQuantity">
+  <plurals name="duration_minutes_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> хв</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g> хв</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> хв</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_hours_shortest" tools:ignore="MissingQuantity">
+  <plurals name="duration_hours_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> год</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g> год</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> год</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_days_shortest" tools:ignore="MissingQuantity">
+  <plurals name="duration_days_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> день</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g> дні</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> днів</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_years_shortest" tools:ignore="MissingQuantity">
+  <plurals name="duration_years_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> рік</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g> роки</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> років</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_minutes_shortest_future" tools:ignore="MissingQuantity">
+  <plurals name="duration_minutes_shortest_future">
     <item quantity="one">через <xliff:g example="1" id="count">%d</xliff:g>хв</item>
     <item quantity="few">через <xliff:g example="1" id="count">%d</xliff:g>хв</item>
     <item quantity="other">через <xliff:g example="1" id="count">%d</xliff:g>хв</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_hours_shortest_future" tools:ignore="MissingQuantity">
+  <plurals name="duration_hours_shortest_future">
     <item quantity="one">через <xliff:g example="1" id="count">%d</xliff:g> год</item>
     <item quantity="few">через <xliff:g example="1" id="count">%d</xliff:g> год</item>
     <item quantity="other">через <xliff:g example="1" id="count">%d</xliff:g> год</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_days_shortest_future" tools:ignore="MissingQuantity">
+  <plurals name="duration_days_shortest_future">
     <item quantity="one">через <xliff:g example="1" id="count">%d</xliff:g> день</item>
     <item quantity="few">через <xliff:g example="1" id="count">%d</xliff:g> дні</item>
     <item quantity="other">через <xliff:g example="1" id="count">%d</xliff:g> днів</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_years_shortest_future" tools:ignore="MissingQuantity">
+  <plurals name="duration_years_shortest_future">
     <item quantity="one">через <xliff:g example="1" id="count">%d</xliff:g> рік</item>
     <item quantity="few">через <xliff:g example="1" id="count">%d</xliff:g> роки</item>
     <item quantity="other">через <xliff:g example="1" id="count">%d</xliff:g> років</item>
@@ -201,9 +202,11 @@
   <string name="update_notification_title">Доступно нове оновлення</string>
   <string name="update_notification">Збірка %1$d доступна для оновлення!</string>
   <string name="update_notification_download">Оновити</string>
-  <string name="check_for_updates_title">Перевірити оновлення</string>
+  <string name="update_warning">Модуль оновлено</string>
+  <string name="update_warning_details">Система може бути нестабільною і звіти про помилки буде проігноровано, поки не перезавантажите пристрій</string>
+  <string name="check_for_updates_title">Перевіряти оновлення</string>
   <string name="check_for_updates">Перевіряти оновлення при запуску додатка</string>
-  <string name="checking_for_update">Пошук оновлення&#8230;</string>
+  <string name="checking_for_update">Перевірка оновлень&#8230;</string>
   <string name="check_for_update_fail">Не вдалося перевірити оновлення</string>
   <string name="no_updates">Ви використовуєте останню версію</string>
   <string name="update_notification_downloading">Завантаження оновлення</string>
@@ -212,20 +215,55 @@
   <string name="update_notification_download_fail_details">Не вдалося завантажити збірку %1$d</string>
   <string name="emergency_info">Екстрена Інформація</string>
   <string name="emergency_info_launch_hint">Торкніться знову, щоб відкрити</string>
-  <string name="enable_emergency_info_title">Увімкнути Екстрену Інформацію</string>
-  <string name="enable_emergency_info">Додати кнопку Екстреної Інформації для екстреного виклику</string>
-  <string name="edit_emergency_info_title">Редагувати Екстрену Інформацію</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Персональна інформація</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Повне ім\'я</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Адреса</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Дата народження</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Медицина</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Група крові</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Алергії</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Медикаменти</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Медичні умови та примітки</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Донор</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Не вказано</string>
+  <string name="enable_emergency_info_title">Увімкнути екстрену інформацію</string>
+  <string name="enable_emergency_info">Додає кнопку екстреної Інформації для екстреного виклику</string>
+  <string name="edit_emergency_info_title">Редагувати екстрену інформацію</string>
+  <string name="clear_all">Очистити все</string>
+  <string name="tab_title_info">Інформація</string>
+  <string name="tab_title_contacts">Контакти</string>
+  <string name="add_emergency_contact">Додати контакт</string>
+  <string name="user_emergency_info_title">Екстрена Інформація</string>
+  <string name="user_emergency_info_consent">Інформація, яку ви тут вводите може допомогти при перший діях в аварійній ситуаціях. Це зберігається лише на вашому пристрої, і будь-хто може прочитати його з екстреного виклику без розблокування телефону.</string>
+  <string name="emergency_info_continue">Продовжити</string>
+  <string name="clear">Очистити</string>
+  <string name="clear_all_message">Очистити всю інформацію та контакти?</string>
+  <string name="phone_type_and_phone_number">
+        <xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>
+    </string>
+  <string name="remove_contact">
+        Видалити <xliff:g example="John Doe" id="contact_name">%1$s</xliff:g> з екстрених контактів?
+    </string>
+  <string name="remove_contact_icon_text">Видалити контакт</string>
+  <string name="remove">Видалити</string>
+  <string name="cancel">Скасувати</string>
+  <string name="no_info_provided">Немає інформації з екстрених ситуацій</string>
+  <string name="emergency_contacts_title">Екстрені контакти</string>
+  <string name="name">Ім\'я</string>
+  <string name="unknown_name">Невідомо</string>
+  <string name="address">Адреса</string>
+  <string name="unknown_address">Невідомо</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">Дата народження</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">Невідомо</string>
+  <string name="dob" tools:ignore="UnusedResources">
+        (<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
+    </string>
+  <string name="age" tools:ignore="UnusedResources">
+        Вік: <xliff:g example="29" id="numerical_age">%1$d</xliff:g>
+    </string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">Видалити дату народження</string>
+  <string name="blood_type">Група крові</string>
+  <string name="unknown_blood_type">Невідомо</string>
+  <string name="allergies">Алергії</string>
+  <string name="unknown_allergies">Невідомо</string>
+  <string name="allergies_hint">Наприклад, арахіс</string>
+  <string name="medications">Медикаменти</string>
+  <string name="unknown_medications">Невідомо</string>
+  <string name="medications_hint">Наприклад, аспірин</string>
+  <string name="medical_conditions">Медичні нотатки</string>
+  <string name="unknown_medical_conditions">Невідомо</string>
+  <string name="medical_conditions_hint">Наприклад, астма</string>
+  <string name="organ_donor">Донор органів</string>
+  <string name="unknown_organ_donor">Невідомо</string>
   <string name="info_bloodtype_op">І +</string>
   <string name="info_bloodtype_on">І -</string>
   <string name="info_bloodtype_ap">ІІ +</string>
@@ -234,6 +272,7 @@
   <string name="info_bloodtype_bn">ІІІ -</string>
   <string name="info_bloodtype_abp">IV +</string>
   <string name="info_bloodtype_abn">IV -</string>
+  <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">Так</string>
   <string name="no">Ні</string>
   <string name="battery">Акумулятор</string>
@@ -296,7 +335,11 @@
   <string name="spec_shouldnt_be_blank">Специфікація плитки не повинна бути порожнім</string>
   <string name="dialog_color_picker">Вибір кольору</string>
   <string name="press_color_to_apply">Натисніть на колір, щоб застосувати</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Показувати джерело встановлення додатка</string>
   <string name="battery_detail_switch_title">Енергозбереження</string>
   <string name="battery_detail_switch_summary">Знижує продуктивність та фонові дані</string>
+  <string name="qs_add_notes_title">Примітки</string>
+  <string name="qs_add_notes">Це використовується лише для додатків, які надають плитки трансляції (наприклад, «Custom Quick Settings»). Будь ласка, прочитайте інструкції в додатку постачальника плиток перед використанням цього.</string>
 </resources>

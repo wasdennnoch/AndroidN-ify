@@ -24,6 +24,7 @@
         Když i to selže, pravděpodobně se budete muset smířit s výchozími hodnotami, omlouvám se :(
         ]]></string>
   <string name="header_tweaks">Úpravy</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplikace</string>
   <string name="app_dark_theme_title">Tmavé téma aplikace</string>
   <string name="hide_launcher_icon_title">Skrýt ikonu aplikace</string>
@@ -35,7 +36,7 @@
   <string name="logcat_notif_preparing">Příprava</string>
   <string name="logcat_notif_ongoing_lines">Uloženo %1$s řádků&#8230;</string>
   <!-- %2$s == file path -->
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="requesting_root">Požadování root přístupu&#8230;</string>
   <string name="root_failed">Chyba při přidělování READ_LOGS oprávnění</string>
   <string name="permission_required">Oprávnění uděleno</string>
@@ -64,7 +65,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Adaptivní jas je %1$s</string>
   <string name="sound_summary">Hlasitost zvonění: %1$s</string>
-  <string name="apps_summary">Počet nainstalovaných aplikací: %1$d</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">Počet nainstalovaných aplikací: %1$d</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">Využito: %1$s z %2$s</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -80,7 +81,7 @@
   <string name="location_on_power">ZAPNUTO / Úspora baterie</string>
   <string name="location_on_device">ZAPNUTO / Jen senzory zařízení</string>
   <string name="location_on_high">ZAPNUTO / Vysoká přesnost</string>
-  <string name="print_summary">%1$d tiskových úloh</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d tiskových úloh</string>
   <!-- Header of app installation source -->
   <!-- Header of app installation source -->
   <string name="header_recents">Nedávné aplikace</string>
@@ -147,20 +148,6 @@
   <string name="update_notification_downloading_details">Stahování sestavení %1$d</string>
   <string name="update_notification_download_fail">Stahování selhalo</string>
   <string name="update_notification_download_fail_details">Chyba při stahování sestavení %1$d</string>
-  <string name="emergency_info">Nouzové informace</string>
-  <string name="enable_emergency_info_title">Povolit nouzové informace</string>
-  <string name="edit_emergency_info_title">Upravit nouzové informace</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Osobní</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Jméno</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresa</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Datum narození</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Zdravotní</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Krevní skupina</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergie</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Léky</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Poznámky lékaře</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Dárce orgánů</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nespecifikované</string>
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="battery">Baterie</string>
@@ -178,4 +165,5 @@
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <!-- Add a custom tile -->
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
 </resources>

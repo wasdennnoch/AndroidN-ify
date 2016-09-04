@@ -5,17 +5,17 @@
   <string name="restart_systemui">Reiniciar SystemUI</string>
   <string name="restart_systemui_message">¿Estás seguro de que quieres reiniciar SystemUI?</string>
   <string name="restart_broadcast_sent">Petición de reinicio enviada</string>
-  <string name="activity_about">Sobre Android N-ify</string>
+  <string name="activity_about">Acerca de Android N-ify</string>
   <string name="about_author">Desarrollado por @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Traducido por @Raikem</string>
   <string name="about_version">Versión %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> Xposed no puede leer el archivo de preferencias. Pulsar para más información&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
-        Xposed no puede leer las preferencias de este módulo, se usarán los valores por defecto.
+        Xposed no puede leer las preferencias de Android N-ify, se usarán los valores por defecto.
         Hay varias formas de arreglar este problema. Éste mensaje puede aparecer si no has abierto 
         antes la aplicación.<br><br>
-        Primero, reinicia el dispositivo (No hacer un reinicio suave!).<br>
+        Primero, reinicia el dispositivo (¡No hacer un reinicio rápido!).<br>
         Si no lo arregla, reinstala el módulo.<br>
         Si sigue aparecendo, asegurate de que SELinux está en modo <i>permisivo</i>.
         <i>Forzar</i> SELinux puede bloquear el acceso al archivo de preferencias. Para cambiar el modo,
@@ -24,6 +24,7 @@
         Si nada de esto funciona, tendras que conformarte con los valores por defecto :(
         ]]></string>
   <string name="header_tweaks">Modificaciones</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Ajustes</string>
   <string name="app_dark_theme_title">Tema oscuro</string>
   <string name="hide_launcher_icon_title">Esconder icono en el launcher</string>
@@ -36,13 +37,13 @@
   <string name="logcat_notif_ongoing_lines">Guardadas %1$s líneas&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s líneas guardadas en %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">Parar</string>
   <string name="requesting_root">Pidiendo acceso administrativo&#8230;</string>
-  <string name="root_failed">Fallo al activar el permiso READ_LOGS</string>
+  <string name="root_failed">No se pudo obtener el permiso de READ_LOGS</string>
   <string name="permission_required">Permiso requerido</string>
   <string name="logs_permission_description">
-        En las versiones posteriores a Jelly Bean las aplicaciones no tienen permiso para acceder al informe de fallos.
+        En las versiones posteriores a Jelly Bean las aplicaciones ya no tienen permiso para acceder al logcat.
         Aun así se puede activar el permiso READ_LOGS manualmente sin tener root.
         Después de activarlo se necesita reiniciar el dispositivo para aplicar los cambios.
     </string>
@@ -53,10 +54,10 @@
   <string name="header_lockscreen">Pantalla de bloqueo</string>
   <string name="header_settings">Ajustes</string>
   <string name="enable_settings_summaries_title">Activar Android N-ify</string>
-  <string name="enable_settings_summaries">Muetra la información más importante directamente en la barra de notificaciones</string>
+  <string name="enable_settings_summaries">Muestra la información más importante directamente en la barra de notificaciones</string>
   <string name="fix_sound_notif_tile_title">Corregir \"Sonidos &amp; notificaciones\"</string>
   <string name="fix_sound_notif_tile">Algunas ROMs enlazan el volumen de llamada y de notificaciones. Activa esto para mostrar la información correctamente</string>
-  <string name="enable_n_platlogo_title">Logo \"N\" de Android Nougat  en el Easter Egg</string>
+  <string name="enable_n_platlogo_title">Logo \"N\" en el Easter Egg</string>
   <string name="use_namey_mcnameface_title">Usar el icono \"Namey McNameface\"</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Desconectado</string>
@@ -67,7 +68,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Brillo automático %1$s</string>
   <string name="sound_summary">Volumen %1$s</string>
-  <string name="apps_summary">%1$d aplicaciones instaladas</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d aplicaciones instaladas</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s de %2$s usados</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -83,7 +84,7 @@
   <string name="location_on_power">Activada: Ahorro de energía</string>
   <string name="location_on_device">Activada: Solo dispositivo</string>
   <string name="location_on_high">Activada: Máxima precisión</string>
-  <string name="print_summary">%1$d trabajos de impresión</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d trabajos de impresión</string>
   <!-- Header of app installation source -->
   <string name="store">Tienda</string>
   <!-- Header of app installation source -->
@@ -94,7 +95,7 @@
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Doble toque</string>
   <string name="enable_recents_double_tap">Doble toque en el botón de recientes para volver a la última aplicación</string>
-  <string name="alternative_double_tap_title">Doble toque alternativo</string>
+  <string name="alternative_double_tap_title">Detección de doble toque alternativo</string>
   <string name="alternative_double_tap">Activar si el doble toque no funciona correctamente</string>
   <string name="double_tap_speed_title">Velocidad del doble toque</string>
   <string name="recents_button_behavior_title">Comportamiento del botón recientes</string>
@@ -120,56 +121,56 @@
   <string name="battery_tile_show_percentage_summary">Muestra el porcentaje de batería en el ajuste rápido</string>
   <string name="enable_qs_editor">Activar editor de ajustes</string>
   <string name="allow_fancy_qs_transition">Animación de ajustes rápidos</string>
-  <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android N</string>
+  <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android Nougat</string>
   <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
   <string name="enable_large_first_row">Alargar la primera fila</string>
-  <string name="enable_large_first_row_summary">En CM usar el menú de configuración de ajustes rápidos propio</string>
+  <string name="enable_large_first_row_summary">En CyanogenMod usar el menú de configuración de ajustes rápidos propio</string>
   <string name="fix_stuck_inversion_title">Arreglar inversión bloqueada</string>
   <string name="fix_stuck_inversion">En algunos dispositivos la inversión de colores se bloquea al activarla. Selecciona para forzar desactivación</string>
   <string name="header_clock_size_title">Tamaño del reloj</string>
   <string name="header_clock_size_normal">Normal</string>
   <string name="header_clock_size_small">Pequeño</string>
   <string name="header_clock_size_smaller">Muy pequeño</string>
-  <string name="header_clock_size_tiny">Minúsculo</string>
+  <string name="header_clock_size_tiny">Diminuto</string>
   <string name="hide_icons_title">Ocultar información</string>
   <string name="hide_tuner_icon_title">Ocultar icono de SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
   <string name="hide_edit_tiles_summary">Esto sólo oculta el botón de editar original</string>
   <string name="hide_carrier_label_title">Ocultar operador de red</string>
   <string name="header_notifications">Notificaciones</string>
-  <string name="notifications_change_style">Notificaciones de Android N</string>
-  <string name="notification_dismiss_button_title">Cambiar botón descartar</string>
+  <string name="notifications_change_style">Notificaciones de Android Nougat</string>
+  <string name="notification_dismiss_button_title">Cambiar botón \"descartar notificacones\"</string>
   <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Buscar</string>
   <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
   <string name="notification_blacklisted_apps">Usar el estilo antiguo para estas aplicaciones</string>
-  <string name="notifications_custom_actions_color_title">Usar color personalizado para fondo</string>
+  <string name="notifications_custom_actions_color_title">Usar un color personalizado para el fondo</string>
   <string name="notifications_actions_color_title">Color de fondo de acciones</string>
-  <string name="notification_experimental_title">Comportamiento de notificaciones de N experimental</string>
-  <string name="notification_experimental">Sombras y deslizamiento de Android N</string>
-  <string name="notification_keyguard_max_title">Máximas notificaciones en la pantalla de bloqueo</string>
+  <string name="notification_experimental_title">Comportamiento experimental de las notificaciones Nougat</string>
+  <string name="notification_experimental">Sombras y deslizamiento de Android Nougat</string>
+  <string name="notification_keyguard_max_title">Notificaciones máximas en la pantalla de bloqueo</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ahora</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>min</item>
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>min</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>mins</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_hours_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>h</item>
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>h</item>
+    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>horas</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>d</item>
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>d</item>
+    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>días</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_years_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>a</item>
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>a</item>
+    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>años</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
@@ -194,6 +195,8 @@
   <string name="update_notification_title">Nueva actualización disponible</string>
   <string name="update_notification">¡La versión %1$d esta disponible para descargar y actualizar!</string>
   <string name="update_notification_download">Actualizar</string>
+  <string name="update_warning">El módulo ha sido actualizado</string>
+  <string name="update_warning_details">El sistema puede estar inestable y el reporte de Bugs sera ignorado hasta que reinicie el dispositivo</string>
   <string name="check_for_updates_title">Buscar actualizaciones</string>
   <string name="check_for_updates">Buscar actualizaciones al iniciar la aplicación</string>
   <string name="checking_for_update">Buscando actualizaciones&#8230;</string>
@@ -205,20 +208,52 @@
   <string name="update_notification_download_fail_details">Fallo al descargar versión %1$d</string>
   <string name="emergency_info">Información de emergencia</string>
   <string name="emergency_info_launch_hint">Toca de nuevo para abrir</string>
-  <string name="enable_emergency_info_title">Activar info. de emergencia</string>
-  <string name="enable_emergency_info">Añade información de emergencia a la pantalla de llamada de emergencia</string>
-  <string name="edit_emergency_info_title">Editar info. de emergencia</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Personal</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Nombre</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Dirección</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Fecha de nacimiento</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medica</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Grupo sanguíneo</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergias</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Medicación</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Condición médica</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Donante de órganos</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Sin información</string>
+  <string name="enable_emergency_info_title">Habilitar información de emergencia</string>
+  <string name="enable_emergency_info">Añade un botón de información de emergencia al marcador de emergencia</string>
+  <string name="edit_emergency_info_title">Editar información de emergencia</string>
+  <string name="clear_all">Borrar todo</string>
+  <string name="tab_title_info">Información</string>
+  <string name="tab_title_contacts">Contactos</string>
+  <string name="add_emergency_contact">Agregar contacto</string>
+  <string name="user_emergency_info_title">Información de emergencia</string>
+  <string name="user_emergency_info_consent">La información que usted introduzca aquí puede ayudar a primeros respondedores en una emergencia. Se almacena solo en su dispositivo y nadie puede leerla desde el marcador de emergencia sin desbloquear el teléfono.</string>
+  <string name="emergency_info_continue">Continuar</string>
+  <string name="clear">Borrar</string>
+  <string name="clear_all_message">¿Borrar toda la información y contactos?</string>
+  <string name="phone_type_and_phone_number">
+<xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>    </string>
+  <string name="remove_contact">
+¿Quitar <xliff:g example="John Doe" id="contact_name">%1$s </xliff:g> de los contactos de emergencia?    </string>
+  <string name="remove_contact_icon_text">Eliminar contacto</string>
+  <string name="remove">Quitar</string>
+  <string name="cancel">Cancelar</string>
+  <string name="no_info_provided">No se proporcionó informacion de emergencia</string>
+  <string name="emergency_contacts_title">Contactos de emergencia</string>
+  <string name="name">Nombre</string>
+  <string name="unknown_name">Desconocido</string>
+  <string name="address">Dirección</string>
+  <string name="unknown_address">Desconocido</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">Fecha de nacimiento</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">Desconocido</string>
+  <string name="dob" tools:ignore="UnusedResources">
+        (<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
+    </string>
+  <string name="age" tools:ignore="UnusedResources">
+Edad: <xliff:g example="29" id="numerical_age">%1$d </xliff:g>    </string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">Quitar fecha de nacimiento</string>
+  <string name="blood_type">Grupo sanguíneo</string>
+  <string name="unknown_blood_type">Desconocido</string>
+  <string name="allergies">Alergias</string>
+  <string name="unknown_allergies">Desconocido</string>
+  <string name="allergies_hint">Por ejemplo, cacahuetes</string>
+  <string name="medications">Medicamentos</string>
+  <string name="unknown_medications">Desconocido</string>
+  <string name="medications_hint">Por ejemplo, aspirina</string>
+  <string name="medical_conditions">Notas médicas</string>
+  <string name="unknown_medical_conditions">Desconocido</string>
+  <string name="medical_conditions_hint">Por ejemplo, asma</string>
+  <string name="organ_donor">Donante de órganos</string>
+  <string name="unknown_organ_donor">Desconocido</string>
   <string name="info_bloodtype_op">O+</string>
   <string name="info_bloodtype_on">O-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -227,6 +262,7 @@
   <string name="info_bloodtype_bn">B-</string>
   <string name="info_bloodtype_abp">AB+</string>
   <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="battery">Batería</string>
@@ -278,7 +314,10 @@
   <string name="spec_shouldnt_be_blank">Los detalles no pueden estar en blanco</string>
   <string name="dialog_color_picker">Selector de color</string>
   <string name="press_color_to_apply">Pulsa en el color para aplicar</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Mostrar fuente de instalación</string>
   <string name="battery_detail_switch_title">Ahorro de energía</string>
   <string name="battery_detail_switch_summary">Reduce el rendimiento y el consumo de datos en segundo plano</string>
+  <string name="qs_add_notes_title">Notas</string>
+  <string name="qs_add_notes">Esto sólo se utiliza para aplicaciones que usan rl ajuste de difusión (tales como \"Custom Quick Settings\"). Por favor lea las instrucciones de la aplicación antes de usar esta opción.</string>
 </resources>
