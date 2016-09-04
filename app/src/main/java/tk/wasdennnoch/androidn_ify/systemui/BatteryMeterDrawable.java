@@ -62,7 +62,7 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
 
     private int mHeight;
     private int mWidth;
-    private final int mCriticalLevel;
+    private int mCriticalLevel;
     private int mChargeColor;
     private final float[] mBoltPoints;
     private final Path mBoltPath = new Path();
@@ -111,6 +111,9 @@ public class BatteryMeterDrawable extends Drawable implements BatteryInfoManager
         updateShowPercent();
         mCriticalLevel = context.getResources().getInteger(
                 com.android.internal.R.integer.config_criticalBatteryWarningLevel);
+        if (mCriticalLevel > 15) {
+            mCriticalLevel = 5;
+        }
         mButtonHeightFraction = context.getResources().getFraction(
                 res.getIdentifier("battery_button_height_fraction", "fraction", PACKAGE_SYSTEMUI), 1, 1);
         mSubpixelSmoothingLeft = context.getResources().getFraction(
