@@ -48,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/hex"
+            android:hint="@string/color_picker_hex"
             android:imeOptions="actionDone"
             android:maxLength="7"
             android:singleLine="true"
