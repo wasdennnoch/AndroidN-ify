@@ -217,4 +217,50 @@
   <string name="enable_install_source_title">Hiện nguồn cài đặt ứng dụng</string>
   <string name="battery_detail_switch_title">Tiết kiệm pin</string>
   <string name="battery_detail_switch_summary">Giảm hiệu năng và dữ liệu nền </string>
+  <string name="add">Thêm</string>
+  <string name="add_custom_tile">Thêm ô tùy chọn </string>
+  <string name="add_emergency_contact">Thêm liên lạc </string>
+  <string name="address">Địa chỉ </string>
+  <string name="age">Tuổi: <xliff:g example="29" id="numerical_age">%1$d</xliff:g></string>
+  <string name="allergies">Dị ứng </string>
+  <string name="allergies_hint">Ví dụ, đậu phộng</string>
+  <string name="blood_type">Nhóm máu </string>
+  <string name="cancel">Thôi</string>
+  <string name="clear">Xóa </string>
+  <string name="clear_all">Xóa hểt</string>
+  <string name="clear_all_message">Xóa hết thông tin và các liên lạc?</string>
+  <string name="date_of_birth">Ngày sinh</string>
+  <string name="dob">(<xliff:g example="3 tháng Hai 1987" id="date_of_birth">%1$s</xliff:g>)</string>
+  <string name="emergency_contacts_title">Liên lạc khẩn cấp</string>
+  <string name="emergency_info_continue">Tiếp tục</string>
+  <string name="medical_conditions">Thông tin y tế </string>
+  <string name="medical_conditions_hint"> Ví dụ, bệnh hen suyễn</string>
+  <string name="medications">Thuốc men </string>
+  <string name="medications_hint">Ví dụ, aspirin</string>
+  <string name="name">Tên</string>
+  <string name="no_info_provided">Không có thông tin khẩn cấp nào</string>
+  <string name="organ_donor">Hiến tạng</string>
+  <string name="phone_type_and_phone_number"><xliff:g example="Di động" id="phone_type">%1$s</xliff:g> • <xliff:g example="090-909-0909" id="phone_number">%2$s</xliff:g></string>
+  <string name="qs_add_notes">Chỉ dùng cho những ứ.dụng tạo ra các ô tùy biến (ví dụ như \"Custom Quick Settings\"). Xin đọc hướng dẫn của các ứ.dụng đó trước khi sử dụng tính năng này.</string>
+  <string name="qs_add_notes_title">Ghi chú </string>
+  <string name="remove">Bỏ </string>
+  <string name="remove_contact">Bỏ <xliff:g example="Trần Tiến" id="contact_name">%1$s</xliff:g> khỏi liên lạc khẩn cấp?</string>
+  <string name="remove_contact_icon_text">Bỏ liên lạc </string>
+  <string name="remove_dob_icon_text">Bỏ ngày sinh </string>
+  <string name="spec_shouldnt_be_blank">Đặc tả của ô không nên để trống </string>
+  <string name="tab_title_contacts">Liên lạc </string>
+  <string name="tab_title_info">Thông tin </string>
+  <string name="unknown_address">Không biết </string>
+  <string name="unknown_allergies">Không biết</string>
+  <string name="unknown_blood_type">Không biết</string>
+  <string name="unknown_date_of_birth">Không biết</string>
+  <string name="unknown_medical_conditions">Không biết</string>
+  <string name="unknown_medications">Không biết</string>
+  <string name="unknown_name">Không biết</string>
+  <string name="unknown_organ_donor">Không biết</string>
+  <string name="tile_spec_example">ÔTÙYCHỈNH0</string>
+  <string name="update_warning">Mô-đun đã được cập nhật </string>
+  <string name="update_warning_details">Hệ thống có thể không ổn định và báo cáo lỗi sẽ bị bỏ qua cho đến khi khởi động lại thiết bị</string>
+  <string name="user_emergency_info_consent">Thông tin bạn nhập ở đây sẽ giúp ích trong trường hợp khẩn cấp. Nó chỉ lưu trong nội bộ thiết bị, và ai cũng có thể đọc được chúng trong trình gọi khẩn cấp mà không cần mở khóa.</string>
+  <string name="user_emergency_info_title">Thông tin khẩn cấp </string>
 </resources>

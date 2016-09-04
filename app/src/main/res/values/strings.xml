@@ -355,7 +355,7 @@
     <string name="qs_add_notes_title">Notes</string>
     <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
     <string name="hex">HEX</string>
-    <string name="arrow_down">↓</string>
-    <string name="arrow_right">→</string>
+    <string name="arrow_down" translatable="false">↓</string>
+    <string name="arrow_right" translatable="false">→</string>
 
 </resources>
