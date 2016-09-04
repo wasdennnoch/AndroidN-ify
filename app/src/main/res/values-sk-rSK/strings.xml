@@ -24,6 +24,7 @@
         Ak aj to zlyhá, pravdepodobne sa budete musieť zmieriť s predvolenými hodnotami, prepáčte :(
         ]]></string>
   <string name="header_tweaks">Úpravy</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplikácia</string>
   <string name="app_dark_theme_title">Tmavá téma aplikácie</string>
   <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
@@ -36,7 +37,7 @@
   <string name="logcat_notif_ongoing_lines">Uložených %1$s riadkov&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s riadkov uložených do %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">Stop</string>
   <string name="requesting_root">Žiadanie o root prístup&#8230;</string>
   <string name="root_failed">Nepodarilo sa získať READ_LOGS povolenie</string>
@@ -67,7 +68,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Prispôsobivý jas je %1$s</string>
   <string name="sound_summary">Stupeň hlasitosti zvonenia: %1$s</string>
-  <string name="apps_summary">Počet nainštalovaných aplikácií: %1$d</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">Počet nainštalovaných aplikácií: %1$d</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">Využité miesto: %1$s z %2$s</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -83,7 +84,7 @@
   <string name="location_on_power">ZAP. / Úspora batérie</string>
   <string name="location_on_device">ZAP. / Len senzory zariadenia</string>
   <string name="location_on_high">ZAP. / Vysoká presnosť</string>
-  <string name="print_summary">%1$d tlačových úloh</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d tlačových úloh</string>
   <!-- Header of app installation source -->
   <string name="store">Obchod</string>
   <!-- Header of app installation source -->
@@ -202,6 +203,8 @@
   <string name="update_notification_title">Je dostupná aktualizácia</string>
   <string name="update_notification">Zostava %1$d je dostupná na aktualizáciu.</string>
   <string name="update_notification_download">Aktualizovať</string>
+  <string name="update_warning">Modul bol aktualizovaný</string>
+  <string name="update_warning_details">Systém môže byť nestabilný a hlásenie o chybách sa bude ignorovať, kým sa zariadenie reštartujte</string>
   <string name="check_for_updates_title">Kontrolovať aktualizácie</string>
   <string name="check_for_updates">Skontroluje aktualizácie po spustení aplikácie</string>
   <string name="checking_for_update">Kontrolujú sa aktualizácie&#8230;</string>
@@ -216,17 +219,52 @@
   <string name="enable_emergency_info_title">Povoliť núdzové informácie</string>
   <string name="enable_emergency_info">Pridá tlačidlo s núdzovými informáciami do núdzového vytáčania</string>
   <string name="edit_emergency_info_title">Upraviť núdzové informácie</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Osobné</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Meno</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresa</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Dátum narodenia</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Zdravotné</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Krvná skupina</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergie</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Lieky</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Poznámky od lekára</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Darca orgánov</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nešpecifikované</string>
+  <string name="clear_all">Vymazať všetko</string>
+  <string name="tab_title_info">Informácie</string>
+  <string name="tab_title_contacts">Kontakty</string>
+  <string name="add_emergency_contact">Pridať kontakt</string>
+  <string name="user_emergency_info_title">Núdzové informácie</string>
+  <string name="user_emergency_info_consent">Tu uvedené informácie pomôžu záchranárom, ak sa ocitnete v núdzovej situácii. Sú uložené iba na zariadení. Ktokoľvek si ich môže prečítať na obrazovke tiesňového vytáčania bez nutnosti odomknúť telefón.</string>
+  <string name="emergency_info_continue">Pokračovať</string>
+  <string name="clear">Vymazať</string>
+  <string name="clear_all_message">Vymazať všetky informácie a kontakty?</string>
+  <string name="phone_type_and_phone_number">
+        <xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>
+    </string>
+  <string name="remove_contact">
+        Odstrániť <xliff:g example="John Doe" id="contact_name">%1$s</xliff:g> z tiesňových kontaktov?
+    </string>
+  <string name="remove_contact_icon_text">Odstrániť kontakt</string>
+  <string name="remove">Odstrániť</string>
+  <string name="cancel">Zrušiť</string>
+  <string name="no_info_provided">Neboli poskytnuté žiadne núdzové informácie</string>
+  <string name="emergency_contacts_title">Kontakty</string>
+  <string name="name">Meno</string>
+  <string name="unknown_name">Neznáme</string>
+  <string name="address">Adresa</string>
+  <string name="unknown_address">Neznáme</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">Dátum narodenia</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">Neznáme</string>
+  <string name="dob" tools:ignore="UnusedResources">
+        (<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
+    </string>
+  <string name="age" tools:ignore="UnusedResources">
+        Vek: <xliff:g example="29" id="numerical_age">%1$d</xliff:g>
+    </string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">Odstrániť dátum narodenia</string>
+  <string name="blood_type">Krvná skupina</string>
+  <string name="unknown_blood_type">Neznáme</string>
+  <string name="allergies">Alergie</string>
+  <string name="unknown_allergies">Neznáme</string>
+  <string name="allergies_hint">Napr. arašidy</string>
+  <string name="medications">Lieky</string>
+  <string name="unknown_medications">Neznáme</string>
+  <string name="medications_hint">Napr. aspirín</string>
+  <string name="medical_conditions">Lekárske poznámky</string>
+  <string name="unknown_medical_conditions">Neznáme</string>
+  <string name="medical_conditions_hint">Napr. astma</string>
+  <string name="organ_donor">Darca orgánov</string>
+  <string name="unknown_organ_donor">Neznáme</string>
   <string name="info_bloodtype_op">O+</string>
   <string name="info_bloodtype_on">O-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -235,6 +273,7 @@
   <string name="info_bloodtype_bn">B-</string>
   <string name="info_bloodtype_abp">AB+</string>
   <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H/H</string>
   <string name="yes">Áno</string>
   <string name="no">Nie</string>
   <string name="battery">Batéria</string>
@@ -297,7 +336,10 @@
   <string name="spec_shouldnt_be_blank">Nastavenia dlaždice by nemali byť prázdne</string>
   <string name="dialog_color_picker">Výber farby</string>
   <string name="press_color_to_apply">Kliknite na farbu pre použitie</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Zobraziť zdroj nainštalovanej aplikácie</string>
   <string name="battery_detail_switch_title">Šetrič batérie</string>
   <string name="battery_detail_switch_summary">Zníži výkonnosť a dátové prenosy na pozadí</string>
+  <string name="qs_add_notes_title">Poznámky</string>
+  <string name="qs_add_notes">Používa sa iba pre aplikácie, ktoré poskytujú dlaždice vysielania (ako napr. \"Custom Quick Settings\"). Prosím, pred použitím si prečítajte inštrukcie v aplikácii poskytujúcej dlaždicu.</string>
 </resources>

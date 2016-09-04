@@ -24,6 +24,7 @@
         Ako čak ni to ne uspije, nažalost, moraćete da koristite podrazumijevane vrijednosti. :(
         ]]></string>
   <string name="header_tweaks">Podešavanja</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplikacija</string>
   <string name="app_dark_theme_title">Tamna tema</string>
   <string name="hide_launcher_icon_title">Sakrij ikonu pokretača</string>
@@ -36,7 +37,7 @@
   <string name="logcat_notif_ongoing_lines">Sačuvano %1$s redova&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s redova sačuvano u %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">Zaustavi</string>
   <string name="requesting_root">Zahtijevam root pristup&#8230;</string>
   <string name="root_failed">Neuspješno dobijanje READ_LOGS dozvole</string>
@@ -67,7 +68,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Prilagodljiva osvijetljenost je %1$s</string>
   <string name="sound_summary">Jačina zvuka zvona na %1$s</string>
-  <string name="apps_summary">%1$d aplikacija instalirano</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d aplikacija instalirano</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s od %2$s iskorišteno</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -83,7 +84,7 @@
   <string name="location_on_power">UKLJ / ušteda baterije</string>
   <string name="location_on_device">UKLJ / samo uređaj</string>
   <string name="location_on_high">UKLJ / velika preciznost</string>
-  <string name="print_summary">%1$d poslova štampanja</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d poslova štampanja</string>
   <!-- Header of app installation source -->
   <string name="store">Prodavnica</string>
   <!-- Header of app installation source -->
@@ -170,22 +171,7 @@
   <string name="update_notification_downloading_details">Pre uzimam izdanje %1$d</string>
   <string name="update_notification_download_fail">Preuziman je nije uspjelo</string>
   <string name="update_notification_download_fail_details">N euspješno preuzimanje izdanja %1$d</string>
-  <string name="emergency_info">Podaci za slučaj nužde</string>
   <string name="emergency_info_launch_hint">Kliknite ponovo da otvorite</string>
-  <string name="enable_emergency_info_title">Omogući podatke</string>
-  <string name="enable_emergency_info">Dodavanje podataka za slučaj nužde na brojčanik za hitni poziv</string>
-  <string name="edit_emergency_info_title">Uredi podatke</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Lično</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Puno ime</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresa</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Datum rođenja</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medicinski</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Krvna grupa</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergije</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Lijekovi</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Zdravstvena stanja i bilješke</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Donor organa</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nije navedeno</string>
   <string name="yes">Da</string>
   <string name="no">Ne</string>
   <string name="battery">Baterija</string>
@@ -205,5 +191,6 @@
   <!-- Add a custom tile -->
   <string name="dialog_color_picker">Birač boja</string>
   <string name="press_color_to_apply">Kliknite na boju da je primjenite</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Prikaži izvor instalacije aplikacije</string>
 </resources>

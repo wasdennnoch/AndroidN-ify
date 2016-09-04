@@ -39,7 +39,7 @@
             android:id="@+id/hex_val"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hex"
+            android:hint="@string/color_picker_hex"
             android:imeOptions="actionDone"
             android:maxLength="7"
             android:singleLine="true"

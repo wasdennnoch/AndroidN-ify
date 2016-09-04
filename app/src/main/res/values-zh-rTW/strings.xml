@@ -4,7 +4,7 @@
   <string name="xposed_description">把 Android N 的功能移植到 Android 5.x(Lollipop) 和 Android 6.x(Marshmallow)！</string>
   <string name="restart_systemui">重新啟動 系統UI</string>
   <string name="restart_systemui_message">你確定要 重新啟動系統UI 嗎？</string>
-  <string name="restart_broadcast_sent">重新啟動系統UI 廣播指令已推送</string>
+  <string name="restart_broadcast_sent">重新啟動 系統UI 的廣播指令已推送</string>
   <string name="activity_about">關於 Android N-ify</string>
   <string name="about_author">程式開發 來自 @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
@@ -24,6 +24,7 @@
         如果還是不行，那就使用現有的預設值吧，很抱歉 :(
         ]]></string>
   <string name="header_tweaks">調整</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">應用程式</string>
   <string name="app_dark_theme_title">暗色主題</string>
   <string name="hide_launcher_icon_title">隱藏啟動器的圖示</string>
@@ -36,7 +37,7 @@
   <string name="logcat_notif_ongoing_lines">已儲存 %1$s 行&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s 行 已儲存到 %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">停止</string>
   <string name="requesting_root">正在等待 Root 權限的回應&#8230;</string>
   <string name="root_failed">獲得 READ_LOGS permission 權限失敗</string>
@@ -67,7 +68,7 @@
   <!-- Is on or off -->
   <string name="display_summary">自動調整亮度 已%1$s</string>
   <string name="sound_summary">鈴聲音量 %1$s</string>
-  <string name="apps_summary">含系統應用程式，一共安裝了 %1$d 個</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">含系統應用程式，一共安裝了 %1$d 個</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">已使用 %1$s，共 %2$s </string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -83,8 +84,9 @@
   <string name="location_on_power">開啟 / 節約耗電量</string>
   <string name="location_on_device">開啟 / 僅限裝置</string>
   <string name="location_on_high">開啟 / 高精度</string>
-  <string name="print_summary">%1$d 個列印工作</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d 個列印工作</string>
   <!-- Header of app installation source -->
+  <string name="store">儲存</string>
   <!-- Header of app installation source -->
   <string name="app_details">應用程式詳細資料</string>
   <string name="install_source">應用程式從 %1$s 安裝</string>
@@ -185,6 +187,8 @@
   <string name="update_notification_title">發現新大陸…呃，不對是發現新版本！</string>
   <string name="update_notification">發現可用的更新可以下載：組建 %1$d！</string>
   <string name="update_notification_download">更新</string>
+  <string name="update_warning">模組已更新</string>
+  <string name="update_warning_details">系統可能會不穩定且 Bug 回報將會被忽略，直到您重新啟動您的裝置為止！</string>
   <string name="check_for_updates_title">檢查更新</string>
   <string name="check_for_updates">啟動應用程式時檢查更新</string>
   <string name="checking_for_update">正在檢查更新&#8230;</string>
@@ -194,22 +198,13 @@
   <string name="update_notification_downloading_details">正在下載更新：組建 %1$d …</string>
   <string name="update_notification_download_fail">下載失敗</string>
   <string name="update_notification_download_fail_details">下載組建 %1$d 失敗！</string>
-  <string name="emergency_info">緊急資訊(Emergency Info)</string>
+  <string name="emergency_info">緊急資訊</string>
   <string name="emergency_info_launch_hint">再次點擊以開啟</string>
-  <string name="enable_emergency_info_title">開啟 緊急資訊</string>
+  <string name="enable_emergency_info_title">啟動緊急資訊</string>
   <string name="enable_emergency_info">新增一個緊急資訊按鈕到緊急撥號</string>
-  <string name="edit_emergency_info_title">編輯 緊急資訊</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">私人</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">全名</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">地址</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">出生日期</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">就醫</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">血型(台灣常見血型為 Rh+)</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">過敏</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">藥物治療</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">就醫治療和注意事項</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">器官捐贈者</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">無</string>
+  <string name="edit_emergency_info_title">編輯緊急資訊</string>
+  <string name="clear_all">清除全部</string>
+  <string name="tab_title_info">資訊</string>
   <string name="info_bloodtype_op">O 型 Rh+</string>
   <string name="info_bloodtype_on">O 型 Rh-</string>
   <string name="info_bloodtype_ap">A 型 Rh+</string>
@@ -218,6 +213,7 @@
   <string name="info_bloodtype_bn">B 型 Rh-</string>
   <string name="info_bloodtype_abp">AB 型 Rh+</string>
   <string name="info_bloodtype_abn">AB 型 Rh-</string>
+  <string name="info_bloodtype_h_h">HH血型(孟買血型)</string>
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">電池</string>
@@ -232,26 +228,44 @@
   <string name="live_display_day">白天</string>
   <string name="live_display_night">晚上</string>
   <string name="live_display_outdoor">外出(強光下)</string>
+  <string name="charge_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> 前</string>
+  <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> 左右</string>
   <string name="power_remaining_duration_only">還可用大約 <xliff:g id="time">%1$s</xliff:g> left</string>
+  <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g>左右</string>
+  <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g> - 還可用大約 <xliff:g id="time">%2$s</xliff:g> 左右</string>
+  <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g> -還可用 <xliff:g id="time">%2$s</xliff:g> 左右</string>
+  <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> - 大約還需 <xliff:g id="state">%2$s</xliff:g> 才能充飽</string>
+  <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> - 大約還需 <xliff:g id="time">%2$s</xliff:g>才能充飽</string>
+  <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> - 約<xliff:g id="time">%2$s</xliff:g>才能充飽</string>
+  <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> - 使用 AC變壓器 充電，還需 <xliff:g id="time">%2$s</xliff:g> 才能充飽</string>
   <!-- Short description when charging on AC. For example: 12% - 2h -->
+  <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> - AC交流電，充滿電還需：<xliff:g id="time">%2$s</xliff:g></string>
+  <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> - 使用 USB 充電，還需 <xliff:g id="time">%2$s</xliff:g> 才能充飽</string>
   <!-- Short description when charging on USB. For example: 12% - 2h -->
+  <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> - USB充電，還需 <xliff:g id="time">%2$s</xliff:g></string>
+  <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> - 使用 無線模組 充電，還需 <xliff:g id="time">%2$s</xliff:g> 才能充飽</string>
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
+  <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> - 無線充電，還需<xliff:g id="time">%2$s</xliff:g></string>
   <string name="battery_info_status_unknown">未知電量</string>
-  <string name="battery_info_status_charging">充電中…</string>
+  <string name="battery_info_status_charging">充電中...</string>
   <string name="battery_info_status_charging_ac">正在透過 AC 變壓器 充電中..</string>
-  <string name="battery_info_status_charging_ac_short">以 AC 變壓器 充電中…</string>
-  <string name="battery_info_status_charging_usb">正在透過 USB 充電中…</string>
-  <string name="battery_info_status_charging_usb_short">以 USB 充電中…</string>
-  <string name="battery_info_status_charging_wireless">正在透過 AC 變壓器 充電中…</string>
-  <string name="battery_info_status_charging_wireless_short">以 無線模組 充電中…</string>
-  <string name="battery_info_status_discharging">尚未充電中…</string>
-  <string name="battery_info_status_not_charging">放電中…</string>
+  <string name="battery_info_status_charging_ac_short">以 AC 變壓器 充電中...</string>
+  <string name="battery_info_status_charging_usb">正在透過 USB 充電中...</string>
+  <string name="battery_info_status_charging_usb_short">以 USB 充電中...</string>
+  <string name="battery_info_status_charging_wireless">正在透過 AC 變壓器 充電中...</string>
+  <string name="battery_info_status_charging_wireless_short">以 無線模組 充電中...</string>
+  <string name="battery_info_status_discharging">尚未充電中...</string>
+  <string name="battery_info_status_not_charging">放電中...</string>
   <string name="battery_info_status_full">電量已滿</string>
   <string name="battery_panel_title">電量使用</string>
   <string name="battery_detail_charging_summary">充電中省電模式將無法作用</string>
   <!-- Add a custom tile -->
+  <string name="add">新增</string>
+  <string name="add_custom_tile">新增推送的磚</string>
+  <string name="spec_shouldnt_be_blank">磚的標題不能為空白</string>
   <string name="dialog_color_picker">取色器</string>
   <string name="press_color_to_apply">點擊顏色以套用</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">顯示應用程式安裝資源</string>
   <string name="battery_detail_switch_title">省電模式</string>
   <string name="battery_detail_switch_summary">減少效能和背景資料傳輸</string>

@@ -42,4 +42,7 @@
         <item>@string/unknown_organ_donor</item>
     </string-array>
 
+    <string name="arrow_down">↓</string>
+    <string name="arrow_right">→</string>
+
 </resources>

@@ -24,6 +24,7 @@
         만약 모든 방법이 실패하였을 경우, 사용자는 기본 설정 값을 사용하실 수 밖에 없습니다. 도움을 드리지 못해 죄송합니다 :(
         ]]></string>
   <string name="header_tweaks">트윅</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">앱</string>
   <string name="app_dark_theme_title">어두운 앱 테마</string>
   <string name="hide_launcher_icon_title">앱 아이콘 숨기기</string>
@@ -35,7 +36,7 @@
   <string name="logcat_notif_ongoing_lines">%1$s줄 저장하는 중&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s줄이 %2$s에 저장됨</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">중지</string>
   <string name="requesting_root">루트 권한 요청 중&#8230;</string>
   <string name="root_failed">READ_LOGS 권한을 얻는데 실패하였습니다</string>
@@ -66,7 +67,7 @@
   <!-- Is on or off -->
   <string name="display_summary">밝기 자동 조절이 %1$s</string>
   <string name="sound_summary">벨소리 장치 볼륨 %1$s</string>
-  <string name="apps_summary">앱 %1$d개 설치됨</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">앱 %1$d개 설치됨</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%2$s 중 %1$s 사용됨</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -82,7 +83,7 @@
   <string name="location_on_power">사용함 / 배터리 절약</string>
   <string name="location_on_device">사용함 / 기기 전용</string>
   <string name="location_on_high">사용함 / 높은 정확성</string>
-  <string name="print_summary">인쇄 작업 %1$d개</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">인쇄 작업 %1$d개</string>
   <!-- Header of app installation source -->
   <!-- Header of app installation source -->
   <string name="header_recents">최근 실행</string>
@@ -147,22 +148,7 @@
   <string name="update_notification_downloading_details">버전 %1$d 다운로드 중</string>
   <string name="update_notification_download_fail">다운로드 실패</string>
   <string name="update_notification_download_fail_details">버전 %1$d을(를) 다운로드 할 수 없습니다</string>
-  <string name="emergency_info">긴급 상황 정보</string>
   <string name="emergency_info_launch_hint">한번 더 터치하면 열립니다</string>
-  <string name="enable_emergency_info_title">긴급 상황 정보 활성화</string>
-  <string name="enable_emergency_info">긴급 상황 정보를 긴급 전화 다이얼에 추가합니다</string>
-  <string name="edit_emergency_info_title">긴급 상황 정보 수정</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">개인</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">이름</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">주소</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">생년월일</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">의학</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">혈액형</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">알레르기</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">약물</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">복용중인 약물과 의료 기록을 기록하세요</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">장기 기증자</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">명시된 내용 없음</string>
   <string name="yes">예</string>
   <string name="no">아니오</string>
   <string name="battery">배터리</string>
@@ -182,4 +168,5 @@
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <!-- Add a custom tile -->
   <string name="press_color_to_apply">색깔을 눌러 적용</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
 </resources>

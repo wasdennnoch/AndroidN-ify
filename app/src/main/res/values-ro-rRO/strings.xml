@@ -23,6 +23,7 @@
         Dacă și această metodă eșuează, probabil v-a trebui să rămâi cu setările inițiale. Scuze :(
         ]]></string>
   <string name="header_tweaks">Setări</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplicație</string>
   <string name="app_dark_theme_title">Temă intunecată</string>
   <string name="hide_launcher_icon_title">Ascunde iconita în lansator</string>
@@ -35,7 +36,7 @@
   <string name="logcat_notif_ongoing_lines">%1$s (de) linii au fost salvate&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s (de) linii au fost salvate la %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">Oprire</string>
   <string name="requesting_root">Se solicită accesul root&#8230;</string>
   <string name="root_failed">Nu se poate obține permisiunea READ_LOGS</string>
@@ -66,7 +67,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Luminozitatea adaptivă este %1$s</string>
   <string name="sound_summary">Volum sunet apel la %1$s</string>
-  <string name="apps_summary">%1$d (de) aplicații instalate</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d (de) aplicații instalate</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s din %2$s utilizați</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -82,7 +83,7 @@
   <string name="location_on_power">Pornit / Salvare energie</string>
   <string name="location_on_device">Pornit / Doar GPS</string>
   <string name="location_on_high">Pornit / Acuratețe ridicată</string>
-  <string name="print_summary">%1$d sarcini de printat</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d sarcini de printat</string>
   <!-- Header of app installation source -->
   <string name="store">Magazin</string>
   <!-- Header of app installation source -->
@@ -210,22 +211,7 @@
   <string name="update_notification_downloading_details">Se descarcă actualizarea numărul %1$d</string>
   <string name="update_notification_download_fail">Descărcarea a eșuat</string>
   <string name="update_notification_download_fail_details">Nu s-a putut descărca actualizarea %1$d</string>
-  <string name="emergency_info">Informații de urgență</string>
   <string name="emergency_info_launch_hint">Apăsați din nou pentru a deschide</string>
-  <string name="enable_emergency_info_title">Activează informațiile de urgență</string>
-  <string name="enable_emergency_info">Adaugă butonul „Informații de urgență” la apelatorul de urgență</string>
-  <string name="edit_emergency_info_title">Editează informațiile de urgență</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Personal</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Nume complet</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresă</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Data nașterii</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medical</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Grupă sanguină</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergii</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Medicamente</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Condiții și note medicale</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Donator de organe</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nespecificat</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -285,6 +271,7 @@
   <string name="spec_shouldnt_be_blank">Specificația tile-ului nu trebuie să fie goală</string>
   <string name="dialog_color_picker">Alegător de culori</string>
   <string name="press_color_to_apply">Apăsați pe o Culoare pentru a o aplica</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Afișează sursă de instalare a aplicațiilor</string>
   <string name="battery_detail_switch_title">Economizator de baterie</string>
   <string name="battery_detail_switch_summary">Reduce performanța și datele de fundal</string>

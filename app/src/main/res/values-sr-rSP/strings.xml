@@ -24,6 +24,7 @@
         Ако чак ни то не успе, нажалост, мораћете да живите са подразумеваним вредностима. :(
         ]]></string>
   <string name="header_tweaks">Штимања</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Апликација</string>
   <string name="app_dark_theme_title">Тамна тема</string>
   <string name="hide_launcher_icon_title">Сакриј икону покретача</string>
@@ -36,7 +37,7 @@
   <string name="logcat_notif_ongoing_lines">Сачувано %1$s редова&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s редова сачувано у %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">Заустави</string>
   <string name="requesting_root">Захтевам корени приступ&#8230;</string>
   <string name="root_failed">Неуспех добијања READ_LOGS дозволе</string>
@@ -67,7 +68,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Прилагодљива осветљеност је %1$s</string>
   <string name="sound_summary">Јачина звука звона на %1$s</string>
-  <string name="apps_summary">%1$d апликација инсталирано</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d апликација инсталирано</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s од %2$s искоришћено</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -83,7 +84,7 @@
   <string name="location_on_power">УКЉ / уштеда батерије</string>
   <string name="location_on_device">УКЉ / само уређај</string>
   <string name="location_on_high">УКЉ / велика прецизност</string>
-  <string name="print_summary">%1$d послова штампања</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d послова штампања</string>
   <!-- Header of app installation source -->
   <string name="store">Продавница</string>
   <!-- Header of app installation source -->
@@ -170,22 +171,7 @@
   <string name="update_notification_downloading_details">Преузимам издање %1$d</string>
   <string name="update_notification_download_fail">Преузимање није успело</string>
   <string name="update_notification_download_fail_details">Неуспех преузимања издања %1$d</string>
-  <string name="emergency_info">Подаци за случај нужде</string>
   <string name="emergency_info_launch_hint">Тапните поново да отворите</string>
-  <string name="enable_emergency_info_title">Омогући податке</string>
-  <string name="enable_emergency_info">Додавање података за случај нужде на бројчаник за хитни позив</string>
-  <string name="edit_emergency_info_title">Уреди податке</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Лично</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Пуно име</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Адреса</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Датум рођења</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Медицински</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Крвна група</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Алергије</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Лекови</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Здравствена стања и белешке</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Донор органа</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Није наведено</string>
   <string name="yes">Да</string>
   <string name="no">Не</string>
   <string name="battery">Батерија</string>
@@ -205,5 +191,6 @@
   <!-- Add a custom tile -->
   <string name="dialog_color_picker">Бирач боја</string>
   <string name="press_color_to_apply">Тапните на боју да је примените</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Прикажи извор инсталације апликације</string>
 </resources>

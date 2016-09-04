@@ -24,6 +24,7 @@
         Se anche questo dovesse fallire, probabilmente dovrai vivere con i valori di default, mi dispiace :(
         ]]></string>
   <string name="header_tweaks">Modifiche</string>
+  <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">App</string>
   <string name="app_dark_theme_title">Tema app scuro</string>
   <string name="hide_launcher_icon_title">Nascondi icona launcher</string>
@@ -36,7 +37,7 @@
   <string name="logcat_notif_ongoing_lines">Salvate %1$s righe&#8230;</string>
   <!-- %2$s == file path -->
   <string name="logcat_notif_finished">%1$s righe salvate in %2$s</string>
-  <!-- Stop logcat recording from notification. -->
+  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
   <string name="action_stop">Ferma</string>
   <string name="requesting_root">Chiedo permesso root&#8230;</string>
   <string name="root_failed">Impossibile ottenere il permesso READ_LOGS</string>
@@ -67,7 +68,7 @@
   <!-- Is on or off -->
   <string name="display_summary">Luminosità adattiva è %1$s</string>
   <string name="sound_summary">Volume suoneria al %1$s</string>
-  <string name="apps_summary">%1$d applicazioni installate</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d applicazioni installate</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s di %2$s usati</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -83,7 +84,7 @@
   <string name="location_on_power">ON / Risparmio energia</string>
   <string name="location_on_device">ON / Solo dispositivo</string>
   <string name="location_on_high">ON / Alta precisione</string>
-  <string name="print_summary">%1$d processi di stampa</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d processi di stampa</string>
   <!-- Header of app installation source -->
   <string name="store">Store</string>
   <!-- Header of app installation source -->
@@ -194,22 +195,7 @@
   <string name="update_notification_downloading_details">Scarico build %1$d</string>
   <string name="update_notification_download_fail">Download fallito</string>
   <string name="update_notification_download_fail_details">Impossibile scaricare la build %1$d</string>
-  <string name="emergency_info">Info Emergenza</string>
   <string name="emergency_info_launch_hint">Tocca ancora per aprire</string>
-  <string name="enable_emergency_info_title">Abilita Informazioni di Emergenza</string>
-  <string name="enable_emergency_info">Aggiunge un bottone per le Informazioni di Emergenza sul dialer per le chiamate di Emergenza</string>
-  <string name="edit_emergency_info_title">Modifica Informazioni di Emergenza</string>
-  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Personale</string>
-  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Nome completo</string>
-  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Indirizzo</string>
-  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Data di nascita</string>
-  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medico</string>
-  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Tipo sangue</string>
-  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Allergie</string>
-  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Medicazioni</string>
-  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Condizioni mediche e note</string>
-  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Donatore di organi</string>
-  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Non specificato</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="yes">Si</string>
@@ -264,6 +250,7 @@
   <string name="spec_shouldnt_be_blank">Il nome del tile non può essere vuoto</string>
   <string name="dialog_color_picker">Scegli colore</string>
   <string name="press_color_to_apply">Premi sul colore per applicare</string>
+  <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Mostra sorgente installazione dell\'app</string>
   <string name="battery_detail_switch_title">Risparmio Energetico</string>
   <string name="battery_detail_switch_summary">Riduce le prestazioni e i dati in background</string>
