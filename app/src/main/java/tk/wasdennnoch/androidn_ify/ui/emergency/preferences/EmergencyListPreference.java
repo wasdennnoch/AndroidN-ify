@@ -36,7 +36,7 @@ import tk.wasdennnoch.androidn_ify.ui.emergency.ReloadablePreferenceInterface;
 public class EmergencyListPreference extends ListPreference
         implements ReloadablePreferenceInterface {
     @Nullable
-    private CharSequence[] mContentDescriptions;
+    private final CharSequence[] mContentDescriptions;
 
     public EmergencyListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -70,6 +70,12 @@ public class EmergencyListPreference extends ListPreference
         } else {
             return getEntry();
         }
+    }
+
+    @Nullable
+    @VisibleForTesting
+    CharSequence[] getContentDescriptions() {
+        return mContentDescriptions;
     }
 
     private static CharSequence[] createAccessibleEntries(CharSequence entries[],

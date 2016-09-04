@@ -32,6 +32,7 @@ import tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyContactsPre
 /**
  * Fragment that displays emergency contacts.
  */
+@SuppressWarnings({"deprecation", "ConstantConditions"})
 public class ViewEmergencyContactsFragment extends PreferenceFragment {
     /** The category that holds the emergency contacts. */
     private EmergencyContactsPreference mEmergencyContactsPreference;

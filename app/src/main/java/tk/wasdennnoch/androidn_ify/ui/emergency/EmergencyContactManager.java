@@ -28,6 +28,7 @@ import java.io.ByteArrayInputStream;
 /**
  * Provides methods to read name, phone number, photo, etc. from contacts.
  */
+@SuppressWarnings("ConstantConditions")
 public class EmergencyContactManager {
 
     /**

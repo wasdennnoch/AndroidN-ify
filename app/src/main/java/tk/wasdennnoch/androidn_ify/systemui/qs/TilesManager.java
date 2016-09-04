@@ -20,15 +20,16 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
+@SuppressWarnings("SameReturnValue")
 public class TilesManager {
 
     private static final String TAG = "TilesManager";
 
-    private Object mQSTileHost;
-    private Context mContext;
+    private final Object mQSTileHost;
+    private final Context mContext;
 
-    public static List<String> mCustomTileSpecs = new ArrayList<>();
-    private Map<String, QSTile> mTiles = new HashMap<>();
+    public static final List<String> mCustomTileSpecs = new ArrayList<>();
+    private final Map<String, QSTile> mTiles = new HashMap<>();
     private String mCreateTileViewTileKey;
     public boolean useVolumeTile = false;
 

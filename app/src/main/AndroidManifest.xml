@@ -4,6 +4,8 @@
     package="tk.wasdennnoch.androidn_ify"
     android:installLocation="internalOnly">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -17,6 +19,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/LightTheme"
+        android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning">
         <meta-data
             android:name="xposedmodule"

@@ -199,24 +199,24 @@
   <string name="enable_emergency_info_title">Abilita Informazioni di Emergenza</string>
   <string name="enable_emergency_info">Aggiunge un bottone per le Informazioni di Emergenza sul dialer per le chiamate di Emergenza</string>
   <string name="edit_emergency_info_title">Modifica Informazioni di Emergenza</string>
-  <string name="header_personal">Personale</string>
-  <string name="info_fullname">Nome completo</string>
-  <string name="info_address">Indirizzo</string>
-  <string name="info_birthdate">Data di nascita</string>
-  <string name="header_medical">Medico</string>
-  <string name="info_bloodtype">Tipo sangue</string>
-  <string name="info_allergies">Allergie</string>
-  <string name="info_medications">Medicazioni</string>
-  <string name="info_medicalnotes">Condizioni mediche e note</string>
-  <string name="info_organdonor">Donatore di organi</string>
-  <string name="info_unspecified">Non specificato</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Personale</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Nome completo</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Indirizzo</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Data di nascita</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medico</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Tipo sangue</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Allergie</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Medicazioni</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Condizioni mediche e note</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Donatore di organi</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Non specificato</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="yes">Si</string>
   <string name="no">No</string>
   <string name="battery">Batteria</string>
-  <string name="charged">Carico</string>
-  <string name="charging">In carica, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Carico</string>
+  <string name="charging" tools:ignore="UnusedResources">In carica, %1$s</string>
   <string name="qs_edit">Modifica</string>
   <string name="drag_to_add_tiles">Trascina per aggiungere tiles</string>
   <string name="drag_to_remove_tiles">Trascina qui per rimuovere</string>

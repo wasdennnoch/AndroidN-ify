@@ -40,6 +40,7 @@ import tk.wasdennnoch.androidn_ify.utils.RomUtils;
  *
  * @see <a href="https://github.com/rovo89/XposedBridge/issues/57">https://github.com/rovo89/XposedBridge/issues/57</a>
  */
+@SuppressWarnings("WeakerAccess")
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookInitPackageResources {
 
     private static final String TAG = "XposedHook";

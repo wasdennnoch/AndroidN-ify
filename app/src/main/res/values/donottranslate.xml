@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name" translatable="false">Android N-ify</string>
 
@@ -13,7 +13,7 @@
 
     <string name="tile_spec_example">CUSTOMTILE0</string>
 
-    <string name="qs_edit_detail">@string/qs_edit</string>
+    <string name="qs_edit_detail" tools:ignore="UnusedResources">@string/qs_edit</string>
 
     <string-array name="blood_type_values">
         <item>0+</item>

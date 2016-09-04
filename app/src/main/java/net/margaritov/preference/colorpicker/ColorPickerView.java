@@ -41,6 +41,7 @@ import android.view.View;
  *
  * @author Daniel Nilsson
  */
+@SuppressWarnings({"WeakerAccess", "JavaDoc", "ConstantConditions"})
 public class ColorPickerView extends View {
 
     private final static int PANEL_SAT_VAL = 0;

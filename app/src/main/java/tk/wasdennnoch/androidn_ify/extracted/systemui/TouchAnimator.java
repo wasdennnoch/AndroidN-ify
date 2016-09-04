@@ -58,8 +58,8 @@ public class TouchAnimator {
         private Interpolator mInterpolator;
         private Listener mListener;
         private float mStartDelay;
-        private List<View> mTargets = new ArrayList<>();
-        private List<KeyframeSet> mValues = new ArrayList<>();
+        private final List<View> mTargets = new ArrayList<>();
+        private final List<KeyframeSet> mValues = new ArrayList<>();
 
         private void add(View paramObject, KeyframeSet paramKeyframeSet) {
             mTargets.add(paramObject);
@@ -111,9 +111,8 @@ public class TouchAnimator {
             return this;
         }
 
-        public Builder setInterpolator(Interpolator paramInterpolator) {
+        public void setInterpolator(Interpolator paramInterpolator) {
             mInterpolator = paramInterpolator;
-            return this;
         }
 
         public Builder setListener(Listener paramListener) {
@@ -168,6 +167,7 @@ public class TouchAnimator {
         }
     }
 
+    @SuppressWarnings("EmptyMethod")
     public interface Listener {
         void onAnimationAtEnd();
 

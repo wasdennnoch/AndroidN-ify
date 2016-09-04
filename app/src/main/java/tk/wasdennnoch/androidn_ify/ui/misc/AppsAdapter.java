@@ -13,11 +13,12 @@ import java.util.List;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+@SuppressWarnings("WeakerAccess")
 public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder> {
     List<CachedResolveInfo> mApps;
     List<String> mBlacklistedApps;
-    PackageManager mPackageManager;
-    AppsAdapterListener mListener;
+    final PackageManager mPackageManager;
+    final AppsAdapterListener mListener;
 
     public AppsAdapter(List<CachedResolveInfo> apps, List<String> blacklistedApps, PackageManager pm, AppsAdapterListener listener) {
         mApps = apps;
@@ -60,10 +61,10 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder>
     }
 
     public class AppViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView mAppName;
-        public TextView mPackageName;
-        public ImageView mAppIcon;
-        public CheckBox mCheckBox;
+        public final TextView mAppName;
+        public final TextView mPackageName;
+        public final ImageView mAppIcon;
+        public final CheckBox mCheckBox;
 
         public AppViewHolder(View itemView) {
             super(itemView);

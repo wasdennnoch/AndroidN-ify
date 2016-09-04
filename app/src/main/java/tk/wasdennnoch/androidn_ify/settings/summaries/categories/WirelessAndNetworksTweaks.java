@@ -1,6 +1,10 @@
 package tk.wasdennnoch.androidn_ify.settings.summaries.categories;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -17,12 +21,12 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 public class WirelessAndNetworksTweaks {
 
     private static final String TAG = "WirelessAndNetworksTweaks";
+    private static BluetoothManager bluetoothManager;
 
     public static void hookWifiTile(Object tile, Context context) {
         String summary;
         WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         if (manager.isWifiEnabled()) {
-            //noinspection ResourceType
             WifiInfo wifiInfo = manager.getConnectionInfo();
             if (wifiInfo != null) {
                 NetworkInfo.DetailedState state = WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState());
@@ -48,13 +52,27 @@ public class WirelessAndNetworksTweaks {
     public static void hookBluetoothTile(Object tile) {
         String summary = ResourceUtils.getInstance().getString(R.string.disabled);
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        //noinspection ResourceType
         if (bluetoothAdapter.isEnabled()) {
-            // TODO check if disconnected (not the same as disabled)
             summary = bluetoothAdapter.getName(); // TODO this returns the devices name
-            if (summary == null)
-                //noinspection ResourceType
+            if (summary == null) {
                 summary = bluetoothAdapter.getAddress();
+            }
+            try { //TODO Why isn't this working?
+                String address = bluetoothAdapter.getAddress();
+                BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
+                int connectionState = bluetoothManager.getConnectionState(device, BluetoothProfile.GATT);
+                if (connectionState == BluetoothGatt.STATE_CONNECTED) {
+                    summary = "Connected"; //TODO Display the connected device name
+                } else if (connectionState == BluetoothGatt.STATE_DISCONNECTED) {
+                    summary = "Disconnected";
+                } else if (connectionState == BluetoothGatt.STATE_CONNECTING) {
+                    summary = "Connected";
+                } else if (connectionState == BluetoothGatt.STATE_DISCONNECTING) {
+                    summary = "Disconnected";
+                }
+            } catch (NullPointerException e) {
+                XposedHook.logE(TAG, "Error hooking bluetooth tile", e);
+            }
         }
         XposedHelpers.setObjectField(tile, "summary", summary);
     }

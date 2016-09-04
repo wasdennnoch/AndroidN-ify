@@ -39,6 +39,7 @@ import java.util.Locale;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "JavaDoc"})
 public class ColorPickerDialog extends Dialog implements ColorPickerView.OnColorChangedListener, View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     private ColorPickerView mColorPicker;

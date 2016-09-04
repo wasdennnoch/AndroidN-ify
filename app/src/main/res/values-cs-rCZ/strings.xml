@@ -150,22 +150,22 @@
   <string name="emergency_info">Nouzové informace</string>
   <string name="enable_emergency_info_title">Povolit nouzové informace</string>
   <string name="edit_emergency_info_title">Upravit nouzové informace</string>
-  <string name="header_personal">Osobní</string>
-  <string name="info_fullname">Jméno</string>
-  <string name="info_address">Adresa</string>
-  <string name="info_birthdate">Datum narození</string>
-  <string name="header_medical">Zdravotní</string>
-  <string name="info_bloodtype">Krevní skupina</string>
-  <string name="info_allergies">Alergie</string>
-  <string name="info_medications">Léky</string>
-  <string name="info_medicalnotes">Poznámky lékaře</string>
-  <string name="info_organdonor">Dárce orgánů</string>
-  <string name="info_unspecified">Nespecifikované</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Osobní</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Jméno</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adresa</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Datum narození</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Zdravotní</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Krevní skupina</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergie</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Léky</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Poznámky lékaře</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Dárce orgánů</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nespecifikované</string>
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="battery">Baterie</string>
-  <string name="charged">Nabito</string>
-  <string name="charging">Nabíjení, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Nabito</string>
+  <string name="charging" tools:ignore="UnusedResources">Nabíjení, %1$s</string>
   <string name="qs_edit">Upravit</string>
   <string name="drag_to_add_tiles">Přetáhněte pro přidání dlaždic</string>
   <string name="drag_to_remove_tiles">Přetáhněte sem pro odstranění</string>

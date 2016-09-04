@@ -98,6 +98,6 @@ public class QSDetailClipper {
             mDetail.setVisibility(View.GONE);
             mBackground.resetTransition();
             mAnimator = null;
-        };
+        }
     };
 }

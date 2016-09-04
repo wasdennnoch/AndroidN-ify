@@ -5,8 +5,10 @@ import android.view.animation.Interpolator;
 
 import de.robv.android.xposed.XposedHelpers;
 
+@SuppressWarnings({"LoopStatementThatDoesntLoop", "SameParameterValue"})
 public class PathInterpolatorBuilder {
 
+    @SuppressWarnings("SameParameterValue")
     private static class PathInterpolator implements Interpolator {
 
         private final float mX[];

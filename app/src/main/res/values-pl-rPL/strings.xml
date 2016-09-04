@@ -150,49 +150,49 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teraz</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_minutes_shortest">
+  <plurals name="duration_minutes_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>m</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>m</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>m</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_hours_shortest">
+  <plurals name="duration_hours_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>g</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>g</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>g</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_days_shortest">
+  <plurals name="duration_days_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>d</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>d</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>d</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_years_shortest">
+  <plurals name="duration_years_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>l</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>l</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>l</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_minutes_shortest_future">
+  <plurals name="duration_minutes_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_hours_shortest_future">
+  <plurals name="duration_hours_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_days_shortest_future">
+  <plurals name="duration_days_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_years_shortest_future">
+  <plurals name="duration_years_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>r</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>l</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>l</item>
@@ -213,17 +213,17 @@
   <string name="emergency_info_launch_hint">Dotknij ponownie, aby otworzyć</string>
   <string name="enable_emergency_info_title">Włącz Informacje Awaryjne</string>
   <string name="edit_emergency_info_title">Edytuj Informacje Awaryjne</string>
-  <string name="header_personal">Osobiste</string>
-  <string name="info_fullname">Imię i Nazwisko</string>
-  <string name="info_address">Adres</string>
-  <string name="info_birthdate">Data urodzenia</string>
-  <string name="header_medical">Medyczne</string>
-  <string name="info_bloodtype">Grupa krwi</string>
-  <string name="info_allergies">Alergie</string>
-  <string name="info_medications">Zażywane leki</string>
-  <string name="info_medicalnotes">Stan medyczny i notatki</string>
-  <string name="info_organdonor">Dawca organów</string>
-  <string name="info_unspecified">Nie określono</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">Osobiste</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">Imię i Nazwisko</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">Adres</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">Data urodzenia</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">Medyczne</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">Grupa krwi</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">Alergie</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">Zażywane leki</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">Stan medyczny i notatki</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">Dawca organów</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">Nie określono</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -235,8 +235,8 @@
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
   <string name="battery">Bateria</string>
-  <string name="charged">Naładowana</string>
-  <string name="charging">Ładowanie, %1$s</string>
+  <string name="charged" tools:ignore="UnusedResources">Naładowana</string>
+  <string name="charging" tools:ignore="UnusedResources">Ładowanie, %1$s</string>
   <string name="qs_edit">Edycja</string>
   <string name="drag_to_add_tiles">Przeciągnij aby dodać kafelek</string>
   <string name="drag_to_remove_tiles">Przeciągnij tu, aby usunąć</string>

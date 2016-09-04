@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify;
 
+@SuppressWarnings("WeakerAccess")
 public class BuildConst {
 
     // Values below will be injected on build. Do not modify.

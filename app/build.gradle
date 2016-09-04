@@ -6,6 +6,7 @@ android {
     defaultConfig {
         applicationId "tk.wasdennnoch.androidn_ify"
         minSdkVersion 21
+        //noinspection OldTargetApi
         targetSdkVersion 23
         versionCode 6
         versionName "0.3.0"
@@ -28,8 +29,12 @@ dependencies {
     provided 'de.robv.android.xposed:api:81'
     provided 'de.robv.android.xposed:api:81:sources'
     provided files('libs-provide/android_hidden_api_23.jar')
+    //noinspection GradleDependency
     compile 'com.android.support:support-v13:23.4.0'
+    //noinspection GradleDependency
     compile 'com.android.support:recyclerview-v7:23.4.0'
+    //noinspection GradleDependency
     compile 'com.android.support:palette-v7:23.4.0'
+    //noinspection GradleDependency
     compile 'com.android.support:design:23.4.0'
 }

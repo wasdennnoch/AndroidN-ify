@@ -57,6 +57,7 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class StatusBarHeaderHooks {
 
     private static final String TAG = "StatusBarHeaderHooks";
@@ -142,14 +143,14 @@ public class StatusBarHeaderHooks {
     private static int mQsPages = 0;
     private static boolean mQsEditing = false;
 
-    private static ArrayList<String> mPreviousTiles = new ArrayList<>();
+    private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
     public static ArrayList<Object> mRecords;
 
     private static final Rect mClipBounds = new Rect();
 
     private static Class<?> mClassOnDismissAction;
 
-    private static XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
+    private static final XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "onFinishInflateHook called");
@@ -448,7 +449,7 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static XC_MethodHook setExpansionHook = new XC_MethodHook() {
+    private static final XC_MethodHook setExpansionHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             float f = (float) param.args[0];
@@ -482,19 +483,19 @@ public class StatusBarHeaderHooks {
             view.invalidateOutline();
         }
     };
-    private static XC_MethodHook onConfigurationChangedHook = new XC_MethodHook() {
+    private static final XC_MethodHook onConfigurationChangedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             updateResources(((View) param.thisObject).getContext());
         }
     };
-    private static XC_MethodHook updateEverythingHook = new XC_MethodHook() {
+    private static final XC_MethodHook updateEverythingHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             updateDateTimePosition(((View) param.thisObject).getContext());
         }
     };
-    private static XC_MethodHook updateVisibilitiesHook = new XC_MethodHook() {
+    private static final XC_MethodHook updateVisibilitiesHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if (mSystemIconsSuperContainer != null) {
@@ -522,7 +523,7 @@ public class StatusBarHeaderHooks {
             }
         }
     };
-    private static XC_MethodHook setEditingHook = new XC_MethodHook() {
+    private static final XC_MethodHook setEditingHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             boolean editing = (boolean) param.args[0];
@@ -536,7 +537,7 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static XC_MethodHook setTilesHook = new XC_MethodHook() {
+    private static final XC_MethodHook setTilesHook = new XC_MethodHook() {
         boolean cancelled = false;
 
         @Override
@@ -594,7 +595,7 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static XC_MethodHook handleStateChangedHook = new XC_MethodHook() {
+    private static final XC_MethodHook handleStateChangedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             // This method gets called from two different processes,
@@ -605,7 +606,7 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static XC_MethodHook setupViewsHook = new XC_MethodHook() {
+    private static final XC_MethodHook setupViewsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             View pageIndicator = (View) XposedHelpers.getObjectField(param.thisObject, "mPageIndicator");
@@ -614,7 +615,7 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static XC_MethodHook qsSetEditingHook = new XC_MethodHook() {
+    private static final XC_MethodHook qsSetEditingHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mQsEditing = (boolean) param.args[0];
@@ -622,14 +623,14 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static XC_MethodHook updatePageCountHook = new XC_MethodHook() {
+    private static final XC_MethodHook updatePageCountHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             updatePageCount(param.thisObject);
         }
     };
 
-    private static XC_MethodHook handleShowDetailImplHook = new XC_MethodHook() {
+    private static final XC_MethodHook handleShowDetailImplHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             boolean show = (boolean) param.args[1];
@@ -663,7 +664,7 @@ public class StatusBarHeaderHooks {
         }
     }
 
-    private static XC_MethodHook onPageSelectedHook = new XC_MethodHook() {
+    private static final XC_MethodHook onPageSelectedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if ((boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, QS_PANEL_INDICATOR)) {
@@ -673,7 +674,7 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    private static XC_MethodHook onPageScrolledHook = new XC_MethodHook() {
+    private static final XC_MethodHook onPageScrolledHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if (mPageIndicator != null && (boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, QS_PANEL_INDICATOR)) {
@@ -888,7 +889,7 @@ public class StatusBarHeaderHooks {
                 .start();
     }
 
-    private static View.OnClickListener onClickListener = new SafeOnClickListener(TAG, "Error in onClickListener") {
+    private static final View.OnClickListener onClickListener = new SafeOnClickListener(TAG, "Error in onClickListener") {
         @Override
         public void onClickSafe(View v) {
             switch (v.getId()) {

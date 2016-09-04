@@ -36,7 +36,7 @@ import tk.wasdennnoch.androidn_ify.ui.emergency.ReloadablePreferenceInterface;
  */
 public class ViewEmergencyInfoFragment extends PreferenceFragment {
     /** A list with all the preferences. */
-    private final List<Preference> mPreferences = new ArrayList<Preference>();
+    private final List<Preference> mPreferences = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

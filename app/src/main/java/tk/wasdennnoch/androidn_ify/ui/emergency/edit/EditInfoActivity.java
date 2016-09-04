@@ -41,6 +41,7 @@ import tk.wasdennnoch.androidn_ify.ui.emergency.view.ViewInfoActivity;
 /**
  * Activity for editing emergency information.
  */
+@SuppressWarnings("WeakerAccess")
 public class EditInfoActivity extends EmergencyTabActivity {
     static final String TAG_WARNING_DIALOG = "warning_dialog";
     static final String TAG_CLEAR_ALL_DIALOG = "clear_all_dialog";
@@ -124,9 +125,9 @@ public class EditInfoActivity extends EmergencyTabActivity {
     private void onClearAllPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         for (String key : PreferenceKeys.KEYS_EDIT_EMERGENCY_INFO) {
-            sharedPreferences.edit().remove(key).commit();
+            sharedPreferences.edit().remove(key).apply();
         }
-        sharedPreferences.edit().remove(PreferenceKeys.KEY_EMERGENCY_CONTACTS).commit();
+        sharedPreferences.edit().remove(PreferenceKeys.KEY_EMERGENCY_CONTACTS).apply();
         // Refresh the UI.
         ArrayList<Pair<String, Fragment>> fragments = getFragments();
         EditEmergencyInfoFragment editEmergencyInfoFragment =
@@ -178,17 +179,16 @@ public class EditInfoActivity extends EmergencyTabActivity {
     public static class ClearAllDialogFragment extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Dialog dialog = new AlertDialog.Builder(getActivity())
+            return new AlertDialog.Builder(getActivity())
                     .setMessage(R.string.clear_all_message)
                     .setPositiveButton(R.string.clear, new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(DialogInterface dialog1, int which) {
                             ((EditInfoActivity) getActivity()).onClearAllPreferences();
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, null)
                     .create();
-            return dialog;
         }
         public static DialogFragment newInstance() {
             return new ClearAllDialogFragment();

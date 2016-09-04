@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import tk.wasdennnoch.androidn_ify.R;
 
+@SuppressWarnings("WeakerAccess")
 public class SeekBarPreference extends Preference implements OnSeekBarChangeListener, View.OnClickListener {
 
     private static final int RAPID_PRESS_TIMEOUT = 600;
@@ -50,9 +51,9 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
     private int mTmpValue;
     private boolean mTracking = false;
     private boolean mRapidlyPressing = false;
-    private Handler mHandler;
+    private final Handler mHandler;
 
-    private Runnable mRapidPressTimeout = new Runnable() {
+    private final Runnable mRapidPressTimeout = new Runnable() {
         @Override
         public void run() {
             mRapidlyPressing = false;

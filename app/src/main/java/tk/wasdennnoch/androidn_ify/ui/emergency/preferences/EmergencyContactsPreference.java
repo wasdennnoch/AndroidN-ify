@@ -39,13 +39,14 @@ import tk.wasdennnoch.androidn_ify.ui.emergency.ReloadablePreferenceInterface;
  *
  * <p>Contacts are stored internally using their ContactsContract.CommonDataKinds.Phone.CONTENT_URI.
  */
+@SuppressWarnings("WeakerAccess")
 public class EmergencyContactsPreference extends PreferenceCategory
         implements ReloadablePreferenceInterface,
         ContactPreference.RemoveContactPreferenceListener {
     private static final String CONTACT_SEPARATOR = "|";
     private static final String QUOTE_CONTACT_SEPARATOR = Pattern.quote(CONTACT_SEPARATOR);
     /** Stores the emergency contact's ContactsContract.CommonDataKinds.Phone.CONTENT_URI */
-    private List<Uri> mEmergencyContacts = new ArrayList<Uri>();
+    private List<Uri> mEmergencyContacts = new ArrayList<>();
     private boolean mEmergencyContactsSet = false;
     public EmergencyContactsPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -92,6 +93,10 @@ public class EmergencyContactsPreference extends PreferenceCategory
                 setEmergencyContacts(updatedContacts);
             }
         }
+    }
+    @VisibleForTesting
+    public List<Uri> getEmergencyContacts() {
+        return mEmergencyContacts;
     }
     public void setEmergencyContacts(List<Uri> emergencyContacts) {
         final boolean changed = !mEmergencyContacts.equals(emergencyContacts);
@@ -170,7 +175,6 @@ public class EmergencyContactsPreference extends PreferenceCategory
      * those corresponding to still existing contacts. It persists the contacts if at least one
      * contact was does not exist anymore.
      */
-    @SuppressLint("CommitPrefEdits")
     public static List<Uri> deserializeAndFilter(String key, Context context,
                                                  String emergencyContactString) {
         String[] emergencyContactsArray =
@@ -189,7 +193,7 @@ public class EmergencyContactsPreference extends PreferenceCategory
             String emergencyContactStrings = serialize(filteredEmergencyContacts);
             SharedPreferences sharedPreferences =
                     PreferenceManager.getDefaultSharedPreferences(context);
-            sharedPreferences.edit().putString(key, emergencyContactStrings).commit();
+            sharedPreferences.edit().putString(key, emergencyContactStrings).apply();
         }
         return filteredEmergencyContacts;
     }

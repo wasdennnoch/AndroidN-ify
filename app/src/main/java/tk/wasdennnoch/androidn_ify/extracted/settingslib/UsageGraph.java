@@ -36,6 +36,7 @@ import android.view.View;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "SameParameterValue", "SuspiciousNameCombination"})
 public class UsageGraph extends View {
 
     private static final int PATH_DELIM = -1;

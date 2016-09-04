@@ -24,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_TILEVIEW;
 
+@SuppressWarnings("WeakerAccess")
 public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder> {
 
     protected static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
@@ -37,9 +38,9 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private List<String> mTileSpecs = new ArrayList<>();
     protected ArrayList<Object> mRecords = new ArrayList<>();
     protected ArrayList<ViewGroup> mTileViews = new ArrayList<>();
-    protected Context mContext;
-    protected int mCellHeight;
-    protected int mCellWidth;
+    protected final Context mContext;
+    protected final int mCellHeight;
+    protected final int mCellWidth;
     private ResourceUtils mRes;
     public int mDividerIndex;
 
@@ -52,6 +53,61 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         mCellHeight = mContext.getResources().getDimensionPixelSize(mContext.getResources().getIdentifier("qs_tile_height", "dimen", PACKAGE_SYSTEMUI));
         mCellWidth = (int) (mCellHeight * TILE_ASPECT);
 
+        ItemTouchHelper.Callback mCallbacks = new ItemTouchHelper.Callback() {
+
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
+                if (viewHolder.getItemViewType() == 1) {
+                    dragFlags = 0;
+                }
+                return makeMovementFlags(dragFlags, 0);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return onItemMove(viewHolder.getAdapterPosition(),
+                        target.getAdapterPosition());
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return true;
+            }
+
+            @Override
+            public boolean isItemViewSwipeEnabled() {
+                return false;
+            }
+
+            @Override
+            public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+                if (mCurrentDrag != null) {
+                    mCurrentDrag.stopDrag();
+                    mCurrentDrag = null;
+                }
+                if (viewHolder != null) {
+                    mCurrentDrag = (TileViewHolder) viewHolder;
+                    mCurrentDrag.startDrag();
+                }
+                try {
+                    notifyItemChanged(mDividerIndex);
+                } catch (Throwable ignore) {
+
+                }
+                super.onSelectedChanged(viewHolder, actionState);
+            }
+
+            @Override
+            public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                ((TileViewHolder) viewHolder).stopDrag();
+                super.clearView(recyclerView, viewHolder);
+            }
+        };
         mItemTouchHelper = new CustomItemTouchHelper(mCallbacks);
         XposedHelpers.setIntField(mCallbacks, "mCachedMaxScrollSpeed", ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.lib_item_touch_helper_max_drag_scroll_per_frame));
     }
@@ -224,6 +280,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         return mItemTouchHelper;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected RelativeLayout mItemView;
@@ -274,15 +331,14 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         }
     }
 
-    public boolean saveChanges() {
+    public void saveChanges() {
         XposedHook.logD(TAG, "saveChanges called");
         List<String> tileSpecs = getAddedTileSpecs();
         if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
-            return true;
+            return;
         }
         XposedHook.logD(TAG, "saveChanges: No changes to save");
-        return false;
     }
 
     public List<String> getAddedTileSpecs() {
@@ -331,62 +387,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
                     mDrawable.draw(canvas);
                 }
             }
-        }
-    };
-
-    private final ItemTouchHelper.Callback mCallbacks = new ItemTouchHelper.Callback() {
-
-        @Override
-        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
-            if (viewHolder.getItemViewType() == 1) {
-                dragFlags = 0;
-            }
-            return makeMovementFlags(dragFlags, 0);
-        }
-
-        @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            return onItemMove(viewHolder.getAdapterPosition(),
-                    target.getAdapterPosition());
-        }
-
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        }
-
-        @Override
-        public boolean isLongPressDragEnabled() {
-            return true;
-        }
-
-        @Override
-        public boolean isItemViewSwipeEnabled() {
-            return false;
-        }
-
-        @Override
-        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-            if (mCurrentDrag != null) {
-                mCurrentDrag.stopDrag();
-                mCurrentDrag = null;
-            }
-            if (viewHolder != null) {
-                mCurrentDrag = (TileAdapter.TileViewHolder) viewHolder;
-                mCurrentDrag.startDrag();
-            }
-            try {
-                notifyItemChanged(mDividerIndex);
-            } catch (Throwable ignore) {
-
-            }
-            super.onSelectedChanged(viewHolder, actionState);
-        }
-
-        @Override
-        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            ((TileAdapter.TileViewHolder) viewHolder).stopDrag();
-            super.clearView(recyclerView, viewHolder);
         }
     };
 

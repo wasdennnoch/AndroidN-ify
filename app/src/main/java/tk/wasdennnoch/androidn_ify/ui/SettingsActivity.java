@@ -40,6 +40,7 @@ import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+@SuppressWarnings("SameReturnValue")
 public class SettingsActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "SettingsActivity";

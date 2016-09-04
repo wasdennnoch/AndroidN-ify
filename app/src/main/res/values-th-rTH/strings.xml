@@ -151,17 +151,17 @@
   <string name="emergency_info_launch_hint">แตะอีกครั้งเพื่อเปิด</string>
   <string name="enable_emergency_info_title">เปิดใช้ข้อมูลสำหรับกรณีฉุกเฉิน</string>
   <string name="edit_emergency_info_title">แก้ไขข้อมูลสำหรับกรณีฉุกเฉิน</string>
-  <string name="header_personal">ข้อมูล</string>
-  <string name="info_fullname">ชื่อ</string>
-  <string name="info_address">ที่อยู่</string>
-  <string name="info_birthdate">วันเกิด</string>
-  <string name="header_medical">การแพทย์</string>
-  <string name="info_bloodtype">กรุ๊ปเลือก</string>
-  <string name="info_allergies">การแพ้</string>
-  <string name="info_medications">ยารักษาโรค</string>
-  <string name="info_medicalnotes">หมายเหตุทางการแพทย์</string>
-  <string name="info_organdonor">ผู้บริจาคอวัยวะ</string>
-  <string name="info_unspecified">ไม่ทราบ</string>
+  <string name="header_personal" tools:ignore="ExtraTranslation,UnusedResources">ข้อมูล</string>
+  <string name="info_fullname" tools:ignore="ExtraTranslation,UnusedResources">ชื่อ</string>
+  <string name="info_address" tools:ignore="ExtraTranslation,UnusedResources">ที่อยู่</string>
+  <string name="info_birthdate" tools:ignore="ExtraTranslation,UnusedResources">วันเกิด</string>
+  <string name="header_medical" tools:ignore="ExtraTranslation,UnusedResources">การแพทย์</string>
+  <string name="info_bloodtype" tools:ignore="ExtraTranslation,UnusedResources">กรุ๊ปเลือก</string>
+  <string name="info_allergies" tools:ignore="ExtraTranslation,UnusedResources">การแพ้</string>
+  <string name="info_medications" tools:ignore="ExtraTranslation,UnusedResources">ยารักษาโรค</string>
+  <string name="info_medicalnotes" tools:ignore="ExtraTranslation,UnusedResources">หมายเหตุทางการแพทย์</string>
+  <string name="info_organdonor" tools:ignore="ExtraTranslation,UnusedResources">ผู้บริจาคอวัยวะ</string>
+  <string name="info_unspecified" tools:ignore="ExtraTranslation,UnusedResources">ไม่ทราบ</string>
   <string name="info_bloodtype_op">O บวก</string>
   <string name="info_bloodtype_on">O ลบ</string>
   <string name="info_bloodtype_ap">A บวก</string>
@@ -173,8 +173,8 @@
   <string name="yes">ใช่</string>
   <string name="no">ไม่ใช่</string>
   <string name="battery">แบตเตอรี่</string>
-  <string name="charged">ชาร์จแล้ว</string>
-  <string name="charging">กำลังชาร์จ (%1$s)</string>
+  <string name="charged" tools:ignore="UnusedResources">ชาร์จแล้ว</string>
+  <string name="charging" tools:ignore="UnusedResources">กำลังชาร์จ (%1$s)</string>
   <string name="qs_edit">แก้ไข</string>
   <string name="drag_to_add_tiles">ลากเพื่อเพิ่มชิ้นส่วน</string>
   <string name="drag_to_remove_tiles">ลากมาที่นี่เพื่อนำออก</string>

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v7.graphics.Palette;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class ColorUtils {
 
     public static int generateColor(Drawable drawable, int defaultColor) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <dimen name="match_parent">-1px</dimen>
+    <dimen name="match_parent" tools:ignore="UnusedResources">-1px</dimen>
 
     <!-- Recents -->
     <dimen name="recents_empty_drawable_padding">25dp</dimen>
@@ -57,11 +57,11 @@
     <dimen name="notification_content_margin_start">16dp</dimen>
     <dimen name="notification_content_margin_top">25.5dp</dimen> <!-- 37.5 - 12 -->
     <dimen name="notification_header_height">53dp</dimen>
-    <dimen name="notification_header_margin_top">10dp</dimen>
+    <dimen name="notification_header_margin_top" tools:ignore="UnusedResources">10dp</dimen>
     <dimen name="notification_right_icon_size">40dp</dimen>
     <dimen name="notification_right_icon_margin_top">36dp</dimen>
     <dimen name="notification_right_icon_margin_end">16dp</dimen>
-    <dimen name="notification_min_height_legacy">64dp</dimen>
+    <dimen name="notification_min_height_legacy" tools:ignore="UnusedResources">64dp</dimen>
     <dimen name="notification_min_height">92dp</dimen>
     <dimen name="notification_mid_height">156dp</dimen>
     <dimen name="notification_max_height">284dp</dimen>
@@ -82,9 +82,9 @@
     <dimen name="notification_separator_size">1dp</dimen>
     <dimen name="notification_header_shrink_min_width">72dp</dimen>
     <dimen name="notification_content_margin_end">16dp</dimen>
-    <dimen name="notification_badge_size">12dp</dimen>
+    <dimen name="notification_badge_size" tools:ignore="UnusedResources">12dp</dimen>
 
-    <dimen name="notification_panel_width">@dimen/match_parent</dimen>
+    <dimen name="notification_panel_width" tools:ignore="UnusedResources">@dimen/match_parent</dimen>
     <dimen name="navigation_bar_size">48dp</dimen>
     <!-- /Notifications / Status bar header -->
 
@@ -107,10 +107,10 @@
     <dimen name="battery_width">9.5dp</dimen>
 
     <!-- Usage graph dimens -->
-    <dimen name="usage_graph_area_height">122dp</dimen>
+    <dimen name="usage_graph_area_height" tools:ignore="UnusedResources">122dp</dimen>
     <dimen name="usage_graph_margin_top_bottom">9dp</dimen>
     <dimen name="usage_graph_labels_width">56dp</dimen>
-    <dimen name="usage_graph_labels_padding">16dp</dimen>
+    <dimen name="usage_graph_labels_padding" tools:ignore="UnusedResources">16dp</dimen>
 
     <dimen name="usage_graph_divider_size">1dp</dimen>
 
