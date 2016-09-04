@@ -222,7 +222,7 @@
     <string name="update_notification">Build %1$d is now available to update!</string>
     <string name="update_notification_download">Update</string>
     <string name="update_warning">Module was updated</string>
-    <string name="update_warning_details">System may be unstable and bug reports will be ignored until a device restart</string>
+    <string name="update_warning_details">System might be unstable and bug reports will be ignored until a device restart</string>
     <string name="check_for_updates_title">Check for updates</string>
     <string name="check_for_updates">Check for updates on app start</string>
     <string name="checking_for_update">Checking for updates…</string>

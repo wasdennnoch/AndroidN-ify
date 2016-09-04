@@ -14,10 +14,12 @@
 
 package tk.wasdennnoch.androidn_ify.extracted.settingslib;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.SparseIntArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,11 @@ public class UsageView extends FrameLayout {
     private final TextView[] mBottomLabels;
 
     public UsageView(Context context, int textColor, int accentColor) {
+        this(context, textColor, accentColor, false);
+    }
+
+    @SuppressWarnings("RtlHardcoded")
+    public UsageView(Context context, int textColor, int accentColor, boolean rightLabels) {
         super(context);
 
         Context ownContext = ResourceUtils.createOwnContext(context);
@@ -51,7 +58,13 @@ public class UsageView extends FrameLayout {
         UsageGraph usageGraph = new UsageGraph(context, null);
         usageGraph.setId(R.id.usage_graph);
         usageGraph.setLayoutParams(usageGraphLp);
-        layout.addView(usageGraph);
+        if (rightLabels) {
+            layout.addView(usageGraph, 0);
+            ((LinearLayout) layout.findViewById(R.id.label_group)).setGravity(Gravity.RIGHT);
+            findViewById(R.id.bottom_label_group).setPadding(0, 0, 0, 0);
+        } else {
+            layout.addView(usageGraph);
+        }
 
         mUsageGraph = (UsageGraph) findViewById(R.id.usage_graph);
         mLabels = new TextView[] {
