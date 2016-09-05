@@ -16,13 +16,13 @@ import tk.wasdennnoch.androidn_ify.R;
 @SuppressWarnings("WeakerAccess")
 public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder> {
     List<CachedResolveInfo> mApps;
-    List<String> mBlacklistedApps;
+    List<String> mEnabledApps;
     final PackageManager mPackageManager;
     final AppsAdapterListener mListener;
 
-    public AppsAdapter(List<CachedResolveInfo> apps, List<String> blacklistedApps, PackageManager pm, AppsAdapterListener listener) {
+    public AppsAdapter(List<CachedResolveInfo> apps, List<String> enabledApps, PackageManager pm, AppsAdapterListener listener) {
         mApps = apps;
-        mBlacklistedApps = blacklistedApps;
+        mEnabledApps = enabledApps;
         mPackageManager = pm;
         mListener = listener;
     }
@@ -40,7 +40,7 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder>
         holder.mAppName.setText(app.getLabel());
         holder.mPackageName.setText(app.getPackageName());
         holder.mAppIcon.setImageDrawable(app.getIcon());
-        holder.mCheckBox.setChecked(mBlacklistedApps.contains(app.getPackageName()));
+        holder.mCheckBox.setChecked(mEnabledApps.contains(app.getPackageName()));
     }
 
     @Override
@@ -56,8 +56,8 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.AppViewHolder>
         return mApps;
     }
 
-    public void setBlacklistedApps(List<String> blacklistedApps) {
-        mBlacklistedApps = blacklistedApps;
+    public void setEnabledApps(List<String> enabledApps) {
+        mEnabledApps = enabledApps;
     }
 
     public class AppViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

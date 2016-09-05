@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
 import android.preference.Preference;
@@ -60,6 +61,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         RomUtils.init(this);
         setContentView(R.layout.activity_settings);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
+            Toast.makeText(this, "API" + Build.VERSION.SDK_INT + "?", Toast.LENGTH_SHORT).show();
         if (!isActivated()) {
             getActionBar().setSubtitle(R.string.not_activated);
         } else if (!isPrefsFileReadable()) {

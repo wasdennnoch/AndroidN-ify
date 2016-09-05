@@ -171,6 +171,7 @@ public class ConfigUtils {
         public final int actions_color;
 
         public List<String> blacklistedApps;
+        public List<String> spoofAPIApps;
 
         public NotificationsConfig(XSharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
@@ -195,6 +196,22 @@ public class ConfigUtils {
                 XposedHook.logE(TAG, "Error loading blacklisted apps", e);
             }
             blacklistedApps = apps;
+        }
+
+        public void loadSpoofAPIApps() {
+            List<String> apps = new ArrayList<>();
+            try {
+                String jsonString = mPrefs.getString("notification_spoof_api_version", "[]");
+                JSONArray jsonArray = new JSONArray(jsonString);
+                int appCount = jsonArray.length();
+                for (int i = 0; i < appCount; i++) {
+                    String app = jsonArray.getString(i);
+                    apps.add(app);
+                }
+            } catch (JSONException e) {
+                XposedHook.logE(TAG, "Error loading spoof API apps", e);
+            }
+            spoofAPIApps = apps;
         }
     }
 
