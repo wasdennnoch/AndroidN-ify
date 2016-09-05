@@ -61,7 +61,8 @@ public class UsageView extends FrameLayout {
         if (rightLabels) {
             layout.addView(usageGraph, 0);
             ((LinearLayout) layout.findViewById(R.id.label_group)).setGravity(Gravity.RIGHT);
-            findViewById(R.id.bottom_label_group).setPadding(0, 0, 0, 0);
+            View bottomLabelGroup = findViewById(R.id.bottom_label_group);
+            bottomLabelGroup.setPadding(bottomLabelGroup.getPaddingRight(), 0, bottomLabelGroup.getPaddingLeft(), 0);
         } else {
             layout.addView(usageGraph);
         }
