@@ -13,7 +13,6 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.LiveDisplayObserver;
-import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 @SuppressWarnings("WeakerAccess")
 public class LiveDisplayTile extends QSTile {
@@ -22,12 +21,10 @@ public class LiveDisplayTile extends QSTile {
     private static final String TAG = "LiveDisplayTile";
     private String[] mTileEntries;
     private int[] mTileEntryIconRes;
-    private final ResourceUtils mResUtils;
     private int mCurrentMode = 0;
 
     public LiveDisplayTile(TilesManager tilesManager, Object host, String key) {
         super(tilesManager, host, key);
-        mResUtils = ResourceUtils.getInstance(mContext);
         updateCustomTileEntries();
 
         IntentFilter intentFilter = new IntentFilter();
