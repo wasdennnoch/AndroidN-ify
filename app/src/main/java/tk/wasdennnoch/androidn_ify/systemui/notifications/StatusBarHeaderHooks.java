@@ -615,7 +615,6 @@ public class StatusBarHeaderHooks {
             View pageIndicator = (View) XposedHelpers.getObjectField(param.thisObject, "mPageIndicator");
             pageIndicator.setAlpha(0);
             XposedHelpers.setAdditionalInstanceField(pageIndicator, QS_PANEL_INDICATOR, true);
-            wrapQsDetail((LinearLayout) XposedHelpers.getObjectField(param.thisObject, "mDetail"));
         }
     };
 
@@ -1192,7 +1191,7 @@ public class StatusBarHeaderHooks {
                                         if (iconView.isShown()) {
                                             ((Animatable) icon).start();
                                             String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
-                                            XposedHook.logD(TAG, "ng QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
+                                            XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
                                         } else {
                                             ((Animatable) icon).stop();
                                         }

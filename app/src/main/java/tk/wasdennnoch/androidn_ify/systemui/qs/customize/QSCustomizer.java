@@ -96,7 +96,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         setGravity(Gravity.CENTER_HORIZONTAL);
         setOrientation(VERTICAL);
         setVisibility(GONE);
-        setBackground(res.getDrawable(R.drawable.qs_customizer_background));
+        setBackground(mContext.getResources().getDrawable(mContext.getResources().getIdentifier("qs_detail_background", "drawable", XposedHook.PACKAGE_SYSTEMUI)));
         mClipper = new QSDetailClipper(this);
 
         LayoutInflater.from(mOwnContext).inflate(R.layout.qs_customize_panel_content, this);

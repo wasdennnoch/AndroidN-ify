@@ -37,7 +37,7 @@ import static de.robv.android.xposed.XposedHelpers.getObjectField;
 @SuppressWarnings({"WeakerAccess", "SameReturnValue"})
 public class RemoteInputHelperView extends FrameLayout implements View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, Animator.AnimatorListener {
 
-    public static final boolean DIRECT_REPLY_ENABLED = false;
+    public static final boolean DIRECT_REPLY_ENABLED = true;
 
     private final LinearLayout remoteInputView;
     private final EditText remoteInputText;
