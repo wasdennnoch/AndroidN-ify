@@ -26,7 +26,6 @@
     <color name="hint_text_color">#36000000</color>
     <color name="m_blue_grey_900">#ff263238</color>
     <color name="m_blue_grey_950">#ff21272b</color>
-    <color name="qs_detail_transition">#66FFFFFF</color>
     <!-- /Emergency Info -->
 
 </resources>
