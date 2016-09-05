@@ -1161,9 +1161,13 @@ public class StatusBarHeaderHooks {
                                 if (iconView instanceof ImageView) {
                                     Drawable icon = ((ImageView) iconView).getDrawable();
                                     if (icon instanceof Animatable) {
-                                        ((Animatable) icon).start();
-                                        String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
-                                        XposedHook.logD(TAG, "Animating QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
+                                        if (iconView.isShown()) {
+                                            ((Animatable) icon).start();
+                                            String type = (String) XposedHelpers.getAdditionalInstanceField(param.thisObject, "headerTileRowType");
+                                            XposedHook.logD(TAG, "ng QuickQS icon: " + forceAnim + (type != null ? ("; type: " + type) : ""));
+                                        } else {
+                                            ((Animatable) icon).stop();
+                                        }
                                     }
                                 }
                             }
