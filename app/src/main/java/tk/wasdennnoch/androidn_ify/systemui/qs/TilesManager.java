@@ -1,6 +1,8 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.view.View;
 
 import java.lang.reflect.Method;
@@ -14,10 +16,13 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.BatteryMeterDrawable;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.AndroidN_ifyTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.LiveDisplayTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 @SuppressWarnings("SameReturnValue")
@@ -34,6 +39,7 @@ public class TilesManager {
     public boolean useVolumeTile = false;
 
     static {
+        mCustomTileSpecs.add(AndroidN_ifyTile.TILE_SPEC);
         mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
         if (RomUtils.isCm() && ConfigUtils.M)
             mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
@@ -41,14 +47,32 @@ public class TilesManager {
 
     public static int getLabelResource(String spec) throws Exception {
         if (!mCustomTileSpecs.contains(spec))
-            throw new Exception("Saved custom tile specs don't contain the spec '" + spec + "'!");
+            throw new Exception("No label for spec '" + spec + "'!");
         switch (spec) {
+            case AndroidN_ifyTile.TILE_SPEC:
+                return R.string.app_name;
             case BatteryTile.TILE_SPEC:
                 return R.string.battery;
             case LiveDisplayTile.TILE_SPEC:
                 return R.string.live_display;
         }
         return 0;
+    }
+
+    public static Drawable getIcon(Context context, String spec) throws Exception {
+        switch (spec) {
+            case AndroidN_ifyTile.TILE_SPEC:
+                return ResourceUtils.getInstance(context).getDrawable(R.drawable.ic_stat_n);
+            case BatteryTile.TILE_SPEC:
+                BatteryMeterDrawable batteryMeterDrawable = new BatteryMeterDrawable(context, new Handler(), context.getResources().getColor(
+                        context.getResources().getIdentifier("batterymeter_frame_color", "color", XposedHook.PACKAGE_SYSTEMUI)));
+                batteryMeterDrawable.setLevel(100);
+                batteryMeterDrawable.onPowerSaveChanged(false);
+                batteryMeterDrawable.setShowPercent(false);
+                return batteryMeterDrawable;
+            default:
+                throw new Exception("No icon for spec '" + spec + "'!");
+        }
     }
 
     public TilesManager(Object qsTileHost) {
@@ -63,6 +87,8 @@ public class TilesManager {
 
     public QSTile createTile(String key) {
         switch (key) {
+            case AndroidN_ifyTile.TILE_SPEC:
+                return new AndroidN_ifyTile(this, mQSTileHost, key);
             case BatteryTile.TILE_SPEC:
                 return new BatteryTile(this, mQSTileHost, key);
             case LiveDisplayTile.TILE_SPEC:

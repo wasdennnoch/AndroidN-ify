@@ -84,20 +84,27 @@ public class AvailableTileAdapter extends TileAdapter {
     private Drawable getQSTileIcon(String spec) {
         int res;
         try {
-            res = (int) XposedHelpers.callStaticMethod(classQSTileHost, "getIconResource", spec);
-        } catch (Throwable ignore) {
+            return TilesManager.getIcon(mContext, spec);
+        } catch (Throwable t) {
             try {
-                res = getIconResource(spec);
-            } catch (Throwable ignore2) {
-                res = getIconResourceAosp(spec);
+                res = (int) XposedHelpers.callStaticMethod(classQSTileHost, "getIconResource", spec);
+            } catch (Throwable t2) {
+                try {
+                    res = getIconResource(spec);
+                } catch (Throwable t3) {
+                    res = getIconResourceAosp(spec);
+                }
             }
         }
         if (res != 0) {
-            Object icon = XposedHelpers.callStaticMethod(classResourceIcon, "get", res);
-            return (Drawable) XposedHelpers.callMethod(icon, "getDrawable", mContext);
-        } else {
-            return mContext.getPackageManager().getDefaultActivityIcon();
+            try {
+                Object icon = XposedHelpers.callStaticMethod(classResourceIcon, "get", res);
+                return (Drawable) XposedHelpers.callMethod(icon, "getDrawable", mContext);
+            } catch (Throwable ignore) {
+
+            }
         }
+        return mContext.getPackageManager().getDefaultActivityIcon();
     }
 
     private int getIconResourceAosp(String spec) {

@@ -11,6 +11,7 @@ import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.NonInterceptingScrollView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
@@ -56,6 +58,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.WifiTileHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
+import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 @SuppressWarnings("WeakerAccess")
 public class StatusBarHeaderHooks {
@@ -612,8 +615,27 @@ public class StatusBarHeaderHooks {
             View pageIndicator = (View) XposedHelpers.getObjectField(param.thisObject, "mPageIndicator");
             pageIndicator.setAlpha(0);
             XposedHelpers.setAdditionalInstanceField(pageIndicator, QS_PANEL_INDICATOR, true);
+            wrapQsDetail((LinearLayout) XposedHelpers.getObjectField(param.thisObject, "mDetail"));
         }
     };
+
+    private static void wrapQsDetail(LinearLayout layout) {
+        Context context = layout.getContext();
+
+        FrameLayout content = (FrameLayout) layout.findViewById(android.R.id.content);
+        ViewUtils.setHeight(content, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        int position = layout.indexOfChild(content);
+        layout.removeView(content);
+
+        LinearLayout.LayoutParams scrollViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+        scrollViewLp.weight = 1;
+        NonInterceptingScrollView scrollView = new NonInterceptingScrollView(context);
+        scrollView.setLayoutParams(scrollViewLp);
+        scrollView.addView(content);
+
+        layout.addView(scrollView, position);
+    }
 
     private static final XC_MethodHook qsSetEditingHook = new XC_MethodHook() {
         @Override
@@ -1109,6 +1131,12 @@ public class StatusBarHeaderHooks {
                     XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageScrolled", int.class, float.class, int.class, onPageScrolledHook);
                     mUseDragPanel = true;
                 } catch (Throwable ignore) {
+                    XposedHelpers.findAndHookConstructor(classQSPanel, Context.class, AttributeSet.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            wrapQsDetail((LinearLayout) XposedHelpers.getObjectField(param.thisObject, "mDetail"));
+                        }
+                    });
                     XposedBridge.hookAllMethods(classQSPanel, "handleShowDetailImpl", handleShowDetailImplHook);
                     try {
                         XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", Collection.class, setTilesHook);
@@ -1270,6 +1298,12 @@ public class StatusBarHeaderHooks {
 
                         ResourceUtils res = ResourceUtils.getInstance(context);
                         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                        int qsUpButtonSize = res.getDimensionPixelSize(R.dimen.qs_up_button_size);
+                        int qsUpButtonMarginEnd = res.getDimensionPixelSize(R.dimen.qs_up_button_margin_end);
+
+                        LinearLayout.LayoutParams upButtonLp = new LinearLayout.LayoutParams(qsUpButtonSize, qsUpButtonSize);
+                        upButtonLp.setMarginEnd(qsUpButtonMarginEnd);
                         View upButton = inflater.inflate(res.getLayout(R.layout.qs_up_button), null);
                         upButton.setOnClickListener(onClickListener);
                         mQsRightButton = (ImageView) inflater.inflate(res.getLayout(R.layout.qs_right_button), null);
@@ -1278,7 +1312,7 @@ public class StatusBarHeaderHooks {
 
                         int padding = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_panel_padding", "dimen", PACKAGE_SYSTEMUI));
 
-                        layout.addView(upButton, 0);
+                        layout.addView(upButton, 0, upButtonLp);
                         layout.addView(mQsRightButton);
                         layout.setPadding(0, 0, padding, 0);
                         layout.setGravity(Gravity.CENTER);
