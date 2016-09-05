@@ -21,6 +21,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -81,6 +82,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private final int mNavigationBarSize;
     private final int mNotificationPanelWidth;
 
+    @SuppressWarnings("deprecation")
     public QSCustomizer(Context context) {
         super(context, null);
 
@@ -88,15 +90,16 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         mOwnContext = ResourceUtils.createOwnContext(mContext);
 
         ResourceUtils res = ResourceUtils.getInstance(mContext);
+        Resources resources = mContext.getResources();
         mHasNavBar = true;
-        mColor = res.getColor(R.color.m_blue_grey_900);
-        mNavigationBarSize = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("navigation_bar_size", "dimen", XposedHook.PACKAGE_SYSTEMUI));
+        mColor = resources.getColor(resources.getIdentifier("system_primary_color", "color", XposedHook.PACKAGE_SYSTEMUI));
+        mNavigationBarSize = resources.getDimensionPixelSize(resources.getIdentifier("navigation_bar_size", "dimen", XposedHook.PACKAGE_SYSTEMUI));
         mNotificationPanelWidth = context.getResources().getIdentifier("notification_panel_width", "dimen", XposedHook.PACKAGE_SYSTEMUI);
 
         setGravity(Gravity.CENTER_HORIZONTAL);
         setOrientation(VERTICAL);
         setVisibility(GONE);
-        setBackground(mContext.getResources().getDrawable(mContext.getResources().getIdentifier("qs_detail_background", "drawable", XposedHook.PACKAGE_SYSTEMUI)));
+        setBackground(resources.getDrawable(resources.getIdentifier("qs_detail_background", "drawable", XposedHook.PACKAGE_SYSTEMUI)));
         mClipper = new QSDetailClipper(this);
 
         LayoutInflater.from(mOwnContext).inflate(R.layout.qs_customize_panel_content, this);
@@ -115,7 +118,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         TypedValue value = new TypedValue();
         mContext.getTheme().resolveAttribute(android.R.attr.homeAsUpIndicator, value, true);
         mToolbar.setNavigationIcon(
-                getResources().getDrawable(value.resourceId, mContext.getTheme()));
+                resources.getDrawable(value.resourceId, mContext.getTheme()));
         mToolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
