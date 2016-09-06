@@ -37,7 +37,10 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
 
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            ((TextView) findViewById(R.id.version)).setText(String.format(getString(R.string.about_version), pInfo.versionName, pInfo.versionCode));
+            String version = String.format(getString(R.string.about_version), pInfo.versionName, pInfo.versionCode);
+            if (BuildConfig.AUTOMATED_BUILD)
+                version += "\nThis is an automated build. Bugs are expected.";
+            ((TextView) findViewById(R.id.version)).setText(version);
         } catch (PackageManager.NameNotFoundException e) {
             findViewById(R.id.version).setVisibility(View.GONE);
         }
