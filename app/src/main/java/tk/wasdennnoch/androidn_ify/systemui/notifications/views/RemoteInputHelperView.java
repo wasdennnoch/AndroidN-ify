@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -37,7 +38,8 @@ import static de.robv.android.xposed.XposedHelpers.getObjectField;
 @SuppressWarnings({"WeakerAccess", "SameReturnValue"})
 public class RemoteInputHelperView extends FrameLayout implements View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, Animator.AnimatorListener {
 
-    public static final boolean DIRECT_REPLY_ENABLED = true;
+    @SuppressWarnings({"PointlessBooleanExpression", "ConstantConditions"})
+    public static final boolean DIRECT_REPLY_ENABLED = BuildConfig.ENABLE_DIRECT_REPLY || BuildConfig.DEBUG;
 
     private final LinearLayout remoteInputView;
     private final EditText remoteInputText;

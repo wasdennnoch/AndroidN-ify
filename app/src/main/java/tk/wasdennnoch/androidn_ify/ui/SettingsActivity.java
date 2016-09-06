@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
 import android.preference.Preference;
@@ -31,8 +32,10 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
 import tk.wasdennnoch.androidn_ify.ui.misc.LogcatService;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -60,6 +63,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         RomUtils.init(this);
         setContentView(R.layout.activity_settings);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
+            Toast.makeText(this, "API" + Build.VERSION.SDK_INT + "?", Toast.LENGTH_SHORT).show();
         if (!isActivated()) {
             getActionBar().setSubtitle(R.string.not_activated);
         } else if (!isPrefsFileReadable()) {
@@ -128,7 +133,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
             addPreferencesFromResource(R.xml.preferences);
             SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-            if (UpdateUtils.isEnabled(getActivity())) {
+            if (UpdateUtils.isEnabled()) {
                 if (sharedPreferences.getBoolean("check_for_updates", true))
                     UpdateUtils.check(getActivity(), this);
             } else {
@@ -187,6 +192,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     case "settings_notifications":
                         if (!ConfigUtils.M)
                             lockPreference(screen.findPreference("notification_experimental"));
+                        if (!RemoteInputHelperView.DIRECT_REPLY_ENABLED)
+                            screen.removePreference(findPreference("notification_spoof_api_version"));
                         break;
                 }
             } else {
@@ -265,7 +272,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         public void onFinish(UpdateUtils.UpdateData updateData) {
             Context mContext = getActivity();
             if (mContext == null) return;
-            if (updateData.getNumber() > mContext.getResources().getInteger(R.integer.version) && updateData.hasArtifact())
+            if (updateData.getNumber() > BuildConfig.BUILD_NUMBER && updateData.hasArtifact())
                 UpdateUtils.showNotification(updateData, mContext);
         }
     }

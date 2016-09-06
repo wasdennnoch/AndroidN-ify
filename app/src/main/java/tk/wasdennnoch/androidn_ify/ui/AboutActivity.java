@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -36,7 +37,10 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
 
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            ((TextView) findViewById(R.id.version)).setText(String.format(getString(R.string.about_version), pInfo.versionName, pInfo.versionCode));
+            String version = String.format(getString(R.string.about_version), pInfo.versionName, pInfo.versionCode);
+            if (BuildConfig.AUTOMATED_BUILD)
+                version += "\nThis is an automated build. Bugs are expected.";
+            ((TextView) findViewById(R.id.version)).setText(version);
         } catch (PackageManager.NameNotFoundException e) {
             findViewById(R.id.version).setVisibility(View.GONE);
         }
@@ -58,7 +62,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
     }
 
     private void checkForUpdates() {
-        if (UpdateUtils.isEnabled(this)) {
+        if (UpdateUtils.isEnabled()) {
             mUpdateText = (TextView) findViewById(R.id.updates);
             mUpdateText.setText(R.string.checking_for_update);
             mUpdateText.setVisibility(View.VISIBLE);
@@ -82,7 +86,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
 
     @Override
     public void onFinish(UpdateUtils.UpdateData updateData) {
-        if (updateData.getNumber() > getResources().getInteger(R.integer.version) && updateData.hasArtifact()) {
+        if (updateData.getNumber() > BuildConfig.BUILD_NUMBER && updateData.hasArtifact()) {
             mUpdateText.setText(String.format(getString(R.string.update_notification), updateData.getNumber()));
             UpdateUtils.showNotification(updateData, this);
         } else {

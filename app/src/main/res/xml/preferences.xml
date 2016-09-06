@@ -227,6 +227,14 @@
                 <intent android:action="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity"/>
             </PreferenceScreen>
 
+            <PreferenceScreen
+                android:dependency="notification_change_style"
+                android:key="notification_spoof_api_version"
+                android:summary="@string/notification_spoof_api_version"
+                android:title="@string/notification_spoof_api_version_title">
+                <intent android:action="tk.wasdennnoch.androidn_ify.ui.SpoofAPIActivity"/>
+            </PreferenceScreen>
+
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="notification_dismiss_button"

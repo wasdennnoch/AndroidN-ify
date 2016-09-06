@@ -89,10 +89,12 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
 
         logI(TAG, "Version " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
         //noinspection ConstantConditions
-        if (BuildConst.BUILD_SERVER_VERSION == 0) {
+        if (BuildConfig.AUTOMATED_BUILD) {
             logI(TAG, "Official Build; Release: " + !BuildConfig.DEBUG + " (" + BuildConfig.BUILD_TYPE + ")");
         } else {
-            logI(TAG, "Remote Build; Version: " + BuildConst.BUILD_SERVER_VERSION);
+            logI(TAG, "Remote Build; Version: " + BuildConfig.BUILD_NUMBER);
+            logI(TAG, "Build Time: " + BuildConfig.BUILD_TIME);
+            logI(TAG, "Git SHA: " + BuildConfig.GIT_COMMIT);
         }
 
         logI(TAG, "ROM type: " + sPrefs.getString("rom", "undefined"));
@@ -141,6 +143,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         // Has to be hooked in every app as every app creates own instances of the Notification.Builder
         NotificationHooks.hook(lpparam.classLoader);
 
+
         // This actually is only used in the system process, but every app has access, so just to be sure hook everything
         if (ConfigUtils.qs().enable_qs_editor) {
             try {
@@ -149,6 +152,11 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 XposedBridge.hookAllMethods(classCMStatusBarManager, "publishTileAsUser", XC_MethodReplacement.DO_NOTHING);
             } catch (Throwable ignore) {
             }
+        }
+
+        ConfigUtils.notifications().loadSpoofAPIApps();
+        if (ConfigUtils.notifications().spoofAPIApps.contains(lpparam.packageName)) {
+            XposedHelpers.setStaticIntField(Build.VERSION.class, "SDK_INT", 24);
         }
 
     }
