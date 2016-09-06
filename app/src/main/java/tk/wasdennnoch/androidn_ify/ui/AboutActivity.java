@@ -86,7 +86,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
 
     @Override
     public void onFinish(UpdateUtils.UpdateData updateData) {
-        if (updateData.getNumber() > BuildConfig.BUILD_VERSION && updateData.hasArtifact()) {
+        if (updateData.getNumber() > BuildConfig.BUILD_NUMBER && updateData.hasArtifact()) {
             mUpdateText.setText(String.format(getString(R.string.update_notification), updateData.getNumber()));
             UpdateUtils.showNotification(updateData, this);
         } else {

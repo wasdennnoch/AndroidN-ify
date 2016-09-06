@@ -272,7 +272,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         public void onFinish(UpdateUtils.UpdateData updateData) {
             Context mContext = getActivity();
             if (mContext == null) return;
-            if (updateData.getNumber() > BuildConfig.BUILD_VERSION && updateData.hasArtifact())
+            if (updateData.getNumber() > BuildConfig.BUILD_NUMBER && updateData.hasArtifact())
                 UpdateUtils.showNotification(updateData, mContext);
         }
     }

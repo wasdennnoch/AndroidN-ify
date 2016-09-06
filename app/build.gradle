@@ -2,14 +2,14 @@ import java.text.SimpleDateFormat
 
 apply plugin: 'com.android.application'
 
-ext.buildName = System.getenv("BUILD_NAME") ?: "0.3.0"
+ext.buildName = System.getenv("BUILD_TAG") ?: "0.3.0"
 ext.buildTime = buildTime()
-ext.gitSha = System.getenv("GIT_SHA") ?: "dev"
+ext.gitCommit = System.getenv("GIT_COMMIT") ?: "dev"
 
 ext.automatedBuild = System.getenv("AUTOMATED_BUILD") ?: "false"
 ext.enableUpdater = System.getenv("ENABLE_UPDATER") ?: "false"
 ext.updaterUrl = System.getenv("UPDATER_URL") ?: "null"
-ext.buildVersion = System.getenv("BUILD_VERSION") ?: "0"
+ext.buildNumber = System.getenv("BUILD_NUMBER") ?: "0"
 
 ext.enableDirectReply = System.getenv("ENABLE_DIRECT_REPLY") ?: "false"
 
@@ -25,12 +25,12 @@ android {
         versionName "$buildName"
 
         buildConfigField 'String', 'BUILD_TIME', "\"$buildTime\""
-        buildConfigField 'String', 'GIT_SHA', "\"$gitSha\""
+        buildConfigField 'String', 'GIT_COMMIT', "\"$gitCommit\""
 
         buildConfigField 'boolean', 'AUTOMATED_BUILD', "$automatedBuild"
         buildConfigField 'boolean', 'ENABLE_UPDATER', "$enableUpdater"
         buildConfigField 'String', 'UPDATER_URL', "\"$updaterUrl\""
-        buildConfigField 'int', 'BUILD_VERSION', "$buildVersion"
+        buildConfigField 'int', 'BUILD_NUMBER', "$buildNumber"
         buildConfigField 'boolean', 'ENABLE_DIRECT_REPLY', "$enableDirectReply"
     }
     buildTypes {
