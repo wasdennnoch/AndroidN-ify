@@ -6,11 +6,6 @@
 
     <string name="notification_header_divider_symbol" translatable="false">•</string>
 
-    <!-- UPDATER -->
-    <!-- Will be injected by build server. Don't touch it. -->
-    <string name="updater_url">null</string>
-    <!-- /UPDATER -->
-
     <string name="tile_spec_example">CUSTOMTILE0</string>
 
     <string name="qs_edit_detail" tools:ignore="UnusedResources">@string/qs_edit</string>

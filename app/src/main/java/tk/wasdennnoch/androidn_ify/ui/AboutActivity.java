@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -58,7 +59,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
     }
 
     private void checkForUpdates() {
-        if (UpdateUtils.isEnabled(this)) {
+        if (UpdateUtils.isEnabled()) {
             mUpdateText = (TextView) findViewById(R.id.updates);
             mUpdateText.setText(R.string.checking_for_update);
             mUpdateText.setVisibility(View.VISIBLE);
@@ -82,7 +83,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
 
     @Override
     public void onFinish(UpdateUtils.UpdateData updateData) {
-        if (updateData.getNumber() > getResources().getInteger(R.integer.version) && updateData.hasArtifact()) {
+        if (updateData.getNumber() > BuildConfig.BUILD_VERSION && updateData.hasArtifact()) {
             mUpdateText.setText(String.format(getString(R.string.update_notification), updateData.getNumber()));
             UpdateUtils.showNotification(updateData, this);
         } else {

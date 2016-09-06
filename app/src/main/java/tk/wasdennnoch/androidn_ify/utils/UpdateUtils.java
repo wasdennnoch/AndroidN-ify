@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.ui.misc.DownloadService;
 
@@ -29,13 +30,13 @@ import tk.wasdennnoch.androidn_ify.ui.misc.DownloadService;
 public class UpdateUtils {
 
     public static void check(Context context, UpdateListener listener) {
-        if (!isEnabled(context)) return;
+        if (!isEnabled()) return;
         if (!isConnected(context)) return;
-        new CheckUpdateTask(context).execute(context.getString(R.string.updater_url), listener);
+        new CheckUpdateTask(context).execute(BuildConfig.UPDATER_URL, listener);
     }
 
-    public static boolean isEnabled(Context context) {
-        return context.getResources().getBoolean(R.bool.enable_updater);
+    public static boolean isEnabled() {
+        return BuildConfig.ENABLE_UPDATER;
     }
 
     public static boolean isConnected(Context context) {

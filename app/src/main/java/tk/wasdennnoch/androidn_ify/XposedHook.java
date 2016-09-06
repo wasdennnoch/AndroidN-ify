@@ -89,10 +89,12 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
 
         logI(TAG, "Version " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
         //noinspection ConstantConditions
-        if (BuildConst.BUILD_SERVER_VERSION == 0) {
+        if (BuildConfig.AUTOMATED_BUILD) {
             logI(TAG, "Official Build; Release: " + !BuildConfig.DEBUG + " (" + BuildConfig.BUILD_TYPE + ")");
         } else {
-            logI(TAG, "Remote Build; Version: " + BuildConst.BUILD_SERVER_VERSION);
+            logI(TAG, "Remote Build; Version: " + BuildConfig.BUILD_VERSION);
+            logI(TAG, "Build Time: " + BuildConfig.BUILD_TIME);
+            logI(TAG, "Git SHA: " + BuildConfig.GIT_SHA);
         }
 
         logI(TAG, "ROM type: " + sPrefs.getString("rom", "undefined"));
