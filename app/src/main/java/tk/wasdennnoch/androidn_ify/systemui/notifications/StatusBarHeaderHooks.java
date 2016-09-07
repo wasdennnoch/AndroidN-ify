@@ -145,6 +145,7 @@ public class StatusBarHeaderHooks {
     private static int mGridHeight = 0;
     private static int mQsPages = 0;
     private static boolean mQsEditing = false;
+    private static boolean mRecreatingStatusBar = false;
 
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
     public static ArrayList<Object> mRecords;
@@ -545,6 +546,10 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            if (mRecreatingStatusBar) {
+                XposedHook.logD(TAG, "setTilesHook: Skipping changed check due to StatusBar recreation");
+                return; // Otherwise all tiles are gone after recreation
+            }
             if (mUseDragPanel && !RomUtils.isAicp()) {
                 updateFirstRowLarge();
                 return; // Causes problem with "Enlarge first row" setting
@@ -1035,6 +1040,8 @@ public class StatusBarHeaderHooks {
                 Class<?> classQSPanel = XposedHelpers.findClass(CLASS_QS_PANEL, classLoader);
                 Class<?> classQSTile = XposedHelpers.findClass(CLASS_QS_TILE, classLoader);
                 Class<?> classQSTileView = XposedHelpers.findClass(CLASS_QS_TILE_VIEW, classLoader);
+                Class<?> classPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
+
 
                 try {
                     XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setEditing", boolean.class, setEditingHook);
@@ -1143,6 +1150,18 @@ public class StatusBarHeaderHooks {
                         XposedHelpers.findAndHookMethod(classQSPanel, "setTiles", setTilesHook);
                     }
                 }
+
+                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "recreateStatusBar", new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        mRecreatingStatusBar = true;
+                    }
+
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        mRecreatingStatusBar = false;
+                    }
+                });
 
                 QSTileHostHooks.hook(classLoader);
 
