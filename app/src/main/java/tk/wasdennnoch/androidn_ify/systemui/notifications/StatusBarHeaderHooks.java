@@ -1152,17 +1152,20 @@ public class StatusBarHeaderHooks {
                     }
                 }
 
-                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "recreateStatusBar", new XC_MethodHook() {
-                    @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        mRecreatingStatusBar = true;
-                    }
+                try {
+                    XposedHelpers.findAndHookMethod(classPhoneStatusBar, "recreateStatusBar", new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            mRecreatingStatusBar = true;
+                        }
 
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        mRecreatingStatusBar = false;
-                    }
-                });
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            mRecreatingStatusBar = false;
+                        }
+                    });
+                } catch (Throwable ignore) {
+                }
 
                 QSTileHostHooks.hook(classLoader);
 
@@ -1247,13 +1250,14 @@ public class StatusBarHeaderHooks {
         mFirstRowLarge = firstRowLarge;
         if (!mFirstRowLarge && mUnhookDragPanelGetLeft == null) {
             hookDragPanelGetLeft(XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, mContext.getClassLoader()));
-        } else if(mFirstRowLarge && mUnhookDragPanelGetLeft != null) {
+        } else if (mFirstRowLarge && mUnhookDragPanelGetLeft != null) {
             mUnhookDragPanelGetLeft.unhook();
             mUnhookDragPanelGetLeft = null;
         }
     }
 
     private static XC_MethodHook.Unhook mUnhookDragPanelGetLeft;
+
     private static void hookDragPanelGetLeft(Class<?> classQSDragPanel) {
         mFirstRowLarge = false;
         mUnhookDragPanelGetLeft = XposedHelpers.findAndHookMethod(classQSDragPanel, "getLeft", int.class, int.class, int.class, boolean.class, new XC_MethodHook() {
@@ -1265,6 +1269,7 @@ public class StatusBarHeaderHooks {
     }
 
     public static int R_string_battery_panel_title;
+
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
             if (ConfigUtils.qs().header) {
