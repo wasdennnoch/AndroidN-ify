@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">Puede requerir reiniciar el launcher</string>
   <string name="debug_log_title">Registro de depuración</string>
   <string name="debug_log">Atención: Registro invasivo</string>
-  <string name="logcat_notif_ongoing_title">Guardando informe&#8230;</string>
-  <string name="logcat_notif_finished_title">Informe guardado</string>
-  <string name="logcat_notif_preparing">Preparando&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">Guardadas %1$s líneas&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s líneas guardadas en %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Parar</string>
-  <string name="requesting_root">Pidiendo acceso administrativo&#8230;</string>
-  <string name="root_failed">No se pudo obtener el permiso de READ_LOGS</string>
-  <string name="permission_required">Permiso requerido</string>
-  <string name="logs_permission_description">
-        En las versiones posteriores a Jelly Bean las aplicaciones ya no tienen permiso para acceder al logcat.
-        Aun así se puede activar el permiso READ_LOGS manualmente sin tener root.
-        Después de activarlo se necesita reiniciar el dispositivo para aplicar los cambios.
-    </string>
-  <string name="requires_android_version">Requiere Android %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Requiere Android %1$s</string>
   <string name="not_activated">Módulo no activado</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Color primario</string>

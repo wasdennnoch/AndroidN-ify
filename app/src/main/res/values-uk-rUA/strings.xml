@@ -31,22 +31,9 @@
   <string name="hide_launcher_icon">Може знадобитися перезавантаження робочого столу</string>
   <string name="debug_log_title">Журнал налагодження</string>
   <string name="debug_log">Увага: Журнал може займати багато місця</string>
-  <string name="logcat_notif_ongoing_title">Збереження logcat&#8230;</string>
-  <string name="logcat_notif_finished_title">Logcat збережено</string>
-  <string name="logcat_notif_preparing">Підготовка&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">Збережено %1$s рядків&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s рядків збережено до %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Зупинити</string>
-  <string name="requesting_root">Запит прав суперкористувача&#8230;</string>
-  <string name="root_failed">Не вдалося отримати дозвіл READ_LOGS</string>
-  <string name="permission_required">Необхідний дозвіл</string>
-  <string name="logs_permission_description">
-                У версіях Android починаючи з Jelly Bean програми більше не можуть читати повний logcat.
-                Ви можете вручну отримати дозвіл READ_LOGS з правами                 Після цього програма має бути перезапущена для отримання нових дозволів.
-        </string>
-  <string name="requires_android_version">Потрібно Android %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Потрібно Android %1$s</string>
   <string name="not_activated">Модуль не активовано</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Основний колір</string>

@@ -15,18 +15,9 @@
   <string name="header_app">แอพ</string>
   <string name="hide_launcher_icon_title">ซ่อนไอคอนแอพ</string>
   <string name="hide_launcher_icon">อาจต้องการรีสตาร์ท Launcher</string>
-  <string name="logcat_notif_ongoing_title">กำลังบันทึก logcat&#8230;</string>
-  <string name="logcat_notif_finished_title">บันทึก Logcat เสร็จสิ้น</string>
-  <string name="logcat_notif_preparing">กำลังเตรียม&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">บันทึกเสร็จสิ้น %1$s บรรทัด&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s บรรืัดถูกบันทึกไว้ที่ %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">หยุด</string>
-  <string name="requesting_root">กำลังขอสิทธิการเข้าถึง root&#8230;</string>
-  <string name="root_failed">ไม่สามารถรับสิทธิ READ_LOGS</string>
-  <string name="permission_required">ต้องการสิทธิ</string>
-  <string name="requires_android_version">ต้องการ Android %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">ต้องการ Android %1$s</string>
   <string name="not_activated">โมดูลไม่ทำงาน</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">สีหลัก</string>

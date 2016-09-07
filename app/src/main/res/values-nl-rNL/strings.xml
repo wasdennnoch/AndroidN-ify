@@ -30,23 +30,9 @@
   <string name="hide_launcher_icon">Kan een herstart van de launcher vereisen</string>
   <string name="debug_log_title">Debug logboek</string>
   <string name="debug_log">Waarschuwing: Log-overstromingen</string>
-  <string name="logcat_notif_ongoing_title">Logcat opslaan</string>
-  <string name="logcat_notif_finished_title">Logcat opgeslagen</string>
-  <string name="logcat_notif_preparing">Voorbereiden</string>
-  <string name="logcat_notif_ongoing_lines">%1$s lijnen aan het opslaan&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s regels opgeslagen naar %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Stoppen</string>
-  <string name="requesting_root">Root toegang verkrijgen&#8230;</string>
-  <string name="root_failed">Mislukt om de READ_LOGS permissie te verkrijgen</string>
-  <string name="permission_required">Toestemming vereist</string>
-  <string name="logs_permission_description">
-        In Android versies sinds Jelly Bean is het niet meer mogelijk voor applicaties om de volledige logcat te lezen.
-        Je kan echter wel de READ_LOGS permissie verlenen via root toegang.
-        Nadien moet de app herstart worden om de nieuw verkrgen permissies toe te passen.
-    </string>
-  <string name="requires_android_version">Vereist Android %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Vereist Android %1$s</string>
   <string name="not_activated">Module niet geactiveerd</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Primaire kleur</string>

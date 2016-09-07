@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
   <string name="debug_log_title">除錯紀錄</string>
   <string name="debug_log">警告：紀錄如洪水</string>
-  <string name="logcat_notif_ongoing_title">儲存 紀錄(logcat) 中&#8230;</string>
-  <string name="logcat_notif_finished_title">紀錄(Logcat) 已儲存</string>
-  <string name="logcat_notif_preparing">準備中&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">已儲存 %1$s 行&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s 行 已儲存到 %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">停止</string>
-  <string name="requesting_root">正在等待 Root 權限的回應&#8230;</string>
-  <string name="root_failed">獲得 READ_LOGS permission 權限失敗</string>
-  <string name="permission_required">建議需要 Permission 模式</string>
-  <string name="logs_permission_description">
-        在 Jelly Bean (Android 4.1~)版本之後，應用程式不再被允許讀取完整的 紀錄(Logcat)
-        但是你可以透過 Root 權限手動獲得 READ_LOGS 的權限
-        在應用程式重新啟動之後，新的權限才會被套用。
-    </string>
-  <string name="requires_android_version">建議執行於 Android %1$s 以上</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">建議執行於 Android %1$s 以上</string>
   <string name="not_activated">模組尚未啟用！</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">選擇顏色…</string>

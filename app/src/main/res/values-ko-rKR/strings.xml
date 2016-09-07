@@ -31,22 +31,9 @@
   <string name="hide_launcher_icon">홈 런처를 다시 시작해야할 수도 있습니다</string>
   <string name="debug_log_title">디버그 로그</string>
   <string name="debug_log">경고: Log-flooding</string>
-  <string name="logcat_notif_ongoing_title">로그켓을 저장하는 중&#8230;</string>
-  <string name="logcat_notif_finished_title">로그켓 저장됨</string>
-  <string name="logcat_notif_ongoing_lines">%1$s줄 저장하는 중&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s줄이 %2$s에 저장됨</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">중지</string>
-  <string name="requesting_root">루트 권한 요청 중&#8230;</string>
-  <string name="root_failed">READ_LOGS 권한을 얻는데 실패하였습니다</string>
-  <string name="permission_required">권한이 필요함</string>
-  <string name="logs_permission_description">
-        안드로이드 젤리빈 버전부터 모든 로그켓을 더이상 읽을 수 없게 되었습니다.
-        하지만 루트 권한으로 READ_LOGS 권한을 수동으로 얻을 수 있습니다.
-        새로운 권한 적용이 성공적으로 적용되려면 앱을 다시 시작 해야 합니다.
-    </string>
-  <string name="requires_android_version">안드로이드 %1$s 이상의 버전이 필요합니다</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">안드로이드 %1$s 이상의 버전이 필요합니다</string>
   <string name="not_activated">모듈이 활성화 되지 않았습니다</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">기본 색상</string>

@@ -119,9 +119,6 @@
             android:name=".ui.misc.DownloadService"
             android:exported="false" />
         <service
-            android:name=".ui.misc.LogcatService"
-            android:exported="false" />
-        <service
             android:name=".ui.misc.UpdateWarningService"
             android:exported="false" />
 

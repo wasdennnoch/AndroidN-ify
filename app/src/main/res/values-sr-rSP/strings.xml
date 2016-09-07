@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">Можда ће бити потребан рестарт покретача</string>
   <string name="debug_log_title">Евиденција грешака</string>
   <string name="debug_log">Упозорење: преплављује записе</string>
-  <string name="logcat_notif_ongoing_title">Уписујем логкат&#8230;</string>
-  <string name="logcat_notif_finished_title">Логкат сачуван</string>
-  <string name="logcat_notif_preparing">Припремам&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">Сачувано %1$s редова&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s редова сачувано у %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Заустави</string>
-  <string name="requesting_root">Захтевам корени приступ&#8230;</string>
-  <string name="root_failed">Неуспех добијања READ_LOGS дозволе</string>
-  <string name="permission_required">Захтевана је дозвола</string>
-  <string name="logs_permission_description">
-        Од Џелибин издања Андроида апликацијама више није дозвољено да читају логкат.
-        Међутим, можете ручно да одобрите READ_LOGS дозволу уз помоћ кореног приступа.
-        Након тога, апликацију је потребно поново покренути да бисте применили новоодобрену дозволу.
-    </string>
-  <string name="requires_android_version">Захтева Андроид %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Захтева Андроид %1$s</string>
   <string name="not_activated">Модул није активиран</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Примарна боја</string>

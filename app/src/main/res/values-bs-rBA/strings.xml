@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">Možda će biti potreban restart pokretača</string>
   <string name="debug_log_title">Evidencija grešaka</string>
   <string name="debug_log">Upozorenje: preplavljuje zapise</string>
-  <string name="logcat_notif_ongoing_title">Upisujem logkat&#8230;</string>
-  <string name="logcat_notif_finished_title">Logkat sačuvan</string>
-  <string name="logcat_notif_preparing">Pripremam&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">Sačuvano %1$s redova&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s redova sačuvano u %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Zaustavi</string>
-  <string name="requesting_root">Zahtijevam root pristup&#8230;</string>
-  <string name="root_failed">Neuspješno dobijanje READ_LOGS dozvole</string>
-  <string name="permission_required">Zahtijevana je dozvola</string>
-  <string name="logs_permission_description">
-        Od JellyBean izdanja Androida aplikacijama više nije dozvoljeno da čitaju logkat.
-        Međutim, možete ručno da odobrite READ_LOGS dozvolu uz pomoć root pristupa.
-        Nakon toga, aplikaciju je potrebno ponovo pokrenuti da biste primjenili novoodobrenu dozvolu.
-    </string>
-  <string name="requires_android_version">Zahtijeva Android %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Zahtijeva Android %1$s</string>
   <string name="not_activated">Modul nije aktiviran</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Primarna boja</string>

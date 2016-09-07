@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">ممکن است به ریستارت کردن نیاز داشته باشد</string>
   <string name="debug_log_title">لاگ گرفتن</string>
   <string name="debug_log">هشدار: ممکن است فضا به سرعت پر شود</string>
-  <string name="logcat_notif_ongoing_title">در حال ذخیره لاگ &#8230;</string>
-  <string name="logcat_notif_finished_title">Logcat ذیره شد</string>
-  <string name="logcat_notif_preparing">&#8230; آماده سازی</string>
-  <string name="logcat_notif_ongoing_lines">ذخیره شده %1$s خط &#8230; تعداد</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s خط در این محل ذخیره شده %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">توقف</string>
-  <string name="requesting_root">&#8230; در حال درخواست روت</string>
-  <string name="root_failed">خطا، دسترسی به لاگ ها</string>
-  <string name="permission_required">دسترسی برنامه لازم است</string>
-  <string name="logs_permission_description">
-       دسترسی به روت الزامی است
-       باید از دسترسی به READ_LOGS روت مطمئن شوید و سپس اقدام کنید.
-	پس از اطمینان، برنامه را دوباره اجرا کنید
-    </string>
-  <string name="requires_android_version">%1$s اندروید حداقل مورد نیاز</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">%1$s اندروید حداقل مورد نیاز</string>
   <string name="not_activated">ماژول فعال نیست</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">رنگ اصلی برنامه</string>

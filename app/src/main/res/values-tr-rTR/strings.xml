@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
   <string name="debug_log_title">Hata ayıklama günlüğü</string>
   <string name="debug_log">Dikkat: Log-flooding</string>
-  <string name="logcat_notif_ongoing_title">Hata kaydı kaydediliyor</string>
-  <string name="logcat_notif_finished_title">Hata kaydı kaydedildi</string>
-  <string name="logcat_notif_preparing">Hazırlanıyor&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">%1$s kaydedilen hata&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%2$s satır kaydedildi %1$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Durdur</string>
-  <string name="requesting_root">Root erişimi isteniyor&#8230;</string>
-  <string name="root_failed">READ_LOGS izni alma işlemi başarısız oldu</string>
-  <string name="permission_required">İzin gerekli</string>
-  <string name="logs_permission_description">
-        Android Jelly Bean sürümünden beri uygulamalara artık tam hata kaydı okumak için izin verilmez.
-        Bununla birlikte manuel root erişimi ile READ_LOGS izni verebilebilir.
-        Sonrasın da uygulamaya yeni verilen izinleri uygulamak için yeniden başlatılması gerekir.
-    </string>
-  <string name="requires_android_version">Android %1$s sürümü gerekir</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Android %1$s sürümü gerekir</string>
   <string name="not_activated">Modül aktif değil</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Ana renk</string>

@@ -32,23 +32,9 @@
   <string name="hide_launcher_icon">Ehhez lehet, hogy újra kell indítani az alkalmazásindítót</string>
   <string name="debug_log_title">Hibaelhárítási naplózás</string>
   <string name="debug_log">Vigyázat: teleírja a naplót</string>
-  <string name="logcat_notif_ongoing_title">Logcat mentése&#8230;</string>
-  <string name="logcat_notif_finished_title">Logcat mentve</string>
-  <string name="logcat_notif_preparing">Előkészítés&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">%1$s sor mentve&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s sor mentve ide: %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Megállítás</string>
-  <string name="requesting_root">Root hozzáférés igénylése&#8230;</string>
-  <string name="root_failed">Nem sikerült READ_LOGS engedélyt szerezni</string>
-  <string name="permission_required">Engedély szükséges</string>
-  <string name="logs_permission_description">
-        A Jelly Bean utáni Android verziókban az alkalmazások már nem olvashatják a teljes logcat-et.
-        Te viszont manuálisan megadhatod a READ_LOGS engedélyt root hozzáféréssel.
-        Ezután újra kell indítani az alkalmazást, hogy életbelépjenek az új engedélyek.
-    </string>
-  <string name="requires_android_version">Android %1$s szükséges hozzá</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Android %1$s szükséges hozzá</string>
   <string name="not_activated">A modul nincs aktiválva</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Elsődleges szín</string>

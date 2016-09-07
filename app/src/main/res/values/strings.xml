@@ -35,23 +35,8 @@
     <string name="hide_launcher_icon">May require launcher restart</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
-    <string name="logcat_notif_ongoing_title">Saving logcat&#8230;</string>
-    <string name="logcat_notif_finished_title">Logcat saved</string>
-    <string name="logcat_notif_preparing">Preparing&#8230;</string>
-    <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
     <!-- %2$s == file path -->
-    <string name="logcat_notif_finished">%1$s lines saved to %2$s</string>
     <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="action_stop">Stop</string>
-
-    <string name="requesting_root">Requesting root access&#8230;</string>
-    <string name="root_failed">Failed to gain READ_LOGS permission</string>
-    <string name="permission_required">Permission required</string>
-    <string name="logs_permission_description">
-        In Android versions since Jelly Bean applications aren\'t allowed to read the full logcat anymore.
-        You can however manually grant the READ_LOGS permission with root access.
-        After that the app needs to be restarted in order to apply the newly granted permissions.
-    </string>
 
     <string name="requires_android_version">Requires Android %1$s</string>
     <string name="not_activated">Module not activated</string>
@@ -356,7 +341,6 @@
     <string name="battery_detail_switch_summary">Reduces performance and background data</string>
     <string name="qs_add_notes_title">Notes</string>
     <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
-    <string name="notification_spoof_api_apps_title">Spoof API 24</string>
     <string name="notification_spoof_api_version_title">Spoof API 24</string>
     <string name="notification_spoof_api_version">Spoof these apps into thinking they\'re running on API 24</string>
 

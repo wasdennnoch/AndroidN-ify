@@ -27,19 +27,9 @@
   <string name="hide_launcher_icon">ربما يجب اعاده تشغيل اللانشر</string>
   <string name="debug_log_title">تصحيح الاخطاء</string>
   <string name="debug_log">تحزير: يتم ارسال الكثير من السجلات التي قد تؤثر علي الاداء</string>
-  <string name="logcat_notif_ongoing_title">جاري حفظ لوجكات...</string>
-  <string name="logcat_notif_finished_title">تم حفظ لوجكات</string>
-  <string name="logcat_notif_preparing">إعداد...</string>
-  <string name="logcat_notif_ongoing_lines">تم حفظ s$1% خط...</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s من الخطوط تم حفظها الي %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">وقف</string>
-  <string name="requesting_root">طلب الوصول إلى الروت...</string>
-  <string name="root_failed">فشل في الحصول على إذن READ_LOGS</string>
-  <string name="permission_required">الإذن المطلوب</string>
-  <string name="logs_permission_description">         في إصدارات اندرويد منذ \"جيلي بين\" لا يسمح التطبيقات لقراءة لوجكات كامل بعد الآن.         يمكنك منح إذن READ_LOGS مع وصول الجذر مع ذلك يدوياً.         وبعد ذلك يحتاج التطبيق إلى إعادة التشغيل لكي يتم تطبيق الأذونات الممنوحة حديثا.     </string>
-  <string name="requires_android_version">يتطلب اصدار اندرويد %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">يتطلب اصدار اندرويد %1$s</string>
   <string name="not_activated">لم يتم تنشيط الوحدة النمطية</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">اللون الأساسي</string>

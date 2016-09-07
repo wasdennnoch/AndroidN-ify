@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
   <string name="debug_log_title">Włącz debugowanie</string>
   <string name="debug_log">Ostrzeżenie: generuje dużo wpisów w dzienniku debugowania</string>
-  <string name="logcat_notif_ongoing_title">Zapisywanie logcat</string>
-  <string name="logcat_notif_finished_title">Logcat zapisany</string>
-  <string name="logcat_notif_preparing">Przygotowanie</string>
-  <string name="logcat_notif_ongoing_lines">Zapisano %1$s linii&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s linni zapisanych w %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Zatrzymaj</string>
-  <string name="requesting_root">Wymaga dostępu do roota&#8230;</string>
-  <string name="root_failed">Nie udało się uzyskać uprawnienia READ_LOGS</string>
-  <string name="permission_required">Uprawnienie wymagane</string>
-  <string name="logs_permission_description">
-        Od wersji Androida Jelly Bean aplikacje nie mają pełnego dostępu do logcat.
-        Możesz jednak uzyskać ten dostęp ręcznie przez użycie uprawnienia READ_LOGS z pomocą roota.
-        Po tym aplikacja musi zostać zrestartowana, aby użyć nowego uprawnienia.
-    </string>
-  <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
   <string name="not_activated">Moduł nieaktywny</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Główny kolor</string>

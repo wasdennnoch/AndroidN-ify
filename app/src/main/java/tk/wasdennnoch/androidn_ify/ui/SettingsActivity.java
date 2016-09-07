@@ -1,20 +1,16 @@
 package tk.wasdennnoch.androidn_ify.ui;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Process;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -36,14 +32,12 @@ import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
-import tk.wasdennnoch.androidn_ify.ui.misc.LogcatService;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
-@SuppressWarnings("SameReturnValue")
 public class SettingsActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "SettingsActivity";
@@ -201,14 +195,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     case "fix_stuck_inversion":
                         getActivity().sendBroadcast(new Intent(ACTION_FIX_INVERSION));
                         break;
-                    case "share_logcat":
-                        ((SettingsActivity) getActivity()).requestLogsPermission(new Runnable() {
-                            @Override
-                            public void run() {
-                                getActivity().startService(new Intent(getActivity(), LogcatService.class));
-                            }
-                        });
-                        break;
                 }
             }
             return false;
@@ -294,70 +280,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void requestLogsPermission(Runnable action) {
-        if (getPackageManager().checkPermission(Manifest.permission.READ_LOGS, getPackageName()) != PackageManager.PERMISSION_GRANTED ||
-                getPackageManager().checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, getPackageName()) != PackageManager.PERMISSION_GRANTED ||
-                getPackageManager().checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, getPackageName()) != PackageManager.PERMISSION_GRANTED) {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setCancelable(false);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage(getString(R.string.requesting_root));
-            showDialog(R.string.permission_required, R.string.logs_permission_description, false, new Runnable() {
-                @Override
-                public void run() {
-                    new AsyncTask<Void, Void, Boolean>() {
-                        @Override
-                        protected void onPreExecute() {
-                            progressDialog.show();
-                        }
-
-                        @Override
-                        protected Boolean doInBackground(Void... params) {
-                            try {
-                                java.lang.Process proc = Runtime.getRuntime().exec(new String[]{"su", "-c", "pm grant " + getPackageName() + " " + Manifest.permission.READ_LOGS});
-                                int res = proc.waitFor();
-                                proc.destroy();
-                                if (res != 0)
-                                    throw new IOException("Failed to grant READ_LOGS permision with root (exit value: " + res + ")");
-
-                                // When we are here anyways we can request the storage permissions too
-                                // All the processes are bad, but I couldn't get it to work with an OutputStream
-                                java.lang.Process proc2 = Runtime.getRuntime().exec(new String[]{"su", "-c", "pm grant " + getPackageName() + " " + Manifest.permission.READ_EXTERNAL_STORAGE});
-                                int res2 = proc2.waitFor();
-                                proc2.destroy();
-                                if (res2 != 0)
-                                    throw new IOException("Failed to grant READ_EXTERNAL_STORAGE permision with root (exit value: " + res + ")");
-
-                                java.lang.Process proc3 = Runtime.getRuntime().exec(new String[]{"su", "-c", "pm grant " + getPackageName() + " " + Manifest.permission.WRITE_EXTERNAL_STORAGE});
-                                int res3 = proc3.waitFor();
-                                proc3.destroy();
-                                if (res3 != 0)
-                                    throw new IOException("Failed to grant WRITE_EXTERNAL_STORAGE permision with root (exit value: " + res + ")");
-
-                            } catch (IOException | InterruptedException e) {
-                                Log.e(TAG, "Couldn't grant READ_LOGS permission with root", e);
-                                return false;
-                            }
-                            return true;
-                        }
-
-                        @Override
-                        protected void onPostExecute(Boolean result) {
-                            progressDialog.dismiss();
-                            if (result) {
-                                Process.sendSignal(Process.myPid(), Process.SIGNAL_KILL);
-                            } else {
-                                showDialog(0, R.string.root_failed, true, null);
-                            }
-                        }
-                    }.execute();
-                }
-            });
-        } else {
-            action.run();
-        }
     }
 
 }

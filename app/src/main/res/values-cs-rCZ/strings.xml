@@ -31,21 +31,9 @@
   <string name="hide_launcher_icon">Může vyžadovat restart spouštěče</string>
   <string name="debug_log_title">Zaznamenávání chyb</string>
   <string name="debug_log">Upozornění: způsobuje zahlcování záznamu</string>
-  <string name="logcat_notif_ongoing_title">Ukládání záznamu</string>
-  <string name="logcat_notif_finished_title">Záznam uložen</string>
-  <string name="logcat_notif_preparing">Příprava</string>
-  <string name="logcat_notif_ongoing_lines">Uloženo %1$s řádků&#8230;</string>
-  <!-- %2$s == file path -->
+    <!-- %2$s == file path -->
   <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="requesting_root">Požadování root přístupu&#8230;</string>
-  <string name="root_failed">Chyba při přidělování READ_LOGS oprávnění</string>
-  <string name="permission_required">Oprávnění uděleno</string>
-  <string name="logs_permission_description">
-        V Androidu před verzí Jelly Bean, aplikace nemají přístup ke čtení celého záznamu logcat.
-        Můžete manuálně povolit READ_LOGS oprávnění skrze root přístup.
-        Poté musí být aplikace restartována pro zpřístupnění tohoto oprávnění.
-    </string>
-  <string name="requires_android_version">Vyžaduje Android %1$s</string>
+    <string name="requires_android_version">Vyžaduje Android %1$s</string>
   <string name="not_activated">Modul není aktivovaný</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Primární barva</string>

@@ -18,21 +18,9 @@
   <string name="hide_launcher_icon">ייתכן שיהיה צורך להפעיל מחדש את מריץ האפליקציות</string>
   <string name="debug_log_title">רישום לצורכי תיקון שגיאות</string>
   <string name="debug_log">אזהרה: מציף רישומים</string>
-  <string name="logcat_notif_finished_title">רישום נשמר</string>
-  <!-- %2$s == file path -->
+    <!-- %2$s == file path -->
   <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">עצור</string>
-  <string name="root_failed">השגת הרשאת READ_LOGS נכשלה</string>
-  <string name="permission_required">נדרשת הרשאה</string>
-  <string name="logs_permission_description">
-        In Android versions since Jelly Bean applications aren\'t allowed to read the full logcat anymore.
-        You can however manually grant the READ_LOGS permission with root access.
-        After that the app needs to be restarted in order to apply the newly granted permissions.
-        בגרסאות אנדרואיד מאז 4.1 יישומים לא מסוגלים לקרוא את הרישומים המלאים.
-        ניתן לתת ליישום הרשאת READ_LOGS בעזרת גישת רוט.
-        לאחר מכן, היישום צריך להידלק מחדש כדי להחיל את ההרשאה שהתקבלה.
-    </string>
-  <string name="requires_android_version">נדרשת גרסת אנדרואיד %1$s</string>
+    <string name="requires_android_version">נדרשת גרסת אנדרואיד %1$s</string>
   <string name="not_activated">המודול לא אופשר</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">צבע ראשי</string>

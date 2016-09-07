@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">Может потребоватся перезагрузка рабочего стола</string>
   <string name="debug_log_title">Лог отладки</string>
   <string name="debug_log">Внимание: Лог может занимать много места</string>
-  <string name="logcat_notif_ongoing_title">Сохранение logcat&#8230;</string>
-  <string name="logcat_notif_finished_title">Logcat сохранен</string>
-  <string name="logcat_notif_preparing">Подготовка&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">Сохранено %1$s строк&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s строк сохранено в %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Остановить</string>
-  <string name="requesting_root">Запрос корневого доступа&#8230;</string>
-  <string name="root_failed">Не удалось получить разрешение READ_LOGS</string>
-  <string name="permission_required">Разрешение запрошено</string>
-  <string name="logs_permission_description">
-        В версиях Андроид После Jelly Bean приложения больше не могут читать полный logcat.
-        Вы можете вручную получить разрешение READ_LOGS с Root-правами.
-        После этого приложение должно быть перезапущено для получения новых разрешений.
-    </string>
-  <string name="requires_android_version">Требуется Android %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Требуется Android %1$s</string>
   <string name="not_activated">Модуль не активирован</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Главный цвет</string>

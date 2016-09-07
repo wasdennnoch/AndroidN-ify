@@ -30,23 +30,9 @@
   <string name="hide_launcher_icon">Poate necesita repornirea lansatorului</string>
   <string name="debug_log_title">Loguri de depanare</string>
   <string name="debug_log">Atentie: încărcare log</string>
-  <string name="logcat_notif_ongoing_title">Se salvează logcat-ul&#8230;</string>
-  <string name="logcat_notif_finished_title">Logcat-ul salvat</string>
-  <string name="logcat_notif_preparing">Se pregătească&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">%1$s (de) linii au fost salvate&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s (de) linii au fost salvate la %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Oprire</string>
-  <string name="requesting_root">Se solicită accesul root&#8230;</string>
-  <string name="root_failed">Nu se poate obține permisiunea READ_LOGS</string>
-  <string name="permission_required">Este necesară permisiunea</string>
-  <string name="logs_permission_description">
-        De la Android Jelly Bean, aplicațiile nu mai sunt permise să citesc întregul logcat.
-        Puteți totuși acorda manual permisiunea READ_LOGS cu accesul root.
-        După aceea, aplicația trebuie să fie repornită pentru a aplica permisiunile nou acordate.
-    </string>
-  <string name="requires_android_version">Necesită Android %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Necesită Android %1$s</string>
   <string name="not_activated">Modulul nu este activat</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Culoare primară</string>

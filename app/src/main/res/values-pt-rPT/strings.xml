@@ -31,23 +31,9 @@
   <string name="hide_launcher_icon">Poderá ser necessário reiniciar o iniciador de aplicações</string>
   <string name="debug_log_title">Relatórios de depuração</string>
   <string name="debug_log">Atenção: Registo extremo</string>
-  <string name="logcat_notif_ongoing_title">A guardar relatório&#8230;</string>
-  <string name="logcat_notif_finished_title">Relatório guardado</string>
-  <string name="logcat_notif_preparing">A preparar&#8230;</string>
-  <string name="logcat_notif_ongoing_lines">%1$s linhas guardadas&#8230;</string>
-  <!-- %2$s == file path -->
-  <string name="logcat_notif_finished">%1$s linhas guardadas em %2$s</string>
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-  <string name="action_stop">Parar</string>
-  <string name="requesting_root">A pedir acesso root&#8230;</string>
-  <string name="root_failed">Falha ao obter a permissão de READ_LOGS</string>
-  <string name="permission_required">Permissão necessária</string>
-  <string name="logs_permission_description">
-        A partir o Android Jelly Bean, as aplicações deixaram de ter permissões para aceder ao relatório completo de erros.
-        No entanto, a permissão READ_LOGS pode ser concedida manualmente com root.
-        Após conceder a permissão, será necessário reiniciar a aplicação para aplicar as alterações.
-    </string>
-  <string name="requires_android_version">Requer o Android %1$s</string>
+    <!-- %2$s == file path -->
+    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+    <string name="requires_android_version">Requer o Android %1$s</string>
   <string name="not_activated">Módulo não ativado</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Cor primária</string>
