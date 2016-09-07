@@ -35,9 +35,8 @@
     <string name="hide_launcher_icon">May require launcher restart</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
 
+    <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
     <string name="requires_android_version">Requires Android %1$s</string>
     <string name="not_activated">Module not activated</string>
 
@@ -330,7 +329,10 @@
     <!-- Add a custom tile -->
     <string name="add">Add</string>
     <string name="add_custom_tile">Add broadcast tile</string>
+    <!-- Warning when the input for the custom tile is empty -->
     <string name="spec_shouldnt_be_blank">Tile spec shouldn\'t be blank</string>
+    <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+    <string name="reset_tiles">Reset</string>
 
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on color to apply</string>

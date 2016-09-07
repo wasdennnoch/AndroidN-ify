@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
@@ -280,7 +281,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         return mItemTouchHelper;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected RelativeLayout mItemView;
@@ -332,13 +332,26 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     public void saveChanges() {
-        XposedHook.logD(TAG, "saveChanges called");
-        List<String> tileSpecs = getAddedTileSpecs();
+        saveTiles(getAddedTileSpecs(), false);
+    }
+
+    public void resetTiles() {
+        saveTiles(Arrays.asList("wifi", "cell", "battery", "dnd", "flashlight", "rotation", "bt", "airplane", "location"), true);
+    }
+
+    private void saveTiles(List<String> tileSpecs, boolean update) {
+        XposedHook.logD(TAG, "saveTiles called");
         if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
+            if (update) {
+                mTileSpecs = tileSpecs;
+                QSTileHostHooks.mTileSpecs = tileSpecs;
+                // TODO find a good way to update editor grid with new specs list because I was too stupid and tired when I wrote this
+                notifyDataSetChanged();
+            }
             return;
         }
-        XposedHook.logD(TAG, "saveChanges: No changes to save");
+        XposedHook.logD(TAG, "saveTiles: No changes to save");
     }
 
     public List<String> getAddedTileSpecs() {
@@ -356,8 +369,8 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         for (int i = 0; i < mRecords.size(); i++) {
             Object tilerecord = mRecords.get(i);
             if (tilerecord == null) return tileSpecs;
-                Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
-                tileSpecs.add((String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME));
+            Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
+            tileSpecs.add((String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME));
         }
         return tileSpecs;
     }

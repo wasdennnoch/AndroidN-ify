@@ -55,14 +55,14 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 /**
  * Allows full-screen customization of QS, through show() and hide().
- *
+ * <p/>
  * This adds itself to the status bar window, so it can appear on top of quick settings and
  * *someday* do fancy animations to get into/out of it.
  */
-@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class QSCustomizer extends LinearLayout implements OnMenuItemClickListener {
 
-    private static final int MENU_ADD_BROADCAST_TILE = Menu.FIRST;
+    private static final int MENU_ADD_BROADCAST_TILE = 1;
+    private static final int MENU_RESET = 2;
     private final Context mContext;
     private final Context mOwnContext;
     private final QSDetailClipper mClipper;
@@ -126,9 +126,11 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             }
         });
         mToolbar.setOnMenuItemClickListener(this);
+        Menu menu = mToolbar.getMenu();
+        // TODO uncomment when invalidation todo in TileAdapter is fixed
+        //menu.add(Menu.NONE, MENU_RESET, 0, res.getString(R.string.reset_tiles));
         if (ConfigUtils.M) {
-            mToolbar.getMenu().add(Menu.NONE, MENU_ADD_BROADCAST_TILE, 0,
-                    res.getString(R.string.add_custom_tile));
+            menu.add(Menu.NONE, MENU_ADD_BROADCAST_TILE, 1, res.getString(R.string.add_custom_tile));
         }
         mToolbar.setTitle(R.string.qs_edit);
 
@@ -225,6 +227,9 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
+            case MENU_RESET:
+                mTileAdapter.resetTiles();
+                break;
             case MENU_ADD_BROADCAST_TILE:
                 showAddBroadcastTile();
                 break;
