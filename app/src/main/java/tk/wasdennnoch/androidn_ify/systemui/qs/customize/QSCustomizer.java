@@ -127,8 +127,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         });
         mToolbar.setOnMenuItemClickListener(this);
         Menu menu = mToolbar.getMenu();
-        // TODO uncomment when invalidation todo in TileAdapter is fixed
-        //menu.add(Menu.NONE, MENU_RESET, 0, res.getString(R.string.reset_tiles));
+        menu.add(Menu.NONE, MENU_RESET, 0, res.getString(R.string.reset_tiles));
         if (ConfigUtils.M) {
             menu.add(Menu.NONE, MENU_ADD_BROADCAST_TILE, 1, res.getString(R.string.add_custom_tile));
         }
@@ -259,7 +258,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
 
     private void save() {
         mTileAdapter.saveChanges();
-        QSTileHostHooks.recreateTiles();
+        if (!ConfigUtils.M)
+            QSTileHostHooks.recreateTiles();
     }
 
     @Override

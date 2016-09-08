@@ -76,7 +76,8 @@ public class SystemUIHooks {
                                 if (intent.hasExtra(AddTileActivity.EXTRA_TILE_SPEC)) {
                                     NotificationPanelHooks.invalidateTileAdapter();
                                     QSTileHostHooks.addSpec(context, intent.getStringExtra(AddTileActivity.EXTRA_TILE_SPEC));
-                                    QSTileHostHooks.recreateTiles();
+                                    if (!ConfigUtils.M)
+                                        QSTileHostHooks.recreateTiles();
                                 }
                                 NotificationPanelHooks.expandWithQs();
                                 NotificationPanelHooks.showQsCustomizer(StatusBarHeaderHooks.mRecords, true);

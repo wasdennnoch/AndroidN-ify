@@ -11,11 +11,12 @@ ext.automatedBuild = System.getenv("AUTOMATED_BUILD") ?: "false"
 ext.enableUpdater = System.getenv("ENABLE_UPDATER") ?: "false"
 ext.updaterUrl = System.getenv("UPDATER_URL") ?: "null"
 ext.buildNumber = System.getenv("BUILD_NUMBER") ?: "0"
-
 ext.enableDirectReply = System.getenv("ENABLE_DIRECT_REPLY") ?: "false"
 
+ext.supportLibraryVersion = "24.2.0";
+
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "tk.wasdennnoch.androidn_ify"
@@ -62,12 +63,8 @@ dependencies {
     provided 'de.robv.android.xposed:api:81'
     provided 'de.robv.android.xposed:api:81:sources'
     provided files('libs-provide/android_hidden_api_23.jar')
-    //noinspection GradleDependency
-    compile 'com.android.support:support-v13:23.4.0'
-    //noinspection GradleDependency
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    //noinspection GradleDependency
-    compile 'com.android.support:palette-v7:23.4.0'
-    //noinspection GradleDependency
-    compile 'com.android.support:design:23.4.0'
+    compile "com.android.support:support-v13:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    compile "com.android.support:palette-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
 }

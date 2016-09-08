@@ -22,7 +22,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
-import tk.wasdennnoch.androidn_ify.utils.RomUtils;
+import tk.wasdennnoch.androidn_ify.utils.SettingsUtils;
 
 @SuppressWarnings("WeakerAccess")
 public class QSTileHostHooks {
@@ -32,6 +32,7 @@ public class QSTileHostHooks {
     public static final String CLASS_CUSTOM_HOST = "com.android.systemui.tuner.QsTuner$CustomHost";
     public static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
     public static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
+    public static final String CLASS_TUNER_SERVICE = "com.android.systemui.tuner.TunerService";
     public static final String TILES_SETTING = "sysui_qs_tiles";
     public static final String TILE_SPEC_NAME = "tileSpec";
     public static final String KEY_QUICKQS_TILEVIEW = "QuickQS_TileView";
@@ -62,7 +63,7 @@ public class QSTileHostHooks {
             if (mTilesManager == null)
                 mTilesManager = new TilesManager(mTileHost);
 
-            Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
+            String newValue = (String) param.args[1];
 
             List<String> tileSpecs;
             try {
@@ -71,7 +72,7 @@ public class QSTileHostHooks {
                 Object tileSpecsWrapper = XposedHelpers.callMethod(param.thisObject, "loadTileSpecs");
                 tileSpecs = (List<String>) XposedHelpers.getObjectField(tileSpecsWrapper, "list");
             }
-            List<String> newTileSpecs = getTileSpecs(context);
+            List<String> newTileSpecs = loadTileSpecs(newValue);
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
             Map<String, Object> newTiles = new LinkedHashMap<>();
 
@@ -203,12 +204,18 @@ public class QSTileHostHooks {
 
             if (ConfigUtils.qs().enable_qs_editor) {
 
-                if (RomUtils.isCmBased()) {
-                    try {
-                        classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
-                        classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
-                    } catch (Throwable ignore) {
-                    }
+                try {
+                    classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
+                    classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
+                    final Class<?> classTunerService = XposedHelpers.findClass(CLASS_TUNER_SERVICE, classLoader);
+                    XposedBridge.hookAllConstructors(classTileHost, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            Object tunerService = XposedHelpers.callStaticMethod(classTunerService, "get", XposedHelpers.getObjectField(param.thisObject, "mContext"));
+                            XposedHelpers.callMethod(tunerService, "addTunable", param.thisObject, TILES_SETTING);
+                        }
+                    });
+                } catch (Throwable ignore) {
                 }
                 try {
                     classCustomHost = XposedHelpers.findClass(CLASS_CUSTOM_HOST, classLoader);
@@ -275,9 +282,13 @@ public class QSTileHostHooks {
 
     @SuppressLint("CommitPrefEdits")
     public static void saveTileSpecs(Context context, List<String> specs) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString("qs_tiles", new JSONArray(specs).toString());
-        editor.commit();
+        if (ConfigUtils.M) {
+            SettingsUtils.putStringForCurrentUser(context.getContentResolver(), TILES_SETTING, TextUtils.join(",", specs));
+        } else {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+            editor.putString("qs_tiles", new JSONArray(specs).toString());
+            editor.commit();
+        }
     }
 
     public static String getDefaultTilesPref() {
@@ -347,19 +358,14 @@ public class QSTileHostHooks {
         List<String> specs = getCurrentTileSpecs();
         specs.add(spec);
         saveTileSpecs(context, specs);
-        recreateTiles();
+        if (!ConfigUtils.M)
+            recreateTiles();
     }
 
     public static void recreateTiles() {
         try {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 XposedHelpers.callMethod(mTileHost, "recreateTiles");
-            } else {
-                try {
-                    XposedHelpers.callMethod(mTileHost, "onTuningChanged", TILES_SETTING, "");
-                } catch (Throwable t) { // Candy6
-                    XposedHelpers.callMethod(mTileHost, "recreateTiles");
-                }
             }
         } catch (Throwable t) {
             XposedBridge.log(t);
@@ -391,6 +397,17 @@ public class QSTileHostHooks {
             return false;
             // Not an applicable tile spec
         }
+    }
+
+    private static List<String> loadTileSpecs(String tileList) {
+        final ArrayList<String> tiles = new ArrayList<>();
+        for (String tile : tileList.split(",")) {
+            tile = tile.trim();
+            if (tile.isEmpty()) continue;
+            tiles.add(tile);
+        }
+        mTileSpecs = tiles;
+        return tiles;
     }
 
 }

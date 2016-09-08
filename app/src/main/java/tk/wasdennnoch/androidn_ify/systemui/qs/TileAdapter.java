@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
+import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -36,6 +38,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
     public static final String TAG = "TileAdapter";
     private final ItemTouchHelper mItemTouchHelper;
+    private final ListUpdateCallback mTileUpdateCallback = new TileUpdateCallback();
     private List<String> mTileSpecs = new ArrayList<>();
     protected ArrayList<Object> mRecords = new ArrayList<>();
     protected ArrayList<ViewGroup> mTileViews = new ArrayList<>();
@@ -336,22 +339,43 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     public void resetTiles() {
-        saveTiles(Arrays.asList("wifi", "cell", "battery", "dnd", "flashlight", "rotation", "bt", "airplane", "location"), true);
+        List<String> newSpces = new ArrayList<>();
+        newSpces.add("wifi");
+        newSpces.add("cell");
+        newSpces.add("battery");
+        newSpces.add("dnd");
+        newSpces.add("flashlight");
+        newSpces.add("rotation");
+        newSpces.add("bt");
+        newSpces.add("airplane");
+        newSpces.add("location");
+        saveTiles(newSpces, true);
     }
 
     private void saveTiles(List<String> tileSpecs, boolean update) {
         XposedHook.logD(TAG, "saveTiles called");
-        if (!QSTileHostHooks.mTileSpecs.equals(tileSpecs)) {
+        List<String> oldTiles = update ? getAddedTileSpecs() : QSTileHostHooks.mTileSpecs;
+        if (!oldTiles.equals(tileSpecs)) {
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
             if (update) {
-                mTileSpecs = tileSpecs;
                 QSTileHostHooks.mTileSpecs = tileSpecs;
-                // TODO find a good way to update editor grid with new specs list because I was too stupid and tired when I wrote this
-                notifyDataSetChanged();
+                calcDiff(tileSpecs).dispatchUpdatesTo(mTileUpdateCallback);
             }
             return;
         }
         XposedHook.logD(TAG, "saveTiles: No changes to save");
+    }
+
+    private DiffUtil.DiffResult calcDiff(List<String> specs) {
+        List<String> newSpecs = new ArrayList<>();
+        newSpecs.addAll(specs);
+        newSpecs.add(null);
+        for (String spec : mTileSpecs) {
+            if (spec == null) continue;
+            if (newSpecs.contains(spec)) continue;
+            newSpecs.add(spec);
+        }
+        return DiffUtil.calculateDiff(new TileSpecDiffCallback(mTileSpecs, newSpecs));
     }
 
     public List<String> getAddedTileSpecs() {
@@ -426,6 +450,63 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Error attaching ItemTouchCallback to RecyclerView", t);
             }
+        }
+    }
+
+    private class TileSpecDiffCallback extends DiffUtil.Callback {
+        private List<String> mOldSpecs;
+        private List<String> mNewSpecs;
+
+        public TileSpecDiffCallback(List<String> oldSpecs, List<String> newSpecs) {
+            mOldSpecs = oldSpecs;
+            mNewSpecs = newSpecs;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return mOldSpecs.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return mNewSpecs.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            Object oldItem = mOldSpecs.get(oldItemPosition);
+            Object newItem = mNewSpecs.get(newItemPosition);
+            if (oldItem == null || newItem == null)
+                return oldItem == newItem;
+            return oldItem.equals(newItem);
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return areItemsTheSame(oldItemPosition, newItemPosition);
+        }
+    }
+
+    private class TileUpdateCallback implements ListUpdateCallback {
+
+        @Override
+        public void onInserted(int position, int count) {
+            throw new RuntimeException();
+        }
+
+        @Override
+        public void onRemoved(int position, int count) {
+            throw new RuntimeException();
+        }
+
+        @Override
+        public void onMoved(int fromPosition, int toPosition) {
+            onItemMove(fromPosition, toPosition);
+        }
+
+        @Override
+        public void onChanged(int position, int count, Object payload) {
+            throw new RuntimeException();
         }
     }
 
