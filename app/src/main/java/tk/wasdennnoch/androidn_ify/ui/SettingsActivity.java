@@ -63,7 +63,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             getActionBar().setSubtitle(R.string.not_activated);
         } else if (!isPrefsFileReadable()) {
             TextView warning = (TextView) findViewById(R.id.prefs_not_readable_warning);
-            warning.setText(Html.fromHtml(getString(R.string.prefs_not_readable)));
             warning.setVisibility(View.VISIBLE);
             warning.setOnClickListener(this);
         }
@@ -90,7 +89,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     private void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setMessage(Html.fromHtml(getString(contentRes)));
+                .setMessage(Html.fromHtml(getString(contentRes))); //TODO fromHtml is deprecated, find an alternative
         if (titleRes > 0)
             builder.setTitle(titleRes);
         if (!onlyOk)

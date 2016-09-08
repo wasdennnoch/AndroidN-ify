@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Przetłumaczone przez @ziggynlp</string>
   <string name="about_version">Wersja %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Uwaga:</b> Plik ustawień nie może zostać odczytany przez Xposed. Kliknij aby uzyskać więcej informacji&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Uwaga:</b> Plik ustawień nie może zostać odczytany przez Xposed. Kliknij aby uzyskać więcej informacji&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed nie może uzyskać dostępu do pliku ustawień tego modułu, zostaną użyte domyślne ustawienia.
         Istnieje kilka możliwości aby rozwiązać ten problem. Miej na uwadze, że ten problem
@@ -139,49 +139,49 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teraz</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_minutes_shortest">
+  <plurals name="duration_minutes_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>m</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>m</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>m</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_hours_shortest">
+  <plurals name="duration_hours_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>g</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>g</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>g</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_days_shortest">
+  <plurals name="duration_days_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>d</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>d</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>d</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
-  <plurals name="duration_years_shortest">
+  <plurals name="duration_years_shortest" tools:ignore="MissingQuantity">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>l</item>
     <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>l</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>l</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_minutes_shortest_future">
+  <plurals name="duration_minutes_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>m</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_hours_shortest_future">
+  <plurals name="duration_hours_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>g</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_days_shortest_future">
+  <plurals name="duration_days_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>d</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
-  <plurals name="duration_years_shortest_future">
+  <plurals name="duration_years_shortest_future" tools:ignore="MissingQuantity">
     <item quantity="one">za <xliff:g example="2" id="count">%d</xliff:g>r</item>
     <item quantity="few">za <xliff:g example="2" id="count">%d</xliff:g>l</item>
     <item quantity="other">za <xliff:g example="2" id="count">%d</xliff:g>l</item>

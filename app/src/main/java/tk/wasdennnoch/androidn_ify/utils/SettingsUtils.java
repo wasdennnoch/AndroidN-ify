@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 
 import de.robv.android.xposed.XposedHelpers;
 
+@SuppressWarnings("SameParameterValue")
 public class SettingsUtils {
 
     private static final Method mPutStringForUser;
@@ -22,7 +23,7 @@ public class SettingsUtils {
         return putStringForUser(resolver, name, value, getCurrentUser());
     }
 
-    public static boolean putStringForUser(ContentResolver resolver, String name, String value, int userHandle) {
+    private static boolean putStringForUser(ContentResolver resolver, String name, String value, int userHandle) {
         try {
             return (boolean) mPutStringForUser.invoke(Settings.Secure.class, resolver, name, value, userHandle);
         } catch (Exception e) {
@@ -30,7 +31,7 @@ public class SettingsUtils {
         }
     }
 
-    public static int getCurrentUser() {
+    private static int getCurrentUser() {
         try {
             return (int) mGetCurrentUser.invoke(ActivityManager.class);
         } catch (Exception e) {

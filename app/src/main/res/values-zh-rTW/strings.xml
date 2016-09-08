@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">繁體中文翻譯 來自 ㄚ龍@阿榮中文化俱樂部</string>
   <string name="about_version">版本 %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>警告：</b> 您目前的設定檔無法被 Xposed 讀取。 點擊獲得更多資訊&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>警告：</b> 您目前的設定檔無法被 Xposed 讀取。 點擊獲得更多資訊&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         若您是第一次使用本軟體而出現這個錯誤的彈出式視窗，您可以忽略。
 		若本問題持續發生，表示 Xposed 無法讀取到您的設定檔，以下方式可以嘗試修復此問題：<br><br>
@@ -233,15 +233,15 @@
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> - 無線充電，還需<xliff:g id="time">%2$s</xliff:g></string>
   <string name="battery_info_status_unknown">未知電量</string>
-  <string name="battery_info_status_charging">充電中...</string>
+  <string name="battery_info_status_charging">充電中…</string>
   <string name="battery_info_status_charging_ac">正在透過 AC 變壓器 充電中..</string>
-  <string name="battery_info_status_charging_ac_short">以 AC 變壓器 充電中...</string>
-  <string name="battery_info_status_charging_usb">正在透過 USB 充電中...</string>
-  <string name="battery_info_status_charging_usb_short">以 USB 充電中...</string>
-  <string name="battery_info_status_charging_wireless">正在透過 AC 變壓器 充電中...</string>
-  <string name="battery_info_status_charging_wireless_short">以 無線模組 充電中...</string>
-  <string name="battery_info_status_discharging">尚未充電中...</string>
-  <string name="battery_info_status_not_charging">放電中...</string>
+  <string name="battery_info_status_charging_ac_short">以 AC 變壓器 充電中…</string>
+  <string name="battery_info_status_charging_usb">正在透過 USB 充電中…</string>
+  <string name="battery_info_status_charging_usb_short">以 USB 充電中…</string>
+  <string name="battery_info_status_charging_wireless">正在透過 AC 變壓器 充電中…</string>
+  <string name="battery_info_status_charging_wireless_short">以 無線模組 充電中…</string>
+  <string name="battery_info_status_discharging">尚未充電中…</string>
+  <string name="battery_info_status_not_charging">放電中…</string>
   <string name="battery_info_status_full">電量已滿</string>
   <string name="battery_panel_title">電量使用</string>
   <string name="battery_detail_charging_summary">充電中省電模式將無法作用</string>

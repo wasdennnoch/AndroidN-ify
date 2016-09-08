@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Traduzido por @tfaeusebio e @Kamin4ri</string>
   <string name="about_version">Versão %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Aviso:</b> O ficheiro de preferências não pode ser lido pelo Xposed. Clique para mais informações&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Aviso:</b> O ficheiro de preferências não pode ser lido pelo Xposed. Clique para mais informações&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         O Xposed não pode ler o ficheiro de preferências deste módulo. Os valores padrão serão usados.
         Há várias formas de resolver este problema. Note também que este erro aparece se está

@@ -64,7 +64,7 @@ public class TilesManager {
             case AndroidN_ifyTile.TILE_SPEC:
                 return ResourceUtils.getInstance(context).getDrawable(R.drawable.ic_stat_n);
             case BatteryTile.TILE_SPEC:
-                BatteryMeterDrawable batteryMeterDrawable = new BatteryMeterDrawable(context, new Handler(), context.getResources().getColor(
+                BatteryMeterDrawable batteryMeterDrawable = new BatteryMeterDrawable(context, new Handler(), context.getResources().getColor( //TODO getColor is deprecated, find a way to use ContextCompat.getColor instead
                         context.getResources().getIdentifier("batterymeter_frame_color", "color", XposedHook.PACKAGE_SYSTEMUI)));
                 batteryMeterDrawable.setLevel(100);
                 batteryMeterDrawable.onPowerSaveChanged(false);

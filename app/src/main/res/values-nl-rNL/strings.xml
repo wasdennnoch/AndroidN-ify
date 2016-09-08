@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Vertaald door @wardpieters, @dev_freak en @RobinHav</string>
   <string name="about_version">Versie %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Waarschuwing:</b> Het voorkeuren-bestand is niet leesbaar door Xposed. Klik voor meer info&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Waarschuwing:</b> Het voorkeuren-bestand is niet leesbaar door Xposed. Klik voor meer info&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed kan het voorkeuren-bestand van deze module niet lezen, standaard waarden worden gebruikt in hooks.
         Er zijn verschillende manieren om dit probleem op te lossen. Opgelet: deze fout veschijnt ook als je de app nog nooit hebt geopend.<br><br>

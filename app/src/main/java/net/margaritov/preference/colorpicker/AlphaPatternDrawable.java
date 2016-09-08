@@ -31,7 +31,7 @@ import android.graphics.drawable.Drawable;
  *
  * @author Daniel Nilsson
  */
-public class AlphaPatternDrawable extends Drawable {
+class AlphaPatternDrawable extends Drawable {
 
     private int mRectangleSize = 10;
 

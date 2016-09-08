@@ -9,7 +9,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">แปลโดย @paphonb</string>
   <string name="about_version">เวอร์ชั่น %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>คำเตือน:</b> Xposed ไม่สามารถอ่านการตั้งค่าได้ คลิกเพื่อดูรายละเอียด&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>คำเตือน:</b> Xposed ไม่สามารถอ่านการตั้งค่าได้ คลิกเพื่อดูรายละเอียด&#8230;]]></string>
   <string name="header_tweaks">ปรับแต่ง</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">แอพ</string>

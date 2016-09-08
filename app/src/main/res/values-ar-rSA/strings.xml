@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">ترجمه بواسطه madkita@xda</string>
   <string name="about_version">اصدار البرنامج %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>تحذير:</b> التفضيل ملف غير ممكن قراءتها بواسطة إكسبوسيد. انقر للحصول على مزيد من المعلومات ;8230#&]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>تحذير:</b> التفضيل ملف غير ممكن قراءتها بواسطة إكسبوسيد. انقر للحصول على مزيد من المعلومات ;8230#&]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
 خطا !! لا يستطيع اكسبوسد قراءه ملف الضبط اذا سيتم تطبيق الضبط الافتراضي
 هنالك عده طرق لحل هذه المشكله ايضا لاحظ أن هذا الخطا سيعرض اذا لم يتم فتح التطبيق من قبل<br><br>
@@ -56,11 +56,11 @@
   <!-- Battery settings summary: 58% - approx. 2h left -->
   <string name="battery_summary">%1$s تبقي %2$s تقريبا</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_wireless">%1$s-- جار الشحن لاسلكيا</string>
+  <string name="battery_charging_wireless">%1$s— جار الشحن لاسلكيا</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_usb">%1$s جار الشحن بواسطه USB</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s--جار الشحن</string>
+  <string name="battery_charging_ac">%1$s—جار الشحن</string>
   <string name="memory_summary">تم استخدام %1$s من %2$s من الذاكره العشوائيه</string>
   <string name="user_summary">تم تسجيل الدخول ك %1$s</string>
   <string name="location_on_power">يعمل/ وضع حفظ الطاقه</string>

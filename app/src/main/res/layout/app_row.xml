@@ -7,7 +7,8 @@
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:ignore="Overdraw">
 
     <ImageView
         android:id="@+id/appIcon"

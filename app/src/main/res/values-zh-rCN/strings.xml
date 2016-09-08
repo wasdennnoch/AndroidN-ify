@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">翻译 @haseoxth</string>
   <string name="about_version">版本 %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>警告：</b>首选项文件无法被 Xposed 读取。点击查看详细信息&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>警告：</b>首选项文件无法被 Xposed 读取。点击查看详细信息&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed 无法读取该模块的首选项文件，在钩取资源时将使用默认的值。
         有几种方法可以用来修复此问题。另外需注意这条错误信息仅当用户先前从未

@@ -8,4 +8,4 @@
     android:layout_width="56.0dip"
     android:layout_height="56.0dip"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:ignore="ContentDescription" />
+    tools:ignore="ContentDescription,Overdraw" />

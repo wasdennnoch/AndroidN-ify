@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">ترجمه فارسی توسط علی حسنی با کمک SirHydarnes</string>
   <string name="about_version">%1$s (%2$d) نسخه</string>
-  <string name="prefs_not_readable"><![CDATA[<b>هشدار</b>فایل تنظیمات توسط اکسپوزد قابل خواندن نیست. برای اطلاعات بیشتر کلیک کنید&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>هشدار</b>فایل تنظیمات توسط اکسپوزد قابل خواندن نیست. برای اطلاعات بیشتر کلیک کنید&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         اکسپوزد نمیتواند فایل های این ماژول را بخواند.
         راه های مختلفی برای برطرف کردن این مشکل وجود دارند. یکی از دلایل
