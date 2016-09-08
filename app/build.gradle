@@ -6,6 +6,7 @@ ext.buildName = System.getenv("BUILD_TAG") ?: "0.3.0"
 ext.buildTime = buildTime()
 ext.gitCommit = System.getenv("GIT_COMMIT") ?: "dev"
 
+ext.officialBuild = System.getenv("WDN_PC") ?: "false"
 ext.automatedBuild = System.getenv("AUTOMATED_BUILD") ?: "false"
 ext.enableUpdater = System.getenv("ENABLE_UPDATER") ?: "false"
 ext.updaterUrl = System.getenv("UPDATER_URL") ?: "null"
@@ -27,6 +28,7 @@ android {
         buildConfigField 'String', 'BUILD_TIME', "\"$buildTime\""
         buildConfigField 'String', 'GIT_COMMIT', "\"$gitCommit\""
 
+        buildConfigField 'boolean', 'OFFICIAL_BUILD', "$officialBuild"
         buildConfigField 'boolean', 'AUTOMATED_BUILD', "$automatedBuild"
         buildConfigField 'boolean', 'ENABLE_UPDATER', "$enableUpdater"
         buildConfigField 'String', 'UPDATER_URL', "\"$updaterUrl\""
@@ -37,6 +39,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            versionNameSuffix = "-debug"
         }
     }
     productFlavors {

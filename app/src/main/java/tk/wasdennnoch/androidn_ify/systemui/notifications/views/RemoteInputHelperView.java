@@ -35,7 +35,6 @@ import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
-@SuppressWarnings({"WeakerAccess", "SameReturnValue"})
 public class RemoteInputHelperView extends FrameLayout implements View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, TextWatcher, Animator.AnimatorListener {
 
     @SuppressWarnings({"PointlessBooleanExpression", "ConstantConditions"})

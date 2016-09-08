@@ -88,13 +88,15 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         RomUtils.init(sPrefs);
 
         logI(TAG, "Version " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
-        //noinspection ConstantConditions
-        if (BuildConfig.AUTOMATED_BUILD) {
+        //noinspection PointlessBooleanExpression
+        if (BuildConfig.OFFICIAL_BUILD) {
             logI(TAG, "Official Build; Release: " + !BuildConfig.DEBUG + " (" + BuildConfig.BUILD_TYPE + ")");
-        } else {
-            logI(TAG, "Remote Build; Version: " + BuildConfig.BUILD_NUMBER);
+        } else if (BuildConfig.AUTOMATED_BUILD){
+            logI(TAG, "Automated Build; Version: " + BuildConfig.BUILD_NUMBER);
             logI(TAG, "Build Time: " + BuildConfig.BUILD_TIME);
             logI(TAG, "Git SHA: " + BuildConfig.GIT_COMMIT);
+        } else {
+            logI(TAG, "3rd Party Build; Version: " + BuildConfig.BUILD_NUMBER);
         }
 
         logI(TAG, "ROM type: " + sPrefs.getString("rom", "undefined"));
