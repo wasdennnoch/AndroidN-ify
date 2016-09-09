@@ -345,5 +345,7 @@
     <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
     <string name="notification_spoof_api_version_title">Spoof API 24</string>
     <string name="notification_spoof_api_version">Spoof these apps into thinking they\'re running on API 24</string>
+    <string name="hide_tiles_on_lockscreen">Hide tiles on lockscreen</string>
+    <string name="done">Done</string>
 
 </resources>

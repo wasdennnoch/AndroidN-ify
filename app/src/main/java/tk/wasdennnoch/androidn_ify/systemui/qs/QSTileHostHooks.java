@@ -34,18 +34,23 @@ public class QSTileHostHooks {
     public static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
     public static final String CLASS_TUNER_SERVICE = "com.android.systemui.tuner.TunerService";
     public static final String TILES_SETTING = "sysui_qs_tiles";
+    public static final String TILES_SECURE = "sysui_qs_tiles_secure";
     public static final String TILE_SPEC_NAME = "tileSpec";
     public static final String KEY_QUICKQS_TILEVIEW = "QuickQS_TileView";
     public static final String KEY_EDIT_TILEVIEW = "Edit_TileView";
 
     private static TilesManager mTilesManager = null;
     public static List<String> mTileSpecs = null;
+    public static List<String> mSecureTiles = null;
 
     private static Class<?> classQSUtils;
     private static Class<?> classQSConstants;
     private static Class<?> classCustomHost;
 
     protected static Object mTileHost = null;
+    public static KeyguardMonitor mKeyguard;
+
+    private static boolean mIsCm;
 
     // MM
     private static final XC_MethodHook onTuningChangedHook = new XC_MethodHook(XC_MethodHook.PRIORITY_HIGHEST) {
@@ -58,12 +63,20 @@ public class QSTileHostHooks {
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
+            if (mKeyguard == null)
+                mKeyguard = new KeyguardMonitor((Context) XposedHelpers.getObjectField(param.thisObject, "mContext"), XposedHelpers.getObjectField(param.thisObject, "mKeyguard"));
+
+            String newValue = (String) param.args[1];
+
+            if (TILES_SECURE.equals(param.args[0])) {
+                mSecureTiles = loadSecureTiles(newValue);
+                mTilesManager.onSecureTilesChanged(mSecureTiles);
+                return;
+            }
             if (!TILES_SETTING.equals(param.args[0])) return;
 
             if (mTilesManager == null)
                 mTilesManager = new TilesManager(mTileHost);
-
-            String newValue = (String) param.args[1];
 
             List<String> tileSpecs;
             try {
@@ -187,7 +200,7 @@ public class QSTileHostHooks {
             if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
                 tile = mTilesManager.createTile(tileSpec).getTile();
             } else {
-                tile = XposedHelpers.callMethod(tileHost, "createTile", tileSpec);
+                tile = mTilesManager.createAospTile(tileHost, tileSpec).getTile();
             }
             if (tile == null) return null;
             XposedHelpers.setAdditionalInstanceField(tile, TILE_SPEC_NAME, tileSpec);
@@ -203,20 +216,23 @@ public class QSTileHostHooks {
             Class<?> classTileHost = XposedHelpers.findClass(CLASS_TILE_HOST, classLoader);
 
             if (ConfigUtils.qs().enable_qs_editor) {
-
+                mIsCm = false;
                 try {
                     classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
                     classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
-                    final Class<?> classTunerService = XposedHelpers.findClass(CLASS_TUNER_SERVICE, classLoader);
-                    XposedBridge.hookAllConstructors(classTileHost, new XC_MethodHook() {
-                        @Override
-                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                            Object tunerService = XposedHelpers.callStaticMethod(classTunerService, "get", XposedHelpers.getObjectField(param.thisObject, "mContext"));
-                            XposedHelpers.callMethod(tunerService, "addTunable", param.thisObject, TILES_SETTING);
-                        }
-                    });
+                    mIsCm = true;
                 } catch (Throwable ignore) {
                 }
+                final Class<?> classTunerService = XposedHelpers.findClass(CLASS_TUNER_SERVICE, classLoader);
+                XposedBridge.hookAllConstructors(classTileHost, new XC_MethodHook() {
+                    @Override
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        Object tunerService = XposedHelpers.callStaticMethod(classTunerService, "get", XposedHelpers.getObjectField(param.thisObject, "mContext"));
+                        if (mIsCm) // CM QSTileHost doesn't use Settings.Secure, so we need to add it.
+                            XposedHelpers.callMethod(tunerService, "addTunable", param.thisObject, TILES_SETTING);
+                        XposedHelpers.callMethod(tunerService, "addTunable", param.thisObject, TILES_SECURE);
+                    }
+                });
                 try {
                     classCustomHost = XposedHelpers.findClass(CLASS_CUSTOM_HOST, classLoader);
                 } catch (Throwable ignore) {
@@ -288,6 +304,13 @@ public class QSTileHostHooks {
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
             editor.putString("qs_tiles", new JSONArray(specs).toString());
             editor.commit();
+        }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    public static void saveSecureTileSpecs(Context context, List<String> specs) {
+        if (ConfigUtils.M) {
+            SettingsUtils.putStringForCurrentUser(context.getContentResolver(), TILES_SECURE, TextUtils.join(",", specs));
         }
     }
 
@@ -407,6 +430,18 @@ public class QSTileHostHooks {
             tiles.add(tile);
         }
         mTileSpecs = tiles;
+        return tiles;
+    }
+
+    private static List<String> loadSecureTiles(String secureTileList) {
+        final ArrayList<String> tiles = new ArrayList<>();
+        if (secureTileList == null) return tiles;
+        for (String tile : secureTileList.split(",")) {
+            tile = tile.trim();
+            if (tile.isEmpty()) continue;
+            tiles.add(tile);
+        }
+        mSecureTiles = tiles;
         return tiles;
     }
 

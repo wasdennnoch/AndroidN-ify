@@ -16,13 +16,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_TILEVIEW;
@@ -31,6 +31,9 @@ import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_T
 public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder> {
 
     protected static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
+    public static final int MODE_NORMAL = 0;
+    public static final int MODE_EDIT_SECURE = 1;
+
     public static final long MOVE_DURATION = 150;
     private static final long DRAG_LENGTH = 100;
     private static final float DRAG_SCALE = 1.2f;
@@ -39,6 +42,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     public static final String TAG = "TileAdapter";
     private final ItemTouchHelper mItemTouchHelper;
     private final ListUpdateCallback mTileUpdateCallback = new TileUpdateCallback();
+    private List<String> mSecureTiles = new ArrayList<>();
     private List<String> mTileSpecs = new ArrayList<>();
     protected ArrayList<Object> mRecords = new ArrayList<>();
     protected ArrayList<ViewGroup> mTileViews = new ArrayList<>();
@@ -47,6 +51,8 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     protected final int mCellWidth;
     private ResourceUtils mRes;
     public int mDividerIndex;
+
+    private int mMode = MODE_NORMAL;
 
     public TileAdapter.TileViewHolder mCurrentDrag;
 
@@ -62,7 +68,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
                 int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
-                if (viewHolder.getItemViewType() == 1) {
+                if (mMode == MODE_EDIT_SECURE || viewHolder.getItemViewType() == 1) {
                     dragFlags = 0;
                 }
                 return makeMovementFlags(dragFlags, 0);
@@ -121,6 +127,8 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
         setRecords(records);
         mTileSpecs = convertToSpecs();
+        if (ConfigUtils.M)
+            mSecureTiles.addAll(QSTileHostHooks.mSecureTiles);
 
         addDivider();
         addAvailableTiles();
@@ -132,7 +140,13 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         mRecords.clear();
         mTileSpecs.clear();
         mTileViews.clear();
+        mSecureTiles.clear();
         init(records, context);
+    }
+
+    public void setMode(int mode) {
+        mMode = mode;
+        notifyDataSetChanged();
     }
 
     private void addDivider() {
@@ -223,12 +237,13 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             if (tileView.getParent() != null)
                 ((ViewGroup) tileView.getParent()).removeView(tileView);
             holder.setTileView(tileView);
+            holder.setBackgroundColor(mMode == MODE_EDIT_SECURE && mSecureTiles.contains(mTileSpecs.get(position)) ? 0x30FFFFFF : 0);
         }
     }
 
     @Override
     public int getItemCount() {
-        return mTileViews.size();
+        return (mMode == MODE_EDIT_SECURE) ? mDividerIndex : mTileViews.size();
     }
 
     @Override
@@ -245,6 +260,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     public boolean onItemMove(int fromPosition, int toPosition) {
+        if (mMode == MODE_EDIT_SECURE) return false;
         if (fromPosition > mDividerIndex && toPosition > mDividerIndex)
             return false;
         if (fromPosition < mDividerIndex && mDividerIndex < 2)
@@ -327,14 +343,28 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            if (position < mDividerIndex)
-                removeTile(position);
-            else
-                addTile(position);
+            if (mMode == MODE_EDIT_SECURE) {
+                String spec = mTileSpecs.get(position);
+                if (mSecureTiles.contains(spec))
+                    mSecureTiles.remove(spec);
+                else
+                    mSecureTiles.add(spec);
+                notifyItemChanged(position);
+            } else {
+                if (position < mDividerIndex)
+                    removeTile(position);
+                else
+                    addTile(position);
+            }
+        }
+
+        public void setBackgroundColor(int color) {
+            mItemView.setBackgroundColor(color);
         }
     }
 
     public void saveChanges() {
+        saveSecureTiles();
         saveTiles(getAddedTileSpecs(), false);
     }
 
@@ -355,7 +385,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private void saveTiles(List<String> tileSpecs, boolean update) {
         XposedHook.logD(TAG, "saveTiles called");
         List<String> oldTiles = update ? getAddedTileSpecs() : QSTileHostHooks.mTileSpecs;
-        if (!oldTiles.equals(tileSpecs)) {
+        if (oldTiles == null || !oldTiles.equals(tileSpecs)) {
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
             if (update) {
                 QSTileHostHooks.mTileSpecs = tileSpecs;
@@ -364,6 +394,14 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             return;
         }
         XposedHook.logD(TAG, "saveTiles: No changes to save");
+    }
+
+    private void saveSecureTiles() {
+        XposedHook.logD(TAG, "saveSecureTiles called");
+        if (!QSTileHostHooks.mSecureTiles.equals(mSecureTiles)) {
+            QSTileHostHooks.saveSecureTileSpecs(mContext, mSecureTiles);
+        }
+        XposedHook.logD(TAG, "saveSecureTiles: No changes to save");
     }
 
     private DiffUtil.DiffResult calcDiff(List<String> specs) {

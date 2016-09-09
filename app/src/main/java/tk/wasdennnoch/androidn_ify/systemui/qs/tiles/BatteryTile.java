@@ -108,6 +108,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public void setListening(boolean listening) {
+        super.setListening(listening);
         mListening = listening;
         if (mListening) {
             refreshState();
