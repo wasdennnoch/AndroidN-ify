@@ -35,8 +35,8 @@
             android:orientation="horizontal"
             android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:visibility="gone" >
 
             <TextView
