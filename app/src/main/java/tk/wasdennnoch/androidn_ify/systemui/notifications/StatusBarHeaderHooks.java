@@ -599,6 +599,8 @@ public class StatusBarHeaderHooks {
                     }
                 }
                 mHeaderQsPanel.setTiles(mRecords);
+            } else if (cancelled) {
+                XposedHook.logD(TAG, "setTilesHook: afterHookedMethod not executing beause cancelled");
             }
             if (mUseDragPanel)
                 updatePageCount(param.thisObject);

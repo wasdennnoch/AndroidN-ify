@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -314,18 +316,15 @@ public class QSTileHostHooks {
         }
     }
 
-    public static String getDefaultTilesPref() {
+    private static String getDefaultTilesPref() {
         List<String> specs = new ArrayList<>();
-        specs.add("wifi");
-        specs.add("bt");
-        specs.add("cell");
-        specs.add("battery");
-        specs.add("flashlight");
-        specs.add("rotation");
-        specs.add("airplane");
-        specs.add("cast");
-        specs.add("location");
+        Collections.addAll(specs, getDefaultSpecs().split(","));
         return new JSONArray(specs).toString();
+    }
+
+    @NonNull
+    private static String getDefaultSpecs() {
+        return "wifi,bt,cell,battery,flashlight,rotation,airplane,cast,location";
     }
 
     @SuppressWarnings("unchecked")
@@ -424,6 +423,7 @@ public class QSTileHostHooks {
 
     private static List<String> loadTileSpecs(String tileList) {
         final ArrayList<String> tiles = new ArrayList<>();
+        if (tileList == null || tileList.isEmpty()) tileList = getDefaultSpecs();
         for (String tile : tileList.split(",")) {
             tile = tile.trim();
             if (tile.isEmpty()) continue;
