@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Traducido por @Raikem</string>
   <string name="about_version">Versión %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> Xposed no puede leer el archivo de preferencias. Pulsar para más información&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Warning:</b> Xposed no puede leer el archivo de preferencias. Pulsar para más información&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed no puede leer las preferencias de Android N-ify, se usarán los valores por defecto.
         Hay varias formas de arreglar este problema. Éste mensaje puede aparecer si no has abierto 
@@ -182,7 +182,7 @@
   <string name="update_notification">¡La versión %1$d esta disponible para descargar y actualizar!</string>
   <string name="update_notification_download">Actualizar</string>
   <string name="update_warning">El módulo ha sido actualizado</string>
-  <string name="update_warning_details">El sistema puede estar inestable y el reporte de Bugs sera ignorado hasta que reinicie el dispositivo</string>
+  <string name="update_warning_details">El sistema puede estar inestable y el reporte de Bugs será ignorado hasta que reinicie el dispositivo</string>
   <string name="check_for_updates_title">Buscar actualizaciones</string>
   <string name="check_for_updates">Buscar actualizaciones al iniciar la aplicación</string>
   <string name="checking_for_update">Buscando actualizaciones&#8230;</string>

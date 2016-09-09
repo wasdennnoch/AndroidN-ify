@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Preložil: @Ja_som</string>
   <string name="about_version">Verzia: %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Upozornenie:</b> Xposed nevie čítať súbor nastavení. Kliknite pre viac informácií&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Upozornenie:</b> Xposed nevie čítať súbor nastavení. Kliknite pre viac informácií&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed nevie čítať súbor nastavení tohto modulu, budú použité predvolené hodnoty.
         Je viac spôsobov ako vyriešiť tento problém. Táto chyba sa môže zobraziť aj v prípade, 

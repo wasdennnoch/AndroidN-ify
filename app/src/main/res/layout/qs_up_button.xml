@@ -9,4 +9,4 @@
     android:tint="#ffffffff"
     android:background="?android:attr/selectableItemBackground"
     android:src="?android:attr/homeAsUpIndicator"
-    tools:ignore="ContentDescription" />
+    tools:ignore="ContentDescription,Overdraw" />

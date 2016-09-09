@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Dịch bởi @xpduyson</string>
   <string name="about_version">Phiên bản %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Cảnh báo:</b> Xposed không thể đọc file cấu hình. Nhấn để thêm thông tin&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Cảnh báo:</b> Xposed không thể đọc file cấu hình. Nhấn để thêm thông tin&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[         Xposed không thể đọc file cấu hình của module này, sẽ nạp dữ liệu mặc định         Có nhiều cách để sửa lỗi này. Ngoài ra thông báo này có thể hiện ra nếu         bạn chưa từng mở app này bao giờ.<br><br>         Trước tiên, hãy khởi động lại (Không khởi động lại mềm!).<br>         Nếu không được, thử cài đặt lại module.<br>         Nếu vẫn không được, hãy đặt SELinux ở chế độ <i>không thực thi</i>.         <i>Thực thi</i> SELinux có thể cản trở việc đọc file cài đặt. Để có thể đặt lại,         sử dụng app <tt>SELinuxModeChanger</tt> tải về trên XDA tại         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">đây</a>.<br>         Nếu vẫn không được, bạn phải chấp nhận dùng giá trị cài đặt mặc định, rất tiếc :(         ]]></string>
   <string name="header_tweaks">Tinh chỉnh</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->

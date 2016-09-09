@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Çeviri @Can OKUMUŞ - @Mevlüt TOPÇU</string>
   <string name="about_version">Versiyon %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed Bu modülün tercih dosyasını okuyamıyor, varsayılan değerleri kullanılacaktır.
         Bu sorunu gidermek için çeşitli yollar vardır. Ayrıca, bu hata uygulamayı daha önce
@@ -65,7 +65,7 @@
   <string name="battery_charging_usb">%1$s - USB Şarj</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_ac">%1$s - Şarj Oluyor</string>
-  <string name="memory_summary">Ortalama bellek kullanımı %1$s</string>
+  <string name="memory_summary">Currently %1$s of %2$s memory used</string>
   <string name="user_summary">%1$s olarak giriş yapıldı</string>
   <string name="location_on_power">AÇIK / Pil tasarrufu</string>
   <string name="location_on_device">AÇIK / Yalnızca cihaz</string>

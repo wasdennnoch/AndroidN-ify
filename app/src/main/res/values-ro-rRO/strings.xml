@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Tradusă de @IonutGherman și @Kamin4ri</string>
   <string name="about_version">Versiunea %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Atenție:</b> Fișierul de preferință nu este citit de către Xposed. Dați clic pentru mai multe informații&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Atenție:</b> Fișierul de preferință nu este citit de către Xposed. Dați clic pentru mai multe informații&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed nu poate citi fișierul de preferință al acestui modul, valorile prestabilite vor fi folosite.
         Există câteva metode de a rezolva această problemă. Totodată această eroare va apărea dacă nu ați deschis aplicația niciodată.<br><br>

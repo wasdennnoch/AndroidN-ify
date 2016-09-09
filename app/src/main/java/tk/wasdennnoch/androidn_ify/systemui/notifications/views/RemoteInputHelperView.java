@@ -154,7 +154,7 @@ public class RemoteInputHelperView extends FrameLayout implements View.OnClickLi
         }
     }
 
-    public void setWindowManagerFocus(boolean focus) {
+    private void setWindowManagerFocus(boolean focus) {
         NotificationHooks.remoteInputActive = focus;
         if (NotificationHooks.statusBarWindowManager != null)
             callMethod(NotificationHooks.statusBarWindowManager, "apply", getObjectField(NotificationHooks.statusBarWindowManager, "mCurrentState"));

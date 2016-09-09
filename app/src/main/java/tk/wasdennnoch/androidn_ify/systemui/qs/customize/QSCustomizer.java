@@ -59,6 +59,7 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
  * This adds itself to the status bar window, so it can appear on top of quick settings and
  * *someday* do fancy animations to get into/out of it.
  */
+@SuppressWarnings("SameParameterValue")
 public class QSCustomizer extends LinearLayout implements OnMenuItemClickListener {
 
     private static final int MENU_ADD_BROADCAST_TILE = 1;
@@ -200,14 +201,14 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         hide(mLastX, mLastY);
     }
 
-    public void hide(int x, int y) {
+    private void hide(int x, int y) {
         if (isShown) {
             saveAndHide();
             mClipper.animateCircularClip(x, y, false, mCollapseAnimationListener);
         }
     }
 
-    public void saveAndHide() {
+    private void saveAndHide() {
         isShown = false;
         mToolbar.dismissPopupMenus();
         setCustomizing(false);

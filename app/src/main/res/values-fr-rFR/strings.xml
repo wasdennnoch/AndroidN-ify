@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Traduit par cab13140, dekefake, prisciou, Toumz42 et Riichard63, Atok_fr</string>
   <string name="about_version">Version %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Attention:</b> Le fichier de préférences n\'est pas lisible par Xposed. Appuyez pour plus d\'info&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Attention:</b> Le fichier de préférences n\'est pas lisible par Xposed. Appuyez pour plus d\'info&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed ne peut pas lire le fichier de préférences de ce module, Les valeurs par défaut seront utilisées.
         Il existe plusieurs méthodes pour corriger ce problème. Veuillez noter que cette erreur s\'affiche si vous n\'avez jamais ouvert l\'application avant.<br><br>

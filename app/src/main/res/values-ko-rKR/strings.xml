@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">\@CNBLACK 이(가) 번역하였습니다</string>
   <string name="about_version">버전 %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>경고:</b> Xposed에서 설정 파일을 읽어들일 수 없습니다. 자세한 정보를 확인하려면 여기를 누르세요&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>경고:</b> Xposed에서 설정 파일을 읽어들일 수 없습니다. 자세한 정보를 확인하려면 여기를 누르세요&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed가 모듈로부터 설정 파일을 읽어들일 수 없기 때문에, 기본 설정값을 사용합니다.
         여기에 이 문제를 고치는 몇가지 방법을 적어 두었습니다. 또한 사용자가 전에 이 앱을 열지 않았을 때 이 오류가 발생하면

@@ -10,7 +10,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Fordító: @ABS96</string>
   <string name="about_version">Verzió: %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Figyelem:</b> Az Xposed nem fér hozzá a beállításokat tartalmazó fájlhoz. Koppints ide további információért&#8230;]]></string>
+  <string name="prefs_not_readable" tools:ignore="UnusedResources"><![CDATA[<b>Figyelem:</b> Az Xposed nem fér hozzá a beállításokat tartalmazó fájlhoz. Koppints ide további információért&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
         Az Xposed nem tudja olvasni a modul beállításait tartalmazó fájlt, így a hook-okban az alapértelmezett
         beállításokat fogja használni.
