@@ -135,11 +135,14 @@
   <string name="update_notification_download_fail">다운로드 실패</string>
   <string name="update_notification_download_fail_details">버전 %1$d을(를) 다운로드 할 수 없습니다</string>
   <string name="emergency_info_launch_hint">한번 더 터치하면 열립니다</string>
+  <!-- Example: Mobile • 333-444-5566 -->
+  <!-- Example: 3 feb 1987 -->
+  <!-- Example: Age: 23 -->
   <string name="yes">예</string>
   <string name="no">아니오</string>
   <string name="battery">배터리</string>
-  <string name="charged" tools:ignore="UnusedResources">충전 됨</string>
-  <string name="charging" tools:ignore="UnusedResources">충전 중, %1$s</string>
+  <string name="charged">충전 됨</string>
+  <string name="charging">충전 중, %1$s</string>
   <string name="qs_edit">수정</string>
   <string name="drag_to_add_tiles">타일을 추가하려면 드래그 하세요</string>
   <string name="drag_to_remove_tiles">제거하려면 여기로 드래그 하세요</string>
@@ -149,9 +152,21 @@
   <string name="live_display_day">주간</string>
   <string name="live_display_night">야간</string>
   <string name="live_display_outdoor">자동 야외 모드</string>
-  <!-- Short description when charging on AC. For example: 12% - 2h -->
-  <!-- Short description when charging on USB. For example: 12% - 2h -->
-  <!-- Short description when charging wirelessly. For example: 12% - 2h -->
+  <!-- Example: 3 hours ago -->
+  <!-- Example: 3 hours left -->
+  <!-- Example: Approx. 3 hours left -->
+  <!-- Example: 3h left -->
+  <!-- Example: 75% - approx. 3 hours left -->
+  <!-- Example: 75% - 3h left -->
+  <!-- Example: 75% - Charging -->
+  <!-- Example: 75% - 3 hours until full -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full on AC -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full over USB -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full from wireless -->
+  <!-- Example: 75% - 3h -->
   <!-- Add a custom tile -->
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->

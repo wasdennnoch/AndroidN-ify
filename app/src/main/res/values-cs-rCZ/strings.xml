@@ -136,11 +136,14 @@
   <string name="update_notification_downloading_details">Stahování sestavení %1$d</string>
   <string name="update_notification_download_fail">Stahování selhalo</string>
   <string name="update_notification_download_fail_details">Chyba při stahování sestavení %1$d</string>
+  <!-- Example: Mobile • 333-444-5566 -->
+  <!-- Example: 3 feb 1987 -->
+  <!-- Example: Age: 23 -->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="battery">Baterie</string>
-  <string name="charged" tools:ignore="UnusedResources">Nabito</string>
-  <string name="charging" tools:ignore="UnusedResources">Nabíjení, %1$s</string>
+  <string name="charged">Nabito</string>
+  <string name="charging">Nabíjení, %1$s</string>
   <string name="qs_edit">Upravit</string>
   <string name="drag_to_add_tiles">Přetáhněte pro přidání dlaždic</string>
   <string name="drag_to_remove_tiles">Přetáhněte sem pro odstranění</string>
@@ -149,9 +152,21 @@
   <string name="live_display_day">Den</string>
   <string name="live_display_night">Noc</string>
   <string name="live_display_outdoor">Venku (jasné sluneční světlo)</string>
-  <!-- Short description when charging on AC. For example: 12% - 2h -->
-  <!-- Short description when charging on USB. For example: 12% - 2h -->
-  <!-- Short description when charging wirelessly. For example: 12% - 2h -->
+  <!-- Example: 3 hours ago -->
+  <!-- Example: 3 hours left -->
+  <!-- Example: Approx. 3 hours left -->
+  <!-- Example: 3h left -->
+  <!-- Example: 75% - approx. 3 hours left -->
+  <!-- Example: 75% - 3h left -->
+  <!-- Example: 75% - Charging -->
+  <!-- Example: 75% - 3 hours until full -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full on AC -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full over USB -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full from wireless -->
+  <!-- Example: 75% - 3h -->
   <!-- Add a custom tile -->
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->

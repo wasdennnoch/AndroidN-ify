@@ -157,11 +157,14 @@
   <string name="update_notification_download_fail">Преузимање није успело</string>
   <string name="update_notification_download_fail_details">Неуспех преузимања издања %1$d</string>
   <string name="emergency_info_launch_hint">Тапните поново да отворите</string>
+  <!-- Example: Mobile • 333-444-5566 -->
+  <!-- Example: 3 feb 1987 -->
+  <!-- Example: Age: 23 -->
   <string name="yes">Да</string>
   <string name="no">Не</string>
   <string name="battery">Батерија</string>
-  <string name="charged" tools:ignore="UnusedResources">Напуњена</string>
-  <string name="charging" tools:ignore="UnusedResources">Пуњење, %1$s</string>
+  <string name="charged">Напуњена</string>
+  <string name="charging">Пуњење, %1$s</string>
   <string name="qs_edit">Уреди</string>
   <string name="drag_to_add_tiles">Превуците да додате плочице</string>
   <string name="drag_to_remove_tiles">Превуците овде да уклоните</string>
@@ -170,9 +173,21 @@
   <string name="live_display_day">Дан</string>
   <string name="live_display_night">Ноћ</string>
   <string name="live_display_outdoor">Вани (јарко сунце)</string>
-  <!-- Short description when charging on AC. For example: 12% - 2h -->
-  <!-- Short description when charging on USB. For example: 12% - 2h -->
-  <!-- Short description when charging wirelessly. For example: 12% - 2h -->
+  <!-- Example: 3 hours ago -->
+  <!-- Example: 3 hours left -->
+  <!-- Example: Approx. 3 hours left -->
+  <!-- Example: 3h left -->
+  <!-- Example: 75% - approx. 3 hours left -->
+  <!-- Example: 75% - 3h left -->
+  <!-- Example: 75% - Charging -->
+  <!-- Example: 75% - 3 hours until full -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full on AC -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full over USB -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full from wireless -->
+  <!-- Example: 75% - 3h -->
   <!-- Add a custom tile -->
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->

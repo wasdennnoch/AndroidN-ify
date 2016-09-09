@@ -153,11 +153,14 @@
   <string name="update_notification_download_fail">A letöltés nem sikerült</string>
   <string name="update_notification_download_fail_details">Nem lehetett letölteni a %1$d. számú buildet</string>
   <string name="emergency_info_launch_hint">Koppints újra a megnyitáshoz</string>
+  <!-- Example: Mobile • 333-444-5566 -->
+  <!-- Example: 3 feb 1987 -->
+  <!-- Example: Age: 23 -->
   <string name="yes">Igen</string>
   <string name="no">Nem</string>
   <string name="battery">Akkumulátor</string>
-  <string name="charged" tools:ignore="UnusedResources">Feltöltve</string>
-  <string name="charging" tools:ignore="UnusedResources">Töltődik, %1$s</string>
+  <string name="charged">Feltöltve</string>
+  <string name="charging">Töltődik, %1$s</string>
   <string name="qs_edit">Szerkesztés</string>
   <string name="drag_to_add_tiles">Húzd csempék hozzáadásához</string>
   <string name="drag_to_remove_tiles">Húzd ide a törléshez</string>
@@ -166,9 +169,21 @@
   <string name="live_display_day">Nappal</string>
   <string name="live_display_night">Éjszaka</string>
   <string name="live_display_outdoor">Kültér (erős napfény)</string>
-  <!-- Short description when charging on AC. For example: 12% - 2h -->
-  <!-- Short description when charging on USB. For example: 12% - 2h -->
-  <!-- Short description when charging wirelessly. For example: 12% - 2h -->
+  <!-- Example: 3 hours ago -->
+  <!-- Example: 3 hours left -->
+  <!-- Example: Approx. 3 hours left -->
+  <!-- Example: 3h left -->
+  <!-- Example: 75% - approx. 3 hours left -->
+  <!-- Example: 75% - 3h left -->
+  <!-- Example: 75% - Charging -->
+  <!-- Example: 75% - 3 hours until full -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full on AC -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full over USB -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full from wireless -->
+  <!-- Example: 75% - 3h -->
   <!-- Add a custom tile -->
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->

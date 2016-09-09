@@ -157,6 +157,9 @@
   <string name="update_notification_download_fail">خطا دانلود</string>
   <string name="update_notification_download_fail_details">نسخه %1$d</string>
   <string name="emergency_info_launch_hint">دوباره کلیک کنید تا باز شود</string>
+  <!-- Example: Mobile • 333-444-5566 -->
+  <!-- Example: 3 feb 1987 -->
+  <!-- Example: Age: 23 -->
   <string name="info_bloodtype_op">O مثبت</string>
   <string name="info_bloodtype_on">O منفی</string>
   <string name="info_bloodtype_ap">A مثبت</string>
@@ -168,8 +171,8 @@
   <string name="yes">بله</string>
   <string name="no">خیر</string>
   <string name="battery">باتری</string>
-  <string name="charged" tools:ignore="UnusedResources">شارژ شده</string>
-  <string name="charging" tools:ignore="UnusedResources">%1$s در حال شارژ</string>
+  <string name="charged">شارژ شده</string>
+  <string name="charging">%1$s در حال شارژ</string>
   <string name="qs_edit">ویرایش</string>
   <string name="drag_to_add_tiles">برای افزودن نگه دارید</string>
   <string name="drag_to_remove_tiles">برای حذف کردن به اینجا منتقل کنید</string>
@@ -179,9 +182,21 @@
   <string name="live_display_day">روز</string>
   <string name="live_display_night">شب</string>
   <string name="live_display_outdoor">آفتابی</string>
-  <!-- Short description when charging on AC. For example: 12% - 2h -->
-  <!-- Short description when charging on USB. For example: 12% - 2h -->
-  <!-- Short description when charging wirelessly. For example: 12% - 2h -->
+  <!-- Example: 3 hours ago -->
+  <!-- Example: 3 hours left -->
+  <!-- Example: Approx. 3 hours left -->
+  <!-- Example: 3h left -->
+  <!-- Example: 75% - approx. 3 hours left -->
+  <!-- Example: 75% - 3h left -->
+  <!-- Example: 75% - Charging -->
+  <!-- Example: 75% - 3 hours until full -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full on AC -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full over USB -->
+  <!-- Example: 75% - 3h -->
+  <!-- Example: 75% - 3 hours until full from wireless -->
+  <!-- Example: 75% - 3h -->
   <!-- Add a custom tile -->
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
