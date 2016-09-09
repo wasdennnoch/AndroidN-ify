@@ -49,6 +49,7 @@ import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgorithmHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
 import tk.wasdennnoch.androidn_ify.systemui.qs.PageIndicator;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
@@ -973,8 +974,25 @@ public class StatusBarHeaderHooks {
         mQsPanel.setLayoutParams(qsPanelLp);
     }
 
+    private static KeyguardMonitor.Callback mKeyguardCallback = new KeyguardMonitor.Callback() {
+        @Override
+        public void onKeyguardChanged() {
+            postSetupAnimatorsImpl();
+            QSTileHostHooks.mKeyguard.removeCallback(this);
+        }
+    };
+
     public static void postSetupAnimators() {
         XposedHook.logD(TAG, "postSetupAnimators called");
+        KeyguardMonitor keyguardMonitor = QSTileHostHooks.mKeyguard;
+        if (keyguardMonitor == null || !keyguardMonitor.isShowing())
+            postSetupAnimatorsImpl();
+        else
+            keyguardMonitor.addCallback(mKeyguardCallback);
+    }
+
+    public static void postSetupAnimatorsImpl() {
+        XposedHook.logD(TAG, "postSetupAnimatorsImpl called");
         // Wait until the layout is set up
         // It already works after 2 frames on my device, but just to be sure use 3
         mQsPanel.post(new Runnable() {

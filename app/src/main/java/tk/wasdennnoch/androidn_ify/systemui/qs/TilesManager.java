@@ -17,7 +17,9 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.BatteryMeterDrawable;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.AOSPTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.AndroidN_ifyTile;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BaseTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.LiveDisplayTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
@@ -34,8 +36,9 @@ public class TilesManager {
     private final Context mContext;
 
     public static final List<String> mCustomTileSpecs = new ArrayList<>();
-    private final Map<String, QSTile> mTiles = new HashMap<>();
+    private final Map<String, BaseTile> mTiles = new HashMap<>();
     private String mCreateTileViewTileKey;
+    private List<String> mSecureTiles;
     public boolean useVolumeTile = false;
 
     static {
@@ -44,6 +47,7 @@ public class TilesManager {
         if (RomUtils.isCm() && ConfigUtils.M)
             mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
     }
+
 
     public static int getLabelResource(String spec) throws Exception {
         if (!mCustomTileSpecs.contains(spec))
@@ -59,6 +63,7 @@ public class TilesManager {
         return 0;
     }
 
+    @SuppressWarnings("deprecation")
     public static Drawable getIcon(Context context, String spec) throws Exception {
         switch (spec) {
             case AndroidN_ifyTile.TILE_SPEC:
@@ -85,7 +90,7 @@ public class TilesManager {
         return mCustomTileSpecs;
     }
 
-    public QSTile createTile(String key) {
+    public QSTile createTileInternal(String key) {
         switch (key) {
             case AndroidN_ifyTile.TILE_SPEC:
                 return new AndroidN_ifyTile(this, mQSTileHost, key);
@@ -97,7 +102,19 @@ public class TilesManager {
         return new QSTile(this, mQSTileHost, key);
     }
 
-    public synchronized void registerTile(QSTile tile) {
+    public BaseTile createTile(String key) {
+        BaseTile tile = createTileInternal(key);
+        tile.setSecure(mSecureTiles != null && mSecureTiles.contains(key));
+        return tile;
+    }
+
+    public AOSPTile createAospTile(Object tileHost, String tileSpec) {
+        AOSPTile tile = new AOSPTile(this, tileHost, tileSpec);
+        tile.setSecure(mSecureTiles != null && mSecureTiles.contains(tileSpec));
+        return tile;
+    }
+
+    public synchronized void registerTile(BaseTile tile) {
         if (tile == null)
             return;
 
@@ -106,7 +123,7 @@ public class TilesManager {
             mTiles.put(key, tile);
     }
 
-    public synchronized void unregisterTile(QSTile tile) {
+    public synchronized void unregisterTile(BaseTile tile) {
         if (tile == null)
             return;
 
@@ -138,7 +155,7 @@ public class TilesManager {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null) {
                                 tile.handleUpdateState(param.args[0], param.args[1]);
                                 param.setResult(null);
@@ -156,7 +173,7 @@ public class TilesManager {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                             if (mCreateTileViewTileKey == null) return;
-                            final QSTile tile = mTiles.get(mCreateTileViewTileKey);
+                            final BaseTile tile = mTiles.get(mCreateTileViewTileKey);
                             if (tile != null)
                                 tile.onCreateTileView((View) param.getResult());
                             mCreateTileViewTileKey = null;
@@ -168,7 +185,7 @@ public class TilesManager {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                             if (mCreateTileViewTileKey == null) return;
-                            final QSTile tile = mTiles.get(mCreateTileViewTileKey);
+                            final BaseTile tile = mTiles.get(mCreateTileViewTileKey);
                             if (tile != null) {
                                 View icon = tile.onCreateIcon();
                                 if (icon != null)
@@ -182,7 +199,7 @@ public class TilesManager {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null)
                                 tile.handleDestroy();
                         }
@@ -193,7 +210,7 @@ public class TilesManager {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null)
                                 param.setResult(tile.getDetailAdapter());
                         }
@@ -215,7 +232,7 @@ public class TilesManager {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null) {
                                 tile.handleClick();
                                 param.setResult(null);
@@ -233,7 +250,7 @@ public class TilesManager {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null) {
                                 tile.handleLongClick();
                                 param.setResult(null);
@@ -246,7 +263,7 @@ public class TilesManager {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null) {
                                 tile.setListening((boolean) param.args[0]);
                                 param.setResult(null);
@@ -259,9 +276,9 @@ public class TilesManager {
                         @SuppressWarnings("SuspiciousMethodCalls")
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            final QSTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
-                            if (tile != null) {
-                                param.setResult(tile.getResourceIconDrawable());
+                            final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                            if (tile != null && tile instanceof QSTile) {
+                                param.setResult(((QSTile) tile).getResourceIconDrawable());
                             }
                         }
                     });
@@ -279,6 +296,16 @@ public class TilesManager {
 
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);
+        }
+    }
+
+    public void onSecureTilesChanged(List<String> secureTiles) {
+        mSecureTiles = secureTiles;
+        for (Map.Entry entry : mTiles.entrySet()) {
+            BaseTile tile = (BaseTile) entry.getValue();
+            if (tile != null) {
+                tile.setSecure(mSecureTiles.contains(tile.getKey()));
+            }
         }
     }
 }

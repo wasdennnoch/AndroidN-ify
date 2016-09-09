@@ -1,10 +1,8 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs.tiles;
 
 import android.annotation.CallSuper;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -12,41 +10,31 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class QSTile {
+public class QSTile extends BaseTile {
 
     private static final String TAG = "QSTile";
     private static Class<?> resourceIconClass;
-    private TilesManager mTilesManager;
-    private Object mHost;
-    private Object mTile;
-    private final String mKey;
-    protected Context mContext;
     protected final ResourceUtils mResUtils;
     protected final State mState;
 
-    public static final String TILE_KEY_NAME = "customTileKey";
     public static final String DUMMY_INTENT = "intent(dummy)";
     public static final String CLASS_INTENT_TILE = "com.android.systemui.qs.tiles.IntentTile";
     public static final String CLASS_VOLUME_TILE = "com.android.systemui.qs.tiles.VolumeTile"; // Used on CM12.1 where IntentTile doesn't exist
     public static final String CLASS_VISUALIZER_TILE = "com.android.systemui.qs.tiles.VisualizerTile"; // To fix a SystemUI crash caused by it
-    public static final String CLASS_TILE_STATE = "com.android.systemui.qs.QSTile.State";
     public static final String CLASS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     public static final String CLASS_QS_TILE = "com.android.systemui.qs.QSTile";
     public static final String CLASS_RESOURCE_ICON = CLASS_QS_TILE + ".ResourceIcon";
 
     public QSTile(TilesManager tilesManager, Object host, String key) {
-        mTilesManager = tilesManager;
-        mHost = host;
-        mKey = key;
+        super(tilesManager, host, key);
+
         mState = new State(mKey);
-        mContext = (Context) XposedHelpers.callMethod(mHost, "getContext");
         mResUtils = ResourceUtils.getInstance(mContext);
         if (!tilesManager.useVolumeTile)
             mTile = XposedHelpers.callStaticMethod(XposedHelpers.findClass(CLASS_INTENT_TILE, mContext.getClassLoader()), "create", mHost, DUMMY_INTENT);
         else
             mTile = XposedHelpers.newInstance(XposedHelpers.findClass(CLASS_VOLUME_TILE, mContext.getClassLoader()), mHost);
         XposedHelpers.setAdditionalInstanceField(mTile, TILE_KEY_NAME, mKey);
-        mTilesManager.registerTile(this);
         if (resourceIconClass == null)
             resourceIconClass = getResourceIconClass(mContext.getClassLoader());
     }
@@ -60,34 +48,10 @@ public class QSTile {
         }
     }
 
-    public Object getTile() {
-        return mTile;
-    }
-
-    public String getKey() {
-        return mKey;
-    }
-
     @CallSuper
     public void handleUpdateState(Object state, Object arg) {
-        mState.visible = true;
+        mState.visible = !mSecure || !mKeyguard.isShowing() || !mKeyguard.isSecure();
         mState.apply(state);
-    }
-
-    public void onCreateTileView(View tileView) {
-        XposedHelpers.setAdditionalInstanceField(tileView, TILE_KEY_NAME, mKey);
-    }
-
-    public View onCreateIcon() {
-        return null;
-    }
-
-    public void refreshState() {
-        try {
-            XposedHelpers.callMethod(mTile, "refreshState");
-        } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error refreshing tile state: ", t);
-        }
     }
 
     public void startActivityDismissingKeyguard(String action) {
@@ -110,30 +74,8 @@ public class QSTile {
         XposedHelpers.callMethod(mTile, "showDetail", show);
     }
 
-    public void handleClick() {
-    }
-
-    public void handleLongClick() {
-    }
-
-    public void setListening(boolean listening) {
-    }
-
-    @CallSuper
-    public void handleDestroy() {
-        mTilesManager.unregisterTile(this);
-        mTilesManager = null;
-        mTile = null;
-        mHost = null;
-        mContext = null;
-    }
-
     public Drawable getResourceIconDrawable() {
         return mState.icon;
-    }
-
-    public Object getDetailAdapter() {
-        return null;
     }
 
     public static class State {

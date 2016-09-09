@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSDetailClipper;
@@ -59,10 +60,11 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
  * This adds itself to the status bar window, so it can appear on top of quick settings and
  * *someday* do fancy animations to get into/out of it.
  */
-public class QSCustomizer extends LinearLayout implements OnMenuItemClickListener {
+public class QSCustomizer extends LinearLayout implements OnMenuItemClickListener, View.OnClickListener {
 
     private static final int MENU_ADD_BROADCAST_TILE = 1;
     private static final int MENU_RESET = 2;
+    private static final int MENU_SECURE_TILES = 3;
     private final Context mContext;
     private final Context mOwnContext;
     private final QSDetailClipper mClipper;
@@ -74,6 +76,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private final RecyclerView mRecyclerView;
     private final TileAdapter mTileAdapter;
     private final Toolbar mToolbar;
+    private final View mDoneButton;
     private boolean mCustomizing;
     private boolean mTileAdapterIsInvalid = true;
 
@@ -130,8 +133,12 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         menu.add(Menu.NONE, MENU_RESET, 0, res.getString(R.string.reset_tiles));
         if (ConfigUtils.M) {
             menu.add(Menu.NONE, MENU_ADD_BROADCAST_TILE, 1, res.getString(R.string.add_custom_tile));
+            menu.add(Menu.NONE, MENU_SECURE_TILES, 1, res.getString(R.string.hide_tiles_on_lockscreen));
         }
         mToolbar.setTitle(R.string.qs_edit);
+
+        mDoneButton = findViewById(R.id.done_button);
+        mDoneButton.setOnClickListener(this);
 
         mRecyclerView = (RecyclerView) findViewById(android.R.id.list);
         setBottomMargin(mNavigationBarSize);
@@ -178,6 +185,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             mTileAdapterIsInvalid = false;
             mTileAdapter.reInit(records, mContext);
         }
+
+        setEditingSecure(false);
 
         if (!isShown) {
             isShown = true;
@@ -233,6 +242,9 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
                 break;
             case MENU_ADD_BROADCAST_TILE:
                 showAddBroadcastTile();
+                break;
+            case MENU_SECURE_TILES:
+                setEditingSecure(true);
                 break;
         }
         return false;
@@ -344,5 +356,38 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             setBottomMargin(0);
             findViewById(R.id.nav_bar_background).setVisibility(GONE);
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        setEditingSecure(false);
+    }
+
+    private void setEditingSecure(boolean editingSecure) {
+        mTileAdapter.setMode(editingSecure ? TileAdapter.MODE_EDIT_SECURE : TileAdapter.MODE_NORMAL);
+        transition(mToolbar, !editingSecure);
+        transition(mDoneButton, editingSecure);
+    }
+
+    private static void transition(final View v, final boolean in) {
+        if (v.getVisibility() == (in ? VISIBLE : INVISIBLE)) return;
+        if (in) {
+            v.bringToFront();
+            v.setVisibility(View.VISIBLE);
+        }
+        if (v.hasOverlappingRendering()) {
+            v.animate().withLayer();
+        }
+        v.animate()
+                .alpha(in ? 1 : 0)
+                .withEndAction(new SafeRunnable() {
+                    @Override
+                    public void runSafe() {
+                        if (!in) {
+                            v.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                })
+                .start();
     }
 }
