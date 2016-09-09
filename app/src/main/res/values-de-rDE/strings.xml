@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
   <string name="debug_log_title">Debug-Log</string>
   <string name="debug_log">Warnung: Log-flutend</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Benötigt Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Benötigt Android %1$s</string>
   <string name="not_activated">Modul nicht aktiviert</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Hauptfarbe</string>
@@ -300,7 +299,9 @@
   <!-- Add a custom tile -->
   <string name="add">Hinzufügen</string>
   <string name="add_custom_tile">Broadcast-Kachel hinzufügen</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Kachel-Name darf nicht leer sein</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Farbwähler</string>
   <string name="press_color_to_apply">Auf Farbe drücken, um diese anzuwenden</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->

@@ -4,6 +4,7 @@
   <string name="xposed_description">ใช้ฟีเจอร์จาก Android N ใน Lollipop และ Marshmallow!</string>
   <string name="restart_systemui">รีสตาร์ท SystemUI</string>
   <string name="restart_systemui_message">ต้องการที่จะรีสตาร์ท SystemUI หรือไม่?</string>
+  <string name="restart_broadcast_sent">เริ่มส่งออกอากาศ</string>
   <string name="activity_about">เกี่ยวกับ Android N-ify</string>
   <string name="about_author">พัฒนาโดย \"MrWasdennnoch\"</string>
   <!-- Insert your (preferably XDA) username here -->
@@ -15,9 +16,8 @@
   <string name="header_app">แอพ</string>
   <string name="hide_launcher_icon_title">ซ่อนไอคอนแอพ</string>
   <string name="hide_launcher_icon">อาจต้องการรีสตาร์ท Launcher</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">ต้องการ Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">ต้องการ Android %1$s</string>
   <string name="not_activated">โมดูลไม่ทำงาน</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">สีหลัก</string>
@@ -196,7 +196,9 @@
   <!-- Add a custom tile -->
   <string name="add">เพิ่ม</string>
   <string name="add_custom_tile">เพิ่มชิ้นส่วนกำหนดเอง</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">ชื่อของชิ้นส่วนไม่ควรว่าง</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">ตัวเลือกสี</string>
   <string name="press_color_to_apply">แตะที่สีเพื่อเลือกใช้</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->

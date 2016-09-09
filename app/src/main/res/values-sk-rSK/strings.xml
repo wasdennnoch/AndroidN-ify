@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
   <string name="debug_log_title">Zaznamenávanie chýb</string>
   <string name="debug_log">Upozornenie: Zahlcovanie záznamu</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Vyžaduje Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Vyžaduje Android %1$s</string>
   <string name="not_activated">Modul nie je aktivovaný</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Primárna farba</string>
@@ -319,10 +318,13 @@
   <!-- Add a custom tile -->
   <string name="add">Pridať</string>
   <string name="add_custom_tile">Pridať vlastnú dlaždicu</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Nastavenia dlaždice by nemali byť prázdne</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Výber farby</string>
   <string name="press_color_to_apply">Kliknite na farbu pre použitie</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Zobraziť zdroj nainštalovanej aplikácie</string>
   <string name="battery_detail_switch_title">Šetrič batérie</string>
   <string name="battery_detail_switch_summary">Zníži výkonnosť a dátové prenosy na pozadí</string>

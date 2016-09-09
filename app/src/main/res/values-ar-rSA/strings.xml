@@ -27,9 +27,8 @@
   <string name="hide_launcher_icon">ربما يجب اعاده تشغيل اللانشر</string>
   <string name="debug_log_title">تصحيح الاخطاء</string>
   <string name="debug_log">تحزير: يتم ارسال الكثير من السجلات التي قد تؤثر علي الاداء</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">يتطلب اصدار اندرويد %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">يتطلب اصدار اندرويد %1$s</string>
   <string name="not_activated">لم يتم تنشيط الوحدة النمطية</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">اللون الأساسي</string>
@@ -184,7 +183,7 @@
   <string name="power_discharging_duration"><xliff:g id="time">%1$s</xliff:g> - تقريبا
 <xliff:g id="time">%2$s</xliff:g> تبقي</string>
   <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g
-id="time">%2$s</xliff:g> تبقي</string>
+id=\"time\"<%2$s</xliff:g< تبقي</string>
   <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="state">%2$s</xliff:g></string>
   <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> حتي امتلاء البطاريه</string>
   <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
@@ -213,7 +212,9 @@ id="time">%2$s</xliff:g> تبقي</string>
   <!-- Add a custom tile -->
   <string name="add">إضافة</string>
   <string name="add_custom_tile">اضافه اختصار البث</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">اسم الاختصار لا يمكن ان يكون فارغا</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">منتقي الألوان</string>
   <string name="press_color_to_apply">اضغط على اللون للتطبيق</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->

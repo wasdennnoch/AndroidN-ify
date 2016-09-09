@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Можда ће бити потребан рестарт покретача</string>
   <string name="debug_log_title">Евиденција грешака</string>
   <string name="debug_log">Упозорење: преплављује записе</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Захтева Андроид %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Захтева Андроид %1$s</string>
   <string name="not_activated">Модул није активиран</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Примарна боја</string>
@@ -175,6 +174,8 @@
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <!-- Add a custom tile -->
+  <!-- Warning when the input for the custom tile is empty -->
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Бирач боја</string>
   <string name="press_color_to_apply">Тапните на боју да је примените</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->

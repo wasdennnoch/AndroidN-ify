@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Может потребоватся перезагрузка рабочего стола</string>
   <string name="debug_log_title">Лог отладки</string>
   <string name="debug_log">Внимание: Лог может занимать много места</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Требуется Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Требуется Android %1$s</string>
   <string name="not_activated">Модуль не активирован</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Главный цвет</string>
@@ -140,7 +139,7 @@
   <string name="now_string_shortest">сейчас</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
-    <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> мин.</item>
+    <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> мин.</item></item>
     <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g> мин.</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> мин.</item>
   </plurals>
@@ -148,27 +147,43 @@
   <plurals name="duration_hours_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> ч</item>
     <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g> ч.</item>
-    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> ч.</item>
+    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g> ч.</item></item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g> д.</item>
     <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g> д.</item>
+    <item quantity="other">% д.% д.</item>
+  </plurals>
+  <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">% д.% д.</item>
+    <item quantity="few">% д.% д.</item>
+    <item quantity="other">% д.% д.</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g> мин.</item>
     <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g> мин.</item>
+    <item quantity="other">% д.% д.</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_hours_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g> ч.</item>
     <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g> ч.</item>
+    <item quantity="other">% д.</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_days_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g> д.</item>
     <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g> д.</item>
+    <item quantity="other">% д. % д.</item>
+  </plurals>
+  <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">% д.% д.</item>
+    <item quantity="few">% д.% д.% д.</item>
+    <item quantity="other">% д.</item>
   </plurals>
   <string name="update_notification_title">Обновление доступно</string>
   <string name="update_notification">Билд %1$d доступен!</string>
@@ -298,10 +313,13 @@
   <!-- Add a custom tile -->
   <string name="add">Добавить</string>
   <string name="add_custom_tile">Добавить плитку трансляции</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Плитка спецификации не должна быть пустой</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Выбор цвета</string>
   <string name="press_color_to_apply">Нажмите на цвет для применения</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">Цвет 16 бит</string>
   <string name="enable_install_source_title">Показывать источник установки приложения</string>
   <string name="battery_detail_switch_title">Режим энергосбережения</string>
   <string name="battery_detail_switch_summary">Сокращает данные о производительности и фоновых программ</string>

@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
   <string name="debug_log_title">Włącz debugowanie</string>
   <string name="debug_log">Ostrzeżenie: generuje dużo wpisów w dzienniku debugowania</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
   <string name="not_activated">Moduł nieaktywny</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Główny kolor</string>
@@ -209,13 +208,24 @@
   <string name="tab_title_info">Informacje</string>
   <string name="tab_title_contacts">Kontakty</string>
   <string name="add_emergency_contact">Dodaj kontakt</string>
+  <string name="user_emergency_info_title">Nagła informacja</string>
+  <string name="user_emergency_info_consent">Informacja, którą wpisałeś może pomóc w nagłym przypadku. Jest przechowywana tylko na Twoim urządzeniu, a każdy może ją przeczytać z wyświetlacza bez odblokowywania telefonu.</string>
+  <string name="emergency_info_continue">Kontynuuj</string>
+  <string name="clear">Wyczyść</string>
   <string name="clear_all_message">Wyczyścić wszystkie informacje i kontakty?</string>
   <string name="phone_type_and_phone_number">
         <xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>
     </string>
+  <string name="remove_contact">
+        Usunąć <xliff:g example="John Doe" id="contact_name">%1$s</xliff:g> z kontaktów awaryjnych?
+    </string>
   <string name="remove_contact_icon_text">Usuń kontakt</string>
   <string name="remove">Usuń</string>
   <string name="cancel">Anuluj</string>
+  <string name="no_info_provided">Brak informacji w nagłym przypadku</string>
+  <string name="emergency_contacts_title">Kontakty awaryjne</string>
+  <string name="name">Imię i nazwisko</string>
+  <string name="unknown_name">Nieznane</string>
   <string name="address">Adres</string>
   <string name="unknown_address">Nieznany</string>
   <string name="date_of_birth" tools:ignore="UnusedResources">Data urodzenia</string>
@@ -296,10 +306,17 @@
   <string name="battery_detail_charging_summary">Oszczędzanie baterii nie jest dostępne podczas ładowania</string>
   <!-- Add a custom tile -->
   <string name="add">Dodaj</string>
+  <string name="add_custom_tile">Dodaj kafelek</string>
+  <!-- Warning when the input for the custom tile is empty -->
+  <string name="spec_shouldnt_be_blank">Wykaz kafelka nie powinien być pusty</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Wybór Koloru</string>
   <string name="press_color_to_apply">Naciśnij na kolorze, aby wybrać</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Wyświetl źródło instalacji aplikacji</string>
   <string name="battery_detail_switch_title">Oszczędzanie baterii</string>
   <string name="battery_detail_switch_summary">Zmniejsza wydajność i ogranicza dane w tle</string>
+  <string name="qs_add_notes_title">Notatki</string>
+  <string name="qs_add_notes">Używane tylko dla aplikacji, które zapewniają emisję danych (jak na przykład \"Szybkie ustawienia\"). Proszę przeczytać instrukcje w odpowiedniej aplikacji przed użyciem tej opcji.</string>
 </resources>

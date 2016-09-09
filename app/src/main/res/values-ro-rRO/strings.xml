@@ -30,9 +30,8 @@
   <string name="hide_launcher_icon">Poate necesita repornirea lansatorului</string>
   <string name="debug_log_title">Loguri de depanare</string>
   <string name="debug_log">Atentie: încărcare log</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Necesită Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Necesită Android %1$s</string>
   <string name="not_activated">Modulul nu este activat</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Culoare primară</string>
@@ -59,21 +58,21 @@
   <!-- Battery settings summary: 58% - approx. 2h left -->
   <string name="battery_summary">%1$s - aproximativ %2$s ramase</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_wireless">%1$s - Se încarcă fără fir</string>
+  <string name="battery_charging_wireless">%1$s - Se încarcă wireless</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_usb">%1$s - Se încarcă prin USB</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s - Se încarcă prin C. A</string>
-  <string name="memory_summary">%1$s din %2$s memoria Ram utilizată</string>
+  <string name="battery_charging_ac">%1$s - Se încarcă AC</string>
+  <string name="memory_summary">%1$s din %2$s din memoria Ram utilizată</string>
   <string name="user_summary">Logat ca %1$s</string>
   <string name="location_on_power">Pornit / Salvare energie</string>
-  <string name="location_on_device">Pornit / Doar GPS</string>
+  <string name="location_on_device">Pornit / Numai dispozitiv</string>
   <string name="location_on_high">Pornit / Acuratețe ridicată</string>
   <string name="print_summary" tools:ignore="PluralsCandidate">%1$d sarcini de printat</string>
   <!-- Header of app installation source -->
   <string name="store">Magazin</string>
   <!-- Header of app installation source -->
-  <string name="app_details">Detalii ale aplicației</string>
+  <string name="app_details">Detaliile aplicației</string>
   <string name="install_source">Aplicație instalată din %1$s</string>
   <string name="from_pm">Aplicație instalată de Instalatorul de pachete</string>
   <string name="header_recents">Recente</string>
@@ -85,7 +84,7 @@
   <string name="double_tap_speed_title">Viteză apăsare dublă</string>
   <string name="recents_button_behavior_title">Comportament aplicatii recente</string>
   <string name="recents_navigation_delay_title">Întârziere navigare</string>
-  <string name="recents_navigation_delay">Timpul în care aplicațiile devin focalizate</string>
+  <string name="recents_navigation_delay">Timpul în care aplicațiia selectata focalizeaza</string>
   <string name="enable_large_recents">Aplicații recente mari</string>
   <string name="no_recents_image">Schimbă imaginea \"nici-o aplicație recentă\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
@@ -102,8 +101,8 @@
   <string name="notification_header_qs_tiles_count">Afișare titluri SR</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">titluri</string>
-  <string name="battery_tile_show_percentage">Afișează procentaj</string>
-  <string name="battery_tile_show_percentage_summary">Afișează procentajul bateriei în icoana bateriei</string>
+  <string name="battery_tile_show_percentage">Afișează procentajul în iconita</string>
+  <string name="battery_tile_show_percentage_summary">Afișează procentajul bateriei în iconita bateriei</string>
   <string name="enable_qs_editor">Activează editorul SR</string>
   <string name="allow_fancy_qs_transition">Tranziția SR pompoasă</string>
   <string name="enable_new_tile_click_behavior">Comportament click ca la Android N</string>
@@ -111,7 +110,7 @@
   <string name="enable_large_first_row">Lărgește primul rând</string>
   <string name="enable_large_first_row_summary">Pe CM folosește meniul de modificare a SR în schimb</string>
   <string name="fix_stuck_inversion_title">Fixează inversiunea blocată</string>
-  <string name="fix_stuck_inversion">Pe unele dispozitive inversiunea culorilor devine blocată când este activată. Dați clic aici pentru a forța dezactivarea</string>
+  <string name="fix_stuck_inversion">Pe unele dispozitive inversiunea culorilor se blocheaza când este activată. Dați clic aici pentru a forța dezactivarea</string>
   <string name="header_clock_size_title">Mărimea ceasului antetului</string>
   <string name="header_clock_size_normal">Normal</string>
   <string name="header_clock_size_small">Mic</string>
@@ -139,55 +138,57 @@
   <string name="now_string_shortest">acum</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
-    <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>minute</item>
-    <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>minute</item>
+    <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>minut</item>
+    <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g>minute</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>minute</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_hours_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>oră</item>
-    <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>oră</item>
-    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>ore</item>
+    <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g>ore</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>ore</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>zi</item>
-    <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>zi</item>
-    <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>zile</item>
+    <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g>zile</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>zile</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_years_shortest">
     <item quantity="one"><xliff:g example="1" id="count">%d</xliff:g>an</item>
-    <item quantity="few"><xliff:g example="1" id="count">%d</xliff:g>an</item>
+    <item quantity="few"><xliff:g example="2" id="count">%d</xliff:g>ani</item>
     <item quantity="other"><xliff:g example="1" id="count">%d</xliff:g>ani</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>minut</item>
-    <item quantity="few">in <xliff:g example="1" id="count">%d</xliff:g>minut</item>
-    <item quantity="other">in <xliff:g example="1" id="count">%d</xliff:g>minute</item>
+    <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g>minute</item>
+    <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>minute</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_hours_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>oră</item>
-    <item quantity="few">in <xliff:g example="1" id="count">%d</xliff:g>oră</item>
-    <item quantity="other">in <xliff:g example="1" id="count">%d</xliff:g>ore</item>
+    <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g>ore</item>
+    <item quantity="other">in <xliff:g example="2" id="count">%d</xliff:g>ore</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_days_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>zi</item>
-    <item quantity="few">in <xliff:g example="1" id="count">%d</xliff:g>zi</item>
+    <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g>zile</item>
     <item quantity="other">in <xliff:g example="1" id="count">%d</xliff:g>zile</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_years_shortest_future">
     <item quantity="one">in <xliff:g example="1" id="count">%d</xliff:g>an</item>
-    <item quantity="few">in <xliff:g example="1" id="count">%d</xliff:g>an</item>
+    <item quantity="few">in <xliff:g example="2" id="count">%d</xliff:g>ani</item>
     <item quantity="other">in <xliff:g example="1" id="count">%d</xliff:g>ani</item>
   </plurals>
   <string name="update_notification_title">O versiune nouă este disponibilă</string>
   <string name="update_notification">Versiunea %1$d este acum disponibilă pentru descărcare!</string>
   <string name="update_notification_download">Descărcați</string>
+  <string name="update_warning">Modulul a fost actualizat</string>
+  <string name="update_warning_details">Sistemul poate fi instabil iar rapoartele vor fi ignorate pana la repornirea dispozitivului</string>
   <string name="check_for_updates_title">Verifică pentru actualizări</string>
   <string name="check_for_updates">Verifică pentru actualizări la pornire</string>
   <string name="checking_for_update">Se verifică pt. actualizari&#8230;</string>
@@ -197,7 +198,53 @@
   <string name="update_notification_downloading_details">Se descarcă actualizarea numărul %1$d</string>
   <string name="update_notification_download_fail">Descărcarea a eșuat</string>
   <string name="update_notification_download_fail_details">Nu s-a putut descărca actualizarea %1$d</string>
+  <string name="emergency_info">Informatii de urgenta</string>
   <string name="emergency_info_launch_hint">Apăsați din nou pentru a deschide</string>
+  <string name="enable_emergency_info_title">Activeaza informatiile de urgenta</string>
+  <string name="enable_emergency_info">Adaugă butonul „Informații de urgență” dialer-ul de urgență</string>
+  <string name="edit_emergency_info_title">Editeaza informatiile de urgenta</string>
+  <string name="clear_all">Sterge tot</string>
+  <string name="tab_title_info">Informatii</string>
+  <string name="tab_title_contacts">Contacte</string>
+  <string name="add_emergency_contact">Adauga contacte</string>
+  <string name="user_emergency_info_title">Informatii de urgenta</string>
+  <string name="user_emergency_info_consent">Informaţiile pe care le introduceţi aici poate ajuta primii raspunzatori în caz de urgenţă. Aceasta este stocată doar in dispozitivul dumneavoastra, şi oricine o poate citi din dialer-ul de urgenta fără deblocarea telefonului.</string>
+  <string name="emergency_info_continue">Continua</string>
+  <string name="clear">Sterge tot</string>
+  <string name="clear_all_message">Sunteti sigur ca vreti sa stergeti toate informatiile si persoanele de contact?</string>
+  <string name="phone_type_and_phone_number">
+<xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>    </string>
+  <string name="remove_contact">
+Eliminati <xliff:g example="John Doe" id="contact_name">%1$s</xliff:g> din dialer-ul de urgenta?    </string>
+  <string name="remove_contact_icon_text">Sterge contactul</string>
+  <string name="remove">Sterge</string>
+  <string name="cancel">Revoca</string>
+  <string name="no_info_provided">Nicio informatie de urgenta furnizata</string>
+  <string name="emergency_contacts_title">Contacte de urgenta</string>
+  <string name="name">Nume</string>
+  <string name="unknown_name">Necunoscut</string>
+  <string name="address">Adresa</string>
+  <string name="unknown_address">Necunoscut</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">Data nașterii</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">Necunoscut</string>
+  <string name="dob" tools:ignore="UnusedResources">
+(<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)    </string>
+  <string name="age" tools:ignore="UnusedResources">
+Varsta: <xliff:g example="29" id="numerical_age">%1$d</xliff:g>    </string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">Elimina data naşterii</string>
+  <string name="blood_type">Grupă sanguină</string>
+  <string name="unknown_blood_type">Necunoscut</string>
+  <string name="allergies">Alergii</string>
+  <string name="unknown_allergies">Necunoscut</string>
+  <string name="allergies_hint">De exemplu, arahide</string>
+  <string name="medications">Medicamente</string>
+  <string name="unknown_medications">Necunoscut</string>
+  <string name="medications_hint">De exemplu, aspirina</string>
+  <string name="medical_conditions">Note medicale</string>
+  <string name="unknown_medical_conditions">Necunoscut</string>
+  <string name="medical_conditions_hint">De exemplu, astm</string>
+  <string name="organ_donor">Donator de organe</string>
+  <string name="unknown_organ_donor">Necunoscut</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -206,6 +253,7 @@
   <string name="info_bloodtype_bn">B-</string>
   <string name="info_bloodtype_abp">AB+</string>
   <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">Da</string>
   <string name="no">Nu</string>
   <string name="battery">Baterie</string>
@@ -254,11 +302,17 @@
   <!-- Add a custom tile -->
   <string name="add">Adaugă</string>
   <string name="add_custom_tile">Adaugă tile extern</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Specificația tile-ului nu trebuie să fie goală</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Alegător de culori</string>
   <string name="press_color_to_apply">Apăsați pe o Culoare pentru a o aplica</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Afișează sursă de instalare a aplicațiilor</string>
   <string name="battery_detail_switch_title">Economizator de baterie</string>
   <string name="battery_detail_switch_summary">Reduce performanța și datele de fundal</string>
+  <string name="qs_add_notes_title">Note</string>
+  <string name="qs_add_notes">Acesta este folosit doar pentru aplicatii care furnizeaza titluri de difuzare (cum ar fi \'\'
+Setări rapide personalizate\'\'). Va rugam sa cititi informatiile in aplicatia furnizorului inainte de a utiliza aceasta functie.</string>
 </resources>

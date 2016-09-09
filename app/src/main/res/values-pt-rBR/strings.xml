@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Pode ser preciso reiniciar o launcher</string>
   <string name="debug_log_title">Registros de depuração</string>
   <string name="debug_log">Atenção: Registro invasivo</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Requer Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Requer Android %1$s</string>
   <string name="not_activated">Módulo não ativado</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Cor primária</string>
@@ -306,10 +305,13 @@
   <!-- Add a custom tile -->
   <string name="add">Adicionar</string>
   <string name="add_custom_tile">Adicionar a difusão da telha</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Especificação da telha não deve estar em branco</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Seletor de cores</string>
   <string name="press_color_to_apply">Pressione Cor para aplicar</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Mostrar fonte de instalação dos aplicativos</string>
   <string name="battery_detail_switch_title">Economia de bateria</string>
   <string name="battery_detail_switch_summary">Reduz o desempenho e os dados em segundo plano</string>

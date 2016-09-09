@@ -20,9 +20,8 @@
   <string name="hide_launcher_icon">Có thể phải nạp lại Trang chủ</string>
   <string name="debug_log_title">Thông tin gỡ lỗi</string>
   <string name="debug_log">Chú ý: Rất nhiều thông tin trong trình gỡ lỗi</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Yêu cầu Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Yêu cầu Android %1$s</string>
   <string name="not_activated">Module chưa được kích hoạt</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Màu chính</string>
@@ -138,6 +137,8 @@
   <string name="update_notification_title">Có bản cập nhật mới</string>
   <string name="update_notification">Phiên bản %1$d đã sẵn sàng để cập nhật!</string>
   <string name="update_notification_download">Cập nhật</string>
+  <string name="update_warning">Module đã được cập nhật</string>
+  <string name="update_warning_details">Hệ thống có thể sẽ hoạt động không ổn định và những bản báo cáo lỗi sẽ không được chấp nhận cho đến khi thiết bị khởi động lại</string>
   <string name="check_for_updates_title">Tìm bản cập nhật</string>
   <string name="check_for_updates">Tìm bản cập nhật khi khởi động</string>
   <string name="checking_for_update">Đang tìm cập nhật&#8230;</string>
@@ -147,7 +148,39 @@
   <string name="update_notification_downloading_details">Đang tải phiên bản %1$d</string>
   <string name="update_notification_download_fail">Tải về thất bại</string>
   <string name="update_notification_download_fail_details">Không thể tải về phiên bản %1$d</string>
+  <string name="emergency_info">Thông tin khẩn</string>
   <string name="emergency_info_launch_hint">Chạm lần nữa để mở </string>
+  <string name="enable_emergency_info_title">Bật thông tin khẩn</string>
+  <string name="edit_emergency_info_title">Sửa thông tin khẩn</string>
+  <string name="clear_all">Xóa tất cả</string>
+  <string name="tab_title_info">Thông tin</string>
+  <string name="tab_title_contacts">Danh bạ</string>
+  <string name="add_emergency_contact">Thêm danh bạ</string>
+  <string name="user_emergency_info_title">Thông tin khẩn</string>
+  <string name="emergency_info_continue">Tiếp tục</string>
+  <string name="clear">Xóa</string>
+  <string name="clear_all_message">Xóa tất cả thông tin và danh bạ?</string>
+  <string name="remove_contact_icon_text">Xóa danh bạ</string>
+  <string name="remove">Xóa</string>
+  <string name="cancel">Hủy</string>
+  <string name="name">Tên</string>
+  <string name="unknown_name">Không biết</string>
+  <string name="address">Địa chỉ</string>
+  <string name="unknown_address">Không biết</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">Ngày sinh</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">Không biết</string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">Loại bỏ ngày sinh</string>
+  <string name="blood_type">Nhóm máu</string>
+  <string name="unknown_blood_type">Chưa biết</string>
+  <string name="allergies">Bị dị ứng</string>
+  <string name="unknown_allergies">Chưa biết</string>
+  <string name="allergies_hint">Ví dụ, đậu phộng</string>
+  <string name="medications">Thuốc men</string>
+  <string name="unknown_medications">Chưa biết</string>
+  <string name="medications_hint">Ví dụ, thuốc aspirin</string>
+  <string name="medical_conditions">Y tế ghi chú</string>
+  <string name="unknown_medical_conditions">Chưa biết</string>
+  <string name="medical_conditions_hint">Ví dụ, bệnh hen suyễn</string>
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="battery">Pin</string>
@@ -188,6 +221,8 @@
   <string name="battery_panel_title">Sử dụng pin</string>
   <string name="battery_detail_charging_summary">Tiết kiệm pin không dùng được khi sạc </string>
   <!-- Add a custom tile -->
+  <!-- Warning when the input for the custom tile is empty -->
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Bảng chọn màu </string>
   <string name="press_color_to_apply">Bấm vào màu để áp dụng </string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->

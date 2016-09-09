@@ -4,8 +4,7 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="prefs_not_readable"><![CDATA[<b>সতর্কীকরণ:</b> অগ্রাধিকার ফাইল Xposed দ্বারা রিডেবল নয়। আরও তথ্যের জন্য ক্লিক করুন &#8230;]]></string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
-  <!-- %2$s == file path -->
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
   <!-- Primary color of app theme -->
   <string name="enable_settings_summaries">Dashboard এ সরাসরি সবচেয়ে গুরুত্বপূর্ণ তথ্যগুলো প্রদর্শন করুন</string>
   <string name="fix_sound_notif_tile">কিছু ROM এ সাউন্ড ও নোটিফিকেশন টাইল একসাথে থাকে। এই টাইলের ঠিকঠাক সামারির জন্য এটি এনাবল করুন</string>
@@ -45,5 +44,7 @@
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <!-- Add a custom tile -->
+  <!-- Warning when the input for the custom tile is empty -->
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
 </resources>

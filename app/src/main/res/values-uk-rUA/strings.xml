@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Може знадобитися перезавантаження робочого столу</string>
   <string name="debug_log_title">Журнал налагодження</string>
   <string name="debug_log">Увага: Журнал може займати багато місця</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Потрібно Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Потрібно Android %1$s</string>
   <string name="not_activated">Модуль не активовано</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Основний колір</string>
@@ -319,7 +318,9 @@
   <!-- Add a custom tile -->
   <string name="add">Додати</string>
   <string name="add_custom_tile">Додати плитку трансляції</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Специфікація плитки не повинна бути порожнім</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Вибір кольору</string>
   <string name="press_color_to_apply">Натисніть на колір, щоб застосувати</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->

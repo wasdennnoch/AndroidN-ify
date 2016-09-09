@@ -4,11 +4,11 @@
   <string name="xposed_description">Lollipop ve Marshmallow üzerinde Android N özelliklerini deneyin!</string>
   <string name="restart_systemui">Sistem Arayüzünü yeniden başlat</string>
   <string name="restart_systemui_message">Sistem Arayüzünü yeniden başlatmak istediğinizden emin misiniz?</string>
-  <string name="restart_broadcast_sent">Yayını yeniden başlat</string>
+  <string name="restart_broadcast_sent">Sistem arayüzü yeniden başlatılıyor</string>
   <string name="activity_about">Android N-ify Hakkında</string>
   <string name="about_author">Geliştirici @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
-  <string name="about_translator">Çeviri @Can OKUMUŞ - @Mevlüt TOPÇU</string>
+  <string name="about_translator">Çeviri @Can OKUMUŞ - @Mevlüt TOPÇU - @trzpro</string>
   <string name="about_version">Versiyon %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
   <string name="debug_log_title">Hata ayıklama günlüğü</string>
   <string name="debug_log">Dikkat: Log-flooding</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Android %1$s sürümü gerekir</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Android %1$s sürümü gerekir</string>
   <string name="not_activated">Modül aktif değil</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Ana renk</string>
@@ -111,6 +110,8 @@
   <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
   <string name="enable_large_first_row">İlk satırı büyüt</string>
   <string name="enable_large_first_row_summary">Kareleri düzenle modu yerine CM yapılandırma menüsünü kullanın</string>
+  <string name="fix_stuck_inversion_title">Takılmış ters çevirmeyi düzelt</string>
+  <string name="fix_stuck_inversion">Etkinleştirildiğinde bazı cihazlarda ters çevirme takılıyor. Devre dışı bırakmaya zorlamak için tıklayın</string>
   <string name="header_clock_size_title">Başlık saati boyutu</string>
   <string name="header_clock_size_normal">Normal</string>
   <string name="header_clock_size_small">Küçük</string>
@@ -124,7 +125,7 @@
   <string name="header_notifications">Bildirimler</string>
   <string name="notifications_change_style">Bildirimler stili</string>
   <string name="notification_dismiss_button_title">Temizleme tuşunu değiştir</string>
-  <string name="notification_dismiss_button">Temizle tuşu yerine \"TÜMÜNÜ TEMİZLE\" yazısını gösterir.</string>
+  <string name="notification_dismiss_button">Temizle tuşu yerine \"TÜMÜNÜ TEMİZLE\" yazısını göster</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Ara</string>
   <string name="notification_blacklisted_apps_title">Kara listeye alınan uygulamalar</string>
@@ -179,6 +180,8 @@
   <string name="update_notification_title">Yeni güncelleme</string>
   <string name="update_notification">Yapı %1$d indirilmeye hazır!</string>
   <string name="update_notification_download">Güncelle</string>
+  <string name="update_warning">Modül güncellendi</string>
+  <string name="update_warning_details">Sistem kararsız olabilir ve hata raporları cihaz yeniden başlatılana kadar göz ardı edilecektir</string>
   <string name="check_for_updates_title">Güncellemeleri kontrol et</string>
   <string name="check_for_updates">Uygulama başlatıldığında güncellemeleri kontrol eder.</string>
   <string name="checking_for_update">Güncellemeler kontrol ediliyor&#8230;</string>
@@ -188,7 +191,57 @@
   <string name="update_notification_downloading_details">Yapı %1$d indiriliyor</string>
   <string name="update_notification_download_fail">İndirme başarısız!</string>
   <string name="update_notification_download_fail_details">Yapı %1$d indirme başarısız oldu</string>
+  <string name="emergency_info">Acil durum bilgisi</string>
   <string name="emergency_info_launch_hint">Açmak için tekrar dokunun</string>
+  <string name="enable_emergency_info_title">Acil durum bilgilerini etkinleştir</string>
+  <string name="enable_emergency_info">Acil durum çeviricisi için acil durum bilgi düğmesi ekler</string>
+  <string name="edit_emergency_info_title">Acil durum bilgisini düzenle</string>
+  <string name="clear_all">Tümünü temizle</string>
+  <string name="tab_title_info">Bilgi</string>
+  <string name="tab_title_contacts">Kişiler</string>
+  <string name="add_emergency_contact">Kişi ekle</string>
+  <string name="user_emergency_info_title">Acil durum bilgisi</string>
+  <string name="user_emergency_info_consent">Buraya girdiğiniz bilgiler acil bir durumda ilk müdahale yardımcı olabilir. Sadece cihazınızda saklanır ve herkes telefonun kilidini açmadan acil çeviriciden okuyabilir.</string>
+  <string name="emergency_info_continue">Devam</string>
+  <string name="clear">Temizle</string>
+  <string name="clear_all_message">Tüm bilgi ve kişiler temizlensin mi?</string>
+  <string name="phone_type_and_phone_number">
+<xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>
+    </string>
+  <string name="remove_contact">
+Acil durumda aranacak kişilerden <xliff:g example="John Doe" id="contact_name">%1$s</xliff:g> kaldırılsın mı?
+    </string>
+  <string name="remove_contact_icon_text">Kişiyi kaldır</string>
+  <string name="remove">Kaldır</string>
+  <string name="cancel">İptal</string>
+  <string name="no_info_provided">Acil durum bilgisi verilmemiştir</string>
+  <string name="emergency_contacts_title">Acil durumda aranacaklar</string>
+  <string name="name">Ad</string>
+  <string name="unknown_name">Bilinmiyor</string>
+  <string name="address">Adres</string>
+  <string name="unknown_address">Bilinmiyor</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">Doğum tarihi</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">Bilinmiyor</string>
+  <string name="dob" tools:ignore="UnusedResources">
+(<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
+    </string>
+  <string name="age" tools:ignore="UnusedResources">
+Yaş: <xliff:g example="29" id="numerical_age">%1$d</xliff:g>
+    </string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">Doğum tarihini kaldır</string>
+  <string name="blood_type">Kan grubu</string>
+  <string name="unknown_blood_type">Bilinmiyor</string>
+  <string name="allergies">Alerjiler</string>
+  <string name="unknown_allergies">Bilinmiyor</string>
+  <string name="allergies_hint">Örneğin, fıstık</string>
+  <string name="medications">İlaçlar</string>
+  <string name="unknown_medications">Bilinmiyor</string>
+  <string name="medications_hint">Örneğin, aspirin</string>
+  <string name="medical_conditions">Tıbbi notlar</string>
+  <string name="unknown_medical_conditions">Bilinmiyor</string>
+  <string name="medical_conditions_hint">Örneğin, astım</string>
+  <string name="organ_donor">Organ bağışı</string>
+  <string name="unknown_organ_donor">Bilinmiyor</string>
   <string name="info_bloodtype_op">O+</string>
   <string name="info_bloodtype_on">O-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -197,6 +250,7 @@
   <string name="info_bloodtype_bn">B-</string>
   <string name="info_bloodtype_abp">AB+</string>
   <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">Evet</string>
   <string name="no">Hayır</string>
   <string name="battery">Pil</string>
@@ -205,6 +259,7 @@
   <string name="qs_edit">Düzenle</string>
   <string name="drag_to_add_tiles">Kare eklemek için sürükleyin</string>
   <string name="drag_to_remove_tiles">Kaldırmak için buraya sürükleyin</string>
+  <string name="live_display">LiveDisplay</string>
   <string name="live_display_auto">Otomatik</string>
   <string name="live_display_off">Kapalı</string>
   <string name="live_display_day">Gündüz</string>
@@ -214,29 +269,46 @@
   <string name="remaining_length_format"><xliff:g name="time" example="3 hours">%1$s</xliff:g> kaldı</string>
   <string name="power_remaining_duration_only">Yaklaşık <xliff:g id="time">%1$s</xliff:g> kaldı</string>
   <string name="power_remaining_duration_only_short"><xliff:g id="time">%1$s</xliff:g> kaldı</string>
+  <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g> - yaklaşık. <xliff:g id="time">%2$s</xliff:g> kaldı</string>
   <string name="power_discharging_duration_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> kaldı</string>
   <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="state">%2$s</xliff:g></string>
   <string name="power_charging_duration">Tamamlana dek <xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
   <string name="power_charging_duration_short"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g></string>
+  <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> Prizde tam dolana kadar</string>
   <!-- Short description when charging on AC. For example: 12% - 2h -->
+  <string name="power_charging_duration_ac_short"><xliff:g id="level">%1$s</xliff:g> şarj cihazı ile şarj ediliyor, tam şarja şu kadar süre kaldı: <xliff:g id="time">%2$s</xliff:g></string>
+  <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> USB üzerinden tam dolana kadar</string>
   <!-- Short description when charging on USB. For example: 12% - 2h -->
+  <string name="power_charging_duration_usb_short"><xliff:g id="level">%1$s</xliff:g> USB cihazı ile şarj ediliyor, tam şarja şu kadar süre kaldı: <xliff:g id="time">%2$s</xliff:g></string>
+  <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> - <xliff:g id="time">%2$s</xliff:g> kablosuz tam dolana kadar</string>
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
+  <string name="power_charging_duration_wireless_short"><xliff:g id="level">%1$s</xliff:g> kablosuz şarj cihazı ile şarj ediliyor, tam şarja şu kadar süre kaldı: <xliff:g id="time">%2$s</xliff:g></string>
   <string name="battery_info_status_unknown">Bilinmeyen</string>
   <string name="battery_info_status_charging">Şarj oluyor</string>
+  <string name="battery_info_status_charging_ac">Güç ile şarj ediliyor</string>
   <string name="battery_info_status_charging_ac_short">Şarj oluyor</string>
   <string name="battery_info_status_charging_usb">USB ile şarj oluyor</string>
   <string name="battery_info_status_charging_usb_short">Şarj oluyor</string>
+  <string name="battery_info_status_charging_wireless">Kablosuz şarj oluyor</string>
   <string name="battery_info_status_charging_wireless_short">Şarj oluyor</string>
   <string name="battery_info_status_discharging">Şarj olmuyor</string>
   <string name="battery_info_status_not_charging">Şarj olmuyor</string>
-  <string name="battery_info_status_full">Tam</string>
+  <string name="battery_info_status_full">Şarj edildi</string>
   <string name="battery_panel_title">Pil kullanımı</string>
-  <string name="battery_detail_charging_summary">Güç tasarrufu şarj olurken kullanılamaz</string>
+  <string name="battery_detail_charging_summary">Şarj edilirken güç tasarrufu kullanılmaz</string>
   <!-- Add a custom tile -->
   <string name="add">Ekle</string>
+  <string name="add_custom_tile">Yayın karesi ekle</string>
+  <!-- Warning when the input for the custom tile is empty -->
+  <string name="spec_shouldnt_be_blank">Kare adı boş bırakılamaz</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Renk Seçici</string>
   <string name="press_color_to_apply">Rengi uygulamak için dokunun</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Uygulama yükleme kaynağını göster</string>
-  <string name="battery_detail_switch_title">Güç Tasarrufu</string>
+  <string name="battery_detail_switch_title">Güç tasarrufu</string>
+  <string name="battery_detail_switch_summary">Performans ve arka plan verileri azaltır</string>
+  <string name="qs_add_notes_title">Notlar</string>
+  <string name="qs_add_notes">Bu, sadece (örneğin \"Özel Hızlı Ayarlar\" gibi) yayın kareleri sağlayan uygulamalar için kullanılır. Bunu kullanmadan önce kare sağlayıcı uygulamasından talimatlarını okuyun.</string>
 </resources>

@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">Může vyžadovat restart spouštěče</string>
   <string name="debug_log_title">Zaznamenávání chyb</string>
   <string name="debug_log">Upozornění: způsobuje zahlcování záznamu</string>
-    <!-- %2$s == file path -->
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Vyžaduje Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Vyžaduje Android %1$s</string>
   <string name="not_activated">Modul není aktivovaný</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Primární barva</string>
@@ -116,6 +115,7 @@
   <string name="notifications_custom_actions_color_title">Použít vlastní barvu pozadí pro akce</string>
   <string name="notifications_actions_color_title">Barva pozadí akcí</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+  <string name="now_string_shortest">teď</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -153,5 +153,7 @@
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <!-- Add a custom tile -->
+  <!-- Warning when the input for the custom tile is empty -->
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
 </resources>

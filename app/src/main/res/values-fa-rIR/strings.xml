@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">ممکن است به ریستارت کردن نیاز داشته باشد</string>
   <string name="debug_log_title">لاگ گرفتن</string>
   <string name="debug_log">هشدار: ممکن است فضا به سرعت پر شود</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">%1$s اندروید حداقل مورد نیاز</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">%1$s اندروید حداقل مورد نیاز</string>
   <string name="not_activated">ماژول فعال نیست</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">رنگ اصلی برنامه</string>
@@ -184,6 +183,8 @@
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <!-- Add a custom tile -->
+  <!-- Warning when the input for the custom tile is empty -->
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">انتخاب کننده رنگ</string>
   <string name="press_color_to_apply">یک رنگ انتخاب کنید</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->

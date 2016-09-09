@@ -31,9 +31,8 @@
   <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
   <string name="debug_log_title">除錯紀錄</string>
   <string name="debug_log">警告：紀錄如洪水</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">建議執行於 Android %1$s 以上</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">建議執行於 Android %1$s 以上</string>
   <string name="not_activated">模組尚未啟用！</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">選擇顏色…</string>
@@ -140,19 +139,19 @@
   <string name="now_string_shortest">現在時間</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>分</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>分鐘前</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_hours_shortest">
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>時</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>小時前</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>天</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>天前</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_years_shortest">
-    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>年</item>
+    <item quantity="other"><xliff:g example="2" id="count">%d</xliff:g>年前</item>
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
@@ -191,6 +190,50 @@
   <string name="edit_emergency_info_title">編輯緊急資訊</string>
   <string name="clear_all">清除全部</string>
   <string name="tab_title_info">資訊</string>
+  <string name="tab_title_contacts">聯絡人</string>
+  <string name="add_emergency_contact">新增聯絡人</string>
+  <string name="user_emergency_info_title">緊急資訊</string>
+  <string name="user_emergency_info_consent">您可以在此處輸入訊息讓第一線的救護人員在緊急情況下可以提供相關協助。它僅儲存在您的裝置上，但是任何人都能在您的手機未解鎖的情況下透過緊急撥號看到此訊息。</string>
+  <string name="emergency_info_continue">繼續</string>
+  <string name="clear">清除</string>
+  <string name="clear_all_message">清除所有資訊和連絡人嗎？</string>
+  <string name="phone_type_and_phone_number">
+        <xliff:g example="Mobile" id="phone_type">%1$s</xliff:g> • <xliff:g example="333-444-5566" id="phone_number">%2$s</xliff:g>
+    </string>
+  <string name="remove_contact">
+        從緊急聯絡人移除 <xliff:g example="John Doe" id="contact_name">%1$s</xliff:g>？
+    </string>
+  <string name="remove_contact_icon_text">移除連絡人</string>
+  <string name="remove">移除</string>
+  <string name="cancel">取消</string>
+  <string name="no_info_provided">未提供緊急資訊</string>
+  <string name="emergency_contacts_title">緊急連絡人</string>
+  <string name="name">姓名</string>
+  <string name="unknown_name">未知</string>
+  <string name="address">地址</string>
+  <string name="unknown_address">未知</string>
+  <string name="date_of_birth" tools:ignore="UnusedResources">出生日期</string>
+  <string name="unknown_date_of_birth" tools:ignore="UnusedResources">未知</string>
+  <string name="dob" tools:ignore="UnusedResources">
+        (<xliff:g example="3 feb 1987" id="date_of_birth">%1$s</xliff:g>)
+    </string>
+  <string name="age" tools:ignore="UnusedResources">
+        年齡：<xliff:g example="29" id="numerical_age">%1$d</xliff:g>
+    </string>
+  <string name="remove_dob_icon_text" tools:ignore="UnusedResources">移除出生日期</string>
+  <string name="blood_type">血型</string>
+  <string name="unknown_blood_type">未知</string>
+  <string name="allergies">過敏</string>
+  <string name="unknown_allergies">未知</string>
+  <string name="allergies_hint">例如：花生</string>
+  <string name="medications">藥物</string>
+  <string name="unknown_medications">未知</string>
+  <string name="medications_hint">例如：阿斯匹靈(Aspirin)</string>
+  <string name="medical_conditions">藥物備註</string>
+  <string name="unknown_medical_conditions">未知</string>
+  <string name="medical_conditions_hint">例如：哮喘(Asthma)</string>
+  <string name="organ_donor">器官捐贈者</string>
+  <string name="unknown_organ_donor">未知</string>
   <string name="info_bloodtype_op">O 型 Rh+</string>
   <string name="info_bloodtype_on">O 型 Rh-</string>
   <string name="info_bloodtype_ap">A 型 Rh+</string>
@@ -248,11 +291,16 @@
   <!-- Add a custom tile -->
   <string name="add">新增</string>
   <string name="add_custom_tile">新增推送的磚</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">磚的標題不能為空白</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">取色器</string>
   <string name="press_color_to_apply">點擊顏色以套用</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">十六進位</string>
   <string name="enable_install_source_title">顯示應用程式安裝資源</string>
   <string name="battery_detail_switch_title">省電模式</string>
   <string name="battery_detail_switch_summary">減少效能和背景資料傳輸</string>
+  <string name="qs_add_notes_title">備註</string>
+  <string name="qs_add_notes">僅適用於提供廣播的瓷磚(例如：自訂的快速設定)。使用前請閱讀瓷磚提供應用程式內的說明。</string>
 </resources>

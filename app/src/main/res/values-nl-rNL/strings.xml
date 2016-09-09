@@ -30,9 +30,8 @@
   <string name="hide_launcher_icon">Kan een herstart van de launcher vereisen</string>
   <string name="debug_log_title">Debug logboek</string>
   <string name="debug_log">Waarschuwing: Log-overstromingen</string>
-    <!-- %2$s == file path -->
-    <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">Vereist Android %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">Vereist Android %1$s</string>
   <string name="not_activated">Module niet geactiveerd</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Primaire kleur</string>
@@ -95,6 +94,7 @@
   <string name="recents_button_behavior_cycle">Browse door apps</string>
   <string name="header_qs">Snelle instellingen</string>
   <string name="enable_notification_header">Header opmaken</string>
+  <string name="keep_bg_title">Ongewijzigde achtergrond</string>
   <string name="keep_bg">Handig voor thema\'s met aparte achtergronden</string>
   <string name="keep_header_bg">Bovenkant</string>
   <string name="keep_panel_bg">QS paneel</string>
@@ -109,6 +109,8 @@
   <string name="enable_new_tile_click_behavior_summary">Als je klikt op een tegel die zich in de header bevindt, wordt deze geopend en het paneel wordt uitgebreid</string>
   <string name="enable_large_first_row">Vouw eerste rij uit</string>
   <string name="enable_large_first_row_summary">Gebruik het instellingsmenu van de \"pas tegels aan\" knop op CM ipv dit</string>
+  <string name="fix_stuck_inversion_title">Los vaste inversie op</string>
+  <string name="fix_stuck_inversion">Op sommige apperaten loopt de inversie vast. Klik hier om het geforceerd uit te zetten</string>
   <string name="header_clock_size_title">Bovenkant klok formaat</string>
   <string name="header_clock_size_normal">Normaal</string>
   <string name="header_clock_size_small">Klein</string>
@@ -131,6 +133,7 @@
   <string name="notifications_actions_color_title">Actions achtergrond kleur</string>
   <string name="notification_experimental_title">Experimentele N notificatie gedrag</string>
   <string name="notification_experimental">N scroll gedrag (niet samenvoegen) en notificatie schaduw</string>
+  <string name="notification_keyguard_max_title">Maximale notificaties</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">nu</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -176,6 +179,8 @@
   <string name="update_notification_title">Nieuwe update beschikbaar</string>
   <string name="update_notification">Build %1$d is nu beschikbaar om te updaten!</string>
   <string name="update_notification_download">Update</string>
+  <string name="update_warning">App is geupdated</string>
+  <string name="update_warning_details">Systeem kan onstabiel zijn en bug reports worden genegeerd</string>
   <string name="check_for_updates_title">Controleer op updates</string>
   <string name="check_for_updates">Controleer op updates tijdens het starten van de app</string>
   <string name="checking_for_update">Controleren op updates&#8230;</string>
@@ -185,6 +190,10 @@
   <string name="update_notification_downloading_details">Build %1$d downloaden</string>
   <string name="update_notification_download_fail">Downloaden mislukt</string>
   <string name="update_notification_download_fail_details">Downloaden van build  %1$d is mislukt</string>
+  <string name="emergency_info">Nood informatie</string>
+  <string name="emergency_info_launch_hint">Klik opnieuw om te openen</string>
+  <string name="enable_emergency_info_title">Zet nood informatie aan</string>
+  <string name="enable_emergency_info">Voegd een nood informatie knop toe op de nood beller</string>
   <!-- Short description when charging on AC. For example: 12% - 2h -->
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
@@ -202,7 +211,9 @@
   <string name="battery_detail_charging_summary">Batterij bespaarstand niet beschikbaar tijdens opladen</string>
   <!-- Add a custom tile -->
   <string name="add">Toevoegen</string>
+  <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Tegel specificaties kunnen niet leeg zijn</string>
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">Kleurenkiezer</string>
   <string name="press_color_to_apply">Druk op een kleur om te veranderen</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->

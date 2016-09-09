@@ -18,9 +18,8 @@
   <string name="hide_launcher_icon">ייתכן שיהיה צורך להפעיל מחדש את מריץ האפליקציות</string>
   <string name="debug_log_title">רישום לצורכי תיקון שגיאות</string>
   <string name="debug_log">אזהרה: מציף רישומים</string>
-    <!-- %2$s == file path -->
-  <!-- The text of the button in the logcat notification to stop logcat recording and save it. -->
-    <string name="requires_android_version">נדרשת גרסת אנדרואיד %1$s</string>
+  <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="requires_android_version">נדרשת גרסת אנדרואיד %1$s</string>
   <string name="not_activated">המודול לא אופשר</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">צבע ראשי</string>
@@ -156,6 +155,8 @@
   <!-- Short description when charging on USB. For example: 12% - 2h -->
   <!-- Short description when charging wirelessly. For example: 12% - 2h -->
   <!-- Add a custom tile -->
+  <!-- Warning when the input for the custom tile is empty -->
+  <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="dialog_color_picker">בוחר צבעים</string>
   <string name="press_color_to_apply">לחץ על צבע כדי להחיל</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
