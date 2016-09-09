@@ -193,6 +193,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             animate().alpha(1)
                     .withEndAction(mHideAnimationListener)
                     .start();
+        } else {
+            mHideAnimationListener.run();
         }
     }
 
