@@ -770,9 +770,8 @@ public class NotificationHooks {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         QSCustomizer qsCustomizer = NotificationPanelHooks.getQsCustomizer();
-                        if (qsCustomizer != null && qsCustomizer.isCustomizing()) {
+                        if (qsCustomizer != null && qsCustomizer.onBackPressed()) {
                             param.setResult(true);
-                            qsCustomizer.hideCircular();
                         }
                     }
                 });

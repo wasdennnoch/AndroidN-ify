@@ -149,6 +149,10 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         notifyDataSetChanged();
     }
 
+    public int getMode() {
+        return mMode;
+    }
+
     private void addDivider() {
         mTileSpecs.add(null);
         //mRecords.add(null);
@@ -369,6 +373,9 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     public void resetTiles() {
+        mSecureTiles.clear();
+        mSecureTiles.add("location");
+        saveSecureTiles();
         List<String> newSpces = new ArrayList<>();
         newSpces.add("wifi");
         newSpces.add("cell");

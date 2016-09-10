@@ -195,6 +195,16 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         }
     }
 
+    public boolean onBackPressed() {
+        if (!mCustomizing) return false;
+
+        if (mTileAdapter.getMode() != TileAdapter.MODE_NORMAL)
+            setEditingSecure(false);
+        else
+            hideCircular();
+        return true;
+    }
+
     public void hide(boolean animated) {
         if (!isShown) return;
         saveAndHide();

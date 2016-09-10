@@ -435,7 +435,10 @@ public class QSTileHostHooks {
 
     private static List<String> loadSecureTiles(String secureTileList) {
         final ArrayList<String> tiles = new ArrayList<>();
-        if (secureTileList == null) return tiles;
+        if (secureTileList == null) {
+            tiles.add("location");
+            return tiles;
+        }
         for (String tile : secureTileList.split(",")) {
             tile = tile.trim();
             if (tile.isEmpty()) continue;
