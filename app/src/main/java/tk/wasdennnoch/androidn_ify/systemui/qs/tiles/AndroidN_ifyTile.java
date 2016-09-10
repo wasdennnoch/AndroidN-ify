@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
-import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 
 public class AndroidN_ifyTile extends QSTile {

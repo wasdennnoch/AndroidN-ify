@@ -14,7 +14,6 @@
 
 package tk.wasdennnoch.androidn_ify.systemui.qs;
 
-import android.content.res.Resources;
 import android.graphics.Path;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
@@ -33,8 +32,6 @@ import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
-import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
-
 public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.PageListener, OnLayoutChangeListener,
         OnAttachStateChangeListener, TouchAnimator.Listener {
 
@@ -49,7 +46,6 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
     private final ViewGroup mQsPanel;
     private final ViewGroup mQsContainer;
     private final KeyguardMonitor mKeyguard;
-    private final int mTileSpacingPx;
 
     private PagedTileLayout mPagedLayout;
 
@@ -77,9 +73,6 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         mPagedLayout = SystemUIHooks.qsHooks.getTileLayout();
         mPagedLayout.setPageListener(this);
         mKeyguard = QSTileHostHooks.mKeyguard;
-
-        Resources res = container.getContext().getResources();
-        mTileSpacingPx = res.getDimensionPixelSize(res.getIdentifier("qs_tile_spacing", "dimen", PACKAGE_SYSTEMUI));
     }
 
     public void setOnKeyguard(boolean onKeyguard) {

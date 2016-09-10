@@ -25,7 +25,6 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnLongClickListener;
-import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
@@ -35,7 +34,6 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_QUICKQS_TILEVIEW;
 
-@SuppressWarnings("WeakerAccess")
 public class QuickQSPanel extends LinearLayout implements PagedTileLayout.PageListener {
 
     private static final String TAG = "QuickQSPanel";
@@ -62,7 +60,6 @@ public class QuickQSPanel extends LinearLayout implements PagedTileLayout.PageLi
     private TouchAnimator mFirstPageAnimator;
     private TouchAnimator mFirstPageDelayedAnimator;
     private TouchAnimator mLastRowAnimator;
-    private PagedTileLayout mPagedLayout;
     private final TouchAnimator mFadeAnimator;
     private float oldPosition = 0;
     private final boolean mShowPercent;

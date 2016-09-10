@@ -14,7 +14,6 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.LiveDisplayObserver;
 
-@SuppressWarnings("WeakerAccess")
 public class LiveDisplayTile extends QSTile {
 
     public static final String TILE_SPEC = "live_display";

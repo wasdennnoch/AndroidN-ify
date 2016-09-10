@@ -78,6 +78,13 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
         return false;
     }
 
+    public void setColumns(int columns) {
+        if (mColumns != columns) {
+            mColumns = columns;
+            requestLayout();
+        }
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int numTiles = mRecords.size();

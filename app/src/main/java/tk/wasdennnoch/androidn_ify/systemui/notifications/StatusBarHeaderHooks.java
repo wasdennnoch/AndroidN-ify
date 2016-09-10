@@ -77,7 +77,6 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_QS_STATE = CLASS_QS_TILE + "$State";
     private static final String CLASS_QS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
-    private static final String CLASS_CIRCLE_PAGE_INDICATOR = "com.viewpagerindicator.CirclePageIndicator";
     private static final String QS_PANEL_INDICATOR = "QSPanelIndicator";
 
     private static boolean mCollapseAfterHideDatails = false;
@@ -130,19 +129,14 @@ public class StatusBarHeaderHooks {
 
     private static ImageView mQsRightButton;
 
-    public static int mQsPage;
-
     private static boolean mHasEditPanel = false;
     public static boolean mShowingDetail;
-    public static boolean mDisableFancy = false;
     public static boolean mUseDragPanel = false;
     private static boolean mFirstRowLarge;
 
     public static boolean mExpanded;
     private static float mExpansion = 0;
     private static int mGridHeight = 0;
-    private static int mQsPages = 0;
-    private static boolean mQsEditing = false;
     private static boolean mRecreatingStatusBar = false;
 
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();

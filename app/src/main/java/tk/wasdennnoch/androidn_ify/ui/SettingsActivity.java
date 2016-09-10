@@ -16,6 +16,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.annotation.Keep;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -38,6 +39,7 @@ import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+@Keep
 public class SettingsActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "SettingsActivity";

@@ -70,6 +70,7 @@ public class QuickSettingsHooks {
                 if (mTileLayout != null)
                     if (mTileLayout.updateResources())
                         StatusBarHeaderHooks.postSetupAnimators();
+                mTileLayout.setColumnCount(XposedHelpers.getIntField(param.thisObject, "mColumns"));
             }
         });
     }
@@ -122,6 +123,7 @@ public class QuickSettingsHooks {
         });
     }
 
+    @SuppressWarnings("UnusedParameters")
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int width = View.MeasureSpec.getSize(widthMeasureSpec);
         mBrightnessView.measure(exactly(width), View.MeasureSpec.UNSPECIFIED);
@@ -201,8 +203,11 @@ public class QuickSettingsHooks {
 
     public interface QSTileLayout {
         void addTile(Object tile);
+
         void removeTile(Object tile);
+
         int getOffsetTop(Object tile);
+
         boolean updateResources();
     }
 }

@@ -9,7 +9,6 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class QSTile extends BaseTile {
 
     private static final String TAG = "QSTile";

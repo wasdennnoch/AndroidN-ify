@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -25,8 +24,6 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QSTileLayout, View.OnClickListener {
-
-    private static final boolean DEBUG = false;
 
     private static final String TAG = "PagedTileLayout";
 
@@ -48,7 +45,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         super(context, attrs);
         mContext = context;
         setAdapter(mAdapter);
-        setOnPageChangeListener(new OnPageChangeListener() {
+        addOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 if (mPageIndicator == null) return;
@@ -140,11 +137,8 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
     }
 
     private void distributeTiles() {
-        if (DEBUG) Log.d(TAG, "Distributing tiles");
-        final int NP = mPages.size();
-        for (int i = 0; i < NP; i++) {
-            mPages.get(i).removeAllViews();
-        }
+        XposedHook.logD(TAG, "Distributing tiles");
+        removeAll();
         int index = 0;
         final int NT = mTiles.size();
         for (int i = 0; i < NT; i++) {
@@ -156,8 +150,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
                     mPages.add(new TilePage(mContext, null));
                 }
             }
-            if (DEBUG) Log.d(TAG, "Adding " + getTileFromRecord(tile).getClass().getSimpleName() + " to "
-                    + index);
+            XposedHook.logD(TAG, "Adding " + getTileFromRecord(tile).getClass().getSimpleName() + " to " + index);
             mPages.get(index).addTile(tile);
         }
         if (mNumPages != index + 1) {
@@ -165,7 +158,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
             while (mPages.size() > mNumPages) {
                 mPages.remove(mPages.size() - 1);
             }
-            if (DEBUG) Log.d(TAG, "Size: " + mNumPages);
+            XposedHook.logD(TAG, "Size: " + mNumPages);
             mPageIndicator.setNumPages(mNumPages);
             setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
@@ -213,6 +206,15 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         return mPages.get(0).mColumns;
     }
 
+    public void setColumnCount(int columns) {
+        // Use module settings when using default column count,
+        // override count otherwise (ROM settings)
+        if (columns == 3) return;
+        XposedHook.logD(TAG, "Overwriting column count to " + columns);
+        for (TilePage p : mPages)
+            p.setColumns(columns);
+    }
+
     public int getRowCount() {
         if (mPages.size() == 0) return 0;
         return mPages.get(0).mMaxRows;
@@ -223,7 +225,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         StatusBarHeaderHooks.onClickEdit(mEditBtn.getLeft() + mEditBtn.getWidth() / 2, getTop() + mDecorGroup.getTop() + mDecorGroup.getHeight() / 2);
     }
 
-    public static class TilePage extends TileLayout {
+    static class TilePage extends TileLayout {
         private int mMaxRows = 3;
 
         public TilePage(Context context, AttributeSet attrs) {
@@ -263,13 +265,15 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
     }
 
     private final PagerAdapter mAdapter = new PagerAdapter() {
+        @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            if (DEBUG) Log.d(TAG, "Destantiating " + position);
+            XposedHook.logD(TAG, "Destantiating " + position);
             container.removeView((View) object);
         }
 
+        @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            if (DEBUG) Log.d(TAG, "Instantiating " + position);
+            XposedHook.logD(TAG, "Instantiating " + position);
             ViewGroup view = mPages.get(position);
             container.addView(view);
             return view;

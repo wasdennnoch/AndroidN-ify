@@ -58,7 +58,7 @@ public class UpdateUtils {
         downloadIntent.putExtra("hasartifact", updateData.hasArtifact());
         PendingIntent intent = PendingIntent.getService(context, 0, downloadIntent, 0);
 
-        Notification.Action downloadAction = new Notification.Action.Builder(R.drawable.arrow_down,
+        Notification.Action downloadAction = new Notification.Action.Builder(R.drawable.ic_volume_expand,
                 context.getString(R.string.update_notification_download), intent)
                 .build();
 

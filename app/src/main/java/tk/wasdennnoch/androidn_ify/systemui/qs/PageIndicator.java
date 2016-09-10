@@ -3,20 +3,20 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.content.Context;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
-import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import java.util.ArrayList;
+
+import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class PageIndicator extends ViewGroup {
 
     private static final String TAG = "PageIndicator";
-    private static final boolean DEBUG = false;
 
     private static final long ANIMATION_DURATION = 250;
 
@@ -57,7 +57,7 @@ public class PageIndicator extends ViewGroup {
     public void setNumPages(int numPages) {
         setVisibility(numPages > 1 ? View.VISIBLE : View.INVISIBLE);
         if (mAnimating) {
-            Log.w(TAG, "setNumPages during animation");
+            if (XposedHook.debug) XposedHook.logW(TAG, "setNumPages during animation");
         }
         while (numPages < getChildCount()) {
             removeViewAt(getChildCount() - 1);
@@ -74,7 +74,7 @@ public class PageIndicator extends ViewGroup {
     public void setLocation(float location) {
         int index = (int) location;
         int position = index << 1 | ((location != index) ? 1 : 0);
-        if (DEBUG) Log.d(TAG, "setLocation " + location + " " + index + " " + position);
+        XposedHook.logD(TAG, "setLocation " + location + " " + index + " " + position);
 
         int lastPosition = mPosition;
         if (mQueuedPositions.size() != 0) {
@@ -82,7 +82,7 @@ public class PageIndicator extends ViewGroup {
         }
         if (position == lastPosition) return;
         if (mAnimating) {
-            if (DEBUG) Log.d(TAG, "Queueing transition to " + Integer.toHexString(position));
+            XposedHook.logD(TAG, "Queueing transition to " + Integer.toHexString(position));
             mQueuedPositions.add(position);
             return;
         }
@@ -94,8 +94,7 @@ public class PageIndicator extends ViewGroup {
         if (StatusBarHeaderHooks.mExpanded && Math.abs(mPosition - position) == 1) {
             animate(mPosition, position);
         } else {
-            if (DEBUG) Log.d(TAG, "Skipping animation " + StatusBarHeaderHooks.mExpanded + " " + mPosition
-                    + " " + position);
+            XposedHook.logD(TAG, "Skipping animation " + StatusBarHeaderHooks.mExpanded + " " + mPosition + " " + position);
             setIndex(position >> 1);
         }
         mPosition = position;
@@ -113,8 +112,7 @@ public class PageIndicator extends ViewGroup {
     }
 
     private void animate(int from, int to) {
-        if (DEBUG) Log.d(TAG, "Animating from " + Integer.toHexString(from) + " to "
-                + Integer.toHexString(to));
+        XposedHook.logD(TAG, "Animating from " + Integer.toHexString(from) + " to " + Integer.toHexString(to));
         int fromIndex = from >> 1;
         int toIndex = to >> 1;
 
@@ -227,7 +225,7 @@ public class PageIndicator extends ViewGroup {
     private final Runnable mAnimationDone = new Runnable() {
         @Override
         public void run() {
-            if (DEBUG) Log.d(TAG, "onAnimationEnd - queued: " + mQueuedPositions.size());
+            XposedHook.logD(TAG, "onAnimationEnd - queued: " + mQueuedPositions.size());
             mAnimating = false;
             if (mQueuedPositions.size() != 0) {
                 setPosition(mQueuedPositions.remove(0));

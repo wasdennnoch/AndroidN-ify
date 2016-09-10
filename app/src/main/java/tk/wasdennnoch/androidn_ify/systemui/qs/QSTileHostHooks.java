@@ -26,7 +26,6 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.SettingsUtils;
 
-@SuppressWarnings("WeakerAccess")
 public class QSTileHostHooks {
     public static final String TAG = "QSTileHostHooks";
 

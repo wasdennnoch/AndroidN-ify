@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -20,6 +19,7 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 public class DetailViewManager {
 
     private static final String TAG = "DetailViewManager";
+
     private static final String CLASS_DETAIL_ADAPTER = "com.android.systemui.qs.QSTile$DetailAdapter";
 
     private static DetailViewManager sInstance;
