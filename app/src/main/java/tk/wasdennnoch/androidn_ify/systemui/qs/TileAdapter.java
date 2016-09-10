@@ -43,6 +43,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private final ItemTouchHelper mItemTouchHelper;
     private final ListUpdateCallback mTileUpdateCallback = new TileUpdateCallback();
     private List<String> mSecureTiles = new ArrayList<>();
+    private List<String> mPreviousSpecs = new ArrayList<>();
     private List<String> mTileSpecs = new ArrayList<>();
     protected ArrayList<Object> mRecords = new ArrayList<>();
     protected ArrayList<ViewGroup> mTileViews = new ArrayList<>();
@@ -55,6 +56,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private int mMode = MODE_NORMAL;
 
     public TileAdapter.TileViewHolder mCurrentDrag;
+    private boolean mIsInvalid = true;
 
     public TileAdapter(Context context) {
         mContext = context;
@@ -123,10 +125,13 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     private void init(ArrayList<Object> records, Context context) {
+        mIsInvalid = false;
+
         mRes = ResourceUtils.getInstance(context);
 
         setRecords(records);
         mTileSpecs = convertToSpecs();
+        mPreviousSpecs.addAll(mTileSpecs);
         if (ConfigUtils.M)
             mSecureTiles.addAll(QSTileHostHooks.mSecureTiles);
 
@@ -138,6 +143,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
     public void reInit(ArrayList<Object> records, Context context) {
         mRecords.clear();
+        mPreviousSpecs.clear();
         mTileSpecs.clear();
         mTileViews.clear();
         mSecureTiles.clear();
@@ -304,6 +310,14 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         return mItemTouchHelper;
     }
 
+    public void invalidate() {
+        mIsInvalid = true;
+    }
+
+    public boolean isInvalid() {
+        return mIsInvalid;
+    }
+
     public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected RelativeLayout mItemView;
@@ -393,6 +407,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         XposedHook.logD(TAG, "saveTiles called");
         List<String> oldTiles = update ? getAddedTileSpecs() : QSTileHostHooks.mTileSpecs;
         if (oldTiles == null || !oldTiles.equals(tileSpecs)) {
+            if (!compareSpecs(tileSpecs)) invalidate();
             QSTileHostHooks.saveTileSpecs(mContext, tileSpecs);
             if (update) {
                 QSTileHostHooks.mTileSpecs = tileSpecs;
@@ -401,6 +416,18 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             return;
         }
         XposedHook.logD(TAG, "saveTiles: No changes to save");
+    }
+
+    private boolean compareSpecs(List<String> newSpecs) {
+        if (mPreviousSpecs == null || newSpecs == null) return false;
+        int oldSize = mPreviousSpecs.size();
+        int newSize = newSpecs.size();
+        if (oldSize != newSize) return false;
+        if (mPreviousSpecs.equals(newSpecs)) return true;
+        for (String spec : mPreviousSpecs)
+            if (!newSpecs.contains(spec))
+                return false;
+        return true;
     }
 
     private void saveSecureTiles() {
@@ -442,6 +469,13 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             tileSpecs.add((String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME));
         }
         return tileSpecs;
+    }
+
+    public void handleStateChanged(Object qsTile, Object state) {
+        ViewGroup tileView = (ViewGroup) XposedHelpers.getAdditionalInstanceField(qsTile, KEY_EDIT_TILEVIEW);
+        if (tileView != null) {
+            XposedHelpers.callMethod(tileView, "onStateChanged", state);
+        }
     }
 
     private final GridLayoutManager.SpanSizeLookup mSizeLookup = new GridLayoutManager.SpanSizeLookup() {

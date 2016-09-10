@@ -212,6 +212,11 @@ public class NotificationPanelHooks {
             mQsCustomizer.invalidateTileAdapter();
     }
 
+    public static void handleStateChanged(Object qsTile, Object state) {
+        if (mQsCustomizer != null)
+            mQsCustomizer.handleStateChanged(qsTile, state);
+    }
+
     public static void showQsCustomizer(ArrayList<Object> records, boolean animated) {
         if (canShowCustomizer(records))
             mQsCustomizer.show(records, animated);

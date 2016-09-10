@@ -612,9 +612,11 @@ public class StatusBarHeaderHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             // This method gets called from two different processes,
             // so we have to check if we are in the right one
+            Object state = XposedHelpers.getObjectField(param.thisObject, "mState");
             if (mHeaderQsPanel != null) {
-                mHeaderQsPanel.handleStateChanged(param.thisObject, XposedHelpers.getObjectField(param.thisObject, "mState"));
+                mHeaderQsPanel.handleStateChanged(param.thisObject, state);
             }
+            NotificationPanelHooks.handleStateChanged(param.thisObject, state);
         }
     };
 
