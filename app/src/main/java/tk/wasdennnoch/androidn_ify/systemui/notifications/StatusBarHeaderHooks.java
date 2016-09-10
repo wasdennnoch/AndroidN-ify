@@ -30,6 +30,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -51,6 +52,7 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgor
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
 import tk.wasdennnoch.androidn_ify.systemui.qs.PageIndicator;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QSAnimator;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.BluetoothTileHook;
@@ -151,6 +153,8 @@ public class StatusBarHeaderHooks {
     private static final Rect mClipBounds = new Rect();
 
     private static Class<?> mClassOnDismissAction;
+
+    public static QSAnimator mQsAnimator;
 
     private static final XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -380,7 +384,6 @@ public class StatusBarHeaderHooks {
                 mHeaderQsPanel.setClipChildren(false);
                 mHeaderQsPanel.setClipToPadding(false);
 
-
                 if (mWeatherContainer != null) {
                     RelativeLayout.LayoutParams weatherContainerLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                     weatherContainerLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -465,7 +468,8 @@ public class StatusBarHeaderHooks {
                     mFirstHalfAnimator.setPosition(f);
                     mSecondHalfAnimator.setPosition(f);
                     mSettingsAlpha.setPosition(f);
-                    mHeaderQsPanel.setPosition(f);
+                    //mHeaderQsPanel.setPosition(f);
+                    mQsAnimator.setPosition(f);
                 }
                 mExpandIndicator.setExpanded(f > 0.93F);
             } catch (Throwable ignore) {
@@ -897,9 +901,9 @@ public class StatusBarHeaderHooks {
         }
     };
 
-    public static void onClickEdit(View v, View g) {
-        final int x = StackScrollAlgorithmHooks.mStackScrollLayout.getLeft() + v.getLeft() + v.getWidth() / 2;
-        final int y = mStatusBarHeaderView.getHeight() + g.getTop() + g.getHeight() / 2;
+    public static void onClickEdit(int vx, int vy) {
+        final int x = StackScrollAlgorithmHooks.mStackScrollLayout.getLeft() + vx;
+        final int y = mStatusBarHeaderView.getHeight() + vy;
 
         startRunnableDismissingKeyguard(new Runnable() {
             @Override
@@ -949,7 +953,10 @@ public class StatusBarHeaderHooks {
                             @Override
                             public void runSafe() {
                                 mGridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
-                                mHeaderQsPanel.setupAnimators(mGridHeight);
+                                //mHeaderQsPanel.setupAnimators(mGridHeight);
+                                if (mQsAnimator != null) {
+                                    mQsAnimator.mUpdateAnimators.run();
+                                }
                             }
                         });
                     }
@@ -1338,4 +1345,11 @@ public class StatusBarHeaderHooks {
         }
     }
 
+    public static QuickQSPanel getHeaderQsPanel() {
+        return mHeaderQsPanel;
+    }
+
+    public static void createQsAnimator() {
+        mQsAnimator = new QSAnimator(mQsContainer, mHeaderQsPanel, mQsPanel);
+    }
 }

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLayout {

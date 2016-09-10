@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Space;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
@@ -101,12 +102,6 @@ public class QuickQSPanel extends LinearLayout implements PagedTileLayout.PageLi
     }
 
     public void setTiles(ArrayList<Object> tileRecords) {
-        if (mPagedLayout == null) {
-            mPagedLayout = SystemUIHooks.qsHooks.getTileLayout();
-            if (mPagedLayout != null) {
-                mPagedLayout.setPageListener(this);
-            }
-        }
         XposedHook.logD(TAG, "setTiles tile record count: " + tileRecords.size());
         if (tileRecords.size() == 0) {
             XposedHook.logW(TAG, "setTiles: Empty tileRecord list!");
@@ -128,6 +123,8 @@ public class QuickQSPanel extends LinearLayout implements PagedTileLayout.PageLi
             if (i < mMaxTiles)
                 mTileLayout.addTile(tilerecord);
         }
+        if (StatusBarHeaderHooks.mQsAnimator == null)
+            StatusBarHeaderHooks.createQsAnimator();
         StatusBarHeaderHooks.postSetupAnimators();
     }
 
@@ -214,7 +211,7 @@ public class QuickQSPanel extends LinearLayout implements PagedTileLayout.PageLi
             post(new Runnable() {
                 @Override
                 public void run() {
-                    setPosition(mLastPosition);
+                    //setPosition(mLastPosition);
                 }
             });
         }
@@ -364,6 +361,14 @@ public class QuickQSPanel extends LinearLayout implements PagedTileLayout.PageLi
         for (int i = 0; i < N2; i++) {
             mTopFiveQs.get(i).setVisibility(View.VISIBLE);
         }
+    }
+
+    public List<Object> getRecords() {
+        return mRecords;
+    }
+
+    public View getTileView(int i) {
+        return mIconViews.get(i);
     }
 
     private class HeaderTileLayout extends LinearLayout {

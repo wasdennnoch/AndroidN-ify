@@ -64,7 +64,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
                 setCurrentPage(position, positionOffset != 0);
                 mPageIndicator.setLocation(position + positionOffset);
                 if (mPageListener != null) {
-                    mPageListener.onPageChanged(positionOffsetPixels == 0 && position == 0);
+                    mPageListener.onPageChanged(position == 0);
                 }
             }
 
@@ -213,9 +213,14 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         return mPages.get(0).mColumns;
     }
 
+    public int getRowCount() {
+        if (mPages.size() == 0) return 0;
+        return mPages.get(0).mMaxRows;
+    }
+
     @Override
     public void onClick(View v) {
-        StatusBarHeaderHooks.onClickEdit(mEditBtn, mDecorGroup);
+        StatusBarHeaderHooks.onClickEdit(mEditBtn.getLeft() + mEditBtn.getWidth() / 2, getTop() + mDecorGroup.getTop() + mDecorGroup.getHeight() / 2);
     }
 
     public static class TilePage extends TileLayout {
@@ -326,9 +331,5 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
 
         addView(mDecorGroup);
         mPages.add(new TilePage(mContext, null));
-    }
-
-    public View getEditButton() {
-        return mEditBtn;
     }
 }

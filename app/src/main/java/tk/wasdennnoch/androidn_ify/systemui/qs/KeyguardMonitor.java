@@ -19,7 +19,7 @@ public class KeyguardMonitor {
     private boolean mShowing;
     private boolean mSecure;
     private boolean mCanSkipBouncer;
-    private List<Callback> mCallbacks = new ArrayList<>();
+    private final List<Callback> mCallbacks = new ArrayList<>();
     private boolean mListening = false;
 
     public KeyguardMonitor(Context context, Object keyguardMonitor) {
@@ -41,18 +41,22 @@ public class KeyguardMonitor {
     }
 
     public void addCallback(Callback callback) {
-        if (mCallbacks.contains(callback)) return;
-        mCallbacks.add(callback);
-        if (mCallbacks.size() != 0 && !mListening) {
-            mListening = true;
-            XposedHelpers.callMethod(mKeyguardMonitor, "addCallback", mCallback);
+        synchronized (mCallbacks) {
+            if (mCallbacks.contains(callback)) return;
+            mCallbacks.add(callback);
+            if (mCallbacks.size() != 0 && !mListening) {
+                mListening = true;
+                XposedHelpers.callMethod(mKeyguardMonitor, "addCallback", mCallback);
+            }
         }
     }
 
     public void removeCallback(Callback callback) {
-        if (mCallbacks.remove(callback) && mCallbacks.size() == 0 && mListening) {
-            mListening = false;
-            XposedHelpers.callMethod(mKeyguardMonitor, "removeCallback", mCallback);
+        synchronized (mCallbacks) {
+            if (mCallbacks.remove(callback) && mCallbacks.size() == 0 && mListening) {
+                mListening = false;
+                XposedHelpers.callMethod(mKeyguardMonitor, "removeCallback", mCallback);
+            }
         }
     }
 
@@ -75,8 +79,16 @@ public class KeyguardMonitor {
     }
 
     private void notifyKeyguardChanged() {
-        for (Callback callback : mCallbacks) {
-            callback.onKeyguardChanged();
+        synchronized (mCallbacks) {
+            int size = mCallbacks.size();
+            for (int i = 0; i < size; i++) {
+                try {
+                    Callback callback = mCallbacks.get(i);
+                    callback.onKeyguardChanged();
+                } catch (Throwable ignore) {
+
+                }
+            }
         }
     }
 
