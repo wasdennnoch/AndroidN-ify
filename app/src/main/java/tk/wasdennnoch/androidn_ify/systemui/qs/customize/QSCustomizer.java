@@ -78,7 +78,6 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private final Toolbar mToolbar;
     private final View mDoneButton;
     private boolean mCustomizing;
-    private boolean mTileAdapterIsInvalid = true;
 
     private int mLastX = 0;
     private int mLastY = 0;
@@ -155,7 +154,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     }
 
     public void invalidateTileAdapter() {
-        mTileAdapterIsInvalid = true;
+        mTileAdapter.invalidate();
     }
 
     public void show(ArrayList<Object> records, boolean animated) {
@@ -181,8 +180,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     }
 
     private void initShow(ArrayList<Object> records) {
-        if (mTileAdapterIsInvalid) {
-            mTileAdapterIsInvalid = false;
+        if (mTileAdapter.isInvalid()) {
             mTileAdapter.reInit(records, mContext);
         }
 
@@ -284,6 +282,10 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         mTileAdapter.saveChanges();
         if (!ConfigUtils.M)
             QSTileHostHooks.recreateTiles();
+    }
+
+    public void handleStateChanged(Object qsTile, Object state) {
+        mTileAdapter.handleStateChanged(qsTile, state);
     }
 
     @Override
