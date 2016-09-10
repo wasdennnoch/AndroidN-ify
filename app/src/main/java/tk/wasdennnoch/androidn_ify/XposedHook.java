@@ -108,6 +108,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             // user has never opened the preference screen before.
             logW(TAG, "Can't read prefs file, default values will be applied in hooks!");
         }
+        debug = sPrefs.getBoolean("debug_log", false);
     }
 
     @Override

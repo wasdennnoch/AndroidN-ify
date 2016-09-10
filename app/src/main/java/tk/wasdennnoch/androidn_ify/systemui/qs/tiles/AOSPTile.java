@@ -16,7 +16,7 @@ public class AOSPTile extends BaseTile {
         mTile = XposedHelpers.callMethod(host, "createTile", key);
         mTileClass = mTile.getClass();
         XposedHelpers.setAdditionalInstanceField(mTile, TILE_KEY_NAME, mKey);
-
+        registerCallbacks();
         hook();
     }
 

@@ -30,7 +30,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -51,7 +50,6 @@ import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgorithmHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
-import tk.wasdennnoch.androidn_ify.systemui.qs.PageIndicator;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSAnimator;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
@@ -994,7 +992,6 @@ public class StatusBarHeaderHooks {
                 switch (method.getName()) {
                     case "onDismiss":
                         runnable.run();
-                        return false;
                 }
                 return false;
             }
@@ -1029,7 +1026,7 @@ public class StatusBarHeaderHooks {
                 try {
                     // Every time you make a typo, the errorists win.
                     XposedHelpers.findAndHookMethod(classLayoutValues, "interpoloate", classLayoutValues, classLayoutValues, float.class, XC_MethodReplacement.DO_NOTHING);
-                } catch (Throwable ignore) { // srsly Bliss?
+                } catch (Throwable ignore) { // yeah thx Bliss
                     XposedHelpers.findAndHookMethod(classLayoutValues, "interpolate", classLayoutValues, classLayoutValues, float.class, XC_MethodReplacement.DO_NOTHING);
                 }
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "requestCaptureValues", XC_MethodReplacement.DO_NOTHING);

@@ -28,15 +28,16 @@ public class QSTile extends BaseTile {
     public QSTile(TilesManager tilesManager, Object host, String key) {
         super(tilesManager, host, key);
 
-        mState = new State(mKey);
-        mResUtils = ResourceUtils.getInstance(mContext);
         if (!tilesManager.useVolumeTile)
             mTile = XposedHelpers.callStaticMethod(XposedHelpers.findClass(CLASS_INTENT_TILE, mContext.getClassLoader()), "create", mHost, DUMMY_INTENT);
         else
             mTile = XposedHelpers.newInstance(XposedHelpers.findClass(CLASS_VOLUME_TILE, mContext.getClassLoader()), mHost);
+        mState = new State(mKey);
+        mResUtils = ResourceUtils.getInstance(mContext);
         XposedHelpers.setAdditionalInstanceField(mTile, TILE_KEY_NAME, mKey);
         if (resourceIconClass == null)
             resourceIconClass = getResourceIconClass(mContext.getClassLoader());
+        registerCallbacks();
     }
 
     private static Class<?> getResourceIconClass(ClassLoader classLoader) {

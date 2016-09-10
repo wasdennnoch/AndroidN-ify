@@ -184,9 +184,7 @@ public class QSTileHostHooks {
             } catch (ClassCastException e) { // PA
                 tiles = (List<String>) XposedHelpers.getObjectField(param.getResult(), "list");
             }
-            if (tiles.contains("edit")) {
-                tiles.remove("edit");
-            }
+            tiles.remove("edit");
         }
     };
 

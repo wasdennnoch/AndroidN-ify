@@ -90,7 +90,7 @@ public class TilesManager {
         return mCustomTileSpecs;
     }
 
-    public QSTile createTileInternal(String key) {
+    private QSTile createTileInternal(String key) {
         switch (key) {
             case AndroidN_ifyTile.TILE_SPEC:
                 return new AndroidN_ifyTile(this, mQSTileHost, key);

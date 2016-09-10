@@ -23,13 +23,22 @@ public abstract class BaseTile implements KeyguardMonitor.Callback {
     protected Object mTile;
     protected boolean mSecure = false;
 
+    /**
+     * ALWAYS CALL {@link #registerCallbacks()} AS THHE LAST LINE OF THE OVERRIDDEN CONSTRUCTOR
+     */
     public BaseTile(TilesManager tilesManager, Object host, String key) {
         mTilesManager = tilesManager;
         mHost = host;
         mContext = (Context) XposedHelpers.callMethod(mHost, "getContext");
         mKeyguard = QSTileHostHooks.mKeyguard;
-        mKeyguard.addCallback(this);
         mKey = key;
+    }
+
+    /**
+     * ALWAYS CALL THIS METHOD AS THHE LAST LINE OF THE OVERRIDDEN CONSTRUCTOR
+     */
+    protected void registerCallbacks() {
+        mKeyguard.addCallback(this);
         mTilesManager.registerTile(this);
     }
 
