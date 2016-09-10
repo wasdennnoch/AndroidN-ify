@@ -2,9 +2,11 @@
 
 ### Next version (v0.3.0):
 
+- Code improvements based on Nougat source
 - Emergency info
 - QS transition
 - QS editor
+- QS pages
 - Battery tile
 - New QS tile click behaviour
 - App install source in App info screen
@@ -13,7 +15,7 @@
 - Improved compatibility with PA and OOS
 - Fix preferences not readable
 - Many other fixes and improvements
-- Bosnian, Brazilian, Czech, Hebrew, Hungarian and Serbian translation
+- Many new translations
 
 ### v0.2.0 (5):
 

@@ -74,7 +74,6 @@ public class PageIndicator extends ViewGroup {
     public void setLocation(float location) {
         int index = (int) location;
         int position = index << 1 | ((location != index) ? 1 : 0);
-        XposedHook.logD(TAG, "setLocation " + location + " " + index + " " + position);
 
         int lastPosition = mPosition;
         if (mQueuedPositions.size() != 0) {
