@@ -28,6 +28,7 @@ import java.util.List;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -45,7 +46,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
     private final QuickQSPanel mQuickQsPanel;
     private final ViewGroup mQsPanel;
     private final ViewGroup mQsContainer;
-    private final KeyguardMonitor mKeyguard;
+    private KeyguardMonitor mKeyguard;
 
     private PagedTileLayout mPagedLayout;
 
@@ -86,6 +87,16 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
     @Override
     public void onViewAttachedToWindow(View v) {
         updateAnimators();
+        if (mKeyguard == null) {
+            mKeyguard = QSTileHostHooks.mKeyguard;
+            mQsPanel.post(new SafeRunnable() {
+                @Override
+                public void runSafe() {
+                    mKeyguard.addCallback(QSAnimator.this);
+                }
+            });
+            return;
+        }
         mKeyguard.addCallback(this);
     }
 
@@ -142,7 +153,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
                 getRelativePosition(loc2, tileIcon, mQsPanel);
                 final int xDiff = loc2[0] - loc1[0] + ((i < maxTilesOnPage) ? 0 : mPagedLayout.getWidth());
                 final int yDiff = loc2[1] - loc1[1] +
-                        + mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
+                        +mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
 
                 lastXDiff = loc1[0] - lastX;
                 lastYDiff = yDiff;
