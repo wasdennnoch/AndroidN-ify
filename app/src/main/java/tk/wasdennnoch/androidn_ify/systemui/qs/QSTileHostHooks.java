@@ -136,6 +136,9 @@ public class QSTileHostHooks {
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
+            if (mKeyguard == null)
+                mKeyguard = new KeyguardMonitor((Context) XposedHelpers.getObjectField(param.thisObject, "mContext"), XposedHelpers.getObjectField(param.thisObject, "mKeyguard"));
+
             mTileSpecs = new ArrayList<>(); // Do this since mTileSpecs doesn't exist on LP
 
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
