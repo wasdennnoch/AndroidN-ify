@@ -6,7 +6,6 @@ import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.graphics.Outline;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -47,6 +46,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.NonInterceptingScrollView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
+import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgorithmHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
@@ -123,14 +123,11 @@ public class StatusBarHeaderHooks {
     private static QuickQSPanel mHeaderQsPanel;
     public static ViewGroup mQsPanel;
     public static ViewGroup mQsContainer;
-    private static PageIndicator mPageIndicator;
 
     public static Context mContext;
     private static ResourceUtils mResUtils;
     private static View mCurrentDetailView;
 
-    public static FrameLayout mDecorLayout;
-    public static TextView mEditBtn;
     private static ImageView mQsRightButton;
 
     public static int mQsPage;
@@ -447,7 +444,7 @@ public class StatusBarHeaderHooks {
                 return;
             }
 
-            DetailViewManager.init(mContext, mStatusBarHeaderView, mQsPanel, mEditBtn, mHasEditPanel);
+            DetailViewManager.init(mContext, mStatusBarHeaderView, mQsPanel, mHasEditPanel);
             postSetupAnimators();
             updateResources(mContext);
 
@@ -602,8 +599,6 @@ public class StatusBarHeaderHooks {
             } else if (cancelled) {
                 XposedHook.logD(TAG, "setTilesHook: afterHookedMethod not executing beause cancelled");
             }
-            if (mUseDragPanel)
-                updatePageCount(param.thisObject);
         }
     };
 
@@ -647,21 +642,6 @@ public class StatusBarHeaderHooks {
         layout.addView(scrollView, position);
     }
 
-    private static final XC_MethodHook qsSetEditingHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            mQsEditing = (boolean) param.args[0];
-            updatePageCount(param.thisObject);
-        }
-    };
-
-    private static final XC_MethodHook updatePageCountHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            updatePageCount(param.thisObject);
-        }
-    };
-
     private static final XC_MethodHook handleShowDetailImplHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -672,6 +652,14 @@ public class StatusBarHeaderHooks {
                 param.args[3] = 0;
                 if (!show) {
                     NotificationPanelHooks.collapseIfNecessary();
+                }
+            } else {
+                Object r = param.args[0];
+                if (r != null) {
+                    View tileView = (View) XposedHelpers.getObjectField(r, "tileView");
+                    param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
+                    param.args[3] = tileView.getTop() + SystemUIHooks.qsHooks.getTileLayout().getOffsetTop(r) + tileView.getHeight() / 2
+                            + mQsPanel.getTop();
                 }
             }
             mCollapseAfterHideDatails = false;
@@ -684,35 +672,6 @@ public class StatusBarHeaderHooks {
             if (show && NotificationPanelHooks.isCollapsed()) {
                 mCollapseAfterHideDatails = true;
                 NotificationPanelHooks.expandIfNecessary();
-            }
-        }
-    };
-
-    private static void updatePageCount(Object qsPanel) {
-        int qsPages = Math.max((Integer) XposedHelpers.callMethod(qsPanel, "getCurrentMaxPageCount"), 1);
-        if (mQsPages != qsPages && mPageIndicator != null) {
-            mQsPages = qsPages;
-            mPageIndicator.setNumPages(qsPages + (mQsEditing ? 1 : 0));
-        }
-    }
-
-    private static final XC_MethodHook onPageSelectedHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            if ((boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, QS_PANEL_INDICATOR)) {
-                mQsPage = (int) param.args[0];
-                mDisableFancy = mQsPage != 0;
-            }
-        }
-    };
-
-    private static final XC_MethodHook onPageScrolledHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            if (mPageIndicator != null && (boolean) XposedHelpers.getAdditionalInstanceField(param.thisObject, QS_PANEL_INDICATOR)) {
-                int position = (int) param.args[0];
-                float positionOffset = (float) param.args[1];
-                mPageIndicator.setLocation(position + positionOffset);
             }
         }
     };
@@ -836,7 +795,6 @@ public class StatusBarHeaderHooks {
         transition(mExpandIndicator, !showingDetail);
         if (mExpansion < 1)
             transition(mHeaderQsPanel, !showingDetail);
-        setQSDecorVisible(!showingDetail);
         if (mWeatherContainer != null) {
             try {
                 if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mShowWeather"))
@@ -925,17 +883,6 @@ public class StatusBarHeaderHooks {
         @Override
         public void onClickSafe(View v) {
             switch (v.getId()) {
-                case R.id.qs_edit:
-                    final int x = StackScrollAlgorithmHooks.mStackScrollLayout.getLeft() + mEditBtn.getLeft() + mEditBtn.getWidth() / 2;
-                    final int y = mStatusBarHeaderView.getHeight() + mDecorLayout.getTop() + mDecorLayout.getHeight() / 2;
-
-                    startRunnableDismissingKeyguard(new Runnable() {
-                        @Override
-                        public void run() {
-                            showEdit(x, y);
-                        }
-                    });
-                    break;
                 case R.id.qs_up:
                     XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
                             mContext.getString(mContext.getResources().getIdentifier("accessibility_desc_quick_settings", "string", PACKAGE_SYSTEMUI)));
@@ -950,6 +897,18 @@ public class StatusBarHeaderHooks {
         }
     };
 
+    public static void onClickEdit(View v, View g) {
+        final int x = StackScrollAlgorithmHooks.mStackScrollLayout.getLeft() + v.getLeft() + v.getWidth() / 2;
+        final int y = mStatusBarHeaderView.getHeight() + g.getTop() + g.getHeight() / 2;
+
+        startRunnableDismissingKeyguard(new Runnable() {
+            @Override
+            public void run() {
+                showEdit(x, y);
+            }
+        });
+    }
+
     private static void showEdit(final int x, final int y) {
         mQsPanel.post(new Runnable() {
             @Override
@@ -957,25 +916,6 @@ public class StatusBarHeaderHooks {
                 NotificationPanelHooks.showQsCustomizer(mRecords, x, y);
             }
         });
-    }
-
-    /*
-    public static void onSetBarState(int state) {
-
-    }
-    */
-
-    private static void setQSDecorVisible(boolean visible) {
-        if (mDecorLayout == null || mQsPanel == null) return;
-        FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
-        if (visible) {
-            mDecorLayout.setVisibility(View.VISIBLE);
-            qsPanelLp.bottomMargin = ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
-        } else {
-            mDecorLayout.setVisibility(View.GONE);
-            qsPanelLp.bottomMargin = 0;
-        }
-        mQsPanel.setLayoutParams(qsPanelLp);
     }
 
     private static KeyguardMonitor.Callback mKeyguardCallback = new KeyguardMonitor.Callback() {
@@ -1146,18 +1086,10 @@ public class StatusBarHeaderHooks {
                 mUseDragPanel = false;
                 try {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
-                    Class<?> classCirclePageIndicator = XposedHelpers.findClass(CLASS_CIRCLE_PAGE_INDICATOR, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
                     hookDragPanelGetLeft(classQSDragPanel);
-                    //XposedHelpers.findAndHookMethod(classQSDragPanel, "onMeasure", int.class, int.class, onMeasureHook);
-                    //XposedHelpers.findAndHookMethod(classQSDragPanel, "onLayout", boolean.class, int.class, int.class, int.class, int.class, onLayoutHook);
-                    XposedBridge.hookAllMethods(classQSDragPanel, "setEditing", qsSetEditingHook);
-                    XposedBridge.hookAllMethods(classQSDragPanel, "restoreDraggingTilePosition", updatePageCountHook);
-                    XposedBridge.hookAllMethods(classQSDragPanel, "shiftTiles", updatePageCountHook);
                     XposedBridge.hookAllMethods(classQSDragPanel, "handleShowDetailImpl", handleShowDetailImplHook);
-                    XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageSelected", int.class, onPageSelectedHook);
-                    XposedHelpers.findAndHookMethod(classCirclePageIndicator, "onPageScrolled", int.class, float.class, int.class, onPageScrolledHook);
                     mUseDragPanel = true;
                 } catch (Throwable ignore) {
                     XposedHelpers.findAndHookConstructor(classQSPanel, Context.class, AttributeSet.class, new XC_MethodHook() {
@@ -1384,7 +1316,6 @@ public class StatusBarHeaderHooks {
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         FrameLayout layout = (FrameLayout) liparam.view;
                         Context context = layout.getContext();
-                        ResourceUtils res = ResourceUtils.getInstance(context);
 
                         mQsContainer = layout;
 
@@ -1397,50 +1328,6 @@ public class StatusBarHeaderHooks {
                             mQsPanel = (ViewGroup) layout.getChildAt(0);
                         } catch (Throwable t1) { // RR added 5 ImageViews in between...
                             mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
-                        }
-
-                        if (ConfigUtils.qs().enable_qs_editor || mUseDragPanel) {
-                            FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQsPanel.getLayoutParams();
-                            qsPanelLp.bottomMargin = res.getDimensionPixelSize(R.dimen.qs_panel_margin_bottom);
-                            mQsPanel.setLayoutParams(qsPanelLp);
-
-                            FrameLayout.LayoutParams decorLayoutLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.qs_panel_decor_height));
-                            decorLayoutLp.gravity = Gravity.BOTTOM;
-                            mDecorLayout = new FrameLayout(context);
-                            mDecorLayout.setLayoutParams(decorLayoutLp);
-
-                            if (mUseDragPanel) {
-                                FrameLayout.LayoutParams pageIndicatorLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                pageIndicatorLp.gravity = Gravity.CENTER;
-                                mPageIndicator = new PageIndicator(context);
-                                mPageIndicator.setLayoutParams(pageIndicatorLp);
-                                mDecorLayout.addView(mPageIndicator);
-                            }
-
-                            if (ConfigUtils.qs().enable_qs_editor) {
-                                int editBtnPadding = res.getDimensionPixelSize(R.dimen.qs_edit_padding);
-
-                                FrameLayout.LayoutParams editBtnLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                editBtnLp.gravity = Gravity.END;
-                                mEditBtn = new TextView(context);
-                                mEditBtn.setLayoutParams(editBtnLp);
-                                mEditBtn.setId(R.id.qs_edit);
-                                mEditBtn.setMinWidth(res.getDimensionPixelSize(R.dimen.qs_edit_min_width));
-                                mEditBtn.setText(res.getString(R.string.qs_edit));
-                                mEditBtn.setTextColor(res.getColor(R.color.edit_btn_text));
-                                mEditBtn.setFocusable(true);
-                                mEditBtn.setGravity(Gravity.CENTER);
-                                mEditBtn.setBackground(res.getDrawable(R.drawable.qs_btn_borderless_rect));
-                                mEditBtn.setOnClickListener(onClickListener);
-                                mEditBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                                mEditBtn.setTextColor(res.getColor(R.color.qs_detail_button));
-                                mEditBtn.setAllCaps(true);
-                                mEditBtn.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-                                mEditBtn.setPadding(editBtnPadding, editBtnPadding, editBtnPadding, editBtnPadding);
-                                mDecorLayout.addView(mEditBtn);
-                            }
-
-                            layout.addView(mDecorLayout);
                         }
                     }
                 });

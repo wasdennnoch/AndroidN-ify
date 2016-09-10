@@ -16,6 +16,7 @@ import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QuickSettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
@@ -28,9 +29,12 @@ public class SystemUIHooks {
 
     private static final String CLASS_SYSTEMUI_APPLICATION = "com.android.systemui.SystemUIApplication";
 
+    public static QuickSettingsHooks qsHooks;
     public static BatteryInfoManager batteryInfoManager;
 
     public static void hookSystemUI(ClassLoader classLoader) {
+
+        qsHooks = QuickSettingsHooks.create(classLoader);
 
         XposedHelpers.findAndHookMethod(CLASS_SYSTEMUI_APPLICATION, classLoader, "onCreate", new XC_MethodHook() {
             @Override
