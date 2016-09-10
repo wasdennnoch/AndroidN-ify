@@ -331,10 +331,10 @@ public class QSTileHostHooks {
     public static List<String> getAvailableTiles(Context context) {
         List<String> specs = new ArrayList<>();
         try { // Get the available tiles from the SystemUI config.xml
-            String[] availableSpeccs = context.getString(
+            String[] availableSpecs = context.getString(
                     context.getResources().getIdentifier("quick_settings_tiles_default", "string", XposedHook.PACKAGE_SYSTEMUI))
                     .split(",");
-            for (String s : availableSpeccs) {
+            for (String s : availableSpecs) {
                 if (!TextUtils.isEmpty(s))
                     specs.add(s);
             }

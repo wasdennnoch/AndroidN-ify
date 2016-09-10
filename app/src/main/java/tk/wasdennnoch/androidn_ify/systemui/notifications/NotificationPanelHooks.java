@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -146,8 +147,6 @@ public class NotificationPanelHooks {
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
-                //Class<?> classNotificationsQuickSettingsContainer = XposedHelpers.findClass(CLASS_NOTIFICATIONS_QUICK_SETTINGS_CONTAINER, classLoader);
-
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
 
@@ -157,22 +156,6 @@ public class NotificationPanelHooks {
                         XposedHelpers.callMethod(mNotificationPanelView, "setListening", true);
                     }
                 });
-
-                /*
-                XposedHelpers.findAndHookMethod(classNotificationsQuickSettingsContainer, "onFinishInflate", new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        FrameLayout container = (FrameLayout) param.thisObject;
-
-                        FrameLayout.LayoutParams qsCustomizerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        QSCustomizer qsCustomizer = new QSCustomizer(container.getContext());
-                        qsCustomizer.setLayoutParams(qsCustomizerLp);
-                        //container.addView(qsCustomizer, 2);
-
-                        mQsCustomizer = qsCustomizer;
-                    }
-                });
-                */
 
                 XC_MethodHook returnIfCustomizing = new XC_MethodHook() {
                     @Override

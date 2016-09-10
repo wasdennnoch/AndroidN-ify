@@ -35,11 +35,11 @@ public class DetailViewManager {
         return sInstance;
     }
 
-    public static void init(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, TextView editButton, boolean hasEditPanel) {
-        sInstance = new DetailViewManager(context, statusBarHeaderView, qsPanel, editButton, hasEditPanel);
+    public static void init(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, boolean hasEditPanel) {
+        sInstance = new DetailViewManager(context, statusBarHeaderView, qsPanel, hasEditPanel);
     }
 
-    private DetailViewManager(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, TextView editButton, boolean hasEditPanel) {
+    private DetailViewManager(Context context, ViewGroup statusBarHeaderView, ViewGroup qsPanel, boolean hasEditPanel) {
         mContext = context;
         mStatusBarHeaderView = statusBarHeaderView;
         mQsPanel = qsPanel;
