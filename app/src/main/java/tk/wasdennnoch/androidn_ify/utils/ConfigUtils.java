@@ -142,6 +142,7 @@ public class ConfigUtils {
         public final boolean hide_tuner_icon;
         public final boolean hide_edit_tiles;
         public final boolean hide_carrier_label;
+        public final boolean disable_qs_paging;
 
         public QuickSettingsConfig(XSharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
@@ -154,6 +155,7 @@ public class ConfigUtils {
             hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
+            disable_qs_paging = prefs.getBoolean("disable_qs_paging", false);
             header_clock_size = Integer.parseInt(prefs.getString("header_clock_size", "0"));
 
             Set<String> keepBgs = prefs.getStringSet("keep_backgrounds", Collections.<String>emptySet());
