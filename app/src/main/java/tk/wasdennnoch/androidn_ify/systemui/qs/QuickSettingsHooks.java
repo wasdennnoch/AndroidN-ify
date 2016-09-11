@@ -67,10 +67,11 @@ public class QuickSettingsHooks {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 mPanelPaddingBottom = XposedHelpers.getIntField(param.thisObject, "mPanelPaddingBottom");
-                if (mTileLayout != null)
+                if (mTileLayout != null) {
                     if (mTileLayout.updateResources())
                         StatusBarHeaderHooks.postSetupAnimators();
-                mTileLayout.setColumnCount(XposedHelpers.getIntField(param.thisObject, "mColumns"));
+                    mTileLayout.setColumnCount(XposedHelpers.getIntField(param.thisObject, "mColumns"));
+                }
             }
         });
     }

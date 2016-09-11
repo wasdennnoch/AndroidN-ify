@@ -66,10 +66,11 @@ public class RecentsStackHooks {
                 XposedHelpers.findAndHookMethod(classRecentsViewLayoutAlgorithm, "computeStackRects", List.class, Rect.class, computeStackRectsHook);
                 */
 
-                // Bliss...
                 XposedHelpers.findAndHookMethod("com.android.systemui.recents.RecentsConfiguration", classLoader, "update", Context.class, new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        XposedHelpers.setFloatField(param.thisObject, "taskViewThumbnailAlpha", 1f);
+                        // Bliss...
                         try {
                             XposedHelpers.setIntField(param.thisObject, "taskViewRoundedCornerRadiusPx",
                                     (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, ((Context) param.args[0]).getResources().getDisplayMetrics()));
