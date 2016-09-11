@@ -60,7 +60,7 @@ public class NotificationPanelHooks {
                 }
             }
 
-            FrameLayout.LayoutParams qsCustomizerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            FrameLayout.LayoutParams qsCustomizerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             QSCustomizer qsCustomizer = new QSCustomizer(context);
             mNotificationPanelView.addView(qsCustomizer, qsCustomizerLp);
 

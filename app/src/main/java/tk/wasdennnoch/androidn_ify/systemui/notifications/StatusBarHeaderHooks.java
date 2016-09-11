@@ -77,7 +77,6 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_QS_STATE = CLASS_QS_TILE + "$State";
     private static final String CLASS_QS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
-    private static final String QS_PANEL_INDICATOR = "QSPanelIndicator";
 
     private static boolean mCollapseAfterHideDatails = false;
     private static boolean mHideTunerIcon = false;
@@ -132,7 +131,6 @@ public class StatusBarHeaderHooks {
     private static boolean mHasEditPanel = false;
     public static boolean mShowingDetail;
     public static boolean mUseDragPanel = false;
-    private static boolean mFirstRowLarge;
 
     public static boolean mExpanded;
     private static float mExpansion = 0;
@@ -546,8 +544,7 @@ public class StatusBarHeaderHooks {
                 return; // Otherwise all tiles are gone after recreation
             }
             if (mUseDragPanel && !RomUtils.isAicp()) {
-                updateFirstRowLarge();
-                return; // Causes problem with "Enlarge first row" setting
+                return; // CM has tile caching logics
             }
             if (mHeaderQsPanel != null) { // keep
                 // Only set up views if the tiles actually changed
@@ -616,7 +613,6 @@ public class StatusBarHeaderHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             View pageIndicator = (View) XposedHelpers.getObjectField(param.thisObject, "mPageIndicator");
             pageIndicator.setAlpha(0);
-            XposedHelpers.setAdditionalInstanceField(pageIndicator, QS_PANEL_INDICATOR, true);
         }
     };
 
@@ -634,6 +630,7 @@ public class StatusBarHeaderHooks {
         NonInterceptingScrollView scrollView = new NonInterceptingScrollView(context);
         scrollView.setLayoutParams(scrollViewLp);
         scrollView.addView(content);
+        scrollView.setFillViewport(true);
 
         layout.addView(scrollView, position);
     }
@@ -897,6 +894,10 @@ public class StatusBarHeaderHooks {
         final int x = StackScrollAlgorithmHooks.mStackScrollLayout.getLeft() + vx;
         final int y = mStatusBarHeaderView.getHeight() + vy;
 
+        showEditDismissingKeyguard(x, y);
+    }
+
+    public static void showEditDismissingKeyguard(final int x, final int y) {
         startRunnableDismissingKeyguard(new Runnable() {
             @Override
             public void run() {
@@ -1086,7 +1087,6 @@ public class StatusBarHeaderHooks {
                     Class<?> classQSDragPanel = XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setTiles", Collection.class, setTilesHook);
                     XposedHelpers.findAndHookMethod(classQSDragPanel, "setupViews", setupViewsHook);
-                    hookDragPanelGetLeft(classQSDragPanel);
                     XposedBridge.hookAllMethods(classQSDragPanel, "handleShowDetailImpl", handleShowDetailImplHook);
                     mUseDragPanel = true;
                 } catch (Throwable ignore) {
@@ -1196,30 +1196,6 @@ public class StatusBarHeaderHooks {
         }
     }
 
-    private static void updateFirstRowLarge() {
-        boolean firstRowLarge = XposedHelpers.getBooleanField(mQsPanel, "mFirstRowLarge");
-        if (firstRowLarge == mFirstRowLarge) return;
-        mFirstRowLarge = firstRowLarge;
-        if (!mFirstRowLarge && mUnhookDragPanelGetLeft == null) {
-            hookDragPanelGetLeft(XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, mContext.getClassLoader()));
-        } else if (mFirstRowLarge && mUnhookDragPanelGetLeft != null) {
-            mUnhookDragPanelGetLeft.unhook();
-            mUnhookDragPanelGetLeft = null;
-        }
-    }
-
-    private static XC_MethodHook.Unhook mUnhookDragPanelGetLeft;
-
-    private static void hookDragPanelGetLeft(Class<?> classQSDragPanel) {
-        mFirstRowLarge = false;
-        mUnhookDragPanelGetLeft = XposedHelpers.findAndHookMethod(classQSDragPanel, "getLeft", int.class, int.class, int.class, boolean.class, new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                param.args[2] = 3;
-            }
-        });
-    }
-
     public static int R_string_battery_panel_title;
 
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
@@ -1242,6 +1218,7 @@ public class StatusBarHeaderHooks {
                 if (ConfigUtils.M)
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "multi_user_avatar_expanded_size", modRes.fwd(R.dimen.multi_user_avatar_size));
 
+                /*
                 if (!ConfigUtils.qs().large_first_row) {
                     try {
                         resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_dual_tile_height",
@@ -1253,6 +1230,7 @@ public class StatusBarHeaderHooks {
                         XposedHook.logE(TAG, "Couldn't change qs_dual_tile_height or qs_tile_divider_height (" + t.getClass().getSimpleName() + ")", null);
                     }
                 }
+                */
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "qs_tile_divider", 0x00000000);
 
@@ -1342,5 +1320,9 @@ public class StatusBarHeaderHooks {
 
     public static void createQsAnimator() {
         mQsAnimator = new QSAnimator(mQsContainer, mHeaderQsPanel, mQsPanel);
+    }
+
+    public static View getSettingsButton() {
+        return mSettingsButton;
     }
 }

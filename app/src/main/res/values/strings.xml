@@ -354,5 +354,6 @@
     <string name="notification_spoof_api_version">Spoof these apps into thinking they\'re running on API 24</string>
     <string name="hide_tiles_on_lockscreen">Hide tiles on lockscreen</string>
     <string name="done">Done</string>
+    <string name="cm_qs_settings">CM QS settings</string>
 
 </resources>

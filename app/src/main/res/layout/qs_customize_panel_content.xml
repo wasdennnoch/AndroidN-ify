@@ -40,7 +40,7 @@
             android:visibility="gone" >
 
             <TextView
-                android:text="@string/hide_tiles_on_lockscreen"
+                android:id="@+id/title"
                 android:textAppearance="@style/TextAppearance.QS.DetailHeader"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"

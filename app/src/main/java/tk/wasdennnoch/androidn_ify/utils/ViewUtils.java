@@ -11,11 +11,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewRootImpl;
 import android.widget.TextView;
 
 import java.util.Locale;
 
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.systemui.qs.PagedTileLayout;
 
 @SuppressWarnings("SameParameterValue")
 public class ViewUtils {
@@ -94,5 +96,19 @@ public class ViewUtils {
             dialog.getActionBar().setBackgroundDrawable(new ColorDrawable(colorPrimary));
         } catch (NullPointerException ignore) {
         }
+    }
+
+    public static void getRelativePosition(int[] loc1, View view, View parent) {
+        loc1[0] = view.getWidth() / 2;
+        loc1[1] = 0;
+        getRelativePositionInt(loc1, view, parent);
+    }
+
+    private static void getRelativePositionInt(int[] loc1, View view, View parent) {
+        if (view == parent || view == null) return;
+        loc1[0] += view.getLeft();
+        loc1[1] += view.getTop();
+        if (!(view.getParent() instanceof ViewRootImpl))
+            getRelativePositionInt(loc1, (View) view.getParent(), parent);
     }
 }

@@ -41,6 +41,8 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
     private boolean mOffPage;
     private TextView mEditBtn;
 
+    public boolean mFirstRowLarge = ConfigUtils.qs().large_first_row;
+
     public PagedTileLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
@@ -168,10 +170,12 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
 
     @Override
     public boolean updateResources() {
-        boolean changed = false;
+        boolean changed = mFirstRowLarge;
         for (int i = 0; i < mPages.size(); i++) {
             changed |= mPages.get(i).updateResources();
         }
+        if (mFirstRowLarge)
+            mPages.get(0).setFirstRowLarge(mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
         if (changed) {
             distributeTiles();
         }
@@ -220,6 +224,10 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         return mPages.get(0).mMaxRows;
     }
 
+    public TilePage getFirstPage() {
+        return mPages.get(0);
+    }
+
     @Override
     public void onClick(View v) {
         StatusBarHeaderHooks.onClickEdit(mEditBtn.getLeft() + mEditBtn.getWidth() / 2, getTop() + mDecorGroup.getTop() + mDecorGroup.getHeight() / 2);
@@ -260,7 +268,14 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         }
 
         public boolean isFull() {
-            return mRecords.size() >= mColumns * mMaxRows;
+            return mRecords.size() >= getMaxTiles();
+        }
+
+        public int getMaxTiles() {
+            int max = mColumns * mMaxRows;
+            if (mFirstRowLarge)
+                max += 2 - mColumns;
+            return max;
         }
     }
 
