@@ -1,6 +1,7 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
@@ -18,10 +19,13 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
     protected int mColumns;
     protected int mCellWidth;
     protected int mCellHeight;
+    protected int mLargeCellWidth;
     protected int mCellMargin;
+    protected boolean mFirstRowLarge = false;
 
     protected final ArrayList<Object> mRecords = new ArrayList<>();
     private int mCellMarginTop;
+    private int mPortraitColumns = 3;
 
     public TileLayout(Context context) {
         this(context, null);
@@ -34,6 +38,10 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
         setClipToPadding(false);
         setFocusableInTouchMode(true);
         updateResources();
+    }
+
+    protected Object getTileFromRecord(Object record) {
+        return XposedHelpers.getObjectField(record, "tile");
     }
 
     protected ViewGroup getTileViewFromRecord(Object record) {
@@ -65,8 +73,12 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
     }
 
     public boolean updateResources() {
-        final Resources res = ResourceUtils.getInstance(mContext).getResources();
-        final int columns = Math.max(1, res.getInteger(R.integer.quick_settings_num_columns));
+        Resources res = ResourceUtils.getInstance(mContext).getResources();
+        int columns = Math.max(1, res.getInteger(R.integer.quick_settings_num_columns));
+        if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columns = mPortraitColumns;
+        }
+        mLargeCellWidth = res.getDimensionPixelSize(R.dimen.qs_dual_tile_width);
         mCellHeight = res.getDimensionPixelSize(R.dimen.qs_tile_height);
         mCellMargin = res.getDimensionPixelSize(R.dimen.qs_tile_margin);
         mCellMarginTop = res.getDimensionPixelSize(R.dimen.qs_tile_margin_top);
@@ -79,9 +91,9 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
     }
 
     public void setColumns(int columns) {
-        if (mColumns != columns) {
-            mColumns = columns;
-            requestLayout();
+        if (mPortraitColumns != columns) {
+            mPortraitColumns = columns;
+            updateResources();
         }
     }
 
@@ -92,18 +104,39 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
         final int rows = (numTiles + mColumns - 1) / mColumns;
         mCellWidth = (width - (mCellMargin * (mColumns + 1))) / mColumns;
 
+        int row = 0;
+        int column = 0;
         for (Object record : mRecords) {
             View tileView = getTileViewFromRecord(record);
-            try {
-                XposedHelpers.callMethod(tileView, "setDual", false);
-            } catch (Throwable t) { // CM13
-                XposedHelpers.callMethod(tileView, "setDual", false, false);
+            if (tileView.getVisibility() != VISIBLE) continue;
+            if (column == getColumns(row)) {
+                row++;
+                column = 0;
             }
-            if (tileView.getVisibility() == GONE) continue;
-            tileView.measure(exactly(mCellWidth), exactly(mCellHeight));
+            setDual(record, isDual(row));
+            tileView.measure(exactly(getCellWidth(row)), exactly(mCellHeight));
+            column++;
         }
         setMeasuredDimension(width,
                 (mCellHeight + mCellMargin) * rows + (mCellMarginTop - mCellMargin));
+    }
+
+    private void setDual(Object record, boolean dual) {
+        View tileView = getTileViewFromRecord(record);
+        try {
+            XposedHelpers.callMethod(tileView, "setDual", new Class[] {boolean.class}, dual);
+        } catch (Throwable t) { // CM13
+            Object tile = getTileFromRecord(record);
+            XposedHelpers.callMethod(tileView, "setDual", new Class[] {boolean.class, boolean.class}, dual, XposedHelpers.callMethod(tile, "hasDualTargetsDetails"));
+        }
+    }
+
+    private boolean isDual(int row) {
+        return mFirstRowLarge && row == 0;
+    }
+
+    private int getColumns(int row) {
+        return isDual(row) ? 2 : mColumns;
     }
 
     private static int exactly(int size) {
@@ -116,31 +149,40 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
         boolean isRtl = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
         int row = 0;
         int column = 0;
-        for (int i = 0; i < mRecords.size(); i++, column++) {
-            if (column == mColumns) {
-                row++;
-                column -= mColumns;
-            }
+        for (int i = 0; i < mRecords.size(); i++) {
             Object record = mRecords.get(i);
-            int left = getColumnStart(column);
+            View tileView = getTileViewFromRecord(record);
+            if (tileView.getVisibility() != VISIBLE) continue;
+            if (column == getColumns(row)) {
+                row++;
+                column = 0;
+            }
+            int left = getColumnStart(row, column);
             final int top = getRowTop(row);
             int right;
-            if (isRtl) {
-                right = w - left;
-                left = right - mCellWidth;
-            } else {
-                right = left + mCellWidth;
-            }
-            View tileView = getTileViewFromRecord(record);
+            right = left + getCellWidth(row);
             tileView.layout(left, top, right, top + tileView.getMeasuredHeight());
+            column++;
         }
+    }
+
+    private int getCellWidth(int row) {
+        return (mFirstRowLarge && row == 0) ? mLargeCellWidth : mCellWidth;
     }
 
     private int getRowTop(int row) {
         return row * (mCellHeight + mCellMargin) + mCellMarginTop;
     }
 
-    private int getColumnStart(int column) {
-        return column * (mCellWidth + mCellMargin) + mCellMargin;
+    private int getColumnStart(int row, int column) {
+        if (mFirstRowLarge && row == 0) {
+            return column * mLargeCellWidth + (column + 1) * (getWidth() - mLargeCellWidth * 2) / (3);
+        } else
+            return column * (mCellWidth + mCellMargin) + mCellMargin;
+    }
+
+    public void setFirstRowLarge(boolean firstRowLarge) {
+        mFirstRowLarge = firstRowLarge;
+        requestLayout();
     }
 }

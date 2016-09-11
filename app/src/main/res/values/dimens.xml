@@ -105,6 +105,7 @@
     <dimen name="qs_up_button_size">56dp</dimen>
     <dimen name="qs_up_button_margin_end">16dp</dimen>
 
+    <dimen name="qs_dual_tile_width">134dp</dimen>
     <dimen name="qs_tile_height">88dp</dimen>
     <dimen name="qs_tile_margin">16dp</dimen>
     <dimen name="qs_tile_margin_top">16dp</dimen>

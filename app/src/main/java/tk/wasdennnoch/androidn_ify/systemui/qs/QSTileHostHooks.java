@@ -8,6 +8,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,11 +21,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.SettingsUtils;
+import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 public class QSTileHostHooks {
     public static final String TAG = "QSTileHostHooks";
@@ -222,6 +227,19 @@ public class QSTileHostHooks {
                 try {
                     classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
                     classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
+                    XposedHelpers.findAndHookMethod(classTileHost, "setEditing", boolean.class, new XC_MethodReplacement() {
+                        @Override
+                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                            if ((boolean) param.args[0]) {
+                                View settingsButton = StatusBarHeaderHooks.getSettingsButton();
+                                int[] loc = new int[2];
+                                ViewUtils.getRelativePosition(loc, settingsButton, StatusBarHeaderHooks.mStatusBarHeaderView);
+                                StatusBarHeaderHooks.showEditDismissingKeyguard(loc[0] + settingsButton.getWidth() / 2,
+                                        loc[1] + settingsButton.getHeight() / 2);
+                            }
+                            return null;
+                        }
+                    });
                     mIsCm = true;
                 } catch (Throwable ignore) {
                 }

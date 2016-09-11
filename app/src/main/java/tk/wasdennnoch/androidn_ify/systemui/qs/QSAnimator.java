@@ -130,7 +130,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         int lastYDiff = 0;
         int lastX = 0;
 
-        int maxTilesOnPage = mPagedLayout.getColumnCount() * mPagedLayout.getRowCount();
+        int maxTilesOnPage = mPagedLayout.getFirstPage().getMaxTiles();
 
         clearAnimationState();
         mAllViews.clear();
@@ -239,7 +239,10 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
             return false;
         }
         final int columnCount = mPagedLayout.getColumnCount();
-        return count < ((mNumQuickTiles + columnCount - 1) / columnCount) * columnCount;
+        int animatedTiles = mNumQuickTiles;
+        if (mPagedLayout.getFirstPage().mFirstRowLarge)
+            animatedTiles += columnCount - 2;
+        return count < ((animatedTiles + columnCount - 1) / columnCount) * columnCount;
     }
 
     private void getRelativePosition(int[] loc1, View view, View parent) {
@@ -266,7 +269,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
             return;
         }
         mLastPosition = position;
-        if (mOnFirstPage && mAllowFancy) {
+        if (mOnFirstPage && mAllowFancy && (!StatusBarHeaderHooks.mShowingDetail || position == 0)) {
             mQuickQsPanel.setAlpha(1);
             mFirstPageAnimator.setPosition(position);
             mFirstPageDelayedAnimator.setPosition(position);

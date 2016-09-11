@@ -35,6 +35,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 import android.widget.Toolbar.OnMenuItemClickListener;
 
@@ -65,11 +67,20 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private static final int MENU_ADD_BROADCAST_TILE = 1;
     private static final int MENU_RESET = 2;
     private static final int MENU_SECURE_TILES = 3;
+    private static final int MENU_CM_SETTINGS = 4;
+
+    public static final int MODE_NORMAL = 0;
+    public static final int MODE_EDIT_SECURE = 1;
+    public static final int MODE_CM_SETTINGS = 2;
+
     private final Context mContext;
     private final Context mOwnContext;
     private final QSDetailClipper mClipper;
     private final Point mSizePoint = new Point();
     private final int mColor;
+    private final LinearLayout mListContainer;
+    private final TextView mTitle;
+    private final String[] mTitles;
 
     private boolean mHasNavBar;
     private boolean isShown;
@@ -83,6 +94,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private int mLastY = 0;
     private final int mNavigationBarSize;
     private final int mNotificationPanelWidth;
+    private int mMode = MODE_NORMAL;
+    private View mCmSettings;
 
     @SuppressWarnings("deprecation")
     public QSCustomizer(Context context) {
@@ -114,7 +127,14 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             recyclerView.setScrollIndicators(SCROLL_INDICATOR_TOP);
         }
-        ((LinearLayout) findViewById(R.id.list_containter)).addView(recyclerView);
+        mListContainer = (LinearLayout) findViewById(R.id.list_containter);
+        mListContainer.addView(recyclerView);
+
+        mTitle = (TextView) findViewById(R.id.title);
+        mTitles = new String[] {
+                res.getString(R.string.hide_tiles_on_lockscreen),
+                res.getString(R.string.cm_qs_settings)
+        };
 
         mToolbar = (Toolbar) findViewById(R.id.action_bar);
         TypedValue value = new TypedValue();
@@ -133,6 +153,11 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         if (ConfigUtils.M) {
             menu.add(Menu.NONE, MENU_ADD_BROADCAST_TILE, 1, res.getString(R.string.add_custom_tile));
             menu.add(Menu.NONE, MENU_SECURE_TILES, 1, res.getString(R.string.hide_tiles_on_lockscreen));
+            try {
+                mCmSettings = inflateCmSettings(context);
+                menu.add(Menu.NONE, MENU_CM_SETTINGS, 1, res.getString(R.string.cm_qs_settings));
+            } catch (Throwable ignore) {
+            }
         }
         mToolbar.setTitle(R.string.qs_edit);
 
@@ -151,6 +176,13 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         DefaultItemAnimator animator = new DefaultItemAnimator();
         animator.setMoveDuration(TileAdapter.MOVE_DURATION);
         mRecyclerView.setItemAnimator(animator);
+    }
+
+    private View inflateCmSettings(Context context) {
+        LinearLayout.LayoutParams cmSettingsLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        View cmSettings = View.inflate(context, context.getResources().getIdentifier("qs_settings", "layout", XposedHook.PACKAGE_SYSTEMUI), null);
+        cmSettings.setLayoutParams(cmSettingsLp);
+        return cmSettings;
     }
 
     public void invalidateTileAdapter() {
@@ -184,7 +216,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             mTileAdapter.reInit(records, mContext);
         }
 
-        setEditingSecure(false);
+        setMode(MODE_NORMAL);
 
         if (!isShown) {
             isShown = true;
@@ -196,8 +228,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     public boolean onBackPressed() {
         if (!mCustomizing) return false;
 
-        if (mTileAdapter.getMode() != TileAdapter.MODE_NORMAL)
-            setEditingSecure(false);
+        if (mMode != MODE_NORMAL)
+            setMode(MODE_NORMAL);
         else
             hideCircular();
         return true;
@@ -252,7 +284,10 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
                 showAddBroadcastTile();
                 break;
             case MENU_SECURE_TILES:
-                setEditingSecure(true);
+                setMode(MODE_EDIT_SECURE);
+                break;
+            case MENU_CM_SETTINGS:
+                setMode(MODE_CM_SETTINGS);
                 break;
         }
         return false;
@@ -372,13 +407,47 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
 
     @Override
     public void onClick(View view) {
-        setEditingSecure(false);
+        setMode(MODE_NORMAL);
     }
 
-    private void setEditingSecure(boolean editingSecure) {
-        mTileAdapter.setMode(editingSecure ? TileAdapter.MODE_EDIT_SECURE : TileAdapter.MODE_NORMAL);
-        transition(mToolbar, !editingSecure);
-        transition(mDoneButton, editingSecure);
+    private void setMode(int mode) {
+        if (mMode == mode) return;
+        mMode = mode;
+        onModeChanged();
+
+        boolean normal = mode == MODE_NORMAL;
+        transition(mToolbar, normal);
+        transition(mDoneButton, !normal);
+    }
+
+    private void onModeChanged() {
+        mListContainer.removeAllViews();
+        mListContainer.addView(getCurrentView());
+        mTitle.setText(getTitle());
+
+        getCurrentView();
+    }
+
+    private String getTitle() {
+        switch (mMode) {
+            case MODE_CM_SETTINGS:
+                return mTitles[1];
+            case MODE_EDIT_SECURE:
+                return mTitles[0];
+            default:
+                return "";
+        }
+    }
+
+    private View getCurrentView() {
+        switch (mMode) {
+            case MODE_CM_SETTINGS:
+                return mCmSettings;
+            case MODE_EDIT_SECURE:
+            default:
+                mTileAdapter.setMode(mMode);
+                return mRecyclerView;
+        }
     }
 
     private static void transition(final View v, final boolean in) {

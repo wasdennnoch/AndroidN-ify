@@ -164,7 +164,6 @@
                 android:defaultValue="false"
                 android:dependency="enable_new_tile_click_behavior"
                 android:key="enable_large_first_row"
-                android:summary="@string/enable_large_first_row_summary"
                 android:title="@string/enable_large_first_row"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference

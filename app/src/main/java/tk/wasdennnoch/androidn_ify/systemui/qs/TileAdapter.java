@@ -26,13 +26,13 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_TILEVIEW;
+import static tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer.MODE_NORMAL;
+import static tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer.MODE_EDIT_SECURE;
 
 @SuppressWarnings("WeakerAccess")
 public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder> {
 
     protected static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
-    public static final int MODE_NORMAL = 0;
-    public static final int MODE_EDIT_SECURE = 1;
 
     public static final long MOVE_DURATION = 150;
     private static final long DRAG_LENGTH = 100;
