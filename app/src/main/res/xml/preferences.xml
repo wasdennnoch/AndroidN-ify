@@ -166,6 +166,13 @@
                 android:key="enable_large_first_row"
                 android:title="@string/enable_large_first_row"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_qs_editor"
+                android:key="disable_qs_paging"
+                android:summary="@string/disable_qs_paging_summary"
+                android:title="@string/disable_qs_paging"/>
+
             <tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference
                 android:defaultValue="0"
                 android:dependency="enable_notification_header"

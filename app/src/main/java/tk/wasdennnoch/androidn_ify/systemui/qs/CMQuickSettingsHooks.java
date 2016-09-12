@@ -7,7 +7,7 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 
 public class CMQuickSettingsHooks extends QuickSettingsHooks {
-    public CMQuickSettingsHooks(ClassLoader classLoader) {
+    protected CMQuickSettingsHooks(ClassLoader classLoader) {
         super(classLoader);
     }
 

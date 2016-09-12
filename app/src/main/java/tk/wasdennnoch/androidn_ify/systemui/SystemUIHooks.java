@@ -5,12 +5,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.XModuleResources;
 import android.os.Handler;
 import android.os.Process;
 import android.provider.Settings;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources;
+import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
@@ -18,6 +21,7 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickSettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.systemui.statusbar.StatusBarHooks;
 import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -30,11 +34,15 @@ public class SystemUIHooks {
     private static final String CLASS_SYSTEMUI_APPLICATION = "com.android.systemui.SystemUIApplication";
 
     public static QuickSettingsHooks qsHooks;
+    public static StatusBarHooks statusBarHooks;
     public static BatteryInfoManager batteryInfoManager;
+    public static int R_drawable_ic_qs_data_disabled;
+    public static int R_drawable_stat_sys_data_disabled;
 
     public static void hookSystemUI(ClassLoader classLoader) {
 
         qsHooks = QuickSettingsHooks.create(classLoader);
+        statusBarHooks = StatusBarHooks.create(classLoader);
 
         XposedHelpers.findAndHookMethod(CLASS_SYSTEMUI_APPLICATION, classLoader, "onCreate", new XC_MethodHook() {
             @Override
@@ -114,6 +122,12 @@ public class SystemUIHooks {
             });
         }
 
+    }
+
+    public static void hookResSystemUI(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
+        XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
+        R_drawable_ic_qs_data_disabled = resparam.res.addResource(modRes, R.drawable.ic_qs_data_disabled);
+        R_drawable_stat_sys_data_disabled = resparam.res.addResource(modRes, R.drawable.stat_sys_data_disabled);
     }
 
 }

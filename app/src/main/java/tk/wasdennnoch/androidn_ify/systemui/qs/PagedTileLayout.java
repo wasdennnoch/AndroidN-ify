@@ -255,12 +255,15 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         }
 
         private int getRows() {
-            final Resources res = getContext().getResources();
-            if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (isPortrait()) {
                 // Always have 3 rows in portrait.
                 return 3;
             }
             return Math.max(1, ResourceUtils.getInstance(mContext).getResources().getInteger(R.integer.quick_settings_num_rows));
+        }
+
+        private boolean isPortrait() {
+            return getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         }
 
         public void setMaxRows(int maxRows) {
@@ -268,7 +271,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         }
 
         public boolean isFull() {
-            return mRecords.size() >= getMaxTiles();
+            return !(ConfigUtils.qs().disable_qs_paging && isPortrait()) && mRecords.size() >= getMaxTiles();
         }
 
         public int getMaxTiles() {

@@ -345,6 +345,7 @@
     <string name="press_color_to_apply">Press on color to apply</string>
     <!-- Color picker: Hint text of the input field for hexadecimal color values -->
     <string name="color_picker_hex">HEX</string>
+
     <string name="enable_install_source_title">Show app installation source</string>
     <string name="battery_detail_switch_title">Battery Saver</string>
     <string name="battery_detail_switch_summary">Reduces performance and background data</string>
@@ -355,5 +356,7 @@
     <string name="hide_tiles_on_lockscreen">Hide tiles on lockscreen</string>
     <string name="done">Done</string>
     <string name="cm_qs_settings">CM QS settings</string>
+    <string name="disable_qs_paging">Disable QS paging</string>
+    <string name="disable_qs_paging_summary">Disable QS paging in portrait</string>
 
 </resources>

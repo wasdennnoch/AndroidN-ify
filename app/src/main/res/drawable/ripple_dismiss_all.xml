@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple
+<inset
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="?android:attr/colorControlHighlight">
-    <item android:id="@android:id/mask">
-        <color android:color="@android:color/white"/>
-    </item>
-</ripple>
+    android:insetTop="4dp"
+    android:insetBottom="4dp"
+    android:insetLeft="8dp"
+    android:insetRight="8dp">
+    <ripple
+        android:color="?android:attr/colorControlHighlight">
+        <item android:id="@android:id/mask">
+            <shape>
+                <corners android:radius="@dimen/borderless_button_radius" />
+
+                <solid android:color="@android:color/white" />
+            </shape>
+        </item>
+    </ripple>
+</inset>

@@ -109,6 +109,7 @@
     <dimen name="qs_tile_height">88dp</dimen>
     <dimen name="qs_tile_margin">16dp</dimen>
     <dimen name="qs_tile_margin_top">16dp</dimen>
+    <dimen name="qs_container_elevation">4dp</dimen>
 
     <dimen name="battery_height">14.5dp</dimen>
     <dimen name="battery_width">9.5dp</dimen>
