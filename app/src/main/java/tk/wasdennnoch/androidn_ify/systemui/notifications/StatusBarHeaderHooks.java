@@ -1295,7 +1295,7 @@ public class StatusBarHeaderHooks {
 
                         mQsContainer = layout;
 
-                        layout.setElevation(0);
+                        layout.setElevation(ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.qs_container_elevation));
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layout.getLayoutParams();
                         params.setMarginStart(0);
                         params.setMarginEnd(0);

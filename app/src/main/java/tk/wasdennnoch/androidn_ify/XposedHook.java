@@ -175,6 +175,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     RecentsNavigation.hookResSystemui(resparam);
                 }
+                SystemUIHooks.hookResSystemUI(resparam, sModulePath);
                 break;
         }
 

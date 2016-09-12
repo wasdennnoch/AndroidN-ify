@@ -25,7 +25,6 @@ public class QuickSettingsHooks {
     protected View mBrightnessView;
     protected Object mFooter;
     protected View mDetail;
-    private int mPanelPaddingBottom;
 
     private PagedTileLayout mTileLayout;
 
@@ -38,7 +37,7 @@ public class QuickSettingsHooks {
         }
     }
 
-    public QuickSettingsHooks(ClassLoader classLoader) {
+    protected QuickSettingsHooks(ClassLoader classLoader) {
         mClassLoader = classLoader;
         mHookClass = XposedHelpers.findClass(getHookClass(), mClassLoader);
         hookConstructor();
@@ -66,7 +65,6 @@ public class QuickSettingsHooks {
         XposedHelpers.findAndHookMethod(mHookClass, "updateResources", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                mPanelPaddingBottom = XposedHelpers.getIntField(param.thisObject, "mPanelPaddingBottom");
                 if (mTileLayout != null) {
                     if (mTileLayout.updateResources())
                         StatusBarHeaderHooks.postSetupAnimators();
