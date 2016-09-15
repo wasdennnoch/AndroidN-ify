@@ -14,6 +14,9 @@
     <color name="usage_graph_dots">#455A64</color>
     <color name="qs_text">#FFFFFFFF</color>
     <color name="system_accent_color">#ff80CBC4</color>
+
+    <color name="remote_input_text_enabled">#ffffffff</color>
+    <color name="remote_input_hint">#99ffffff</color>
     <!-- /Notifications / Status bar header -->
 
     <!-- Emergency info -->
