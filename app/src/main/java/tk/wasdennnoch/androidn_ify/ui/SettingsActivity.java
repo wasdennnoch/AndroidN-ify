@@ -32,7 +32,7 @@ import java.io.IOException;
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
@@ -190,7 +190,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     case "settings_notifications":
                         if (!ConfigUtils.M)
                             lockPreference(screen.findPreference("notification_experimental"));
-                        if (!RemoteInputHelperView.DIRECT_REPLY_ENABLED)
+                        if (!RemoteInputHelper.DIRECT_REPLY_ENABLED)
                             screen.removePreference(findPreference("notification_spoof_api_version"));
                         break;
                 }

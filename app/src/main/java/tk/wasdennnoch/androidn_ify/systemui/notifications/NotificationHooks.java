@@ -18,6 +18,7 @@ import android.graphics.drawable.Icon;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.graphics.ColorUtils;
@@ -40,6 +41,7 @@ import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,12 +52,15 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelperView;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
+
+import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
 @SuppressWarnings({"WeakerAccess", "UnusedAssignment", "PointlessBooleanExpression"})
 public class NotificationHooks {
@@ -162,45 +167,81 @@ public class NotificationHooks {
                     }
                 }
             }
-            Notification.Action[] actions = sbn.getNotification().actions;
-            if (RemoteInputHelperView.DIRECT_REPLY_ENABLED && actions != null) {
+
+            if (RemoteInputHelper.DIRECT_REPLY_ENABLED) {
+                View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
+                Notification.Action[] actions = sbn.getNotification().actions;
+
+                if (expandedChild == null || actions == null) {
+                    // TODO: Implement wearable extraction
+                    String EXTRA_WEARABLE_EXTENSIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "EXTRA_WEARABLE_EXTENSIONS");
+                    String KEY_ACTIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "KEY_ACTIONS");
+
+                    Bundle wearableBundle = sbn.getNotification().extras.getBundle(EXTRA_WEARABLE_EXTENSIONS);
+                    if (wearableBundle != null) {
+                        ArrayList<Notification.Action> wearableActions = wearableBundle.getParcelableArrayList(KEY_ACTIONS);
+                        if (wearableActions != null) {
+                            for (int i = 0; i < wearableActions.size(); i++) {
+                                if (hasValidRemoteInput(wearableActions.get(i))) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    return; // return for now
+                }
+
+                LinearLayout actionsLayout = (LinearLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                FrameLayout actionContainer = new FrameLayout(context);
+
+                // Transfer views
+                int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
+                ViewGroup parent = (ViewGroup) actionsLayout.getParent();
+                parent.removeView(actionsLayout);
+                parent.addView(actionContainer, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                actionContainer.addView(actionsLayout);
+                ViewUtils.setMarginStart(actionsLayout, startMargin);
+                ((ViewGroup.MarginLayoutParams) actionContainer.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
+
+                // Add remote input
+                boolean hasRemoteInput = false;
+
+                if (actions != null) {
+                    for (Notification.Action a : actions) {
+                        if (a.getRemoteInputs() != null) {
+                            for (RemoteInput ri : a.getRemoteInputs()) {
+                                if (ri.getAllowFreeFormInput()) {
+                                    hasRemoteInput = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (hasRemoteInput) {
+                    LinearLayout riv = RemoteInputView.inflate(context, actionContainer);
+                    riv.setVisibility(View.INVISIBLE);
+                    actionContainer.addView(riv, new FrameLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT)
+                    );
+                    riv.setBackgroundColor(privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
+                }
+
                 for (int i = 0; i < actions.length; i++) {
                     final Notification.Action action = actions[i];
-                    if (hasValidRemoteInput(action)) {
-                        View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
-
-                        final RemoteInputHelperView remoteInputHelperView = RemoteInputHelperView.newInstance(context,
-                                action.actionIntent, privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
-                        LinearLayout actionsLayout = (LinearLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
-                        int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
-                        ViewGroup parent = (ViewGroup) actionsLayout.getParent();
-                        parent.removeView(actionsLayout);
-                        parent.addView(remoteInputHelperView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        remoteInputHelperView.addView(actionsLayout, 0);
-                        ViewUtils.setMarginStart(actionsLayout, startMargin);
-                        ((ViewGroup.MarginLayoutParams) remoteInputHelperView.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
-
-                        RemoteInput[] remoteInputs = action.getRemoteInputs();
-                        RemoteInput remoteInput = null;
-                        for (RemoteInput ri : remoteInputs) {
-                            if (ri.getAllowFreeFormInput()) {
-                                remoteInput = ri;
-                                break;
-                            }
-                        }
-                        if (remoteInput == null) {
-                            break;
-                        }
-                        remoteInputHelperView.setRemoteInput(remoteInputs, remoteInput);
-
+                    if (actions[i].getRemoteInputs() != null) {
                         Button actionButton = (Button) actionsLayout.getChildAt(i);
+                        final View.OnClickListener old = (View.OnClickListener) getObjectField(XposedHelpers.callMethod(actionButton, "getListenerInfo"), "mOnClickListener");
                         actionButton.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                remoteInputHelperView.show(v, true);
+                            public void onClick(View view) {
+                                if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs())) {
+                                    old.onClick(view);
+                                }
                             }
                         });
-                        break;
                     }
                 }
             }
@@ -671,7 +712,7 @@ public class NotificationHooks {
                 final Class<?> classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
                 final Class<?> classMediaExpandableNotificationRow = getClassMediaExpandableNotificationRow(classLoader);
                 Class classPhoneStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.phone.PhoneStatusBar", classLoader);
-                if (RemoteInputHelperView.DIRECT_REPLY_ENABLED) {
+                if (RemoteInputHelper.DIRECT_REPLY_ENABLED) {
                     Class classStatusBarWindowManager = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager", classLoader);
                     Class classStatusBarWindowManagerState = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.StatusBarWindowManager.State", classLoader);
 
