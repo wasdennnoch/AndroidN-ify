@@ -37,7 +37,7 @@ public class AOSPTile extends BaseTile {
                             }
                         }
                     });
-            hookHandleClick();
+            //hookHandleClick();
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking tile " + mTileClass.getName(), t);
         }
@@ -72,8 +72,8 @@ public class AOSPTile extends BaseTile {
     public void handleDestroy() {
         super.handleDestroy();
         mHandleUpdateStateHook.unhook();
-        if (mHandleToggleClickHook != null) mHandleToggleClickHook.unhook();
-        mHandleClickHook.unhook();
+        //if (mHandleToggleClickHook != null) mHandleToggleClickHook.unhook();
+        //mHandleClickHook.unhook();
     }
 
     @Override
