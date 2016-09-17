@@ -56,6 +56,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.NotificationActionListLayo
 import tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.NotificationStackScrollLayoutHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -83,6 +84,7 @@ public class NotificationHooks {
 
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
+    private static NotificationStackScrollLayoutHooks mStackScrollLayoutHooks;
 
     private static final XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -584,12 +586,13 @@ public class NotificationHooks {
 
             final XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
             XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
+            XResources.DimensionReplacement notification_padding = new XResources.DimensionReplacement(0.5f, TypedValue.COMPLEX_UNIT_DIP);
 
             if (config.notifications.change_style) {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", zero);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", notification_padding);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", notification_padding);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_min_height", modRes.fwd(R.dimen.notification_min_height));
@@ -637,10 +640,10 @@ public class NotificationHooks {
                     });
                 }
 
-                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
-                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
+                //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
+                //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
                 try {
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
+                    //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
                 } catch (Throwable ignore) {
                 }
 
@@ -683,10 +686,7 @@ public class NotificationHooks {
 
     @SuppressWarnings("deprecation")
     private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes) {
-        return new RippleDrawable(
-                ColorStateList.valueOf(xRes.getColor(android.R.color.transparent)),
-                getBackgroundRippleContent(xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI))),
-                null);
+        return getNotificationBackground(xRes);
     }
 
     @SuppressWarnings({"deprecation", "ConstantConditions"})
@@ -729,6 +729,9 @@ public class NotificationHooks {
             ConfigUtils config = ConfigUtils.getInstance();
 
             if (config.notifications.change_style) {
+
+                mStackScrollLayoutHooks = new NotificationStackScrollLayoutHooks(classLoader);
+
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
@@ -802,6 +805,7 @@ public class NotificationHooks {
                 });
 
                 if (ConfigUtils.M) {
+                    /*
                     XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -810,6 +814,7 @@ public class NotificationHooks {
                             row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
                         }
                     });
+                    */
                 }
 
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
@@ -862,7 +867,7 @@ public class NotificationHooks {
                             if (!classExpandableNotificationRow.isAssignableFrom(child.getClass())) {
                                 continue;
                             }
-                            child.findViewById(R.id.notification_divider).setVisibility(firstChild ? View.INVISIBLE : View.VISIBLE);
+                            //child.findViewById(R.id.notification_divider).setVisibility(firstChild ? View.INVISIBLE : View.VISIBLE);
                             firstChild = false;
                         }
                     }

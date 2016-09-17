@@ -126,11 +126,15 @@ public class StatusBarHooks {
         });
     }
 
-    protected boolean isDataDisabled(Object mobileSignalController) {
-        Object mPhone = XposedHelpers.getObjectField(mobileSignalController, "mPhone");
-        Object mSubscriptionInfo = XposedHelpers.getObjectField(mobileSignalController, "mSubscriptionInfo");
-        int subscriptionId = (int) XposedHelpers.callMethod(mSubscriptionInfo, "getSubscriptionId");
-        return !((boolean) XposedHelpers.callMethod(mPhone, "getDataEnabled", subscriptionId));
+    private boolean isDataDisabled(Object mobileSignalController) {
+        try {
+            Object mPhone = XposedHelpers.getObjectField(mobileSignalController, "mPhone");
+            Object mSubscriptionInfo = XposedHelpers.getObjectField(mobileSignalController, "mSubscriptionInfo");
+            int subscriptionId = (int) XposedHelpers.callMethod(mSubscriptionInfo, "getSubscriptionId");
+            return !((boolean) XposedHelpers.callMethod(mPhone, "getDataEnabled", subscriptionId));
+        } catch (Throwable t) {
+            return false;
+        }
     }
 
     public void startRunnableDismissingKeyguard(final Runnable runnable) {
