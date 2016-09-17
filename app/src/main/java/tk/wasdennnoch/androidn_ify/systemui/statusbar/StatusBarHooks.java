@@ -1,39 +1,72 @@
 package tk.wasdennnoch.androidn_ify.systemui.statusbar;
 
+import android.content.Context;
+import android.os.Handler;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class StatusBarHooks {
+    private static final String TAG = "StatusBarHooks";
 
+    private static final String CLASS_PHONE_STATUS_BAR = "com.android.systemui.statusbar.phone.PhoneStatusBar";
     private static final String CLASS_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.SignalController";
     private static final String CLASS_MOBILE_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.MobileSignalController";
-    private final ClassLoader mClassLoader;
-    private final Class<?> mHookClass;
-    private boolean mLastDataDisabled = false;
-    private boolean mDataDisabled = false;
+    protected final ClassLoader mClassLoader;
+    private final Class<?> mPhoneStatusBarClass;
+    private final Class<?> mMobileSignalControllerClass;
+    protected boolean mLastDataDisabled = false;
+    protected boolean mDataDisabled = false;
+
+    protected Context mContext;
+    protected Object mPhoneStatusBar;
+    private Handler mHandler;
 
     public static StatusBarHooks create(ClassLoader classLoader) {
-        return new StatusBarHooks(classLoader);
+        if (ConfigUtils.M) {
+            return new StatusBarHooks(classLoader);
+        } else {
+            return new LollipopStatusBarHooks(classLoader);
+        }
     }
 
-    private StatusBarHooks(ClassLoader classLoader) {
+    StatusBarHooks(ClassLoader classLoader) {
         mClassLoader = classLoader;
-        mHookClass = XposedHelpers.findClass(getHookClass(), mClassLoader);
+        mPhoneStatusBarClass = XposedHelpers.findClass(getPhoneStatusBarClass(), mClassLoader);
+        mMobileSignalControllerClass = XposedHelpers.findClass(getMobileSignalControllerClass(), mClassLoader);
         //hookConstructor();
+        hookStart();
         hookIsDirty();
         hookUpdateTelephony();
         hookSetMobileDataIndicators();
     }
 
+    private void hookStart() {
+        XposedHelpers.findAndHookMethod(mPhoneStatusBarClass, "start", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                mPhoneStatusBar = param.thisObject;
+                mHandler = (Handler) XposedHelpers.getObjectField(mPhoneStatusBar, "mHandler");
+                mContext = (Context) XposedHelpers.getObjectField(mPhoneStatusBar, "mContext");
+            }
+        });
+    }
+
     private void hookIsDirty() {
-        Class<?> classSignalController = XposedHelpers.findClass(CLASS_SIGNAL_CONTROLLER, mClassLoader);
+        Class<?> classSignalController = XposedHelpers.findClass(getSignalControllerClass(), mClassLoader);
 
         XposedHelpers.findAndHookMethod(classSignalController, "isDirty", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                if (mHookClass == null || !mHookClass.isAssignableFrom(param.thisObject.getClass()))
+                if (mMobileSignalControllerClass == null || !mMobileSignalControllerClass.isAssignableFrom(param.thisObject.getClass()))
                     return;
                 if (mLastDataDisabled != mDataDisabled) {
                     mLastDataDisabled = mDataDisabled;
@@ -41,6 +74,10 @@ public class StatusBarHooks {
                 }
             }
         });
+    }
+
+    protected String getSignalControllerClass() {
+        return CLASS_SIGNAL_CONTROLLER;
     }
 
     /*
@@ -52,7 +89,7 @@ public class StatusBarHooks {
         Class<?> classSubscriptionInfo = XposedHelpers.findClass("android.telephony.SubscriptionInfo", mClassLoader);
         Class<?> classSubscriptionDefaults = XposedHelpers.findClass("com.android.systemui.statusbar.policy.NetworkControllerImpl.SubscriptionDefaults", mClassLoader);
 
-        XposedHelpers.findAndHookConstructor(mHookClass, Context.class, classConfig, boolean.class, classTelephonyManager, classCallbackHandler,
+        XposedHelpers.findAndHookConstructor(mMobileSignalControllerClass, Context.class, classConfig, boolean.class, classTelephonyManager, classCallbackHandler,
                 classNetworkControllerImpl, classSubscriptionInfo, classSubscriptionDefaults, Looper.class, new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -63,7 +100,7 @@ public class StatusBarHooks {
     */
 
     private void hookUpdateTelephony() {
-        XposedHelpers.findAndHookMethod(mHookClass, "updateTelephony", new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(mMobileSignalControllerClass, "updateTelephony", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 mDataDisabled = isDataDisabled(param.thisObject);
@@ -71,7 +108,7 @@ public class StatusBarHooks {
         });
     }
 
-    private void hookSetMobileDataIndicators() {
+    protected void hookSetMobileDataIndicators() {
         Class<?> classCallbackHandler = XposedHelpers.findClass("com.android.systemui.statusbar.policy.CallbackHandler", mClassLoader);
 
         XposedBridge.hookAllMethods(classCallbackHandler, "setMobileDataIndicators", new XC_MethodHook() {
@@ -79,22 +116,47 @@ public class StatusBarHooks {
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 int typeIcon = 2;
                 int qsTypeIcon = 3;
+                int isWide = 8;
                 if (mDataDisabled) {
                     param.args[typeIcon] = SystemUIHooks.R_drawable_stat_sys_data_disabled;
                     param.args[qsTypeIcon] = SystemUIHooks.R_drawable_ic_qs_data_disabled;
+                    param.args[isWide] = false;
                 }
             }
         });
     }
 
-    private boolean isDataDisabled(Object mobileSignalController) {
+    protected boolean isDataDisabled(Object mobileSignalController) {
         Object mPhone = XposedHelpers.getObjectField(mobileSignalController, "mPhone");
         Object mSubscriptionInfo = XposedHelpers.getObjectField(mobileSignalController, "mSubscriptionInfo");
-        int subscriptionid = (int) XposedHelpers.callMethod(mSubscriptionInfo, "getSubscriptionId");
-        return !((boolean) XposedHelpers.callMethod(mPhone, "getDataEnabled", subscriptionid));
+        int subscriptionId = (int) XposedHelpers.callMethod(mSubscriptionInfo, "getSubscriptionId");
+        return !((boolean) XposedHelpers.callMethod(mPhone, "getDataEnabled", subscriptionId));
     }
 
-    private String getHookClass() {
+    public void startRunnableDismissingKeyguard(final Runnable runnable) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    XposedHelpers.setBooleanField(mPhoneStatusBar, "mLeaveOpenOnKeyguardHide", true);
+                    XposedHelpers.callMethod(mPhoneStatusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Error in startRunnableDismissingKeyguard, executing instantly (" + t.toString() + ")", null);
+                    runnable.run();
+                }
+            }
+        });
+    }
+
+    protected String getMobileSignalControllerClass() {
         return CLASS_MOBILE_SIGNAL_CONTROLLER;
+    }
+
+    private String getPhoneStatusBarClass() {
+        return CLASS_PHONE_STATUS_BAR;
+    }
+
+    public void post(Runnable r) {
+        mHandler.post(r);
     }
 }

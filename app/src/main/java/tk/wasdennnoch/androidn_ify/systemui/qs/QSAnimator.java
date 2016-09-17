@@ -60,7 +60,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
 
     private boolean mOnKeyguard;
 
-    private boolean mAllowFancy = true;
+    private boolean mAllowFancy = ConfigUtils.qs().allow_fancy_qs_transition;
     private boolean mFullRows = true;
     private int mNumQuickTiles = ConfigUtils.qs().qs_tiles_count;
     private float mLastPosition;

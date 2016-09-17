@@ -242,6 +242,11 @@
             </PreferenceScreen>
 
             <SwitchPreference
+                android:defaultValue="false"
+                android:key="allow_direct_reply_on_keyguard"
+                android:title="@string/allow_direct_reply_on_keyguard"/>
+
+            <SwitchPreference
                 android:defaultValue="true"
                 android:key="notification_dismiss_button"
                 android:summary="@string/notification_dismiss_button"

@@ -18,5 +18,6 @@
     <item name="usage_graph" type="id" />
     <item name="battery_usage" type="id" />
     <item name="edit" type="id" />
+    <item name="actions_container" type="id" />
 
 </resources>

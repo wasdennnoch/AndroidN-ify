@@ -142,8 +142,6 @@ public class StatusBarHeaderHooks {
 
     private static final Rect mClipBounds = new Rect();
 
-    private static Class<?> mClassOnDismissAction;
-
     public static QSAnimator mQsAnimator;
 
     private static final XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
@@ -959,38 +957,7 @@ public class StatusBarHeaderHooks {
     }
 
     private static void startRunnableDismissingKeyguard(final Runnable runnable) {
-        Object qsTileHost = XposedHelpers.getObjectField(mQsPanel, "mHost");
-        final Object statusBar = XposedHelpers.getObjectField(qsTileHost, "mStatusBar");
-        Handler mHandler = (Handler) XposedHelpers.getObjectField(statusBar, "mHandler");
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (ConfigUtils.M) {
-                        XposedHelpers.setBooleanField(statusBar, "mLeaveOpenOnKeyguardHide", true);
-                        XposedHelpers.callMethod(statusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
-                    } else {
-                        XposedHelpers.callMethod(statusBar, "dismissKeyguardThenExecute", createOnDismissAction(runnable), true);
-                    }
-                } catch (Throwable t) {
-                    XposedHook.logE(TAG, "Error in startRunnableDismissingKeyguard, executing instantly (" + t.toString() + ")", null);
-                    runnable.run();
-                }
-            }
-        });
-    }
-
-    private static Object createOnDismissAction(final Runnable runnable) {
-        return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{mClassOnDismissAction}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                switch (method.getName()) {
-                    case "onDismiss":
-                        runnable.run();
-                }
-                return false;
-            }
-        });
+        SystemUIHooks.statusBarHooks.startRunnableDismissingKeyguard(runnable);
     }
 
     public static void hook(ClassLoader classLoader) {
@@ -1185,9 +1152,6 @@ public class StatusBarHeaderHooks {
                             if (icon != null) icon.setVisibility(View.GONE);
                         }
                     });
-                    if (!ConfigUtils.M) {
-                        mClassOnDismissAction = XposedHelpers.findClass("com.android.keyguard.KeyguardHostView.OnDismissAction", classLoader);
-                    }
                 }
 
             }
