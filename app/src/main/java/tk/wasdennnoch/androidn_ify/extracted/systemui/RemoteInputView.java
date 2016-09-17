@@ -67,6 +67,8 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
     private View mScrollContainerChild;
     private boolean mRemoved;
 
+    private Object headsUpEntry;
+
     public RemoteInputView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -157,6 +159,8 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
     }
 
     public void onDefocus() {
+        if (headsUpEntry != null)
+            callMethod(headsUpEntry, "updateEntry");
         RemoteInputHelper.setWindowManagerFocus(false);
         // During removal, we get reattached and lose focus. Not hiding in that
         // case to prevent flicker.
@@ -339,6 +343,10 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
 
     public void setPendingIntent(PendingIntent pendingIntent) {
         mPendingIntent = pendingIntent;
+    }
+
+    public void setHeadsUpEntry(Object headsUpEntry) {
+        this.headsUpEntry = headsUpEntry;
     }
 
     public void setRemoved() {

@@ -21,6 +21,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.service.notification.StatusBarNotification;
+import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -43,6 +45,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -91,7 +94,6 @@ public class NotificationHooks {
         @SuppressWarnings({"deprecation", "UnusedAssignment"})
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-
             if (!(boolean) param.getResult()) return;
 
             Object entry = param.args[0];
@@ -148,9 +150,9 @@ public class NotificationHooks {
             }
 
             // actions background
+            View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
+            View headsUpChild = ConfigUtils.M ? (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild") : null;
             if (!ConfigUtils.notifications().custom_actions_color) {
-                View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
-                View headsUpChild = ConfigUtils.M ? (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild") : null;
                 if (expandedChild != null || headsUpChild != null) {
                     int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
                     double[] lab = new double[3];
@@ -173,102 +175,81 @@ public class NotificationHooks {
             }
 
             if (RemoteInputHelper.DIRECT_REPLY_ENABLED) {
-                View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
                 Notification.Action[] actions = sbn.getNotification().actions;
-
-                if (expandedChild == null || actions == null) {
-                    // TODO: Implement wearable extraction
-                    String EXTRA_WEARABLE_EXTENSIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "EXTRA_WEARABLE_EXTENSIONS");
-                    String KEY_ACTIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "KEY_ACTIONS");
-
-                    Bundle wearableBundle = sbn.getNotification().extras.getBundle(EXTRA_WEARABLE_EXTENSIONS);
-                    if (wearableBundle != null) {
-                        ArrayList<Notification.Action> wearableActions = wearableBundle.getParcelableArrayList(KEY_ACTIONS);
-                        if (wearableActions != null) {
-                            for (int i = 0; i < wearableActions.size(); i++) {
-                                if (hasValidRemoteInput(wearableActions.get(i))) {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    return; // return for now
-                }
-
-                NotificationActionListLayout actionsLayout = (NotificationActionListLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
-                FrameLayout actionContainer = new FrameLayout(context);
-
-                // Transfer views
-                int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
-                ViewGroup parent = (ViewGroup) actionsLayout.getParent();
-                parent.removeView(actionsLayout);
-                parent.addView(actionContainer, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                actionContainer.addView(actionsLayout);
-                ViewUtils.setMarginStart(actionsLayout, startMargin);
-                ((ViewGroup.MarginLayoutParams) actionContainer.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
-
-                // Add remote input
-                boolean hasRemoteInput = false;
-
                 if (actions != null) {
-                    for (Notification.Action a : actions) {
-                        if (a.getRemoteInputs() != null) {
-                            for (RemoteInput ri : a.getRemoteInputs()) {
-                                if (ri.getAllowFreeFormInput()) {
-                                    hasRemoteInput = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (hasRemoteInput) {
-                    LinearLayout riv = RemoteInputView.inflate(context, actionContainer);
-                    riv.setVisibility(View.INVISIBLE);
-                    actionContainer.addView(riv, new FrameLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT)
-                    );
-                    riv.setBackgroundColor(privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
-                }
-
-                for (int i = 0; i < actions.length; i++) {
-                    final Notification.Action action = actions[i];
-                    if (actions[i].getRemoteInputs() != null) {
-                        Button actionButton = (Button) actionsLayout.getChildAt(i);
-                        final View.OnClickListener old = (View.OnClickListener) getObjectField(XposedHelpers.callMethod(actionButton, "getListenerInfo"), "mOnClickListener");
-                        actionButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(final View view) {
-                                if (ConfigUtils.notifications().allow_direct_reply_on_keyguard) {
-                                    handleRemoteInput(view);
-                                } else {
-                                    SystemUIHooks.statusBarHooks.startRunnableDismissingKeyguard(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            SystemUIHooks.statusBarHooks.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    handleRemoteInput(view);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            }
-
-                            private void handleRemoteInput(View view) {
-                                if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs())) {
-                                    old.onClick(view);
-                                }
-                            }
-                        });
-                    }
+                    int color = privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0;
+                    addRemoteInput(context, expandedChild, actions, color, null, null);
+                    addRemoteInput(context, headsUpChild, actions, color, getObjectField(param.thisObject, "mHeadsUpManager"), (String) getObjectField(entry, "key"));
                 }
             }
         }
     };
+
+    private static void addRemoteInput(Context context, View child, Notification.Action[] actions, int color, final Object headsUpManager, final String key) {
+        if (child == null) {
+            return;
+        }
+        LinearLayout actionsLayout = (LinearLayout) child.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+        if (actionsLayout == null) {
+            return;
+        }
+        FrameLayout actionContainer = new FrameLayout(context);
+
+        // Transfer views
+        int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
+        ViewGroup parent = (ViewGroup) actionsLayout.getParent();
+        parent.removeView(actionsLayout);
+        parent.addView(actionContainer, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        actionContainer.addView(actionsLayout);
+        ViewUtils.setMarginStart(actionsLayout, startMargin);
+        ((ViewGroup.MarginLayoutParams) actionContainer.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
+
+        // Add remote input
+        if (haveRemoteInput(actions)) {
+            LinearLayout riv = RemoteInputView.inflate(context, actionContainer);
+            riv.setVisibility(View.INVISIBLE);
+            actionContainer.addView(riv, new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT)
+            );
+            riv.setBackgroundColor(color);
+        }
+
+        for (int i = 0; i < actions.length; i++) {
+            final Notification.Action action = actions[i];
+            if (actions[i].getRemoteInputs() != null) {
+                Button actionButton = (Button) actionsLayout.getChildAt(i);
+                final View.OnClickListener old = (View.OnClickListener) getObjectField(XposedHelpers.callMethod(actionButton, "getListenerInfo"), "mOnClickListener");
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View view) {
+                        if (ConfigUtils.notifications().allow_direct_reply_on_keyguard) {
+                            handleRemoteInput(view);
+                        } else {
+                            SystemUIHooks.statusBarHooks.startRunnableDismissingKeyguard(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SystemUIHooks.statusBarHooks.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            handleRemoteInput(view);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+
+                    private void handleRemoteInput(View view) {
+                        Object headsUpEntry = XposedHelpers.callMethod(headsUpManager, "getHeadsUpEntry", key);
+                        if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs(), headsUpEntry)) {
+                            old.onClick(view);
+                        }
+                    }
+                });
+            }
+        }
+    }
 
     private static final XC_MethodHook getStandardViewHook = new XC_MethodHook() {
         @Override
@@ -520,6 +501,35 @@ public class NotificationHooks {
         }
     };
 
+    private static final XC_MethodHook buildHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            Notification.Builder b = (Notification.Builder) param.thisObject;
+            @SuppressWarnings("unchecked") List<Notification.Action> actions = (List<Notification.Action>) getObjectField(b, "mActions");
+            if (!actions.isEmpty() && haveRemoteInput(actions.toArray(new Notification.Action[actions.size()]))) {
+                return;
+            }
+            final List<Notification.Action> wearableRemoteInputActions = new ArrayList<>();
+
+            final String EXTRA_WEARABLE_EXTENSIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "EXTRA_WEARABLE_EXTENSIONS");
+            final String KEY_ACTIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "KEY_ACTIONS");
+            Bundle wearableBundle = b.getExtras().getBundle(EXTRA_WEARABLE_EXTENSIONS);
+            if (wearableBundle != null) {
+                ArrayList<Notification.Action> wearableActions = wearableBundle.getParcelableArrayList(KEY_ACTIONS);
+                if (wearableActions != null) {
+                    for (int i = 0; i < wearableActions.size(); i++) {
+                        if (hasValidRemoteInput(wearableActions.get(i))) {
+                            wearableRemoteInputActions.add(wearableActions.get(i));
+                        }
+                    }
+                }
+            }
+            if (wearableRemoteInputActions.size() > 0) {
+                actions.addAll(0, wearableRemoteInputActions);
+            }
+        }
+    };
+
     private static final XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -715,10 +725,10 @@ public class NotificationHooks {
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "build", buildHook);
+                XposedHelpers.findAndHookMethod(NotificationCompat.Builder.class, "build", buildHook);
                 XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
-
             }
-
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking app", t);
         }
@@ -1015,6 +1025,19 @@ public class NotificationHooks {
             XposedHook.logD(TAG, "Class MediaExpandableNotificationRow not found. Skipping media row check.");
         }
         return null;
+    }
+
+    private static boolean haveRemoteInput(@NonNull Notification.Action[] actions) {
+        for (Notification.Action a : actions) {
+            if (a.getRemoteInputs() != null) {
+                for (RemoteInput ri : a.getRemoteInputs()) {
+                    if (ri.getAllowFreeFormInput()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private static boolean hasValidRemoteInput(Notification.Action action) {
