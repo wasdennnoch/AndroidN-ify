@@ -19,7 +19,7 @@ public class RemoteInputHelper {
     @SuppressWarnings({"PointlessBooleanExpression", "ConstantConditions"})
     public static final boolean DIRECT_REPLY_ENABLED = BuildConfig.ENABLE_DIRECT_REPLY || BuildConfig.DEBUG;
 
-    public static boolean handleRemoteInput(View view, PendingIntent pendingIntent, RemoteInput[] inputs) {
+    public static boolean handleRemoteInput(View view, PendingIntent pendingIntent, RemoteInput[] inputs, Object headsUpEntry) {
         if (inputs == null) {
             return false;
         }
@@ -68,6 +68,10 @@ public class RemoteInputHelper {
                 .start();
         riv.setPendingIntent(pendingIntent);
         riv.setRemoteInput(inputs, input);
+        if (headsUpEntry != null) {
+            callMethod(headsUpEntry, "removeAutoRemovalCallbacks");
+            riv.setHeadsUpEntry(headsUpEntry);
+        }
         riv.focus();
         return true;
     }

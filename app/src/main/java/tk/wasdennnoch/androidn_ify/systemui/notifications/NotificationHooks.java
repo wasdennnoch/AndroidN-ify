@@ -146,9 +146,9 @@ public class NotificationHooks {
             }
 
             // actions background
+            View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
+            View headsUpChild = ConfigUtils.M ? (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild") : null;
             if (!ConfigUtils.notifications().custom_actions_color) {
-                View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
-                View headsUpChild = ConfigUtils.M ? (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild") : null;
                 if (expandedChild != null || headsUpChild != null) {
                     int actionsId = context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID);
                     double[] lab = new double[3];
@@ -172,18 +172,16 @@ public class NotificationHooks {
 
             if (RemoteInputHelper.DIRECT_REPLY_ENABLED) {
                 Notification.Action[] actions = sbn.getNotification().actions;
-                if (actions == null) {
-                    return;
+                if (actions != null) {
+                    int color = privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0;
+                    addRemoteInput(context, expandedChild, actions, color, null, null);
+                    addRemoteInput(context, headsUpChild, actions, color, getObjectField(param.thisObject, "mHeadsUpManager"), (String) getObjectField(entry, "key"));
                 }
-                View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
-                View headsUpChild = ConfigUtils.M ? (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild") : null;
-                addRemoteInput(context, expandedChild, actions, privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
-                addRemoteInput(context, headsUpChild, actions, privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
             }
         }
     };
 
-    private static void addRemoteInput(Context context, View child, Notification.Action[] actions, int color) {
+    private static void addRemoteInput(Context context, View child, Notification.Action[] actions, int color, final Object headsUpManager, final String key) {
         if (child == null) {
             return;
         }
@@ -221,7 +219,8 @@ public class NotificationHooks {
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs())) {
+                        Object headsUpEntry = XposedHelpers.callMethod(headsUpManager, "getHeadsUpEntry", key);
+                        if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs(), headsUpEntry)) {
                             old.onClick(view);
                         }
                     }
