@@ -17,7 +17,7 @@ class LollipopStatusBarHooks extends StatusBarHooks {
 
     private static final String CLASS_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.NetworkControllerImpl$SignalController";
     private static final String CLASS_MOBILE_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.NetworkControllerImpl$MobileSignalController";
-    private static final String CLASS_SIGNAL_CLUSTER = "com.android.systemui.statusbar.policy.NetworkControllerImpl$SignalCluster";
+    private static final String CLASS_SIGNAL_CLUSTER_VIEW = "com.android.systemui.statusbar.SignalClusterView";
 
     LollipopStatusBarHooks(ClassLoader classLoader) {
         super(classLoader);
@@ -35,7 +35,7 @@ class LollipopStatusBarHooks extends StatusBarHooks {
 
     @Override
     protected void hookSetMobileDataIndicators() {
-        Class<?> classSignalCluster = XposedHelpers.findClass(CLASS_SIGNAL_CLUSTER, mClassLoader);
+        Class<?> classSignalCluster = XposedHelpers.findClass(CLASS_SIGNAL_CLUSTER_VIEW, mClassLoader);
 
         XposedBridge.hookAllMethods(classSignalCluster, "setMobileDataIndicators", new XC_MethodHook() {
             @Override
