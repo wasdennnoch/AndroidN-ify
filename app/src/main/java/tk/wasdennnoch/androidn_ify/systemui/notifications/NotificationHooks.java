@@ -171,55 +171,64 @@ public class NotificationHooks {
             }
 
             if (RemoteInputHelper.DIRECT_REPLY_ENABLED) {
-                View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
                 Notification.Action[] actions = sbn.getNotification().actions;
-                if (expandedChild == null || actions == null) {
+                if (actions == null) {
                     return;
                 }
-                LinearLayout actionsLayout = (LinearLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
-                if (actionsLayout == null) {
-                    return;
-                }
-                FrameLayout actionContainer = new FrameLayout(context);
-
-                // Transfer views
-                int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
-                ViewGroup parent = (ViewGroup) actionsLayout.getParent();
-                parent.removeView(actionsLayout);
-                parent.addView(actionContainer, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                actionContainer.addView(actionsLayout);
-                ViewUtils.setMarginStart(actionsLayout, startMargin);
-                ((ViewGroup.MarginLayoutParams) actionContainer.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
-
-                // Add remote input
-                if (haveRemoteInput(actions)) {
-                    LinearLayout riv = RemoteInputView.inflate(context, actionContainer);
-                    riv.setVisibility(View.INVISIBLE);
-                    actionContainer.addView(riv, new FrameLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT)
-                    );
-                    riv.setBackgroundColor(privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
-                }
-
-                for (int i = 0; i < actions.length; i++) {
-                    final Notification.Action action = actions[i];
-                    if (actions[i].getRemoteInputs() != null) {
-                        Button actionButton = (Button) actionsLayout.getChildAt(i);
-                        final View.OnClickListener old = (View.OnClickListener) getObjectField(XposedHelpers.callMethod(actionButton, "getListenerInfo"), "mOnClickListener");
-                        actionButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs())) {
-                                    old.onClick(view);
-                                }
-                            }
-                        });
-                    }
-                }
+                View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
+                View headsUpChild = ConfigUtils.M ? (View) XposedHelpers.callMethod(contentContainer, "getHeadsUpChild") : null;
+                addRemoteInput(context, expandedChild, actions, privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
+                addRemoteInput(context, headsUpChild, actions, privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0);
             }
         }
     };
+
+    private static void addRemoteInput(Context context, View child, Notification.Action[] actions, int color) {
+        if (child == null) {
+            return;
+        }
+        LinearLayout actionsLayout = (LinearLayout) child.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+        if (actionsLayout == null) {
+            return;
+        }
+        FrameLayout actionContainer = new FrameLayout(context);
+
+        // Transfer views
+        int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
+        ViewGroup parent = (ViewGroup) actionsLayout.getParent();
+        parent.removeView(actionsLayout);
+        parent.addView(actionContainer, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        actionContainer.addView(actionsLayout);
+        ViewUtils.setMarginStart(actionsLayout, startMargin);
+        ((ViewGroup.MarginLayoutParams) actionContainer.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
+
+        // Add remote input
+        if (haveRemoteInput(actions)) {
+            LinearLayout riv = RemoteInputView.inflate(context, actionContainer);
+            riv.setVisibility(View.INVISIBLE);
+            actionContainer.addView(riv, new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT)
+            );
+            riv.setBackgroundColor(color);
+        }
+
+        for (int i = 0; i < actions.length; i++) {
+            final Notification.Action action = actions[i];
+            if (actions[i].getRemoteInputs() != null) {
+                Button actionButton = (Button) actionsLayout.getChildAt(i);
+                final View.OnClickListener old = (View.OnClickListener) getObjectField(XposedHelpers.callMethod(actionButton, "getListenerInfo"), "mOnClickListener");
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs())) {
+                            old.onClick(view);
+                        }
+                    }
+                });
+            }
+        }
+    }
 
     private static final XC_MethodHook getStandardViewHook = new XC_MethodHook() {
         @Override
