@@ -189,7 +189,7 @@ public class NotificationHooks {
         if (child == null) {
             return;
         }
-        LinearLayout actionsLayout = (LinearLayout) child.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+        NotificationActionListLayout actionsLayout = (NotificationActionListLayout) child.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
         if (actionsLayout == null) {
             return;
         }
@@ -241,7 +241,7 @@ public class NotificationHooks {
                     }
 
                     private void handleRemoteInput(View view) {
-                        Object headsUpEntry = XposedHelpers.callMethod(headsUpManager, "getHeadsUpEntry", key);
+                        Object headsUpEntry = headsUpManager != null ? XposedHelpers.callMethod(headsUpManager, "getHeadsUpEntry", key) : null;
                         if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs(), headsUpEntry)) {
                             old.onClick(view);
                         }
