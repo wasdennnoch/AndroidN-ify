@@ -1393,9 +1393,8 @@ public class NotificationHooks {
                         childLp.topMargin += actionsMarginTop;
                         child.setLayoutParams(childLp);
                     }
-                } else if (id == actionsId) {
                     if (ConfigUtils.notifications().custom_actions_color) {
-                        child.setBackgroundColor(ConfigUtils.notifications().actions_color);
+                        child.findViewById(actionsId).setBackgroundColor(ConfigUtils.notifications().actions_color);
                     }
                 } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
