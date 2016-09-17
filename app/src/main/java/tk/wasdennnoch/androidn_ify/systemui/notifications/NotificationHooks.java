@@ -55,8 +55,11 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.NotificationActionListLayout;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
+import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.NotificationStackScrollLayoutHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -84,6 +87,7 @@ public class NotificationHooks {
 
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
+    private static NotificationStackScrollLayoutHooks mStackScrollLayoutHooks;
 
     private static final XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -218,7 +222,25 @@ public class NotificationHooks {
                 final View.OnClickListener old = (View.OnClickListener) getObjectField(XposedHelpers.callMethod(actionButton, "getListenerInfo"), "mOnClickListener");
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(final View view) {
+                        if (ConfigUtils.notifications().allow_direct_reply_on_keyguard) {
+                            handleRemoteInput(view);
+                        } else {
+                            SystemUIHooks.statusBarHooks.startRunnableDismissingKeyguard(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SystemUIHooks.statusBarHooks.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            handleRemoteInput(view);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+
+                    private void handleRemoteInput(View view) {
                         Object headsUpEntry = XposedHelpers.callMethod(headsUpManager, "getHeadsUpEntry", key);
                         if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs(), headsUpEntry)) {
                             old.onClick(view);
@@ -425,11 +447,15 @@ public class NotificationHooks {
     };
 
     private static final XC_MethodHook applyStandardTemplateWithActionsHook = new XC_MethodHook() {
+        @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
             RemoteViews big = (RemoteViews) param.getResult();
             big.setViewVisibility(context.getResources().getIdentifier("action_divider", "id", PACKAGE_ANDROID), View.GONE);
+
+            ArrayList<Notification.Action> mActions = (ArrayList<Notification.Action>) XposedHelpers.getObjectField(param.thisObject, "mActions");
+            big.setViewVisibility(R.id.actions_container, mActions.size() > 0 ? View.VISIBLE : View.GONE);
         }
     };
 
@@ -570,12 +596,13 @@ public class NotificationHooks {
 
             final XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
             XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
+            XResources.DimensionReplacement notification_padding = new XResources.DimensionReplacement(0.5f, TypedValue.COMPLEX_UNIT_DIP);
 
             if (config.notifications.change_style) {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", zero);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", notification_padding);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", notification_padding);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_min_height", modRes.fwd(R.dimen.notification_min_height));
@@ -623,10 +650,10 @@ public class NotificationHooks {
                     });
                 }
 
-                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
-                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
+                //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
+                //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
                 try {
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
+                    //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
                 } catch (Throwable ignore) {
                 }
 
@@ -669,10 +696,7 @@ public class NotificationHooks {
 
     @SuppressWarnings("deprecation")
     private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes) {
-        return new RippleDrawable(
-                ColorStateList.valueOf(xRes.getColor(android.R.color.transparent)),
-                getBackgroundRippleContent(xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI))),
-                null);
+        return getNotificationBackground(xRes);
     }
 
     @SuppressWarnings({"deprecation", "ConstantConditions"})
@@ -715,6 +739,9 @@ public class NotificationHooks {
             ConfigUtils config = ConfigUtils.getInstance();
 
             if (config.notifications.change_style) {
+
+                mStackScrollLayoutHooks = new NotificationStackScrollLayoutHooks(classLoader);
+
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
                 Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
@@ -788,6 +815,7 @@ public class NotificationHooks {
                 });
 
                 if (ConfigUtils.M) {
+                    /*
                     XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -796,6 +824,7 @@ public class NotificationHooks {
                             row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
                         }
                     });
+                    */
                 }
 
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
@@ -848,7 +877,7 @@ public class NotificationHooks {
                             if (!classExpandableNotificationRow.isAssignableFrom(child.getClass())) {
                                 continue;
                             }
-                            child.findViewById(R.id.notification_divider).setVisibility(firstChild ? View.INVISIBLE : View.VISIBLE);
+                            //child.findViewById(R.id.notification_divider).setVisibility(firstChild ? View.INVISIBLE : View.VISIBLE);
                             firstChild = false;
                         }
                     }
@@ -1043,6 +1072,24 @@ public class NotificationHooks {
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_picture", notification_template_material_big_picture);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_text", notification_template_material_base);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_inbox", notification_template_material_base);
+
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action_list", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        LinearLayout container = (LinearLayout) liparam.view;
+                        Context context = container.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        int actionsId = container.getId();
+                        container.setId(R.id.actions_container);
+                        ViewUtils.setMarginBottom(container, 0);
+
+                        NotificationActionListLayout notificationActionListLayout = new NotificationActionListLayout(context, null);
+                        notificationActionListLayout.setId(actionsId);
+                        notificationActionListLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.notification_action_list_height)));
+                        container.addView(notificationActionListLayout);
+                    }
+                });
 
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_part_line1", new XC_LayoutInflated() {
                     @Override
@@ -1362,26 +1409,21 @@ public class NotificationHooks {
             int childCount = notificationMain.getChildCount();
             for (int i = 0; i < childCount; i++) {
                 View child = notificationMain.getChildAt(i);
-                if (child.getId() != actionsId) {
+                int id = child.getId();
+                if (id == R.id.actions_container) {
+                    if (!isInboxLayout) {
+                        ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
+                        childLp.topMargin += actionsMarginTop;
+                        child.setLayoutParams(childLp);
+                    }
+                    if (ConfigUtils.notifications().custom_actions_color) {
+                        child.findViewById(actionsId).setBackgroundColor(ConfigUtils.notifications().actions_color);
+                    }
+                } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
                     childLp.leftMargin += notificationContentPadding;
                     childLp.rightMargin += notificationContentPadding;
                     child.setLayoutParams(childLp);
-                } else {
-                    ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
-
-                    childLp.height = res.getDimensionPixelSize(R.dimen.notification_action_list_height);
-                    if (!isInboxLayout) {
-                        childLp.topMargin += actionsMarginTop;
-                    }
-                    if (ConfigUtils.notifications().custom_actions_color) {
-                        child.setBackgroundColor(ConfigUtils.notifications().actions_color);
-                    }
-                    child.setLayoutParams(childLp);
-                    child.setPadding(child.getPaddingLeft() + notificationContentPadding,
-                            child.getPaddingTop(),
-                            child.getPaddingRight() + notificationContentPadding,
-                            child.getPaddingBottom());
                 }
             }
 
@@ -1429,10 +1471,9 @@ public class NotificationHooks {
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             Button button = (Button) liparam.view;
 
-            LinearLayout.LayoutParams buttonLp = (LinearLayout.LayoutParams) button.getLayoutParams();
+            ViewGroup.MarginLayoutParams buttonLp = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
             buttonLp.height = ViewGroup.LayoutParams.MATCH_PARENT;
             buttonLp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            buttonLp.weight = 0;
             button.setLayoutParams(buttonLp);
         }
     };

@@ -190,8 +190,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     case "settings_notifications":
                         if (!ConfigUtils.M)
                             lockPreference(screen.findPreference("notification_experimental"));
-                        if (!RemoteInputHelper.DIRECT_REPLY_ENABLED)
+                        if (!RemoteInputHelper.DIRECT_REPLY_ENABLED) {
                             screen.removePreference(findPreference("notification_spoof_api_version"));
+                            screen.removePreference(findPreference("allow_direct_reply_on_keyguard"));
+                        }
                         break;
                 }
             } else {
