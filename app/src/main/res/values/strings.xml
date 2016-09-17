@@ -358,5 +358,6 @@
     <string name="cm_qs_settings">CM QS settings</string>
     <string name="disable_qs_paging">Disable QS paging</string>
     <string name="disable_qs_paging_summary">Disable QS paging in portrait</string>
+    <string name="allow_direct_reply_on_keyguard">Allow direct reply from keyguard</string>
 
 </resources>

@@ -52,8 +52,10 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.NotificationActionListLayout;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
+import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -191,7 +193,7 @@ public class NotificationHooks {
                     return; // return for now
                 }
 
-                LinearLayout actionsLayout = (LinearLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                NotificationActionListLayout actionsLayout = (NotificationActionListLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
                 FrameLayout actionContainer = new FrameLayout(context);
 
                 // Transfer views
@@ -236,7 +238,25 @@ public class NotificationHooks {
                         final View.OnClickListener old = (View.OnClickListener) getObjectField(XposedHelpers.callMethod(actionButton, "getListenerInfo"), "mOnClickListener");
                         actionButton.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(View view) {
+                            public void onClick(final View view) {
+                                if (ConfigUtils.notifications().allow_direct_reply_on_keyguard) {
+                                    handleRemoteInput(view);
+                                } else {
+                                    SystemUIHooks.statusBarHooks.startRunnableDismissingKeyguard(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            SystemUIHooks.statusBarHooks.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    handleRemoteInput(view);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+
+                            private void handleRemoteInput(View view) {
                                 if (!RemoteInputHelper.handleRemoteInput(view, action.actionIntent, action.getRemoteInputs())) {
                                     old.onClick(view);
                                 }
@@ -444,11 +464,15 @@ public class NotificationHooks {
     };
 
     private static final XC_MethodHook applyStandardTemplateWithActionsHook = new XC_MethodHook() {
+        @SuppressWarnings("unchecked")
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
             RemoteViews big = (RemoteViews) param.getResult();
             big.setViewVisibility(context.getResources().getIdentifier("action_divider", "id", PACKAGE_ANDROID), View.GONE);
+
+            ArrayList<Notification.Action> mActions = (ArrayList<Notification.Action>) XposedHelpers.getObjectField(param.thisObject, "mActions");
+            big.setViewVisibility(R.id.actions_container, mActions.size() > 0 ? View.VISIBLE : View.GONE);
         }
     };
 
@@ -1021,6 +1045,24 @@ public class NotificationHooks {
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_text", notification_template_material_base);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_inbox", notification_template_material_base);
 
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action_list", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        LinearLayout container = (LinearLayout) liparam.view;
+                        Context context = container.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+
+                        int actionsId = container.getId();
+                        container.setId(R.id.actions_container);
+                        ViewUtils.setMarginBottom(container, 0);
+
+                        NotificationActionListLayout notificationActionListLayout = new NotificationActionListLayout(context, null);
+                        notificationActionListLayout.setId(actionsId);
+                        notificationActionListLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.notification_action_list_height)));
+                        container.addView(notificationActionListLayout);
+                    }
+                });
+
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_part_line1", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -1339,26 +1381,22 @@ public class NotificationHooks {
             int childCount = notificationMain.getChildCount();
             for (int i = 0; i < childCount; i++) {
                 View child = notificationMain.getChildAt(i);
-                if (child.getId() != actionsId) {
+                int id = child.getId();
+                if (id == R.id.actions_container) {
+                    if (!isInboxLayout) {
+                        ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
+                        childLp.topMargin += actionsMarginTop;
+                        child.setLayoutParams(childLp);
+                    }
+                } else if (id == actionsId) {
+                    if (ConfigUtils.notifications().custom_actions_color) {
+                        child.setBackgroundColor(ConfigUtils.notifications().actions_color);
+                    }
+                } else {
                     ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
                     childLp.leftMargin += notificationContentPadding;
                     childLp.rightMargin += notificationContentPadding;
                     child.setLayoutParams(childLp);
-                } else {
-                    ViewGroup.MarginLayoutParams childLp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
-
-                    childLp.height = res.getDimensionPixelSize(R.dimen.notification_action_list_height);
-                    if (!isInboxLayout) {
-                        childLp.topMargin += actionsMarginTop;
-                    }
-                    if (ConfigUtils.notifications().custom_actions_color) {
-                        child.setBackgroundColor(ConfigUtils.notifications().actions_color);
-                    }
-                    child.setLayoutParams(childLp);
-                    child.setPadding(child.getPaddingLeft() + notificationContentPadding,
-                            child.getPaddingTop(),
-                            child.getPaddingRight() + notificationContentPadding,
-                            child.getPaddingBottom());
                 }
             }
 
@@ -1406,10 +1444,9 @@ public class NotificationHooks {
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
             Button button = (Button) liparam.view;
 
-            LinearLayout.LayoutParams buttonLp = (LinearLayout.LayoutParams) button.getLayoutParams();
+            ViewGroup.MarginLayoutParams buttonLp = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
             buttonLp.height = ViewGroup.LayoutParams.MATCH_PARENT;
             buttonLp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            buttonLp.weight = 0;
             button.setLayoutParams(buttonLp);
         }
     };

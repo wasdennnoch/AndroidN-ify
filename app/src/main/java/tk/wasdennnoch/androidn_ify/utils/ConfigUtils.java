@@ -169,6 +169,7 @@ public class ConfigUtils {
         public final boolean dismiss_button;
         public final boolean custom_actions_color;
         public final boolean experimental;
+        public final boolean allow_direct_reply_on_keyguard;
         public final int keyguard_max;
         public final int actions_color;
 
@@ -180,6 +181,7 @@ public class ConfigUtils {
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
             experimental = M && prefs.getBoolean("notification_experimental", false);
+            allow_direct_reply_on_keyguard = prefs.getBoolean("allow_direct_reply_on_keyguard", false);
             keyguard_max = prefs.getInt("notification_keyguard_max", 3);
             actions_color = prefs.getInt("actions_background_colors", 0);
         }
