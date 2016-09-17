@@ -75,6 +75,11 @@ public abstract class BaseTile implements KeyguardMonitor.Callback {
         return null;
     }
 
+    public boolean handleClickInner() {
+        handleClick();
+        return false;
+    }
+
     public void handleClick() {
     }
 

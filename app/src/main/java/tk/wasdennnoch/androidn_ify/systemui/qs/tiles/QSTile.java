@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -52,6 +53,27 @@ public class QSTile extends BaseTile {
     public void handleUpdateState(Object state, Object arg) {
         mState.visible = !mSecure || !mKeyguard.isShowing() || !mKeyguard.isSecure();
         mState.apply(state);
+    }
+
+    @Override
+    public boolean handleClickInner() {
+        handleClick();
+        return false;
+        /*
+        if (mSecure && mKeyguard.isShowing() && mKeyguard.isSecure()) {
+            SystemUIHooks.statusBarHooks.startRunnableDismissingKeyguard(new Runnable() {
+                @Override
+                public void run()
+                {
+                    handleClick();
+                }
+            });
+            return true;
+        } else {
+            handleClick();
+            return false;
+        }
+        */
     }
 
     public void startActivityDismissingKeyguard(String action) {
