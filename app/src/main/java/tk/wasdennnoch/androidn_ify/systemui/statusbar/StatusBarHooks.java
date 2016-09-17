@@ -138,7 +138,7 @@ public class StatusBarHooks {
             @Override
             public void run() {
                 try {
-                    XposedHelpers.setBooleanField(mPhoneStatusBar, "mLeaveOpenOnKeyguardHide", true);
+                    //XposedHelpers.setBooleanField(mPhoneStatusBar, "mLeaveOpenOnKeyguardHide", true);
                     XposedHelpers.callMethod(mPhoneStatusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
                 } catch (Throwable t) {
                     XposedHook.logE(TAG, "Error in startRunnableDismissingKeyguard, executing instantly (" + t.toString() + ")", null);

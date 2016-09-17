@@ -234,7 +234,7 @@ public class TilesManager {
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                             final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
                             if (tile != null) {
-                                tile.handleClick();
+                                tile.handleClickInner();
                                 param.setResult(null);
                             }
                         }
