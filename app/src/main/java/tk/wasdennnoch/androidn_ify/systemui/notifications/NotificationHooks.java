@@ -21,6 +21,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.service.notification.StatusBarNotification;
+import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -43,6 +45,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -87,7 +90,6 @@ public class NotificationHooks {
         @SuppressWarnings({"deprecation", "UnusedAssignment"})
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-
             if (!(boolean) param.getResult()) return;
 
             Object entry = param.args[0];
@@ -171,27 +173,13 @@ public class NotificationHooks {
             if (RemoteInputHelper.DIRECT_REPLY_ENABLED) {
                 View expandedChild = (View) XposedHelpers.callMethod(contentContainer, "getExpandedChild");
                 Notification.Action[] actions = sbn.getNotification().actions;
-
                 if (expandedChild == null || actions == null) {
-                    // TODO: Implement wearable extraction
-                    String EXTRA_WEARABLE_EXTENSIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "EXTRA_WEARABLE_EXTENSIONS");
-                    String KEY_ACTIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "KEY_ACTIONS");
-
-                    Bundle wearableBundle = sbn.getNotification().extras.getBundle(EXTRA_WEARABLE_EXTENSIONS);
-                    if (wearableBundle != null) {
-                        ArrayList<Notification.Action> wearableActions = wearableBundle.getParcelableArrayList(KEY_ACTIONS);
-                        if (wearableActions != null) {
-                            for (int i = 0; i < wearableActions.size(); i++) {
-                                if (hasValidRemoteInput(wearableActions.get(i))) {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    return; // return for now
+                    return;
                 }
-
                 LinearLayout actionsLayout = (LinearLayout) expandedChild.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
+                if (actionsLayout == null) {
+                    return;
+                }
                 FrameLayout actionContainer = new FrameLayout(context);
 
                 // Transfer views
@@ -204,22 +192,7 @@ public class NotificationHooks {
                 ((ViewGroup.MarginLayoutParams) actionContainer.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
 
                 // Add remote input
-                boolean hasRemoteInput = false;
-
-                if (actions != null) {
-                    for (Notification.Action a : actions) {
-                        if (a.getRemoteInputs() != null) {
-                            for (RemoteInput ri : a.getRemoteInputs()) {
-                                if (ri.getAllowFreeFormInput()) {
-                                    hasRemoteInput = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (hasRemoteInput) {
+                if (haveRemoteInput(actions)) {
                     LinearLayout riv = RemoteInputView.inflate(context, actionContainer);
                     riv.setVisibility(View.INVISIBLE);
                     actionContainer.addView(riv, new FrameLayout.LayoutParams(
@@ -494,6 +467,35 @@ public class NotificationHooks {
         }
     };
 
+    private static final XC_MethodHook buildHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            Notification.Builder b = (Notification.Builder) param.thisObject;
+            @SuppressWarnings("unchecked") List<Notification.Action> actions = (List<Notification.Action>) getObjectField(b, "mActions");
+            if (!actions.isEmpty() && haveRemoteInput(actions.toArray(new Notification.Action[actions.size()]))) {
+                return;
+            }
+            final List<Notification.Action> wearableRemoteInputActions = new ArrayList<>();
+
+            final String EXTRA_WEARABLE_EXTENSIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "EXTRA_WEARABLE_EXTENSIONS");
+            final String KEY_ACTIONS = (String) XposedHelpers.getStaticObjectField(Notification.WearableExtender.class, "KEY_ACTIONS");
+            Bundle wearableBundle = b.getExtras().getBundle(EXTRA_WEARABLE_EXTENSIONS);
+            if (wearableBundle != null) {
+                ArrayList<Notification.Action> wearableActions = wearableBundle.getParcelableArrayList(KEY_ACTIONS);
+                if (wearableActions != null) {
+                    for (int i = 0; i < wearableActions.size(); i++) {
+                        if (hasValidRemoteInput(wearableActions.get(i))) {
+                            wearableRemoteInputActions.add(wearableActions.get(i));
+                        }
+                    }
+                }
+            }
+            if (wearableRemoteInputActions.size() > 0) {
+                actions.addAll(0, wearableRemoteInputActions);
+            }
+        }
+    };
+
     private static final XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -691,10 +693,10 @@ public class NotificationHooks {
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "build", buildHook);
+                XposedHelpers.findAndHookMethod(NotificationCompat.Builder.class, "build", buildHook);
                 XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
-
             }
-
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking app", t);
         }
@@ -986,6 +988,19 @@ public class NotificationHooks {
             XposedHook.logD(TAG, "Class MediaExpandableNotificationRow not found. Skipping media row check.");
         }
         return null;
+    }
+
+    private static boolean haveRemoteInput(@NonNull Notification.Action[] actions) {
+        for (Notification.Action a : actions) {
+            if (a.getRemoteInputs() != null) {
+                for (RemoteInput ri : a.getRemoteInputs()) {
+                    if (ri.getAllowFreeFormInput()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private static boolean hasValidRemoteInput(Notification.Action action) {
