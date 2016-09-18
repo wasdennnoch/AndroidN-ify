@@ -11,6 +11,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 class LollipopStatusBarHooks extends StatusBarHooks {
     private static final String TAG = "LollipopStatusBarHooks";
@@ -40,9 +41,9 @@ class LollipopStatusBarHooks extends StatusBarHooks {
         XposedBridge.hookAllMethods(classSignalCluster, "setMobileDataIndicators", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                int typeIcon = 2;
-                int isTypeIconWide = 5;
                 if (mDataDisabled) {
+                    int typeIcon = RomUtils.isCmBased() ? 3 : 2;
+                    int isTypeIconWide = 6;
                     param.args[typeIcon] = SystemUIHooks.R_drawable_stat_sys_data_disabled;
                     param.args[isTypeIconWide] = false;
                 }

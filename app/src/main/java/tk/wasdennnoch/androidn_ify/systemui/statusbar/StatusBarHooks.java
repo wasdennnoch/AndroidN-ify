@@ -3,10 +3,6 @@ package tk.wasdennnoch.androidn_ify.systemui.statusbar;
 import android.content.Context;
 import android.os.Handler;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
@@ -114,10 +110,10 @@ public class StatusBarHooks {
         XposedBridge.hookAllMethods(classCallbackHandler, "setMobileDataIndicators", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                int typeIcon = 2;
-                int qsTypeIcon = 3;
-                int isWide = 8;
                 if (mDataDisabled) {
+                    int typeIcon = 2;
+                    int qsTypeIcon = 3;
+                    int isWide = 8;
                     param.args[typeIcon] = SystemUIHooks.R_drawable_stat_sys_data_disabled;
                     param.args[qsTypeIcon] = SystemUIHooks.R_drawable_ic_qs_data_disabled;
                     param.args[isWide] = false;
