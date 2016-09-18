@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -68,7 +69,6 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
-@SuppressWarnings({"WeakerAccess", "UnusedAssignment", "PointlessBooleanExpression"})
 public class NotificationHooks {
 
     private static final String TAG = "NotificationHooks";
@@ -158,7 +158,7 @@ public class NotificationHooks {
                     double[] lab = new double[3];
                     ColorUtils.colorToLAB(mNotificationBgColor, lab);
                     lab[0] = 1.0f - 0.95f * (1.0f - lab[0]);
-                    int endColor = ColorUtils.LABToColor(lab[0], lab[1], lab[2]);
+                    int endColor = ColorUtils.setAlphaComponent(ColorUtils.LABToColor(lab[0], lab[1], lab[2]), Color.alpha(mNotificationBgColor));
                     if (expandedChild != null) {
                         View actionsExpanded = expandedChild.findViewById(actionsId);
                         if (actionsExpanded != null) {
