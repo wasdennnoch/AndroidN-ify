@@ -223,6 +223,10 @@ public class StatusBarHeaderHooks {
                     }
                 }
             }
+            try {
+                ((View) XposedHelpers.getObjectField(param.thisObject, "mBackgroundImage")).setVisibility(View.GONE);
+            } catch (Throwable ignore) {
+            }
 
             try {
 
@@ -998,6 +1002,13 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockLp", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateMultiUserSwitch", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setClipping", float.class, XC_MethodReplacement.DO_NOTHING);
+
+                if (!ConfigUtils.qs().keep_header_background) {
+                    try { // AICP test
+                        XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "doUpdateStatusBarCustomHeader", Drawable.class, boolean.class, XC_MethodReplacement.DO_NOTHING);
+                    } catch (Throwable ignore) {
+                    }
+                }
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
                     @Override
