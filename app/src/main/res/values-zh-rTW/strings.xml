@@ -138,13 +138,37 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">現在時間</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="other">%d 分鐘</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="other">%d 小時</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="other">%d 天</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="other">%d 年</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="other">在 %d 分鐘內</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="other">在 %d 小時內</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="other">在 %d 天內</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="other">在 %d 年內</item>
+  </plurals>
   <string name="update_notification_title">發現新大陸…呃，不對是發現新版本！</string>
   <string name="update_notification">發現可用的更新可以下載：組建 %1$d！</string>
   <string name="update_notification_download">更新</string>
@@ -174,6 +198,8 @@
   <string name="clear">清除</string>
   <string name="clear_all_message">清除所有資訊和連絡人嗎？</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s。%2$s</string>
+  <string name="remove_contact">從緊急連絡人刪除 %1$s？</string>
   <string name="remove_contact_icon_text">移除連絡人</string>
   <string name="remove">移除</string>
   <string name="cancel">取消</string>
@@ -186,7 +212,9 @@
   <string name="date_of_birth">出生日期</string>
   <string name="unknown_date_of_birth">未知</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">年齡：%1$d</string>
   <string name="remove_dob_icon_text">移除出生日期</string>
   <string name="blood_type">血型</string>
   <string name="unknown_blood_type">未知</string>
@@ -225,9 +253,13 @@
   <string name="live_display_night">晚上</string>
   <string name="live_display_outdoor">外出(強光下)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s 前</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">剩下 %1$s</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">大約剩下 %1$s</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">約剩 %1$s</string>
   <!-- Example: 75% - approx. 3 hours left -->
   <!-- Example: 75% - 3h left -->
   <!-- Example: 75% - Charging -->
@@ -258,6 +290,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">磚的標題不能為空白</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">重置</string>
   <string name="dialog_color_picker">取色器</string>
   <string name="press_color_to_apply">點擊顏色以套用</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -267,4 +300,5 @@
   <string name="battery_detail_switch_summary">減少效能和背景資料傳輸</string>
   <string name="qs_add_notes_title">備註</string>
   <string name="qs_add_notes">僅適用於提供廣播的瓷磚(例如：自訂的快速設定)。使用前請閱讀瓷磚提供應用程式內的說明。</string>
+  <string name="done">完成</string>
 </resources>

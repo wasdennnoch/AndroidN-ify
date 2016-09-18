@@ -138,13 +138,53 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teraz</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dm</item>
+    <item quantity="few">%dm</item>
+    <item quantity="other">%dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%dh</item>
+    <item quantity="few">%dh</item>
+    <item quantity="other">%dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dd</item>
+    <item quantity="few">%dd</item>
+    <item quantity="other">%dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%dr</item>
+    <item quantity="few">%dr</item>
+    <item quantity="other">%dr</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">o %dm</item>
+    <item quantity="few">o %dm</item>
+    <item quantity="other">o %dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">o %dh</item>
+    <item quantity="few">o %dh</item>
+    <item quantity="other">o %dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">o %dd</item>
+    <item quantity="few">o %dd</item>
+    <item quantity="other">o %dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">o %dr</item>
+    <item quantity="few">o %dr</item>
+    <item quantity="other">o %dr</item>
+  </plurals>
   <string name="update_notification_title">Je dostupná aktualizácia</string>
   <string name="update_notification">Zostava %1$d je dostupná na aktualizáciu.</string>
   <string name="update_notification_download">Aktualizovať</string>
@@ -174,6 +214,8 @@
   <string name="clear">Vymazať</string>
   <string name="clear_all_message">Vymazať všetky informácie a kontakty?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Odstrániť kontakt %1$s z tiesňových kontaktov?</string>
   <string name="remove_contact_icon_text">Odstrániť kontakt</string>
   <string name="remove">Odstrániť</string>
   <string name="cancel">Zrušiť</string>
@@ -186,7 +228,9 @@
   <string name="date_of_birth">Dátum narodenia</string>
   <string name="unknown_date_of_birth">Neznáme</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Vek: %1$d</string>
   <string name="remove_dob_icon_text">Odstrániť dátum narodenia</string>
   <string name="blood_type">Krvná skupina</string>
   <string name="unknown_blood_type">Neznáme</string>
@@ -225,20 +269,35 @@
   <string name="live_display_night">Noc</string>
   <string name="live_display_outdoor">Vonku (jasné slnešné svetlo)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">Pred %1$s</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">Zostáva %1$s</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Zostáva cca. %1$s</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">Zostáva %1$s</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - zostáva približne %2$s</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">Zostáva %1$s - %2$s</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s do nabitia</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s do nabitia zo zásuvky</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s do nabitia cez USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s do nabitia bezdrôtovo</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Neznáme</string>
   <string name="battery_info_status_charging">Nabíjanie</string>
   <string name="battery_info_status_charging_ac">Nabíjanie zo zásuvky</string>
@@ -258,6 +317,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Nastavenia dlaždice by nemali byť prázdne</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Obnoviť</string>
   <string name="dialog_color_picker">Výber farby</string>
   <string name="press_color_to_apply">Kliknite na farbu pre použitie</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -267,4 +327,8 @@
   <string name="battery_detail_switch_summary">Zníži výkonnosť a dátové prenosy na pozadí</string>
   <string name="qs_add_notes_title">Poznámky</string>
   <string name="qs_add_notes">Používa sa iba pre aplikácie, ktoré poskytujú dlaždice vysielania (ako napr. \"Custom Quick Settings\"). Prosím, pred použitím si prečítajte inštrukcie v aplikácii poskytujúcej dlaždicu.</string>
+  <string name="notification_spoof_api_version_title">Predstierať API 24</string>
+  <string name="notification_spoof_api_version">Donúti tieto aplikácie si myslieť, že používate API 24</string>
+  <string name="hide_tiles_on_lockscreen">Skryť dlaždice na uzamknutej obrazovke</string>
+  <string name="done">Hotovo</string>
 </resources>

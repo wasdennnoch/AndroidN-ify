@@ -38,12 +38,12 @@
   <string name="theme_colorPrimary">기본 색상</string>
   <string name="header_lockscreen">잠금 화면</string>
   <string name="header_settings">설정</string>
-  <string name="enable_settings_summaries_title">설정 세부 정보</string>
-  <string name="enable_settings_summaries">중요한 설정 세부 정보를 설정앱 대시보드에 보여줍니다</string>
+  <string name="enable_settings_summaries_title">설정 요약 정보</string>
+  <string name="enable_settings_summaries">중요한 설정 요약 정보를 설정앱 대시보드에 보여줍니다</string>
   <string name="fix_sound_notif_tile_title">\"소리 &amp; 알림\" 타일 수정</string>
-  <string name="fix_sound_notif_tile">몇몇의 롬은 소리와 알림 타일을 결합하였습니다. 이 타일을 위해 적절한 세부 정보를 표시합니다</string>
+  <string name="fix_sound_notif_tile">일부 롬에서 소리와 알림 타일을 결합하였습니다. 이러한 문제를 해결하기 위해 적절한 요약 정보를 표시합니다</string>
   <string name="enable_n_platlogo_title">이스터에그에 N로고 사용</string>
-  <string name="use_namey_mcnameface_title">\"Namey McNameface\" 아이콘 사용 (N DP4 이스터에그)</string>
+  <string name="use_namey_mcnameface_title">\"Namey McNameface\" 아이콘 사용</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">연결 해제됨</string>
   <string name="disabled">사용 안함</string>
@@ -59,11 +59,11 @@
   <!-- Battery settings summary: 58% - approx. 2h left -->
   <string name="battery_summary">%1$s - 대략 %2$s 남음</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_wireless">%1$s - 충전 중 (무선 충전)</string>
+  <string name="battery_charging_wireless">%1$s - 충전 중(무선 충전)</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_usb">%1$s - 충전 중 (USB)</string>
+  <string name="battery_charging_usb">%1$s - 충전 중(USB)</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s - 충전 중 (AC 전원)</string>
+  <string name="battery_charging_ac">%1$s - 충전 중(AC 전원)</string>
   <string name="memory_summary">평균 %1$s / %2$s 저장용량 사용됨</string>
   <string name="user_summary">%1$s(으)로 로그인했습니다.</string>
   <string name="location_on_power">사용함 / 배터리 절약</string>
@@ -71,23 +71,28 @@
   <string name="location_on_high">사용함 / 높은 정확성</string>
   <string name="print_summary" tools:ignore="PluralsCandidate">인쇄 작업 %1$d개</string>
   <!-- Header of app installation source -->
+  <string name="store">스토어</string>
   <!-- Header of app installation source -->
+  <string name="app_details">앱 세부 정보</string>
+  <string name="install_source">%1$s(으)로 앱이 설치됨</string>
+  <string name="from_pm">패키지 설치 관리자로 앱이 설치됨</string>
   <string name="header_recents">최근 실행</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">빠른 전환</string>
-  <string name="enable_recents_double_tap">최근 실행 키를 두번 누를 경우 마지막으로 사용한 앱으로 전환합니다</string>
+  <string name="enable_recents_double_tap">최근 실행 버튼을 두번 누를 경우 마지막으로 사용한 앱으로 전환합니다</string>
   <string name="alternative_double_tap">빠른 전환 기능이 제대로 작동하지 않을 경우 활성화 하세요</string>
   <string name="double_tap_speed_title">더블 탭 속도</string>
   <string name="recents_button_behavior_title">최근 실행 버튼 클릭 시 행동</string>
   <string name="recents_navigation_delay_title">네비게이션 딜레이</string>
   <string name="enable_large_recents">큰 최근 실행 앱</string>
-  <string name="no_recents_image">\"최근에 실행한 앱 없음\" 이미지 교체</string>
+  <string name="no_recents_image">\"최근 항목이 없습니다\" 이미지 교체</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
-  <string name="no_previous_recents">최근에 실행한 앱 없음</string>
+  <string name="no_previous_recents">최근 항목이 없습니다</string>
   <string name="recents_button_behavior_previous">이전 앱으로 돌아감</string>
-  <string name="recents_button_behavior_current">현재 앱으로 돌아감</string>
+  <string name="recents_button_behavior_current">최근 앱으로 돌아감</string>
   <string name="header_qs">퀵세팅 설정</string>
   <string name="enable_notification_header">헤더 스타일</string>
+  <string name="keep_header_bg">헤더</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">타일</string>
   <string name="battery_tile_show_percentage">배터리 타일에 퍼센트 표시</string>
@@ -114,6 +119,7 @@
   <string name="notifications_custom_actions_color_title">커스텀 액션 배경 색상 사용</string>
   <string name="notifications_actions_color_title">액션 배경 색상</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+  <string name="now_string_shortest">지금</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -123,8 +129,10 @@
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <string name="update_notification_title">새로운 업데이트가 있습니다</string>
-  <string name="update_notification">버전 %1$d로 업데이트 할 수 있습니다</string>
+  <string name="update_notification">버전 %1$d(으)로 업데이트 할 수 있습니다</string>
   <string name="update_notification_download">업데이트</string>
+  <string name="update_warning">모듈이 업데이트 되었습니다</string>
+  <string name="update_warning_details">디바이스를 재시작 하지 않을 경우 시스템이 불안정 해질 수 있으며 이로 인한 버그 보고는 무시될 수 있습니다</string>
   <string name="check_for_updates_title">업데이트 확인</string>
   <string name="check_for_updates">앱을 실행할 때마다 업데이트를 자동으로 확인합니다</string>
   <string name="checking_for_update">업데이트 확인 중&#8230;</string>
@@ -134,19 +142,59 @@
   <string name="update_notification_downloading_details">버전 %1$d 다운로드 중</string>
   <string name="update_notification_download_fail">다운로드 실패</string>
   <string name="update_notification_download_fail_details">버전 %1$d을(를) 다운로드 할 수 없습니다</string>
-  <string name="emergency_info_launch_hint">한번 더 터치하면 열립니다</string>
+  <string name="emergency_info">긴급 상황 정보</string>
+  <string name="emergency_info_launch_hint">다시 탭하여 열기</string>
+  <string name="enable_emergency_info_title">긴급 상황 정보 활성화</string>
+  <string name="enable_emergency_info">긴급 상황 정보 버튼을 긴급 전화 다이얼 위에 추가합니다</string>
+  <string name="edit_emergency_info_title">긴급 상황 정보 수정</string>
+  <string name="clear_all">모두 삭제</string>
+  <string name="tab_title_info">정보</string>
+  <string name="tab_title_contacts">주소록</string>
+  <string name="add_emergency_contact">연락처 추가</string>
+  <string name="user_emergency_info_title">긴급 상황 정보</string>
+  <string name="user_emergency_info_consent">이곳에 입력하는 정보는 긴급 상황의 초기 대처에 도움이 됩니다. 이 정보는 사용자의 기기에만 저장되지만, 누구나 스마트폰을 잠금 해제하지 않고도 긴급 다이얼러에서 이 정보를 볼 수 있습니다.</string>
+  <string name="emergency_info_continue">계속</string>
+  <string name="clear">삭제</string>
+  <string name="clear_all_message">모든 정보와 연락처를 삭제하시겠습니까?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="remove_contact">%1$s을(를) 긴급 연락처에서 삭제하시겠습니까?</string>
+  <string name="remove_contact_icon_text">연락처 삭제</string>
+  <string name="remove">삭제</string>
+  <string name="cancel">취소</string>
+  <string name="no_info_provided">제공된 긴급 상황 정보 없음</string>
+  <string name="emergency_contacts_title">비상 연락처</string>
+  <string name="name">이름</string>
+  <string name="unknown_name">알 수 없음</string>
+  <string name="address">주소</string>
+  <string name="unknown_address">알 수 없음</string>
+  <string name="date_of_birth">생년월일</string>
+  <string name="unknown_date_of_birth">알 수 없음</string>
   <!-- Example: 3 feb 1987 -->
   <!-- Example: Age: 23 -->
+  <string name="age">나이: %1$d</string>
+  <string name="remove_dob_icon_text">생년월일 삭제</string>
+  <string name="blood_type">혈액형</string>
+  <string name="unknown_blood_type">알 수 없음</string>
+  <string name="allergies">알레르기</string>
+  <string name="unknown_allergies">알 수 없음</string>
+  <string name="allergies_hint">예: 땅콩</string>
+  <string name="medications">약물</string>
+  <string name="unknown_medications">알 수 없음</string>
+  <string name="medications_hint">예: 아스피린</string>
+  <string name="medical_conditions">의료 기록</string>
+  <string name="unknown_medical_conditions">알 수 없음</string>
+  <string name="medical_conditions_hint">예: 천식</string>
+  <string name="organ_donor">장기 기증자</string>
+  <string name="unknown_organ_donor">알 수 없음</string>
   <string name="yes">예</string>
   <string name="no">아니오</string>
   <string name="battery">배터리</string>
   <string name="charged">충전 됨</string>
   <string name="charging">충전 중, %1$s</string>
   <string name="qs_edit">수정</string>
-  <string name="drag_to_add_tiles">타일을 추가하려면 드래그 하세요</string>
-  <string name="drag_to_remove_tiles">제거하려면 여기로 드래그 하세요</string>
-  <string name="live_display">디스플레이 모드</string>
+  <string name="drag_to_add_tiles">드래그하여 타일 추가</string>
+  <string name="drag_to_remove_tiles">삭제하려면 여기를 드래그</string>
+  <string name="live_display">라이브 디스플레이</string>
   <string name="live_display_auto">자동</string>
   <string name="live_display_off">꺼짐</string>
   <string name="live_display_day">주간</string>
@@ -167,9 +215,26 @@
   <!-- Example: 75% - 3h -->
   <!-- Example: 75% - 3 hours until full from wireless -->
   <!-- Example: 75% - 3h -->
+  <string name="battery_info_status_unknown">알 수 없음</string>
+  <string name="battery_info_status_charging">충전 중</string>
+  <string name="battery_info_status_charging_ac">충전 중(AC 전원)</string>
+  <string name="battery_info_status_charging_ac_short">충전 중</string>
+  <string name="battery_info_status_charging_usb">충전 중(USB)</string>
+  <string name="battery_info_status_charging_usb_short">충전 중</string>
+  <string name="battery_info_status_charging_wireless">충전 중(무선 충전)</string>
+  <string name="battery_info_status_charging_wireless_short">충전 중</string>
+  <string name="battery_info_status_full">충전됨</string>
+  <string name="battery_panel_title">배터리 사용 내역</string>
+  <string name="battery_detail_charging_summary">충전중일 때는 배터리 세이버를 사용할 수 없습니다</string>
   <!-- Add a custom tile -->
+  <string name="add">추가</string>
+  <string name="add_custom_tile">브로드캐스트 타일 추가</string>
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">초기화</string>
   <string name="press_color_to_apply">색깔을 눌러 적용</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">헥스</string>
+  <string name="battery_detail_switch_title">배터리 세이버</string>
+  <string name="done">완료</string>
 </resources>

@@ -50,7 +50,7 @@
   <string name="on">ON</string>
   <string name="data_usage_summary">%1$s de données sont utilisées.</string>
   <!-- Is on or off -->
-  <string name="display_summary">L\'option \'Adaptation de la luminosité\' est %1$se.</string>
+  <string name="display_summary">L\'option \'Adaptation de la luminosité\' est %1$s</string>
   <string name="sound_summary">Volume de la sonnerie à %1$s</string>
   <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d applications installées</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
@@ -135,15 +135,47 @@
   <string name="notification_experimental">Comportement de déroulement N et ombres de notification</string>
   <string name="notification_keyguard_max_title">Notifications max sur verrouillage</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
-  <string name="now_string_shortest">maint.</string>
+  <string name="now_string_shortest">mainten.</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dm</item>
+    <item quantity="other">%dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%dh</item>
+    <item quantity="other">%dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dj</item>
+    <item quantity="other">%dj</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%da</item>
+    <item quantity="other">%da</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">dans %dm</item>
+    <item quantity="other">dans %dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">dans %dh</item>
+    <item quantity="other">dans %dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">dans %dj</item>
+    <item quantity="other">dans %dj</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">dans %da</item>
+    <item quantity="other">dans %da</item>
+  </plurals>
   <string name="update_notification_title">Nouvelle mise à jour disponible</string>
   <string name="update_notification">La build %1$d est prête à être installé !</string>
   <string name="update_notification_download">Mise à jour</string>
@@ -173,6 +205,8 @@
   <string name="clear">Effacer</string>
   <string name="clear_all_message">Effacer toutes les informations et les contacts?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Retirer %1$s des contacts d\'urgence?</string>
   <string name="remove_contact_icon_text">Supprimer le contact</string>
   <string name="remove">Supprimer</string>
   <string name="cancel">Annuler</string>
@@ -185,7 +219,9 @@
   <string name="date_of_birth">Date de naissance</string>
   <string name="unknown_date_of_birth">Inconnu</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Âge: %1$d</string>
   <string name="remove_dob_icon_text">Supprimer la date de naissance</string>
   <string name="blood_type">Groupe sanguin</string>
   <string name="unknown_blood_type">Inconnu</string>
@@ -224,20 +260,35 @@
   <string name="live_display_night">Nuit</string>
   <string name="live_display_outdoor">Extérieur (soleil brillant)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">Il y a %1$s</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s restants</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Env. %1$s restants</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s restants</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - Temps restant : %2$s environ</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s restants</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s jusqu’à pleine charge</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s jusqu\'à pleine charge via secteur</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s jusqu\'à pleine charge via USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s jusqu\'à pleine charge via chargement sans fil</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Inconnu</string>
   <string name="battery_info_status_charging">En charge</string>
   <string name="battery_info_status_charging_ac">En charge sur secteur</string>
@@ -257,6 +308,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Le nom ne doit pas être vide</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Réinitialiser</string>
   <string name="dialog_color_picker">Sélection de couleur</string>
   <string name="press_color_to_apply">Appuyez sur une couleur pour appliquer</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -266,4 +318,8 @@
   <string name="battery_detail_switch_summary">Réduit les performances et les données en arrière plan</string>
   <string name="qs_add_notes_title">Notes</string>
   <string name="qs_add_notes">Ceci est utilisé uniquement pour les applis qui proposent des tuiles personnalisées (telle que \"Custom Quick Settings\"). Merci de lire les instructions de l/\'appli proposant des tuiles avant d/\'utiliser ceci. </string>
+  <string name="notification_spoof_api_version_title">Émuler API 24</string>
+  <string name="notification_spoof_api_version">Faire croire à ces applications qu\'elles fonctionnent sur 24 API</string>
+  <string name="hide_tiles_on_lockscreen">Masquer les tuiles sur l\'écran de verrouillage</string>
+  <string name="done">Terminé</string>
 </resources>

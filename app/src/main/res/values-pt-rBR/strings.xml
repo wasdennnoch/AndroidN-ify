@@ -8,7 +8,7 @@
   <string name="activity_about">Sobre o Android N-ify</string>
   <string name="about_author">Desenvolvido por @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
-  <string name="about_translator">Traduzido por @Kamin4ri</string>
+  <string name="about_translator">Traduzido por @Kamin4ri e @marciozomb13</string>
   <string name="about_version">Versão %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Aviso:</b> O arquivo de preferências não pode ser lido pelo Xposed. Clique para mais informações&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
@@ -138,13 +138,45 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">agora</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dm</item>
+    <item quantity="other">%dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%dh</item>
+    <item quantity="other">%dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dd</item>
+    <item quantity="other">%dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%da</item>
+    <item quantity="other">%da</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">em %dm</item>
+    <item quantity="other">em %dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">em %dh</item>
+    <item quantity="other">em %dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">em %dd</item>
+    <item quantity="other">em %dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">em %da</item>
+    <item quantity="other">em %da</item>
+  </plurals>
   <string name="update_notification_title">Nova atualização disponível</string>
   <string name="update_notification">A compilação %1$d está disponível para download!</string>
   <string name="update_notification_download">Baixar</string>
@@ -174,6 +206,8 @@
   <string name="clear">Limpar</string>
   <string name="clear_all_message">Limpar todas as informações e contatos?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Remover \"%1$s\" dos contatos de emergência?</string>
   <string name="remove_contact_icon_text">Remover contato</string>
   <string name="remove">Remover</string>
   <string name="cancel">Cancelar</string>
@@ -186,7 +220,9 @@
   <string name="date_of_birth">Data de nascimento</string>
   <string name="unknown_date_of_birth">Desconhecido</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Idade: %1$d</string>
   <string name="remove_dob_icon_text">Remover data de nascimento</string>
   <string name="blood_type">Tipo de sangue</string>
   <string name="unknown_blood_type">Desconhecido</string>
@@ -225,20 +261,35 @@
   <string name="live_display_night">Noite</string>
   <string name="live_display_outdoor">Externo (sol forte)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s atrás</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s restante(s)</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Aprox. %1$s restante(s)</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s restante(s)</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - aprox. %2$s hora(s) restante(s)</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s restante(s)</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s até completo</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s até carregado por AC</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s até carregado por USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s até carregado por wireless</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Desconhecido</string>
   <string name="battery_info_status_charging">Carregando</string>
   <string name="battery_info_status_charging_ac">Carregamento CA</string>
@@ -258,6 +309,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Especificação da telha não deve estar em branco</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Resetar</string>
   <string name="dialog_color_picker">Seletor de cores</string>
   <string name="press_color_to_apply">Pressione Cor para aplicar</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -267,4 +319,8 @@
   <string name="battery_detail_switch_summary">Reduz o desempenho e os dados em segundo plano</string>
   <string name="qs_add_notes_title">Notas</string>
   <string name="qs_add_notes">Isto é usado somente para aplicativos que fornecem tiles de broadcast (tais como \"Custom Quick Settings\"). Leia as instruções no tile do provedor do app antes de usar isto.</string>
+  <string name="notification_spoof_api_version_title">Simular API 24</string>
+  <string name="notification_spoof_api_version">Enganar esses aplicativos para que pensem que estão rodando na API 24</string>
+  <string name="hide_tiles_on_lockscreen">Esconder mosaicos na tela de bloqueio</string>
+  <string name="done">Concluído</string>
 </resources>

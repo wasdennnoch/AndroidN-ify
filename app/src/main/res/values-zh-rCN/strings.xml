@@ -51,11 +51,11 @@
   <string name="on">开启</string>
   <string name="data_usage_summary">已使用 %1$s 的数据</string>
   <!-- Is on or off -->
-  <string name="display_summary">自动调节亮度已%1$s</string>
-  <string name="sound_summary">铃声音量 %1$s</string>
+  <string name="display_summary">自动调节亮度功能已%1$s</string>
+  <string name="sound_summary">铃声音量为 %1$s</string>
   <string name="apps_summary" tools:ignore="PluralsCandidate">已安装 %1$d 个应用</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
-  <string name="storage_summary">已用 %1$s / %2$s</string>
+  <string name="storage_summary">已使用 %1$s （共 %2$s）</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
   <string name="battery_summary">%1$s - 还可用大约%2$s</string>
   <!-- Battery settings summary: Percentage -->
@@ -64,8 +64,8 @@
   <string name="battery_charging_usb">%1$s - 正在通过USB充电</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_ac">%1$s - 正在通过交流电源充电</string>
-  <string name="memory_summary">当前已用 %1$s / %2$s 内存</string>
-  <string name="user_summary">已通过 %1$s 登录</string>
+  <string name="memory_summary">平均内存用量为 %1$s，共 %2$s</string>
+  <string name="user_summary">目前登录的用户名为：%1$s</string>
   <string name="location_on_power">开启 / 节电</string>
   <string name="location_on_device">开启 / 仅限设备</string>
   <string name="location_on_high">开启 / 高精确度</string>
@@ -74,8 +74,8 @@
   <string name="store">商店</string>
   <!-- Header of app installation source -->
   <string name="app_details">应用详情</string>
-  <string name="install_source">应用安装自 %1$s</string>
-  <string name="from_pm">应用安装自软件包安装程序</string>
+  <string name="install_source">通过%1$s安装的应用</string>
+  <string name="from_pm">通过软件包安装程序安装的应用</string>
   <string name="header_recents">最近任务</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">快速切换</string>
@@ -89,7 +89,7 @@
   <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
   <string name="no_recents_image">更改没有最近任务时的界面样式</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
-  <string name="no_previous_recents">没有最近任务</string>
+  <string name="no_previous_recents">近期没有任何内容</string>
   <string name="recents_button_behavior_previous">返回到上一个应用</string>
   <string name="recents_button_behavior_current">返回到当前应用</string>
   <string name="recents_button_behavior_cycle">依次浏览最近任务</string>
@@ -111,7 +111,7 @@
   <string name="enable_large_first_row">扩大首行图块</string>
   <string name="enable_large_first_row_summary">使用 CyanogenMod 的用户请选择通过图块修改模式中的配置菜单项进行该设置</string>
   <string name="fix_stuck_inversion_title">修复颜色反转卡顿</string>
-  <string name="fix_stuck_inversion">一些设备可能在启用反转磁贴后出现屏幕卡顿的问题。点此可强制停用</string>
+  <string name="fix_stuck_inversion">一些设备可能在开启反色图块后出现屏幕卡顿的问题。点此可强制停用</string>
   <string name="header_clock_size_title">顶栏时钟大小</string>
   <string name="header_clock_size_normal">正常</string>
   <string name="header_clock_size_small">小</string>
@@ -138,13 +138,37 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">现在</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="other">%d 分钟</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="other">%d 小时</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="other">%d 天</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="other">%d 年</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="other">%d 分钟后</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="other">%d 小时后</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="other">%d 天后</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="other">%d 年后</item>
+  </plurals>
   <string name="update_notification_title">有可用的更新</string>
   <string name="update_notification">版本 %1$d 的更新已可供下载！</string>
   <string name="update_notification_download">下载</string>
@@ -160,7 +184,7 @@
   <string name="update_notification_download_fail">下载失败</string>
   <string name="update_notification_download_fail_details">下载 %1$d 版本的更新失败</string>
   <string name="emergency_info">急救信息</string>
-  <string name="emergency_info_launch_hint">再次触摸即可打开</string>
+  <string name="emergency_info_launch_hint">再次点按即可打开</string>
   <string name="enable_emergency_info_title">启用急救信息</string>
   <string name="enable_emergency_info">向紧急拨号器内添加急救信息按钮</string>
   <string name="edit_emergency_info_title">修改急救信息</string>
@@ -174,6 +198,8 @@
   <string name="clear">清除</string>
   <string name="clear_all_message">要清除所有信息和联系人吗？</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">要将%1$s从紧急情况联系人中移除吗？</string>
   <string name="remove_contact_icon_text">移除联系人</string>
   <string name="remove">移除</string>
   <string name="cancel">取消</string>
@@ -186,7 +212,9 @@
   <string name="date_of_birth">出生日期</string>
   <string name="unknown_date_of_birth">未知</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">年龄：%1$d</string>
   <string name="remove_dob_icon_text">移除出生日期</string>
   <string name="blood_type">血型</string>
   <string name="unknown_blood_type">未知</string>
@@ -201,15 +229,15 @@
   <string name="medical_conditions_hint">例如，哮喘</string>
   <string name="organ_donor">器官捐献者</string>
   <string name="unknown_organ_donor">未知</string>
-  <string name="info_bloodtype_op">O 型阳性</string>
-  <string name="info_bloodtype_on">O 型阴性</string>
-  <string name="info_bloodtype_ap">A 型阳性</string>
-  <string name="info_bloodtype_an">A 型阴性</string>
-  <string name="info_bloodtype_bp">B 型阳性</string>
-  <string name="info_bloodtype_bn">B 型阴性</string>
-  <string name="info_bloodtype_abp">AB 型阳性</string>
-  <string name="info_bloodtype_abn">AB 型阴性</string>
-  <string name="info_bloodtype_h_h">HH 型</string>
+  <string name="info_bloodtype_op">O+</string>
+  <string name="info_bloodtype_on">O-</string>
+  <string name="info_bloodtype_ap">A+</string>
+  <string name="info_bloodtype_an">A-</string>
+  <string name="info_bloodtype_bp">B+</string>
+  <string name="info_bloodtype_bn">B-</string>
+  <string name="info_bloodtype_abp">AB+</string>
+  <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H/H</string>
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">电池</string>
@@ -225,20 +253,35 @@
   <string name="live_display_night">夜晚</string>
   <string name="live_display_outdoor">室外（阳光环境）</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s前</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">还剩%1$s</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">还剩大约%1$s</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">还可用%1$s</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - 还可用大约%2$s</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - 还可用%2$s</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - 还需%2$s充满</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - 还需%2$s充满（交流电充电）</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - 还需%2$s充满（USB充电）</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - 还需%2$s充满（无线充电）</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">未知</string>
   <string name="battery_info_status_charging">正在充电</string>
   <string name="battery_info_status_charging_ac">正在通过交流电源充电</string>
@@ -258,7 +301,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">图块说明不能为空</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
-  <string name="reset_tiles">重置图块</string>
+  <string name="reset_tiles">重置</string>
   <string name="dialog_color_picker">颜色选择器</string>
   <string name="press_color_to_apply">点击颜色以应用</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -270,6 +313,6 @@
   <string name="qs_add_notes">仅适用于提供播送图块的应用（例如 \"Custom Quick Settings\"）。使用前请参阅图块提供应用内的说明。</string>
   <string name="notification_spoof_api_version_title">API 24 伪装</string>
   <string name="notification_spoof_api_version">使被欺骗的应用误认为它们正运行在 API 24 上</string>
-  <string name="hide_tiles_on_lockscreen">隐藏锁屏界面内的图块</string>
+  <string name="hide_tiles_on_lockscreen">安全锁屏下要隐藏的图块</string>
   <string name="done">完成</string>
 </resources>

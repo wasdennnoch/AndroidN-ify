@@ -149,7 +149,7 @@
     <string name="notifications_actions_color_title">Actions background color</string>
     <string name="notification_experimental_title">Experimental N notifications behavior</string>
     <string name="notification_experimental">N scrolling behavior (no top stack) and notifications shadow</string>
-    <string name="notification_keyguard_max_title">Max notifications on keyguard</string>
+    <string name="notification_keyguard_max_title">Max notifications on lockscreen</string>
 
     <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
     <string name="now_string_shortest">now</string>
@@ -358,7 +358,7 @@
     <string name="cm_qs_settings">CM QS settings</string>
     <string name="disable_qs_paging">Disable QS paging</string>
     <string name="disable_qs_paging_summary">Disable QS paging in portrait</string>
-    <string name="allow_direct_reply_on_keyguard">Allow direct reply from keyguard</string>
+    <string name="allow_direct_reply_on_keyguard">Direct reply on lockscreen</string>
     <string name="enable_notifications_background">Enable notifications background</string>
 
 </resources>
