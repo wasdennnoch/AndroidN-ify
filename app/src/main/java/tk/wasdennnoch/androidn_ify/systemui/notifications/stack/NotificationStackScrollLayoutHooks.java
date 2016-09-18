@@ -163,6 +163,12 @@ public class NotificationStackScrollLayoutHooks {
                 mStackTranslation = (float) param.args[0];
             }
         });
+        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateSwipeProgress", View.class, boolean.class, float.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                param.setResult(true); // Don't fade out the notification
+            }
+        });
         classActivatableNotificationView = XposedHelpers.findClass("com.android.systemui.statusbar.ActivatableNotificationView", classLoader);
         classStackStateAnimator = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackStateAnimator", classLoader);
     }
