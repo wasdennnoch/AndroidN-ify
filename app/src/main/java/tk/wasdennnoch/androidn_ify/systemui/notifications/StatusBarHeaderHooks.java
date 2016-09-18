@@ -129,7 +129,6 @@ public class StatusBarHeaderHooks {
 
     public static boolean mExpanded;
     private static float mExpansion = 0;
-    private static int mGridHeight = 0;
     private static boolean mRecreatingStatusBar = false;
 
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
@@ -462,6 +461,7 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            int mGridHeight = SystemUIHooks.qsHooks.getGridHeight();
             if (mGridHeight == 0)
                 return;
             View view = (View) param.thisObject;
@@ -938,8 +938,6 @@ public class StatusBarHeaderHooks {
                         mQsPanel.post(new SafeRunnable() {
                             @Override
                             public void runSafe() {
-                                mGridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
-                                //mHeaderQsPanel.setupAnimators(mGridHeight);
                                 if (mQsAnimator != null) {
                                     mQsAnimator.mUpdateAnimators.run();
                                 }
