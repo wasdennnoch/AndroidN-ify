@@ -27,6 +27,15 @@ public class QuickSettingsHooks {
     protected View mDetail;
 
     private PagedTileLayout mTileLayout;
+    private boolean mHookedGetGridHeight = false;
+    private int mGridHeight;
+    private XC_MethodReplacement
+            getGridHeightHook = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            return mGridHeight;
+        }
+    };
 
     public static QuickSettingsHooks create(ClassLoader classLoader) {
         try {
@@ -136,7 +145,16 @@ public class QuickSettingsHooks {
         if ((boolean) XposedHelpers.callMethod(mFooter, "hasFooter")) {
             h += footerView.getMeasuredHeight();
         }
-        XposedHelpers.setObjectField(mQsPanel, "mGridHeight", h);
+        if (!mHookedGetGridHeight) {
+            try {
+                XposedHelpers.setObjectField(mQsPanel, "mGridHeight", h);
+            } catch (Throwable t) {
+                XposedHelpers.findAndHookMethod(mQsPanel.getClass(), "getGridHeight", getGridHeightHook);
+                mHookedGetGridHeight = true;
+            }
+        } else {
+            mGridHeight = h;
+        }
 
         mDetail.measure(exactly(width), View.MeasureSpec.UNSPECIFIED);
 
