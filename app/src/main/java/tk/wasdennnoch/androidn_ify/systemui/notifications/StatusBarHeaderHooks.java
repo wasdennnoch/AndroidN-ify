@@ -9,7 +9,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -25,9 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -61,7 +57,6 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
-@SuppressWarnings("WeakerAccess")
 public class StatusBarHeaderHooks {
 
     private static final String TAG = "StatusBarHeaderHooks";
@@ -1264,11 +1259,7 @@ public class StatusBarHeaderHooks {
                         params.setMarginStart(0);
                         params.setMarginEnd(0);
 
-                        try {
-                            mQsPanel = (ViewGroup) layout.getChildAt(0);
-                        } catch (Throwable t1) { // RR added 5 ImageViews in between...
-                            mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
-                        }
+                        mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
                     }
                 });
 
