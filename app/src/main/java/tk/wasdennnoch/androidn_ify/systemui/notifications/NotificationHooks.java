@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -68,7 +69,6 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
-@SuppressWarnings({"WeakerAccess", "UnusedAssignment", "PointlessBooleanExpression"})
 public class NotificationHooks {
 
     private static final String TAG = "NotificationHooks";
@@ -158,7 +158,7 @@ public class NotificationHooks {
                     double[] lab = new double[3];
                     ColorUtils.colorToLAB(mNotificationBgColor, lab);
                     lab[0] = 1.0f - 0.95f * (1.0f - lab[0]);
-                    int endColor = ColorUtils.LABToColor(lab[0], lab[1], lab[2]);
+                    int endColor = ColorUtils.setAlphaComponent(ColorUtils.LABToColor(lab[0], lab[1], lab[2]), Color.alpha(mNotificationBgColor));
                     if (expandedChild != null) {
                         View actionsExpanded = expandedChild.findViewById(actionsId);
                         if (actionsExpanded != null) {
@@ -650,11 +650,13 @@ public class NotificationHooks {
                     });
                 }
 
-                //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
-                //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
-                try {
-                    //resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
-                } catch (Throwable ignore) {
+                if (!ConfigUtils.notifications().enable_notifications_background) {
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
+                    try {
+                        resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
+                    } catch (Throwable ignore) {
+                    }
                 }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", new XResources.DrawableLoader() {
@@ -814,8 +816,7 @@ public class NotificationHooks {
                     }
                 });
 
-                if (ConfigUtils.M) {
-                    /*
+                if (ConfigUtils.M && !ConfigUtils.notifications().enable_notifications_background) {
                     XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setHeadsUp", boolean.class, new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -824,7 +825,6 @@ public class NotificationHooks {
                             row.findViewById(R.id.notification_divider).setAlpha(isHeadsUp ? 0 : 1);
                         }
                     });
-                    */
                 }
 
                 XposedHelpers.findAndHookMethod(classPhoneStatusBar, "start", new XC_MethodHook() {
@@ -866,22 +866,24 @@ public class NotificationHooks {
                     }
                 });
 
-                XposedHelpers.findAndHookMethod(classPhoneStatusBar, "updateNotificationShade", new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        ViewGroup stack = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mStackScroller");
-                        int childCount = stack.getChildCount();
-                        boolean firstChild = true;
-                        for (int i = 0; i < childCount; i++) {
-                            View child = stack.getChildAt(i);
-                            if (!classExpandableNotificationRow.isAssignableFrom(child.getClass())) {
-                                continue;
+                if (!ConfigUtils.notifications().enable_notifications_background) {
+                    XposedHelpers.findAndHookMethod(classPhoneStatusBar, "updateNotificationShade", new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            ViewGroup stack = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mStackScroller");
+                            int childCount = stack.getChildCount();
+                            boolean firstChild = true;
+                            for (int i = 0; i < childCount; i++) {
+                                View child = stack.getChildAt(i);
+                                if (!classExpandableNotificationRow.isAssignableFrom(child.getClass())) {
+                                    continue;
+                                }
+                                child.findViewById(R.id.notification_divider).setVisibility(firstChild ? View.INVISIBLE : View.VISIBLE);
+                                firstChild = false;
                             }
-                            //child.findViewById(R.id.notification_divider).setVisibility(firstChild ? View.INVISIBLE : View.VISIBLE);
-                            firstChild = false;
                         }
-                    }
-                });
+                    });
+                }
 
                 XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setExpandable", boolean.class, new XC_MethodHook() {
                     @Override

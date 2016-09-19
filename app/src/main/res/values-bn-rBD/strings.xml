@@ -30,7 +30,10 @@
   <string name="header_clock_size_title">হেডারের ঘড়ির সাইজ</string>
   <string name="hide_tuner_icon_title">SystemUI টিউনার আইকন হাইড করুন</string>
   <string name="hide_edit_tiles_title">এডিট টাইল বাটন হাইড করুন</string>
+  <string name="hide_edit_tiles_summary">এটি শুধুমাত্র স্টক এডিট বাটন হাইড করে!</string>
   <!-- Search hint in the blacklist app Activity -->
+  <string name="notifications_custom_actions_color_title">কাস্টম অ্যাকসন ব্যাকগ্রাউন্ডের কালার ব্যবহার করুন</string>
+  <string name="notifications_actions_color_title">অ্যাকসন ব্যাকগ্রাউন্ড এর রং</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

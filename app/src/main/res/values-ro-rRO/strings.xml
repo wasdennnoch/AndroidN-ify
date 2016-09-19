@@ -137,13 +137,53 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">acum</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dmin</item>
+    <item quantity="few">%dmin</item>
+    <item quantity="other">%dmin</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%dora</item>
+    <item quantity="few">%dore</item>
+    <item quantity="other">%dore</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dzi</item>
+    <item quantity="few">%dzile</item>
+    <item quantity="other">%dzile</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%dan</item>
+    <item quantity="few">%dani</item>
+    <item quantity="other">%dani</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">in %dmin</item>
+    <item quantity="few">in %dmin</item>
+    <item quantity="other">in %dmin</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">în %doră</item>
+    <item quantity="few">în %dore</item>
+    <item quantity="other">în %dore</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">în %dzi</item>
+    <item quantity="few">în %dzile</item>
+    <item quantity="other">în %dzile</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">în %dan</item>
+    <item quantity="few">în %dani</item>
+    <item quantity="other">în %dani</item>
+  </plurals>
   <string name="update_notification_title">O versiune nouă este disponibilă</string>
   <string name="update_notification">Versiunea %1$d este acum disponibilă pentru descărcare!</string>
   <string name="update_notification_download">Descărcați</string>
@@ -173,6 +213,8 @@
   <string name="clear">Sterge tot</string>
   <string name="clear_all_message">Sunteti sigur ca vreti sa stergeti toate informatiile si persoanele de contact?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Elimină %1$s din lista de contacte pentru urgenţe?</string>
   <string name="remove_contact_icon_text">Sterge contactul</string>
   <string name="remove">Sterge</string>
   <string name="cancel">Revoca</string>
@@ -185,7 +227,9 @@
   <string name="date_of_birth">Data nașterii</string>
   <string name="unknown_date_of_birth">Necunoscut</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Varsta: %1$d</string>
   <string name="remove_dob_icon_text">Elimina data naşterii</string>
   <string name="blood_type">Grupă sanguină</string>
   <string name="unknown_blood_type">Necunoscut</string>
@@ -224,20 +268,35 @@
   <string name="live_display_night">Noapte</string>
   <string name="live_display_outdoor">Afară (soare strălucitor)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s în urmă</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s ramas</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Aproximativ %1$s ramas</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s ramas</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - aprox. %2$s ramas</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s ramas</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s până la încărcare</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s până la încărcare la priză</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s până la încărcare prin USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s până la încărcare fară fir</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Necunoscut</string>
   <string name="battery_info_status_charging">Se încarcă</string>
   <string name="battery_info_status_charging_ac">Se încarcă pe CA</string>
@@ -257,6 +316,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Specificația tile-ului nu trebuie să fie goală</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Resetare</string>
   <string name="dialog_color_picker">Alegător de culori</string>
   <string name="press_color_to_apply">Apăsați pe o Culoare pentru a o aplica</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -267,4 +327,8 @@
   <string name="qs_add_notes_title">Note</string>
   <string name="qs_add_notes">Acesta este folosit doar pentru aplicatii care furnizeaza titluri de difuzare (cum ar fi \'\'
 Setări rapide personalizate\'\'). Va rugam sa cititi informatiile in aplicatia furnizorului inainte de a utiliza aceasta functie.</string>
+  <string name="notification_spoof_api_version_title">Prezinta drept API 24</string>
+  <string name="notification_spoof_api_version">Minte aceste aplicaţii că rulează pe API 24</string>
+  <string name="hide_tiles_on_lockscreen">Ascunde iconiţele de setări din ecranul de blocare</string>
+  <string name="done">Terminat</string>
 </resources>

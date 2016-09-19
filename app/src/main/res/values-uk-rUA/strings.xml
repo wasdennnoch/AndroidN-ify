@@ -138,13 +138,53 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">щойно</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%d хв</item>
+    <item quantity="few">%d хв</item>
+    <item quantity="other">%d хв</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%d год</item>
+    <item quantity="few">%d год</item>
+    <item quantity="other">%d год</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dдень</item>
+    <item quantity="few">%d дня</item>
+    <item quantity="other">%dднів</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%d р.</item>
+    <item quantity="few">%d р.</item>
+    <item quantity="other">%d р.</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">через %d хв</item>
+    <item quantity="few">через %d хв</item>
+    <item quantity="other">через %d хв</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">через %d год</item>
+    <item quantity="few">через %d год</item>
+    <item quantity="other">через %d год</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">через %d день</item>
+    <item quantity="few">через %d дня</item>
+    <item quantity="other">через %d днів</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">через %d рік</item>
+    <item quantity="few">через %d роки</item>
+    <item quantity="other">через %d років</item>
+  </plurals>
   <string name="update_notification_title">Доступно нове оновлення</string>
   <string name="update_notification">Збірка %1$d доступна для оновлення!</string>
   <string name="update_notification_download">Оновити</string>
@@ -174,6 +214,8 @@
   <string name="clear">Очистити</string>
   <string name="clear_all_message">Очистити всю інформацію та контакти?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Видалити %1$s екстрених контактів?</string>
   <string name="remove_contact_icon_text">Видалити контакт</string>
   <string name="remove">Видалити</string>
   <string name="cancel">Скасувати</string>
@@ -186,7 +228,9 @@
   <string name="date_of_birth">Дата народження</string>
   <string name="unknown_date_of_birth">Невідомо</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Вік: %1$d</string>
   <string name="remove_dob_icon_text">Видалити дату народження</string>
   <string name="blood_type">Група крові</string>
   <string name="unknown_blood_type">Невідомо</string>
@@ -225,20 +269,35 @@
   <string name="live_display_night">Ніч</string>
   <string name="live_display_outdoor">На вулиці (яскраве сонце)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s тому</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s залишилося</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Прибл. %1$s залишилося</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s залишилося</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - залишилося. Приблизно %2$s</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s залишилося</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s %2$s до повної зарядки</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s %2$s до повної зарядки через мережу</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s %2$s до повної зарядки через USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s %2$s до повної зарядки через бездротову зарядку</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Невідомо</string>
   <string name="battery_info_status_charging">Заряджається</string>
   <string name="battery_info_status_charging_ac">Заряджання від мережі</string>
@@ -258,6 +317,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Специфікація плитки не повинна бути порожнім</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Скинути</string>
   <string name="dialog_color_picker">Вибір кольору</string>
   <string name="press_color_to_apply">Натисніть на колір, щоб застосувати</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -267,4 +327,8 @@
   <string name="battery_detail_switch_summary">Знижує продуктивність та фонові дані</string>
   <string name="qs_add_notes_title">Примітки</string>
   <string name="qs_add_notes">Це використовується лише для додатків, які надають плитки трансляції (наприклад, «Custom Quick Settings»). Будь ласка, прочитайте інструкції в додатку постачальника плиток перед використанням цього.</string>
+  <string name="notification_spoof_api_version_title">Підміняти на API 24</string>
+  <string name="notification_spoof_api_version">Обманювати ці додатки, щоб вони думали, що вони працюють на API 24</string>
+  <string name="hide_tiles_on_lockscreen">Приховати плитки на екрані блокування</string>
+  <string name="done">Зроблено</string>
 </resources>

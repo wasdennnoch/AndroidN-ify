@@ -153,7 +153,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
                 getRelativePosition(loc2, tileIcon, mQsPanel);
                 final int xDiff = loc2[0] - loc1[0] + ((i < maxTilesOnPage) ? 0 : mPagedLayout.getWidth());
                 final int yDiff = loc2[1] - loc1[1] +
-                        +mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
+                        + mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
 
                 lastXDiff = loc1[0] - lastX;
                 lastYDiff = yDiff;

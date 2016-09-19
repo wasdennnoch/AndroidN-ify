@@ -31,11 +31,11 @@
   <string name="enable_settings_summaries">Hiện những thông tin quan trọng trực tiếp lên màn hình Cài đặt</string>
   <string name="fix_sound_notif_tile_title">Sửa \"Âm thanh và Thông báo\"</string>
   <string name="fix_sound_notif_tile">Một vài ROM gộp cài đặt Âm thanh và Thông báo. Bật để hiển thị tóm tắt phù hợp cho mục này</string>
-  <string name="enable_n_platlogo_title">Trức phục sinh logo N</string>
+  <string name="enable_n_platlogo_title">Logo trứng phục sinh N</string>
   <string name="use_namey_mcnameface_title">Dùng biểu tượng \"Namey McNameface\" </string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Đã ngắt kết nối</string>
-  <string name="disabled">Vô liệu hóa</string>
+  <string name="disabled">Tắt</string>
   <string name="off">TẮT</string>
   <string name="on">BẬT</string>
   <string name="data_usage_summary">Đã sử dụng %1$s dữ liệu</string>
@@ -58,19 +58,19 @@
   <string name="location_on_power">BẬT / Tiết kiệm pin</string>
   <string name="location_on_device">BẬT / Chỉ thiết bị</string>
   <string name="location_on_high">BẬT / Chính xác cao</string>
-  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d công việc in</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">%1$d công việc in ấn</string>
   <!-- Header of app installation source -->
-  <string name="store">Cửa hàng </string>
+  <string name="store">Cửa hàng</string>
   <!-- Header of app installation source -->
-  <string name="app_details">Chi tiết ứng dụng </string>
+  <string name="app_details">Chi tiết ứng dụng</string>
   <string name="install_source">Ứng dụng được cài từ %1$s</string>
   <string name="from_pm">Ứng dụng được cài từ Trình cài đặt Gói </string>
-  <string name="header_recents">Ứ.dụng gần đây</string>
+  <string name="header_recents">Ứng dụng gần đây</string>
   <!-- That's how Google calls it -->
-  <string name="enable_recents_double_tap_title">Chuyển ứ.dụng nhanh</string>
-  <string name="enable_recents_double_tap">Nhấn hai lần nút chuyển ứ.dụng để quay về ứ.dụng trước đó</string>
+  <string name="enable_recents_double_tap_title">Chuyển ứng dụng nhanh</string>
+  <string name="enable_recents_double_tap">Nhấn hai lần nút chuyển ứng dụng để quay về ứng dụng trước đó</string>
   <string name="alternative_double_tap_title">Phát hiện chạm đôi kiểu khác</string>
-  <string name="alternative_double_tap">Bật nếu Chuyển ứ.dụng nhanh hoạt động không đúng </string>
+  <string name="alternative_double_tap">Bật nếu Chuyển ứng dụng nhanh hoạt động không đúng</string>
   <string name="double_tap_speed_title">Tốc độ chạm đôi</string>
   <string name="recents_button_behavior_title">Hành vi nút chuyển ứng dụng</string>
   <string name="recents_navigation_delay_title">Độ trễ điều hướng</string>
@@ -127,13 +127,37 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ngay bây giờ</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="other">%dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="other">%dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="other">%dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="other">%dy</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="other">trong %dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="other">trong %dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="other">trong %dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="other">trong %dy</item>
+  </plurals>
   <string name="update_notification_title">Có bản cập nhật mới</string>
   <string name="update_notification">Phiên bản %1$d đã sẵn sàng để cập nhật!</string>
   <string name="update_notification_download">Cập nhật</string>
@@ -151,19 +175,25 @@
   <string name="emergency_info">Thông tin khẩn</string>
   <string name="emergency_info_launch_hint">Chạm lần nữa để mở </string>
   <string name="enable_emergency_info_title">Bật thông tin khẩn</string>
+  <string name="enable_emergency_info">Thêm một nút Thông tin Khẩn cấp vào trình quay số khẩn cấp</string>
   <string name="edit_emergency_info_title">Sửa thông tin khẩn</string>
   <string name="clear_all">Xóa tất cả</string>
   <string name="tab_title_info">Thông tin</string>
   <string name="tab_title_contacts">Danh bạ</string>
   <string name="add_emergency_contact">Thêm danh bạ</string>
   <string name="user_emergency_info_title">Thông tin khẩn</string>
+  <string name="user_emergency_info_consent">Thông tin bạn nhập ở đây có thể giúp các phản ứng đầu tiên trong một trường hợp khẩn cấp. Nó được lưu trữ trên thiết bị của bạn chỉ, và bất cứ ai có thể đọc nó từ trình quay số khẩn cấp mà không cần mở khóa điện thoại của bạn.</string>
   <string name="emergency_info_continue">Tiếp tục</string>
   <string name="clear">Xóa</string>
   <string name="clear_all_message">Xóa tất cả thông tin và danh bạ?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Xóa %1$s từ địa chỉ liên lạc khẩn cấp?</string>
   <string name="remove_contact_icon_text">Xóa danh bạ</string>
   <string name="remove">Xóa</string>
   <string name="cancel">Hủy</string>
+  <string name="no_info_provided">Không có thông tin cung cấp khẩn cấp</string>
+  <string name="emergency_contacts_title">Địa chỉ liên lạc khẩn cấp</string>
   <string name="name">Tên</string>
   <string name="unknown_name">Không biết</string>
   <string name="address">Địa chỉ</string>
@@ -171,7 +201,9 @@
   <string name="date_of_birth">Ngày sinh</string>
   <string name="unknown_date_of_birth">Không biết</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Tuổi: %1$d</string>
   <string name="remove_dob_icon_text">Loại bỏ ngày sinh</string>
   <string name="blood_type">Nhóm máu</string>
   <string name="unknown_blood_type">Chưa biết</string>
@@ -184,6 +216,17 @@
   <string name="medical_conditions">Y tế ghi chú</string>
   <string name="unknown_medical_conditions">Chưa biết</string>
   <string name="medical_conditions_hint">Ví dụ, bệnh hen suyễn</string>
+  <string name="organ_donor">Cơ quan nhà tài trợ</string>
+  <string name="unknown_organ_donor">Chưa biết</string>
+  <string name="info_bloodtype_op">O+</string>
+  <string name="info_bloodtype_on">O-</string>
+  <string name="info_bloodtype_ap">A+</string>
+  <string name="info_bloodtype_an">A-</string>
+  <string name="info_bloodtype_bp">B+</string>
+  <string name="info_bloodtype_bn">B-</string>
+  <string name="info_bloodtype_abp">AB+</string>
+  <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">G G</string>
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="battery">Pin</string>
@@ -192,26 +235,42 @@
   <string name="qs_edit">Sửa</string>
   <string name="drag_to_add_tiles">Kéo để thêm ô</string>
   <string name="drag_to_remove_tiles">Kéo vào đây để xóa</string>
+  <string name="live_display">LiveDisplay</string>
   <string name="live_display_auto">Tự động</string>
   <string name="live_display_off">Tắt</string>
   <string name="live_display_day">Ngày</string>
   <string name="live_display_night">Đêm</string>
   <string name="live_display_outdoor">Ngoài trời (nắng mạnh)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s trước</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s còn lại</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Xấp xỉ. %1$s còn lại</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s còn lại</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - còn khoảng %2$s</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s còn lại</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s cho đến khi đầy</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s cho đến khi đầy trên AC</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s cho đến khi đầy trên USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s cho đến khi đầy từ không dây</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Không biết</string>
   <string name="battery_info_status_charging">Đang sạc </string>
   <string name="battery_info_status_charging_ac">Đang sạc bằng điện lưới</string>
@@ -226,12 +285,23 @@
   <string name="battery_panel_title">Sử dụng pin</string>
   <string name="battery_detail_charging_summary">Tiết kiệm pin không dùng được khi sạc </string>
   <!-- Add a custom tile -->
+  <string name="add">Thêm</string>
+  <string name="add_custom_tile">Thêm tiêu đề phát sóng</string>
   <!-- Warning when the input for the custom tile is empty -->
+  <string name="spec_shouldnt_be_blank">Mô tả tiêu đề không được để trống</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Thiết lập lại</string>
   <string name="dialog_color_picker">Bảng chọn màu </string>
   <string name="press_color_to_apply">Bấm vào màu để áp dụng </string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Hiện nguồn cài đặt ứng dụng</string>
   <string name="battery_detail_switch_title">Tiết kiệm pin</string>
   <string name="battery_detail_switch_summary">Giảm hiệu năng và dữ liệu nền </string>
+  <string name="qs_add_notes_title">Ghi chú</string>
+  <string name="qs_add_notes">Điều này chỉ được sử dụng cho các ứng dụng cung cấp cho tiêu đề phát sóng (chẳng hạn như \"Tùy chỉnh nhanh chóng cài đặt\"). Xin vui lòng đọc hướng dẫn trong các ứng dụng nhà cung cấp tiêu đề trước khi sử dụng điều này.</string>
+  <string name="notification_spoof_api_version_title">Spoof API 24</string>
+  <string name="notification_spoof_api_version">Spoof các ứng dụng vào suy nghĩ họ đang chạy vào API 24</string>
+  <string name="hide_tiles_on_lockscreen">Ẩn tiêu đề trên màn hình khóa khóa</string>
+  <string name="done">Xong</string>
 </resources>

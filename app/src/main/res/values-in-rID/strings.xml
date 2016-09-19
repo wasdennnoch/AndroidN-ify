@@ -30,10 +30,10 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <string name="header_settings">Pengaturan</string>
   <string name="enable_settings_summaries_title">Ringkasan pengaturan</string>
   <string name="enable_settings_summaries">Tampilkan informasi yang paling penting langsung di dashboard</string>
-  <string name="fix_sound_notif_tile_title">Perbaiki panel \"Suara &amp; pemberitahuan\"</string>
-  <string name="fix_sound_notif_tile">Beberapa ROM menggabungkan Suara dan Kotak Pemberitahuan. Aktifkan untuk memperbaiki kotak ini</string>
+  <string name="fix_sound_notif_tile_title">Perbaiki ubin \"Suara &amp; pemberitahuan\"</string>
+  <string name="fix_sound_notif_tile">Beberapa ROM menggabungkan Suara dan Ubin Pemberitahuan. Aktifkan untuk memperbaiki ubin ini</string>
   <string name="enable_n_platlogo_title">N logo di easter egg</string>
-  <string name="use_namey_mcnameface_title">Menggunakan ikon \"Namey McNameface\"</string>
+  <string name="use_namey_mcnameface_title">Gunakan ikon \"Namey McNameface\"</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Koneksi terputus</string>
   <string name="disabled">Tidak aktif</string>
@@ -47,7 +47,7 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s dari %2$s digunakan</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
-  <string name="battery_summary">%1$s - kira - kira. %2$s tersisa</string>
+  <string name="battery_summary">%1$s - kira-kira. %2$s tersisa</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_wireless">%1$s - pengisian nirkabel</string>
   <!-- Battery settings summary: Percentage -->
@@ -128,15 +128,39 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">sekarang</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="other">%dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="other">%dj</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="other">%dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="other">%dt</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="other">dalam %dj</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="other">dalam %dj</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="other">dalam %dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="other">dalam %dt</item>
+  </plurals>
   <string name="update_notification_title">Pembaruan tersedia</string>
-  <string name="update_notification">Build %1$d sekarang tersedia untuk perbarui!</string>
+  <string name="update_notification">Build %1$d sekarang tersedia untuk diperbarui!</string>
   <string name="update_notification_download">Perbarui</string>
   <string name="update_warning">Modul telah diperbarui</string>
   <string name="update_warning_details">Sistem dapat menjadi tidak stabil dan laporan bug akan diabaikan sampai perangkat restart</string>
@@ -164,6 +188,8 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <string name="clear">Hapus</string>
   <string name="clear_all_message">Hapus semua informasi dan kontak?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Hapus %1$s dari kontak darurat?</string>
   <string name="remove_contact_icon_text">Hapus kontak</string>
   <string name="remove">Hapus</string>
   <string name="cancel">Batal</string>
@@ -176,7 +202,9 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <string name="date_of_birth">Tanggal lahir</string>
   <string name="unknown_date_of_birth">Tidak diketahui</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Umur: %1$d</string>
   <string name="remove_dob_icon_text">Hapus tanggal lahir</string>
   <string name="blood_type">Jenis darah</string>
   <string name="unknown_blood_type">Tidak diketahui</string>
@@ -206,7 +234,7 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <string name="charged">Terisi penuh</string>
   <string name="charging">Mengisi, %1$s</string>
   <string name="qs_edit">Ubah</string>
-  <string name="drag_to_add_tiles">Seret untuk menambahkan tiles</string>
+  <string name="drag_to_add_tiles">Seret untuk menambahkan ubin</string>
   <string name="drag_to_remove_tiles">Seret kesini untuk menghapus</string>
   <string name="live_display">LiveDisplay</string>
   <string name="live_display_auto">Otomatis</string>
@@ -215,20 +243,35 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <string name="live_display_night">Malam</string>
   <string name="live_display_outdoor">Luar ruangan (matahari cerah)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s yang lalu</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s tersisa</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Kira-kira. %1$s tersisa</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s tersisa</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - kira-kira. %2$s tersisa</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s tersisa</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s sampai penuh</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s sampai penuh pada AC</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s sampai penuh pada USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s sampai penuh dari wireless</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Tidak diketahui</string>
   <string name="battery_info_status_charging">Mengisi</string>
   <string name="battery_info_status_charging_ac">Pengisian pada AC</string>
@@ -246,8 +289,9 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <string name="add">Tambahkan</string>
   <string name="add_custom_tile">Tambahkan broadcast tile</string>
   <!-- Warning when the input for the custom tile is empty -->
-  <string name="spec_shouldnt_be_blank">Tile spec tidak boleh kosong</string>
+  <string name="spec_shouldnt_be_blank">Spec ubin tidak boleh kosong</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Reset</string>
   <string name="dialog_color_picker">Pemilih warna</string>
   <string name="press_color_to_apply">Tekan pada warna untuk menerapkan</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -257,4 +301,7 @@ Xposed tidak dapat membaca file preferensi modul ini, value default akan digunak
   <string name="battery_detail_switch_summary">Mengurangi kinerja dan data latar belakang</string>
   <string name="qs_add_notes_title">Catatan</string>
   <string name="qs_add_notes">Hal ini hanya digunakan untuk aplikasi yang memberikan broadcast tile (seperti aplikasi \"Custom Quick Settings\"). Silakan baca petunjuk di aplikasi penyedia custom tile sebelum menggunakan ini.</string>
+  <string name="notification_spoof_api_version_title">Spoof API 24</string>
+  <string name="hide_tiles_on_lockscreen">Sembunyikan ubin di lockscreen</string>
+  <string name="done">Selesai</string>
 </resources>

@@ -5,23 +5,23 @@
   <string name="restart_systemui">Riavvia SystemUI</string>
   <string name="restart_systemui_message">Sei sicuro di voler riavviare la SystemUI?</string>
   <string name="restart_broadcast_sent">Inviata una richiesta per riavviare</string>
-  <string name="activity_about">Informazioni Android N-ify</string>
+  <string name="activity_about">Informazioni su Android N-ify</string>
   <string name="about_author">Sviluppato da @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">Tradotto da @SlimShady\'s</string>
   <string name="about_version">Versione %1$s (%2$d)</string>
-  <string name="prefs_not_readable"><![CDATA[<b>Attenzione:</b> Il file di preferenze non è leggibile da Xposed. Clicca per più informazioni&#8230;]]></string>
+  <string name="prefs_not_readable"><![CDATA[<b>Attenzione:</b> Il file delle preferenze non è leggibile da Xposed. Clicca per maggiori informazioni&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
-        Xposed non può leggere il file di preferenze di questo modulo, i valori predefiniti saranno utilizzati negli hooks.
+        Xposed non può leggere il file delle preferenze di questo modulo, i valori predefiniti saranno utilizzati negli hooks.
         Ci sono diversi modi per risolvere questo problema. Nota anche che questo errore potrebbe apparire se tu non hai mai
         aperto l\'app.<br><br>
-        Per prima cosa, riavvia il tuo dispositivo (Non un soft reboot!).<br>
+        Per prima cosa, riavvia il tuo dispositivo (No riavvio soft!).<br>
         Se non funziona, prova a reinstallare il modulo.<br>
         Se tutti e due questi tentativi falliscono, fai in modo tale che il tuo SELinux sia in modalità <i>permissive</i>.
         Il SELinux in modalità <i>Enforcing</i> potrebbe bloccare l\'accesso al file di preferenze. Per poter cambiare la modalità,
         usa l\'app <tt>SELinuxModeChanger</tt> che puoi scaricare
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">in questo thread di XDA</a>.<br>
-        Se anche questo dovesse fallire, probabilmente dovrai vivere con i valori di default, mi dispiace :(
+        Se anche questo tentativo dovesse fallire, probabilmente dovrai restare con i valori di default, mi dispiace :(
         ]]></string>
   <string name="header_tweaks">Modifiche</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
@@ -36,14 +36,14 @@
   <string name="not_activated">Modulo non attivato</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Colore primario</string>
-  <string name="header_lockscreen">Blocco Schermo</string>
+  <string name="header_lockscreen">Schermata di blocco</string>
   <string name="header_settings">Impostazioni</string>
   <string name="enable_settings_summaries_title">Abilita modifiche alle impostazioni</string>
   <string name="enable_settings_summaries">Mostra le informazioni più importanti direttamente nella sezione Impostazioni</string>
-  <string name="fix_sound_notif_tile_title">Fix sezione \"Suono &amp; Notifiche\"</string>
-  <string name="fix_sound_notif_tile">Alcune ROM uniscono la sezione Suono e Notifiche. Abilita per impostare il giusto sommario per questa sezione</string>
-  <string name="enable_n_platlogo_title">Logo di N nell\' easter egg</string>
-  <string name="use_namey_mcnameface_title">Usa l\' icona \"Namey McNameface\"</string>
+  <string name="fix_sound_notif_tile_title">Fix del tile \"Suono &amp; Notifiche\"</string>
+  <string name="fix_sound_notif_tile">Alcune ROM uniscono il tile Suono e Notifiche. Abilita per impostare il giusto sommario per questo tile</string>
+  <string name="enable_n_platlogo_title">Logo di Android N nell\'easter egg</string>
+  <string name="use_namey_mcnameface_title">Aggiungi la scritta \"Namey McNameface\" al logo di Android N</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Disconnesso</string>
   <string name="disabled">Disabilitato</string>
@@ -59,11 +59,11 @@
   <!-- Battery settings summary: 58% - approx. 2h left -->
   <string name="battery_summary">%1$s - circa %2$s rimanenti</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_wireless">%1$s - Carica tramite WIRELESS</string>
+  <string name="battery_charging_wireless">%1$s - Carica via wireless</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_usb">%1$s - Carica tramite USB</string>
+  <string name="battery_charging_usb">%1$s - Carica via USB</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s - Carica tramite AC</string>
+  <string name="battery_charging_ac">%1$s - Carica via AC</string>
   <string name="memory_summary">Utilizzo memoria %1$s di %2$s </string>
   <string name="user_summary">Accesso come %1$s</string>
   <string name="location_on_power">ON / Risparmio energia</string>
@@ -78,9 +78,9 @@
   <string name="from_pm">App installata da Installazione Pacchetti</string>
   <string name="header_recents">Recenti</string>
   <!-- That's how Google calls it -->
-  <string name="enable_recents_double_tap_title">Doppio tap per cambiare all\'ultima app</string>
+  <string name="enable_recents_double_tap_title">Doppio tap per passare all\'ultima app</string>
   <string name="enable_recents_double_tap">Tocca due volte il pulsante Recenti per passare all\'ultima app che hai usato</string>
-  <string name="alternative_double_tap_title">Alternativo rilevamento doppio tocco</string>
+  <string name="alternative_double_tap_title">Rilevamento alternativo doppio tap</string>
   <string name="alternative_double_tap">Abilita se il cambio rapido delle applicazioni non funziona correttamente</string>
   <string name="double_tap_speed_title">Velocità doppio tap</string>
   <string name="recents_button_behavior_title">Comportamento click pulsante recenti</string>
@@ -109,7 +109,7 @@
   <string name="enable_new_tile_click_behavior">Click del tile in stile Android N</string>
   <string name="enable_new_tile_click_behavior_summary">Cliccando un tile nell\'intestazione lo farà attivare e cliccando un tile nel pannello farà aprire una finestra estesa</string>
   <string name="enable_large_first_row">Ingrandisci la prima riga</string>
-  <string name="enable_large_first_row_summary">Nella CM usa invece la configurazione data da \"Edit Tiles\"</string>
+  <string name="enable_large_first_row_summary">Su CyanogenMod utilizza invece la configurazione di \"Edit Tiles\"</string>
   <string name="fix_stuck_inversion_title">Fix per l\'inversione bloccata</string>
   <string name="fix_stuck_inversion">In alcuni dispositivi l\'inversione rimane bloccata quando abilitata. Clicca per forzare la disattivazione</string>
   <string name="header_clock_size_title">Grandezza orologio nell\'intestazione</string>
@@ -130,55 +130,89 @@
   <string name="action_search">Cerca</string>
   <string name="notification_blacklisted_apps_title">App disabilitate</string>
   <string name="notification_blacklisted_apps">Usa il vecchio stile delle notifiche per queste app</string>
-  <string name="notifications_custom_actions_color_title">Usa colore sfondo delle azioni personalizzato</string>
-  <string name="notifications_actions_color_title">Colore sfondo azioni</string>
-  <string name="notification_experimental_title">Funzione sperimentale delle notifiche in stile N</string>
-  <string name="notification_experimental">N scrolling (senza notifica in alto) e ombra delle notifiche</string>
-  <string name="notification_keyguard_max_title">Notifiche massime nel keyguard</string>
+  <string name="notifications_custom_actions_color_title">Usa un colore di sfondo delle azioni personalizzato</string>
+  <string name="notifications_actions_color_title">Colore di sfondo delle azioni</string>
+  <string name="notification_experimental_title">Funzione sperimentale delle notifiche in stile Android N</string>
+  <string name="notification_experimental">Scorrimento Android N (senza raggruppamento in alto) e ombra delle notifiche</string>
+  <string name="notification_keyguard_max_title">Numero notifiche massime nella schermata di blocco</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ora</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dm</item>
+    <item quantity="other">%dminuti</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%dh</item>
+    <item quantity="other">%dore</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dgiorno</item>
+    <item quantity="other">%dgiorni</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%danno</item>
+    <item quantity="other">%danni</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">in %dminuto</item>
+    <item quantity="other">in %dminuti</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">in %dora</item>
+    <item quantity="other">in %dore</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">in %dgiorno</item>
+    <item quantity="other">in %dgiorni</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">in %danno</item>
+    <item quantity="other">in %danni</item>
+  </plurals>
   <string name="update_notification_title">Nuovo aggiornamento disponibile</string>
   <string name="update_notification">La Build %1$d è ora disponibile per l\'aggiornamento.</string>
   <string name="update_notification_download">Aggiorna</string>
-  <string name="update_warning">Modulo è stato aggiornato</string>
+  <string name="update_warning">Il modulo è stato aggiornato</string>
   <string name="update_warning_details">Il sistema potrebbe essere instabile e le segnalazioni di bug verranno ignorate fino a quando il dispositivo non verrà riavviato</string>
-  <string name="check_for_updates_title">Controlla per aggiornamenti</string>
-  <string name="check_for_updates">Controlla per aggiornamenti all\'avvio dell\'app</string>
-  <string name="checking_for_update">Controllo per aggiornamenti&#8230;</string>
-  <string name="check_for_update_fail">Impossibile controllare per aggiornamenti</string>
+  <string name="check_for_updates_title">Controlla aggiornamenti</string>
+  <string name="check_for_updates">Controlla aggiornamenti all\'avvio dell\'app</string>
+  <string name="checking_for_update">Controllo aggiornamenti&#8230;</string>
+  <string name="check_for_update_fail">Impossibile controllare aggiornamenti</string>
   <string name="no_updates">Nessuna nuova versione trovata</string>
-  <string name="update_notification_downloading">Scarico aggiornamento</string>
-  <string name="update_notification_downloading_details">Scarico build %1$d</string>
+  <string name="update_notification_downloading">Download dell\'aggiornamento</string>
+  <string name="update_notification_downloading_details">Download della build %1$d</string>
   <string name="update_notification_download_fail">Download fallito</string>
   <string name="update_notification_download_fail_details">Impossibile scaricare la build %1$d</string>
   <string name="emergency_info">Informazioni di emergenza</string>
   <string name="emergency_info_launch_hint">Tocca ancora per aprire</string>
-  <string name="enable_emergency_info_title">Abilita le informazioni di emergenza</string>
-  <string name="enable_emergency_info">Aggiungi un pulsante per le informazioni di emergenza nel dialer</string>
-  <string name="edit_emergency_info_title">Modifica le informazioni di emergenza</string>
+  <string name="enable_emergency_info_title">Abilita le informazioni d\'emergenza</string>
+  <string name="enable_emergency_info">Aggiungi un pulsante per le informazioni d\'emergenza nel dialer d\'emergenza</string>
+  <string name="edit_emergency_info_title">Modifica le informazioni d\'emergenza</string>
   <string name="clear_all">Cancella tutto</string>
   <string name="tab_title_info">Info</string>
   <string name="tab_title_contacts">Contatti</string>
   <string name="add_emergency_contact">Aggiungi contatto</string>
-  <string name="user_emergency_info_title">Informazioni di emergenza</string>
-  <string name="user_emergency_info_consent">Le informazioni inserite qui possono aiutare primi soccorritori in caso di emergenza. Queste informazioni sono salvate solo nel dispositivo e chiunque può leggerle dal dialer senza dover sbloccare il telefono.</string>
+  <string name="user_emergency_info_title">Informazioni d\'emergenza</string>
+  <string name="user_emergency_info_consent">Le informazioni inserite qui possono aiutare i primi soccorritori in caso di emergenza. Queste informazioni sono salvate solo nel dispositivo e chiunque può leggerle dal dialer senza dover sbloccare il telefono.</string>
   <string name="emergency_info_continue">Continua</string>
   <string name="clear">Cancella</string>
   <string name="clear_all_message">Cancellare tutte le informazioni e i contatti?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Rimuovere %1$s dai contatti d\'emergenza?</string>
   <string name="remove_contact_icon_text">Rimuovi contatto</string>
   <string name="remove">Rimuovi</string>
   <string name="cancel">Annulla</string>
-  <string name="no_info_provided">Nessuna informazione di emergenza fornita</string>
-  <string name="emergency_contacts_title">Contatti di emergenza</string>
+  <string name="no_info_provided">Nessuna informazione d\'emergenza fornita</string>
+  <string name="emergency_contacts_title">Contatti d\'emergenza</string>
   <string name="name">Nome</string>
   <string name="unknown_name">Sconosciuto</string>
   <string name="address">Indirizzo</string>
@@ -186,7 +220,9 @@
   <string name="date_of_birth">Data di nascita</string>
   <string name="unknown_date_of_birth">Sconosciuto</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Età: %1$d</string>
   <string name="remove_dob_icon_text">Rimuovi la data di nascita</string>
   <string name="blood_type">Gruppo sanguigno</string>
   <string name="unknown_blood_type">Sconosciuto</string>
@@ -203,11 +239,11 @@
   <string name="unknown_organ_donor">Sconosciuto</string>
   <string name="info_bloodtype_op">0+</string>
   <string name="info_bloodtype_on">0-</string>
-  <string name="info_bloodtype_ap">A +</string>
+  <string name="info_bloodtype_ap">A+</string>
   <string name="info_bloodtype_an">A-</string>
-  <string name="info_bloodtype_bp">B +</string>
+  <string name="info_bloodtype_bp">B+</string>
   <string name="info_bloodtype_bn">B-</string>
-  <string name="info_bloodtype_abp">AB +</string>
+  <string name="info_bloodtype_abp">AB+</string>
   <string name="info_bloodtype_abn">AB-</string>
   <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">Si</string>
@@ -216,7 +252,7 @@
   <string name="charged">Carico</string>
   <string name="charging">In carica, %1$s</string>
   <string name="qs_edit">Modifica</string>
-  <string name="drag_to_add_tiles">Trascina per aggiungere tiles</string>
+  <string name="drag_to_add_tiles">Trascina per aggiungere tile</string>
   <string name="drag_to_remove_tiles">Trascina qui per rimuovere</string>
   <string name="live_display">LiveDisplay</string>
   <string name="live_display_auto">Automatico</string>
@@ -225,39 +261,55 @@
   <string name="live_display_night">Notte</string>
   <string name="live_display_outdoor">Esterno (sole luminoso)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s fa</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s rimanenti</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Circa %1$s rimanenti</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s rimanenti</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - circa %2$s rimanenti</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s rimanenti</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s fino alla carica completa</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s alla carica completa via AC</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s alla carica completa via USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s alla carica completa via wireless</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Sconosciuto</string>
   <string name="battery_info_status_charging">In carica</string>
-  <string name="battery_info_status_charging_ac">In carica tramite AC</string>
+  <string name="battery_info_status_charging_ac">In carica via AC</string>
   <string name="battery_info_status_charging_ac_short">In carica</string>
-  <string name="battery_info_status_charging_usb">In carica tramite USB</string>
+  <string name="battery_info_status_charging_usb">In carica via USB</string>
   <string name="battery_info_status_charging_usb_short">In carica</string>
-  <string name="battery_info_status_charging_wireless">In carica tramite wireless</string>
+  <string name="battery_info_status_charging_wireless">In carica via wireless</string>
   <string name="battery_info_status_charging_wireless_short">In carica</string>
   <string name="battery_info_status_discharging">Non in carica</string>
   <string name="battery_info_status_not_charging">Non in carica</string>
   <string name="battery_info_status_full">Carico</string>
   <string name="battery_panel_title">Utilizzo batteria</string>
-  <string name="battery_detail_charging_summary">Risparmio energetico non disponibile durante caricamento</string>
+  <string name="battery_detail_charging_summary">Risparmio energetico non disponibile durante il caricamento</string>
   <!-- Add a custom tile -->
   <string name="add">Aggiungi</string>
   <string name="add_custom_tile">Aggiungi tile di broadcast</string>
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Il nome del tile non può essere vuoto</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Reset</string>
   <string name="dialog_color_picker">Scegli colore</string>
   <string name="press_color_to_apply">Premi sul colore per applicare</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -266,5 +318,9 @@
   <string name="battery_detail_switch_title">Risparmio Energetico</string>
   <string name="battery_detail_switch_summary">Riduce le prestazioni e i dati in background</string>
   <string name="qs_add_notes_title">Note</string>
-  <string name="qs_add_notes">Viene utilizzato solo per le applicazioni che forniscono i tiles (come \"Custom Quick Settings\"). Si prega di leggere le istruzioni nell\'app tile provider prima di usare questo.</string>
+  <string name="qs_add_notes">Viene utilizzato solo per le app che forniscono i tile di broadcast (come \"Custom Quick Settings\"). Si prega di leggere le istruzioni nell\'app per i tile di broadcast prima di usare questo.</string>
+  <string name="notification_spoof_api_version_title">Falsifica API 24</string>
+  <string name="notification_spoof_api_version">Queste app useranno una falsa API 24</string>
+  <string name="hide_tiles_on_lockscreen">Nascondi tile nella schermata di blocco</string>
+  <string name="done">Fatto</string>
 </resources>

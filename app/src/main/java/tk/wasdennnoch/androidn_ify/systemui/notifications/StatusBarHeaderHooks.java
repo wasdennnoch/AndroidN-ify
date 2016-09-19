@@ -9,7 +9,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -25,9 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -61,7 +57,6 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
-@SuppressWarnings("WeakerAccess")
 public class StatusBarHeaderHooks {
 
     private static final String TAG = "StatusBarHeaderHooks";
@@ -134,7 +129,6 @@ public class StatusBarHeaderHooks {
 
     public static boolean mExpanded;
     private static float mExpansion = 0;
-    private static int mGridHeight = 0;
     private static boolean mRecreatingStatusBar = false;
 
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
@@ -228,6 +222,10 @@ public class StatusBarHeaderHooks {
                     } catch (Throwable ignore) {
                     }
                 }
+            }
+            try {
+                ((View) XposedHelpers.getObjectField(param.thisObject, "mBackgroundImage")).setVisibility(View.GONE);
+            } catch (Throwable ignore) {
             }
 
             try {
@@ -467,6 +465,7 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            int mGridHeight = SystemUIHooks.qsHooks.getGridHeight();
             if (mGridHeight == 0)
                 return;
             View view = (View) param.thisObject;
@@ -943,8 +942,6 @@ public class StatusBarHeaderHooks {
                         mQsPanel.post(new SafeRunnable() {
                             @Override
                             public void runSafe() {
-                                mGridHeight = (int) XposedHelpers.callMethod(StatusBarHeaderHooks.mQsPanel, "getGridHeight");
-                                //mHeaderQsPanel.setupAnimators(mGridHeight);
                                 if (mQsAnimator != null) {
                                     mQsAnimator.mUpdateAnimators.run();
                                 }
@@ -1005,6 +1002,13 @@ public class StatusBarHeaderHooks {
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateClockLp", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "updateMultiUserSwitch", XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "setClipping", float.class, XC_MethodReplacement.DO_NOTHING);
+
+                if (!ConfigUtils.qs().keep_header_background) {
+                    try { // AICP test
+                        XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "doUpdateStatusBarCustomHeader", Drawable.class, boolean.class, XC_MethodReplacement.DO_NOTHING);
+                    } catch (Throwable ignore) {
+                    }
+                }
 
                 XposedHelpers.findAndHookMethod(classStatusBarHeaderView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
                     @Override
@@ -1264,11 +1268,7 @@ public class StatusBarHeaderHooks {
                         params.setMarginStart(0);
                         params.setMarginEnd(0);
 
-                        try {
-                            mQsPanel = (ViewGroup) layout.getChildAt(0);
-                        } catch (Throwable t1) { // RR added 5 ImageViews in between...
-                            mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
-                        }
+                        mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
                     }
                 });
 

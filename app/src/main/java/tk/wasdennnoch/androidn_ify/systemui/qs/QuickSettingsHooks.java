@@ -11,9 +11,13 @@ import java.util.List;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 
 public class QuickSettingsHooks {
+
+    private static final String TAG = "QuickSettingsHooks";
+
     protected static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
     protected static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
 
@@ -27,6 +31,15 @@ public class QuickSettingsHooks {
     protected View mDetail;
 
     private PagedTileLayout mTileLayout;
+    private boolean mHookedGetGridHeight = false;
+    private int mGridHeight;
+    private XC_MethodReplacement
+            getGridHeightHook = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            return mGridHeight;
+        }
+    };
 
     public static QuickSettingsHooks create(ClassLoader classLoader) {
         try {
@@ -136,7 +149,21 @@ public class QuickSettingsHooks {
         if ((boolean) XposedHelpers.callMethod(mFooter, "hasFooter")) {
             h += footerView.getMeasuredHeight();
         }
-        XposedHelpers.setObjectField(mQsPanel, "mGridHeight", h);
+        if (!mHookedGetGridHeight) {
+            try {
+                XposedHelpers.setObjectField(mQsPanel, "mGridHeight", h);
+            } catch (Throwable t) {
+                try {
+                    XposedHelpers.findAndHookMethod(mQsPanel.getClass(), "getGridHeight", getGridHeightHook);
+                } catch (Throwable ignore) {
+                    XposedHook.logW(TAG ,"QSPanel#getGridHeight doesn't exist!");
+                }
+                mHookedGetGridHeight = true;
+            }
+        } else {
+            mGridHeight = h;
+        }
+        // TODO in N getGridHeight() returns getMeasuredHeight(), try that
 
         mDetail.measure(exactly(width), View.MeasureSpec.UNSPECIFIED);
 
@@ -198,6 +225,10 @@ public class QuickSettingsHooks {
 
     public PagedTileLayout getTileLayout() {
         return mTileLayout;
+    }
+
+    public int getGridHeight() {
+        return mGridHeight;
     }
 
     public interface QSTileLayout {

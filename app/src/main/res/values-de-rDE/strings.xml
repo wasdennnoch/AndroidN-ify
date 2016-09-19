@@ -174,6 +174,8 @@
   <string name="clear">Löschen</string>
   <string name="clear_all_message">Möchtest du alle Informationen und Kontakte löschen?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">%1$s aus den Notfallkontakten entfernen?</string>
   <string name="remove_contact_icon_text">Kontakt entfernen</string>
   <string name="remove">Entfernen</string>
   <string name="cancel">Abbrechen</string>
@@ -186,7 +188,9 @@
   <string name="date_of_birth">Geburtsdatum</string>
   <string name="unknown_date_of_birth">Unbekannt</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Alter: %1$d</string>
   <string name="remove_dob_icon_text">Geburtsdatum entfernen</string>
   <string name="blood_type">Blutgruppe</string>
   <string name="unknown_blood_type">Unbekannt</string>
@@ -225,20 +229,35 @@
   <string name="live_display_night">Nacht</string>
   <string name="live_display_outdoor">Außen (helle Sonne)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">Vor %1$s</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s verbleibend</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Ungefähr %1$s verbleibend</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s verbleibend</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - ungefähr %2$s verbleibend</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s verbleibend</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s bis voll</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - bei Stromanschluss voll in %2$s</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - bei USB voll in %2$s</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - Drahtlos voll in %2$s</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Unbekannt</string>
   <string name="battery_info_status_charging">Wird aufgeladen</string>
   <string name="battery_info_status_charging_ac">Laden über Netzteil</string>
@@ -258,6 +277,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Kachel-Name darf nicht leer sein</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Zurücksetzen</string>
   <string name="dialog_color_picker">Farbwähler</string>
   <string name="press_color_to_apply">Auf Farbe drücken, um diese anzuwenden</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -267,4 +287,8 @@
   <string name="battery_detail_switch_summary">Reduziert Leistung und Hintergrunddaten</string>
   <string name="qs_add_notes_title">Anmerkung</string>
   <string name="qs_add_notes">Dies wird nur für Apps (wie \"Custom Quick Settings\") benutzt, die broadcast tiles zur Verfüging stellen. Bitte lese vor der Benutzung die Anleitung in der Anbieter-App.</string>
+  <string name="notification_spoof_api_version_title">API 24 vortäuschen</string>
+  <string name="notification_spoof_api_version">Täusche diese Apps, dass sie denken, dass sie auf API 24 laufen</string>
+  <string name="hide_tiles_on_lockscreen">Kacheln auf Sperrbildschirm verstecken</string>
+  <string name="done">Fertig</string>
 </resources>

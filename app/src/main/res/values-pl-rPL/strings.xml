@@ -138,13 +138,53 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teraz</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%d min</item>
+    <item quantity="few">%d min</item>
+    <item quantity="other">%d min</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%d godz.</item>
+    <item quantity="few">%d godz.</item>
+    <item quantity="other">%d godz.</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%d dzień</item>
+    <item quantity="few">%d dni</item>
+    <item quantity="other">%d dni</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%d rok</item>
+    <item quantity="few">%d lata</item>
+    <item quantity="other">%d lat</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">za %d min</item>
+    <item quantity="few">za %d min</item>
+    <item quantity="other">za %d min</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">za %d godz.</item>
+    <item quantity="few">za %d godz.</item>
+    <item quantity="other">za %d godz.</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">za %d dzień</item>
+    <item quantity="few">za %d dni</item>
+    <item quantity="other">za %d dni</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">za %d rok</item>
+    <item quantity="few">za %d lata</item>
+    <item quantity="other">za %d lat</item>
+  </plurals>
   <string name="update_notification_title">Nowa wersja dostępna</string>
   <string name="update_notification">Wersja %1$d jest teraz dostępna do pobrania!</string>
   <string name="update_notification_download">Pobierz</string>
@@ -152,28 +192,30 @@
   <string name="update_warning_details">System może być niestabilny i raporty o błędach będą ignorowane do momentu ponownego uruchomienia urządzenia</string>
   <string name="check_for_updates_title">Sprawdzaj dostępność aktualizacji</string>
   <string name="check_for_updates">Sprawdzaj dostępność aktualizacji przy uruchamianiu aplikacji</string>
-  <string name="checking_for_update">Sprawdzanie aktualizacji&#8230;</string>
+  <string name="checking_for_update">Szukanie aktualizacji&#8230;</string>
   <string name="check_for_update_fail">Nie można sprawdzić aktualizacji</string>
   <string name="no_updates">Nie znaleziono nowszych wersji</string>
   <string name="update_notification_downloading">Pobieranie aktualizacji</string>
   <string name="update_notification_downloading_details">Pobieranie wersji %1$d</string>
-  <string name="update_notification_download_fail">Pobieranie nie udane</string>
+  <string name="update_notification_download_fail">Pobieranie nieudane</string>
   <string name="update_notification_download_fail_details">Nie udało się pobrać wersji %1$d</string>
-  <string name="emergency_info">Informacja awaryjna</string>
+  <string name="emergency_info">Informacje awaryjne</string>
   <string name="emergency_info_launch_hint">Dotknij ponownie, aby otworzyć</string>
   <string name="enable_emergency_info_title">Włączanie informacji dotyczących katastrof</string>
-  <string name="enable_emergency_info">Dodaje przycisk Informacja awaryjna do dialera awaryjnego</string>
+  <string name="enable_emergency_info">Dodaje przycisk Informacje awaryjne do dialera awaryjnego</string>
   <string name="edit_emergency_info_title">Edytuj informacje awaryjne</string>
   <string name="clear_all">Wyczyść wszystko</string>
   <string name="tab_title_info">Informacje</string>
   <string name="tab_title_contacts">Kontakty</string>
   <string name="add_emergency_contact">Dodaj kontakt</string>
-  <string name="user_emergency_info_title">Nagła informacja</string>
-  <string name="user_emergency_info_consent">Informacja, którą wpisałeś może pomóc w nagłym przypadku. Jest przechowywana tylko na Twoim urządzeniu, a każdy może ją przeczytać z wyświetlacza bez odblokowywania telefonu.</string>
+  <string name="user_emergency_info_title">Informacje awaryjne</string>
+  <string name="user_emergency_info_consent">Informacje, które podasz tutaj mogą pomóc w nagłych przypadkach. Są przechowywane tylko na Twoim urządzeniu, a każdy może je odczytać bez odblokowywania telefonu.</string>
   <string name="emergency_info_continue">Kontynuuj</string>
   <string name="clear">Wyczyść</string>
   <string name="clear_all_message">Wyczyścić wszystkie informacje i kontakty?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Usunąć %1$s z kontaktów awaryjnych?</string>
   <string name="remove_contact_icon_text">Usuń kontakt</string>
   <string name="remove">Usuń</string>
   <string name="cancel">Anuluj</string>
@@ -186,7 +228,9 @@
   <string name="date_of_birth">Data urodzenia</string>
   <string name="unknown_date_of_birth">Nieznana</string>
   <!-- Example: 3 feb 1987 -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Wiek: %1$d</string>
   <string name="remove_dob_icon_text">Usuń datę urodzenia</string>
   <string name="blood_type">Grupa krwi</string>
   <string name="unknown_blood_type">Nieznana</string>
@@ -225,20 +269,35 @@
   <string name="live_display_night">Noc</string>
   <string name="live_display_outdoor">Na zewnątrz (jasne słońce)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s temu</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">Pozostało %1$s</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Pozostało około %1$s</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">Zostało %1$s</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - zostało ok. %2$s</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - zostało %2$s</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s do pełnego naładowania</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s do pełnego naładowania z gniazdka</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s do pełnego naładowania przez USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s do pełnego naładowania bezprzewodowo</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Nieznane</string>
   <string name="battery_info_status_charging">Ładowanie</string>
   <string name="battery_info_status_charging_ac">Ładowanie zasilaczem</string>
@@ -258,6 +317,7 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Wykaz kafelka nie powinien być pusty</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Resetuj</string>
   <string name="dialog_color_picker">Wybór Koloru</string>
   <string name="press_color_to_apply">Naciśnij na kolorze, aby wybrać</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -267,4 +327,8 @@
   <string name="battery_detail_switch_summary">Zmniejsza wydajność i ogranicza dane w tle</string>
   <string name="qs_add_notes_title">Notatki</string>
   <string name="qs_add_notes">Używane tylko dla aplikacji, które zapewniają emisję danych (jak na przykład \"Szybkie ustawienia\"). Proszę przeczytać instrukcje w odpowiedniej aplikacji przed użyciem tej opcji.</string>
+  <string name="notification_spoof_api_version_title">Okantuj API 24</string>
+  <string name="notification_spoof_api_version">Zmuś aplikacje do myślenia, że działają na API 24</string>
+  <string name="hide_tiles_on_lockscreen">Ukryj kafelki na ekranie blokady</string>
+  <string name="done">Gotowe</string>
 </resources>

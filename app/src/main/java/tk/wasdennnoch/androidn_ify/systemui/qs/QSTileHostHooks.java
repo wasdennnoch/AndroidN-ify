@@ -25,7 +25,6 @@ import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.SettingsUtils;
@@ -243,16 +242,22 @@ public class QSTileHostHooks {
                     mIsCm = true;
                 } catch (Throwable ignore) {
                 }
-                final Class<?> classTunerService = XposedHelpers.findClass(CLASS_TUNER_SERVICE, classLoader);
-                XposedBridge.hookAllConstructors(classTileHost, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        Object tunerService = XposedHelpers.callStaticMethod(classTunerService, "get", XposedHelpers.getObjectField(param.thisObject, "mContext"));
-                        if (mIsCm) // CM QSTileHost doesn't use Settings.Secure, so we need to add it.
-                            XposedHelpers.callMethod(tunerService, "addTunable", param.thisObject, TILES_SETTING);
-                        XposedHelpers.callMethod(tunerService, "addTunable", param.thisObject, TILES_SECURE);
-                    }
-                });
+                if (ConfigUtils.M) {
+                    final Class<?> classTunerService = XposedHelpers.findClass(CLASS_TUNER_SERVICE, classLoader);
+                    XposedBridge.hookAllConstructors(classTileHost, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            Object tunerService = XposedHelpers.callStaticMethod(classTunerService, "get", XposedHelpers.getObjectField(param.thisObject, "mContext"));
+                            if (mIsCm) // CM QSTileHost doesn't use Settings.Secure, so we need to add it.
+                                XposedHelpers.callMethod(tunerService, "addTunable", param.thisObject, TILES_SETTING);
+                            try {
+                                XposedHelpers.callMethod(tunerService, "addTunable", param.thisObject, TILES_SECURE);
+                            } catch (Throwable t) { // Candy6
+                                // The Candy QSTileHost is copied from LP, so just ignore this and let the LP code do the magic
+                            }
+                        }
+                    });
+                }
                 try {
                     classCustomHost = XposedHelpers.findClass(CLASS_CUSTOM_HOST, classLoader);
                 } catch (Throwable ignore) {
