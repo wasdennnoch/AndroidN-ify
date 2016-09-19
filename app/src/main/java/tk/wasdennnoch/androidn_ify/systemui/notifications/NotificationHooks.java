@@ -179,7 +179,8 @@ public class NotificationHooks {
                 if (actions != null) {
                     int color = privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0;
                     addRemoteInput(context, expandedChild, actions, color, null, null);
-                    addRemoteInput(context, headsUpChild, actions, color, getObjectField(param.thisObject, "mHeadsUpManager"), (String) getObjectField(entry, "key"));
+                    if (ConfigUtils.M)
+                        addRemoteInput(context, headsUpChild, actions, color, getObjectField(param.thisObject, "mHeadsUpManager"), (String) getObjectField(entry, "key"));
                 }
             }
         }

@@ -14,31 +14,16 @@ import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 class LollipopStatusBarHooks extends StatusBarHooks {
-    private static final String TAG = "LollipopStatusBarHooks";
 
-    private static final String CLASS_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.NetworkControllerImpl$SignalController";
-    private static final String CLASS_MOBILE_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.NetworkControllerImpl$MobileSignalController";
-    private static final String CLASS_SIGNAL_CLUSTER_VIEW = "com.android.systemui.statusbar.SignalClusterView";
+    private static final String TAG = "LollipopStatusBarHooks";
 
     LollipopStatusBarHooks(ClassLoader classLoader) {
         super(classLoader);
     }
 
     @Override
-    protected String getSignalControllerClass() {
-        return CLASS_SIGNAL_CONTROLLER;
-    }
-
-    @Override
-    protected String getMobileSignalControllerClass() {
-        return CLASS_MOBILE_SIGNAL_CONTROLLER;
-    }
-
-    @Override
     protected void hookSetMobileDataIndicators() {
-        Class<?> classSignalCluster = XposedHelpers.findClass(CLASS_SIGNAL_CLUSTER_VIEW, mClassLoader);
-
-        XposedBridge.hookAllMethods(classSignalCluster, "setMobileDataIndicators", new XC_MethodHook() {
+        XposedBridge.hookAllMethods(mSignalClusterClass, "setMobileDataIndicators", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 if (mDataDisabled) {
@@ -51,6 +36,7 @@ class LollipopStatusBarHooks extends StatusBarHooks {
         });
     }
 
+    @Override
     public void startRunnableDismissingKeyguard(final Runnable runnable) {
         Handler mHandler = (Handler) XposedHelpers.getObjectField(mPhoneStatusBar, "mHandler");
         mHandler.post(new Runnable() {
