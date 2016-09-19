@@ -12,9 +12,8 @@
  * permissions and limitations under the License.
  */
 
-package tk.wasdennnoch.androidn_ify.extracted.systemui;
+package tk.wasdennnoch.androidn_ify.extracted.systemui.qs;
 
-import android.util.FloatProperty;
 import android.util.MathUtils;
 import android.util.Property;
 import android.view.View;
@@ -195,6 +194,7 @@ public class TouchAnimator {
 
         void setValue(float fraction, Object target) {
             int i;
+            //noinspection StatementWithEmptyBody
             for (i = 1; i < mSize - 1 && fraction > mFrameWidth; i++);
             float amount = fraction / mFrameWidth;
             interpolate(i, amount, target);
@@ -203,10 +203,12 @@ public class TouchAnimator {
         protected abstract void interpolate(int index, float amount, Object target);
 
         public static KeyframeSet ofInt(Property property, int... values) {
+            //noinspection unchecked
             return new IntKeyframeSet((Property<?, Integer>) property, values);
         }
 
         public static KeyframeSet ofFloat(Property property, float... values) {
+            //noinspection unchecked
             return new FloatKeyframeSet((Property<?, Float>) property, values);
         }
     }
@@ -225,6 +227,7 @@ public class TouchAnimator {
         protected void interpolate(int index, float amount, Object target) {
             float firstFloat = mValues[index - 1];
             float secondFloat = mValues[index];
+            //noinspection unchecked
             mProperty.set((T) target, firstFloat + (secondFloat - firstFloat) * amount);
         }
     }
@@ -243,6 +246,7 @@ public class TouchAnimator {
         protected void interpolate(int index, float amount, Object target) {
             int firstFloat = mValues[index - 1];
             int secondFloat = mValues[index];
+            //noinspection unchecked
             mProperty.set((T) target, (int) (firstFloat + (secondFloat - firstFloat) * amount));
         }
     }

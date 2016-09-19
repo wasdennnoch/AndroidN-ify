@@ -39,16 +39,16 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedButton;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.NonInterceptingScrollView;
-import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QSAnimator;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QuickQSPanel;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgorithmHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
-import tk.wasdennnoch.androidn_ify.systemui.qs.QSAnimator;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
-import tk.wasdennnoch.androidn_ify.systemui.qs.QuickQSPanel;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.BluetoothTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.WifiTileHook;
@@ -636,19 +636,18 @@ public class StatusBarHeaderHooks {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             boolean show = (boolean) param.args[1];
+            Object tileRecord = param.args[0];
             if (show ? NotificationPanelHooks.isCollapsed() : mCollapseAfterHideDatails) {
-                Object r = param.args[0];
-                param.args[2] = mHeaderQsPanel.getTileViewX(r);
+                param.args[2] = mQsAnimator.getTileViewX(tileRecord);
                 param.args[3] = 0;
                 if (!show) {
                     NotificationPanelHooks.collapseIfNecessary();
                 }
             } else {
-                Object r = param.args[0];
-                if (r != null) {
-                    View tileView = (View) XposedHelpers.getObjectField(r, "tileView");
+                if (tileRecord != null) {
+                    View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                     param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
-                    param.args[3] = tileView.getTop() + SystemUIHooks.qsHooks.getTileLayout().getOffsetTop(r) + tileView.getHeight() / 2
+                    param.args[3] = tileView.getTop() + SystemUIHooks.qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
                             + mQsPanel.getTop();
                 }
             }

@@ -12,7 +12,7 @@
  * permissions and limitations under the License.
  */
 
-package tk.wasdennnoch.androidn_ify.systemui.qs;
+package tk.wasdennnoch.androidn_ify.extracted.systemui.qs;
 
 import android.graphics.Path;
 import android.view.View;
@@ -27,10 +27,11 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
-import tk.wasdennnoch.androidn_ify.extracted.systemui.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.PageListener, OnLayoutChangeListener,
@@ -43,6 +44,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
 
     private final ArrayList<View> mAllViews = new ArrayList<>();
     private final ArrayList<View> mTopFiveQs = new ArrayList<>();
+    private final ArrayList<Integer> mTopFiveX = new ArrayList<>();
     private final QuickQSPanel mQuickQsPanel;
     private final ViewGroup mQsPanel;
     private final ViewGroup mQsContainer;
@@ -114,6 +116,16 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         mOnFirstPage = isFirst;
     }
 
+    public int getTileViewX(Object r) {
+        List mRecords = mQuickQsPanel.mRecords;
+        for (int i = 0; i < mRecords.size() && i < mTopFiveX.size(); i++) {
+            if (mRecords.get(i).equals(r)) {
+                return mTopFiveX.get(i);
+            }
+        }
+        return 0;
+    }
+
     public void updateAnimators() {
         List<Object> records = StatusBarHeaderHooks.getHeaderQsPanel().getRecords();
 
@@ -173,6 +185,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
                 mTopFiveQs.add(tileIcon);
                 mAllViews.add(tileIcon);
                 mAllViews.add(quickTileView);
+                mTopFiveX.add(loc1[0]);
             } else if (mFullRows && isIconInAnimatedRow(count)) {
                 // TODO: Refactor some of this, it shares a lot with the above block.
                 // Move the last tile position over by the last difference between quick tiles.

@@ -32,7 +32,6 @@ public class NonInterceptingScrollView extends ScrollView {
         super(context, attrs);
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();

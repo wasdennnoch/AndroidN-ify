@@ -49,6 +49,9 @@ android {
             versionNameSuffix = "-debug"
             signingConfig signingConfigs.main
         }
+        freeDebug {
+            versionNameSuffix = "-freedebug"
+        }
     }
     lintOptions {
         abortOnError false

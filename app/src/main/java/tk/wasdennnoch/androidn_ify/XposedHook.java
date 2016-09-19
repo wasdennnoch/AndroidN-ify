@@ -91,6 +91,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         //noinspection PointlessBooleanExpression
         if (BuildConfig.OFFICIAL_BUILD) {
             logI(TAG, "Official Build; Release: " + !BuildConfig.DEBUG + " (" + BuildConfig.BUILD_TYPE + ")");
+            if (BuildConfig.DEBUG)
+                logI(TAG, "Build Time: " + BuildConfig.BUILD_TIME);
         } else if (BuildConfig.AUTOMATED_BUILD){
             logI(TAG, "Automated Build; Version: " + BuildConfig.BUILD_NUMBER);
             logI(TAG, "Build Time: " + BuildConfig.BUILD_TIME);

@@ -26,8 +26,8 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks.KEY_EDIT_TILEVIEW;
-import static tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer.MODE_NORMAL;
 import static tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer.MODE_EDIT_SECURE;
+import static tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer.MODE_NORMAL;
 
 @SuppressWarnings("WeakerAccess")
 public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder> {
@@ -194,9 +194,12 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         tileView.setLayoutParams(tileViewLp);
         try {
             XposedHelpers.callMethod(tileView, "setDual", false);
-        } catch (Throwable t) {
-            // CM13
-            XposedHelpers.callMethod(tileView, "setDual", false, false);
+        } catch (Throwable t) {// CM13
+            try {
+                XposedHelpers.callMethod(tileView, "setDual", false, false);
+            } catch (Throwable ignore) {
+                // Other ROMs
+            }
         }
         try {
             XposedHelpers.callMethod(tileView, "onStateChanged", XposedHelpers.callMethod(tile, "getState"));

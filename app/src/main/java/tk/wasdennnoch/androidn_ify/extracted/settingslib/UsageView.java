@@ -14,7 +14,6 @@
 
 package tk.wasdennnoch.androidn_ify.extracted.settingslib;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -30,7 +29,6 @@ import android.widget.TextView;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-@SuppressWarnings("SameParameterValue")
 public class UsageView extends FrameLayout {
 
     private final UsageGraph mUsageGraph;

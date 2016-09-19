@@ -116,9 +116,9 @@ public class StatusBarHooks {
                     int isWide = 8;
                     param.args[typeIcon] = SystemUIHooks.R_drawable_stat_sys_data_disabled;
                     param.args[qsTypeIcon] = SystemUIHooks.R_drawable_ic_qs_data_disabled;
-                    try {
+                    if (param.args[isWide] instanceof Boolean) {
                         param.args[isWide] = false;
-                    } catch (Throwable t) { // Xperia
+                    } else { // Xperia put a load of ints in between
                         param.args[12] = false;
                     }
                 }

@@ -360,5 +360,9 @@
     <string name="disable_qs_paging_summary">Disable QS paging in portrait</string>
     <string name="allow_direct_reply_on_keyguard">Direct reply on lockscreen</string>
     <string name="enable_notifications_background">Enable notifications background</string>
+    <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_expand">Open quick settings.</string>
+    <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_collapse">Close quick settings.</string>
 
 </resources>

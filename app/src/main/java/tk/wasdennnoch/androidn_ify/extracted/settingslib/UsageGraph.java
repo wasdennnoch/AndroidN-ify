@@ -16,7 +16,6 @@ package tk.wasdennnoch.androidn_ify.extracted.settingslib;
 
 import android.annotation.Nullable;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.CornerPathEffect;
 import android.graphics.DashPathEffect;
@@ -36,7 +35,6 @@ import android.view.View;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-@SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "SameParameterValue", "SuspiciousNameCombination"})
 public class UsageGraph extends View {
 
     private static final int PATH_DELIM = -1;
@@ -71,7 +69,7 @@ public class UsageGraph extends View {
     public UsageGraph(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         //final Resources resources = context.getResources();
-        Resources res = ResourceUtils.getInstance(context).getResources();
+        ResourceUtils res = ResourceUtils.getInstance(context);
 
         mLinePaint = new Paint();
         mLinePaint.setStyle(Style.STROKE);
@@ -170,6 +168,7 @@ public class UsageGraph extends View {
                 if (mLocalPaths.size() > 0) {
                     int lastX = mLocalPaths.keyAt(mLocalPaths.size() - 1);
                     int lastY = mLocalPaths.valueAt(mLocalPaths.size() - 1);
+                    //noinspection SuspiciousNameCombination
                     if (lastY != PATH_DELIM && !hasDiff(lastX, lx) && !hasDiff(lastY, ly)) {
                         pendingYLoc = ly;
                         continue;

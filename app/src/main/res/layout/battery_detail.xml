@@ -30,7 +30,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="?android:attr/colorAccent" />
 
-    <!--<tk.wasdennnoch.androidn_ify.systemui.qs.ResizingSpace
+    <!--<tk.wasdennnoch.androidn_ify.extracted.systemui.ResizingSpace
         android:layout_width="match_parent"
         android:layout_height="@dimen/battery_detail_graph_space_top" />-->
 
@@ -44,7 +44,7 @@
         android:colorAccent="?android:attr/colorAccent"
         systemui:textColor="#66FFFFFF" />-->
 
-    <!--<tk.wasdennnoch.androidn_ify.systemui.qs.ResizingSpace
+    <!--<tk.wasdennnoch.androidn_ify.extracted.systemui.ResizingSpace
         android:layout_width="match_parent"
         android:layout_height="@dimen/battery_detail_graph_space_bottom" />-->
 

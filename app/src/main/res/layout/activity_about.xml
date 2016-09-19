@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:ignore="MergeRootFrame">
 
-    <tk.wasdennnoch.androidn_ify.systemui.qs.ResizingSpace
+    <tk.wasdennnoch.androidn_ify.extracted.systemui.ResizingSpace
         android:layout_width="match_parent"
         android:layout_height="@dimen/battery_detail_graph_space_bottom"/>
 

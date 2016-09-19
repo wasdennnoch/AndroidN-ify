@@ -1,43 +1,79 @@
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 package tk.wasdennnoch.androidn_ify.extracted.systemui;
 
 import android.content.Context;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.widget.ImageView;
 
+import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class ExpandableIndicator extends ImageView {
 
     private boolean mExpanded;
-    private final AnimatedVectorDrawable mExpandedDrawable;
-    private final AnimatedVectorDrawable mCollapsedDrawable;
+    private boolean mIsDefaultDirection = true;
 
     public ExpandableIndicator(Context context) {
         super(context);
-        ResourceUtils res = ResourceUtils.getInstance(context);
-        mExpandedDrawable = (AnimatedVectorDrawable) res.getDrawable(R.drawable.ic_volume_expand_animation)
-                .getConstantState().newDrawable();
-        mCollapsedDrawable = (AnimatedVectorDrawable) res.getDrawable(R.drawable.ic_volume_collapse_animation)
-                .getConstantState().newDrawable();
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        final int res = getDrawableResourceId(mExpanded);
+        setImageResource(res);
+        setContentDescription(getContentDescription(mExpanded));
     }
 
     public void setExpanded(boolean expanded) {
         if (expanded == mExpanded) return;
         mExpanded = expanded;
-
-        AnimatedVectorDrawable drawable;
-        if (mExpanded) {
-            drawable = mExpandedDrawable;
-        } else {
-            drawable = mCollapsedDrawable;
-        }
-        setImageDrawable(drawable);
-        drawable.start();
+        final int res = getDrawableResourceId(!mExpanded);
+        // workaround to reset drawable
+        //noinspection ConstantConditions
+        final AnimatedVectorDrawable avd = (AnimatedVectorDrawable) ResourceUtils.getInstance(getContext())
+                .getDrawable(res).getConstantState().newDrawable();
+        setImageDrawable(avd);
+        XposedHelpers.callMethod(avd, "forceAnimationOnUI");
+        avd.start();
+        setContentDescription(getContentDescription(expanded));
     }
 
     public boolean isExpanded() {
         return mExpanded;
     }
 
+    /** Whether the icons are using the default direction or the opposite */
+    public void setDefaultDirection(boolean isDefaultDirection) {
+        mIsDefaultDirection = isDefaultDirection;
+    }
+
+    private int getDrawableResourceId(boolean expanded) {
+        if (mIsDefaultDirection) {
+            return expanded ? R.drawable.ic_volume_collapse_animation
+                    : R.drawable.ic_volume_expand_animation;
+        } else {
+            return expanded ? R.drawable.ic_volume_expand_animation
+                    : R.drawable.ic_volume_collapse_animation;
+        }
+    }
+
+    private String getContentDescription(boolean expanded) {
+        return expanded ? ResourceUtils.getInstance(getContext()).getString(R.string.accessibility_quick_settings_collapse)
+                : ResourceUtils.getInstance(getContext()).getString(R.string.accessibility_quick_settings_expand);
+    }
 }

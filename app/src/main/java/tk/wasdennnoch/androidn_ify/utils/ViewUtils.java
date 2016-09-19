@@ -17,7 +17,6 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.systemui.qs.PagedTileLayout;
 
 @SuppressWarnings("SameParameterValue")
 public class ViewUtils {

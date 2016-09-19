@@ -26,13 +26,13 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.format.Formatter;
 import android.util.SparseIntArray;
+
 import com.android.internal.os.BatteryStatsHelper;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-@SuppressWarnings({"SameParameterValue", "WeakerAccess", "UnusedAssignment"})
 public class BatteryInfo {
 
     public String mChargeLabelString;

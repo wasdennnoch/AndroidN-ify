@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tk.wasdennnoch.androidn_ify.systemui.qs;
+package tk.wasdennnoch.androidn_ify.extracted.systemui.qs;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;

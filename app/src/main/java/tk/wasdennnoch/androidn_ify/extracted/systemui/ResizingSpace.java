@@ -12,7 +12,7 @@
  * permissions and limitations under the License.
  */
 
-package tk.wasdennnoch.androidn_ify.systemui.qs;
+package tk.wasdennnoch.androidn_ify.extracted.systemui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
