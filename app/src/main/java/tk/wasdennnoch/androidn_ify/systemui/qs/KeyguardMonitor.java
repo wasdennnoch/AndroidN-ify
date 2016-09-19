@@ -18,7 +18,6 @@ public class KeyguardMonitor {
 
     private boolean mShowing;
     private boolean mSecure;
-    private boolean mCanSkipBouncer;
     private final List<Callback> mCallbacks = new ArrayList<>();
     private boolean mListening = false;
 
@@ -34,10 +33,6 @@ public class KeyguardMonitor {
 
     public boolean isSecure() {
         return mSecure;
-    }
-
-    public boolean canSkipBouncer() {
-        return mCanSkipBouncer;
     }
 
     public void addCallback(Callback callback) {
@@ -74,7 +69,6 @@ public class KeyguardMonitor {
     private void onKeyguardChanged() {
         mShowing = XposedHelpers.getBooleanField(mKeyguardMonitor, "mShowing");
         mSecure = XposedHelpers.getBooleanField(mKeyguardMonitor, "mSecure");
-        mCanSkipBouncer = XposedHelpers.getBooleanField(mKeyguardMonitor, "mCanSkipBouncer");
         notifyKeyguardChanged();
     }
 
