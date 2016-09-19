@@ -20,7 +20,11 @@ public class CellularTileHook extends QSTileHook {
 
     @Override
     protected void afterConstructor(XC_MethodHook.MethodHookParam param) {
-        mDataController = getObjectField("mDataController");
+        try {
+            mDataController = getObjectField("mDataController");
+        } catch (Throwable t) {
+            mDataController = getObjectField("mController");
+        }
     }
 
     @Override
