@@ -56,11 +56,11 @@ android {
     useLibrary 'org.apache.http.legacy'
 }
 
-def propFile = project.file("../../key.properties")
+def propFile = project.file("../../../key.properties")
 if (propFile.exists()) {
     def props = new Properties()
     props.load(new FileInputStream(propFile))
-    android.signingConfigs.main.storeFile project.file("../../" + props.keyStore)
+    android.signingConfigs.main.storeFile project.file("../../../" + props.keyStore)
     android.signingConfigs.main.storePassword props.keyStorePassword
     android.signingConfigs.main.keyAlias props.keyAlias
     android.signingConfigs.main.keyPassword props.keyPassword
