@@ -20,7 +20,7 @@ android {
         main
     }
     compileSdkVersion 24
-    buildToolsVersion '23.0.3'
+    buildToolsVersion '24.0.2'
     defaultConfig {
         applicationId "tk.wasdennnoch.androidn_ify"
         minSdkVersion 21
