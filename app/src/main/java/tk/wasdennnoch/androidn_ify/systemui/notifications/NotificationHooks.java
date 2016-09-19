@@ -2,6 +2,7 @@ package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
 import android.app.Dialog;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.RemoteInput;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -526,6 +527,28 @@ public class NotificationHooks {
             }
             if (wearableRemoteInputActions.size() > 0) {
                 actions.addAll(0, wearableRemoteInputActions);
+                return;
+            }
+
+            RemoteInput carRemoteInput = null;
+            PendingIntent carReplyPendingIntent = null;
+
+            final String EXTRA_CAR_EXTENDER = (String) XposedHelpers.getStaticObjectField(Notification.CarExtender.class, "EXTRA_CAR_EXTENDER");
+            final String EXTRA_CONVERSATION = (String) XposedHelpers.getStaticObjectField(Notification.CarExtender.class, "EXTRA_CONVERSATION");
+            final String KEY_REMOTE_INPUT = (String) XposedHelpers.getStaticObjectField(Notification.CarExtender.UnreadConversation.class, "KEY_REMOTE_INPUT");
+            final String KEY_ON_REPLY = (String) XposedHelpers.getStaticObjectField(Notification.CarExtender.UnreadConversation.class, "KEY_ON_REPLY");
+
+            Bundle carBundle = b.getExtras().getBundle(EXTRA_CAR_EXTENDER);
+            if (carBundle != null) {
+                Bundle unreadConversation = carBundle.getBundle(EXTRA_CONVERSATION);
+                if (unreadConversation != null) {
+                    carRemoteInput = unreadConversation.getParcelable(KEY_REMOTE_INPUT);
+                    carReplyPendingIntent = unreadConversation.getParcelable(KEY_ON_REPLY);
+                }
+            }
+            if (carRemoteInput != null && carReplyPendingIntent != null) {
+                //noinspection deprecation
+                actions.add(0, new Notification.Action.Builder(0, "Reply", carReplyPendingIntent).addRemoteInput(carRemoteInput).build());
             }
         }
     };
