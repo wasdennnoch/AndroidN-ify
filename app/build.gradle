@@ -16,6 +16,9 @@ ext.enableDirectReply = System.getenv("ENABLE_DIRECT_REPLY") ?: "false"
 ext.supportLibraryVersion = "24.2.0";
 
 android {
+    signingConfigs {
+        main
+    }
     compileSdkVersion 24
     buildToolsVersion '23.0.3'
     defaultConfig {
@@ -40,15 +43,27 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.main
         }
         debug {
             versionNameSuffix = "-debug"
+            signingConfig signingConfigs.main
         }
     }
     lintOptions {
         abortOnError false
     }
     useLibrary 'org.apache.http.legacy'
+}
+
+def propFile = project.file("../../../key.properties")
+if (propFile.exists()) {
+    def props = new Properties()
+    props.load(new FileInputStream(propFile))
+    android.signingConfigs.main.storeFile project.file("../../../" + props.keyStore)
+    android.signingConfigs.main.storePassword props.keyStorePassword
+    android.signingConfigs.main.keyAlias props.keyAlias
+    android.signingConfigs.main.keyPassword props.keyPassword
 }
 
 def buildTime() {
