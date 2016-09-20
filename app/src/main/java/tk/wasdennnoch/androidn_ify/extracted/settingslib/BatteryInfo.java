@@ -33,6 +33,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class BatteryInfo {
 
     public String mChargeLabelString;

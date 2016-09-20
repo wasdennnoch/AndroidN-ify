@@ -21,7 +21,7 @@ public class KeyguardMonitor {
     private final List<Callback> mCallbacks = new ArrayList<>();
     private boolean mListening = false;
 
-    public KeyguardMonitor(Context context, Object keyguardMonitor) {
+    KeyguardMonitor(Context context, Object keyguardMonitor) {
         mContext = context;
         mKeyguardMonitor = keyguardMonitor;
         mCallback = createProxy();
@@ -55,7 +55,7 @@ public class KeyguardMonitor {
         }
     }
 
-    public Object createProxy() {
+    private Object createProxy() {
         Class<?> classCallback = XposedHelpers.findClass(CLASS_KEYGUARD_MONITOR_CALLBACK, mContext.getClassLoader());
         return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{classCallback}, new InvocationHandler() {
             @Override

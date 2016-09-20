@@ -22,15 +22,15 @@ public class StatusBarHooks {
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51 = "com.android.systemui.statusbar.policy.MobileDataControllerImpl";
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
 
-    protected final ClassLoader mClassLoader;
+    final ClassLoader mClassLoader;
     private final Class<?> mPhoneStatusBarClass;
-    protected final Class<?> mSignalClusterClass;
+    final Class<?> mSignalClusterClass;
     private final Class<?> mMobileDataControllerClass;
-    protected boolean mLastDataDisabled = false;
-    protected boolean mDataDisabled = false;
+    private boolean mLastDataDisabled = false;
+    boolean mDataDisabled = false;
 
     protected Context mContext;
-    protected Object mPhoneStatusBar;
+    Object mPhoneStatusBar;
     private Handler mHandler;
     private Object mPhone;
 
@@ -161,7 +161,7 @@ public class StatusBarHooks {
         });
     }
 
-    protected String getMobileDataControllerClass() {
+    private String getMobileDataControllerClass() {
         return Build.VERSION.SDK_INT >= 22 ? CLASS_MOBILE_DATA_CONTROLLER_51 : CLASS_MOBILE_DATA_CONTROLLER_50;
     }
 

@@ -178,6 +178,7 @@ public class MobileDataController {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static class DataUsageInfo {
         public String period;
         public long limitLevel;

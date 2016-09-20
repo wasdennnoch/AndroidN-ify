@@ -26,6 +26,7 @@ import android.view.animation.PathInterpolator;
 /**
  * Utility class to receive interpolators from
  */
+@SuppressWarnings("unused")
 public class Interpolators {
     public static final Interpolator FAST_OUT_SLOW_IN = new PathInterpolator(0.4f, 0f, 0.2f, 1f);
     public static final Interpolator FAST_OUT_LINEAR_IN = new PathInterpolator(0.4f, 0f, 1f, 1f);

@@ -18,16 +18,12 @@ import android.content.Context;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.widget.ImageView;
 
-import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class ExpandableIndicator extends ImageView {
 
-    private static final String TAG = "ExpandableIndicator";
     private boolean mExpanded;
-    private boolean mIsDefaultDirection = true;
     private ResourceUtils mRes;
 
     public ExpandableIndicator(Context context) {
@@ -39,7 +35,7 @@ public class ExpandableIndicator extends ImageView {
     protected void onFinishInflate() {
         super.onFinishInflate();
         final int res = getDrawableResourceId(mExpanded);
-        setImageResource(res);
+        setImageDrawable(mRes.getDrawable(res));
         setContentDescription(getContentDescription(mExpanded));
     }
 
@@ -60,19 +56,9 @@ public class ExpandableIndicator extends ImageView {
         return mExpanded;
     }
 
-    /** Whether the icons are using the default direction or the opposite */
-    public void setDefaultDirection(boolean isDefaultDirection) {
-        mIsDefaultDirection = isDefaultDirection;
-    }
-
     private int getDrawableResourceId(boolean expanded) {
-        if (mIsDefaultDirection) {
-            return expanded ? R.drawable.ic_volume_collapse_animation
-                    : R.drawable.ic_volume_expand_animation;
-        } else {
-            return expanded ? R.drawable.ic_volume_expand_animation
-                    : R.drawable.ic_volume_collapse_animation;
-        }
+        return expanded ? R.drawable.ic_volume_collapse_animation
+                : R.drawable.ic_volume_expand_animation;
     }
 
     private String getContentDescription(boolean expanded) {

@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -71,6 +72,7 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
+@SuppressLint("StaticFieldLeak")
 public class NotificationHooks {
 
     private static final String TAG = "NotificationHooks";
@@ -85,7 +87,7 @@ public class NotificationHooks {
     public static FrameLayout.LayoutParams mShadowLp;
     private static final Map<String, Integer> mGeneratedColors = new HashMap<>();
 
-    public static Object mPhoneStatusBar;
+    private static Object mPhoneStatusBar;
 
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
@@ -377,7 +379,7 @@ public class NotificationHooks {
         return (int) XposedHelpers.callMethod(builder, "resolveColor");
     }
 
-    public static String loadHeaderAppName(Context context) {
+    private static String loadHeaderAppName(Context context) {
         CharSequence appname = context.getPackageName();
         if (appname.equals(PACKAGE_SYSTEMUI))
             return context.getString(context.getResources().getIdentifier("android_system_label", "string", PACKAGE_ANDROID));
@@ -552,9 +554,9 @@ public class NotificationHooks {
                     actions.add(0, new Notification.Action.Builder(0, "Reply", carReplyPendingIntent).addRemoteInput(carRemoteInput).build());
                 }
             } catch (NoClassDefFoundError e) {
-                XposedHook.logI(TAG, e.getMessage());
+                // Ignore
             } catch (Throwable t) {
-                XposedHook.logE(TAG, "Error in Notification.Builder.build()", t);
+                XposedHook.logE(TAG, "Error in buildHook (car extender)", t);
             }
         }
     };
@@ -579,6 +581,7 @@ public class NotificationHooks {
             //noinspection deprecation
             mDialogView.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
             mDialogView.requestLayout(); // Required to apply the new margin
+            assert window != null;
             WindowManager.LayoutParams wlp = window.getAttributes();
             wlp.horizontalMargin = 0;
             window.setAttributes(wlp);
@@ -590,6 +593,7 @@ public class NotificationHooks {
             Dialog mDialog = (Dialog) XposedHelpers.getObjectField(param.thisObject, "mDialog");
             Resources res = mDialog.getContext().getResources();
             Window window = mDialog.getWindow();
+            assert window != null;
             WindowManager.LayoutParams wlp = window.getAttributes();
             wlp.horizontalMargin = 0;
             window.setAttributes(wlp);

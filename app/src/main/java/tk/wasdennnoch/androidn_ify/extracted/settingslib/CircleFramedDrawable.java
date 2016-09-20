@@ -30,6 +30,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 
 import tk.wasdennnoch.androidn_ify.R;
 
@@ -94,7 +95,7 @@ public class CircleFramedDrawable extends Drawable {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
         final float inside = mScale * mSize;
         final float pad = (mSize - inside) / 2f;
 

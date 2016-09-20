@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.XModuleResources;
@@ -57,6 +58,7 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+@SuppressLint("StaticFieldLeak")
 public class StatusBarHeaderHooks {
 
     private static final String TAG = "StatusBarHeaderHooks";
@@ -928,7 +930,7 @@ public class StatusBarHeaderHooks {
             keyguardMonitor.addCallback(mKeyguardCallback);
     }
 
-    public static void postSetupAnimatorsImpl() {
+    private static void postSetupAnimatorsImpl() {
         XposedHook.logD(TAG, "postSetupAnimatorsImpl called");
         // Wait until the layout is set up
         // It already works after 2 frames on my device, but just to be sure use 3

@@ -74,6 +74,7 @@ public class TouchAnimator {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static class ListenerAdapter implements Listener {
         @Override
         public void onAnimationAtStart() { }
@@ -85,6 +86,7 @@ public class TouchAnimator {
         public void onAnimationStarted() { }
     }
 
+    @SuppressWarnings("WeakerAccess")
     public interface Listener {
         /**
          * Called when the animator moves into a position of "0". Start and end delays are
@@ -187,7 +189,7 @@ public class TouchAnimator {
         private final float mFrameWidth;
         private final int mSize;
 
-        public KeyframeSet(int size) {
+        KeyframeSet(int size) {
             mSize = size;
             mFrameWidth = 1 / (float) (size - 1);
         }
@@ -202,12 +204,12 @@ public class TouchAnimator {
 
         protected abstract void interpolate(int index, float amount, Object target);
 
-        public static KeyframeSet ofInt(Property property, int... values) {
+        static KeyframeSet ofInt(Property property, int... values) {
             //noinspection unchecked
             return new IntKeyframeSet((Property<?, Integer>) property, values);
         }
 
-        public static KeyframeSet ofFloat(Property property, float... values) {
+        static KeyframeSet ofFloat(Property property, float... values) {
             //noinspection unchecked
             return new FloatKeyframeSet((Property<?, Float>) property, values);
         }
@@ -217,7 +219,7 @@ public class TouchAnimator {
         private final float[] mValues;
         private final Property<T, Float> mProperty;
 
-        public FloatKeyframeSet(Property<T, Float> property, float[] values) {
+        FloatKeyframeSet(Property<T, Float> property, float[] values) {
             super(values.length);
             mProperty = property;
             mValues = values;
@@ -236,7 +238,7 @@ public class TouchAnimator {
         private final int[] mValues;
         private final Property<T, Integer> mProperty;
 
-        public IntKeyframeSet(Property<T, Integer> property, int[] values) {
+        IntKeyframeSet(Property<T, Integer> property, int[] values) {
             super(values.length);
             mProperty = property;
             mValues = values;

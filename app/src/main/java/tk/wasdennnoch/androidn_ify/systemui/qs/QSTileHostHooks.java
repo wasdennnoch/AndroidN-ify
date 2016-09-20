@@ -30,29 +30,30 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.SettingsUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+@SuppressLint("StaticFieldLeak")
 public class QSTileHostHooks {
     public static final String TAG = "QSTileHostHooks";
 
-    public static final String CLASS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
-    public static final String CLASS_CUSTOM_HOST = "com.android.systemui.tuner.QsTuner$CustomHost";
-    public static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
-    public static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
-    public static final String CLASS_TUNER_SERVICE = "com.android.systemui.tuner.TunerService";
-    public static final String TILES_SETTING = "sysui_qs_tiles";
-    public static final String TILES_SECURE = "sysui_qs_tiles_secure";
-    public static final String TILE_SPEC_NAME = "tileSpec";
+    static final String CLASS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
+    private static final String CLASS_CUSTOM_HOST = "com.android.systemui.tuner.QsTuner$CustomHost";
+    private static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
+    private static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
+    private static final String CLASS_TUNER_SERVICE = "com.android.systemui.tuner.TunerService";
+    private static final String TILES_SETTING = "sysui_qs_tiles";
+    private static final String TILES_SECURE = "sysui_qs_tiles_secure";
+    static final String TILE_SPEC_NAME = "tileSpec";
     public static final String KEY_QUICKQS_TILEVIEW = "QuickQS_TileView";
-    public static final String KEY_EDIT_TILEVIEW = "Edit_TileView";
+    static final String KEY_EDIT_TILEVIEW = "Edit_TileView";
 
     private static TilesManager mTilesManager = null;
-    public static List<String> mTileSpecs = null;
-    public static List<String> mSecureTiles = null;
+    static List<String> mTileSpecs = null;
+    static List<String> mSecureTiles = null;
 
     private static Class<?> classQSUtils;
     private static Class<?> classQSConstants;
     private static Class<?> classCustomHost;
 
-    protected static Object mTileHost = null;
+    private static Object mTileHost = null;
     public static KeyguardMonitor mKeyguard;
 
     private static boolean mIsCm;
@@ -74,7 +75,7 @@ public class QSTileHostHooks {
             String newValue = (String) param.args[1];
 
             if (TILES_SECURE.equals(param.args[0])) {
-                mSecureTiles = loadSecureTiles(newValue);
+                mSecureTiles = loadSecureTilesFromList(newValue);
                 mTilesManager.onSecureTilesChanged(mSecureTiles);
                 return;
             }
@@ -90,7 +91,7 @@ public class QSTileHostHooks {
                 Object tileSpecsWrapper = XposedHelpers.callMethod(param.thisObject, "loadTileSpecs");
                 tileSpecs = (List<String>) XposedHelpers.getObjectField(tileSpecsWrapper, "list");
             }
-            List<String> newTileSpecs = loadTileSpecs(newValue);
+            List<String> newTileSpecs = loadTileSpecsFromList(newValue);
             Map<String, Object> tileMap = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
             Map<String, Object> newTiles = new LinkedHashMap<>();
 
@@ -165,7 +166,7 @@ public class QSTileHostHooks {
             Context context = (Context) XposedHelpers.callMethod(param.thisObject, "getContext");
 
             tileSpecs.clear();
-            tileSpecs.addAll(getTileSpecs(context));
+            tileSpecs.addAll(loadTileSpecsFromPrefs(context));
             tileMap.clear();
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
@@ -194,13 +195,51 @@ public class QSTileHostHooks {
         }
     };
 
-    public static List<String> getTileSpecs(Context context) {
-        loadTileSpecs(context);
+    private static List<String> loadTileSpecsFromList(String tileList) {
+        final ArrayList<String> specs = new ArrayList<>();
+        if (tileList == null || tileList.isEmpty()) tileList = getDefaultSpecs();
+        for (String tile : tileList.split(",")) {
+            tile = tile.trim();
+            if (tile.isEmpty()) continue;
+            specs.add(tile);
+        }
+        mTileSpecs = specs;
         return mTileSpecs;
     }
 
+    private static List<String> loadTileSpecsFromPrefs(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        List<String> specs = new ArrayList<>();
+        try {
+            String jsonString = prefs.getString("qs_tiles", getDefaultTilesPref());
+            JSONArray jsonArray = new JSONArray(jsonString);
+            int appCount = jsonArray.length();
+            for (int i = 0; i < appCount; i++) {
+                String spec = jsonArray.getString(i);
+                specs.add(spec);
+            }
+        } catch (JSONException e) {
+            XposedHook.logE(TAG, "Error loading tile specs", e);
+        }
+        mTileSpecs = specs;
+        return mTileSpecs;
+    }
+
+    private static List<String> loadSecureTilesFromList(String secureTileList) {
+        final ArrayList<String> specs = new ArrayList<>();
+        if (secureTileList == null)
+            return specs;
+        for (String tile : secureTileList.split(",")) {
+            tile = tile.trim();
+            if (tile.isEmpty()) continue;
+            specs.add(tile);
+        }
+        mSecureTiles = specs;
+        return specs;
+    }
+
     @Nullable
-    public static Object createTile(Object tileHost, String tileSpec) {
+    private static Object createTile(Object tileHost, String tileSpec) {
         try {
             Object tile;
             if (mTilesManager.getCustomTileSpecs().contains(tileSpec)) {
@@ -304,25 +343,8 @@ public class QSTileHostHooks {
         }
     }
 
-    public static void loadTileSpecs(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        List<String> specs = new ArrayList<>();
-        try {
-            String jsonString = prefs.getString("qs_tiles", getDefaultTilesPref());
-            JSONArray jsonArray = new JSONArray(jsonString);
-            int appCount = jsonArray.length();
-            for (int i = 0; i < appCount; i++) {
-                String spec = jsonArray.getString(i);
-                specs.add(spec);
-            }
-        } catch (JSONException e) {
-            XposedHook.logE(TAG, "Error loading tile specs", e);
-        }
-        mTileSpecs = specs;
-    }
-
     @SuppressLint("CommitPrefEdits")
-    public static void saveTileSpecs(Context context, List<String> specs) {
+    static void saveTileSpecs(Context context, List<String> specs) {
         if (ConfigUtils.M) {
             SettingsUtils.putStringForCurrentUser(context.getContentResolver(), TILES_SETTING, TextUtils.join(",", specs));
         } else {
@@ -333,9 +355,13 @@ public class QSTileHostHooks {
     }
 
     @SuppressLint("CommitPrefEdits")
-    public static void saveSecureTileSpecs(Context context, List<String> specs) {
+    static void saveSecureTileSpecs(Context context, List<String> specs) {
         if (ConfigUtils.M) {
             SettingsUtils.putStringForCurrentUser(context.getContentResolver(), TILES_SECURE, TextUtils.join(",", specs));
+        } else {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+            editor.putString("qs_tiles_secure", new JSONArray(specs).toString());
+            editor.commit();
         }
     }
 
@@ -351,7 +377,7 @@ public class QSTileHostHooks {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> getAvailableTiles(Context context) {
+    static List<String> getAvailableTiles(Context context) {
         List<String> specs = new ArrayList<>();
         try { // Get the available tiles from the SystemUI config.xml
             String[] availableSpecs = context.getString(
@@ -390,7 +416,7 @@ public class QSTileHostHooks {
         return specs;
     }
 
-    public static List<String> getCurrentTileSpecs() {
+    private static List<String> getCurrentTileSpecs() {
         List<String> specs = new ArrayList<>();
         for (String spec : mTileSpecs) {
             if (spec == null) return specs;
@@ -442,33 +468,6 @@ public class QSTileHostHooks {
             return false;
             // Not an applicable tile spec
         }
-    }
-
-    private static List<String> loadTileSpecs(String tileList) {
-        final ArrayList<String> tiles = new ArrayList<>();
-        if (tileList == null || tileList.isEmpty()) tileList = getDefaultSpecs();
-        for (String tile : tileList.split(",")) {
-            tile = tile.trim();
-            if (tile.isEmpty()) continue;
-            tiles.add(tile);
-        }
-        mTileSpecs = tiles;
-        return tiles;
-    }
-
-    private static List<String> loadSecureTiles(String secureTileList) {
-        final ArrayList<String> tiles = new ArrayList<>();
-        if (secureTileList == null) {
-            tiles.add("location");
-            return tiles;
-        }
-        for (String tile : secureTileList.split(",")) {
-            tile = tile.trim();
-            if (tile.isEmpty()) continue;
-            tiles.add(tile);
-        }
-        mSecureTiles = tiles;
-        return tiles;
     }
 
 }

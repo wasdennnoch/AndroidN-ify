@@ -391,7 +391,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
     public void resetTiles() {
         mSecureTiles.clear();
-        mSecureTiles.add("location");
         saveSecureTiles();
         List<String> newSpces = new ArrayList<>();
         newSpces.add("wifi");
@@ -434,6 +433,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     private void saveSecureTiles() {
+        if (!ConfigUtils.M) return;
         XposedHook.logD(TAG, "saveSecureTiles called");
         if (!QSTileHostHooks.mSecureTiles.equals(mSecureTiles)) {
             QSTileHostHooks.saveSecureTileSpecs(mContext, mSecureTiles);

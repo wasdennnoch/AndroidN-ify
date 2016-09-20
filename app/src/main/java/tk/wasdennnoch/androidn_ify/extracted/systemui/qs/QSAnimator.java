@@ -37,9 +37,7 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.PageListener, OnLayoutChangeListener,
         OnAttachStateChangeListener, TouchAnimator.Listener {
 
-    private static final String TAG = "QSAnimator";
-
-    public static final float EXPANDED_TILE_DELAY = .7f;
+    private static final float EXPANDED_TILE_DELAY = .7f;
     private static final float LAST_ROW_EXPANDED_DELAY = .86f;
 
     private final ArrayList<View> mAllViews = new ArrayList<>();
@@ -78,7 +76,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         mKeyguard = QSTileHostHooks.mKeyguard;
     }
 
-    public void setOnKeyguard(boolean onKeyguard) {
+    private void setOnKeyguard(boolean onKeyguard) {
         mOnKeyguard = onKeyguard;
         mQuickQsPanel.setVisibility(mOnKeyguard ? View.INVISIBLE : View.VISIBLE);
         if (mOnKeyguard) {
@@ -126,7 +124,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         return 0;
     }
 
-    public void updateAnimators() {
+    private void updateAnimators() {
         List<Object> records = StatusBarHeaderHooks.getHeaderQsPanel().getRecords();
 
         TouchAnimator.Builder firstPageBuilder = new TouchAnimator.Builder();

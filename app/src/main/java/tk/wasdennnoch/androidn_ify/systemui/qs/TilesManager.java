@@ -34,7 +34,7 @@ public class TilesManager {
     private final Object mQSTileHost;
     private final Context mContext;
 
-    public static final List<String> mCustomTileSpecs = new ArrayList<>();
+    static final List<String> mCustomTileSpecs = new ArrayList<>();
     private final Map<String, BaseTile> mTiles = new HashMap<>();
     private String mCreateTileViewTileKey;
     private List<String> mSecureTiles;
@@ -48,7 +48,7 @@ public class TilesManager {
     }
 
 
-    public static int getLabelResource(String spec) throws Exception {
+    static int getLabelResource(String spec) throws Exception {
         if (!mCustomTileSpecs.contains(spec))
             throw new Exception("No label for spec '" + spec + "'!");
         switch (spec) {
@@ -63,7 +63,7 @@ public class TilesManager {
     }
 
     @SuppressWarnings("deprecation")
-    public static Drawable getIcon(Context context, String spec) throws Exception {
+    static Drawable getIcon(Context context, String spec) throws Exception {
         switch (spec) {
             case AndroidN_ifyTile.TILE_SPEC:
                 return ResourceUtils.getInstance(context).getDrawable(R.drawable.ic_stat_n);
@@ -79,13 +79,13 @@ public class TilesManager {
         }
     }
 
-    public TilesManager(Object qsTileHost) {
+    TilesManager(Object qsTileHost) {
         mQSTileHost = qsTileHost;
         mContext = (Context) XposedHelpers.callMethod(mQSTileHost, "getContext");
         hook();
     }
 
-    public List<String> getCustomTileSpecs() {
+    List<String> getCustomTileSpecs() {
         return mCustomTileSpecs;
     }
 
@@ -101,13 +101,13 @@ public class TilesManager {
         return new QSTile(this, mQSTileHost, key);
     }
 
-    public BaseTile createTile(String key) {
+    BaseTile createTile(String key) {
         BaseTile tile = createTileInternal(key);
         tile.setSecure(mSecureTiles != null && mSecureTiles.contains(key));
         return tile;
     }
 
-    public AOSPTile createAospTile(Object tileHost, String tileSpec) {
+    AOSPTile createAospTile(Object tileHost, String tileSpec) {
         AOSPTile tile = new AOSPTile(this, tileHost, tileSpec);
         tile.setSecure(mSecureTiles != null && mSecureTiles.contains(tileSpec));
         return tile;
@@ -298,7 +298,7 @@ public class TilesManager {
         }
     }
 
-    public void onSecureTilesChanged(List<String> secureTiles) {
+    void onSecureTilesChanged(List<String> secureTiles) {
         mSecureTiles = secureTiles;
         for (Map.Entry entry : mTiles.entrySet()) {
             BaseTile tile = (BaseTile) entry.getValue();

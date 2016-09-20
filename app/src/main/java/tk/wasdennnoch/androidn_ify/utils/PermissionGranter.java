@@ -23,24 +23,19 @@ import java.util.Map;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_OWN;
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 
-@SuppressWarnings({"WeakerAccess", "UnusedAssignment"})
 public class PermissionGranter {
-    public static final String TAG = "GB:PermissionGranter";
-    public static final boolean DEBUG = false;
+    public static final String TAG = "PermissionGranter";
 
     private static final String CLASS_PACKAGE_MANAGER_SERVICE = "com.android.server.pm.PackageManagerService";
     private static final String CLASS_PACKAGE_PARSER_PACKAGE = "android.content.pm.PackageParser.Package";
 
     private static final String PERM_BATTERY_STATS = "android.permission.BATTERY_STATS";
     private static final String PERM_MANAGE_USERS = "android.permission.MANAGE_USERS";
-
-    private static void log(String message) {
-        XposedBridge.log(TAG + ": " + message);
-    }
 
     private static Map<String, List<String>> mPerms;
 
@@ -68,7 +63,7 @@ public class PermissionGranter {
                             final String pkgName = (String) XposedHelpers.getObjectField(param.args[0], "packageName");
 
                             if (ConfigUtils.M && mPerms.containsKey(pkgName))
-                                grantPermsMm(param, pkgName, mPerms.get(pkgName));
+                                grantPermsMm(param, mPerms.get(pkgName));
                         }
                     });
         } catch (Throwable t) {
@@ -76,30 +71,20 @@ public class PermissionGranter {
         }
     }
 
-    @SuppressWarnings({"unchecked", "UnusedAssignment"})
-    private static void grantPermsMm(XC_MethodHook.MethodHookParam param, String pkgName, List<String> neededPermissions) {
+    private static void grantPermsMm(XC_MethodHook.MethodHookParam param, List<String> neededPermissions) {
         final Object extras = XposedHelpers.getObjectField(param.args[0], "mExtras");
         final Object ps = XposedHelpers.callMethod(extras, "getPermissionsState");
-        final List<String> grantedPerms =
-                (List<String>) XposedHelpers.getObjectField(param.args[0], "requestedPermissions");
         final Object settings = XposedHelpers.getObjectField(param.thisObject, "mSettings");
         final Object permissions = XposedHelpers.getObjectField(settings, "mPermissions");
 
         for (String perm : neededPermissions) {
-            if (!(boolean)XposedHelpers.callMethod(ps,"hasInstallPermission", perm)) {
+            if (!(boolean) XposedHelpers.callMethod(ps, "hasInstallPermission", perm)) {
                 final Object pAccessPerm = XposedHelpers.callMethod(permissions, "get",
                         perm);
                 int ret = (int) XposedHelpers.callMethod(ps, "grantInstallPermission", pAccessPerm);
-                if (DEBUG) log("Permission added: " + pAccessPerm + "; ret=" + ret);
+                XposedHook.logD(TAG, "Permission added: " + pAccessPerm + "; ret=" + ret);
             }
         }
 
-
-        if (DEBUG) {
-            log("List of permissions: ");
-            for (Object perm : grantedPerms) {
-                log(pkgName + ": " + perm);
-            }
-        }
     }
 }

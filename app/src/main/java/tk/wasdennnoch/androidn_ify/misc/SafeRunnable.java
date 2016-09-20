@@ -6,6 +6,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
  * An implementation of {@link Runnable} which catches any exception thrown
  * in {@link #runSafe()}. Useful in handlers to avoid crashing an app.
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class SafeRunnable implements Runnable {
 
     private String mLogTag;

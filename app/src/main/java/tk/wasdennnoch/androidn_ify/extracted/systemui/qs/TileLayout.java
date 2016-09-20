@@ -150,8 +150,6 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        final int w = getWidth();
-        boolean isRtl = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
         int row = 0;
         int column = 0;
         for (int i = 0; i < mRecords.size(); i++) {

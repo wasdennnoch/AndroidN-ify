@@ -8,6 +8,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
  * An implementation of {@link View.OnClickListener} which catches
  * any exception thrown in {@link #onClickSafe(View)}.
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class SafeOnClickListener implements View.OnClickListener {
 
     private String mLogTag;
