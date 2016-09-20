@@ -139,8 +139,8 @@ public class NotificationHooks {
                 icon.setPadding(0, 0, 0, 0);
             }
 
-            int color = sbn.getNotification().color;
             TextView privateAppName = (TextView) privateView.findViewById(R.id.app_name_text);
+            int color = privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : sbn.getNotification().color;
             if (privateAppName != null) {
                 if (appName != null) {
                     appName.setTextColor(privateAppName.getTextColors());
