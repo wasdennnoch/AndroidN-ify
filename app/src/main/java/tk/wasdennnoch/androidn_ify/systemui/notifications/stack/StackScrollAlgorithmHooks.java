@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications.stack;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,10 +15,12 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class StackScrollAlgorithmHooks {
@@ -55,10 +58,21 @@ public class StackScrollAlgorithmHooks {
                 }
             });
 
+            Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
+            XposedHelpers.findAndHookMethod(classStackScrollAlgorithm, "initConstants", Context.class, new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    int mZDistanceBetweenElements = ResourceUtils.getInstance((Context) param.args[0])
+                            .getDimensionPixelSize(R.dimen.z_distance_between_notifications);
+                    int mZBasicHeight = 4 * mZDistanceBetweenElements;
+                    XposedHelpers.setIntField(param.thisObject, "mZDistanceBetweenElements", mZDistanceBetweenElements);
+                    XposedHelpers.setIntField(param.thisObject, "mZBasicHeight", mZBasicHeight);
+                }
+            });
+
             if (!config.notifications.experimental) return;
 
             if (config.notifications.change_style) {
-                Class classStackScrollAlgorithm = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm", classLoader);
                 Class classStackScrollAlgorithmState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm.StackScrollAlgorithmState", classLoader);
                 Class classStackScrollState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollState", classLoader);
                 Class classStackViewState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackViewState", classLoader);

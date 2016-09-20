@@ -18,10 +18,16 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.FakeShadowView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.Interpolators;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -30,9 +36,9 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 
 public class NotificationStackScrollLayoutHooks {
+    private static final String TAG = "NotificationStackScrollLayoutHooks";
 
     public static final int ANIMATION_DURATION_STANDARD = 360;
-    private static final String TAG = "NotificationStackScrollLayoutHooks";
 
     private int TAG_ANIMATOR_TRANSLATION_Y;
     private int TAG_END_TRANSLATION_Y;
@@ -43,9 +49,12 @@ public class NotificationStackScrollLayoutHooks {
     private Context mContext;
     private ResourceUtils mRes;
     private final Paint mBackgroundPaint = new Paint();
+    private Object mAmbientState;
+    private ArrayList<View> mDraggedViews;
 
     private boolean mAnimationRunning;
     private boolean mAnimationsEnabled = true;
+    private boolean mContinuousShadowUpdate;
     private boolean mIsExpanded;
     private ViewTreeObserver.OnPreDrawListener mBackgroundUpdater
             = new ViewTreeObserver.OnPreDrawListener() {
@@ -54,6 +63,15 @@ public class NotificationStackScrollLayoutHooks {
                updateBackground();
                return true;
            }
+    };
+    private ViewTreeObserver.OnPreDrawListener mShadowUpdater
+            = new ViewTreeObserver.OnPreDrawListener() {
+
+        @Override
+        public boolean onPreDraw() {
+            updateViewShadows();
+            return true;
+        }
     };
     private Rect mBackgroundBounds = new Rect();
     private Rect mStartAnimationRect = new Rect();
@@ -68,6 +86,22 @@ public class NotificationStackScrollLayoutHooks {
     private int mTopPadding;
     private float mStackTranslation;
     private PorterDuffXfermode mSrcMode = new PorterDuffXfermode(PorterDuff.Mode.SRC);
+    private ArrayList<View> mTmpSortedChildren = new ArrayList<>();
+    private Comparator<View> mViewPositionComparator = new Comparator<View>() {
+        @Override
+        public int compare(View view, View otherView) {
+            float endY = view.getTranslationY() + XposedHelpers.getIntField(view, "mActualHeight");
+            float otherEndY = otherView.getTranslationY() + XposedHelpers.getIntField(otherView, "mActualHeight");
+            if (endY < otherEndY) {
+                return -1;
+            } else if (endY > otherEndY) {
+                return 1;
+            } else {
+                // The two notifications end at the same location
+                return 0;
+            }
+        }
+    };
 
     public NotificationStackScrollLayoutHooks(ClassLoader classLoader) {
         try {
@@ -76,6 +110,8 @@ public class NotificationStackScrollLayoutHooks {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     mStackScrollLayout = (ViewGroup) param.thisObject;
+                    mAmbientState = XposedHelpers.getObjectField(param.thisObject, "mAmbientState");
+                    mDraggedViews = (ArrayList<View>) XposedHelpers.getObjectField(mAmbientState, "mDraggedViews");
                     mContext = (Context) param.args[0];
                     mRes = ResourceUtils.getInstance(mContext);
                     initView();
@@ -114,6 +150,7 @@ public class NotificationStackScrollLayoutHooks {
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     if (willUpdateBackground) {
                         updateBackground();
+                        updateViewShadows();
                         willUpdateBackground = false;
                     }
                 }
@@ -134,6 +171,7 @@ public class NotificationStackScrollLayoutHooks {
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     setAnimationRunning(false);
                     updateBackground();
+                    updateViewShadows();
                 }
             });
             XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
@@ -170,6 +208,20 @@ public class NotificationStackScrollLayoutHooks {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     param.setResult(true); // Don't fade out the notification
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onChildSnappedBack", View.class, new XC_MethodHook() {
+                @SuppressWarnings("SuspiciousMethodCalls")
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    mDraggedViews.remove(param.args[0]);
+                    updateContinuousShadowDrawing();
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onBeginDrag", View.class, new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    updateContinuousShadowDrawing();
                 }
             });
             classActivatableNotificationView = XposedHelpers.findClass("com.android.systemui.statusbar.ActivatableNotificationView", classLoader);
@@ -444,7 +496,81 @@ public class NotificationStackScrollLayoutHooks {
                 mStackScrollLayout.getViewTreeObserver().removeOnPreDrawListener(mBackgroundUpdater);
             }
             mAnimationRunning = animationRunning;
+            updateContinuousShadowDrawing();
         }
+    }
+
+    private void updateContinuousShadowDrawing() {
+        boolean continuousShadowUpdate = mAnimationRunning
+                || !mDraggedViews.isEmpty();
+        if (continuousShadowUpdate != mContinuousShadowUpdate) {
+            if (continuousShadowUpdate) {
+                mStackScrollLayout.getViewTreeObserver().addOnPreDrawListener(mShadowUpdater);
+            } else {
+                mStackScrollLayout.getViewTreeObserver().removeOnPreDrawListener(mShadowUpdater);
+            }
+            mContinuousShadowUpdate = continuousShadowUpdate;
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void updateViewShadows() {
+        // we need to work around an issue where the shadow would not cast between siblings when
+        // their z difference is between 0 and 0.1
+
+        // Lefts first sort by Z difference
+        for (int i = 0; i < mStackScrollLayout.getChildCount(); i++) {
+            View child = mStackScrollLayout.getChildAt(i);
+            if (child.getVisibility() != View.GONE) {
+                mTmpSortedChildren.add(child);
+            }
+        }
+        Collections.sort(mTmpSortedChildren, mViewPositionComparator);
+
+        // Now lets update the shadow for the views
+        View previous = null;
+        for (int i = 0; i < mTmpSortedChildren.size(); i++) {
+            View expandableView = mTmpSortedChildren.get(i);
+            float translationZ = expandableView.getTranslationZ();
+            float otherZ = previous == null ? translationZ : previous.getTranslationZ();
+            float diff = otherZ - translationZ;
+            if (diff <= 0.0f || diff >= FakeShadowView.SHADOW_SIBLING_TRESHOLD) {
+                // There is no fake shadow to be drawn
+                setFakeShadowIntensity(expandableView, 0.0f, 0.0f, 0, 0);
+            } else {
+                float yLocation = previous.getTranslationY() + XposedHelpers.getIntField(previous, "mActualHeight") -
+                        expandableView.getTranslationY();
+                setFakeShadowIntensity(expandableView,
+                        diff / FakeShadowView.SHADOW_SIBLING_TRESHOLD,
+                        1, (int) yLocation,
+                        getOutlineTranslation(previous));
+            }
+            previous = expandableView;
+        }
+
+        mTmpSortedChildren.clear();
+    }
+
+    private int getOutlineTranslation(View expandableOutlineView) {
+        try {
+            if (XposedHelpers.getBooleanField(expandableOutlineView, "mCustomOutline")) {
+                return (int) expandableOutlineView.getTranslationX();
+            } else {
+                Rect mOutlineRect = (Rect) XposedHelpers.getObjectField(expandableOutlineView, "mOutlineRect");
+                return mOutlineRect.left;
+            }
+        } catch (Throwable t) {
+            return 0;
+        }
+    }
+
+    private void setFakeShadowIntensity(View activatableNotificationView, float shadowIntensity, float outlineAlpha, int shadowYEnd,
+                                       int outlineTranslation) {
+        FakeShadowView mFakeShadow = (FakeShadowView) activatableNotificationView.findViewById(R.id.fake_shadow);
+        if (mFakeShadow != null)
+            mFakeShadow.setFakeShadowTranslationZ(shadowIntensity * (activatableNotificationView.getTranslationZ()
+                            + FakeShadowView.SHADOW_SIBLING_TRESHOLD), outlineAlpha, shadowYEnd,
+                    outlineTranslation);
     }
 
     @SuppressWarnings("unchecked")
