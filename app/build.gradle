@@ -16,6 +16,18 @@ ext.useSigningConfig = false
 
 ext.supportLibraryVersion = "24.2.0";
 
+def keyPropPath = System.getenv("KEY_PROP_PATH") ?: "../../../"
+def propFile = project.file(keyPropPath + "key.properties")
+if (propFile.exists()) {
+    def props = new Properties()
+    props.load(new FileInputStream(propFile))
+    android.signingConfigs.main.storeFile project.file(keyPropPath + props.keyStore)
+    android.signingConfigs.main.storePassword props.keyStorePassword
+    android.signingConfigs.main.keyAlias props.keyAlias
+    android.signingConfigs.main.keyPassword props.keyPassword
+    ext.useSigningConfig = true
+}
+
 android {
     signingConfigs {
         main
@@ -59,18 +71,6 @@ android {
         abortOnError false
     }
     useLibrary 'org.apache.http.legacy'
-}
-
-def keyPropPath = System.getenv("KEY_PROP_PATH") ?: "../../../"
-def propFile = project.file(keyPropPath + "key.properties")
-if (propFile.exists()) {
-    def props = new Properties()
-    props.load(new FileInputStream(propFile))
-    android.signingConfigs.main.storeFile project.file(keyPropPath + props.keyStore)
-    android.signingConfigs.main.storePassword props.keyStorePassword
-    android.signingConfigs.main.keyAlias props.keyAlias
-    android.signingConfigs.main.keyPassword props.keyPassword
-    ext.useSigningConfig = true
 }
 
 def buildTime() {
