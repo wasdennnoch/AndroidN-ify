@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.Interpolators;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -31,12 +32,13 @@ import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 public class NotificationStackScrollLayoutHooks {
 
     public static final int ANIMATION_DURATION_STANDARD = 360;
+    private static final String TAG = "NotificationStackScrollLayoutHooks";
 
     private int TAG_ANIMATOR_TRANSLATION_Y;
     private int TAG_END_TRANSLATION_Y;
 
-    private final Class<?> classActivatableNotificationView;
-    private final Class<?> classStackStateAnimator;
+    private Class<?> classActivatableNotificationView;
+    private Class<?> classStackStateAnimator;
     private ViewGroup mStackScrollLayout;
     private Context mContext;
     private ResourceUtils mRes;
@@ -68,109 +70,113 @@ public class NotificationStackScrollLayoutHooks {
     private PorterDuffXfermode mSrcMode = new PorterDuffXfermode(PorterDuff.Mode.SRC);
 
     public NotificationStackScrollLayoutHooks(ClassLoader classLoader) {
-        Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
-        XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "initView", new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                mStackScrollLayout = (ViewGroup) param.thisObject;
-                mContext = (Context) param.args[0];
-                mRes = ResourceUtils.getInstance(mContext);
-                initView();
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onDraw", Canvas.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if (ConfigUtils.notifications().enable_notifications_background) {
-                    Canvas canvas = (Canvas) param.args[0];
-                    canvas.drawRect(0, mCurrentBounds.top, mStackScrollLayout.getWidth(), mCurrentBounds.bottom, mBackgroundPaint);
+        try {
+            Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
+            XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "initView", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    mStackScrollLayout = (ViewGroup) param.thisObject;
+                    mContext = (Context) param.args[0];
+                    mRes = ResourceUtils.getInstance(mContext);
+                    initView();
                 }
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "startAnimationToState", new XC_MethodHook() {
-            private boolean willUpdateBackground = false;
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onDraw", Canvas.class, new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    if (ConfigUtils.notifications().enable_notifications_background) {
+                        Canvas canvas = (Canvas) param.args[0];
+                        canvas.drawRect(0, mCurrentBounds.top, mStackScrollLayout.getWidth(), mCurrentBounds.bottom, mBackgroundPaint);
+                    }
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "startAnimationToState", new XC_MethodHook() {
+                private boolean willUpdateBackground = false;
 
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                willUpdateBackground = false;
-                boolean mNeedsAnimation = XposedHelpers.getBooleanField(mStackScrollLayout, "mNeedsAnimation");
-                if (mNeedsAnimation) {
-                    XposedHelpers.callMethod(mStackScrollLayout, "generateChildHierarchyEvents");
-                    XposedHelpers.setBooleanField(mStackScrollLayout, "mNeedsAnimation", false);
-                }
-                Object mAnimationEvents = XposedHelpers.getObjectField(mStackScrollLayout, "mAnimationEvents");
-                boolean isEmpty = (boolean) XposedHelpers.callMethod(mAnimationEvents, "isEmpty");
-                boolean isCurrentlyAnimating = (boolean) XposedHelpers.callMethod(mStackScrollLayout, "isCurrentlyAnimating");
-                if (!isEmpty || isCurrentlyAnimating) {
-                    setAnimationRunning(true);
-                    willUpdateBackground = true;
-                }
-            }
-
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if (willUpdateBackground) {
-                    updateBackground();
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     willUpdateBackground = false;
+                    boolean mNeedsAnimation = XposedHelpers.getBooleanField(mStackScrollLayout, "mNeedsAnimation");
+                    if (mNeedsAnimation) {
+                        XposedHelpers.callMethod(mStackScrollLayout, "generateChildHierarchyEvents");
+                        XposedHelpers.setBooleanField(mStackScrollLayout, "mNeedsAnimation", false);
+                    }
+                    Object mAnimationEvents = XposedHelpers.getObjectField(mStackScrollLayout, "mAnimationEvents");
+                    boolean isEmpty = (boolean) XposedHelpers.callMethod(mAnimationEvents, "isEmpty");
+                    boolean isCurrentlyAnimating = (boolean) XposedHelpers.callMethod(mStackScrollLayout, "isCurrentlyAnimating");
+                    if (!isEmpty || isCurrentlyAnimating) {
+                        setAnimationRunning(true);
+                        willUpdateBackground = true;
+                    }
                 }
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onChildAnimationFinished", new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                setAnimationRunning(false);
-            }
 
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                updateBackground();
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "applyCurrentState", new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                setAnimationRunning(false);
-                updateBackground();
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                updateFirstAndLastBackgroundViews();
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setAnimationsEnabled", boolean.class, new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                mAnimationsEnabled = (boolean) param.args[0];
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setIsExpanded", boolean.class, new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                mIsExpanded = (boolean) param.args[0];
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setTopPadding", int.class, boolean.class, new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                mTopPadding = (int) param.args[0];
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setStackTranslation", float.class, new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                mStackTranslation = (float) param.args[0];
-            }
-        });
-        XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateSwipeProgress", View.class, boolean.class, float.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                param.setResult(true); // Don't fade out the notification
-            }
-        });
-        classActivatableNotificationView = XposedHelpers.findClass("com.android.systemui.statusbar.ActivatableNotificationView", classLoader);
-        classStackStateAnimator = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackStateAnimator", classLoader);
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    if (willUpdateBackground) {
+                        updateBackground();
+                        willUpdateBackground = false;
+                    }
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onChildAnimationFinished", new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    setAnimationRunning(false);
+                }
+
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    updateBackground();
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "applyCurrentState", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    setAnimationRunning(false);
+                    updateBackground();
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    updateFirstAndLastBackgroundViews();
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setAnimationsEnabled", boolean.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    mAnimationsEnabled = (boolean) param.args[0];
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setIsExpanded", boolean.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    mIsExpanded = (boolean) param.args[0];
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setTopPadding", int.class, boolean.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    mTopPadding = (int) param.args[0];
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setStackTranslation", float.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    mStackTranslation = (float) param.args[0];
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateSwipeProgress", View.class, boolean.class, float.class, new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    param.setResult(true); // Don't fade out the notification
+                }
+            });
+            classActivatableNotificationView = XposedHelpers.findClass("com.android.systemui.statusbar.ActivatableNotificationView", classLoader);
+            classStackStateAnimator = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackStateAnimator", classLoader);
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error hooking NotificationStackScrollLayout", t);
+        }
     }
 
     private void updateFirstAndLastBackgroundViews() {

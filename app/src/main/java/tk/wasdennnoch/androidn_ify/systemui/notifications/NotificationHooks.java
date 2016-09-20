@@ -772,7 +772,8 @@ public class NotificationHooks {
 
             if (config.notifications.change_style) {
 
-                mStackScrollLayoutHooks = new NotificationStackScrollLayoutHooks(classLoader);
+                if (ConfigUtils.M) // For now
+                    mStackScrollLayoutHooks = new NotificationStackScrollLayoutHooks(classLoader);
 
                 Class classBaseStatusBar = XposedHelpers.findClass("com.android.systemui.statusbar.BaseStatusBar", classLoader);
                 Class classEntry = XposedHelpers.findClass("com.android.systemui.statusbar.NotificationData.Entry", classLoader);
