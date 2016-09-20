@@ -19,5 +19,6 @@
     <item name="battery_usage" type="id" />
     <item name="edit" type="id" />
     <item name="actions_container" type="id" />
+    <item name="fake_shadow" type="id" />
 
 </resources>

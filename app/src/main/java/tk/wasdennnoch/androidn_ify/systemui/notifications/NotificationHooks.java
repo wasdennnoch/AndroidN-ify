@@ -57,6 +57,7 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.FakeShadowView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.NotificationActionListLayout;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
@@ -626,13 +627,12 @@ public class NotificationHooks {
 
             final XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
             XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
-            XResources.DimensionReplacement notification_padding = new XResources.DimensionReplacement(0.5f, TypedValue.COMPLEX_UNIT_DIP);
 
             if (config.notifications.change_style) {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", notification_padding);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", notification_padding);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", modRes.fwd(R.dimen.notification_divider_height));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", modRes.fwd(R.dimen.notification_divider_height));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_min_height", modRes.fwd(R.dimen.notification_min_height));
@@ -680,13 +680,11 @@ public class NotificationHooks {
                     });
                 }
 
-                if (!ConfigUtils.notifications().enable_notifications_background) {
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
-                    try {
-                        resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
-                    } catch (Throwable ignore) {
-                    }
+                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
+                resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
+                try {
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row_media", status_bar_notification_row);
+                } catch (Throwable ignore) {
                 }
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "drawable", "notification_material_bg", new XResources.DrawableLoader() {
@@ -1485,17 +1483,30 @@ public class NotificationHooks {
             Context context = row.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
 
-            int dividerHeight = res.getDimensionPixelSize(R.dimen.notification_separator_size);
+            if (!ConfigUtils.notifications().enable_notifications_background) {
 
-            FrameLayout.LayoutParams dividerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight);
-            dividerLp.gravity = Gravity.TOP;
+                int dividerHeight = res.getDimensionPixelSize(R.dimen.notification_separator_size);
 
-            View divider = new View(context);
-            divider.setBackgroundColor(0x1F000000);
-            divider.setId(R.id.notification_divider);
-            divider.setLayoutParams(dividerLp);
+                FrameLayout.LayoutParams dividerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight);
+                dividerLp.gravity = Gravity.TOP;
 
-            row.addView(divider);
+                View divider = new View(context);
+                divider.setBackgroundColor(0x1F000000);
+                divider.setId(R.id.notification_divider);
+                divider.setLayoutParams(dividerLp);
+
+                row.addView(divider);
+            }
+
+            if (ConfigUtils.M) {
+                FrameLayout.LayoutParams fakeShadowLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                FakeShadowView fakeShadow = new FakeShadowView(context);
+                fakeShadow.setId(R.id.fake_shadow);
+                fakeShadow.setLayoutParams(fakeShadowLp);
+
+                row.addView(fakeShadow);
+            }
         }
     };
 
