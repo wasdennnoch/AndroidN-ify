@@ -10,7 +10,7 @@ public class SpoofAPIActivity extends AppListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        if (!BuildConfig.ENABLE_DIRECT_REPLY)
+        if (!BuildConfig.EXPERIMENTAL)
             finish();
     }
 

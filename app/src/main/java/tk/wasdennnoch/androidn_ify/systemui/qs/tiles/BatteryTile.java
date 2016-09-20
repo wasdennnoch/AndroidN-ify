@@ -93,7 +93,10 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public void handleClick() {
-        showDetail(true);
+        if (ConfigUtils.M)
+            showDetail(true);
+        else
+            handleLongClick(); // Until we figure out how to give BATTERY_STATS on LP
     }
 
     @Override

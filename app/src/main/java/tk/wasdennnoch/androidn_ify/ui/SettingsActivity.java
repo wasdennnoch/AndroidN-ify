@@ -54,7 +54,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         ViewUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
         RomUtils.init(this);
@@ -70,8 +70,17 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             warning.setVisibility(View.VISIBLE);
             warning.setOnClickListener(this);
         }
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
+            if (!prefs.contains("automated_build_warning")) {
+                showDialog(R.string.warning, R.string.automated_build_warning, false, null, new Runnable() {
+                    @Override
+                    public void run() {
+                        prefs.edit().putBoolean("automated_build_warning", true).apply();
+                    }
+                }, android.R.string.ok, R.string.dont_show_again);
+            }
+        }
     }
 
     private boolean isActivated() {
@@ -92,20 +101,28 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     }
 
     private void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction) {
+        showDialog(titleRes, contentRes, onlyOk, okAction, null, android.R.string.ok, android.R.string.cancel);
+    }
+
+    private void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction, final Runnable cancelAction, int okText, int cancelText) {
         //noinspection deprecation
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setMessage(Html.fromHtml(getString(contentRes)));
         if (titleRes > 0)
             builder.setTitle(titleRes);
         if (!onlyOk)
-            builder.setNegativeButton(android.R.string.cancel, null);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(cancelText, cancelAction != null ? new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    cancelAction.run();
+                }
+            } : null);
+        builder.setPositiveButton(okText, okAction != null ? new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (okAction != null)
-                    okAction.run();
+                okAction.run();
             }
-        });
+        } : null);
         View v = builder.show().findViewById(android.R.id.message);
         if (v instanceof TextView)
             ((TextView) v).setMovementMethod(LinkMovementMethod.getInstance());
@@ -188,8 +205,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         }
                         break;
                     case "settings_notifications":
-                        if (!ConfigUtils.M)
+                        if (!ConfigUtils.M) {
                             lockPreference(screen.findPreference("notification_experimental"));
+                            lockPreference(screen.findPreference("enable_notifications_background")); // For now
+                        }
                         if (!RemoteInputHelper.DIRECT_REPLY_ENABLED) {
                             screen.removePreference(findPreference("notification_spoof_api_version"));
                             screen.removePreference(findPreference("allow_direct_reply_on_keyguard"));
