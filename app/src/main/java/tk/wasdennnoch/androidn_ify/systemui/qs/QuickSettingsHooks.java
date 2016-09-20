@@ -19,17 +19,16 @@ public class QuickSettingsHooks {
 
     private static final String TAG = "QuickSettingsHooks";
 
-    protected static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
-    protected static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
+    private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
+    static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
 
-    protected final ClassLoader mClassLoader;
-    protected final Class mHookClass;
+    final Class mHookClass;
 
     protected Context mContext;
-    protected ViewGroup mQsPanel;
-    protected View mBrightnessView;
-    protected Object mFooter;
-    protected View mDetail;
+    ViewGroup mQsPanel;
+    View mBrightnessView;
+    Object mFooter;
+    View mDetail;
 
     private PagedTileLayout mTileLayout;
     private boolean mHookedGetGridHeight = false;
@@ -51,9 +50,8 @@ public class QuickSettingsHooks {
         }
     }
 
-    protected QuickSettingsHooks(ClassLoader classLoader) {
-        mClassLoader = classLoader;
-        mHookClass = XposedHelpers.findClass(getHookClass(), mClassLoader);
+    QuickSettingsHooks(ClassLoader classLoader) {
+        mHookClass = XposedHelpers.findClass(getHookClass(), classLoader);
         hookConstructor();
         hookOnMeasure();
         hookOnLayout();
@@ -111,7 +109,7 @@ public class QuickSettingsHooks {
         });
     }
 
-    protected void setupTileLayout() {
+    void setupTileLayout() {
         mTileLayout = new PagedTileLayout(mContext, null);
         mQsPanel.addView(mTileLayout);
     }

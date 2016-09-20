@@ -125,13 +125,19 @@ public class StatusBarHooks {
         });
     }
 
+    private XC_MethodHook setMobileDataEnabledHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            mDataDisabled = !(boolean) param.args[0];
+        }
+    };
     private void hookSetMobileDataEnabled() {
-        XposedHelpers.findAndHookMethod(mMobileDataControllerClass, "setMobileDataEnabled", boolean.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                mDataDisabled = !(boolean) param.args[0];
-            }
-        });
+        try {
+            XposedHelpers.findAndHookMethod(mMobileDataControllerClass, "setMobileDataEnabled", boolean.class, setMobileDataEnabledHook);
+        } catch (Throwable t) { // Motorola (multi-sim)
+            // TODO implement better dual-sim handling
+            XposedHelpers.findAndHookMethod(mMobileDataControllerClass, "setMobileDataEnabled", int.class, boolean.class, setMobileDataEnabledHook);
+        }
     }
 
     protected void hookSetMobileDataIndicators() {
