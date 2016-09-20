@@ -45,6 +45,8 @@ import android.widget.TextView;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.NotificationStackScrollLayoutHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -254,7 +256,9 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
             findScrollContainer();
             if (mScrollContainer != null) {
                 callMethod(mScrollContainer, "removeLongPressCallback");
-                //callMethod(mScrollContainer, "requestDisallowDismiss"); // TODO Disallow dismiss
+                NotificationStackScrollLayoutHooks stackScrollLayoutHooks = NotificationHooks.mStackScrollLayoutHooks;
+                if (stackScrollLayoutHooks != null)
+                    stackScrollLayoutHooks.requestDisallowDismiss();
             }
         }
         return super.onInterceptTouchEvent(ev);
@@ -262,7 +266,9 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
 
     public boolean requestScrollTo() {
         findScrollContainer();
-        //callMethod(mScrollContainer, "lockScrollTo", mScrollContainerChild); // TODO Scroll to notification
+        NotificationStackScrollLayoutHooks stackScrollLayoutHooks = NotificationHooks.mStackScrollLayoutHooks;
+        if (stackScrollLayoutHooks != null)
+            stackScrollLayoutHooks.lockScrollTo(mScrollContainerChild);
         return true;
     }
 

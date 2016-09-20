@@ -89,7 +89,7 @@ public class NotificationHooks {
 
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
-    private static NotificationStackScrollLayoutHooks mStackScrollLayoutHooks;
+    public static NotificationStackScrollLayoutHooks mStackScrollLayoutHooks;
 
     private static final XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -800,6 +800,7 @@ public class NotificationHooks {
                                 windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
                                 param.setResult(null);
                             }
+                            windowParams.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
                         }
                     });
                 }
