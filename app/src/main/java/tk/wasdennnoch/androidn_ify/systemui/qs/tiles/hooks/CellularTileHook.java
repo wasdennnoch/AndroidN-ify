@@ -7,6 +7,7 @@ import com.android.internal.logging.MetricsLogger;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class CellularTileHook extends QSTileHook {
 
@@ -29,9 +30,8 @@ public class CellularTileHook extends QSTileHook {
 
     @Override
     public void handleClick() {
-        try {
+        if (ConfigUtils.M) {
             MetricsLogger.action(mContext, MetricsLogger.QS_CELLULAR);
-        } catch (NoClassDefFoundError ignore) {
         }
         if (NotificationPanelHooks.isCollapsed()) {
             // Only toggle

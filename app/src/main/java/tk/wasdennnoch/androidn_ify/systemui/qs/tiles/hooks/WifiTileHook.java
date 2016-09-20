@@ -8,6 +8,7 @@ import com.android.internal.logging.MetricsLogger;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class WifiTileHook extends QSTileHook {
 
@@ -24,7 +25,8 @@ public class WifiTileHook extends QSTileHook {
     @Override
     protected void afterConstructor(XC_MethodHook.MethodHookParam param) {
         mController = getObjectField("mController");
-        mWifiController = getObjectField("mWifiController");
+        if (ConfigUtils.M)
+            mWifiController = getObjectField("mWifiController");
     }
 
     @Override
@@ -33,18 +35,20 @@ public class WifiTileHook extends QSTileHook {
         boolean enabled = XposedHelpers.getBooleanField(mState, "enabled");
         if (NotificationPanelHooks.isCollapsed()) {
             XposedHelpers.callMethod(mState, "copyTo", getObjectField("mStateBeforeClick"));
-            try {
+            if (ConfigUtils.M) {
                 MetricsLogger.action(mContext, MetricsLogger.QS_WIFI, !enabled);
-            } catch (NoClassDefFoundError ignore) {
             }
             XposedHelpers.callMethod(mController, "setWifiEnabled", !enabled);
         } else {
-            if ((boolean) XposedHelpers.callMethod(mWifiController, "canConfigWifi")) {
+            if (ConfigUtils.M && (boolean) XposedHelpers.callMethod(mWifiController, "canConfigWifi")) {
                 if (!enabled) {
                     XposedHelpers.callMethod(mController, "setWifiEnabled", true);
                     XposedHelpers.setBooleanField(mState, "enabled", true);
                 }
                 showDetail(true);
+            } else if (!ConfigUtils.M) {
+                XposedHelpers.callMethod(mController, "setWifiEnabled", true);
+                XposedHelpers.setBooleanField(mState, "enabled", true);
             } else {
                 startSettings();
             }

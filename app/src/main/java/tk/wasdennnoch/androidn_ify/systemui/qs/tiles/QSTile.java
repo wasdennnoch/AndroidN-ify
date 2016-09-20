@@ -6,18 +6,19 @@ import android.graphics.drawable.Drawable;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class QSTile extends BaseTile {
 
     private static final String TAG = "QSTile";
     private static Class<?> resourceIconClass;
-    protected final ResourceUtils mResUtils;
+    private static boolean mResourceIconClassFailed = false;
+    final ResourceUtils mResUtils;
     protected final State mState;
 
-    public static final String DUMMY_INTENT = "intent(dummy)";
+    private static final String DUMMY_INTENT = "intent(dummy)";
     public static final String CLASS_INTENT_TILE = "com.android.systemui.qs.tiles.IntentTile";
     public static final String CLASS_VOLUME_TILE = "com.android.systemui.qs.tiles.VolumeTile"; // Used on CM12.1 where IntentTile doesn't exist
     public static final String CLASS_VISUALIZER_TILE = "com.android.systemui.qs.tiles.VisualizerTile"; // To fix a SystemUI crash caused by it
@@ -35,7 +36,7 @@ public class QSTile extends BaseTile {
         mState = new State(mKey);
         mResUtils = ResourceUtils.getInstance(mContext);
         XposedHelpers.setAdditionalInstanceField(mTile, TILE_KEY_NAME, mKey);
-        if (resourceIconClass == null)
+        if (resourceIconClass == null && !mResourceIconClassFailed)
             resourceIconClass = getResourceIconClass(mContext.getClassLoader());
         registerCallbacks();
     }
@@ -45,6 +46,7 @@ public class QSTile extends BaseTile {
             return XposedHelpers.findClass(CLASS_QS_TILE + ".ResourceIcon", classLoader);
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error getting resource icon class:", t);
+            mResourceIconClassFailed = true;
             return null;
         }
     }

@@ -8,6 +8,7 @@ import com.android.internal.logging.MetricsLogger;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class BluetoothTileHook extends QSTileHook {
 
@@ -36,9 +37,8 @@ public class BluetoothTileHook extends QSTileHook {
             }
             showDetail(true);
         } else {
-            try {
+            if (ConfigUtils.M) {
                 MetricsLogger.action(mContext, MetricsLogger.QS_BLUETOOTH, !enabled);
-            } catch (NoClassDefFoundError ignore) {
             }
             XposedHelpers.callMethod(mController, "setBluetoothEnabled", !enabled);
         }
