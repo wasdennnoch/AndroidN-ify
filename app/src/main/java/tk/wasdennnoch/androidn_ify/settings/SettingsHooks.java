@@ -114,8 +114,18 @@ public class SettingsHooks {
                 context.getTheme().resolveAttribute(android.R.attr.colorAccent, colorAccent, true);
                 context.getTheme().resolveAttribute(android.R.attr.textColorSecondary, textColorSecondary, true);
 
-                int colorAccentValue = context.getResources().getColor(colorAccent.resourceId);
-                int textColorSecondaryValue = context.getResources().getColor(textColorSecondary.resourceId);
+                int colorAccentValue;
+                try {
+                    colorAccentValue = context.getResources().getColor(colorAccent.resourceId);
+                } catch (Throwable ignore) {
+                    colorAccentValue = 0xFF009688; // default colorAccent for material light
+                }
+                int textColorSecondaryValue;
+                try {
+                    textColorSecondaryValue = context.getResources().getColor(textColorSecondary.resourceId);
+                } catch (Throwable ignore) {
+                    textColorSecondaryValue = 0x8A000000; // default textColorSecondary for material light
+                }
 
                 ((TextView) layout.findViewById(R.id.charge)).setTextColor(colorAccentValue);
                 ((TextView) layout.findViewById(R.id.estimation)).setTextColor(textColorSecondaryValue);

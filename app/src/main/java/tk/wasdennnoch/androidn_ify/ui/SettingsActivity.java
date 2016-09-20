@@ -210,8 +210,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             lockPreference(screen.findPreference("enable_notifications_background")); // For now
                         }
                         if (!RemoteInputHelper.DIRECT_REPLY_ENABLED) {
-                            screen.removePreference(findPreference("notification_spoof_api_version"));
                             screen.removePreference(findPreference("allow_direct_reply_on_keyguard"));
+                        }
+                        if (!BuildConfig.EXPERIMENTAL) {
+                            screen.removePreference(findPreference("notification_spoof_api_version"));
                         }
                         break;
                 }
