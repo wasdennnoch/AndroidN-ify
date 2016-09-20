@@ -183,7 +183,7 @@ public class ConfigUtils {
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
             experimental = M && prefs.getBoolean("notification_experimental", false);
             allow_direct_reply_on_keyguard = prefs.getBoolean("allow_direct_reply_on_keyguard", false);
-            enable_notifications_background = prefs.getBoolean("enable_notifications_background", true);
+            enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true);
             keyguard_max = prefs.getInt("notification_keyguard_max", 3);
             actions_color = prefs.getInt("actions_background_colors", 0);
         }

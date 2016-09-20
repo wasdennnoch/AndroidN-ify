@@ -11,7 +11,8 @@ ext.automatedBuild = System.getenv("AUTOMATED_BUILD") ?: "false"
 ext.enableUpdater = System.getenv("ENABLE_UPDATER") ?: "false"
 ext.updaterUrl = System.getenv("UPDATER_URL") ?: "null"
 ext.buildNumber = System.getenv("BUILD_NUMBER") ?: "0"
-ext.enableDirectReply = System.getenv("ENABLE_DIRECT_REPLY") ?: "false"
+ext.experimental = System.getenv("EXPERIMENTAL") ?: "false"
+ext.useSigningConfig = false
 
 ext.supportLibraryVersion = "24.2.0";
 
@@ -37,17 +38,21 @@ android {
         buildConfigField 'boolean', 'ENABLE_UPDATER', "$enableUpdater"
         buildConfigField 'String', 'UPDATER_URL', "\"$updaterUrl\""
         buildConfigField 'int', 'BUILD_NUMBER', "$buildNumber"
-        buildConfigField 'boolean', 'ENABLE_DIRECT_REPLY', "$enableDirectReply"
+        buildConfigField 'boolean', 'EXPERIMENTAL', "$experimental"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.main
+            if (useSigningConfig) {
+                signingConfig signingConfigs.main
+            }
         }
         debug {
             versionNameSuffix = "-debug"
-            signingConfig signingConfigs.main
+            if (useSigningConfig) {
+                signingConfig signingConfigs.main
+            }
         }
     }
     lintOptions {
@@ -56,14 +61,16 @@ android {
     useLibrary 'org.apache.http.legacy'
 }
 
-def propFile = project.file("../../../key.properties")
+def keyPropPath = System.getenv("KEY_PROP_PATH") ?: "../../../"
+def propFile = project.file(keyPropPath + "key.properties")
 if (propFile.exists()) {
     def props = new Properties()
     props.load(new FileInputStream(propFile))
-    android.signingConfigs.main.storeFile project.file("../../../" + props.keyStore)
+    android.signingConfigs.main.storeFile project.file(keyPropPath + props.keyStore)
     android.signingConfigs.main.storePassword props.keyStorePassword
     android.signingConfigs.main.keyAlias props.keyAlias
     android.signingConfigs.main.keyPassword props.keyPassword
+    ext.useSigningConfig = true
 }
 
 def buildTime() {

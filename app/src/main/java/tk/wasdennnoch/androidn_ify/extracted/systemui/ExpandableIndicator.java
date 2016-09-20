@@ -20,15 +20,19 @@ import android.widget.ImageView;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class ExpandableIndicator extends ImageView {
 
+    private static final String TAG = "ExpandableIndicator";
     private boolean mExpanded;
     private boolean mIsDefaultDirection = true;
+    private ResourceUtils mRes;
 
     public ExpandableIndicator(Context context) {
         super(context);
+        mRes = ResourceUtils.getInstance(context);
     }
 
     @Override
@@ -45,10 +49,9 @@ public class ExpandableIndicator extends ImageView {
         final int res = getDrawableResourceId(!mExpanded);
         // workaround to reset drawable
         //noinspection ConstantConditions
-        final AnimatedVectorDrawable avd = (AnimatedVectorDrawable) ResourceUtils.getInstance(getContext())
+        final AnimatedVectorDrawable avd = (AnimatedVectorDrawable) mRes
                 .getDrawable(res).getConstantState().newDrawable();
         setImageDrawable(avd);
-        XposedHelpers.callMethod(avd, "forceAnimationOnUI");
         avd.start();
         setContentDescription(getContentDescription(expanded));
     }

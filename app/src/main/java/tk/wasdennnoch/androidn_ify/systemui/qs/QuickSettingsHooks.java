@@ -157,13 +157,14 @@ public class QuickSettingsHooks {
                 try {
                     XposedHelpers.findAndHookMethod(mQsPanel.getClass(), "getGridHeight", getGridHeightHook);
                 } catch (Throwable ignore) {
-                    XposedHook.logW(TAG ,"QSPanel#getGridHeight doesn't exist!");
+                    XposedHook.logW(TAG, "QSPanel#getGridHeight doesn't exist!");
                 }
                 mHookedGetGridHeight = true;
             }
-        } else {
-            mGridHeight = h;
         }
+        // Used to clip header too
+        mGridHeight = h;
+
         // TODO in N getGridHeight() returns getMeasuredHeight(), try that
 
         mDetail.measure(exactly(width), View.MeasureSpec.UNSPECIFIED);

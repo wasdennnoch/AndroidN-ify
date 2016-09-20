@@ -17,7 +17,7 @@ import static de.robv.android.xposed.XposedHelpers.getObjectField;
 public class RemoteInputHelper {
 
     @SuppressWarnings({"PointlessBooleanExpression", "ConstantConditions"})
-    public static final boolean DIRECT_REPLY_ENABLED = BuildConfig.ENABLE_DIRECT_REPLY || BuildConfig.DEBUG;
+    public static final boolean DIRECT_REPLY_ENABLED = true;
 
     public static boolean handleRemoteInput(View view, PendingIntent pendingIntent, RemoteInput[] inputs, Object headsUpEntry) {
         if (inputs == null) {
