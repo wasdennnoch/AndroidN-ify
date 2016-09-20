@@ -22,10 +22,10 @@ public class StatusBarHooks {
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51 = "com.android.systemui.statusbar.policy.MobileDataControllerImpl";
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
 
-    final ClassLoader mClassLoader;
-    private final Class<?> mPhoneStatusBarClass;
-    final Class<?> mSignalClusterClass;
-    private final Class<?> mMobileDataControllerClass;
+    ClassLoader mClassLoader;
+    private Class<?> mPhoneStatusBarClass;
+    Class<?> mSignalClusterClass;
+    private Class<?> mMobileDataControllerClass;
     private boolean mLastDataDisabled = false;
     boolean mDataDisabled = false;
 
@@ -43,16 +43,20 @@ public class StatusBarHooks {
     }
 
     StatusBarHooks(ClassLoader classLoader) {
-        mClassLoader = classLoader;
-        mPhoneStatusBarClass = XposedHelpers.findClass(CLASS_PHONE_STATUS_BAR, mClassLoader);
-        mSignalClusterClass = XposedHelpers.findClass(CLASS_SIGNAL_CLUSTER_VIEW, mClassLoader);
-        mMobileDataControllerClass = XposedHelpers.findClass(getMobileDataControllerClass(), mClassLoader);
-        hookStart();
-        if (ConfigUtils.M)
-            hookIsDirty();
-        hookSetMobileDataIndicators();
-        hookUpdateTelephony();
-        hookSetMobileDataEnabled();
+        try {
+            mClassLoader = classLoader;
+            mPhoneStatusBarClass = XposedHelpers.findClass(CLASS_PHONE_STATUS_BAR, mClassLoader);
+            mSignalClusterClass = XposedHelpers.findClass(CLASS_SIGNAL_CLUSTER_VIEW, mClassLoader);
+            mMobileDataControllerClass = XposedHelpers.findClass(getMobileDataControllerClass(), mClassLoader);
+            hookStart();
+            if (ConfigUtils.M)
+                hookIsDirty();
+            hookSetMobileDataIndicators();
+            hookUpdateTelephony();
+            hookSetMobileDataEnabled();
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Error in <init>", t);
+        }
     }
 
     private void hookUpdateTelephony() {
