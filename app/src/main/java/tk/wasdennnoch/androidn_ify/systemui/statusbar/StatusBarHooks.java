@@ -20,6 +20,7 @@ public class StatusBarHooks {
     private static final String CLASS_SIGNAL_CLUSTER_VIEW = "com.android.systemui.statusbar.SignalClusterView";
     private static final String CLASS_MOBILE_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.MobileSignalController";
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51 = "com.android.systemui.statusbar.policy.MobileDataControllerImpl";
+    private static final String CLASS_MOBILE_DATA_CONTROLLER_51_MOTO = "com.android.systemui.statusbar.policy.MotorolaMobileDataControllerImpl"; // yeah thx Motorola
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
 
     ClassLoader mClassLoader;
@@ -47,7 +48,11 @@ public class StatusBarHooks {
             mClassLoader = classLoader;
             mPhoneStatusBarClass = XposedHelpers.findClass(CLASS_PHONE_STATUS_BAR, mClassLoader);
             mSignalClusterClass = XposedHelpers.findClass(CLASS_SIGNAL_CLUSTER_VIEW, mClassLoader);
-            mMobileDataControllerClass = XposedHelpers.findClass(getMobileDataControllerClass(), mClassLoader);
+            try {
+                mMobileDataControllerClass = XposedHelpers.findClass(getMobileDataControllerClass(), mClassLoader);
+            } catch (Throwable t) { // Motorola
+                mMobileDataControllerClass = XposedHelpers.findClass(CLASS_MOBILE_DATA_CONTROLLER_51_MOTO, mClassLoader);
+            }
             hookStart();
             if (ConfigUtils.M)
                 hookIsDirty();

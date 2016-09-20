@@ -11,7 +11,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowInsetsListener {
     private static final String TAG = "NotificationStackScrollLayoutHooks";
 
-    public static final int ANIMATION_DURATION_STANDARD = 360;
+    private static final int ANIMATION_DURATION_STANDARD = 360;
 
     private int TAG_ANIMATOR_TRANSLATION_Y;
     private int TAG_END_TRANSLATION_Y;
