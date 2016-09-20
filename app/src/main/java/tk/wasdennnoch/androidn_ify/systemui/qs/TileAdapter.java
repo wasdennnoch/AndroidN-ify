@@ -132,7 +132,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         setRecords(records);
         mTileSpecs = convertToSpecs();
         mPreviousSpecs.addAll(mTileSpecs);
-        if (ConfigUtils.M)
+        if (ConfigUtils.M && QSTileHostHooks.mSecureTiles != null)
             mSecureTiles.addAll(QSTileHostHooks.mSecureTiles);
 
         addDivider();
