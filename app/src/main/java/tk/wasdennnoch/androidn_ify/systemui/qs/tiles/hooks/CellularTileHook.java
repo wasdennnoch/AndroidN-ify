@@ -39,7 +39,13 @@ public class CellularTileHook extends QSTileHook {
             boolean enabled = (boolean) XposedHelpers.callMethod(mDetailAdapter, "getToggleState");
             XposedHelpers.callMethod(mDetailAdapter, "setToggleState", !enabled);
         } else {
-            if ((boolean) XposedHelpers.callMethod(mDataController, "isMobileDataSupported")) {
+            boolean dataSupported;
+            try {
+                dataSupported = (boolean) XposedHelpers.callMethod(mDataController, "isMobileDataSupported");
+            } catch (Throwable t) { // Motorola
+                dataSupported = (boolean) XposedHelpers.callMethod(mDataController, "isMobileDataSupported", XposedHelpers.getIntField(mThisObject, "mSubId"));
+            }
+            if (dataSupported) {
                 showDetail(true);
             } else {
                 startSettings();
