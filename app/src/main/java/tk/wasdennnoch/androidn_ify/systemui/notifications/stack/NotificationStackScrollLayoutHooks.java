@@ -12,17 +12,21 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowInsets;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
+import android.widget.OverScroller;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
@@ -35,7 +39,7 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 
-public class NotificationStackScrollLayoutHooks {
+public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowInsetsListener {
     private static final String TAG = "NotificationStackScrollLayoutHooks";
 
     public static final int ANIMATION_DURATION_STANDARD = 360;
@@ -49,11 +53,15 @@ public class NotificationStackScrollLayoutHooks {
     private Context mContext;
     private ResourceUtils mRes;
     private final Paint mBackgroundPaint = new Paint();
+    private OverScroller mScroller;
     private Object mAmbientState;
+    private Object mSwipeHelper;
     private ArrayList<View> mDraggedViews;
 
+    private boolean mDisallowDismissInThisMotion;
     private boolean mAnimationRunning;
     private boolean mAnimationsEnabled = true;
+    private boolean mDontClampNextScroll;
     private boolean mContinuousShadowUpdate;
     private boolean mIsExpanded;
     private ViewTreeObserver.OnPreDrawListener mBackgroundUpdater
@@ -83,8 +91,10 @@ public class NotificationStackScrollLayoutHooks {
     private ObjectAnimator mTopAnimator = null;
     private FrameLayout mFirstVisibleBackgroundChild = null;
     private FrameLayout mLastVisibleBackgroundChild = null;
+    private int mBottomInset = 0;
     private int mTopPadding;
     private float mStackTranslation;
+    private View mForcedScroll = null;
     private PorterDuffXfermode mSrcMode = new PorterDuffXfermode(PorterDuff.Mode.SRC);
     private ArrayList<View> mTmpSortedChildren = new ArrayList<>();
     private Comparator<View> mViewPositionComparator = new Comparator<View>() {
@@ -107,14 +117,18 @@ public class NotificationStackScrollLayoutHooks {
         try {
             Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
             XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "initView", new XC_MethodHook() {
+                @SuppressWarnings("unchecked")
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     mStackScrollLayout = (ViewGroup) param.thisObject;
+                    mScroller = (OverScroller) XposedHelpers.getObjectField(param.thisObject, "mScroller");
                     mAmbientState = XposedHelpers.getObjectField(param.thisObject, "mAmbientState");
                     mDraggedViews = (ArrayList<View>) XposedHelpers.getObjectField(mAmbientState, "mDraggedViews");
+                    mSwipeHelper = XposedHelpers.getObjectField(param.thisObject, "mSwipeHelper");
                     mContext = (Context) param.args[0];
                     mRes = ResourceUtils.getInstance(mContext);
                     initView();
+                    hookSwipeHelper();
                 }
             });
             XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onDraw", Canvas.class, new XC_MethodHook() {
@@ -224,11 +238,76 @@ public class NotificationStackScrollLayoutHooks {
                     updateContinuousShadowDrawing();
                 }
             });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateSpeedBumpIndex", int.class, new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                    int newIndex = (int) param.args[0];
+                    XposedHelpers.callMethod(mAmbientState, "setSpeedBumpIndex", newIndex);
+                    return null;
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "initDownStates", MotionEvent.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    MotionEvent ev = (MotionEvent) param.args[0];
+                    if (ev.getAction() == MotionEvent.ACTION_DOWN)
+                        mDisallowDismissInThisMotion = false;
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onScrollTouch", MotionEvent.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    mForcedScroll = null;
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateChildren", new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    updateForcedScroll();
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "computeScroll", new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    if (!mScroller.isFinished()) {
+                        mDontClampNextScroll = false;
+                    }
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "overScrollBy", int.class, int.class,
+                    int.class, int.class,
+                    int.class, int.class,
+                    int.class, int.class,
+                    boolean.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            if (mDontClampNextScroll) {
+                                int range = (int) param.args[5];
+                                range = Math.max(range, getOwnScrollY());
+                                param.args[5] = range;
+                            }
+                        }
+                    });
+            XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "setSpeedBumpView", XC_MethodReplacement.DO_NOTHING);
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateSpeedBump", boolean.class, XC_MethodReplacement.DO_NOTHING);
             classActivatableNotificationView = XposedHelpers.findClass("com.android.systemui.statusbar.ActivatableNotificationView", classLoader);
             classStackStateAnimator = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackStateAnimator", classLoader);
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking NotificationStackScrollLayout", t);
         }
+    }
+
+    private void hookSwipeHelper() {
+        Class classSwipeHelper = mSwipeHelper.getClass();
+        XC_MethodHook touchEventHook = new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                if (mDisallowDismissInThisMotion && param.thisObject == mSwipeHelper)
+                    param.setResult(false);
+            }
+        };
+        XposedHelpers.findAndHookMethod(classSwipeHelper, "onTouchEvent", MotionEvent.class, touchEventHook);
+        XposedHelpers.findAndHookMethod(classSwipeHelper, "onInterceptTouchEvent", MotionEvent.class, touchEventHook);
     }
 
     private void updateFirstAndLastBackgroundViews() {
@@ -251,6 +330,7 @@ public class NotificationStackScrollLayoutHooks {
         mBackgroundPaint.setColor(0xFFEEEEEE);
         mBackgroundPaint.setXfermode(mSrcMode);
         mStackScrollLayout.setWillNotDraw(false);
+        mStackScrollLayout.setOnApplyWindowInsetsListener(NotificationStackScrollLayoutHooks.this);
     }
 
     private void updateBackground() {
@@ -573,6 +653,10 @@ public class NotificationStackScrollLayoutHooks {
                     outlineTranslation);
     }
 
+    public void requestDisallowDismiss() {
+        mDisallowDismissInThisMotion = true;
+    }
+
     @SuppressWarnings("unchecked")
     private static <T> T getChildTag(View child, int tag) {
         return (T) child.getTag(tag);
@@ -596,5 +680,119 @@ public class NotificationStackScrollLayoutHooks {
 
     private boolean instanceOf(Object obj, Class<?> objClass) {
         return objClass.isAssignableFrom(obj.getClass());
+    }
+
+    private void updateForcedScroll() {
+        if (mForcedScroll != null && (!mForcedScroll.hasFocus()
+                || !mForcedScroll.isAttachedToWindow())) {
+            mForcedScroll = null;
+        }
+        if (mForcedScroll != null) {
+            View expandableView = mForcedScroll;
+            int positionInLinearLayout = getPositionInLinearLayout(expandableView);
+            int targetScroll = targetScrollForView(expandableView, positionInLinearLayout);
+            int outOfViewScroll = positionInLinearLayout + getIntrinsicHeight(expandableView);
+
+            targetScroll = Math.max(0, Math.min(targetScroll, getScrollRange()));
+
+            // Only apply the scroll if we're scrolling the view upwards, or the view is so far up
+            // that it is not visible anymore.
+            int mOwnScrollY = getOwnScrollY();
+            if (mOwnScrollY < targetScroll || outOfViewScroll < mOwnScrollY) {
+                setOwnScrollY(mOwnScrollY);
+            }
+        }
+    }
+
+    public void lockScrollTo(View v) {
+        if (mForcedScroll == v) {
+            return;
+        }
+        mForcedScroll = v;
+        scrollTo(v);
+    }
+
+    private boolean scrollTo(View v) {
+        int positionInLinearLayout = getPositionInLinearLayout(v);
+        int targetScroll = targetScrollForView(v, positionInLinearLayout);
+        int outOfViewScroll = positionInLinearLayout + getIntrinsicHeight(v);
+
+        // Only apply the scroll if we're scrolling the view upwards, or the view is so far up
+        // that it is not visible anymore.
+        int mOwnScrollY = getOwnScrollY();
+        if (mOwnScrollY < targetScroll || outOfViewScroll < mOwnScrollY) {
+            mScroller.startScroll(getScrollX(), mOwnScrollY, 0, targetScroll - mOwnScrollY);
+            dontReportNextOverScroll();
+            mStackScrollLayout.postInvalidateOnAnimation();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+        mBottomInset = insets.getSystemWindowInsetBottom();
+
+        int range = getScrollRange();
+        if (getOwnScrollY() > range) {
+            // HACK: We're repeatedly getting staggered insets here while the IME is
+            // animating away. To work around that we'll wait until things have settled.
+            mStackScrollLayout.removeCallbacks(mReclamp);
+            mStackScrollLayout.postDelayed(mReclamp, 50);
+        } else if (mForcedScroll != null) {
+            // The scroll was requested before we got the actual inset - in case we need
+            // to scroll up some more do so now.
+            scrollTo(mForcedScroll);
+        }
+        return insets;
+    }
+
+    private int targetScrollForView(View v, int positionInLinearLayout) {
+        return positionInLinearLayout + getIntrinsicHeight(v) +
+                getImeInset() - mStackScrollLayout.getHeight() + mTopPadding;
+    }
+
+    private int getImeInset() {
+        return Math.max(0, mBottomInset - (mStackScrollLayout.getRootView().getHeight() - mStackScrollLayout.getHeight()));
+    }
+
+    private int getScrollX() {
+        return XposedHelpers.getIntField(mStackScrollLayout, "mScrollX");
+    }
+
+    private int getOwnScrollY() {
+        return XposedHelpers.getIntField(mStackScrollLayout, "mOwnScrollY");
+    }
+
+    private void setOwnScrollY(int ownScrollY) {
+        XposedHelpers.setIntField(mStackScrollLayout, "mOwnScrollY", ownScrollY);
+    }
+
+    private Runnable mReclamp = new Runnable() {
+        @Override
+        public void run() {
+            int range = getScrollRange();
+            int mOwnScrollY = getOwnScrollY();
+            mScroller.startScroll(getScrollX(), mOwnScrollY, 0, range - mOwnScrollY);
+            dontReportNextOverScroll();
+            mDontClampNextScroll = true;
+            mStackScrollLayout.postInvalidateOnAnimation();
+        }
+    };
+
+    private void dontReportNextOverScroll() {
+        XposedHelpers.setBooleanField(mStackScrollLayout, "mDontReportNextOverScroll", true);
+    }
+
+    private int getIntrinsicHeight(View v) {
+        return (int) XposedHelpers.callMethod(v, "getIntrinsicHeight");
+    }
+
+    private int getPositionInLinearLayout(View v) {
+        return (int) XposedHelpers.callMethod(mStackScrollLayout, "getPositionInLinearLayout", v);
+    }
+
+    private int getScrollRange() {
+        return (int) XposedHelpers.callMethod(mStackScrollLayout, "getScrollRange");
     }
 }
