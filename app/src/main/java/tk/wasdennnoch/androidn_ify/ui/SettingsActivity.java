@@ -72,7 +72,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         }
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
-            if (!prefs.contains("automated_build_warning")) {
+            if (BuildConfig.AUTOMATED_BUILD && !prefs.contains("automated_build_warning")) {
                 showDialog(R.string.warning, R.string.automated_build_warning, false, null, new Runnable() {
                     @Override
                     public void run() {
