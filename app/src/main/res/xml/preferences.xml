@@ -253,6 +253,11 @@
 
             <SwitchPreference
                 android:defaultValue="true"
+                android:key="enable_data_disabled_indicator"
+                android:title="@string/enable_data_disabled_indicator"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
                 android:key="notification_dismiss_button"
                 android:summary="@string/notification_dismiss_button"
                 android:title="@string/notification_dismiss_button_title"/>

@@ -372,5 +372,6 @@
     <string name="accessibility_quick_settings_collapse">Close quick settings.</string>
     <string name="warning">Warning</string>
     <string name="dont_show_again">Don\'t show again</string>
+    <string name="enable_data_disabled_indicator">Show mobile data disabled indicator</string>
 
 </resources>
