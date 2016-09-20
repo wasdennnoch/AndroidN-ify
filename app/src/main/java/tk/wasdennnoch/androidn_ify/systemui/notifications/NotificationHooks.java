@@ -140,8 +140,8 @@ public class NotificationHooks {
             }
 
             TextView privateAppName = (TextView) privateView.findViewById(R.id.app_name_text);
+            int color = privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : sbn.getNotification().color;
             if (privateAppName != null) {
-                int color = privateAppName.getTextColors().getDefaultColor();
                 if (appName != null) {
                     appName.setTextColor(privateAppName.getTextColors());
                     appName.setText(privateAppName.getText());
@@ -179,7 +179,6 @@ public class NotificationHooks {
             if (RemoteInputHelper.DIRECT_REPLY_ENABLED) {
                 Notification.Action[] actions = sbn.getNotification().actions;
                 if (actions != null) {
-                    int color = privateAppName != null ? privateAppName.getTextColors().getDefaultColor() : 0;
                     addRemoteInput(context, expandedChild, actions, color, null, null);
                     if (ConfigUtils.M)
                         addRemoteInput(context, headsUpChild, actions, color, getObjectField(param.thisObject, "mHeadsUpManager"), (String) getObjectField(entry, "key"));
@@ -205,7 +204,6 @@ public class NotificationHooks {
         parent.addView(actionContainer, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         actionContainer.addView(actionsLayout);
         ViewUtils.setMarginStart(actionsLayout, startMargin);
-        ((ViewGroup.MarginLayoutParams) actionContainer.getLayoutParams()).topMargin = ViewUtils.dpToPx(context.getResources(), 16);
 
         // Add remote input
         if (haveRemoteInput(actions)) {
