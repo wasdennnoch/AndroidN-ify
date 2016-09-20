@@ -420,6 +420,15 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         XposedHook.logD(TAG, "saveTiles: No changes to save");
     }
 
+    private void saveSecureTiles() {
+        if (!ConfigUtils.M) return;
+        XposedHook.logD(TAG, "saveSecureTiles called");
+        if (!QSTileHostHooks.mSecureTiles.equals(mSecureTiles)) {
+            QSTileHostHooks.saveSecureTileSpecs(mContext, mSecureTiles);
+        }
+        XposedHook.logD(TAG, "saveSecureTiles: No changes to save");
+    }
+
     private boolean compareSpecs(List<String> newSpecs) {
         if (mPreviousSpecs == null || newSpecs == null) return false;
         int oldSize = mPreviousSpecs.size();
@@ -430,15 +439,6 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
             if (!newSpecs.contains(spec))
                 return false;
         return true;
-    }
-
-    private void saveSecureTiles() {
-        if (!ConfigUtils.M) return;
-        XposedHook.logD(TAG, "saveSecureTiles called");
-        if (!QSTileHostHooks.mSecureTiles.equals(mSecureTiles)) {
-            QSTileHostHooks.saveSecureTileSpecs(mContext, mSecureTiles);
-        }
-        XposedHook.logD(TAG, "saveSecureTiles: No changes to save");
     }
 
     private DiffUtil.DiffResult calcDiff(List<String> specs) {

@@ -300,6 +300,9 @@ public class TilesManager {
 
     void onSecureTilesChanged(List<String> secureTiles) {
         mSecureTiles = secureTiles;
+        String s = "";
+        for (String sp : mSecureTiles) s += sp;
+        XposedHook.logD(TAG, "onSecureTilesChanged called with specs: " + s);
         for (Map.Entry entry : mTiles.entrySet()) {
             BaseTile tile = (BaseTile) entry.getValue();
             if (tile != null) {

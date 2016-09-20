@@ -354,8 +354,12 @@ public class QSTileHostHooks {
         }
     }
 
+    // TODO secure tiles on LP
     @SuppressLint("CommitPrefEdits")
     static void saveSecureTileSpecs(Context context, List<String> specs) {
+        String s = "";
+        for (String sp : specs) s += sp;
+        XposedHook.logD(TAG, "saveSecureTileSpecs called with specs: " + s);
         if (ConfigUtils.M) {
             SettingsUtils.putStringForCurrentUser(context.getContentResolver(), TILES_SECURE, TextUtils.join(",", specs));
         } else {
