@@ -797,7 +797,7 @@ public class NotificationHooks {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                             WindowManager.LayoutParams windowParams = (WindowManager.LayoutParams)
-                                    XposedHelpers.getObjectField(param.thisObject, ConfigUtils.L1 ?" mLpChanged" : "mLp");
+                                    XposedHelpers.getObjectField(param.thisObject, ConfigUtils.L1 ? "mLpChanged" : "mLp");
                             if (remoteInputActive) {
                                 windowParams.flags &= ~WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                                 windowParams.flags &= ~WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;

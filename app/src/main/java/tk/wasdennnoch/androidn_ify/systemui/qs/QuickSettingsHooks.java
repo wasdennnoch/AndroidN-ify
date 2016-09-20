@@ -80,7 +80,10 @@ public class QuickSettingsHooks {
                 if (mTileLayout != null) {
                     if (mTileLayout.updateResources())
                         StatusBarHeaderHooks.postSetupAnimators();
-                    mTileLayout.setColumnCount(XposedHelpers.getIntField(param.thisObject, "mColumns"));
+                    try {
+                        mTileLayout.setColumnCount(XposedHelpers.getIntField(param.thisObject, "mColumns"));
+                    } catch (Throwable ignore) {
+                    }
                 }
             }
         });
