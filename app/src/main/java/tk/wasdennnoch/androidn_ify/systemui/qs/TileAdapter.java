@@ -573,12 +573,12 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
         @Override
         public void onInserted(int position, int count) {
-            throw new RuntimeException();
+            XposedHook.logW(TAG, "TileUpdateCallback: onInserted called with position=" + position + " and count=" + count);
         }
 
         @Override
         public void onRemoved(int position, int count) {
-            throw new RuntimeException();
+            XposedHook.logW(TAG, "TileUpdateCallback: onRemoved called with position=" + position + " and count=" + count);
         }
 
         @Override
@@ -588,7 +588,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
 
         @Override
         public void onChanged(int position, int count, Object payload) {
-            throw new RuntimeException();
+            XposedHook.logW(TAG, "TileUpdateCallback: onChanged called with position=" + position + ", count=" + count + " and payload=" + payload);
         }
     }
 
