@@ -18,6 +18,7 @@ public class StatusBarHooks {
     private static final String CLASS_PHONE_STATUS_BAR = "com.android.systemui.statusbar.phone.PhoneStatusBar";
     private static final String CLASS_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.SignalController";
     private static final String CLASS_SIGNAL_CLUSTER_VIEW = "com.android.systemui.statusbar.SignalClusterView";
+    private static final String CLASS_MOBILE_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.MobileSignalController";
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51 = "com.android.systemui.statusbar.policy.MobileDataControllerImpl";
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
 
@@ -31,6 +32,7 @@ public class StatusBarHooks {
     protected Context mContext;
     protected Object mPhoneStatusBar;
     private Handler mHandler;
+    private Object mPhone;
 
     public static StatusBarHooks create(ClassLoader classLoader) {
         if (ConfigUtils.M) {
@@ -49,7 +51,45 @@ public class StatusBarHooks {
         if (ConfigUtils.M)
             hookIsDirty();
         hookSetMobileDataIndicators();
+        hookUpdateTelephony();
         hookSetMobileDataEnabled();
+    }
+
+    private void hookUpdateTelephony() {
+        // Hook if possible, to reflect changes faster when toggling mobile data on
+        try {
+            Class classMobileSignalController = XposedHelpers.findClass(CLASS_MOBILE_SIGNAL_CONTROLLER, mClassLoader);
+            XposedHelpers.findAndHookMethod(classMobileSignalController, "updateTelephony", new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    mDataDisabled = isDataDisabled(param.thisObject);
+                }
+            });
+        } catch (Throwable ignore) {
+            hookMobileDataController();
+        }
+    }
+
+    private boolean isDataDisabled(Object mobileSignalController) {
+        try {
+            if (mPhone == null)
+                mPhone = XposedHelpers.getObjectField(mobileSignalController, "mPhone");
+            Object mSubscriptionInfo = XposedHelpers.getObjectField(mobileSignalController, "mSubscriptionInfo");
+            int subscriptionId = (int) XposedHelpers.callMethod(mSubscriptionInfo, "getSubscriptionId");
+            return !((boolean) XposedHelpers.callMethod(mPhone, "getDataEnabled", subscriptionId));
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    private void hookMobileDataController() {
+        XposedHelpers.findAndHookConstructor(mMobileDataControllerClass, Context.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                boolean isDataEnabled = (boolean) XposedHelpers.callMethod(param.thisObject, "isMobileDataEnabled");
+                mDataDisabled = !isDataEnabled;
+            }
+        });
     }
 
     private void hookStart() {
@@ -86,10 +126,11 @@ public class StatusBarHooks {
     }
 
     protected void hookSetMobileDataIndicators() {
-        XposedBridge.hookAllMethods(mSignalClusterClass, "setMobileDataIndicators", new XC_MethodHook() {
+        Class<?> classCallbackHandler = XposedHelpers.findClass("com.android.systemui.statusbar.policy.CallbackHandler", mClassLoader); // QS cellular tile isn't a SignalClusterView
+        XposedBridge.hookAllMethods(classCallbackHandler, "setMobileDataIndicators", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                if (mDataDisabled) {
+                if (mDataDisabled && ConfigUtils.notifications().enable_data_disabled_indicator) {
                     int typeIcon = 2;
                     int qsTypeIcon = 3;
                     int isWide = 8;
