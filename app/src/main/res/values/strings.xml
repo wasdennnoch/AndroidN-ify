@@ -102,7 +102,8 @@
     <string name="recents_button_behavior_title">Recents button click behavior</string>
     <string name="recents_navigation_delay_title">Navigation delay</string>
     <string name="recents_navigation_delay">Time until the selected app gets focused</string>
-    <string name="enable_large_recents">Large recent apps</string>
+    <string name="enable_large_recents_title">Large recent apps</string>
+    <string name="enable_large_recents">Only makes the recents cards full width, doesn't change the height</string>
     <string name="no_recents_image">Change \"no recents\" image</string>
 
     <!-- Appears as a toast if there's no recent app to switch to -->
@@ -125,10 +126,10 @@
     <string name="battery_tile_show_percentage_summary">Show battery percentage in the battery tile</string>
     <string name="enable_qs_editor">Enable QS editor</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
-    <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
+    <string name="enable_new_tile_click_behavior">New tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
-    <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
+    <string name="enable_large_first_row_summary">Makes the first two tiles appear large if supported</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
     <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
 
@@ -151,7 +152,8 @@
     <string name="action_search">Search</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
-    <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
+    <string name="notifications_custom_actions_color_title">Custom actions background color</string>
+    <string name="notifications_custom_actions_color">Use a custom color as the background of the notification buttons</string>
     <string name="notifications_actions_color_title">Actions background color</string>
     <string name="notification_experimental_title">Experimental N notifications behavior</string>
     <string name="notification_experimental">N scrolling behavior (no top stack) and notifications shadow</string>
@@ -251,7 +253,7 @@
     <string name="unknown_address">Unknown</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="unknown_date_of_birth">Unknown</string>
-    <!-- Example: 3 feb 1987 -->
+    <!-- Example: (3 feb 1987) -->
     <string name="dob">(%1$s)</string>
     <!-- Example: Age: 23 -->
     <string name="age">Age: %1$d</string>
@@ -353,6 +355,7 @@
     <string name="color_picker_hex">HEX</string>
 
     <string name="enable_install_source_title">Show app installation source</string>
+    <string name="enable_install_source">Adds a category to the app info page to show how the app got installed (Play Store, Package Installer etc)</string>
     <string name="battery_detail_switch_title">Battery Saver</string>
     <string name="battery_detail_switch_summary">Reduces performance and background data</string>
     <string name="qs_add_notes_title">Notes</string>
@@ -365,7 +368,9 @@
     <string name="disable_qs_paging">Disable QS paging</string>
     <string name="disable_qs_paging_summary">Disable QS paging in portrait</string>
     <string name="allow_direct_reply_on_keyguard">Direct reply on lockscreen</string>
+    <string name="allow_direct_reply_on_keyguard_summary">Allows notifications to be answered on lockscreen</string>
     <string name="enable_notifications_background">Enable notifications background</string>
+    <string name="enable_notifications_background_summary">Draws a white background behind notifications when swiping them away</string>
     <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
     <string name="accessibility_quick_settings_expand">Open quick settings.</string>
     <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
@@ -373,5 +378,6 @@
     <string name="warning">Warning</string>
     <string name="dont_show_again">Don\'t show again</string>
     <string name="enable_data_disabled_indicator">Show mobile data disabled indicator</string>
+    <string name="enable_data_disabled_indicator_summary">Shows a "x" as the signal indicator when mobile data is disabled</string>
 
 </resources>

@@ -27,7 +27,8 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_install_source"
-                android:title="@string/enable_install_source_title"/>
+                android:title="@string/enable_install_source_title"
+                android:summary="@string/enable_install_source"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -94,7 +95,8 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_large_recents"
-                android:title="@string/enable_large_recents"/>
+                android:title="@string/enable_large_recents_title"
+                android:summary="@string/enable_large_recents"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -164,7 +166,8 @@
                 android:defaultValue="false"
                 android:dependency="enable_new_tile_click_behavior"
                 android:key="enable_large_first_row"
-                android:title="@string/enable_large_first_row"/>
+                android:title="@string/enable_large_first_row"
+                android:summary="@string/enable_large_first_row_summary"/>
 
             <SwitchPreference
                 android:defaultValue="false"
@@ -233,28 +236,31 @@
                 <intent android:action="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity"/>
             </PreferenceScreen>
 
-            <PreferenceScreen
+            <!--<PreferenceScreen
                 android:dependency="notification_change_style"
                 android:key="notification_spoof_api_version"
                 android:summary="@string/notification_spoof_api_version"
                 android:title="@string/notification_spoof_api_version_title">
                 <intent android:action="tk.wasdennnoch.androidn_ify.ui.SpoofAPIActivity"/>
-            </PreferenceScreen>
+            </PreferenceScreen>-->
 
             <SwitchPreference
                 android:defaultValue="false"
                 android:key="allow_direct_reply_on_keyguard"
-                android:title="@string/allow_direct_reply_on_keyguard"/>
+                android:title="@string/allow_direct_reply_on_keyguard"
+                android:summary="@string/allow_direct_reply_on_keyguard_summary"/>
 
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_notifications_background"
-                android:title="@string/enable_notifications_background"/>
+                android:title="@string/enable_notifications_background"
+                android:summary="@string/enable_notifications_background_summary"/>
 
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_data_disabled_indicator"
-                android:title="@string/enable_data_disabled_indicator"/>
+                android:title="@string/enable_data_disabled_indicator"
+                android:summary="@string/enable_data_disabled_indicator_summary"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -266,7 +272,8 @@
                 android:defaultValue="false"
                 android:dependency="notification_change_style"
                 android:key="notifications_custom_actions_color"
-                android:title="@string/notifications_custom_actions_color_title"/>
+                android:title="@string/notifications_custom_actions_color_title"
+                android:summary="@string/notifications_custom_actions_color"/>
 
             <net.margaritov.preference.colorpicker.ColorPickerPreference
                 alphaSlider="true"
@@ -301,7 +308,7 @@
             android:title="@string/header_lockscreen">
 
             <SwitchPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:key="enable_emergency_info"
                 android:summary="@string/enable_emergency_info"
                 android:title="@string/enable_emergency_info_title"/>
