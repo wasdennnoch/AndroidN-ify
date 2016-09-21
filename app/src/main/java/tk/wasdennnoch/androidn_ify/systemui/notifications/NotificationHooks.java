@@ -633,8 +633,8 @@ public class NotificationHooks {
             if (config.notifications.change_style) {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_side_padding", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notifications_top_padding", zero);
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", modRes.fwd(R.dimen.notification_divider_height));
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", modRes.fwd(R.dimen.notification_divider_height));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding", ConfigUtils.notifications().enable_notifications_background ? modRes.fwd(R.dimen.notification_divider_height) : zero);
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_padding_dimmed", ConfigUtils.notifications().enable_notifications_background ? modRes.fwd(R.dimen.notification_divider_height) : zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_material_rounded_rect_radius", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "speed_bump_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_min_height", modRes.fwd(R.dimen.notification_min_height));
