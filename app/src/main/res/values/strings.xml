@@ -36,7 +36,10 @@
     <!-- The header of the app settings like dark theme and language. Short for application. -->
     <string name="header_app">App</string>
 
-    <string name="app_dark_theme_title">Dark app theme</string>
+    <string name="app_theme_title">App theme</string>
+    <string name="app_theme_light">Light</string>
+    <string name="app_theme_dark">Dark</string>
+    <string name="app_theme_device">Device Default</string>
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>
     <string name="debug_log_title">Debug log</string>
@@ -102,8 +105,8 @@
     <string name="recents_button_behavior_title">Recents button click behavior</string>
     <string name="recents_navigation_delay_title">Navigation delay</string>
     <string name="recents_navigation_delay">Time until the selected app gets focused</string>
-    <string name="enable_large_recents_title">Large recent apps</string>
-    <string name="enable_large_recents">Only makes the recents cards full width, doesn't change the height</string>
+    <string name="enable_large_recents">Large recent apps</string>
+    <string name="enable_large_recents_summary">Only makes the recents cards full width, doesn\'t change the height</string>
     <string name="no_recents_image">Change \"no recents\" image</string>
 
     <!-- Appears as a toast if there's no recent app to switch to -->
@@ -129,7 +132,7 @@
     <string name="enable_new_tile_click_behavior">New tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
-    <string name="enable_large_first_row_summary">Makes the first two tiles appear large if supported</string>
+    <string name="enable_large_first_row_summary2">Makes the first two tiles appear large if supported</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
     <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
 
@@ -378,6 +381,6 @@
     <string name="warning">Warning</string>
     <string name="dont_show_again">Don\'t show again</string>
     <string name="enable_data_disabled_indicator">Show mobile data disabled indicator</string>
-    <string name="enable_data_disabled_indicator_summary">Shows a "x" as the signal indicator when mobile data is disabled</string>
+    <string name="enable_data_disabled_indicator_summary">Shows a \"x\" as the signal indicator when mobile data is disabled</string>
 
 </resources>

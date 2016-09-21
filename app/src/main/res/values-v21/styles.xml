@@ -12,6 +12,8 @@
 
     <style name="LightTheme" parent="android:Theme.Material.Light.DarkActionBar"/>
 
+    <style name="DeviceDefault" parent="android:Theme.DeviceDefault"/>
+
     <declare-styleable name="SeekBarPreference">
         <attr name="minimum" format="integer"/>
         <attr name="maximum" format="integer"/>

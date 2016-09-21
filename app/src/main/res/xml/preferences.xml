@@ -95,8 +95,8 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_large_recents"
-                android:title="@string/enable_large_recents_title"
-                android:summary="@string/enable_large_recents"/>
+                android:title="@string/enable_large_recents"
+                android:summary="@string/enable_large_recents_summary"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -167,7 +167,7 @@
                 android:dependency="enable_new_tile_click_behavior"
                 android:key="enable_large_first_row"
                 android:title="@string/enable_large_first_row"
-                android:summary="@string/enable_large_first_row_summary"/>
+                android:summary="@string/enable_large_first_row_summary2"/>
 
             <SwitchPreference
                 android:defaultValue="false"
@@ -328,10 +328,13 @@
         android:key="settings_app"
         android:title="@string/header_app">
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="app_dark_theme"
-            android:title="@string/app_dark_theme_title"/>
+        <tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference
+            android:defaultValue="light"
+            android:entries="@array/app_theme_entries"
+            android:entryValues="@array/app_theme_values"
+            android:key="app_theme"
+            android:summary="[%s]"
+            android:title="@string/app_theme_title"/>
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"

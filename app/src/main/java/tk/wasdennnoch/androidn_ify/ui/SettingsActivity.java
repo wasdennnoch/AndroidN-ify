@@ -163,7 +163,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             switch (key) {
-                case "app_dark_theme":
+                case "app_theme":
                 case "theme_colorPrimary":
                 case "force_english":
                     getActivity().recreate();
@@ -198,7 +198,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             recentsBehaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                                 @Override
                                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                    delayPref.setEnabled(Integer.parseInt((String) newValue) == 2);
+                                    delayPref.setEnabled(newValue.equals("2"));
                                     return true;
                                 }
                             });

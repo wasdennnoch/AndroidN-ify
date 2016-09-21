@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <string-array name="empty_array"/> <!-- Required as the default value of e.g. a MultiSelectListPreference -->
+    <string-array name="empty_array"/> <!-- Required as the default value of e.g. a MultiSelectListPreference (none selected) -->
 
 
     <string-array name="keep_backgrounds" translatable="false">
         <item>@string/keep_header_bg</item>
         <item>@string/keep_panel_bg</item>
     </string-array>
-
     <string-array name="keep_backgrounds_values" translatable="false">
         <item>header</item>
         <item>panel</item>
@@ -20,7 +19,6 @@
         <item>@string/recents_button_behavior_current</item>
         <item>@string/recents_button_behavior_cycle</item>
     </string-array>
-
     <string-array name="recents_button_behaviors_values" translatable="false">
         <item>0</item>
         <item>1</item>
@@ -34,7 +32,6 @@
         <item>@string/header_clock_size_smaller</item>
         <item>@string/header_clock_size_tiny</item>
     </string-array>
-
     <string-array name="header_clock_sizes_values" translatable="false">
         <item>0</item>
         <item>1</item>
@@ -42,7 +39,8 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="blood_type_entries">
+
+    <string-array name="blood_type_entries" translatable="false">
         <item>@string/info_bloodtype_op</item>
         <item>@string/info_bloodtype_on</item>
         <item>@string/info_bloodtype_ap</item>
@@ -55,6 +53,19 @@
         <item>@string/unknown_blood_type</item>
     </string-array>
 
+
+    <string-array name="app_theme_entries" translatable="false">
+        <item>@string/app_theme_light</item>
+        <item>@string/app_theme_dark</item>
+        <item>@string/app_theme_device</item>
+    </string-array>
+    <string-array name="app_theme_values" translatable="false">
+        <item>light</item>
+        <item>dark</item>
+        <item>device</item>
+    </string-array>
+
+
     <string-array name="live_display_entries" translatable="false">
         <item>@string/live_display_auto</item>
         <item>@string/live_display_off</item>
@@ -63,13 +74,13 @@
         <item>@string/live_display_outdoor</item>
     </string-array>
 
-    <string-array name="battery_labels" tools:ignore="MissingTranslation">
+
+    <string-array name="battery_labels" translatable="false">
         <item>0%</item>
         <item>50%</item>
         <item>100%</item>
     </string-array>
-
-    <array name="batterymeter_bolt_points">
+    <array name="batterymeter_bolt_points" translatable="false">
         <item>73</item> <item>0</item>
         <item>392</item><item>0</item>
         <item>201</item><item>259</item>
@@ -78,7 +89,7 @@
         <item>157</item><item>334</item>
         <item>0</item>  <item>334</item>
     </array>
-    <array name="batterymeter_plus_points">
+    <array name="batterymeter_plus_points" translatable="false">
         <item>3</item><item>0</item>
         <item>5</item><item>0</item>
         <item>5</item><item>3</item>

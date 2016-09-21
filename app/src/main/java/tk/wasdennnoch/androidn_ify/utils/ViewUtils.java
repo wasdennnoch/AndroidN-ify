@@ -67,15 +67,22 @@ public class ViewUtils {
 
     @SuppressWarnings({"ConstantConditions", "deprecation"})
     public static void applyTheme(Activity activity, SharedPreferences prefs) {
-        if (prefs.getBoolean("app_dark_theme", false))
-            activity.setTheme(R.style.DarkTheme);
-        int colorPrimary = prefs.getInt("theme_colorPrimary", activity.getResources().getColor(R.color.colorPrimary));
-        float[] hsv = new float[3];
-        Color.colorToHSV(colorPrimary, hsv);
-        hsv[2] *= 0.8f;
-        int colorPrimaryDark = Color.HSVToColor(hsv);
-        activity.getWindow().setStatusBarColor(colorPrimaryDark);
-        activity.getActionBar().setBackgroundDrawable(new ColorDrawable(colorPrimary));
+        switch (prefs.getString("app_theme", "light")) {
+            case "device":
+                activity.setTheme(R.style.DeviceDefault);
+                break;
+            case "dark":
+                activity.setTheme(R.style.DarkTheme);
+            case "light":
+                int colorPrimary = prefs.getInt("theme_colorPrimary", activity.getResources().getColor(R.color.colorPrimary));
+                float[] hsv = new float[3];
+                Color.colorToHSV(colorPrimary, hsv);
+                hsv[2] *= 0.8f;
+                int colorPrimaryDark = Color.HSVToColor(hsv);
+                activity.getWindow().setStatusBarColor(colorPrimaryDark);
+                activity.getActionBar().setBackgroundDrawable(new ColorDrawable(colorPrimary));
+        }
+
         if (prefs.getBoolean("force_english", false)) {
             Configuration config = activity.getResources().getConfiguration();
             config.locale = Locale.ENGLISH;
@@ -85,6 +92,7 @@ public class ViewUtils {
 
     @SuppressWarnings({"ConstantConditions", "deprecation"})
     public static void applyTheme(Dialog dialog, Context context, SharedPreferences prefs) {
+        if (prefs.getString("app_theme", "light").equals("device")) return;
         int colorPrimary = prefs.getInt("theme_colorPrimary", context.getResources().getColor(R.color.colorPrimary));
         float[] hsv = new float[3];
         Color.colorToHSV(colorPrimary, hsv);
