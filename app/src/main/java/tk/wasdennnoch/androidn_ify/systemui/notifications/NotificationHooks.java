@@ -507,6 +507,12 @@ public class NotificationHooks {
     private static final XC_MethodHook buildHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            ConfigUtils.notifications().loadBlacklistedApps();
+            String name = ((Context) getObjectField(param.thisObject, "mContext")).getPackageName();
+            if (!RemoteInputHelper.DIRECT_REPLY_ENABLED || ConfigUtils.notifications().blacklistedApps.contains(name)) {
+                return;
+            }
+
             Notification.Builder b = (Notification.Builder) param.thisObject;
             @SuppressWarnings("unchecked") List<Notification.Action> actions = (List<Notification.Action>) getObjectField(b, "mActions");
             if (!actions.isEmpty() && haveRemoteInput(actions.toArray(new Notification.Action[actions.size()]))) {
