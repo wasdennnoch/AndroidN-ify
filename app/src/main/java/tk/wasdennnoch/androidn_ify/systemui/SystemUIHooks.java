@@ -1,10 +1,13 @@
 package tk.wasdennnoch.androidn_ify.systemui;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.XModuleResources;
 import android.os.Handler;
 import android.os.Process;
@@ -20,13 +23,14 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickSettingsHooks;
-import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.systemui.statusbar.StatusBarHooks;
 import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
+@SuppressLint("StaticFieldLeak")
 public class SystemUIHooks {
 
     private static final String TAG = "SystemUIHooks";
@@ -116,8 +120,15 @@ public class SystemUIHooks {
             XposedHelpers.findAndHookMethod("android.app.ContextImpl", classLoader, "enforceCallingPermission", String.class, String.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    if (param.args[0].equals("android.permission.BATTERY_STATS"))
+                    if (param.args[0].equals(Manifest.permission.BATTERY_STATS))
                         param.setResult(null);
+                }
+            });
+            XposedHelpers.findAndHookMethod("android.app.ContextImpl", classLoader, "checkCallingPermission", String.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    if (param.args[0].equals(Manifest.permission.BATTERY_STATS))
+                        param.setResult(PackageManager.PERMISSION_GRANTED);
                 }
             });
         }

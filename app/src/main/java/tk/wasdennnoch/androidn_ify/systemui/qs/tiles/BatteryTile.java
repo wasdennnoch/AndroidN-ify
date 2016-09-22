@@ -29,12 +29,12 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.settingslib.BatteryInfo;
 import tk.wasdennnoch.androidn_ify.extracted.settingslib.UsageView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ResizingSpace;
-import tk.wasdennnoch.androidn_ify.systemui.BatteryMeterDrawable;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
-import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryMeterDrawable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -93,10 +93,10 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public void handleClick() {
-        if (ConfigUtils.M)
+        //if (ConfigUtils.M)
             showDetail(true);
-        else
-            handleLongClick(); // Until we figure out how to give BATTERY_STATS on LP
+        //else
+        //    handleLongClick(); // Until we figure out how to give BATTERY_STATS on LP
     }
 
     @Override

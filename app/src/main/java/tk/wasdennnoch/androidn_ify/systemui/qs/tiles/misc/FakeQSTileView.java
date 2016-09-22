@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.views;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc;
 
 import android.content.Context;
 import android.content.res.Configuration;

@@ -1,10 +1,16 @@
 package tk.wasdennnoch.androidn_ify;
 
 import android.os.Build;
+import android.os.Parcel;
+import android.os.ParcelFileDescriptor;
+import android.util.Slog;
+
+import com.android.internal.os.BatteryStatsImpl;
 
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
@@ -18,7 +24,7 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgorithmHooks;
-import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.LiveDisplayObserver;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.LiveDisplayObserver;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.navigate.RecentsNavigation;
@@ -134,6 +140,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 DoubleTapHwKeys.hook(lpparam.classLoader);
                 LiveDisplayObserver.hook(lpparam.classLoader);
                 PermissionGranter.initAndroid(lpparam.classLoader);
+                if (!ConfigUtils.M)
+                    hookBatteryStats(lpparam.classLoader);
                 break;
             case PACKAGE_PHONE:
                 EmergencyHooks.hook(lpparam.classLoader);
@@ -159,11 +167,31 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             }
         }
 
-        ConfigUtils.notifications().loadSpoofAPIApps();
+        /*ConfigUtils.notifications().loadSpoofAPIApps();
         if (ConfigUtils.notifications().spoofAPIApps.contains(lpparam.packageName)) {
             XposedHelpers.setStaticIntField(Build.VERSION.class, "SDK_INT", 24);
-        }
+        }*/
 
+    }
+
+    private static void hookBatteryStats(ClassLoader classLoader) {
+        XposedHelpers.findAndHookMethod("com.android.server.am.BatteryStatsService", classLoader, "getStatisticsStream", new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                Parcel out = Parcel.obtain();
+                BatteryStatsImpl mStats = (BatteryStatsImpl) XposedHelpers.getObjectField(param.thisObject, "mStats");
+                mStats.writeToParcel(out, 0);
+                byte[] data = out.marshall();
+                out.recycle();
+                try {
+                    param.setResult(XposedHelpers.callStaticMethod(ParcelFileDescriptor.class, "fromData", data, "stats"));
+                } catch (Exception e) {
+                    Slog.w(TAG, "Unable to create shared memory", e);
+                    param.setResult(null);
+                }
+
+            }
+        });
     }
 
     @Override

@@ -12,7 +12,7 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
-import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.LiveDisplayObserver;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.LiveDisplayObserver;
 
 public class LiveDisplayTile extends QSTile {
 

@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc;
 
 import android.content.Context;
 import android.content.Intent;

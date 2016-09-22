@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tk.wasdennnoch.androidn_ify.systemui;
+package tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc;
 
 import android.annotation.Nullable;
 import android.content.Context;
@@ -31,7 +31,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.helper.BatteryInfoManager;
+import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;

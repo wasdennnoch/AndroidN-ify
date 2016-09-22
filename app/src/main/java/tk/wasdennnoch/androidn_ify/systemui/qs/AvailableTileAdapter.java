@@ -10,7 +10,7 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
-import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.views.FakeQSTileView;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.FakeQSTileView;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class AvailableTileAdapter extends TileAdapter {
