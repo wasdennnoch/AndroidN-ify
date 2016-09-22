@@ -15,18 +15,18 @@ public abstract class BaseTile implements KeyguardMonitor.Callback {
     public static final String TILE_KEY_NAME = "customTileKey";
     public static final String CLASS_TILE_STATE = "com.android.systemui.qs.QSTile.State";
 
-    protected TilesManager mTilesManager;
-    protected Object mHost;
+    private TilesManager mTilesManager;
+    Object mHost;
     protected Context mContext;
-    protected KeyguardMonitor mKeyguard;
-    protected String mKey;
-    protected Object mTile;
-    protected boolean mSecure = false;
+    KeyguardMonitor mKeyguard;
+    String mKey;
+    Object mTile;
+    boolean mSecure = false;
 
     /**
      * ALWAYS CALL {@link #registerCallbacks()} AS THHE LAST LINE OF THE OVERRIDDEN CONSTRUCTOR
      */
-    public BaseTile(TilesManager tilesManager, Object host, String key) {
+    BaseTile(TilesManager tilesManager, Object host, String key) {
         mTilesManager = tilesManager;
         mHost = host;
         mContext = (Context) XposedHelpers.callMethod(mHost, "getContext");
@@ -37,7 +37,7 @@ public abstract class BaseTile implements KeyguardMonitor.Callback {
     /**
      * ALWAYS CALL THIS METHOD AS THHE LAST LINE OF THE OVERRIDDEN CONSTRUCTOR
      */
-    protected void registerCallbacks() {
+    void registerCallbacks() {
         mKeyguard.addCallback(this);
         mTilesManager.registerTile(this);
     }
@@ -98,7 +98,7 @@ public abstract class BaseTile implements KeyguardMonitor.Callback {
         refreshState();
     }
 
-    public void refreshState() {
+    void refreshState() {
         try {
             XposedHelpers.callMethod(mTile, "refreshState");
         } catch (Throwable t) {
