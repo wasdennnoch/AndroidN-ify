@@ -11,7 +11,7 @@ ext.automatedBuild = System.getenv("AUTOMATED_BUILD") ?: "false"
 ext.enableUpdater = System.getenv("ENABLE_UPDATER") ?: "false"
 ext.updaterUrl = System.getenv("UPDATER_URL") ?: "null"
 ext.buildNumber = System.getenv("BUILD_NUMBER") ?: "0"
-ext.experimental = System.getenv("EXPERIMENTAL") ?: "false"
+ext.experimental = System.getenv("EXPERIMENTAL") ?: "DEBUG"
 ext.useSigningConfig = false
 
 ext.supportLibraryVersion = "24.2.0";
