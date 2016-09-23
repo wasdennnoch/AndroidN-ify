@@ -72,15 +72,19 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         }
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
-            if (BuildConfig.AUTOMATED_BUILD && !prefs.contains("automated_build_warning")) {
-                showDialog(R.string.warning, R.string.automated_build_warning, false, null, new Runnable() {
+            if (BuildConfig.AUTOMATED_BUILD && !prefs.contains(getWarningPrefsKey())) {
+                showDialog(R.string.warning, BuildConfig.EXPERIMENTAL ? R.string.experimental_build_warning : R.string.automated_build_warning, false, null, new Runnable() {
                     @Override
                     public void run() {
-                        prefs.edit().putBoolean("automated_build_warning", true).apply();
+                        prefs.edit().putBoolean(getWarningPrefsKey(), true).apply();
                     }
                 }, android.R.string.ok, R.string.dont_show_again);
             }
         }
+    }
+
+    private String getWarningPrefsKey() {
+        return BuildConfig.EXPERIMENTAL ? "experimental_build_warning" : "automated_build_warning";
     }
 
     private boolean isActivated() {
@@ -105,9 +109,13 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     }
 
     private void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction, final Runnable cancelAction, int okText, int cancelText) {
+        showDialog(titleRes, getString(contentRes), onlyOk, okAction, cancelAction, okText, cancelText);
+    }
+
+    private void showDialog(int titleRes, String content, boolean onlyOk, final Runnable okAction, final Runnable cancelAction, int okText, int cancelText) {
         //noinspection deprecation
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setMessage(Html.fromHtml(getString(contentRes)));
+                .setMessage(Html.fromHtml(content));
         if (titleRes > 0)
             builder.setTitle(titleRes);
         if (!onlyOk)
@@ -218,6 +226,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             Preference spoofApi = findPreference("notification_spoof_api_version");
                             if (spoofApi != null)
                                 screen.removePreference(spoofApi);
+                            Preference experimentalNotification = findPreference("notification_experimental");
+                            if (experimentalNotification != null)
+                                screen.removePreference(experimentalNotification);
                         }
                         break;
                 }

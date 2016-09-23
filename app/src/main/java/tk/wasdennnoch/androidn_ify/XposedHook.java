@@ -198,6 +198,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam resparam) throws Throwable {
 
         switch (resparam.packageName) {
+            case PACKAGE_SETTINGS:
+                SettingsHooks.hookRes(resparam, sModulePath);
+                break;
             case PACKAGE_SYSTEMUI:
                 NotificationHooks.hookResSystemui(resparam, sModulePath);
                 StatusBarHeaderHooks.hookResSystemui(resparam, sModulePath);

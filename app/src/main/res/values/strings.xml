@@ -32,6 +32,13 @@
         Remember to always attach Xposed logs when reporting bugs, and logcat in case of crashes.
         ]]></string>
 
+    <string name="experimental_build_warning"><![CDATA[
+        You\'re running on an experimental automated build. Some parts of the module may break due to new changes.
+        If you found any issue, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">open one on GitHub</a> if it doesn\'t already exists.<br>
+        This build contains <b>very experimental</b> features. Please search in XDA and GitHub before reporting any issues. Duplicate reports will be ignored and closed.<br><br>
+        Remember to always attach Xposed logs when reporting bugs, and logcat in case of crashes.
+        ]]></string>
+
     <string name="header_tweaks">Tweaks</string>
     <!-- The header of the app settings like dark theme and language. Short for application. -->
     <string name="header_app">App</string>

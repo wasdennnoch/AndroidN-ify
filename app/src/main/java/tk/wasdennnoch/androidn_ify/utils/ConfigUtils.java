@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.robv.android.xposed.XSharedPreferences;
+import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
 @SuppressWarnings("WeakerAccess")
@@ -86,6 +87,7 @@ public class ConfigUtils {
         public final boolean enable_n_platlogo;
         public final boolean use_namey_mcnameface;
         public final boolean install_source;
+        public boolean hook_dashboard = BuildConfig.EXPERIMENTAL;
 
         public SettingsConfig(XSharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
@@ -183,7 +185,7 @@ public class ConfigUtils {
             change_style = prefs.getBoolean("notification_change_style", true);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
-            experimental = M && prefs.getBoolean("notification_experimental", false);
+            experimental = M && BuildConfig.EXPERIMENTAL && prefs.getBoolean("notification_experimental", false);
             allow_direct_reply_on_keyguard = prefs.getBoolean("allow_direct_reply_on_keyguard", false);
             enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true);
             enable_data_disabled_indicator = prefs.getBoolean("enable_data_disabled_indicator", true);

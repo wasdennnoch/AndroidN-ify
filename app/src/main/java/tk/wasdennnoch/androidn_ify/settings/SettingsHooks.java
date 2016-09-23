@@ -29,6 +29,7 @@ import com.android.internal.os.BatteryStatsHelper;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.settingslib.BatteryInfo;
@@ -48,10 +49,15 @@ public class SettingsHooks {
 
     private static final long[] mHits = new long[3];
 
+    private static SettingsDashboardHooks mDashboardHooks = new SettingsDashboardHooks();
+
     public static void hook(ClassLoader classLoader) {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
             config.reload();
+            if (config.settings.hook_dashboard) {
+                mDashboardHooks.hook(classLoader);
+            }
             if (config.settings.enable_summaries) {
                 SummaryTweaks.hookMethods(classLoader);
                 if (ConfigUtils.M) {
@@ -316,5 +322,10 @@ public class SettingsHooks {
                 lpText.setText(text);
         }
     };
+
+    public static void hookRes(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
+        if (ConfigUtils.settings().hook_dashboard)
+            mDashboardHooks.hookRes(resparam, modulePath);
+    }
 
 }
