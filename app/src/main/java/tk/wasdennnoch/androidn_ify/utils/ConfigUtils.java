@@ -149,7 +149,6 @@ public class ConfigUtils {
         public final boolean allow_fancy_qs_transition;
         public final boolean new_click_behavior;
         public final boolean large_first_row;
-        public final int header_clock_size;
         public final boolean hide_tuner_icon;
         public final boolean hide_edit_tiles;
         public final boolean hide_carrier_label;
@@ -167,7 +166,6 @@ public class ConfigUtils {
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
             disable_qs_paging = prefs.getBoolean("disable_qs_paging", false);
-            header_clock_size = Integer.parseInt(prefs.getString("header_clock_size", "0"));
 
             Set<String> keepBgs = prefs.getStringSet("keep_backgrounds", Collections.<String>emptySet());
             keep_header_background = keepBgs.contains("header");

@@ -176,15 +176,6 @@
                 android:summary="@string/disable_qs_paging_summary"
                 android:title="@string/disable_qs_paging"/>
 
-            <tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference
-                android:defaultValue="0"
-                android:dependency="enable_notification_header"
-                android:entries="@array/header_clock_sizes"
-                android:entryValues="@array/header_clock_sizes_values"
-                android:key="header_clock_size"
-                android:summary="[%s]"
-                android:title="@string/header_clock_size_title"/>
-
             <PreferenceScreen
                 android:dependency="enable_notification_header"
                 android:key="settings_hide_header_icons"
