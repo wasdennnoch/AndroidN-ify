@@ -77,7 +77,9 @@ public class UpdateUtils {
             Notification.InboxStyle style = new Notification.InboxStyle();
             style.addLine(content);
             for (String change : changes) {
-                style.addLine(" - " + change);
+                if (BuildConfig.EXPERIMENTAL || !change.toUpperCase().contains("[EXPERIMENTAL]")) {
+                    style.addLine(" - " + change);
+                }
             }
             notificationBuider.setStyle(style);
         }

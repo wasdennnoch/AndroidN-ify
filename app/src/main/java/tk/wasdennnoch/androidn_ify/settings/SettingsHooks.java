@@ -49,6 +49,7 @@ public class SettingsHooks {
 
     private static final long[] mHits = new long[3];
 
+    private static SettingsDrawerHooks mDrawerHooks = new SettingsDrawerHooks();
     private static SettingsDashboardHooks mDashboardHooks = new SettingsDashboardHooks();
 
     public static void hook(ClassLoader classLoader) {
@@ -56,6 +57,7 @@ public class SettingsHooks {
             ConfigUtils config = ConfigUtils.getInstance();
             config.reload();
             if (config.settings.hook_dashboard) {
+                mDrawerHooks.hook(classLoader);
                 mDashboardHooks.hook(classLoader);
             }
             if (config.settings.enable_summaries) {
@@ -324,8 +326,10 @@ public class SettingsHooks {
     };
 
     public static void hookRes(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
-        if (ConfigUtils.settings().hook_dashboard)
+        if (ConfigUtils.settings().hook_dashboard) {
+            mDrawerHooks.hookRes(resparam, modulePath);
             mDashboardHooks.hookRes(resparam, modulePath);
+        }
     }
 
 }
