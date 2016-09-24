@@ -164,7 +164,7 @@
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:dependency="enable_new_tile_click_behavior"
+                android:dependency="enable_notification_header"
                 android:key="enable_large_first_row"
                 android:title="@string/enable_large_first_row"
                 android:summary="@string/enable_large_first_row_summary2"/>

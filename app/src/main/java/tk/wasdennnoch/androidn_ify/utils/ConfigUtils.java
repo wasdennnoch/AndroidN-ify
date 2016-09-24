@@ -230,7 +230,7 @@ public class ConfigUtils {
         public final boolean enable_emergency_info;
 
         public LockscreenConfig(XSharedPreferences prefs) {
-            enable_emergency_info = prefs.getBoolean("enable_emergency_info", false);
+            enable_emergency_info = prefs.getBoolean("enable_emergency_info", true);
         }
     }
 
