@@ -1,13 +1,11 @@
 package tk.wasdennnoch.androidn_ify.systemui;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.content.res.XModuleResources;
 import android.os.Handler;
 import android.os.Process;
@@ -116,7 +114,7 @@ public class SystemUIHooks {
             }
         });
 
-        if (!ConfigUtils.M) {
+        /*if (!ConfigUtils.M) {
             XposedHelpers.findAndHookMethod("android.app.ContextImpl", classLoader, "enforceCallingPermission", String.class, String.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -131,7 +129,7 @@ public class SystemUIHooks {
                         param.setResult(PackageManager.PERMISSION_GRANTED);
                 }
             });
-        }
+        }*/
 
     }
 

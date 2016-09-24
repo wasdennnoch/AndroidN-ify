@@ -140,8 +140,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 DoubleTapHwKeys.hook(lpparam.classLoader);
                 LiveDisplayObserver.hook(lpparam.classLoader);
                 PermissionGranter.initAndroid(lpparam.classLoader);
-                //if (!ConfigUtils.M)
-                //    hookBatteryStats(lpparam.classLoader);
+                if (!ConfigUtils.M)
+                    hookBatteryStats(lpparam.classLoader);
                 break;
             case PACKAGE_PHONE:
                 EmergencyHooks.hook(lpparam.classLoader);
