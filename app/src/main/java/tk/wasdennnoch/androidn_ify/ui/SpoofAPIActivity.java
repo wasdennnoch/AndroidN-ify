@@ -10,8 +10,7 @@ public class SpoofAPIActivity extends AppListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        if (!BuildConfig.EXPERIMENTAL)
-            finish();
+        finish();
     }
 
     @Override

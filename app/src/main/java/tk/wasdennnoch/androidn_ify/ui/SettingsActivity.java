@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.annotation.Keep;
 import android.text.Html;
@@ -51,10 +50,12 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     public static final String EXTRA_GENERAL_DEBUG_LOG = "extra.general.DEBUG_LOG";
     public static final String ACTION_KILL_SYSTEMUI = "tk.wasdennnoch.androidn_ify.action.ACTION_KILL_SYSTEMUI";
 
+    private boolean mExperimental;
+
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences prefs = ConfigUtils.getPreferences(this);
         ViewUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
         RomUtils.init(this);
@@ -70,10 +71,11 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             warning.setVisibility(View.VISIBLE);
             warning.setOnClickListener(this);
         }
+        mExperimental = ConfigUtils.isExperimental(prefs);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
             if (BuildConfig.AUTOMATED_BUILD && !prefs.contains(getWarningPrefsKey())) {
-                showDialog(R.string.warning, BuildConfig.EXPERIMENTAL ? R.string.experimental_build_warning : R.string.automated_build_warning, false, null, new Runnable() {
+                showDialog(R.string.warning, mExperimental ? R.string.experimental_build_warning : R.string.automated_build_warning, false, null, new Runnable() {
                     @Override
                     public void run() {
                         prefs.edit().putBoolean(getWarningPrefsKey(), true).apply();
@@ -84,7 +86,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     }
 
     private String getWarningPrefsKey() {
-        return BuildConfig.EXPERIMENTAL ? "experimental_build_warning" : "automated_build_warning";
+        return mExperimental ? "experimental_build_warning" : "automated_build_warning";
     }
 
     private boolean isActivated() {
@@ -148,6 +150,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
 
+        private boolean mExperimental;
+
         @SuppressLint("CommitPrefEdits")
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -155,7 +159,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             //noinspection deprecation
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
             addPreferencesFromResource(R.xml.preferences);
-            SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
+            SharedPreferences sharedPreferences = ConfigUtils.getPreferences(getActivity());
+            mExperimental = ConfigUtils.isExperimental(sharedPreferences);
             if (UpdateUtils.isEnabled()) {
                 if (sharedPreferences.getBoolean("check_for_updates", true))
                     UpdateUtils.check(getActivity(), this);
@@ -222,7 +227,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             if (directReplyOnKeyguard != null)
                                 screen.removePreference(directReplyOnKeyguard);
                         }
-                        if (!BuildConfig.EXPERIMENTAL) {
+                        if (!mExperimental) {
                             Preference spoofApi = findPreference("notification_spoof_api_version");
                             if (spoofApi != null)
                                 screen.removePreference(spoofApi);
@@ -301,7 +306,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             Context mContext = getActivity();
             if (mContext == null) return;
             if (updateData.getNumber() > BuildConfig.BUILD_NUMBER && updateData.hasArtifact())
-                UpdateUtils.showNotification(updateData, mContext);
+                UpdateUtils.showNotification(updateData, mContext, mExperimental);
         }
     }
 

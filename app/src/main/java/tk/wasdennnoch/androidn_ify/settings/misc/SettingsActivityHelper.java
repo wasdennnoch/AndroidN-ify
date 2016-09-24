@@ -30,9 +30,10 @@ import java.util.List;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.settings.SettingsDrawerHooks;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-public class SettingsActivityHelper implements View.OnClickListener {
+public class SettingsActivityHelper implements View.OnClickListener, SettingsDrawerHooks.RebuildUiListener {
 
     private static final String TAG = "SettingsActivityHelper";
     private static final String CLASS_UTILS = "com.android.settings.Utils";
@@ -55,7 +56,7 @@ public class SettingsActivityHelper implements View.OnClickListener {
     };
 
     @SuppressWarnings("ConstantConditions")
-    public SettingsActivityHelper(Activity activity) {
+    public SettingsActivityHelper(Activity activity, SettingsDrawerHooks settingsDrawerHooks) {
         mActivity = activity;
         if (sClassUtils == null) {
             sClassUtils = XposedHelpers.findClass(CLASS_UTILS, mActivity.getClassLoader());
@@ -102,7 +103,11 @@ public class SettingsActivityHelper implements View.OnClickListener {
         RecyclerView recyclerView = (RecyclerView) activity.findViewById(R.id.left_drawer);
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         recyclerView.setAdapter(mDrawerAdapter);
-        new CategoriesUpdater().execute();
+        if (mIsShowingDashboard) {
+            settingsDrawerHooks.setRebuildUiListener(this);
+        } else {
+            new CategoriesUpdater().execute();
+        }
     }
 
     protected void onCategoriesChanged() {
@@ -148,21 +153,20 @@ public class SettingsActivityHelper implements View.OnClickListener {
                     Intent.FLAG_ACTIVITY_CLEAR_TASK));
             return true;
         }
-        if (openFragment(tile)) {
-            return false;
+        if (!openFragment(tile)) {
+            try {
+                // Show menu on top level items.
+                Intent intent = (Intent) XposedHelpers.getObjectField(tile, "intent");
+                //tile.intent.putExtra(EXTRA_SHOW_MENU, true);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                mActivity.startActivity(intent);
+                //}
+            } catch (ActivityNotFoundException e) {
+                Intent intent = (Intent) XposedHelpers.getObjectField(tile, "intent");
+                XposedHook.logE(TAG, "Couldn't find tile " + intent, e);
+            }
         }
-        try {
-            // Show menu on top level items.
-            Intent intent = (Intent) XposedHelpers.getObjectField(tile, "intent");
-            //tile.intent.putExtra(EXTRA_SHOW_MENU, true);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            mActivity.startActivity(intent);
-            //}
-        } catch (ActivityNotFoundException e) {
-            Intent intent = (Intent) XposedHelpers.getObjectField(tile, "intent");
-            XposedHook.logE(TAG, "Couldn't find tile " + intent, e);
-        }
-        return true;
+        return !mIsShowingDashboard;
     }
 
     private boolean openFragment(Object tile) {
@@ -196,6 +200,11 @@ public class SettingsActivityHelper implements View.OnClickListener {
         } else {
             mActivity.onOptionsItemSelected(mNavItem);
         }
+    }
+
+    @Override
+    public void onRebuildUiFinished() {
+        new CategoriesUpdater().execute();
     }
 
     private class CategoriesUpdater extends AsyncTask<Void, Void, List<Object>> {

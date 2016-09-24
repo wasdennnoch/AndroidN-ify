@@ -11,7 +11,6 @@ ext.automatedBuild = System.getenv("AUTOMATED_BUILD") ?: "false"
 ext.enableUpdater = System.getenv("ENABLE_UPDATER") ?: "false"
 ext.updaterUrl = System.getenv("UPDATER_URL") ?: "null"
 ext.buildNumber = System.getenv("BUILD_NUMBER") ?: "0"
-ext.experimental = System.getenv("EXPERIMENTAL") ?: "DEBUG"
 ext.useSigningConfig = false
 
 ext.supportLibraryVersion = "24.2.0";
@@ -44,7 +43,6 @@ android {
         buildConfigField 'boolean', 'ENABLE_UPDATER', "$enableUpdater"
         buildConfigField 'String', 'UPDATER_URL', "\"$updaterUrl\""
         buildConfigField 'int', 'BUILD_NUMBER', "$buildNumber"
-        buildConfigField 'boolean', 'EXPERIMENTAL', "$experimental"
     }
     buildTypes {
         release {
