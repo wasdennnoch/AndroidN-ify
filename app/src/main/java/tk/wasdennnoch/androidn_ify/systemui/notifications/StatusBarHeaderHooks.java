@@ -80,6 +80,7 @@ public class StatusBarHeaderHooks {
     private static boolean mHideEditTiles = false;
     private static boolean mHideCarrierLabel = false;
 
+    private static boolean mShowFullAlarm;
     private static TouchAnimator mAlarmTranslation;
     private static TouchAnimator mDateSizeAnimator;
     private static TouchAnimator mFirstHalfAnimator;
@@ -150,6 +151,8 @@ public class StatusBarHeaderHooks {
             mResUtils = ResourceUtils.getInstance(mContext);
             ResourceUtils res = mResUtils;
             ConfigUtils config = ConfigUtils.getInstance();
+
+            mShowFullAlarm = res.getResources().getBoolean(R.bool.quick_settings_show_full_alarm);
 
             try {
                 if (!config.qs.keep_header_background) {
@@ -348,8 +351,10 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setGravity(Gravity.TOP);
                 mDateCollapsed.setTextColor(dateTimeTextColor);
                 mDateCollapsed.setTextSize(TypedValue.COMPLEX_UNIT_PX, dateTimeCollapsedSize);
-                mDateCollapsed.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.header_dot), null, null, null);
-                mDateCollapsed.setCompoundDrawablePadding(dateCollapsedDrawablePadding);
+                if (mShowFullAlarm) {
+                    mDateCollapsed.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.header_dot), null, null, null);
+                    mDateCollapsed.setCompoundDrawablePadding(dateCollapsedDrawablePadding);
+                }
 
                 LinearLayout.LayoutParams alarmStatusCollapsedLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 mAlarmStatusCollapsed = new AlphaOptimizedButton(mContext);
@@ -411,10 +416,12 @@ public class StatusBarHeaderHooks {
                 mRightContainer.addView(mSettingsContainer);
                 mRightContainer.addView(mExpandIndicator);
                 mDateTimeGroup.addView(mClock);
-                mDateTimeGroup.addView(mDateCollapsed);
+                if (mShowFullAlarm) {
+                    mDateTimeGroup.addView(mDateCollapsed);
+                }
                 mDateTimeGroup.addView(mAlarmStatusCollapsed);
                 mDateTimeAlarmGroup.addView(mDateTimeGroup);
-                mDateTimeAlarmGroup.addView(mAlarmStatus);
+                mDateTimeAlarmGroup.addView(mShowFullAlarm ? mAlarmStatus : mDateCollapsed);
                 mStatusBarHeaderView.addView(mLeftContainer);
                 mStatusBarHeaderView.addView(mRightContainer);
                 mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
@@ -453,7 +460,9 @@ public class StatusBarHeaderHooks {
                     mAlarmTranslation.setPosition(f);
                 if (mDateSizeAnimator != null) {
                     mDateSizeAnimator.setPosition(f);
-                    mFirstHalfAnimator.setPosition(f);
+                    if (mShowFullAlarm) {
+                        mFirstHalfAnimator.setPosition(f);
+                    }
                     mSecondHalfAnimator.setPosition(f);
                     mSettingsAlpha.setPosition(f);
                     //mHeaderQsPanel.setPosition(f);
@@ -501,7 +510,7 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
-                mAlarmStatus.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
+                mAlarmStatus.setVisibility(mShowFullAlarm && mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
                 mSettingsContainer.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE); // Apparently not implemented in some ROMs, so do it here manually
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
                 if (mHideEditTiles && mCustomQSEditButton != null) {
@@ -674,21 +683,7 @@ public class StatusBarHeaderHooks {
 
         ResourceUtils res = ResourceUtils.getInstance(context);
         float timeCollapsed = res.getDimensionPixelSize(R.dimen.date_time_collapsed_size);
-        float timeExpanded;
-        switch (ConfigUtils.qs().header_clock_size) {
-            case 1:
-                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_small);
-                break;
-            case 2:
-                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_smaller);
-                break;
-            case 3:
-                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_tiny);
-                break;
-            default:
-                timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_normal);
-                break;
-        }
+        float timeExpanded = res.getDimensionPixelSize(R.dimen.date_time_expanded_size_normal);
         float dateScaleFactor = timeExpanded / timeCollapsed;
         float gearTranslation = res.getDimension(R.dimen.settings_gear_translation);
 
@@ -699,11 +694,13 @@ public class StatusBarHeaderHooks {
                 .addFloat(mDateTimeGroup, "scaleY", 1, dateScaleFactor)
                 .setStartDelay(0.36F)
                 .build();
-        mFirstHalfAnimator = new TouchAnimator.Builder()
-                .addFloat(mAlarmStatusCollapsed, "alpha", 1.0F, 0.0F)
-                .setEndDelay(0.5F).build();
+        if (mShowFullAlarm) {
+            mFirstHalfAnimator = new TouchAnimator.Builder()
+                    .addFloat(mAlarmStatusCollapsed, "alpha", 1.0F, 0.0F)
+                    .setEndDelay(0.5F).build();
+        }
         mSecondHalfAnimator = new TouchAnimator.Builder()
-                .addFloat(mAlarmStatus, "alpha", 0.0F, 1.0F)
+                .addFloat(mShowFullAlarm ? mAlarmStatus : mDateCollapsed, "alpha", 0.0F, 1.0F)
                 .setStartDelay(0.5F).build();
         TouchAnimator.Builder settingsAlphaBuilder = new TouchAnimator.Builder()
                 .addFloat(mSettingsContainer, "translationY", -gearTranslation, 0.0F)
@@ -757,16 +754,9 @@ public class StatusBarHeaderHooks {
     }
 
     private static void updateAlarmVisibilities() {
-        int v;
-        if (XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing")) {
-            v = View.VISIBLE;
-        } else {
-            v = View.INVISIBLE;
-        }
-        if (mAlarmStatus != null)
-            mAlarmStatus.setVisibility(v);
+        boolean mAlarmShowing = XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing");
         if (mAlarmStatusCollapsed != null)
-            mAlarmStatusCollapsed.setVisibility(v);
+            mAlarmStatusCollapsed.setVisibility(mAlarmShowing ? View.VISIBLE : View.INVISIBLE);
     }
 
     private static void handleShowingDetail(final Object detail) {
