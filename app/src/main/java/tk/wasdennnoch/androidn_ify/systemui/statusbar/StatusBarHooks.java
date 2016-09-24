@@ -51,7 +51,11 @@ public class StatusBarHooks {
             try {
                 mMobileDataControllerClass = XposedHelpers.findClass(getMobileDataControllerClass(), mClassLoader);
             } catch (Throwable t) { // Motorola
-                mMobileDataControllerClass = XposedHelpers.findClass(CLASS_MOBILE_DATA_CONTROLLER_51_MOTO, mClassLoader);
+                try {
+                    mMobileDataControllerClass = XposedHelpers.findClass(CLASS_MOBILE_DATA_CONTROLLER_51_MOTO, mClassLoader);
+                } catch (Throwable t2) { // Xperia 5.1.1
+                    mMobileDataControllerClass = XposedHelpers.findClass(CLASS_MOBILE_DATA_CONTROLLER_50, mClassLoader);
+                }
             }
             hookStart();
             if (ConfigUtils.M)
@@ -131,12 +135,18 @@ public class StatusBarHooks {
             mDataDisabled = !(boolean) param.args[0];
         }
     };
+    private XC_MethodHook setMobileDataEnabledHook2 = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            mDataDisabled = !(boolean) param.args[1];
+        }
+    };
     private void hookSetMobileDataEnabled() {
         try {
             XposedHelpers.findAndHookMethod(mMobileDataControllerClass, "setMobileDataEnabled", boolean.class, setMobileDataEnabledHook);
         } catch (Throwable t) { // Motorola (multi-sim)
             // TODO implement better dual-sim handling
-            XposedHelpers.findAndHookMethod(mMobileDataControllerClass, "setMobileDataEnabled", int.class, boolean.class, setMobileDataEnabledHook);
+            XposedHelpers.findAndHookMethod(mMobileDataControllerClass, "setMobileDataEnabled", int.class, boolean.class, setMobileDataEnabledHook2);
         }
     }
 
