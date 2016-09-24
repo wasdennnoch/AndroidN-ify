@@ -389,5 +389,6 @@
     <string name="dont_show_again">Don\'t show again</string>
     <string name="enable_data_disabled_indicator">Show mobile data disabled indicator</string>
     <string name="enable_data_disabled_indicator_summary">Shows a \"x\" as the signal indicator when mobile data is disabled</string>
+    <string name="home">Home</string>
 
 </resources>
