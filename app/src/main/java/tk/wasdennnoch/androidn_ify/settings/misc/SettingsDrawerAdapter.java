@@ -34,6 +34,7 @@ import java.util.List;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SETTINGS;
@@ -88,29 +89,32 @@ public class SettingsDrawerAdapter extends RecyclerView.Adapter<SettingsDrawerAd
 
     private Drawable getIcon(Object dashboardTile) {
         int iconRes = XposedHelpers.getIntField(dashboardTile, "iconRes");
-        String iconPkg = (String) XposedHelpers.getObjectField(dashboardTile, "iconPkg");
-        if (!TextUtils.isEmpty(iconPkg)) {
-            try {
-                Drawable drawable = mActivity.getPackageManager().getResourcesForApplication(iconPkg).getDrawable(iconRes, null);
-                if (!iconPkg.equals(PACKAGE_SETTINGS) && drawable != null) {
-                    // If this drawable is coming from outside Settings, tint it to match the color.
-                    TypedValue tintColorValue = new TypedValue();
-                    mActivity.getResources().getValue(mActivity.getResources().getIdentifier("external_tile_icon_tint_color", "color", mActivity.getPackageName()),
-                            tintColorValue, true);
-                    // If tintColorValue is TYPE_ATTRIBUTE, resolve it
-                    if (tintColorValue.type == TypedValue.TYPE_ATTRIBUTE) {
-                        mActivity.getTheme().resolveAttribute(tintColorValue.data,
+        if (ConfigUtils.M) {
+            String iconPkg = (String) XposedHelpers.getObjectField(dashboardTile, "iconPkg");
+            if (!TextUtils.isEmpty(iconPkg)) {
+                try {
+                    Drawable drawable = mActivity.getPackageManager().getResourcesForApplication(iconPkg).getDrawable(iconRes, null);
+                    if (!iconPkg.equals(PACKAGE_SETTINGS) && drawable != null) {
+                        // If this drawable is coming from outside Settings, tint it to match the color.
+                        TypedValue tintColorValue = new TypedValue();
+                        mActivity.getResources().getValue(mActivity.getResources().getIdentifier("external_tile_icon_tint_color", "color", mActivity.getPackageName()),
                                 tintColorValue, true);
+                        // If tintColorValue is TYPE_ATTRIBUTE, resolve it
+                        if (tintColorValue.type == TypedValue.TYPE_ATTRIBUTE) {
+                            mActivity.getTheme().resolveAttribute(tintColorValue.data,
+                                    tintColorValue, true);
+                        }
+                        drawable.setTintMode(android.graphics.PorterDuff.Mode.SRC_ATOP);
+                        drawable.setTint(tintColorValue.data);
                     }
-                    drawable.setTintMode(android.graphics.PorterDuff.Mode.SRC_ATOP);
-                    drawable.setTint(tintColorValue.data);
+                    return drawable;
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Can't get icon for tile", t);
+                    return null;
                 }
-                return drawable;
-            } catch (Throwable t) {
-                XposedHook.logE(TAG, "Can't get icon for tile", t);
-                return null;
             }
-        } else if (iconRes > 0) {
+        }
+        if (iconRes > 0) {
             return mActivity.getDrawable(iconRes);
         } else {
             return null;
