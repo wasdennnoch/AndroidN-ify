@@ -19,12 +19,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,9 +36,12 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-public class SettingsDrawerAdapter extends BaseAdapter {
+public class SettingsDrawerAdapter extends RecyclerView.Adapter<SettingsDrawerAdapter.DrawerViewHolder> {
 
     private static final String TAG = "SettingsDrawerAdapter";
+    private static final int TYPE_SPACER = 0;
+    private static final int TYPE_CATEGORY = 1;
+    private static final int TYPE_TILE = 2;
     private final ArrayList<Item> mItems = new ArrayList<>();
     private final Activity mActivity;
     private SettingsActivityHelper mHelper;
@@ -118,13 +121,33 @@ public class SettingsDrawerAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        return mItems.size();
+    public DrawerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView;
+        switch (viewType) {
+            case TYPE_SPACER:
+                itemView = inflate(mActivity, R.layout.drawer_spacer, parent, false);
+                itemView.setEnabled(false);
+                break;
+            case TYPE_CATEGORY:
+                itemView = inflate(mActivity, R.layout.drawer_category, parent, false);
+                itemView.setEnabled(false);
+                break;
+            default:
+                itemView = inflate(mActivity, R.layout.drawer_item, parent, false);
+        }
+        return new DrawerViewHolder(itemView);
     }
 
     @Override
-    public Object getItem(int position) {
-        return mItems.get(position);
+    public void onBindViewHolder(DrawerViewHolder holder, int position) {
+        int type = getItemViewType(position);
+        if (type == TYPE_SPACER) return;
+        ViewGroup itemView = (ViewGroup) holder.getItemView();
+        Item item = mItems.get(position);
+        if (type == TYPE_TILE) {
+            ((ImageView) itemView.findViewById(android.R.id.icon)).setImageDrawable(item.icon);
+        }
+        ((TextView) itemView.findViewById(android.R.id.title)).setText(item.label);
     }
 
     @Override
@@ -133,34 +156,20 @@ public class SettingsDrawerAdapter extends BaseAdapter {
     }
 
     @Override
-    public boolean isEnabled(int position) {
-        return mItems.get(position) != null && mItems.get(position).icon != null;
+    public int getItemCount() {
+        return mItems.size();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public int getItemViewType(int position) {
         Item item = mItems.get(position);
         if (item == null) {
-            if (convertView == null || convertView.getId() != R.id.spacer) {
-                convertView = inflate(mActivity, R.layout.drawer_spacer,
-                        parent, false);
-            }
-            return convertView;
+            return TYPE_SPACER;
+        } else if (item.icon == null) {
+            return TYPE_CATEGORY;
+        } else {
+            return TYPE_TILE;
         }
-        if (convertView != null && convertView.getId() == R.id.spacer) {
-            convertView = null;
-        }
-        boolean isTile = item.icon != null;
-        if (convertView == null || (isTile != (convertView.getId() == R.id.tile_item))) {
-            convertView = inflate(mActivity, isTile ? R.layout.drawer_item
-                            : R.layout.drawer_category,
-                    parent, false);
-        }
-        if (isTile) {
-            ((ImageView) convertView.findViewById(android.R.id.icon)).setImageDrawable(item.icon);
-        }
-        ((TextView) convertView.findViewById(android.R.id.title)).setText(item.label);
-        return convertView;
     }
 
     private View inflate(Context context, int resource, ViewGroup root, boolean attachToRoot) {
@@ -189,6 +198,23 @@ public class SettingsDrawerAdapter extends BaseAdapter {
         protected void onPostExecute(Void aVoid) {
             notifyDataSetChanged();
             if (mHelper != null) mHelper.updateDrawerLock();
+        }
+    }
+
+    public class DrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        public DrawerViewHolder(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        public View getItemView() {
+            return itemView;
+        }
+
+        @Override
+        public void onClick(View v) {
+            mHelper.onTileClicked(mItems.get(getAdapterPosition()).tile);
         }
     }
 }

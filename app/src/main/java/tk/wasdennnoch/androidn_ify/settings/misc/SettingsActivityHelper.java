@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +66,8 @@ public class SettingsActivityHelper implements View.OnClickListener {
             public View onCreateView(String name, Context context, AttributeSet attrs) {
                 if (name.equals(DrawerLayout.class.getCanonicalName())) {
                     return new DrawerLayout(context, attrs);
+                } else if (name.equals(RecyclerView.class.getCanonicalName())) {
+                    return new RecyclerView(context, attrs);
                 } else return null;
             }
 
@@ -95,14 +99,9 @@ public class SettingsActivityHelper implements View.OnClickListener {
         parent.addView(mDrawerLayout, index);
         mDrawerAdapter = new SettingsDrawerAdapter(activity);
         mDrawerAdapter.setSettingsActivityHelper(this);
-        ListView listView = (ListView) activity.findViewById(R.id.left_drawer);
-        listView.setAdapter(mDrawerAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(android.widget.AdapterView<?> parent, View view, int position,
-                                    long id) {
-                onTileClicked(mDrawerAdapter.getTile(position));
-            }
-        });
+        RecyclerView recyclerView = (RecyclerView) activity.findViewById(R.id.left_drawer);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        recyclerView.setAdapter(mDrawerAdapter);
         new CategoriesUpdater().execute();
     }
 
@@ -123,7 +122,7 @@ public class SettingsActivityHelper implements View.OnClickListener {
     }
 
     public void updateDrawerLock() {
-        if (mDrawerAdapter.getCount() != 0) {
+        if (mDrawerAdapter.getItemCount() != 0) {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         } else {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -191,9 +190,8 @@ public class SettingsActivityHelper implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        XposedHook.logI(TAG, "onClick");
         if (!mIsShowingDashboard && mDrawerLayout != null
-                && mDrawerAdapter.getCount() != 0) {
+                && mDrawerAdapter.getItemCount() != 0) {
             openDrawer();
         } else {
             mActivity.onOptionsItemSelected(mNavItem);

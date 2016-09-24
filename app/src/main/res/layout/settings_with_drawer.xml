@@ -46,12 +46,9 @@
             android:background="?android:attr/windowBackground" />
     </LinearLayout>
     <!-- The navigation drawer -->
-    <ListView android:id="@+id/left_drawer"
+    <android.support.v7.widget.RecyclerView android:id="@+id/left_drawer"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
         android:background="?android:attr/colorBackground" />
 </android.support.v4.widget.DrawerLayout>
