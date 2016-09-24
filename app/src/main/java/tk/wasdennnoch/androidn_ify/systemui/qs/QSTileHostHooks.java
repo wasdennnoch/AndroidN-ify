@@ -4,7 +4,6 @@ import android.annotation.Nullable;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -399,13 +398,14 @@ public class QSTileHostHooks {
                 } catch (Throwable t2) {
                     specs = (ArrayList<String>) ((ArrayList<String>) XposedHelpers.getStaticObjectField(classQSConstants, "TILES_AVAILABLE")).clone();
                 }
+                XposedHook.logD(TAG, "Read tiles from getAvailableTiles / TILES_AVAILABLE");
             } catch (Throwable t2) { // If that fails too try them all
                 specs.add("wifi");
                 specs.add("bt");
                 specs.add("inversion");
                 specs.add("cell");
                 specs.add("airplane");
-                if (Build.VERSION.SDK_INT >= 23)
+                if (ConfigUtils.M)
                     specs.add("dnd");
                 specs.add("rotation");
                 specs.add("flashlight");
@@ -439,7 +439,7 @@ public class QSTileHostHooks {
 
     public static void recreateTiles() {
         try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            if (!ConfigUtils.M) {
                 XposedHelpers.callMethod(mTileHost, "recreateTiles");
             }
         } catch (Throwable t) {
@@ -448,7 +448,7 @@ public class QSTileHostHooks {
     }
 
     private static List<String> bruteForceSpecs() {
-        XposedHook.logI(TAG, "Brute forcing tile specs!");
+        XposedHook.logD(TAG, "Brute forcing tile specs!");
         List<String> specs = new ArrayList<>();
         String[] possibleSpecs = new String[]{"dataconnection", "cell1", "cell2", "notifications", "data", "roaming", "dds", "apn", "profiles",
                 "performance", "adb_network", "nfc", "compass", "lockscreen", "lte", "volume_panel", "screen_timeout", "timeout",
