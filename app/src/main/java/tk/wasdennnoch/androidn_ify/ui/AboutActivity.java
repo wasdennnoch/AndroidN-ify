@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.ui;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
@@ -7,15 +8,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.UserManager;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
@@ -23,14 +28,19 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
-public class AboutActivity extends Activity implements UpdateUtils.UpdateListener {
+public class AboutActivity extends Activity implements UpdateUtils.UpdateListener, View.OnClickListener {
 
     private TextView mUpdateText;
+    private boolean mExperimental;
+    private int mHitCountdown = 7;
+    private Toast mHitToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = ConfigUtils.getPreferences(this);
         ViewUtils.applyTheme(this, prefs);
+
+        mExperimental = ConfigUtils.isExperimental(prefs);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
@@ -62,27 +72,20 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-android-n-ify-features-t3345091")));
             }
         });
-        findViewById(R.id.icon).setOnClickListener(new View.OnClickListener() {
-            private final long[] mHits = new long[3];
-
-            @Override
-            public void onClick(View v) {
-                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
-                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
-                if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
-                    if (ConfigUtils.M) {
-                        UserManager um = (UserManager) getSystemService(Context.USER_SERVICE);
-                        if (um.hasUserRestriction(UserManager.DISALLOW_FUN)) {
-                            Log.d("androidn_ify", "Sorry, no fun for you!");
-                            return;
-                        }
-                    }
-                    startActivity(new Intent(AboutActivity.this, PlatLogoActivity.class));
-                }
-            }
-        });
+        setupIcon();
 
         checkForUpdates();
+    }
+
+    private void setupIcon() {
+        ImageView im = (ImageView) findViewById(R.id.icon);
+        Drawable N = im.getDrawable();
+        im.setImageDrawable(null);
+        im.setBackground(new RippleDrawable(
+                ColorStateList.valueOf(0xFFFFFFFF),
+                N,
+                null));
+        im.setOnClickListener(this);
     }
 
     private void checkForUpdates() {
@@ -112,9 +115,30 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
     public void onFinish(UpdateUtils.UpdateData updateData) {
         if (updateData.getNumber() > BuildConfig.BUILD_NUMBER && updateData.hasArtifact()) {
             mUpdateText.setText(String.format(getString(R.string.update_notification), updateData.getNumber()));
-            UpdateUtils.showNotification(updateData, this);
+            UpdateUtils.showNotification(updateData, this, mExperimental);
         } else {
             mUpdateText.setText(R.string.no_updates);
+        }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    @Override
+    public void onClick(View v) {
+        if (mHitToast != null) mHitToast.cancel();
+        if (mExperimental) {
+            mHitToast = Toast.makeText(this, getString(R.string.show_experimental_on_already), Toast.LENGTH_SHORT);
+            mHitToast.show();
+            return;
+        }
+        mHitCountdown--;
+        if (mHitCountdown == 0) {
+            ConfigUtils.getPreferences(this).edit().putBoolean("enable_experimental_features", true).commit();
+            mExperimental = true;
+            mHitToast = Toast.makeText(this, getString(R.string.show_experimental_on), Toast.LENGTH_SHORT);
+            mHitToast.show();
+        } else if (mHitCountdown < 5) {
+            mHitToast = Toast.makeText(this, getResources().getQuantityString(R.plurals.enable_experimental_countdown, mHitCountdown, mHitCountdown), Toast.LENGTH_SHORT);
+            mHitToast.show();
         }
     }
 }

@@ -43,10 +43,12 @@ public class DashboardOverlay extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mLayout != null)
+        if (mLayout != null) {
             setMeasuredDimension(mLayout.getMeasuredWidth(), mLayout.getMeasuredHeight());
-        else
+            invalidate();
+        } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
     }
 
     public void setDashboardLayout(LinearLayout dashboardLayout) {

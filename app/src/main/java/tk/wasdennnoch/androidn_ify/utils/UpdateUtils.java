@@ -51,7 +51,7 @@ public class UpdateUtils {
     }
 
     @SuppressWarnings("deprecation")
-    public static void showNotification(UpdateUtils.UpdateData updateData, Context context) {
+    public static void showNotification(UpdateUtils.UpdateData updateData, Context context, boolean showExperimental) {
         Intent downloadIntent = new Intent(context, DownloadService.class);
         downloadIntent.putExtra("url", updateData.getArtifactUrl());
         downloadIntent.putExtra("number", updateData.getNumber());
@@ -77,7 +77,7 @@ public class UpdateUtils {
             Notification.InboxStyle style = new Notification.InboxStyle();
             style.addLine(content);
             for (String change : changes) {
-                if (BuildConfig.EXPERIMENTAL || !change.toUpperCase().contains("[EXPERIMENTAL]")) {
+                if (showExperimental || !change.toUpperCase().contains("[EXPERIMENTAL]")) {
                     style.addLine(" - " + change);
                 }
             }

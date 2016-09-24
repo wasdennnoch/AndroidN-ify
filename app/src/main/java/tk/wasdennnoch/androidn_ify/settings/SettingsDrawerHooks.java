@@ -23,10 +23,14 @@ public class SettingsDrawerHooks {
 
     private static final String TAG = "SettingsDashboardHooks";
     private static final String CLASS_SETTINGS_ACTIVITY = "com.android.settings.SettingsActivity";
+    private static final String CLASS_DASHBOARD_SUMMARY = "com.android.settings.dashboard.DashboardSummary";
+
+    private RebuildUiListener mRebuildUiListener;
 
     public void hook(ClassLoader classLoader) {
         try {
             Class<?> classSettingsActivity = XposedHelpers.findClass(CLASS_SETTINGS_ACTIVITY, classLoader);
+            Class<?> classDashboardSummary = XposedHelpers.findClass(CLASS_DASHBOARD_SUMMARY, classLoader);
 
             XposedHelpers.findAndHookMethod(classSettingsActivity, "onCreate", Bundle.class, new XC_MethodHook() {
                 @Override
@@ -38,7 +42,17 @@ public class SettingsDrawerHooks {
 
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    new SettingsActivityHelper((Activity) param.thisObject);
+                    new SettingsActivityHelper((Activity) param.thisObject, SettingsDrawerHooks.this);
+                }
+            });
+
+            XposedHelpers.findAndHookMethod(classDashboardSummary, "rebuildUI", Context.class, new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    if (mRebuildUiListener != null) {
+                        mRebuildUiListener.onRebuildUiFinished();
+                        mRebuildUiListener = null;
+                    }
                 }
             });
         } catch (Throwable t) {
@@ -70,5 +84,13 @@ public class SettingsDrawerHooks {
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error while hooking settings dashboard res", t);
         }
+    }
+
+    public void setRebuildUiListener(RebuildUiListener listener) {
+        mRebuildUiListener = listener;
+    }
+
+    public interface RebuildUiListener {
+        void onRebuildUiFinished();
     }
 }

@@ -36,6 +36,8 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SETTINGS;
+
 public class SettingsDrawerAdapter extends RecyclerView.Adapter<SettingsDrawerAdapter.DrawerViewHolder> {
 
     private static final String TAG = "SettingsDrawerAdapter";
@@ -89,9 +91,8 @@ public class SettingsDrawerAdapter extends RecyclerView.Adapter<SettingsDrawerAd
         String iconPkg = (String) XposedHelpers.getObjectField(dashboardTile, "iconPkg");
         if (!TextUtils.isEmpty(iconPkg)) {
             try {
-                Drawable drawable = mActivity.getPackageManager()
-                        .getResourcesForApplication(iconPkg).getDrawable(iconRes, null);
-                if (!iconPkg.equals(mActivity.getPackageName()) && drawable != null) {
+                Drawable drawable = mActivity.getPackageManager().getResourcesForApplication(iconPkg).getDrawable(iconRes, null);
+                if (!iconPkg.equals(PACKAGE_SETTINGS) && drawable != null) {
                     // If this drawable is coming from outside Settings, tint it to match the color.
                     TypedValue tintColorValue = new TypedValue();
                     mActivity.getResources().getValue(mActivity.getResources().getIdentifier("external_tile_icon_tint_color", "color", mActivity.getPackageName()),
@@ -214,7 +215,7 @@ public class SettingsDrawerAdapter extends RecyclerView.Adapter<SettingsDrawerAd
 
         @Override
         public void onClick(View v) {
-            mHelper.onTileClicked(mItems.get(getAdapterPosition()).tile);
+            mHelper.onTileClicked(getTile(getAdapterPosition()));
         }
     }
 }

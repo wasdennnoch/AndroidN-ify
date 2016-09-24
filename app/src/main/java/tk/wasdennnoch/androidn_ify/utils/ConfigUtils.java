@@ -1,5 +1,7 @@
 package tk.wasdennnoch.androidn_ify.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import org.json.JSONArray;
@@ -21,6 +23,7 @@ public class ConfigUtils {
 
     public static final boolean M = Build.VERSION.SDK_INT >= 23;
     public static final boolean L1 = Build.VERSION.SDK_INT >= 22;
+    public static boolean EXPERIMENTAL;
 
     private static ConfigUtils mInstance;
     private final XSharedPreferences mPrefs;
@@ -37,12 +40,17 @@ public class ConfigUtils {
         loadConfig();
     }
 
+    public static boolean isExperimental(SharedPreferences prefs) {
+        return BuildConfig.DEBUG || prefs.getBoolean("enable_experimental_features", false);
+    }
+
     public void reload() {
         mPrefs.reload();
         loadConfig();
     }
 
     private void loadConfig() {
+        EXPERIMENTAL = isExperimental(mPrefs);
         settings = new SettingsConfig(mPrefs);
         recents = new RecentsConfig(mPrefs);
         qs = new QuickSettingsConfig(mPrefs);
@@ -87,7 +95,7 @@ public class ConfigUtils {
         public final boolean enable_n_platlogo;
         public final boolean use_namey_mcnameface;
         public final boolean install_source;
-        public boolean hook_dashboard = BuildConfig.EXPERIMENTAL;
+        public boolean hook_dashboard = EXPERIMENTAL;
 
         public SettingsConfig(XSharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
@@ -185,7 +193,7 @@ public class ConfigUtils {
             change_style = prefs.getBoolean("notification_change_style", true);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
-            experimental = M && BuildConfig.EXPERIMENTAL && prefs.getBoolean("notification_experimental", false);
+            experimental = M && EXPERIMENTAL && prefs.getBoolean("notification_experimental", false);
             allow_direct_reply_on_keyguard = prefs.getBoolean("allow_direct_reply_on_keyguard", false);
             enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true);
             enable_data_disabled_indicator = prefs.getBoolean("enable_data_disabled_indicator", true);
@@ -232,6 +240,11 @@ public class ConfigUtils {
         public LockscreenConfig(XSharedPreferences prefs) {
             enable_emergency_info = prefs.getBoolean("enable_emergency_info", true);
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static SharedPreferences getPreferences(Context context) {
+        return context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_WORLD_READABLE);
     }
 
 }
