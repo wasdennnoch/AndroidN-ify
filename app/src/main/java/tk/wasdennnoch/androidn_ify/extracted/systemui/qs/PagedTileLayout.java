@@ -46,6 +46,8 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
     public PagedTileLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+        setClipChildren(false);
+        setClipToPadding(false);
         setAdapter(mAdapter);
         addOnPageChangeListener(new OnPageChangeListener() {
             @Override

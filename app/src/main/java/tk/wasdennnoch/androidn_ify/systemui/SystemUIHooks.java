@@ -137,4 +137,9 @@ public class SystemUIHooks {
         R_drawable_stat_sys_data_disabled = resparam.res.addResource(modRes, R.drawable.stat_sys_data_disabled);
     }
 
+    public static void startRunnableDismissingKeyguard(Runnable runnable) {
+        if (statusBarHooks != null)
+            statusBarHooks.startRunnableDismissingKeyguard(runnable);
+    }
+
 }

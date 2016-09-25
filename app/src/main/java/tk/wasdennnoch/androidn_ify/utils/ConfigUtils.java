@@ -187,6 +187,7 @@ public class ConfigUtils {
         public final boolean allow_direct_reply_on_keyguard;
         public final boolean enable_notifications_background;
         public final boolean enable_data_disabled_indicator;
+        public final boolean filter_sensitive_notifications;
         public final int keyguard_max;
         public final int actions_color;
 
@@ -201,6 +202,7 @@ public class ConfigUtils {
             allow_direct_reply_on_keyguard = prefs.getBoolean("allow_direct_reply_on_keyguard", false);
             enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true);
             enable_data_disabled_indicator = prefs.getBoolean("enable_data_disabled_indicator", true);
+            filter_sensitive_notifications = M && EXPERIMENTAL;
             keyguard_max = prefs.getInt("notification_keyguard_max", 3);
             actions_color = prefs.getInt("actions_background_colors", 0);
         }
