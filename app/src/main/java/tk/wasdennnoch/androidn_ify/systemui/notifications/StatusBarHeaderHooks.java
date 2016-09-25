@@ -368,7 +368,9 @@ public class StatusBarHeaderHooks {
                 mAlarmStatusCollapsed.setVisibility(View.GONE);
                 mAlarmStatusCollapsed.setCompoundDrawablesWithIntrinsicBounds(alarmSmall, null, null, null);
                 mAlarmStatusCollapsed.setBackgroundResource(0);
-                mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(R.dimen.alarm_status_collapsed_drawable_padding), 0, 0, 0);
+                mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(mShowFullAlarm ? R.dimen.alarm_status_collapsed_drawable_padding
+                            : R.dimen.alarm_status_collapsed_drawable_padding_small)
+                        , 0, 0, 0);
 
 
                 RelativeLayout.LayoutParams headerQsPanelLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, WRAP_CONTENT);
