@@ -129,6 +129,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
         if (mHitToast != null) mHitToast.cancel();
         if (mShowExperimental) {
             mHitToast = Toast.makeText(this, R.string.show_experimental_on_already, Toast.LENGTH_SHORT);
+            mHitToast.show();
             return;
         }
         mHitCountdown--;

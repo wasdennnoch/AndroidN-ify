@@ -947,7 +947,7 @@ public class StatusBarHeaderHooks {
     }
 
     private static void startRunnableDismissingKeyguard(final Runnable runnable) {
-        SystemUIHooks.statusBarHooks.startRunnableDismissingKeyguard(runnable);
+        SystemUIHooks.startRunnableDismissingKeyguard(runnable);
     }
 
     public static void hook(ClassLoader classLoader) {

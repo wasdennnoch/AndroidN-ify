@@ -1,6 +1,5 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -72,7 +71,6 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
-@SuppressLint("StaticFieldLeak")
 public class NotificationHooks {
 
     private static final String TAG = "NotificationHooks";
@@ -83,7 +81,6 @@ public class NotificationHooks {
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;
-    public static FrameLayout.LayoutParams mShadowLp;
     private static final Map<String, Integer> mGeneratedColors = new HashMap<>();
 
     private static Object mPhoneStatusBar;
@@ -91,6 +88,8 @@ public class NotificationHooks {
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
     public static NotificationStackScrollLayoutHooks mStackScrollLayoutHooks;
+
+    private static SensitiveNotificationFilter mSensitiveFilter = new SensitiveNotificationFilter();
 
     private static final XC_MethodHook inflateViewsHook = new XC_MethodHook() {
 
@@ -228,7 +227,7 @@ public class NotificationHooks {
                         if (ConfigUtils.notifications().allow_direct_reply_on_keyguard) {
                             handleRemoteInput(view);
                         } else {
-                            SystemUIHooks.statusBarHooks.startRunnableDismissingKeyguard(new Runnable() {
+                            SystemUIHooks.startRunnableDismissingKeyguard(new Runnable() {
                                 @Override
                                 public void run() {
                                     SystemUIHooks.statusBarHooks.post(new Runnable() {
@@ -633,6 +632,8 @@ public class NotificationHooks {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
 
+            mSensitiveFilter.hookRes(resparam);
+
             final XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
             XResources.DimensionReplacement zero = new XResources.DimensionReplacement(0, TypedValue.COMPLEX_UNIT_DIP);
 
@@ -733,7 +734,6 @@ public class NotificationHooks {
     @SuppressWarnings("unused")
     public static void hook(ClassLoader classLoader) {
         try {
-
             if (ConfigUtils.notifications().change_style) {
 
                 Class classNotificationBuilder = Notification.Builder.class;
@@ -763,6 +763,8 @@ public class NotificationHooks {
     public static void hookSystemUI(ClassLoader classLoader) {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
+
+            mSensitiveFilter.hook(classLoader);
 
             if (config.notifications.change_style) {
 
