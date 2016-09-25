@@ -83,7 +83,6 @@ public class NotificationHooks {
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;
-    public static View mPanelShadow;
     public static FrameLayout.LayoutParams mShadowLp;
     private static final Map<String, Integer> mGeneratedColors = new HashMap<>();
 
@@ -666,7 +665,6 @@ public class NotificationHooks {
                         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                             View view = liparam.view;
                             Context context = view.getContext();
-                            ResourceUtils res = ResourceUtils.getInstance(context);
 
                             int containerId = context.getResources().getIdentifier("notification_container_parent", "id", PACKAGE_SYSTEMUI);
                             int stackScrollerId = context.getResources().getIdentifier("notification_stack_scroller", "id", PACKAGE_SYSTEMUI);
@@ -674,17 +672,6 @@ public class NotificationHooks {
                             ViewGroup stackScroller = (ViewGroup) container.findViewById(stackScrollerId);
                             container.removeView(stackScroller);
                             container.addView(stackScroller, 0);
-
-                            int shadowHeight = res.getDimensionPixelSize(R.dimen.notification_panel_shadow_height);
-
-                            mShadowLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, shadowHeight);
-                            mShadowLp.gravity = Gravity.TOP;
-
-                            mPanelShadow = new View(context);
-                            mPanelShadow.setLayoutParams(mShadowLp);
-                            mPanelShadow.setBackground(res.getDrawable(R.drawable.shadow));
-
-                            container.addView(mPanelShadow);
                         }
                     });
                 }

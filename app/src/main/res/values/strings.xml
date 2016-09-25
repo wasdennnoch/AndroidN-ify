@@ -166,7 +166,7 @@
     <string name="notifications_custom_actions_color">Use a custom color as the background of the notification buttons</string>
     <string name="notifications_actions_color_title">Actions background color</string>
     <string name="notification_experimental_title">Experimental N notifications behavior</string>
-    <string name="notification_experimental">N scrolling behavior (no top stack) and notifications shadow</string>
+    <string name="notification_experimental">N scrolling behavior (no top stack)</string>
     <string name="notification_keyguard_max_title">Max notifications on lockscreen</string>
 
     <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
@@ -396,5 +396,10 @@
     </plurals>
     <string name="show_experimental_on">You have enabled experimental features!</string>
     <string name="show_experimental_on_already">No need, you have already enabled experimental features.</string>
+    <string name="header_experimental">Experimental</string>
+    <string name="enable_experimental_features">Enable experimental features</string>
+    <string name="enable_n_style_settings_dashboard">N style settings</string>
+    <string name="enable_n_style_settings_dashboard_summary">Theme the settings dashboard to look like N</string>
+    <string name="enable_settings_drawer">Enable settings drawer</string>
 
 </resources>

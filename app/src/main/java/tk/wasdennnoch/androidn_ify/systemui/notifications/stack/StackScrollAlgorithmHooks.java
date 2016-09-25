@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,12 +16,9 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
-import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class StackScrollAlgorithmHooks {
 
     private static final String TAG = "StackScrollAlgorithmHooks";
@@ -31,7 +27,6 @@ public class StackScrollAlgorithmHooks {
     public static ViewGroup mStackScrollLayout;
     private static float mStackTop = 0;
     private static float mStateTop = 0;
-    private static int mShadowLeft = 0;
 
     private static Field fieldCollapsedSize;
     private static Field fieldVisibleChildren;
@@ -121,24 +116,10 @@ public class StackScrollAlgorithmHooks {
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         if (mStackTop == mStateTop || mStackScrollLayout == null) return;
                         mStackTop = mStateTop;
-                        View panelShadow = NotificationHooks.mPanelShadow;
                         if (mStackTop <= 0) {
-                            panelShadow.setVisibility(View.GONE);
                             mStackScrollLayout.setClipBounds(null);
                         } else {
-                            if (updateShadowVisibility()) {
-                                int stackLeft = mStackScrollLayout.getLeft();
-                                int stackRight = mStackScrollLayout.getRight();
-                                if (stackLeft != mShadowLeft) {
-                                    FrameLayout.LayoutParams shadowLp = NotificationHooks.mShadowLp;
-                                    shadowLp.leftMargin = stackLeft;
-                                    shadowLp.width = stackRight - stackLeft;
-                                    panelShadow.setLayoutParams(shadowLp);
-                                    mShadowLeft = stackLeft;
-                                }
-                                panelShadow.setTranslationY(mStackTop);
-                            }
-                            mClipBounds.set(0,
+                            mClipBounds.set(-mStackScrollLayout.getLeft(),
                                     (int) mStackTop,
                                     mStackScrollLayout.getRight(),
                                     mStackScrollLayout.getBottom());
@@ -249,11 +230,5 @@ public class StackScrollAlgorithmHooks {
         } catch (Throwable t) {
             return null;
         }
-    }
-
-    public static boolean updateShadowVisibility() {
-        boolean visible = !NotificationPanelHooks.isOnKeyguard();
-        NotificationHooks.mPanelShadow.setVisibility(visible ? View.VISIBLE : View.GONE);
-        return visible;
     }
 }

@@ -37,20 +37,27 @@ public class ConfigUtils {
     private ConfigUtils() {
         mInstance = this;
         mPrefs = new XSharedPreferences(XposedHook.class.getPackage().getName());
-        loadConfig();
+        reload();
     }
 
     public static boolean isExperimental(SharedPreferences prefs) {
         return BuildConfig.DEBUG || prefs.getBoolean("enable_experimental_features", false);
     }
 
-    public void reload() {
+    public static boolean showExperimental(SharedPreferences prefs) {
+        return BuildConfig.DEBUG || prefs.getBoolean("show_experimental_features", false);
+    }
+
+    private void reload() {
         mPrefs.reload();
         loadConfig();
     }
 
     private void loadConfig() {
         EXPERIMENTAL = isExperimental(mPrefs);
+        if (EXPERIMENTAL) {
+            XposedHook.logI(TAG, "EXPERIMENTAL: true");
+        }
         settings = new SettingsConfig(mPrefs);
         recents = new RecentsConfig(mPrefs);
         qs = new QuickSettingsConfig(mPrefs);
@@ -95,7 +102,8 @@ public class ConfigUtils {
         public final boolean enable_n_platlogo;
         public final boolean use_namey_mcnameface;
         public final boolean install_source;
-        public boolean hook_dashboard = EXPERIMENTAL;
+        public final boolean n_style_dashboard;
+        public final boolean enable_drawer;
 
         public SettingsConfig(XSharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
@@ -103,6 +111,8 @@ public class ConfigUtils {
             enable_n_platlogo = prefs.getBoolean("enable_n_platlogo", true);
             use_namey_mcnameface = prefs.getBoolean("use_namey_mcnameface", false);
             install_source = prefs.getBoolean("enable_install_source", true);
+            n_style_dashboard = EXPERIMENTAL && prefs.getBoolean("enable_n_style_settings_dashboard", true);
+            enable_drawer = EXPERIMENTAL && prefs.getBoolean("enable_settings_drawer", true);
         }
     }
 
