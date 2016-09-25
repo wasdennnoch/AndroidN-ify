@@ -14,15 +14,14 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.SensitiveFilterButton;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -47,16 +46,9 @@ public class SensitiveNotificationFilter {
 
     private List<String> mPkgs = new ArrayList<>();
     private List<WeakReference<SensitiveFilterListener>> mListeners = new ArrayList<>();
+    private WeakHashMap<Object, SensitiveNotificationRow> mRows = new WeakHashMap<>();
     private LayoutInflater mLayoutInflater;
     private int mButtonWidth = 0;
-
-    private String mTogglePackage;
-    private Runnable mTogglePackageRunnable = new Runnable() {
-        @Override
-        public void run() {
-            togglePackageInternal(mTogglePackage);
-        }
-    };
 
     public void hook(ClassLoader classLoader) {
         try {
@@ -88,11 +80,32 @@ public class SensitiveNotificationFilter {
 
                         SensitiveFilterButton filterButton = (SensitiveFilterButton) guts.findViewById(R.id.notification_sensitive_filter);
                         if (filterButton == null) return;
-                        filterButton.init(SensitiveNotificationFilter.this, sbn, row);
+                        filterButton.init(SensitiveNotificationFilter.this, sbn);
                     }
                 });
 
-                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setSensitive", boolean.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classExpandableNotificationRow, "setSensitive", boolean.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        Object row = param.thisObject;
+                        Object sbn = XposedHelpers.getObjectField(row, "mStatusBarNotification");
+                        if (sbn == null) return;
+
+                        if (mRows.containsKey(row)) {
+                            SensitiveNotificationRow snr = mRows.get(row);
+                            if (snr != null) {
+                                snr.setSensitive((boolean) param.args[0]);
+                                param.setResult(null);
+                            } else {
+                                mRows.remove(row);
+                            }
+                        } else {
+                            SensitiveNotificationRow snr = new SensitiveNotificationRow(SensitiveNotificationFilter.this, row, sbn);
+                            mRows.put(row, snr);
+                            param.setResult(null);
+                        }
+                    }
+                });
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking", t);
@@ -162,16 +175,14 @@ public class SensitiveNotificationFilter {
         }
     }
 
-    public void togglePackage(String pkg) {
-        mTogglePackage = pkg;
-        SystemUIHooks.startRunnableDismissingKeyguard(mTogglePackageRunnable);
-    }
-
-    public void togglePackageInternal(String pkg) {
-        if (mPkgs.contains(pkg))
+    public boolean togglePackage(String pkg) {
+        if (mPkgs.contains(pkg)) {
             removePackage(pkg);
-        else
+            return false;
+        } else {
             addPackage(pkg);
+            return true;
+        }
     }
 
     public void addPackage(String pkg) {
@@ -224,6 +235,10 @@ public class SensitiveNotificationFilter {
             });
         }
         return mLayoutInflater;
+    }
+
+    public boolean isEnabled(String pkg) {
+        return mPkgs.contains(pkg);
     }
 
     public interface SensitiveFilterListener {
