@@ -106,6 +106,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         } else {
             logI(TAG, "3rd Party Build; Version: " + BuildConfig.BUILD_NUMBER);
         }
+        if (ConfigUtils.isExperimental(sPrefs)) {
+            logI(TAG, "Experimental features enabled");
+        }
 
         logDeviceInfo();
 

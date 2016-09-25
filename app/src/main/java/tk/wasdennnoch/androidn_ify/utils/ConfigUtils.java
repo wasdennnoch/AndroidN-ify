@@ -16,7 +16,6 @@ import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
-@SuppressWarnings("WeakerAccess")
 public class ConfigUtils {
 
     private static final String TAG = "ConfigUtils";
@@ -55,9 +54,6 @@ public class ConfigUtils {
 
     private void loadConfig() {
         EXPERIMENTAL = isExperimental(mPrefs);
-        if (EXPERIMENTAL) {
-            XposedHook.logI(TAG, "EXPERIMENTAL: true");
-        }
         settings = new SettingsConfig(mPrefs);
         recents = new RecentsConfig(mPrefs);
         qs = new QuickSettingsConfig(mPrefs);
