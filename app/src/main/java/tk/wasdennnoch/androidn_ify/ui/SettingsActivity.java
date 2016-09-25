@@ -51,6 +51,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     public static final String ACTION_KILL_SYSTEMUI = "tk.wasdennnoch.androidn_ify.action.ACTION_KILL_SYSTEMUI";
 
     private boolean mExperimental;
+    private boolean mShowExperimental;
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -72,6 +73,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             warning.setOnClickListener(this);
         }
         mExperimental = ConfigUtils.isExperimental(prefs);
+        mShowExperimental = ConfigUtils.showExperimental(prefs);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
             if (BuildConfig.AUTOMATED_BUILD && !prefs.contains(getWarningPrefsKey())) {
@@ -151,6 +153,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
 
         private boolean mExperimental;
+        private boolean mShowExperimental;
+        private boolean mWillRecreate;
 
         @SuppressLint("CommitPrefEdits")
         @Override
@@ -161,6 +165,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             addPreferencesFromResource(R.xml.preferences);
             SharedPreferences sharedPreferences = ConfigUtils.getPreferences(getActivity());
             mExperimental = ConfigUtils.isExperimental(sharedPreferences);
+            mShowExperimental = ConfigUtils.showExperimental(sharedPreferences);
             if (UpdateUtils.isEnabled()) {
                 if (sharedPreferences.getBoolean("check_for_updates", true))
                     UpdateUtils.check(getActivity(), this);
@@ -168,6 +173,12 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 PreferenceCategory appCategory = (PreferenceCategory) findPreference("settings_app");
                 Preference updatePref = getPreferenceScreen().findPreference("check_for_updates");
                 appCategory.removePreference(updatePref);
+            }
+            Log.d(TAG, "mShowExperimental: " + Boolean.toString(mShowExperimental));
+            if (!mShowExperimental) {
+                PreferenceCategory tweaksCategory = (PreferenceCategory) findPreference("settings_tweaks");
+                Preference experimentalPref = getPreferenceScreen().findPreference("settings_experimental");
+                tweaksCategory.removePreference(experimentalPref);
             }
             // SELinux test, see XposedHook
             sharedPreferences.edit().putBoolean("can_read_prefs", true).commit();
@@ -227,14 +238,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             if (directReplyOnKeyguard != null)
                                 screen.removePreference(directReplyOnKeyguard);
                         }
-                        if (!mExperimental) {
-                            Preference spoofApi = findPreference("notification_spoof_api_version");
-                            if (spoofApi != null)
-                                screen.removePreference(spoofApi);
-                            Preference experimentalNotification = findPreference("notification_experimental");
-                            if (experimentalNotification != null)
-                                screen.removePreference(experimentalNotification);
-                        }
                         break;
                 }
             } else {
@@ -257,6 +260,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         public void onResume() {
             super.onResume();
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+            if (mShowExperimental != ConfigUtils.showExperimental(ConfigUtils.getPreferences(getActivity()))) {
+                getActivity().recreate();
+            }
         }
 
         @SuppressLint("SetWorldReadable")

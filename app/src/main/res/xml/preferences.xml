@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
+        android:key="settings_tweaks"
         android:title="@string/header_tweaks">
 
         <PreferenceScreen
@@ -285,13 +286,6 @@
                 app:monitorBoxEnabled="true"
                 app:monitorBoxUnit=""/>
 
-            <SwitchPreference
-                android:defaultValue="false"
-                android:dependency="notification_change_style"
-                android:key="notification_experimental"
-                android:summary="@string/notification_experimental"
-                android:title="@string/notification_experimental_title"/>
-
         </PreferenceScreen>
 
         <PreferenceScreen
@@ -310,6 +304,37 @@
                 android:title="@string/edit_emergency_info_title">
                 <intent android:action="tk.wasdennnoch.androidn_ify.LAUNCH_EDIT_EMERGENGY_INFO" />
             </PreferenceScreen>
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="settings_experimental"
+            android:title="@string/header_experimental">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="enable_experimental_features"
+                android:title="@string/enable_experimental_features"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_experimental_features"
+                android:key="enable_n_style_settings_dashboard"
+                android:summary="@string/enable_n_style_settings_dashboard_summary"
+                android:title="@string/enable_n_style_settings_dashboard"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_experimental_features"
+                android:key="enable_settings_drawer"
+                android:title="@string/enable_settings_drawer"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_experimental_features"
+                android:key="notification_experimental"
+                android:summary="@string/notification_experimental"
+                android:title="@string/notification_experimental_title"/>
 
         </PreferenceScreen>
 

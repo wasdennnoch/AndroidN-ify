@@ -32,6 +32,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
 
     private TextView mUpdateText;
     private boolean mExperimental;
+    private boolean mShowExperimental;
     private int mHitCountdown = 7;
     private Toast mHitToast;
 
@@ -41,6 +42,7 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
         ViewUtils.applyTheme(this, prefs);
 
         mExperimental = ConfigUtils.isExperimental(prefs);
+        mShowExperimental = ConfigUtils.showExperimental(prefs);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
@@ -125,20 +127,19 @@ public class AboutActivity extends Activity implements UpdateUtils.UpdateListene
     @Override
     public void onClick(View v) {
         if (mHitToast != null) mHitToast.cancel();
-        if (mExperimental) {
-            mHitToast = Toast.makeText(this, getString(R.string.show_experimental_on_already), Toast.LENGTH_SHORT);
-            mHitToast.show();
+        if (mShowExperimental) {
+            mHitToast = Toast.makeText(this, R.string.show_experimental_on_already, Toast.LENGTH_SHORT);
             return;
         }
         mHitCountdown--;
         if (mHitCountdown == 0) {
-            ConfigUtils.getPreferences(this).edit().putBoolean("enable_experimental_features", true).commit();
-            mExperimental = true;
-            mHitToast = Toast.makeText(this, getString(R.string.show_experimental_on), Toast.LENGTH_SHORT);
-            mHitToast.show();
+            mShowExperimental = !mShowExperimental;
+            ConfigUtils.getPreferences(this).edit().putBoolean("show_experimental_features", mShowExperimental).commit();
+            mHitToast = Toast.makeText(this, R.string.show_experimental_on, Toast.LENGTH_SHORT);
         } else if (mHitCountdown < 5) {
             mHitToast = Toast.makeText(this, getResources().getQuantityString(R.plurals.enable_experimental_countdown, mHitCountdown, mHitCountdown), Toast.LENGTH_SHORT);
-            mHitToast.show();
         }
+        if (mHitToast != null)
+            mHitToast.show();
     }
 }

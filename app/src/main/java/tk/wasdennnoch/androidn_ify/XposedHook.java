@@ -107,7 +107,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             logI(TAG, "3rd Party Build; Version: " + BuildConfig.BUILD_NUMBER);
         }
 
-        logI(TAG, "ROM type: " + sPrefs.getString("rom", "undefined"));
+        logDeviceInfo();
 
         if (!sPrefs.getBoolean("can_read_prefs", false)) {
             // With SELinux enforcing, it might happen that we don't have access
@@ -117,6 +117,15 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             logW(TAG, "Can't read prefs file, default values will be applied in hooks!");
         }
         debug = sPrefs.getBoolean("debug_log", false);
+    }
+
+    private void logDeviceInfo() {
+        logI(TAG, "---- Device info ----");
+        logI(TAG, "SDK Version: " + Build.VERSION.SDK_INT);
+        logI(TAG, "Build ID: " + Build.DISPLAY);
+        logI(TAG, "Manufacturer: " + Build.MANUFACTURER);
+        logI(TAG, "Brand: " + Build.BRAND);
+        logI(TAG, "Model: " + Build.MODEL);
     }
 
     @Override
@@ -157,7 +166,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         NotificationHooks.hook(lpparam.classLoader);
 
 
-        // This actually is only used in the system process, but every app has access, so just to be sure hook everything
+        // CM Custom Tile API; May implement it later, disabled for now
         if (ConfigUtils.qs().enable_qs_editor) {
             try {
                 Class<?> classCMStatusBarManager = XposedHelpers.findClass("cyanogenmod.app.CMStatusBarManager", lpparam.classLoader);

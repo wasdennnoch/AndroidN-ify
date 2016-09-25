@@ -51,8 +51,6 @@ public class SystemUIHooks {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 XposedHook.logD(TAG, "SystemUIApplication created, init");
 
-                ConfigUtils.getInstance().reload(); // Start loading prefs in a background thread to have them ready as quick as possible
-
                 final Application app = (Application) param.thisObject;
                 final Handler handler = new Handler(app.getMainLooper());
 

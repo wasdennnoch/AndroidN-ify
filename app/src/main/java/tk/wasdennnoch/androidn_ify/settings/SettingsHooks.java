@@ -54,13 +54,14 @@ public class SettingsHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
-            ConfigUtils config = ConfigUtils.getInstance();
-            config.reload();
-            if (config.settings.hook_dashboard) {
-                mDrawerHooks.hook(classLoader);
+            ConfigUtils.SettingsConfig config = ConfigUtils.settings();
+            if (config.n_style_dashboard) {
                 mDashboardHooks.hook(classLoader);
             }
-            if (config.settings.enable_summaries) {
+            if (config.enable_drawer) {
+                mDrawerHooks.hook(classLoader);
+            }
+            if (config.enable_summaries) {
                 SummaryTweaks.hookMethods(classLoader);
                 if (ConfigUtils.M) {
                     Class<?> classBatteryHistoryPreference = XposedHelpers.findClass("com.android.settings.fuelgauge.BatteryHistoryPreference", classLoader);
@@ -85,11 +86,11 @@ public class SettingsHooks {
                     });
                 }
             }
-            if (config.settings.enable_n_platlogo) {
+            if (config.enable_n_platlogo) {
                 Class<?> classDeviceInfoSettings = XposedHelpers.findClass("com.android.settings.DeviceInfoSettings", classLoader);
                 XposedHelpers.findAndHookMethod(classDeviceInfoSettings, "onPreferenceTreeClick", PreferenceScreen.class, Preference.class, onPreferenceTreeClickHook);
             }
-            if (config.settings.install_source) {
+            if (config.install_source) {
                 Class<?> classInstalledAppDetails = XposedHelpers.findClass("com.android.settings.applications.InstalledAppDetails", classLoader);
                 if (ConfigUtils.M) {
                     XposedHelpers.findAndHookMethod(classInstalledAppDetails, "onActivityCreated", Bundle.class, onActivityCreatedHook);
@@ -326,9 +327,12 @@ public class SettingsHooks {
     };
 
     public static void hookRes(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
-        if (ConfigUtils.settings().hook_dashboard) {
-            mDrawerHooks.hookRes(resparam, modulePath);
+        ConfigUtils.SettingsConfig config = ConfigUtils.settings();
+        if (config.n_style_dashboard) {
             mDashboardHooks.hookRes(resparam, modulePath);
+        }
+        if (config.enable_drawer) {
+            mDrawerHooks.hookRes(resparam, modulePath);
         }
     }
 
