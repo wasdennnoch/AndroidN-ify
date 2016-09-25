@@ -48,6 +48,7 @@
     <dimen name="alarm_status_padding_top">3dp</dimen>
     <dimen name="alarm_status_drawable_padding">6dp</dimen>
     <dimen name="alarm_status_collapsed_drawable_padding">6dp</dimen>
+    <dimen name="alarm_status_collapsed_drawable_padding_small">0dp</dimen>
 
     <dimen name="notification_icon_size">18dp</dimen>
     <dimen name="notification_icon_margin_end">3dp</dimen>

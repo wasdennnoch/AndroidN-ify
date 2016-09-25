@@ -51,7 +51,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     public static final String ACTION_KILL_SYSTEMUI = "tk.wasdennnoch.androidn_ify.action.ACTION_KILL_SYSTEMUI";
 
     private boolean mExperimental;
-    private boolean mShowExperimental;
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -73,7 +72,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             warning.setOnClickListener(this);
         }
         mExperimental = ConfigUtils.isExperimental(prefs);
-        mShowExperimental = ConfigUtils.showExperimental(prefs);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
             if (BuildConfig.AUTOMATED_BUILD && !prefs.contains(getWarningPrefsKey())) {
@@ -154,7 +152,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
         private boolean mExperimental;
         private boolean mShowExperimental;
-        private boolean mWillRecreate;
 
         @SuppressLint("CommitPrefEdits")
         @Override
@@ -174,7 +171,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 Preference updatePref = getPreferenceScreen().findPreference("check_for_updates");
                 appCategory.removePreference(updatePref);
             }
-            Log.d(TAG, "mShowExperimental: " + Boolean.toString(mShowExperimental));
             if (!mShowExperimental) {
                 PreferenceCategory tweaksCategory = (PreferenceCategory) findPreference("settings_tweaks");
                 Preference experimentalPref = getPreferenceScreen().findPreference("settings_experimental");
