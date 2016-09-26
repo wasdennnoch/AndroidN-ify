@@ -32,6 +32,7 @@ public class QuickSettingsHooks {
 
     private PagedTileLayout mTileLayout;
     private boolean mHookedGetGridHeight = false;
+    private boolean mExpanded;
     private int mGridHeight;
     private XC_MethodReplacement
             getGridHeightHook = new XC_MethodReplacement() {
@@ -57,6 +58,7 @@ public class QuickSettingsHooks {
         hookOnLayout();
         hookUpdateResources();
         hookSetTiles();
+        hookSetExpanded();
     }
 
     protected void hookConstructor() {
@@ -107,6 +109,20 @@ public class QuickSettingsHooks {
                 List<Object> mRecords = (List<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
                 for (Object record : mRecords) {
                     mTileLayout.addTile(record);
+                }
+            }
+        });
+    }
+
+    private void hookSetExpanded() {
+        XposedHelpers.findAndHookMethod(mHookClass, "setExpanded", boolean.class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                boolean expanded = (boolean) param.args[0];
+                if (mExpanded == expanded) return;
+                mExpanded = expanded;
+                if (!mExpanded) {
+                    mTileLayout.setCurrentItem(0, false);
                 }
             }
         });
@@ -214,12 +230,8 @@ public class QuickSettingsHooks {
         return XposedHelpers.getBooleanField(mQsPanel, "mExpanded");
     }
 
-    protected static int exactly(int size) {
+    private static int exactly(int size) {
         return View.MeasureSpec.makeMeasureSpec(size, View.MeasureSpec.EXACTLY);
-    }
-
-    protected ViewGroup getTileViewFromRecord(Object record) {
-        return (ViewGroup) XposedHelpers.getObjectField(record, "tileView");
     }
 
     protected String getHookClass() {
