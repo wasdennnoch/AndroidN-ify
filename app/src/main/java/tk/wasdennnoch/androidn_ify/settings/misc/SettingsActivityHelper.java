@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,9 +17,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.Toolbar;
 
 import com.android.internal.view.menu.ActionMenuItem;
@@ -110,7 +107,7 @@ public class SettingsActivityHelper implements View.OnClickListener, SettingsDra
         }
     }
 
-    protected void onCategoriesChanged() {
+    private void onCategoriesChanged() {
         if (sDashboardCategories != null) {
             updateDrawer();
         } else if (mFailCount < 10) {
@@ -119,14 +116,14 @@ public class SettingsActivityHelper implements View.OnClickListener, SettingsDra
         }
     }
 
-    public void updateDrawer() {
+    private void updateDrawer() {
         if (mDrawerLayout == null) {
             return;
         }
         mDrawerAdapter.updateCategories();
     }
 
-    public void updateDrawerLock() {
+    void updateDrawerLock() {
         if (mDrawerAdapter.getItemCount() != 0) {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         } else {
@@ -134,19 +131,19 @@ public class SettingsActivityHelper implements View.OnClickListener, SettingsDra
         }
     }
 
-    public void openDrawer() {
+    private void openDrawer() {
         if (mDrawerLayout != null) {
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
     }
 
-    public void closeDrawer() {
+    private void closeDrawer() {
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawers();
         }
     }
 
-    public boolean openTile(Object tile) {
+    private boolean openTile(Object tile) {
         closeDrawer();
         if (tile == null) {
             mActivity.startActivity(new Intent(Settings.ACTION_SETTINGS).addFlags(
@@ -182,13 +179,13 @@ public class SettingsActivityHelper implements View.OnClickListener, SettingsDra
         return false;
     }
 
-    protected void onTileClicked(Object tile) {
+    void onTileClicked(Object tile) {
         if (openTile(tile)) {
             mActivity.finish();
         }
     }
 
-    public static List<Object> getDashboardCategories() {
+    static List<Object> getDashboardCategories() {
         return sDashboardCategories;
     }
 

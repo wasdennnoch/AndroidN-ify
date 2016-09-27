@@ -60,7 +60,7 @@ public class SettingsDrawerHooks {
         }
     }
 
-    public void hookRes(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
+    void hookRes(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
             //XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
             resparam.res.hookLayout(PACKAGE_SETTINGS, "layout", "dashboard_category", new XC_LayoutInflated() {

@@ -470,6 +470,7 @@ public class QSTileHostHooks {
         for (String s : possibleSpecs) {
             if (bruteForceSpec(s)) specs.add(s);
         }
+        XposedHook.logD(TAG, "bruteForceSpecs: found " + specs.size() + " applicable tile specs");
         return specs;
     }
 
