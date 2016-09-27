@@ -950,7 +950,11 @@ public class NotificationHooks {
                             public void onClickSafe(View v) {
                                 boolean nowExpanded = !(boolean) XposedHelpers.callMethod(row, "isExpanded");
                                 XposedHelpers.callMethod(row, "setUserExpanded", nowExpanded);
-                                XposedHelpers.callMethod(row, "notifyHeightChanged", true);
+                                try {
+                                    XposedHelpers.callMethod(row, "notifyHeightChanged", true);
+                                } catch (Throwable t) {
+                                    XposedHelpers.callMethod(row, "notifyHeightChanged");
+                                }
                             }
                         });
                     }
