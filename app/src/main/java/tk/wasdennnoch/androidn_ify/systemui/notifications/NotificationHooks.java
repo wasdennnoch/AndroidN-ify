@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -71,6 +72,7 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
+@SuppressLint("StaticFieldLeak")
 public class NotificationHooks {
 
     private static final String TAG = "NotificationHooks";

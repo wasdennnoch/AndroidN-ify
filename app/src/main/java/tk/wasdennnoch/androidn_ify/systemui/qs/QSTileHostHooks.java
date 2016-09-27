@@ -67,6 +67,8 @@ public class QSTileHostHooks {
             if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass()))
                 return;
 
+            XposedHook.logD(TAG, "onTuningChangedHook called");
+
             if (mTileHost == null)
                 mTileHost = param.thisObject;
 
@@ -137,6 +139,9 @@ public class QSTileHostHooks {
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             if (classCustomHost != null && classCustomHost.isAssignableFrom(param.thisObject.getClass()))
                 return;
+
+            XposedHook.logD(TAG, "recreateTilesHook called");
+
             // Thanks to GravityBox for this
             if (mTileHost == null)
                 mTileHost = param.thisObject;
@@ -399,7 +404,7 @@ public class QSTileHostHooks {
                 if (!TextUtils.isEmpty(s))
                     specs.add(s);
             }
-            XposedHook.logD(TAG, "Read tiles from config.xml");
+            XposedHook.logD(TAG, "Found " + specs.size() + " specs in config.xml");
         } catch (Throwable t) {
             try { // On CM use the QSUtils
                 try {
@@ -407,7 +412,7 @@ public class QSTileHostHooks {
                 } catch (Throwable t2) {
                     specs = (ArrayList<String>) ((ArrayList<String>) XposedHelpers.getStaticObjectField(classQSConstants, "TILES_AVAILABLE")).clone();
                 }
-                XposedHook.logD(TAG, "Read tiles from getAvailableTiles / TILES_AVAILABLE");
+                XposedHook.logD(TAG, "Found " + specs.size() + " tiles in getAvailableTiles / TILES_AVAILABLE");
             } catch (Throwable t2) { // If that fails too try them all
                 specs.add("wifi");
                 specs.add("bt");
