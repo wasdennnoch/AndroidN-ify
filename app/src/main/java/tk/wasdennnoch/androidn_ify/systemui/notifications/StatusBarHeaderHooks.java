@@ -228,7 +228,7 @@ public class StatusBarHeaderHooks {
                     }
                 }
             }
-            try {
+            try { // PA seems to screw around a bit (the image has the bg color and overlaps the expand indicator ripple)
                 ((View) XposedHelpers.getObjectField(param.thisObject, "mBackgroundImage")).setVisibility(View.GONE);
             } catch (Throwable ignore) {
             }
@@ -369,7 +369,7 @@ public class StatusBarHeaderHooks {
                 mAlarmStatusCollapsed.setCompoundDrawablesWithIntrinsicBounds(alarmSmall, null, null, null);
                 mAlarmStatusCollapsed.setBackgroundResource(0);
                 mAlarmStatusCollapsed.setPadding(res.getDimensionPixelSize(mShowFullAlarm ? R.dimen.alarm_status_collapsed_drawable_padding
-                            : R.dimen.alarm_status_collapsed_drawable_padding_small)
+                                : R.dimen.alarm_status_collapsed_drawable_padding_small)
                         , 0, 0, 0);
 
 
@@ -423,7 +423,9 @@ public class StatusBarHeaderHooks {
                 }
                 mDateTimeGroup.addView(mAlarmStatusCollapsed);
                 mDateTimeAlarmGroup.addView(mDateTimeGroup);
-                mDateTimeAlarmGroup.addView(mShowFullAlarm ? mAlarmStatus : mDateCollapsed);
+                mDateTimeAlarmGroup.addView(mAlarmStatus); // The view HAS to be attached to a parent, otherwise it apparently gets GC -> NPE
+                if (!mShowFullAlarm)
+                    mDateTimeAlarmGroup.addView(mDateCollapsed);
                 mStatusBarHeaderView.addView(mLeftContainer);
                 mStatusBarHeaderView.addView(mRightContainer);
                 mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
@@ -512,7 +514,11 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
-                mAlarmStatus.setVisibility(mShowFullAlarm && mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
+                if (!mShowFullAlarm) {
+                    mAlarmStatus.setVisibility(View.GONE);
+                } else {
+                    mAlarmStatus.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
+                }
                 mSettingsContainer.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE); // Apparently not implemented in some ROMs, so do it here manually
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
                 if (mHideEditTiles && mCustomQSEditButton != null) {

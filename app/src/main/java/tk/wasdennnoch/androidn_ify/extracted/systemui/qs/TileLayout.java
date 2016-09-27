@@ -11,10 +11,14 @@ import java.util.ArrayList;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickSettingsHooks;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLayout {
+
+    private static final String TAG = "TileLayout";
+
     protected final Context mContext;
 
     protected int mColumns;
@@ -115,7 +119,12 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
                 column = 0;
             }
             setDual(record, isDual(row));
-            tileView.measure(exactly(getCellWidth(row)), exactly(mCellHeight));
+            try {
+                tileView.measure(exactly(getCellWidth(row)), exactly(mCellHeight));
+            } catch (Throwable t) {
+                XposedHook.logE(TAG, "Fatal Error measuring " + tileView.getClass().getSimpleName()
+                        + " for " + getTileFromRecord(record).getClass().getSimpleName(), t);
+            }
             column++;
         }
         setMeasuredDimension(width,
