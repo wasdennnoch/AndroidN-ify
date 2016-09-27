@@ -99,7 +99,16 @@ public class StatusBarHooks {
         XposedHelpers.findAndHookConstructor(mMobileDataControllerClass, Context.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                boolean isDataEnabled = (boolean) XposedHelpers.callMethod(param.thisObject, "isMobileDataEnabled");
+                boolean isDataEnabled;
+                try {
+                    isDataEnabled = (boolean) XposedHelpers.callMethod(param.thisObject, "isMobileDataEnabled");
+                } catch (Throwable t) {
+                    // TODO implement better dual-sim handling?
+                    isDataEnabled = (boolean) XposedHelpers.callMethod(param.thisObject, "isMobileDataEnabled",
+                            XposedHelpers.callMethod(
+                                    XposedHelpers.getObjectField(param.thisObject, "mTelephonyManager"),
+                                    "getSubId"));
+                }
                 mDataDisabled = !isDataEnabled;
             }
         });
@@ -144,7 +153,7 @@ public class StatusBarHooks {
     private void hookSetMobileDataEnabled() {
         try {
             XposedHelpers.findAndHookMethod(mMobileDataControllerClass, "setMobileDataEnabled", boolean.class, setMobileDataEnabledHook);
-        } catch (Throwable t) { // Motorola (multi-sim)
+        } catch (Throwable t) { // multi-sim
             // TODO implement better dual-sim handling
             XposedHelpers.findAndHookMethod(mMobileDataControllerClass, "setMobileDataEnabled", int.class, boolean.class, setMobileDataEnabledHook2);
         }

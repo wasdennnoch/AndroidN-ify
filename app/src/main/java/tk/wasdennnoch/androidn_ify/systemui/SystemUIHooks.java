@@ -111,24 +111,6 @@ public class SystemUIHooks {
                 }, 2000);
             }
         });
-
-        /*if (!ConfigUtils.M) {
-            XposedHelpers.findAndHookMethod("android.app.ContextImpl", classLoader, "enforceCallingPermission", String.class, String.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    if (param.args[0].equals(Manifest.permission.BATTERY_STATS))
-                        param.setResult(null);
-                }
-            });
-            XposedHelpers.findAndHookMethod("android.app.ContextImpl", classLoader, "checkCallingPermission", String.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    if (param.args[0].equals(Manifest.permission.BATTERY_STATS))
-                        param.setResult(PackageManager.PERMISSION_GRANTED);
-                }
-            });
-        }*/
-
     }
 
     public static void hookResSystemUI(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
