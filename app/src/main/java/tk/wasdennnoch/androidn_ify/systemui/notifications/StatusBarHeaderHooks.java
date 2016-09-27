@@ -315,6 +315,8 @@ public class StatusBarHeaderHooks {
                 mDateTimeAlarmGroup.setGravity(Gravity.START);
                 mDateTimeAlarmGroup.setOrientation(LinearLayout.VERTICAL);
                 mDateTimeAlarmGroup.setBaselineAligned(false);
+                mDateTimeAlarmGroup.setClipChildren(false);
+                mDateTimeAlarmGroup.setClipToPadding(false);
 
                 LinearLayout.LayoutParams alarmStatusLp = new LinearLayout.LayoutParams(WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.alarm_status_height));
                 mAlarmStatus.setLayoutParams(alarmStatusLp);
@@ -335,6 +337,8 @@ public class StatusBarHeaderHooks {
                 mDateTimeGroup.setPivotX(0.0F);
                 mDateTimeGroup.setPivotY(0.0F);
                 mDateTimeGroup.setBaselineAligned(false);
+                mDateTimeGroup.setClipChildren(false);
+                mDateTimeGroup.setClipToPadding(false);
 
                 LinearLayout.LayoutParams clockLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 mClock.setLayoutParams(clockLp);
