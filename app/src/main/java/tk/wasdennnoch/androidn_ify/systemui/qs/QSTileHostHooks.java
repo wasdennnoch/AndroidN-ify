@@ -48,7 +48,7 @@ public class QSTileHostHooks {
 
     private static TilesManager mTilesManager = null;
     static List<String> mTileSpecs = null;
-    static List<String> mSecureTiles = null;
+    static List<String> mSecureTiles = new ArrayList<>();
 
     private static Class<?> classQSUtils;
     private static Class<?> classQSConstants;
@@ -228,8 +228,10 @@ public class QSTileHostHooks {
 
     private static List<String> loadSecureTilesFromList(String secureTileList) {
         final ArrayList<String> specs = new ArrayList<>();
-        if (secureTileList == null)
+        if (secureTileList == null) {
+            mSecureTiles = specs;
             return specs;
+        }
         for (String tile : secureTileList.split(",")) {
             tile = tile.trim();
             if (tile.isEmpty()) continue;
