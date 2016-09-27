@@ -35,8 +35,10 @@ public class QSTileHostHooks {
 
     static final String CLASS_TILE_HOST = "com.android.systemui.statusbar.phone.QSTileHost";
     private static final String CLASS_CUSTOM_HOST = "com.android.systemui.tuner.QsTuner$CustomHost";
-    private static final String CLASS_QS_UTILS = "org.cyanogenmod.internal.util.QSUtils";
-    private static final String CLASS_QS_CONSTANTS = "org.cyanogenmod.internal.util.QSConstants";
+    private static final String CLASS_QS_UTILS_M = "org.cyanogenmod.internal.util.QSUtils";
+    private static final String CLASS_QS_CONSTANTS_M = "org.cyanogenmod.internal.util.QSConstants";
+    private static final String CLASS_QS_UTILS_L = "com.android.internal.util.cm.QSUtils";
+    private static final String CLASS_QS_CONSTANTS_L = "com.android.internal.util.cm.QSConstants";
     private static final String CLASS_TUNER_SERVICE = "com.android.systemui.tuner.TunerService";
     private static final String TILES_SETTING = "sysui_qs_tiles";
     private static final String TILES_SECURE = "sysui_qs_tiles_secure";
@@ -262,8 +264,13 @@ public class QSTileHostHooks {
             if (ConfigUtils.qs().enable_qs_editor) {
                 mIsCm = false;
                 try {
-                    classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS, classLoader);
-                    classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS, classLoader);
+                    if (ConfigUtils.M) {
+                        classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS_M, classLoader);
+                        classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS_M, classLoader);
+                    } else {
+                        classQSUtils = XposedHelpers.findClass(CLASS_QS_UTILS_L, classLoader);
+                        classQSConstants = XposedHelpers.findClass(CLASS_QS_CONSTANTS_L, classLoader);
+                    }
                     XposedHelpers.findAndHookMethod(classTileHost, "setEditing", boolean.class, new XC_MethodReplacement() {
                         @Override
                         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
