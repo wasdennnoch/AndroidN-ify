@@ -239,23 +239,27 @@ public class TilesManager {
                         }
                     });
 
-            Method longClickMethod;
             try {
-                longClickMethod = XposedHelpers.findMethodExact(hookClass, "handleLongClick");
-            } catch (Throwable t) { // PA
-                longClickMethod = XposedHelpers.findMethodExact(hookClass, "handleDetailClick");
-            }
-            XposedBridge.hookMethod(longClickMethod, new XC_MethodHook() {
-                        @SuppressWarnings("SuspiciousMethodCalls")
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
-                            if (tile != null) {
-                                tile.handleLongClick();
-                                param.setResult(null);
-                            }
+                Method longClickMethod;
+                try {
+                    longClickMethod = XposedHelpers.findMethodExact(hookClass, "handleLongClick");
+                } catch (Throwable t) { // PA
+                    longClickMethod = XposedHelpers.findMethodExact(hookClass, "handleDetailClick");
+                }
+                XposedBridge.hookMethod(longClickMethod, new XC_MethodHook() {
+                    @SuppressWarnings("SuspiciousMethodCalls")
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        final BaseTile tile = mTiles.get(XposedHelpers.getAdditionalInstanceField(param.thisObject, QSTile.TILE_KEY_NAME));
+                        if (tile != null) {
+                            tile.handleLongClick();
+                            param.setResult(null);
                         }
-                    });
+                    }
+                });
+            } catch (Throwable t) {
+                XposedHook.logW(TAG, "No long click method found! Custom tiles won't recognize long clicks.");
+            }
 
             XposedHelpers.findAndHookMethod(hookClass, "setListening",
                     boolean.class, new XC_MethodHook() {
