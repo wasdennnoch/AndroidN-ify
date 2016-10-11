@@ -55,6 +55,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_SYSTEMUI = "com.android.systemui";
     public static final String PACKAGE_SETTINGS = "com.android.settings";
     public static final String PACKAGE_PHONE = "com.android.phone";
+    public static final String PACKAGE_GOOGLE = "com.google.android.googlequicksearchbox";
     public static final String PACKAGE_OWN = "tk.wasdennnoch.androidn_ify";
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
 
@@ -162,6 +163,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isActivated", XC_MethodReplacement.returnConstant(true));
                 if (!sPrefs.getBoolean("can_read_prefs", false))
                     XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isPrefsFileReadable", XC_MethodReplacement.returnConstant(false));
+                break;
+            case PACKAGE_GOOGLE:
+                AssistantHooks.hook(lpparam.classLoader);
                 break;
         }
 
