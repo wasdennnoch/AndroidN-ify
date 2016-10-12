@@ -32,6 +32,7 @@ public class ConfigUtils {
     public QuickSettingsConfig qs;
     public NotificationsConfig notifications;
     public LockscreenConfig lockscreen;
+    public AssistantConfig assistant;
 
     private ConfigUtils() {
         mInstance = this;
@@ -59,6 +60,7 @@ public class ConfigUtils {
         qs = new QuickSettingsConfig(mPrefs);
         notifications = new NotificationsConfig(mPrefs);
         lockscreen = new LockscreenConfig(mPrefs);
+        assistant = new AssistantConfig(mPrefs);
     }
 
     public static ConfigUtils getInstance() {
@@ -85,6 +87,10 @@ public class ConfigUtils {
 
     public static LockscreenConfig lockscreen() {
         return getInstance().lockscreen;
+    }
+
+    public static AssistantConfig assistant() {
+        return getInstance().assistant;
     }
 
     public XSharedPreferences getPrefs() {
@@ -245,6 +251,14 @@ public class ConfigUtils {
 
         public LockscreenConfig(XSharedPreferences prefs) {
             enable_emergency_info = prefs.getBoolean("enable_emergency_info", true);
+        }
+    }
+
+    public class AssistantConfig {
+        public final boolean enable_assistant;
+
+        public AssistantConfig(XSharedPreferences prefs) {
+            enable_assistant = M && EXPERIMENTAL && prefs.getBoolean("enable_assistant", false);
         }
     }
 

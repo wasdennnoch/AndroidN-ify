@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 import static de.robv.android.xposed.XposedBridge.log;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
@@ -17,6 +18,10 @@ class AssistantHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
+            if (!ConfigUtils.assistant().enable_assistant) {
+                return;
+            }
+
             Class a = findClass(ASSISTANT_PACKAGE + ".a.e", classLoader);
 
             findAndHookConstructor(a, findClass("com.google.android.apps.gsa.search.core.config.GsaConfigFlags", classLoader), SharedPreferences.class, new XC_MethodHook() {
