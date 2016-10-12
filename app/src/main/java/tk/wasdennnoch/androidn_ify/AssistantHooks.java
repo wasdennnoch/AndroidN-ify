@@ -40,27 +40,6 @@ class AssistantHooks {
                 }
             });
 
-            findAndHookMethod(a, "pb", new XC_MethodReplacement() {
-                @Override
-                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                    return true;
-                }
-            });
-
-            findAndHookMethod(a, "pc", new XC_MethodReplacement() {
-                @Override
-                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                    return true;
-                }
-            });
-
-            findAndHookMethod(a, "oY", new XC_MethodReplacement() {
-                @Override
-                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                    return true;
-                }
-            });
-
             findAndHookMethod(a, "oZ", new XC_MethodReplacement() {
                 @Override
                 protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
