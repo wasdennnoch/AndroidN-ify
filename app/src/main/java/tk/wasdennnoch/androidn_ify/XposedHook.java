@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
@@ -165,7 +166,14 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                     XposedHelpers.findAndHookMethod(SETTINGS_OWN, lpparam.classLoader, "isPrefsFileReadable", XC_MethodReplacement.returnConstant(false));
                 break;
             case PACKAGE_GOOGLE:
-                AssistantHooks.hook(lpparam.classLoader);
+                // #############################################################################
+                // Thanks to XposedGELSettings for the following snippet (https://git.io/vP2Gw):
+                Object activityThread = XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread");
+                Context context = (Context) XposedHelpers.callMethod(activityThread, "getSystemContext");
+                // #############################################################################
+                if (context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName.startsWith("6.6.14.21")) {
+                    AssistantHooks.hook(lpparam.classLoader);
+                }
                 break;
         }
 
