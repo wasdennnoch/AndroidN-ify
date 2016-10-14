@@ -258,7 +258,7 @@ public class ConfigUtils {
         public final boolean enable_assistant;
 
         public AssistantConfig(XSharedPreferences prefs) {
-            enable_assistant = M && prefs.getBoolean("enable_assistant", true);
+            enable_assistant = prefs.getBoolean("enable_assistant", true);
         }
     }
 

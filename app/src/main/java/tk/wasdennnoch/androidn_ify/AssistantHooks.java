@@ -46,6 +46,7 @@ class AssistantHooks {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     SharedPreferences prefs = (SharedPreferences) getObjectField(param.thisObject, "bhX");
+                    // Enable all prefs
                     prefs.edit().putBoolean("key_opa_eligible", true)
                             .putBoolean("opa_enabled", true)
                             .putBoolean("opa_hotword_enabled", true)
@@ -53,6 +54,7 @@ class AssistantHooks {
                 }
             });
 
+            // Don't allow to disable pref
             findAndHookMethod(a, "aG", boolean.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -60,6 +62,7 @@ class AssistantHooks {
                 }
             });
 
+            // Fake config and build.prop item
             findAndHookMethod(a, "pa", new XC_MethodReplacement() {
                 @Override
                 protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
@@ -74,6 +77,15 @@ class AssistantHooks {
                 }
             });
 
+            // Enable for all languages, regardless of support from Google
+            findAndHookMethod(a, "pb", new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                    return true;
+                }
+            });
+
+            // Fake build.prop item globally
             findAndHookMethod(GSA_PACKAGE + ".shared.util.c", classLoader, "v", String.class, boolean.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
