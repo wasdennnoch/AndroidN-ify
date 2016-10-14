@@ -169,6 +169,9 @@
     <string name="notification_experimental">N scrolling behavior (no top stack)</string>
     <string name="notification_keyguard_max_title">Max notifications on lockscreen</string>
 
+    <string name="enable_assistant">Enable Google Assistant</string>
+    <string name="enable_assistant_summary">Replaces Now on Tap/Screen search with the new Google Assistant</string>
+
     <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
     <string name="now_string_shortest">now</string>
 
