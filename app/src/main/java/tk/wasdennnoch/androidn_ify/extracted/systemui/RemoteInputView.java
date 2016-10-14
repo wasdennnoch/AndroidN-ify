@@ -162,7 +162,7 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
 
     public void onDefocus() {
         if (headsUpEntry != null)
-            callMethod(headsUpEntry, "updateEntry");
+            callMethod(headsUpEntry, "removeAsSoonAsPossible");
         RemoteInputHelper.setWindowManagerFocus(false);
         // During removal, we get reattached and lose focus. Not hiding in that
         // case to prevent flicker.
