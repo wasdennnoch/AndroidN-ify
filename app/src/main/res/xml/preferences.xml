@@ -337,7 +337,7 @@
                 android:title="@string/notification_experimental_title"/>
 
             <SwitchPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:dependency="enable_experimental_features"
                 android:key="enable_assistant"
                 android:summary="@string/enable_assistant_summary"
