@@ -172,7 +172,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 Object activityThread = XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread");
                 Context context = (Context) XposedHelpers.callMethod(activityThread, "getSystemContext");
                 // #############################################################################
-                if (context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName.matches(GOOGLE_APP_VERSION_REGEX)) {
+                if (ConfigUtils.M && context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName.matches(GOOGLE_APP_VERSION_REGEX)) {
                     AssistantHooks.hook(lpparam.classLoader);
                 }
                 break;
