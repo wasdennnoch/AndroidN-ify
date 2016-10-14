@@ -242,9 +242,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                                 screen.removePreference(assistant);
                         } else {
                             try {
-                                if (!getActivity().getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName.matches(XposedHook.GOOGLE_APP_VERSION_REGEX)) {
+                                String versionName = getActivity().getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName;
+                                if (!versionName.matches(XposedHook.GOOGLE_APP_VERSION_REGEX)) {
                                     assistant.setEnabled(false);
-                                    assistant.setSummary("Google App version not supported.");
+                                    assistant.setSummary(getResources().getString(R.string.enable_assistant_summary_unsupported, versionName));
                                 }
                             } catch (PackageManager.NameNotFoundException e) {
                                 e.printStackTrace();
