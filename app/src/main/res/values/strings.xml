@@ -171,6 +171,7 @@
 
     <string name="enable_assistant">Enable Google Assistant</string>
     <string name="enable_assistant_summary">Replaces Now on Tap/Screen search with the new Google Assistant</string>
+    <string name="enable_assistant_summary_unsupported">Your Google App\'s version (%1$s) is not supported.</string>
 
     <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
     <string name="now_string_shortest">now</string>
