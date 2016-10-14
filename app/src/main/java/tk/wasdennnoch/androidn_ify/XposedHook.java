@@ -61,6 +61,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
 
     public static final String ACTION_MARK_UNSTABLE = "tk.wasdennnoch.androidn_ify.action.ACTION_MARK_UNSTABLE";
+    public static final String GOOGLE_APP_VERSION_REGEX = "6\\.6\\.1[46]\\.21\\.[a-z]+[0-9]*";
 
     public static boolean debug = false;
     private static String sModulePath;
@@ -171,7 +172,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 Object activityThread = XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread");
                 Context context = (Context) XposedHelpers.callMethod(activityThread, "getSystemContext");
                 // #############################################################################
-                if (context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName.startsWith("6.6.14.21")) {
+                if (context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName.matches(GOOGLE_APP_VERSION_REGEX)) {
                     AssistantHooks.hook(lpparam.classLoader);
                 }
                 break;

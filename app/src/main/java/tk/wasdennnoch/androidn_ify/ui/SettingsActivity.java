@@ -176,6 +176,16 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 Preference experimentalPref = getPreferenceScreen().findPreference("settings_experimental");
                 tweaksCategory.removePreference(experimentalPref);
             }
+            Preference assistant = findPreference("enable_assistant");
+            try {
+                if (!getActivity().getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName.matches(XposedHook.GOOGLE_APP_VERSION_REGEX)) {
+                    assistant.setEnabled(false);
+                    assistant.setSummary("Google App version not supported.");
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+
             // SELinux test, see XposedHook
             sharedPreferences.edit().putBoolean("can_read_prefs", true).commit();
         }
