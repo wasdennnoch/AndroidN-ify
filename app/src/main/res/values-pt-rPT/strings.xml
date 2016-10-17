@@ -23,10 +23,24 @@
         a partir <a href="http://forum.xda-developers.com/showthread.php?t=2524485">deste tópico do XDA</a>.<br>
         Se até isto falhar, terá de ficar com os valores padrão. Desculpas :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+        Está a usar uma compilação automática. Algumas partes do módulo poderão não funcionar devido às novas alterações.
+        Se encontrar algum problema, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">exponha o caso no GitHub</a>, se o mesmo ainda não existir.<br><br>
+        Lembre-se de anexar os logs da Xposed sempre que reportar problemas, e logcats nos casos de <i>crashes</i>.
+        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+        Está a usar uma compilação compilada automaticamente. Algumas partes do módulo podem falhar devido às mais recentes alterações.
+        Se encontrar algum problema, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">diga-nos no GitHub</a>, se o mesmo ainda não tiver sido reportado.<br>
+        Esta compilação contém funcionalidades <b>muito experimentais</b>. Por favor, pesquise no XDA ou no GitHub antes de reportar qualquer problema. Problemas duplicados serão fechados e ignorados.<br><br>
+        Lembre-se de anexar sempre relatórios da Xposed quando reportar bugs, e relatórios logcat em caso de falhas.
+        ]]></string>
   <string name="header_tweaks">Ajustes</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplicação</string>
-  <string name="app_dark_theme_title">Usar tema escuro</string>
+  <string name="app_theme_title">Tema da aplicação</string>
+  <string name="app_theme_light">Claro</string>
+  <string name="app_theme_dark">Escuro</string>
+  <string name="app_theme_device">Padrão do dispositivo</string>
   <string name="hide_launcher_icon_title">Esconder o ícone da aplicação</string>
   <string name="hide_launcher_icon">Poderá ser necessário reiniciar o iniciador de aplicações</string>
   <string name="debug_log_title">Relatórios de depuração</string>
@@ -87,6 +101,7 @@
   <string name="recents_navigation_delay_title">Tempo limite para navegação</string>
   <string name="recents_navigation_delay">Tempo até que a aplicação selecionada seja colocada em foco</string>
   <string name="enable_large_recents">Aplicações recentes grandes</string>
+  <string name="enable_large_recents_summary">Apenas altera a largura das aplicações recentes, e não a altura</string>
   <string name="no_recents_image">Alterar a imagem de \"Nenhum item recente\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Nenhum item recente</string>
@@ -107,9 +122,9 @@
   <string name="enable_qs_editor">Ativar o editor de Def. Rápidas</string>
   <string name="allow_fancy_qs_transition">Transição de Def. Rápidas animada</string>
   <string name="enable_new_tile_click_behavior">Alterar estado ao invés de expandir</string>
-  <string name="enable_new_tile_click_behavior_summary">Ao tocar num mosaico do cabeçalho, alterar o seu estado ao invés de expandi-lo</string>
+  <string name="enable_new_tile_click_behavior_summary">Ao tocar num mosaico do cabeçalho, alterar-se-à o seu estado e tocar num bloco no painel irá expandi-lo</string>
   <string name="enable_large_first_row">Ampliar a primeira fila</string>
-  <string name="enable_large_first_row_summary">Em ROMs baseadas em CyanogenMod, utilize o menu de configuração de mosaicos para ativar esta funcionalidade (no painel de Def. Rápidas, pressione sem soltar no ícone das Definições para ativar o menu e depois deslize para a direita)</string>
+  <string name="enable_large_first_row_summary2">Faz com que os dois primeiros mosaicos sejam maiores, se suportado</string>
   <string name="fix_stuck_inversion_title">Resolver bloqueio da inversão de cores</string>
   <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores fica bloqueada no modo ativo. Selecione esta opção para forçar a desativação.</string>
   <string name="header_clock_size_title">Tamanho do relógio do cabeçalho</string>
@@ -131,9 +146,10 @@
   <string name="notification_blacklisted_apps_title">Lista negra</string>
   <string name="notification_blacklisted_apps">Não utilizar o novo estilo de notificações nestas aplicações</string>
   <string name="notifications_custom_actions_color_title">Cor de fundo personalizada nas ações</string>
+  <string name="notifications_custom_actions_color">Escolha uma cor personalizada para o fundo dos botões das notificações</string>
   <string name="notifications_actions_color_title">Cor de fundo das ações</string>
   <string name="notification_experimental_title">Comportamento experimental para notificações</string>
-  <string name="notification_experimental">Comportamento de deslize do Android Nougat (sem pilha superior) e sombra nas notificações</string>
+  <string name="notification_experimental">Comportamento de scroll do Nougat (sem pilha superior)</string>
   <string name="notification_keyguard_max_title">Núm. máximo de notif. no ecrã de bloqueio</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">agora</string>
@@ -219,7 +235,7 @@
   <string name="unknown_address">Desconhecida</string>
   <string name="date_of_birth">Data de nascimento</string>
   <string name="unknown_date_of_birth">Desconhecido</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Idade: %1$d</string>
@@ -315,6 +331,7 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Mostrar fonte de instalação das aplicações</string>
+  <string name="enable_install_source">Adiciona uma categoria na página de informações da aplicação para mostrar a origem da sua instalação (Play Store, instalador de pacotes, etc.)</string>
   <string name="battery_detail_switch_title">Poupança de Bateria</string>
   <string name="battery_detail_switch_summary">Reduz o desempenho e os dados de segundo plano</string>
   <string name="qs_add_notes_title">Notas</string>
@@ -323,4 +340,31 @@
   <string name="notification_spoof_api_version">Enganar estas aplicações para que pensem que estão a correr na API 24</string>
   <string name="hide_tiles_on_lockscreen">Esconder mosaicos no ecrã de bloqueio</string>
   <string name="done">Concluído</string>
+  <string name="cm_qs_settings">Definições das Def. Rápidas da CM</string>
+  <string name="disable_qs_paging">Desativar paginação das Def. Rápidas</string>
+  <string name="disable_qs_paging_summary">Desativar paginação das Def. Rápidas em modo de retrato</string>
+  <string name="allow_direct_reply_on_keyguard">Resposta direta no ecrã de bloqueio</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Permite que as notificações sejam respondidas no ecrã de bloqueio</string>
+  <string name="enable_notifications_background">Ativar fundo de notificações</string>
+  <string name="enable_notifications_background_summary">Coloca um fundo branco atrás das notificações ao deslizá-las para remover</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Abrir as Def. Rápidas</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Fechar as Def. Rápidas</string>
+  <string name="warning">Aviso</string>
+  <string name="dont_show_again">Não mostrar novamente</string>
+  <string name="enable_data_disabled_indicator">Mostrar indicador de dados móveis desativados</string>
+  <string name="enable_data_disabled_indicator_summary">Mostra um \"X\" como indicador de sinal quando os dados móveis estiverem desativados</string>
+  <string name="home">Início</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Está a %1$d passo de ativar as funcionalidades experimentais.</item>
+    <item quantity="other">Está a %1$d passos de ativar as funcionalidades experimentais.</item>
+  </plurals>
+  <string name="show_experimental_on">Ativou as funcionalidades experimentais!</string>
+  <string name="show_experimental_on_already">Já ativou as funcionalidades experimentais.</string>
+  <string name="header_experimental">Experimental</string>
+  <string name="enable_experimental_features">Ative as funcionalidades experimentais</string>
+  <string name="enable_n_style_settings_dashboard">Definições com o estilo do Nougat</string>
+  <string name="enable_n_style_settings_dashboard_summary">Aplique um tema para que as Definições pareçam as do Nougat</string>
+  <string name="enable_settings_drawer">Ativar a gaveta de configurações</string>
 </resources>

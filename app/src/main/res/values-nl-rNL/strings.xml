@@ -25,7 +25,10 @@
   <string name="header_tweaks">Aanpassingen</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">App</string>
-  <string name="app_dark_theme_title">Donker app thema</string>
+  <string name="app_theme_title">App thema</string>
+  <string name="app_theme_light">Licht</string>
+  <string name="app_theme_dark">Donker</string>
+  <string name="app_theme_device">Apparaat standaard</string>
   <string name="hide_launcher_icon_title">Verberg launcher icoon</string>
   <string name="hide_launcher_icon">Kan een herstart van de launcher vereisen</string>
   <string name="debug_log_title">Debug logboek</string>
@@ -108,7 +111,6 @@
   <string name="enable_new_tile_click_behavior">Android N tegel klik gedrag</string>
   <string name="enable_new_tile_click_behavior_summary">Als je klikt op een tegel die zich in de header bevindt, wordt deze geopend en het paneel wordt uitgebreid</string>
   <string name="enable_large_first_row">Vouw eerste rij uit</string>
-  <string name="enable_large_first_row_summary">Gebruik het instellingsmenu van de \"pas tegels aan\" knop op CM ipv dit</string>
   <string name="fix_stuck_inversion_title">Los vaste inversie op</string>
   <string name="fix_stuck_inversion">Op sommige apperaten loopt de inversie vast. Klik hier om het geforceerd uit te zetten</string>
   <string name="header_clock_size_title">Bovenkant klok formaat</string>
@@ -132,7 +134,6 @@
   <string name="notifications_custom_actions_color_title">Gebruik angepaste actions achtergrond kleuren</string>
   <string name="notifications_actions_color_title">Actions achtergrond kleur</string>
   <string name="notification_experimental_title">Experimentele N notificatie gedrag</string>
-  <string name="notification_experimental">N scroll gedrag (niet samenvoegen) en notificatie schaduw</string>
   <string name="notification_keyguard_max_title">Maximale notificaties</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">nu</string>
@@ -162,9 +163,41 @@
   <string name="emergency_info_launch_hint">Klik opnieuw om te openen</string>
   <string name="enable_emergency_info_title">Zet nood informatie aan</string>
   <string name="enable_emergency_info">Voegd een nood informatie knop toe op de nood beller</string>
+  <string name="tab_title_info">Info</string>
+  <string name="tab_title_contacts">Contacten</string>
+  <string name="add_emergency_contact">Contact toevoegen</string>
+  <string name="user_emergency_info_title">Noodsituatie informatie</string>
+  <string name="clear">Wissen</string>
+  <string name="clear_all_message">Wis alle informatie en contacten?</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <string name="remove">Verwijderen</string>
+  <string name="cancel">Annuleren</string>
+  <string name="name">Naam</string>
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
+  <string name="info_bloodtype_op">O+</string>
+  <string name="info_bloodtype_on">O-</string>
+  <string name="info_bloodtype_ap">A+</string>
+  <string name="info_bloodtype_an">A-</string>
+  <string name="info_bloodtype_bp">B+</string>
+  <string name="info_bloodtype_bn">B-</string>
+  <string name="info_bloodtype_abp">AB+</string>
+  <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H H</string>
+  <string name="yes">Ja</string>
+  <string name="no">Nee</string>
+  <string name="battery">Batterij</string>
+  <string name="charged">Opgeladen</string>
+  <string name="charging">Opladen,</string>
+  <string name="qs_edit">Bewerk</string>
+  <string name="drag_to_add_tiles">Sleep om tegels toe te voegen</string>
+  <string name="drag_to_remove_tiles">Sleep hier om te verwijderen</string>
+  <string name="live_display">LiveScherm</string>
+  <string name="live_display_auto">Automatisch</string>
+  <string name="live_display_off">Uit</string>
+  <string name="live_display_day">Dag</string>
+  <string name="live_display_night">Nacht</string>
+  <string name="live_display_outdoor">Buiten (felle zon)</string>
   <!-- Example: 3 hours ago -->
   <!-- Example: 3 hours left -->
   <!-- Example: Approx. 3 hours left -->
@@ -180,6 +213,7 @@
   <!-- Example: 75% - 3h -->
   <!-- Example: 75% - 3 hours until full from wireless -->
   <!-- Example: 75% - 3h -->
+  <string name="battery_info_status_unknown">Onbekend</string>
   <string name="battery_info_status_charging">Opladen</string>
   <string name="battery_info_status_charging_ac">Opladen met oplader</string>
   <string name="battery_info_status_charging_ac_short">Opladen</string>
@@ -194,10 +228,21 @@
   <string name="battery_detail_charging_summary">Batterij bespaarstand niet beschikbaar tijdens opladen</string>
   <!-- Add a custom tile -->
   <string name="add">Toevoegen</string>
+  <string name="add_custom_tile">Uitzend tegel toevoegen</string>
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Tegel specificaties kunnen niet leeg zijn</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Reset</string>
   <string name="dialog_color_picker">Kleurenkiezer</string>
   <string name="press_color_to_apply">Druk op een kleur om te veranderen</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
+  <string name="battery_detail_switch_title">Batterij besparing</string>
+  <string name="qs_add_notes_title">Notities</string>
+  <string name="done">Klaar</string>
+  <string name="cm_qs_settings">CM QS instellingen</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="header_experimental">Experimenteel</string>
+  <string name="enable_n_style_settings_dashboard">N stijl instellingen</string>
 </resources>

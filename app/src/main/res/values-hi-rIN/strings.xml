@@ -10,6 +10,24 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">\@kanzariya99 द्वारा अनुवादित</string>
   <string name="about_version">संस्करण %1$s (%2$d)</string>
+  <string name="prefs_not_readable"><![CDATA[<b>चेतावनी:</b> preference फ़ाइल Xposed द्वारा पढ़ने योग्य नहीं है. 
+अधिक जानकारी के लिए क्लिक करें &#8230;]]></string>
+  <string name="prefs_not_readable_description"><![CDATA[
+        Xposed can\'t read the preference file of this module, default values will be used in hooks.
+        There are several ways to fix this problem. Also note that this error pops up if you\'ve never
+        opened the app before.<br><br>
+        First, reboot the device (No soft reboot!).<br>
+        If that doesn\'t help, try reinstalling the module.<br>
+        If both attempts fail, ensure that your SELinux mode is set to <i>permissive</i>.
+        <i>Enforcing</i> SELinux might block access to the preference file. In order to change the mode,
+        use the app <tt>SELinuxModeChanger</tt> that you can download
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">in this XDA thread</a>.<br>
+        If even that fails, you probably have to live with the default values, sorry :(
+        ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+आप एक स्वचालित निर्माण पर चला रहे हैं। मॉड्यूल के कुछ भागों में नए परिवर्तन की वजह से तोड़ सकता है।
+यदि आप किसी भी मुद्दे पाया,<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> GitHub पर एक समस्या को खोलें</a> यदि यह पहले से ही नहीं है,<br><br>
+हमेशा Xposed logs संलग्न करने के लिए याद रखें जब reporting bugs. और crashes के मामले में logcat.        ]]></string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">ऐप</string>
   <string name="hide_launcher_icon_title">लॉन्चर चिह्न छुपाएँ</string>
@@ -17,6 +35,7 @@
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
   <!-- Primary color of app theme -->
   <!-- Wifi disconnected -->
+  <string name="disabled">विकलांग</string>
   <!-- Is on or off -->
   <!-- Storage settings summary: 10GB of 12GB used -->
   <!-- Battery settings summary: 58% - approx. 2h left -->
@@ -39,7 +58,7 @@
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
   <!-- Example: 3 hours ago -->
   <!-- Example: 3 hours left -->
@@ -60,4 +79,6 @@
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
 </resources>

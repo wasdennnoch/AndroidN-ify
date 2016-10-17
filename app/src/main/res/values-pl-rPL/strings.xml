@@ -23,16 +23,29 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">w tym wątku na XDA</a>.<br>
         Jeśli nawet to nie przyniesie rezultatu, będziesz musiał się obyć z domyślnymi ustawieniami, przepraszamy :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+Używasz zautomatyzowanej kompilacji. Niektóre funkcje tego modułu mogą nie działać z powodu nowych zmian.
+        Jeśli znajdziesz usterkę, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">zgłoś ją na GitHubie</a>, jeśli jeszcze jej tam nie ma.
+        Pamiętaj, aby dołączyć log z Xposed przy zgłaszaniu błędu, a także logcat w razie jakichkolwiek crashów.        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie działać
+ ze względu na nowe zmiany.
+        Jeżeli znalazłeś jakikolwiek błąd, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">zgłoś go na Github</a>, jeżeli nikt przedtem go nie zgłosił..<br>
+        Ta wersja modułu zawiera jest <b>nie testowane</b> nowe fukncje. Proszę, przeszukaj XDA oraz Github przed zgłaszaniem błędu. Podwajane błędy będą ignorowane i zamykane.<br><br>         Pamiętaj o załączaniu logów z Xposed podczas zgłaszania błędu, oraz logcat wypadku błędów krytycznych.
+        ]]></string>
   <string name="header_tweaks">Ulepszenia</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplikacja</string>
-  <string name="app_dark_theme_title">Ciemny motyw aplikacji</string>
+  <string name="app_theme_title">Motyw aplikacji</string>
+  <string name="app_theme_light">Jasny</string>
+  <string name="app_theme_dark">Ciemny</string>
+  <string name="app_theme_device">Domyślny</string>
   <string name="hide_launcher_icon_title">Ukryj ikonę w launcherze</string>
   <string name="hide_launcher_icon">Może wymagać ponownego uruchomienia lauchera</string>
   <string name="debug_log_title">Włącz debugowanie</string>
   <string name="debug_log">Ostrzeżenie: generuje dużo wpisów w dzienniku debugowania</string>
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
-  <string name="requires_android_version">Wymaga Android w wersji %1$s</string>
+  <string name="requires_android_version">Wymaga Androida w wersji %1$s</string>
   <string name="not_activated">Moduł nieaktywny</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Główny kolor</string>
@@ -40,7 +53,7 @@
   <string name="header_settings">Ustawienia</string>
   <string name="enable_settings_summaries_title">Włącz poprawki ustawień</string>
   <string name="enable_settings_summaries">Pokaż najważniejsze informacje bezpośrednio w menu ustawień</string>
-  <string name="fix_sound_notif_tile_title">Napraw kafelek Dźwięki i Powiadomienia</string>
+  <string name="fix_sound_notif_tile_title">Napraw kafelek \"Dźwięki i Powiadomienia\"</string>
   <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka</string>
   <string name="enable_n_platlogo_title">Logo Androida N w \"easter egg\'u\"</string>
   <string name="use_namey_mcnameface_title">Używaj ikony \"Namey McNameface\"</string>
@@ -109,7 +122,6 @@
   <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
   <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go, \na dotknięcie kafelka w rozwiniętym panelu rozszerzy go</string>
   <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
-  <string name="enable_large_first_row_summary">Jeśli posiadasz CyanogenMod, użyj menu konfiguracji aby edytować kafelki</string>
   <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
   <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
   <string name="header_clock_size_title">Rozmiar zegarka w nagłówku</string>
@@ -131,15 +143,15 @@
   <string name="notification_blacklisted_apps_title">Wyłączone aplikacje</string>
   <string name="notification_blacklisted_apps">Użyj starego stylu powiadomień dla tych aplikacji</string>
   <string name="notifications_custom_actions_color_title">Użyj niestandardowego koloru tła akcji</string>
+  <string name="notifications_custom_actions_color">Użyj niestandardowego koloru jako tła przycisków notyfikacji</string>
   <string name="notifications_actions_color_title">Kolor tła akcji</string>
   <string name="notification_experimental_title">Eksperymentalne zachowanie notyfikacji z N</string>
-  <string name="notification_experimental">Zachowanie scrolowania z N i cień notyfikacji</string>
   <string name="notification_keyguard_max_title">Maksymalna ilośc notyfikacji z keyguard</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teraz</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
-    <item quantity="one">%d min</item>
+    <item quantity="one">%d min.</item>
     <item quantity="few">%d min</item>
     <item quantity="other">%d min</item>
   </plurals>
@@ -151,7 +163,7 @@
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
-    <item quantity="one">%d dzień</item>
+    <item quantity="one">%d dzień/dni</item>
     <item quantity="few">%d dni</item>
     <item quantity="other">%d dni</item>
   </plurals>
@@ -163,7 +175,7 @@
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
-    <item quantity="one">za %d min</item>
+    <item quantity="one">za %d min.</item>
     <item quantity="few">za %d min</item>
     <item quantity="other">za %d min</item>
   </plurals>
@@ -175,13 +187,13 @@
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_days_shortest_future">
-    <item quantity="one">za %d dzień</item>
+    <item quantity="one">za %d dni</item>
     <item quantity="few">za %d dni</item>
     <item quantity="other">za %d dni</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_years_shortest_future">
-    <item quantity="one">za %d rok</item>
+    <item quantity="one">za %d lat</item>
     <item quantity="few">za %d lata</item>
     <item quantity="other">za %d lat</item>
   </plurals>
@@ -227,7 +239,7 @@
   <string name="unknown_address">Nieznany</string>
   <string name="date_of_birth">Data urodzenia</string>
   <string name="unknown_date_of_birth">Nieznana</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Wiek: %1$d</string>
@@ -331,4 +343,23 @@
   <string name="notification_spoof_api_version">Zmuś aplikacje do myślenia, że działają na API 24</string>
   <string name="hide_tiles_on_lockscreen">Ukryj kafelki na ekranie blokady</string>
   <string name="done">Gotowe</string>
+  <string name="cm_qs_settings">Ustawienia CM QS</string>
+  <string name="disable_qs_paging">Wyłącz stronicowanie QS</string>
+  <string name="disable_qs_paging_summary">Wyłącz stronicowanie QS w pionie</string>
+  <string name="allow_direct_reply_on_keyguard">Bezpośrednia odpowiedź na ekranie blokady</string>
+  <string name="enable_notifications_background">Włącz powiadomienia w tle</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Otwórz szybkie ustawienia.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Zamknij szybkie ustawienia.</string>
+  <string name="warning">Ostrzeżenie</string>
+  <string name="dont_show_again">Nie pokazuj ponownie</string>
+  <string name="enable_data_disabled_indicator">Pokaż powiadomienie o wyłączonej transmisji danych</string>
+  <string name="home">Dom</string>
+  <string name="show_experimental_on_already">Już uruchomiłeś funkcję eksperymentalne.</string>
+  <string name="header_experimental">Eksperymentalne</string>
+  <string name="enable_experimental_features">Uruchom eksperymentalne fukncję</string>
+  <string name="enable_n_style_settings_dashboard">Ustawienia w stylu N</string>
+  <string name="enable_n_style_settings_dashboard_summary">Motyw i powłoka ustawień wyglądają jak N</string>
+  <string name="enable_settings_drawer">Uruchom wybór ustawień</string>
 </resources>

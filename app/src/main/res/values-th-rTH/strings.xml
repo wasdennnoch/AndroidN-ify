@@ -117,7 +117,7 @@
   <string name="update_notification_download_fail_details">ไม่สามารถดาวน์โหลด build %1$d</string>
   <string name="emergency_info_launch_hint">แตะอีกครั้งเพื่อเปิด</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
   <string name="info_bloodtype_op">O บวก</string>
   <string name="info_bloodtype_on">O ลบ</string>
@@ -181,4 +181,6 @@
   <string name="enable_install_source_title">แสดงที่มาของแอพ</string>
   <string name="battery_detail_switch_title">โหมดประหยัดแบตเตอรี่</string>
   <string name="battery_detail_switch_summary">ลดประสิทธิภาพการทำงานและข้อมูลแบ็กกราวด์</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
 </resources>

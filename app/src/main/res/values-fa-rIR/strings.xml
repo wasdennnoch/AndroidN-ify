@@ -23,10 +23,16 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">XDA</a>.<br>
         اگر باز هم مشکل حل نشد، با سازنده تماس بگیرید
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[ شما یک سازنده اتوماتیک را اجرا کرده ید.بعضی از قسمت های ماژول ممکن است به دلیل تغییرات خراب شود.
+اگر شما هر گونه مشکلی را یافتید <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">یک GitHub باز کنید </a> اگر آن را در حال حاضر وجود ندارد <br><br>
+به یاد داشته باشید که همیشه جزئیات خطا را همیشه  ضمیمه گزارش اشکالات خود کنید  ، و logcat در هنگام به خطا .]]></string>
   <string name="header_tweaks">تغییرات</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">برنامه</string>
-  <string name="app_dark_theme_title">تم سیاه</string>
+  <string name="app_theme_title">نرم افزار تم</string>
+  <string name="app_theme_light">نور</string>
+  <string name="app_theme_dark">تیره</string>
+  <string name="app_theme_device">دستگاه پیش فرض</string>
   <string name="hide_launcher_icon_title">مخفی کردن آیکن برنامه</string>
   <string name="hide_launcher_icon">ممکن است به ریستارت کردن نیاز داشته باشد</string>
   <string name="debug_log_title">لاگ گرفتن</string>
@@ -87,6 +93,7 @@
   <string name="recents_navigation_delay_title">فاصله زمانی بین برنامه ها</string>
   <string name="recents_navigation_delay">فاصله زمانی بین انتخاب و باز شدن</string>
   <string name="enable_large_recents">فعالسازی پنجره های بزرگتر</string>
+  <string name="enable_large_recents_summary">فقط میتوانید عرض را تغیر دهید ، ارتفاع تغییر نمی کند</string>
   <string name="no_recents_image">آیکن جدید صفحه ریسنتز خالی</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">هیچ برنامه ای باز نیست</string>
@@ -109,7 +116,6 @@
   <string name="enable_new_tile_click_behavior">کلیک های اندروید 7</string>
   <string name="enable_new_tile_click_behavior_summary">قابلیت جدید اندروید 7</string>
   <string name="enable_large_first_row">بزرگ کردن ردیف اول</string>
-  <string name="enable_large_first_row_summary">اگر از سیانوژن استفاده میکنید از منوی خودش استفاده کنید</string>
   <string name="fix_stuck_inversion_title">حل مشکل وارگونی</string>
   <string name="fix_stuck_inversion">اگر مشکل خاصی دارید، فعال کنید</string>
   <string name="header_clock_size_title">اندازه ی ساعت</string>
@@ -131,11 +137,12 @@
   <string name="notification_blacklisted_apps_title">برنامه های خاص</string>
   <string name="notification_blacklisted_apps">برنامه هایی که از حالت قدیمی اعلان ها برای آنها استفاده می شود</string>
   <string name="notifications_custom_actions_color_title">پس زمینه دلخواه</string>
+  <string name="notifications_custom_actions_color">استفاده از رنگ های سفارشی به عنوان پس زمینه دکمه های اطلاع رسانی</string>
   <string name="notifications_actions_color_title">رنگ پس زمینه</string>
   <string name="notification_experimental_title">رفتار آزمایشی</string>
-  <string name="notification_experimental">حالت آزمایشی رفتار اعلان ها به صورت اندروید 7</string>
   <string name="notification_keyguard_max_title">حداکثر اعلان ها در صفحه لاک اسکرین</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+  <string name="now_string_shortest">در حال حاضر</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -158,8 +165,22 @@
   <string name="update_notification_download_fail_details">نسخه %1$d</string>
   <string name="emergency_info_launch_hint">دوباره کلیک کنید تا باز شود</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <string name="name">نام</string>
+  <string name="unknown_name">ناشناخته</string>
+  <string name="address">آدرس</string>
+  <string name="unknown_address">ناشناخته</string>
+  <string name="date_of_birth">تاریخ تولد</string>
+  <string name="unknown_date_of_birth">ناشناخته</string>
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
+  <string name="age">سن: %1$d</string>
+  <string name="remove_dob_icon_text">حذف تاریخ تولد</string>
+  <string name="medications_hint">به عنوان مثال، آسپرین</string>
+  <string name="medical_conditions">یادداشت های پزشکی</string>
+  <string name="unknown_medical_conditions">ناشناخته</string>
+  <string name="medical_conditions_hint">به عنوان مثال، آسم</string>
+  <string name="organ_donor">ادای اعضای بدن</string>
+  <string name="unknown_organ_donor">ناشناخته</string>
   <string name="info_bloodtype_op">O مثبت</string>
   <string name="info_bloodtype_on">O منفی</string>
   <string name="info_bloodtype_ap">A مثبت</string>
@@ -168,6 +189,7 @@
   <string name="info_bloodtype_bn">B منفی</string>
   <string name="info_bloodtype_abp">AB مثبت</string>
   <string name="info_bloodtype_abn">AB منفی</string>
+  <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">بله</string>
   <string name="no">خیر</string>
   <string name="battery">باتری</string>
@@ -183,10 +205,14 @@
   <string name="live_display_night">شب</string>
   <string name="live_display_outdoor">آفتابی</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">پیش %1$s</string>
   <!-- Example: 3 hours left -->
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">حدود %1$s سمت چپ</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s چپ</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s مانده %2$s تقریبا</string>
   <!-- Example: 75% - 3h left -->
   <!-- Example: 75% - Charging -->
   <!-- Example: 75% - 3 hours until full -->
@@ -204,4 +230,6 @@
   <string name="press_color_to_apply">یک رنگ انتخاب کنید</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">نشان دادن سورس برنامه</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
 </resources>

@@ -8,7 +8,7 @@
   <string name="activity_about">عن اندرويد ان-ايفاي</string>
   <string name="about_author">تطوير MrWasdennnoch@</string>
   <!-- Insert your (preferably XDA) username here -->
-  <string name="about_translator">ترجمه بواسطه madkita@xda</string>
+  <string name="about_translator">ترجمه بواسطه Tevfik Xung@xda</string>
   <string name="about_version">اصدار البرنامج %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>تحذير:</b> التفضيل ملف غير ممكن قراءتها بواسطة إكسبوسيد. انقر للحصول على مزيد من المعلومات ;8230#&]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
@@ -19,10 +19,20 @@
 اذا لم تنجح للخطوات السابقه تاكد ان وضع SE لينكس<i> متساهل<i/>
 <i>فرض<i/>لينكس قد يمنع من الوصول الي ملف الضبط لتغيير وضع SE لينكس استخدم تطبيق <tt>SElunixmodechanger </tt>الذي يمكنك تحميله من <a href="http://forum.xda-developers.com/showthread.php?t=2524485"> في المقال علي XDA<a><br>
 حتي وان فشلت فالارجح انه عليك استخدام التطبيق بالضبط الافتراضي ،عذرا:(        ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+        You\'re running on an automated build. Some parts of the module may break due to new changes.
+        If you found any issue, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">open one on GitHub</a> if it doesn\'t already exists.<br><br>
+        Remember to always attach Xposed logs when reporting bugs, and logcat in case of crashes.
+        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+        You\'re running on an experimental automated build. Some parts of the module may break due to new changes.
+        If you found any issue, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">open one on GitHub</a> if it doesn\'t already exists.<br>
+        This build contains <b>very experimental</b> features. Please search in XDA and GitHub before reporting any issues. Duplicate reports will be ignored and closed.<br><br>
+        Remember to always attach Xposed logs when reporting bugs, and logcat in case of crashes.
+        ]]></string>
   <string name="header_tweaks">خيارات</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">ضبط التطبيق</string>
-  <string name="app_dark_theme_title">وضع الظلام</string>
   <string name="hide_launcher_icon_title">اخفاء التطبيق</string>
   <string name="hide_launcher_icon">ربما يجب اعاده تشغيل اللانشر</string>
   <string name="debug_log_title">تصحيح الاخطاء</string>
@@ -105,7 +115,6 @@
   <string name="enable_new_tile_click_behavior">السلوك نقر بلاط اندرويد ان</string>
   <string name="enable_new_tile_click_behavior_summary">الضغط علي احد الاختصارات المصغره سيشغل الاختصار اما النقر علي الاختصار سيقوم بتوسيعه</string>
   <string name="enable_large_first_row">توسيع الصف الأول</string>
-  <string name="enable_large_first_row_summary">في روم ساينوجين قم باستخدام الخيار الموجود في قائمه الخيارات بدلا من هذا</string>
   <string name="fix_stuck_inversion_title">إصلاح الانعكاس العالق</string>
   <string name="fix_stuck_inversion">في بعض الأجهزة يحصل عطل في عكس عند تمكين. انقر فوق لإجبار الايقاف</string>
   <string name="header_clock_size_title">حجم الساعه في شريط الاشعارات</string>
@@ -129,7 +138,6 @@
   <string name="notifications_custom_actions_color_title">استخدام لون خلفية إجراءات مخصص</string>
   <string name="notifications_actions_color_title">لون خلفية الإجراءات</string>
   <string name="notification_experimental_title">استخدام سلوك اشعارات انرويد N التجريبي</string>
-  <string name="notification_experimental">تمرير وظل اشعارات كانندرويد N (لا تكديس في الاعلي)</string>
   <string name="notification_keyguard_max_title">اقصي حد للاشعارات في شاشه القفل</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">الآن</string>
@@ -144,6 +152,7 @@
   <string name="update_notification_title">يوجد تحديث جديد</string>
   <string name="update_notification">التحديث %1$d متاح الان للتنزيل!</string>
   <string name="update_notification_download">تحديث</string>
+  <string name="update_warning_details">قد يكون النظام غير مستقر، وسيتم تجاهل تقارير الأخطاء حتى إعادة تشغيل الجهاز</string>
   <string name="check_for_updates_title">بحث عن التحديثات</string>
   <string name="check_for_updates">بحث عن التحديثات عند تشغيل التطبيق</string>
   <string name="checking_for_update">جار البحث عن التحديثات&#8230;</string>
@@ -153,10 +162,47 @@
   <string name="update_notification_downloading_details">جار تحميل الاصدار %1$d</string>
   <string name="update_notification_download_fail">فشل التحميل</string>
   <string name="update_notification_download_fail_details">فشل تحميل الاصدار %1$d</string>
+  <string name="emergency_info">معلومات الطوارئ</string>
   <string name="emergency_info_launch_hint">اللمس مرة أخرى للفتح</string>
+  <string name="enable_emergency_info_title">تمكين معلومات الطوارئ</string>
+  <string name="edit_emergency_info_title">تحرير معلومات الطوارئ</string>
+  <string name="clear_all">مسح الكل</string>
+  <string name="tab_title_info">معلومات</string>
+  <string name="tab_title_contacts">جهات الاتصال</string>
+  <string name="add_emergency_contact">إضافة جهة اتصال</string>
+  <string name="user_emergency_info_title">معلومات الطوارئ</string>
+  <string name="emergency_info_continue">مواصلة</string>
+  <string name="clear">مسح</string>
+  <string name="clear_all_message">مسح كافة المعلومات وجهات الاتصال؟</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <string name="remove_contact">إزالة %1$s من جهات اتصال الطوارئ؟</string>
+  <string name="remove_contact_icon_text">إزالة جهة اتصال</string>
+  <string name="remove">إزالة</string>
+  <string name="cancel">إلغاء</string>
+  <string name="emergency_contacts_title">اتصالات الطوارئ</string>
+  <string name="name">الاسم</string>
+  <string name="unknown_name">مجهول</string>
+  <string name="address">العنوان</string>
+  <string name="unknown_address">مجهول</string>
+  <string name="date_of_birth">تاريخ الميلاد</string>
+  <string name="unknown_date_of_birth">مجهول</string>
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
+  <string name="age">العمر: %1$d</string>
+  <string name="remove_dob_icon_text">إزالة تاريخ الميلاد</string>
+  <string name="blood_type">زمره الدم</string>
+  <string name="unknown_blood_type">مجهول</string>
+  <string name="allergies">الحساسية</string>
+  <string name="unknown_allergies">مجهول</string>
+  <string name="allergies_hint">على سبيل المثال، الفول السوداني</string>
+  <string name="medications">الأدوية</string>
+  <string name="unknown_medications">مجهول</string>
+  <string name="medications_hint">على سبيل المثال، الأسبرين</string>
+  <string name="medical_conditions">ملاحظات طبية</string>
+  <string name="unknown_medical_conditions">مجهول</string>
+  <string name="medical_conditions_hint">على سبيل المثال، الربو</string>
+  <string name="organ_donor">الهيئة المانحة</string>
+  <string name="unknown_organ_donor">مجهول</string>
   <string name="info_bloodtype_op">O+</string>
   <string name="info_bloodtype_on">O-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -180,17 +226,23 @@
   <string name="live_display_night">وضع الليل</string>
   <string name="live_display_outdoor">في الخارج(شمس ساطعه)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s قبل</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s باقي</string>
   <!-- Example: Approx. 3 hours left -->
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s باقي</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s تبقي %2$s تقريبا</string>
   <!-- Example: 75% - 3h left -->
   <!-- Example: 75% - Charging -->
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s-%2$s حتى يكتمل</string>
   <!-- Example: 75% - 3h -->
   <!-- Example: 75% - 3 hours until full on AC -->
   <!-- Example: 75% - 3h -->
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s-%2$s حتى يكتمل عبر USB</string>
   <!-- Example: 75% - 3h -->
   <!-- Example: 75% - 3 hours until full from wireless -->
   <!-- Example: 75% - 3h -->
@@ -213,10 +265,21 @@
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">اسم الاختصار لا يمكن ان يكون فارغا</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">إعادة تعيين</string>
   <string name="dialog_color_picker">منتقي الألوان</string>
   <string name="press_color_to_apply">اضغط على اللون للتطبيق</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">إظهار مصدر تثبيت التطبيق</string>
   <string name="battery_detail_switch_title">حافظ الطاقه</string>
   <string name="battery_detail_switch_summary">يقلل من الأداء والبيانات التي في الخلفية</string>
+  <string name="allow_direct_reply_on_keyguard">الرد المباشر من شاشة القفل</string>
+  <string name="allow_direct_reply_on_keyguard_summary">يسمح بإجابة التنبيهات في شاشة القفل</string>
+  <string name="enable_notifications_background">تمكين إخطارات الخلفية</string>
+  <string name="enable_notifications_background_summary">يرسم خلفية بيضاء وراء التنبيهات عند سحبها</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">فتح الإعدادات السريعة.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">إغلاق الإعدادات السريعة.</string>
+  <string name="warning">تحذير</string>
+  <string name="dont_show_again">لا تظهر مرة أخرى</string>
 </resources>

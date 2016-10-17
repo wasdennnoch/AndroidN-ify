@@ -26,7 +26,6 @@
   <string name="header_tweaks">Штимања</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Апликација</string>
-  <string name="app_dark_theme_title">Тамна тема</string>
   <string name="hide_launcher_icon_title">Сакриј икону покретача</string>
   <string name="hide_launcher_icon">Можда ће бити потребан рестарт покретача</string>
   <string name="debug_log_title">Евиденција грешака</string>
@@ -109,7 +108,6 @@
   <string name="enable_new_tile_click_behavior">Понашање плочица у стилу Андроида Н</string>
   <string name="enable_new_tile_click_behavior_summary">Тап на плочицу у заглављу мења вредност а тап на плочицу на панелу је проширује</string>
   <string name="enable_large_first_row">Увећај први ред</string>
-  <string name="enable_large_first_row_summary">На ЦМ-у користите мени подешавања режима измене плочица</string>
   <string name="fix_stuck_inversion_title">Поправи заглављену инверзију</string>
   <string name="fix_stuck_inversion">Не неким уређајима инверзија боја заблокира. Тапните овде за деактивацију</string>
   <string name="header_clock_size_title">Величина сата заглавља</string>
@@ -133,7 +131,6 @@
   <string name="notifications_custom_actions_color_title">Прилагођена боја позадине за радње</string>
   <string name="notifications_actions_color_title">Боја позадине за радње</string>
   <string name="notification_experimental_title">Експериментално Н-понашање обавештења</string>
-  <string name="notification_experimental">Н-понашање клизања (без слагања на врху) и сенка обавештења</string>
   <string name="notification_keyguard_max_title">Највише обавештења на закључаном екрану</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -158,7 +155,7 @@
   <string name="update_notification_download_fail_details">Неуспех преузимања издања %1$d</string>
   <string name="emergency_info_launch_hint">Тапните поново да отворите</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
   <string name="yes">Да</string>
   <string name="no">Не</string>
@@ -195,4 +192,6 @@
   <string name="press_color_to_apply">Тапните на боју да је примените</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Прикажи извор инсталације апликације</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
 </resources>

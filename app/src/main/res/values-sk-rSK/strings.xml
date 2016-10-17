@@ -23,10 +23,24 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">z tejto témy na XDA</a>.<br>
         Ak aj to zlyhá, pravdepodobne sa budete musieť zmieriť s predvolenými hodnotami, prepáčte :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+        Máte nainštalovanú verziu z automatických zostáv. Nektoré časti modulu nemusia fungovať kvôli novým zmenám.
+        Ak ste našli chybu, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">vytvorte hlásenie na GitHube</a>, ak ešte neexistuje.<br><br>
+        Pri hlásení chýb, nezabudnite vždy pripojiť záznam z Xposed a logcat, v prípade pádu.
+        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+        Máte nainštalovanú experimentálnu verziu z automatických zostáv. Nektoré časti modulu nemusia fungovať kvôli novým zmenám.
+        Ak ste našli chybu, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">vytvorte hlásenie na GitHube</a>, ak ešte neexistuje.<br>
+        Táto zostava obsahuje <b>experimentálne</b> funkcie. Prosím, hľadajte na XDA a GitHube pred nahlásením akejkoľvek chyby. Duplicitné hlásenia budú ignorované a ukončené.<br><br>
+        Pri hlásení chýb, nezabudnite vždy pripojiť záznam z Xposed a logcat, v prípade pádu.
+        ]]></string>
   <string name="header_tweaks">Úpravy</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplikácia</string>
-  <string name="app_dark_theme_title">Tmavá téma aplikácie</string>
+  <string name="app_theme_title">Téma aplikácie</string>
+  <string name="app_theme_light">Svetlá</string>
+  <string name="app_theme_dark">Tmavá</string>
+  <string name="app_theme_device">Predvolená zariadením</string>
   <string name="hide_launcher_icon_title">Skryť ikonu aplikácie</string>
   <string name="hide_launcher_icon">Môže vyžadovať reštartovanie spúšťača</string>
   <string name="debug_log_title">Zaznamenávanie chýb</string>
@@ -87,6 +101,7 @@
   <string name="recents_navigation_delay_title">Oneskorenie navigácie</string>
   <string name="recents_navigation_delay">Čas pokým sa zvolená aplikácia otvorí</string>
   <string name="enable_large_recents">Veľké nedávne aplikácie</string>
+  <string name="enable_large_recents_summary">Zmení iba karty na celú šírku, nezmení výšku</string>
   <string name="no_recents_image">Zmeniť obrázok \"Žiadne nedávne položky\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Žiadne nedávne položky</string>
@@ -109,7 +124,7 @@
   <string name="enable_new_tile_click_behavior">Android N správanie dlaždice po klepnutí</string>
   <string name="enable_new_tile_click_behavior_summary">Klepnutie na dlaždicu v záhlaví ju prepne a klepnutie na dlaždicu v panely ju rozbalí</string>
   <string name="enable_large_first_row">Zväčšiť prvý riadok</string>
-  <string name="enable_large_first_row_summary">Na CM radšej použite menu pre nastavenie dlaždíc</string>
+  <string name="enable_large_first_row_summary2">Zobrazí prvé dve dlaždice väčšie, ak je podporované</string>
   <string name="fix_stuck_inversion_title">Opraviť invertované farby</string>
   <string name="fix_stuck_inversion">Na niektorých zariadeniach sa môžu povolené invertovné farby zaseknúť. Kliknite pre vynútenie zkázania</string>
   <string name="header_clock_size_title">Veľkosť hodín v záhlaví</string>
@@ -131,9 +146,10 @@
   <string name="notification_blacklisted_apps_title">Zakázané aplikácie</string>
   <string name="notification_blacklisted_apps">Použije starý štýl upozornení pre vybrané aplikácie</string>
   <string name="notifications_custom_actions_color_title">Použiť vlastnú farbu pozadia pre akcie</string>
+  <string name="notifications_custom_actions_color">Použiť vlastné farbu ako pozadie pre tlačidlá v upozornení</string>
   <string name="notifications_actions_color_title">Farba pozadia akcií</string>
   <string name="notification_experimental_title">N správanie upozornení (experimentálne)</string>
-  <string name="notification_experimental">N správanie skrolovania a tieň upozornení</string>
+  <string name="notification_experimental">N správanie skrolovania (neukladajú sa na seba)</string>
   <string name="notification_keyguard_max_title">Max. upozornení</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teraz</string>
@@ -227,7 +243,7 @@
   <string name="unknown_address">Neznáme</string>
   <string name="date_of_birth">Dátum narodenia</string>
   <string name="unknown_date_of_birth">Neznáme</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Vek: %1$d</string>
@@ -323,6 +339,7 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Zobraziť zdroj nainštalovanej aplikácie</string>
+  <string name="enable_install_source">Zobrazí kategóriu v informáciách o aplikácii, ktorá zobrazuje ako bola aplikácia nainštalovaná (Obchod Play, Nástroj na inštaláciu balíčkov, atď.)</string>
   <string name="battery_detail_switch_title">Šetrič batérie</string>
   <string name="battery_detail_switch_summary">Zníži výkonnosť a dátové prenosy na pozadí</string>
   <string name="qs_add_notes_title">Poznámky</string>
@@ -331,4 +348,32 @@
   <string name="notification_spoof_api_version">Donúti tieto aplikácie si myslieť, že používate API 24</string>
   <string name="hide_tiles_on_lockscreen">Skryť dlaždice na uzamknutej obrazovke</string>
   <string name="done">Hotovo</string>
+  <string name="cm_qs_settings">Nastavenia rýchlych nastavení CM</string>
+  <string name="disable_qs_paging">Zakázať stránkovanie rýchlych nastavení</string>
+  <string name="disable_qs_paging_summary">Zakázať stránkovanie rýchlych nastavení v režime na výšku</string>
+  <string name="allow_direct_reply_on_keyguard">Priama odpoveď na uzamknutej obrazovke</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Umožní odpovedať na upozornenia na uzamknutej obrazovke</string>
+  <string name="enable_notifications_background">Povoliť pozadie upozornení</string>
+  <string name="enable_notifications_background_summary">Vykreslí biele pozadie za upozornením pri potiahnutí preč</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Otvoriť rýchle nastavenia.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Zatvoriť rýchle nastavenia.</string>
+  <string name="warning">Upozornenie</string>
+  <string name="dont_show_again">Nabudúce nezobrazovať</string>
+  <string name="enable_data_disabled_indicator">Zobrazuť indikátor vypnutých mobilných dát</string>
+  <string name="enable_data_disabled_indicator_summary">Zobrazí \"x\" nad signálom, ak sú mobilné dáta vypnuté</string>
+  <string name="home">Domov</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Ešte %1$d krok a budú povolené experimentálne funkcie.</item>
+    <item quantity="few">Ešte %1$d kroky a budú povolené experimentálne funkcie.</item>
+    <item quantity="other">Ešte %1$d krokov a budú povolené experimentálne funkcie.</item>
+  </plurals>
+  <string name="show_experimental_on">Povolili ste experimentálne funkcie!</string>
+  <string name="show_experimental_on_already">Už máte povolené experimentálne funkcie.</string>
+  <string name="header_experimental">Experimentálne</string>
+  <string name="enable_experimental_features">Povoliť experimentálne funkcie</string>
+  <string name="enable_n_style_settings_dashboard">Nastavenia v štýle N</string>
+  <string name="enable_n_style_settings_dashboard_summary">Upraviť vzhľad nastavení ako v N</string>
+  <string name="enable_settings_drawer">Povoliť menu v nastaveniach</string>
 </resources>

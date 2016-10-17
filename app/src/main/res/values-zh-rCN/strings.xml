@@ -23,10 +23,24 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">XDA 上的相关话题帖</a>内下载该应用。<br>
         如果即便如此依旧无效的话，您将可能需要继续忍受此问题了，在此深感抱歉 :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+        您当前正在运行一个自动构建的版本。模块中的一些功能可能会由于新的更改而失效。
+        如果您遇到了任何问题，请在确认无相同报告的前提下 <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">在 Github 中提交</a>。<br><br>
+        请记得在每次提交问题时附带上相关的 Xposed 日志以及发生崩溃时的系统日志。
+        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+        您正在运行一个自动构建的实验性版本。模块中的一些功能可能会由于新的改动而失效。
+        如果您遇到了任何问题，请在确认无相同报告的基础上于 <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">GitHub</a> 内提交 issue。<br>
+        该版本内包含有<b>初阶实验性</b>功能。请在报告问题之前预先搜索 XDA 和 GitHub。重复的问题报告将被开发者忽略并关闭。<br><br>
+        记得在每次报告问题时附带上 Xposed 日志以及发生崩溃情况时的系统日志。      
+        ]]></string>
   <string name="header_tweaks">调整</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">应用</string>
-  <string name="app_dark_theme_title">使用暗色主题</string>
+  <string name="app_theme_title">应用主题</string>
+  <string name="app_theme_light">亮色</string>
+  <string name="app_theme_dark">暗色</string>
+  <string name="app_theme_device">设备默认</string>
   <string name="hide_launcher_icon_title">隐藏应用图标</string>
   <string name="hide_launcher_icon">可能需要重启启动器</string>
   <string name="debug_log_title">调试日志</string>
@@ -61,7 +75,7 @@
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_wireless">%1$s - 正在无线充电</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_usb">%1$s - 正在通过USB充电</string>
+  <string name="battery_charging_usb">%1$s - 正在通过 USB 充电</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_ac">%1$s - 正在通过交流电源充电</string>
   <string name="memory_summary">平均内存用量为 %1$s，共 %2$s</string>
@@ -87,6 +101,7 @@
   <string name="recents_navigation_delay_title">任务导航延时</string>
   <string name="recents_navigation_delay">所选任务被打开的时间</string>
   <string name="enable_large_recents">启用更大尺寸的任务卡片</string>
+  <string name="enable_large_recents_summary">仅更改任务卡片的宽度而不影响其高度</string>
   <string name="no_recents_image">更改没有最近任务时的界面样式</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">近期没有任何内容</string>
@@ -104,12 +119,12 @@
   <string name="notification_header_qs_tiles_count_monitor">个</string>
   <string name="battery_tile_show_percentage">显示百分比</string>
   <string name="battery_tile_show_percentage_summary">在电池图块内显示电量百分比</string>
-  <string name="enable_qs_editor">启用快速设置修改器</string>
+  <string name="enable_qs_editor">启用快速设置修改按钮</string>
   <string name="allow_fancy_qs_transition">快速设置过渡动画</string>
   <string name="enable_new_tile_click_behavior">启用 Android N 式图块点击行为</string>
   <string name="enable_new_tile_click_behavior_summary">点击顶栏内的图块时直接切换状态\n点击快速设置面板内的图块时展开设置项</string>
   <string name="enable_large_first_row">扩大首行图块</string>
-  <string name="enable_large_first_row_summary">使用 CyanogenMod 的用户请选择通过图块修改模式中的配置菜单项进行该设置</string>
+  <string name="enable_large_first_row_summary2">当系统支持时放大显示前两个图块</string>
   <string name="fix_stuck_inversion_title">修复颜色反转卡顿</string>
   <string name="fix_stuck_inversion">一些设备可能在开启反色图块后出现屏幕卡顿的问题。点此可强制停用</string>
   <string name="header_clock_size_title">顶栏时钟大小</string>
@@ -131,10 +146,11 @@
   <string name="notification_blacklisted_apps_title">黑名单应用</string>
   <string name="notification_blacklisted_apps">所选应用将使用旧风格的通知</string>
   <string name="notifications_custom_actions_color_title">使用自定义的通知动作背景色</string>
+  <string name="notifications_custom_actions_color">使用一种自定义颜色来作为通知上按钮的背景色</string>
   <string name="notifications_actions_color_title">通知动作背景色</string>
   <string name="notification_experimental_title">实验性 Android N 式通知行为</string>
-  <string name="notification_experimental">Android N 式通知滚动行为（无顶部堆叠）和阴影</string>
-  <string name="notification_keyguard_max_title">锁屏内显示通知的条数</string>
+  <string name="notification_experimental">Android N 式通知滚动行为（无顶部层叠）</string>
+  <string name="notification_keyguard_max_title">锁屏内显示通知的最大数量</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">现在</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -187,7 +203,7 @@
   <string name="emergency_info_launch_hint">再次点按即可打开</string>
   <string name="enable_emergency_info_title">启用急救信息</string>
   <string name="enable_emergency_info">向紧急拨号器内添加急救信息按钮</string>
-  <string name="edit_emergency_info_title">修改急救信息</string>
+  <string name="edit_emergency_info_title">编辑急救信息</string>
   <string name="clear_all">全部清除</string>
   <string name="tab_title_info">信息</string>
   <string name="tab_title_contacts">联系人</string>
@@ -211,7 +227,7 @@
   <string name="unknown_address">未知</string>
   <string name="date_of_birth">出生日期</string>
   <string name="unknown_date_of_birth">未知</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">年龄：%1$d</string>
@@ -307,12 +323,39 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">十六进制颜色码</string>
   <string name="enable_install_source_title">显示应用安装来源</string>
+  <string name="enable_install_source">在应用信息页内添加一个类别来显示应用的安装来源（如 Play Store，软件包安装程序等）</string>
   <string name="battery_detail_switch_title">省电模式</string>
   <string name="battery_detail_switch_summary">降低设备性能并限制后台流量</string>
   <string name="qs_add_notes_title">注意</string>
   <string name="qs_add_notes">仅适用于提供播送图块的应用（例如 \"Custom Quick Settings\"）。使用前请参阅图块提供应用内的说明。</string>
   <string name="notification_spoof_api_version_title">API 24 伪装</string>
-  <string name="notification_spoof_api_version">使被欺骗的应用误认为它们正运行在 API 24 上</string>
-  <string name="hide_tiles_on_lockscreen">安全锁屏下要隐藏的图块</string>
+  <string name="notification_spoof_api_version">使被欺骗的应用认为其正运行于 API 24 上</string>
+  <string name="hide_tiles_on_lockscreen">隐藏安全锁屏下的图块</string>
   <string name="done">完成</string>
+  <string name="cm_qs_settings">CM 快速设置设定</string>
+  <string name="disable_qs_paging">禁用快速设置分页</string>
+  <string name="disable_qs_paging_summary">在竖屏下禁用快速设置分页</string>
+  <string name="allow_direct_reply_on_keyguard">在锁屏下直接回复</string>
+  <string name="allow_direct_reply_on_keyguard_summary">允许在锁屏内回复通知</string>
+  <string name="enable_notifications_background">启用通知背景</string>
+  <string name="enable_notifications_background_summary">当滑动清除通知时在其下部绘制一份白色背景</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">打开快速设置</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">关闭快速设置</string>
+  <string name="warning">警告</string>
+  <string name="dont_show_again">不再显示</string>
+  <string name="enable_data_disabled_indicator">显示移动数据禁用标识</string>
+  <string name="enable_data_disabled_indicator_summary">当禁用移动数据时显示一个 “x” 作为标识</string>
+  <string name="home">设置主屏幕</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="other">您当前距离开始实验性功能仅有 %1$d 步之遥。</item>
+  </plurals>
+  <string name="show_experimental_on">您已开始实验性功能！</string>
+  <string name="show_experimental_on_already">您已开启过实验性功能，无需重复操作。</string>
+  <string name="header_experimental">实验性</string>
+  <string name="enable_experimental_features">启用实验性功能</string>
+  <string name="enable_n_style_settings_dashboard">Android N 风格设置</string>
+  <string name="enable_n_style_settings_dashboard_summary">使用 Android N 风格的设置面板样式</string>
+  <string name="enable_settings_drawer">启用设置抽屉栏</string>
 </resources>

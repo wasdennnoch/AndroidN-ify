@@ -23,10 +23,17 @@
 		<a href="http://forum.xda-developers.com/showthread.php?t=2524485">у цій темі на XDA</a>.<br>
 		Якщо нічого з перерахованого вище не допомогло, то, швидше за все, доведеться жити зі стандартними значеннями, вибачте :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+        Ви запускаєте автоматичну збірку. Деякі частини модуля можуть зламатися через нові зміни.
+        Якщо ви знайшли якусь проблему, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">повідомте про неї на GitHub</a> якщо вона там не існує.<br><br>
+        Не забувайте завжди прикріплювати журнали Xposed до повідомлень про помилки та logcat у разі аварій.
+        ]]></string>
   <string name="header_tweaks">Твіки</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Додаток</string>
-  <string name="app_dark_theme_title">Темна тема додатку</string>
+  <string name="app_theme_title">Тема</string>
+  <string name="app_theme_light">Світла</string>
+  <string name="app_theme_dark">Темна</string>
   <string name="hide_launcher_icon_title">Приховати значок у лаунчері</string>
   <string name="hide_launcher_icon">Може знадобитися перезавантаження робочого столу</string>
   <string name="debug_log_title">Журнал налагодження</string>
@@ -109,7 +116,6 @@
   <string name="enable_new_tile_click_behavior">Перемикати швидкі налаштування одним натисканням</string>
   <string name="enable_new_tile_click_behavior_summary">При натисканні на плитку у рядку швидкого доступу перемкне стан, і натисніть плитку на панелі, щоб розширити</string>
   <string name="enable_large_first_row">Збільшити перший рядок</string>
-  <string name="enable_large_first_row_summary">На CM використовуйте меню конфігурації в режимі редагування плиток замість цього перемикача</string>
   <string name="fix_stuck_inversion_title">Виправити інверсію</string>
   <string name="fix_stuck_inversion">На деяких пристроях інверсія застряє, коли увімкнена. Натисніть для примусового вимкнення</string>
   <string name="header_clock_size_title">Розмір годинника в рядку стану</string>
@@ -133,7 +139,7 @@
   <string name="notifications_custom_actions_color_title">Змінити колір фону панелі дій</string>
   <string name="notifications_actions_color_title">Колір фону панелі дій</string>
   <string name="notification_experimental_title">Експериментальний стиль N сповіщень</string>
-  <string name="notification_experimental">Метод прокрутки з N (немає верхнього складання) і тінь сповіщень</string>
+  <string name="notification_experimental">Метод прокрутки з N (немає верхнього складання)</string>
   <string name="notification_keyguard_max_title">Максимальна кількість сповіщень при заблокованій клавіатурі</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">щойно</string>
@@ -227,7 +233,7 @@
   <string name="unknown_address">Невідомо</string>
   <string name="date_of_birth">Дата народження</string>
   <string name="unknown_date_of_birth">Невідомо</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Вік: %1$d</string>
@@ -331,4 +337,18 @@
   <string name="notification_spoof_api_version">Обманювати ці додатки, щоб вони думали, що вони працюють на API 24</string>
   <string name="hide_tiles_on_lockscreen">Приховати плитки на екрані блокування</string>
   <string name="done">Зроблено</string>
+  <string name="cm_qs_settings">Налаштування CM QS</string>
+  <string name="disable_qs_paging">Вимкнути сторінки в QS</string>
+  <string name="disable_qs_paging_summary">Вимкнути сторінки у верт. орієнтації</string>
+  <string name="allow_direct_reply_on_keyguard">Швидка відповідь на екрані блокування</string>
+  <string name="enable_notifications_background">Увімкнути тло сповіщень</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Відкрити швидкі налаштування.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Закрити швидкі налаштування.</string>
+  <string name="warning">Увага</string>
+  <string name="dont_show_again">Більше не показувати</string>
+  <string name="enable_data_disabled_indicator">Показати індикатор вимкнених моб. даних</string>
+  <string name="home">Головна</string>
+  <string name="enable_n_style_settings_dashboard">Налаштування в стилі N</string>
 </resources>

@@ -26,7 +26,6 @@
   <string name="header_tweaks">트윅</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">앱</string>
-  <string name="app_dark_theme_title">어두운 앱 테마</string>
   <string name="hide_launcher_icon_title">앱 아이콘 숨기기</string>
   <string name="hide_launcher_icon">홈 런처를 다시 시작해야할 수도 있습니다</string>
   <string name="debug_log_title">디버그 로그</string>
@@ -169,7 +168,7 @@
   <string name="unknown_address">알 수 없음</string>
   <string name="date_of_birth">생년월일</string>
   <string name="unknown_date_of_birth">알 수 없음</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
   <string name="age">나이: %1$d</string>
   <string name="remove_dob_icon_text">생년월일 삭제</string>
@@ -186,6 +185,15 @@
   <string name="medical_conditions_hint">예: 천식</string>
   <string name="organ_donor">장기 기증자</string>
   <string name="unknown_organ_donor">알 수 없음</string>
+  <string name="info_bloodtype_op">O+</string>
+  <string name="info_bloodtype_on">O-</string>
+  <string name="info_bloodtype_ap">A+</string>
+  <string name="info_bloodtype_an">A-</string>
+  <string name="info_bloodtype_bp">B+</string>
+  <string name="info_bloodtype_bn">B-</string>
+  <string name="info_bloodtype_abp">AB+</string>
+  <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">예</string>
   <string name="no">아니오</string>
   <string name="battery">배터리</string>
@@ -201,11 +209,17 @@
   <string name="live_display_night">야간</string>
   <string name="live_display_outdoor">자동 야외 모드</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s 전</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s 남음</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">약. %1$s 남음</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s 남음</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - 약. %2$s 남음</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s 남음</string>
   <!-- Example: 75% - Charging -->
   <!-- Example: 75% - 3 hours until full -->
   <!-- Example: 75% - 3h -->
@@ -237,4 +251,8 @@
   <string name="color_picker_hex">헥스</string>
   <string name="battery_detail_switch_title">배터리 세이버</string>
   <string name="done">완료</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="warning">경고</string>
+  <string name="dont_show_again">다시 표시하지 않음</string>
 </resources>

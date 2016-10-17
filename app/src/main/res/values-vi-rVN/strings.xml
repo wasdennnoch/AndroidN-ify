@@ -12,10 +12,23 @@
   <string name="about_version">Phiên bản %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Cảnh báo:</b> Xposed không thể đọc file cấu hình. Nhấn để thêm thông tin&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[         Xposed không thể đọc file cấu hình của module này, sẽ nạp dữ liệu mặc định         Có nhiều cách để sửa lỗi này. Ngoài ra thông báo này có thể hiện ra nếu         bạn chưa từng mở app này bao giờ.<br><br>         Trước tiên, hãy khởi động lại (Không khởi động lại mềm!).<br>         Nếu không được, thử cài đặt lại module.<br>         Nếu vẫn không được, hãy đặt SELinux ở chế độ <i>không thực thi</i>.         <i>Thực thi</i> SELinux có thể cản trở việc đọc file cài đặt. Để có thể đặt lại,         sử dụng app <tt>SELinuxModeChanger</tt> tải về trên XDA tại         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">đây</a>.<br>         Nếu vẫn không được, bạn phải chấp nhận dùng giá trị cài đặt mặc định, rất tiếc :(         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+Bạn đang chạy trên một bản xây dựng tự động. Một số phần của các mô-đun có thể phá vỡ do sự thay đổi mới.
+         Nếu bạn tìm thấy bất kỳ vấn đề, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> mở một lần trên GitHub</a>, nếu nó đã không tồn tại. <br><br>
+        Nhớ luôn đính kèm bản ghi Xposed khi báo cáo lỗi, và logcat trong trường hợp bị crash.
+        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+         Bạn đang chạy trên một bản thử nghiệm được xây dựng tự động. Một số phần của các mô-đun có thể bị phá vỡ do sự thay đổi mới.
+         Nếu bạn tìm thấy bất kỳ vấn đề nào, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">mở một lần trên GitHub</a> nếu nó chưa tồn tại.<br>
+         Bản xây dựng này chứa những tính năng <b>rất thực nghiệm</b>. Hãy tìm kiếm trong XDA và GitHub trước khi báo cáo bất kỳ vấn đề nào. Báo cáo trùng sẽ bị bỏ qua và đóng lại.<br><br>
+         Nhớ luôn đính kèm bản ghi Xposed khi báo cáo lỗi, và logcat trong trường hợp bị crash.        ]]></string>
   <string name="header_tweaks">Tinh chỉnh</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Ứng dụng</string>
-  <string name="app_dark_theme_title">Giao diện tối</string>
+  <string name="app_theme_title">Chủ đề ứng dụng</string>
+  <string name="app_theme_light">Sáng</string>
+  <string name="app_theme_dark">Tối</string>
+  <string name="app_theme_device">Mặc định của thiết bị</string>
   <string name="hide_launcher_icon_title">Ẩn icon trên Trang chủ</string>
   <string name="hide_launcher_icon">Có thể phải nạp lại Trang chủ</string>
   <string name="debug_log_title">Thông tin gỡ lỗi</string>
@@ -76,6 +89,7 @@
   <string name="recents_navigation_delay_title">Độ trễ điều hướng</string>
   <string name="recents_navigation_delay">Thời gian cho đến khi kích hoạt ứ.dụng đang chọn</string>
   <string name="enable_large_recents">Phóng lớn bộ chuyển ứ.dụng</string>
+  <string name="enable_large_recents_summary">Chỉ thay đổi chiều rộng của thẻ Recents, không thay đổi chiều cao</string>
   <string name="no_recents_image">Đổi ảnh \"không có ứ.dụng gần đây\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Không có ứng dụng gần đây</string>
@@ -98,7 +112,7 @@
   <string name="enable_new_tile_click_behavior">Hành vi kiểu Android N khi nhấn vào ô</string>
   <string name="enable_new_tile_click_behavior_summary">Nhấn vào ô trên thanh tiêu đề để bật/tắt, nhấn vào ô trong Cài đặt nhanh để phóng lớn nó</string>
   <string name="enable_large_first_row">Phóng to hàng đầu tiên</string>
-  <string name="enable_large_first_row_summary">Nếu bạn dùng CM thì chỉnh mục này trong Cài đặt hệ thống</string>
+  <string name="enable_large_first_row_summary2">Phóng lớn hai nút đầu tiên nếu được hỗ trợ</string>
   <string name="fix_stuck_inversion_title">Sửa kẹt đảo ngược</string>
   <string name="fix_stuck_inversion">Trên một số thiết bị, hiệu ứng lộn ngược bị kẹt khi bật. Bấm để ép tắt</string>
   <string name="header_clock_size_title">Cỡ đồng hồ trên thanh tiêu đề </string>
@@ -120,9 +134,10 @@
   <string name="notification_blacklisted_apps_title">Danh sách loại trừ</string>
   <string name="notification_blacklisted_apps">Sử dụng thông báo kiểu cũ cho các ứ.dụng này</string>
   <string name="notifications_custom_actions_color_title">Tùy chỉnh màu nền vùng hành động</string>
+  <string name="notifications_custom_actions_color">Chọn màu nền tùy chỉnh cho nút thông báo</string>
   <string name="notifications_actions_color_title">Màu nền vùng hành động</string>
   <string name="notification_experimental_title">Thử nghiệm hành vi thông báo kiểu N </string>
-  <string name="notification_experimental">Không chồng thông báo đầu tiên và đổ bóng cho các thông báo</string>
+  <string name="notification_experimental">Cuộn theo phong cách Android N (không dồn lên đầu)</string>
   <string name="notification_keyguard_max_title">Số thông báo tối đa trên màn hình khóa </string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ngay bây giờ</string>
@@ -200,7 +215,7 @@
   <string name="unknown_address">Không biết</string>
   <string name="date_of_birth">Ngày sinh</string>
   <string name="unknown_date_of_birth">Không biết</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Tuổi: %1$d</string>
@@ -296,6 +311,7 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Hiện nguồn cài đặt ứng dụng</string>
+  <string name="enable_install_source">Thêm một mục vào phần thông tin app cho biết app đó được cài đặt như thế nào (qua CH Play, Sideload v v)</string>
   <string name="battery_detail_switch_title">Tiết kiệm pin</string>
   <string name="battery_detail_switch_summary">Giảm hiệu năng và dữ liệu nền </string>
   <string name="qs_add_notes_title">Ghi chú</string>
@@ -304,4 +320,30 @@
   <string name="notification_spoof_api_version">Spoof các ứng dụng vào suy nghĩ họ đang chạy vào API 24</string>
   <string name="hide_tiles_on_lockscreen">Ẩn tiêu đề trên màn hình khóa khóa</string>
   <string name="done">Xong</string>
+  <string name="cm_qs_settings">Cài đặt CM QS</string>
+  <string name="disable_qs_paging">Vô hiệu hoá QS phân trang</string>
+  <string name="disable_qs_paging_summary">Vô hiệu hoá QS phân trang trong bức chân dung</string>
+  <string name="allow_direct_reply_on_keyguard">Trả lời trực tiếp trên màn hình khóa</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Cho phép trả lời thông báo trên màn hình khóa</string>
+  <string name="enable_notifications_background">Kích hoạt thông báo nền</string>
+  <string name="enable_notifications_background_summary">Hình nền trắng phía sau thông báo khi quẹt đi</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Mở cài đặt nhanh.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Đóng cài đặt nhanh.</string>
+  <string name="warning">Cảnh báo</string>
+  <string name="dont_show_again">Không hiển thị lại</string>
+  <string name="enable_data_disabled_indicator">Hiển thị chỉ báo dữ liệu di động bị vô hiệu hoá</string>
+  <string name="enable_data_disabled_indicator_summary">Hiện dấu \"x\" để đánh dấu khi dữ liệu di động bị tắt</string>
+  <string name="home">Trang chủ</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="other">Bạn chỉ còn %1$d bước nữa là có thể bật tính năng thử nghiệm.</item>
+  </plurals>
+  <string name="show_experimental_on">Bạn đã bật tính năng thử nghiệm!</string>
+  <string name="show_experimental_on_already">Tính năng thử nghiệm đã được bật sẵn rồi.</string>
+  <string name="header_experimental">Thử nghiệm</string>
+  <string name="enable_experimental_features">Bật tính năng thử nghiệm</string>
+  <string name="enable_n_style_settings_dashboard">Menu cài đặt theo phong cách Android N</string>
+  <string name="enable_n_style_settings_dashboard_summary">Đổi giao diện cài đặt thành phong cách Android N</string>
+  <string name="enable_settings_drawer">Bật ngăn cài đặt</string>
 </resources>

@@ -23,11 +23,23 @@
         a href="http://forum.xda-developers.com/showthread.php?t=2524485">en este hilo de XDA</a>.<br>
         Si nada de esto funciona, tendras que conformarte con los valores por defecto :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+Estás ejecutando una build automatizada. Algunas partes del módulo pueden dejar de funcionar debido a nuevos cambios.
+Si encuentras algún problema, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> repórtalo en GitHub</a> si aún no ha sido reportado.<br><br>
+Recuerda siempre adjuntar registros Xposed al reportar errores, y logcat en caso de fallos.        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+Estás utilizando una build experimental. Algunas partes de éste módulo podrían fallar debido a nuevos cambios.
+Si encuentras algún problema, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">abre uno en GitHub</a> si aún no existe.<br>
+Esta build contiene muchas <b>características experimentales</b>. Por favor busque en XDA o en GitHub antes de reportar cualquier problema. Reportes duplicados serán ignorados y cerrados.<br><br>
+Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat en caso de cierres inesperados (crasheos).        ]]></string>
   <string name="header_tweaks">Retoques</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Ajustes</string>
-  <string name="app_dark_theme_title">Tema oscuro</string>
-  <string name="hide_launcher_icon_title">Esconder icono en el launcher</string>
+  <string name="app_theme_title">Tema de aplicación</string>
+  <string name="app_theme_light">Claro</string>
+  <string name="app_theme_dark">Oscuro</string>
+  <string name="app_theme_device">Predeterminado del dispositivo</string>
+  <string name="hide_launcher_icon_title">Ocultar icono en el launcher</string>
   <string name="hide_launcher_icon">Puede requerir reiniciar el launcher</string>
   <string name="debug_log_title">Registro de depuración</string>
   <string name="debug_log">Atención: Registro invasivo</string>
@@ -42,7 +54,7 @@
   <string name="enable_settings_summaries">Muestra la información más importante directamente en la barra de notificaciones</string>
   <string name="fix_sound_notif_tile_title">Corregir \"Sonidos &amp; notificaciones\"</string>
   <string name="fix_sound_notif_tile">Algunas ROMs enlazan el volumen de llamada y de notificaciones. Activa esto para mostrar la información correctamente</string>
-  <string name="enable_n_platlogo_title">Logo \"N\" en el Easter Egg</string>
+  <string name="enable_n_platlogo_title">Logo de \"N\" en el Easter Egg</string>
   <string name="use_namey_mcnameface_title">Usar el icono \"Namey McNameface\"</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Desconectado</string>
@@ -51,7 +63,7 @@
   <string name="on">Activado</string>
   <string name="data_usage_summary">%1$s usados</string>
   <!-- Is on or off -->
-  <string name="display_summary">Brillo automático %1$s</string>
+  <string name="display_summary">Brillo automático: %1$s</string>
   <string name="sound_summary">Volumen %1$s</string>
   <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d aplicaciones instaladas</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
@@ -80,13 +92,14 @@
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Doble toque</string>
   <string name="enable_recents_double_tap">Doble toque en el botón de recientes para volver a la última aplicación</string>
-  <string name="alternative_double_tap_title">Detección de doble toque alternativo</string>
+  <string name="alternative_double_tap_title">Doble toque alternativo</string>
   <string name="alternative_double_tap">Activar si el doble toque no funciona correctamente</string>
   <string name="double_tap_speed_title">Velocidad del doble toque</string>
   <string name="recents_button_behavior_title">Comportamiento del botón recientes</string>
   <string name="recents_navigation_delay_title">Retraso de navegación</string>
   <string name="recents_navigation_delay">Tiempo para que se abra la aplicación seleccionada</string>
-  <string name="enable_large_recents">Activar tajetas recientes grandes</string>
+  <string name="enable_large_recents">Activar tarjetas recientes grandes</string>
+  <string name="enable_large_recents_summary">Sólo hace las tarjetas de aplicaciones recientes ancho completo, no cambia la altura.</string>
   <string name="no_recents_image">Cambiar imagen de \"No hay aplicaciones recientes\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">No hay aplicaciones recientes</string>
@@ -109,7 +122,7 @@
   <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android Nougat</string>
   <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
   <string name="enable_large_first_row">Alargar la primera fila</string>
-  <string name="enable_large_first_row_summary">En CyanogenMod usar el menú de configuración de ajustes rápidos propio</string>
+  <string name="enable_large_first_row_summary2">Hace que los dos primeros ajustes rápidos aparezcan en grande si es compatible</string>
   <string name="fix_stuck_inversion_title">Arreglar inversión bloqueada</string>
   <string name="fix_stuck_inversion">En algunos dispositivos la inversión de colores se bloquea al activarla. Selecciona para forzar desactivación</string>
   <string name="header_clock_size_title">Tamaño del reloj</string>
@@ -124,16 +137,17 @@
   <string name="hide_carrier_label_title">Ocultar operador de red</string>
   <string name="header_notifications">Notificaciones</string>
   <string name="notifications_change_style">Notificaciones de Android Nougat</string>
-  <string name="notification_dismiss_button_title">Cambiar botón \"descartar notificacones\"</string>
+  <string name="notification_dismiss_button_title">Cambiar botón \"descartar notificaciones\"</string>
   <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Buscar</string>
   <string name="notification_blacklisted_apps_title">Aplicaciones desactivadas</string>
   <string name="notification_blacklisted_apps">Usar el estilo antiguo para estas aplicaciones</string>
   <string name="notifications_custom_actions_color_title">Usar un color personalizado para el fondo</string>
+  <string name="notifications_custom_actions_color">Utilizar un color personalizado como fondo para los botones de notificación</string>
   <string name="notifications_actions_color_title">Color de fondo de acciones</string>
   <string name="notification_experimental_title">Comportamiento experimental de las notificaciones Nougat</string>
-  <string name="notification_experimental">Sombras y deslizamiento de Android Nougat</string>
+  <string name="notification_experimental">Comportamiento de desplazamiento de Android N (no aplica a la pila superior)</string>
   <string name="notification_keyguard_max_title">Notificaciones máximas en la pantalla de bloqueo</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ahora</string>
@@ -178,7 +192,7 @@
     <item quantity="other">en %dy</item>
   </plurals>
   <string name="update_notification_title">Nueva actualización disponible</string>
-  <string name="update_notification">La versión %1$d esta disponible para descargar y actualizar</string>
+  <string name="update_notification">La versión %1$d está disponible para descargar y actualizar!</string>
   <string name="update_notification_download">Actualizar</string>
   <string name="update_warning">El módulo ha sido actualizado</string>
   <string name="update_warning_details">El sistema podría ser inestable y no se reportarán bugs hasta que el dispositivo se reinicie</string>
@@ -219,7 +233,7 @@
   <string name="unknown_address">Desconocido</string>
   <string name="date_of_birth">Fecha de nacimiento</string>
   <string name="unknown_date_of_birth">Desconocido</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Edad: %1$d</string>
@@ -259,15 +273,15 @@
   <string name="live_display_off">Desactivado</string>
   <string name="live_display_day">Día</string>
   <string name="live_display_night">Noche</string>
-  <string name="live_display_outdoor">Ambiente muy luminoso</string>
+  <string name="live_display_outdoor">Exterior (Sol brillante)</string>
   <!-- Example: 3 hours ago -->
   <string name="charge_length_format">Hace %1$s</string>
   <!-- Example: 3 hours left -->
-  <string name="remaining_length_format">Faltan %1$s</string>
+  <string name="remaining_length_format">Faltan 1%</string>
   <!-- Example: Approx. 3 hours left -->
-  <string name="power_remaining_duration_only">Falta aprox. %1$s</string>
+  <string name="power_remaining_duration_only">Falta aprox. 1%</string>
   <!-- Example: 3h left -->
-  <string name="power_remaining_duration_only_short">Faltan %1$s</string>
+  <string name="power_remaining_duration_only_short">Falta 1%</string>
   <!-- Example: 75% - approx. 3 hours left -->
   <string name="power_discharging_duration">%1$s - Quedan %2$s apróximadamente</string>
   <!-- Example: 75% - 3h left -->
@@ -305,7 +319,7 @@
   <string name="battery_detail_charging_summary">El Ahorro de batería no está disponible durante la carga</string>
   <!-- Add a custom tile -->
   <string name="add">Añadir</string>
-  <string name="add_custom_tile">Añadir ajuste de emisión</string>
+  <string name="add_custom_tile">Añadir ajuste rápido</string>
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Los detalles no pueden estar en blanco</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
@@ -315,12 +329,40 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Mostrar fuente de instalación</string>
+  <string name="enable_install_source">Añade una categoría a la página de información de la aplicación que muestra cómo la app ha sido instalada (Play Store, Instalador de paquetes, etc.)</string>
   <string name="battery_detail_switch_title">Ahorro de energía</string>
   <string name="battery_detail_switch_summary">Reduce el rendimiento y el consumo de datos en segundo plano</string>
   <string name="qs_add_notes_title">Notas</string>
   <string name="qs_add_notes">Esto sólo se utiliza para aplicaciones que usan el ajuste de difusión (tales como \"Custom Quick Settings\"). Por favor lea las instrucciones de la aplicación antes de usar esta opción.</string>
   <string name="notification_spoof_api_version_title">Fingir API 24</string>
-  <string name="notification_spoof_api_version">Hacer creer a estas apps que están ejecutando en API 24</string>
+  <string name="notification_spoof_api_version">Hacer creer a estas apps que están siendo ejecutadas en API 24</string>
   <string name="hide_tiles_on_lockscreen">Ocultar ajustes rápidos en pantalla de bloqueo</string>
   <string name="done">Hecho</string>
+  <string name="cm_qs_settings">Ajustes de QS de CM</string>
+  <string name="disable_qs_paging">Desactivar paginación de los ajustes rapidos</string>
+  <string name="disable_qs_paging_summary">Desactivar paginación de los ajustes rápidos en modo retrato</string>
+  <string name="allow_direct_reply_on_keyguard">Respuesta directa en pantalla de bloqueo</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Permite que las notificaciones sean respondidas en la pantalla de bloqueo</string>
+  <string name="enable_notifications_background">Activar fondo de notificaciones</string>
+  <string name="enable_notifications_background_summary">Añade un fondo blanco detrás de las notificaciones al deslizar para eliminar</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Abrir ajustes rápidos.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Cerrar ajustes rápidos.</string>
+  <string name="warning">Advertencia</string>
+  <string name="dont_show_again">No mostrar otra vez</string>
+  <string name="enable_data_disabled_indicator">Indicador de datos móviles desactivados</string>
+  <string name="enable_data_disabled_indicator_summary">Muestra una \"x\" como indicador de señal cuando los datos móviles están desactivados</string>
+  <string name="home">Inicio</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Estás a %1$d paso de habilitar las características experimentales.</item>
+    <item quantity="other">Estás a %1$d pasos de habilitar las características experimentales.</item>
+  </plurals>
+  <string name="show_experimental_on">¡Has activado las funciones experimentales!</string>
+  <string name="show_experimental_on_already">No es necesario, ya activaste las características experimentales.</string>
+  <string name="header_experimental">Experimental</string>
+  <string name="enable_experimental_features">Habilitar características experimentales</string>
+  <string name="enable_n_style_settings_dashboard">Configuración estilo N</string>
+  <string name="enable_n_style_settings_dashboard_summary">Cambiar la apariencia de Configuración para verse como en Android N</string>
+  <string name="enable_settings_drawer">Activar el cajón de configuraciones</string>
 </resources>

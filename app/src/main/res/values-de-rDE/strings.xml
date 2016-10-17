@@ -23,10 +23,16 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">diesem XDA thread</a> herunterladen kannst.<br>
         Falls selbst das scheitert, wirst du vermutlich mit Standardwerten leben müssen, sorry :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[Dies ist eine automatisch generierte Version. Manche Teile des Moduls könnten aufgrund neuer Änderungen nicht korrekt funktionieren. Wenn du ein Problem gefunden hast, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">öffne ein Issue auf GitHub</a> falls ein selbiges nicht bereits existert.<br><br>Denke daran, dem Bugreport immer deinen Xposed-Log beizulegen oder einen Logcat im Falle von Crashes.]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Moduls können aufgrund neuer Änderungen Fehler haben. Wenn Sie Fehler finden, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> melden Sie diese auf GitHub</a>, wenn nicht bereits eine vorhanden ist. <br>Diese Version enthält <b>sehr experimentelle</b> Funktionen. Bitte durchsuchen Sie XDA und GitHub bevor Sie Fehler melden. Doppelte Berichte werden ignoriert und geschlossen. <br><br>Vergessen Sie nicht Xposed-Logs anhängen, wenn Sie Fehler melden und einen Logcat wenn Sie Abstürze melden.        ]]></string>
   <string name="header_tweaks">Tweaks</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">App</string>
-  <string name="app_dark_theme_title">Dunkles App-Design</string>
+  <string name="app_theme_title">App Theme</string>
+  <string name="app_theme_light">Hell</string>
+  <string name="app_theme_dark">Dunkel</string>
+  <string name="app_theme_device">Gerät-Standard</string>
   <string name="hide_launcher_icon_title">Launcher-Icon verbergen</string>
   <string name="hide_launcher_icon">Könnte einen Launcher-Neustart erfordern</string>
   <string name="debug_log_title">Debug-Log</string>
@@ -87,6 +93,7 @@
   <string name="recents_navigation_delay_title">Navigationsverzögerung</string>
   <string name="recents_navigation_delay">Zeit, bis die ausgewählte App in den Vordergrund geht</string>
   <string name="enable_large_recents">Große Recents</string>
+  <string name="enable_large_recents_summary">Macht nur die Recents Karten volle Breite, die Höhe ändert sich nicht</string>
   <string name="no_recents_image">\"Keine Recents\"-Bild ändern</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Keine zuletzt genutzten Apps</string>
@@ -109,7 +116,7 @@
   <string name="enable_new_tile_click_behavior">Android N Kachel-Klick-Verhalten</string>
   <string name="enable_new_tile_click_behavior_summary">Eine Kachel im Header klicken, um sie zu (de)aktivieren, im Panel, um Details zu zeigen</string>
   <string name="enable_large_first_row">Erste Reihe vergrößern</string>
-  <string name="enable_large_first_row_summary">In CM das Konfigurationsmenü im Kachel-Bearbeitungs-Modus benutzen</string>
+  <string name="enable_large_first_row_summary2">Vergrößert die ersten beiden Kacheln falls unterstützt</string>
   <string name="fix_stuck_inversion_title">Invertierung reparieren</string>
   <string name="fix_stuck_inversion">Auf manchen Geräten kann die Farbunkehrung nach dem Aktivieren nicht mehr deaktiviert werden. Klicken, um die Invertierung manuell zu deaktivieren.</string>
   <string name="header_clock_size_title">Größe der Uhr im Header</string>
@@ -133,18 +140,49 @@
   <string name="notifications_custom_actions_color_title">Eigene Actions-Hintergrundfarbe nutzen</string>
   <string name="notifications_actions_color_title">Actions-Hintergrundfarbe</string>
   <string name="notification_experimental_title">Experimentelles N Benachrichtigungs-Verhalten</string>
-  <string name="notification_experimental">N Scrollverhalten (kein Überlappen oben) und Benachrichtigungsschatten</string>
   <string name="notification_keyguard_max_title">Maximale Benachrichtigungen auf Sperrbildschirm</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">jetzt</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dm</item>
+    <item quantity="other">%d min</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%dh</item>
+    <item quantity="other">%d h</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%d T.</item>
+    <item quantity="other">%d T.</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%d J.</item>
+    <item quantity="other">%d J.</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">in %dm</item>
+    <item quantity="other">in %d min</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">in %dh</item>
+    <item quantity="other">in %d h</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">in %d T.</item>
+    <item quantity="other">in %d T.</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">in %d J.</item>
+    <item quantity="other">in %d J.</item>
+  </plurals>
   <string name="update_notification_title">Neues Update verfügbar</string>
   <string name="update_notification">Build %1$d ist zum Download verfügbar!</string>
   <string name="update_notification_download">Herunterladen</string>
@@ -187,7 +225,7 @@
   <string name="unknown_address">Unbekannt</string>
   <string name="date_of_birth">Geburtsdatum</string>
   <string name="unknown_date_of_birth">Unbekannt</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Alter: %1$d</string>
@@ -220,8 +258,8 @@
   <string name="charged">Geladen</string>
   <string name="charging">Lädt, %1$s</string>
   <string name="qs_edit">Bearbeiten</string>
-  <string name="drag_to_add_tiles">Ziehen, um Kachel hinzuzufügen</string>
-  <string name="drag_to_remove_tiles">Hierhin ziehen, um Kachel zu entfernen</string>
+  <string name="drag_to_add_tiles">Zum Hinzufügen von Kacheln ziehen</string>
+  <string name="drag_to_remove_tiles">Zum Entfernen hierher ziehen</string>
   <string name="live_display">LiveDisplay</string>
   <string name="live_display_auto">Automatisch</string>
   <string name="live_display_off">Aus</string>
@@ -231,19 +269,19 @@
   <!-- Example: 3 hours ago -->
   <string name="charge_length_format">Vor %1$s</string>
   <!-- Example: 3 hours left -->
-  <string name="remaining_length_format">%1$s verbleibend</string>
+  <string name="remaining_length_format">Noch %1$s verbleibend</string>
   <!-- Example: Approx. 3 hours left -->
-  <string name="power_remaining_duration_only">Ungefähr %1$s verbleibend</string>
+  <string name="power_remaining_duration_only">Noch ca. %1$s verbleibend</string>
   <!-- Example: 3h left -->
-  <string name="power_remaining_duration_only_short">%1$s verbleibend</string>
+  <string name="power_remaining_duration_only_short">Noch %1$s</string>
   <!-- Example: 75% - approx. 3 hours left -->
-  <string name="power_discharging_duration">%1$s - ungefähr %2$s verbleibend</string>
+  <string name="power_discharging_duration">%1$s - noch etwa %2$s</string>
   <!-- Example: 75% - 3h left -->
-  <string name="power_discharging_duration_short">%1$s - %2$s verbleibend</string>
+  <string name="power_discharging_duration_short">%1$s - noch %2$s</string>
   <!-- Example: 75% - Charging -->
   <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
-  <string name="power_charging_duration">%1$s - %2$s bis voll</string>
+  <string name="power_charging_duration">%1$s - voll in %2$s</string>
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
@@ -251,24 +289,24 @@
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
-  <string name="power_charging_duration_usb">%1$s - bei USB voll in %2$s</string>
+  <string name="power_charging_duration_usb">%1$s - über USB voll in %2$s</string>
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
-  <string name="power_charging_duration_wireless">%1$s - Drahtlos voll in %2$s</string>
+  <string name="power_charging_duration_wireless">%1$s - bei kabellosem Laden voll in %2$s</string>
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Unbekannt</string>
   <string name="battery_info_status_charging">Wird aufgeladen</string>
   <string name="battery_info_status_charging_ac">Laden über Netzteil</string>
-  <string name="battery_info_status_charging_ac_short">Wird aufgeladen</string>
+  <string name="battery_info_status_charging_ac_short">Ladevorgang</string>
   <string name="battery_info_status_charging_usb">Laden über USB</string>
-  <string name="battery_info_status_charging_usb_short">Wird aufgeladen</string>
+  <string name="battery_info_status_charging_usb_short">Ladevorgang</string>
   <string name="battery_info_status_charging_wireless">Kabelloses Laden</string>
-  <string name="battery_info_status_charging_wireless_short">Wird aufgeladen</string>
-  <string name="battery_info_status_discharging">Wird nicht aufgeladen</string>
-  <string name="battery_info_status_not_charging">Wird nicht aufgeladen</string>
-  <string name="battery_info_status_full">Aufgeladen</string>
+  <string name="battery_info_status_charging_wireless_short">Ladevorgang</string>
+  <string name="battery_info_status_discharging">Wird nicht geladen</string>
+  <string name="battery_info_status_not_charging">Wird nicht geladen</string>
+  <string name="battery_info_status_full">Voll</string>
   <string name="battery_panel_title">Akkunutzung</string>
   <string name="battery_detail_charging_summary">Der Energiesparmodus ist beim Aufladen nicht verfügbar.</string>
   <!-- Add a custom tile -->
@@ -283,6 +321,7 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Zeige App-Installationsquelle</string>
+  <string name="enable_install_source">Fügt in die App-Info-Seite eine Kategorie hinzu, die anzeigt wie die App installiert wurde (Play Store, Paket-Installer etc.)</string>
   <string name="battery_detail_switch_title">Energiesparmodus</string>
   <string name="battery_detail_switch_summary">Reduziert Leistung und Hintergrunddaten</string>
   <string name="qs_add_notes_title">Anmerkung</string>
@@ -291,4 +330,28 @@
   <string name="notification_spoof_api_version">Täusche diese Apps, dass sie denken, dass sie auf API 24 laufen</string>
   <string name="hide_tiles_on_lockscreen">Kacheln auf Sperrbildschirm verstecken</string>
   <string name="done">Fertig</string>
+  <string name="cm_qs_settings">CM QS Einstellungen</string>
+  <string name="disable_qs_paging">QS Seiten deaktivieren</string>
+  <string name="disable_qs_paging_summary">Deaktivert QS Seiten im Hochformat</string>
+  <string name="allow_direct_reply_on_keyguard">Schnellantwort auf Sperrbildschirm</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Erlaubt Benachrichtigungen auf Sperrbildschirm zu beantworten</string>
+  <string name="enable_notifications_background">Benachrichtigungshintergrund aktivieren</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Schnelleinstellungen öffnen.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Schnelleinstellungen schließen.</string>
+  <string name="warning">Warnung</string>
+  <string name="dont_show_again">Nicht wieder zeigen</string>
+  <string name="enable_data_disabled_indicator">Mobile-Daten-deaktiviert Symbol anzeigen</string>
+  <string name="enable_data_disabled_indicator_summary">Zeige ein \"x\" als Signal, wenn mobile Daten deaktiviert sind</string>
+  <string name="home">Home</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Sie sind jetzt %1$d Schritte entfernt, die experimentelle Funktionen zu aktivieren.</item>
+    <item quantity="other">Sie sind jetzt %1$d Schritte entfernt, die experimentelle Funktionen zu aktivieren.</item>
+  </plurals>
+  <string name="show_experimental_on">Sie haben die experimentelle Funktionen aktiviert!</string>
+  <string name="show_experimental_on_already">Nicht nötig, experimentelle Funktionen sind bereits aktiviert.</string>
+  <string name="header_experimental">Experimental</string>
+  <string name="enable_experimental_features">Experimentelle Funktionen aktivieren</string>
+  <string name="enable_n_style_settings_dashboard">N Design Einstellungen</string>
 </resources>

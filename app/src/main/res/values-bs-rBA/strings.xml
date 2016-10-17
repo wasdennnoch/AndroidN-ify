@@ -23,10 +23,15 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">sa ove XDA teme</a>.<br>
         Ako čak ni to ne uspije, nažalost, moraćete da koristite podrazumijevane vrijednosti. :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+Koristite automatsko izdanje. Neki dijelovi modula mogu ne raditi zbog novih promjena.         Ako pronađete bilo koji problem, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> otvori na GitHub</a> ako već postoji. <br><br>Ne zaboravite uvijek priložiti Xposed izvještaje (log) i logcat izvještaje u slučaju rušenja aplikacije.        ]]></string>
   <string name="header_tweaks">Podešavanja</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplikacija</string>
-  <string name="app_dark_theme_title">Tamna tema</string>
+  <string name="app_theme_title">Tema aplikacije</string>
+  <string name="app_theme_light">Svijetla tema</string>
+  <string name="app_theme_dark">Tamna tema</string>
+  <string name="app_theme_device">Tema zadana uređajem</string>
   <string name="hide_launcher_icon_title">Sakrij ikonu pokretača</string>
   <string name="hide_launcher_icon">Možda će biti potreban restart pokretača</string>
   <string name="debug_log_title">Evidencija grešaka</string>
@@ -45,10 +50,10 @@
   <string name="enable_n_platlogo_title">N logo u uskršnjem jajetu</string>
   <string name="use_namey_mcnameface_title">Koristi „Namey McNameface“ ikonu</string>
   <!-- Wifi disconnected -->
-  <string name="disconnected">Nepovezan</string>
+  <string name="disconnected">Veza prekinuta</string>
   <string name="disabled">Isključeno</string>
-  <string name="off">ISK</string>
-  <string name="on">UKLJ</string>
+  <string name="off">Isključeno</string>
+  <string name="on">Uključeno</string>
   <string name="data_usage_summary">Korišteno %1$s podataka</string>
   <!-- Is on or off -->
   <string name="display_summary">Prilagodljiva osvijetljenost je %1$s</string>
@@ -59,27 +64,27 @@
   <!-- Battery settings summary: 58% - approx. 2h left -->
   <string name="battery_summary">%1$s — pribl. %2$s preostalo</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_wireless">%1$s — bežično punjenje</string>
+  <string name="battery_charging_wireless">%1$s - bežično punjenje</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_usb">%1$s — punjenje na USB</string>
+  <string name="battery_charging_usb">%1$s - punjenje na USB</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_ac">%1$s — punjenje na kabal</string>
   <string name="memory_summary">Trenutno %1$s od %2$s memorije iskorišteno</string>
   <string name="user_summary">Prijavljen kao %1$s</string>
-  <string name="location_on_power">UKLJ / ušteda baterije</string>
-  <string name="location_on_device">UKLJ / samo uređaj</string>
-  <string name="location_on_high">UKLJ / velika preciznost</string>
+  <string name="location_on_power">Uključeno / ušteda baterije</string>
+  <string name="location_on_device">Uključeno / samo uređaj</string>
+  <string name="location_on_high">Uključeno / velika preciznost</string>
   <string name="print_summary" tools:ignore="PluralsCandidate">%1$d poslova štampanja</string>
   <!-- Header of app installation source -->
   <string name="store">Prodavnica</string>
   <!-- Header of app installation source -->
   <string name="app_details">Detalji aplikacije</string>
   <string name="install_source">Aplikacija instalirana sa %1$s</string>
-  <string name="from_pm">Aplikacija instalirana Instalaterom paketa</string>
+  <string name="from_pm">Aplikacija instalirana Instalatorom paketa</string>
   <string name="header_recents">Nedavne</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Brzi prekidač</string>
-  <string name="enable_recents_double_tap">Dvoklik na taster nedavnih prebacuje na posljednje korištenu aplikaciju</string>
+  <string name="enable_recents_double_tap">Dvoklik na gumb nedavnih prebacuje na posljednje korištenu aplikaciju</string>
   <string name="alternative_double_tap_title">Alternativno otkrivanje dvoklika</string>
   <string name="alternative_double_tap">Uključite ako brzi prekidač ne radi ispravno</string>
   <string name="double_tap_speed_title">Brzina dvoklika</string>
@@ -87,6 +92,7 @@
   <string name="recents_navigation_delay_title">Zastoj u navigaciji</string>
   <string name="recents_navigation_delay">Vrijeme do fokusiranja izabrane aplikacije</string>
   <string name="enable_large_recents">Velike nedavne aplikacije</string>
+  <string name="enable_large_recents_summary">Čini da nedavne otvorene kartice budu u punoj širini, ne mjenjajući visinu</string>
   <string name="no_recents_image">Promijeni sliku „nema nedavnih“</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Nema nedavnih stavki</string>
@@ -109,7 +115,7 @@
   <string name="enable_new_tile_click_behavior">Ponašanje pločica u stilu Androida N</string>
   <string name="enable_new_tile_click_behavior_summary">Klik na pločicu u zaglavlju mijenja vrijednost a klik na pločicu na panelu je proširuje</string>
   <string name="enable_large_first_row">Uvećaj prvi red</string>
-  <string name="enable_large_first_row_summary">Na CM-u koristite meni podešavanja režima izmjene pločica</string>
+  <string name="enable_large_first_row_summary2">Omogućava povećanje prva dva reda ikona, ako je podržano</string>
   <string name="fix_stuck_inversion_title">Popravi zaglavljenu inverziju</string>
   <string name="fix_stuck_inversion">Na nekim uređajima inverzija boja zablokira. Kliknite ovdje za deaktivaciju</string>
   <string name="header_clock_size_title">Veličina sata zaglavlja</string>
@@ -131,22 +137,66 @@
   <string name="notification_blacklisted_apps_title">Crna lista aplikacija</string>
   <string name="notification_blacklisted_apps">Stari stil obaviještenja za ove aplikacije</string>
   <string name="notifications_custom_actions_color_title">Pr ilagođena boja pozadine za radnje</string>
+  <string name="notifications_custom_actions_color">Koristiti prilagođenu boju kao pozadinu gumba obavijesti</string>
   <string name="notifications_actions_color_title">Boja pozadine za radnje</string>
   <string name="notification_experimental_title">Eksperiment alno N-ponašanje obaviještenja</string>
-  <string name="notification_experimental">N-ponašanje klizanja (bez slaganja na vrhu) i sijenka obaviještenja</string>
+  <string name="notification_experimental">N način listanja</string>
   <string name="notification_keyguard_max_title">Najviše obaviještenja na zaključanom ekranu</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+  <string name="now_string_shortest">odmah</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dm</item>
+    <item quantity="few">%dm</item>
+    <item quantity="other">%dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%ds</item>
+    <item quantity="few">%ds</item>
+    <item quantity="other">%ds</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dd</item>
+    <item quantity="few">%dd</item>
+    <item quantity="other">%dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%dg</item>
+    <item quantity="few">%dg</item>
+    <item quantity="other">%dg</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">u %dm</item>
+    <item quantity="few">u %dm</item>
+    <item quantity="other">u %dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">u %ds</item>
+    <item quantity="few">u %ds</item>
+    <item quantity="other">u %ds</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">u %dd</item>
+    <item quantity="few">u %dd</item>
+    <item quantity="other">u %dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">u %dg</item>
+    <item quantity="few">u %dg</item>
+    <item quantity="other">u %dg</item>
+  </plurals>
   <string name="update_notification_title">Dostupna nadogradnja</string>
   <string name="update_notification">Izdanje %1$d je dostupno!</string>
   <string name="update_notification_download">Nadogradi</string>
+  <string name="update_warning">Modul je ažuriran</string>
+  <string name="update_warning_details">Sistem može biti nestabilan i izvještaj o greški će se zanemariti sve dok se uređaj ponovno ne pokrene</string>
   <string name="check_for_updates_title">Pretraživanje nadogradnji</string>
   <string name="check_for_updates">Potraži nadogradnje po pokretanju aplikacije</string>
   <string name="checking_for_update">Tražim nadogradnje&#8230;</string>
@@ -156,10 +206,60 @@
   <string name="update_notification_downloading_details">Pre uzimam izdanje %1$d</string>
   <string name="update_notification_download_fail">Preuziman je nije uspjelo</string>
   <string name="update_notification_download_fail_details">N euspješno preuzimanje izdanja %1$d</string>
+  <string name="emergency_info">Hitne informacije</string>
   <string name="emergency_info_launch_hint">Kliknite ponovo da otvorite</string>
+  <string name="enable_emergency_info_title">Omogućiti hitne informacije</string>
+  <string name="enable_emergency_info">Dodaj gumb hitnih informacija na birač za hitne slučajeve</string>
+  <string name="edit_emergency_info_title">Uredi hitne informacije</string>
+  <string name="clear_all">Obriši sve</string>
+  <string name="tab_title_info">Informacije</string>
+  <string name="tab_title_contacts">Kontakti</string>
+  <string name="add_emergency_contact">Dodaj kontakt</string>
+  <string name="user_emergency_info_title">Hitne informacije</string>
+  <string name="user_emergency_info_consent">Informacije koje unesete ovdje mogu pomoći osobama koje prve odgovore na Vaš poziv za pomoć. One su pohranjene samo na uređaju, i svako ih može pročitati bez otključavanja.</string>
+  <string name="emergency_info_continue">Nastavi</string>
+  <string name="clear">Očisti</string>
+  <string name="clear_all_message">Očistiti sve informacije i kontakte?</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <string name="phone_type_and_phone_number">%1$s: %2$s</string>
+  <string name="remove_contact">Ukloni %1$s iz kontakata za hitne slučajeve?</string>
+  <string name="remove_contact_icon_text">Ukloni kontakt</string>
+  <string name="remove">Ukloniti</string>
+  <string name="cancel">Otkaži</string>
+  <string name="no_info_provided">Hitne informacije nisu dostupne</string>
+  <string name="emergency_contacts_title">Kontakt u hitnim slučajevima</string>
+  <string name="name">Ime</string>
+  <string name="unknown_name">Nepoznato</string>
+  <string name="address">Adresa</string>
+  <string name="unknown_address">Nepoznata</string>
+  <string name="date_of_birth">Datum rođenja</string>
+  <string name="unknown_date_of_birth">Nepoznat datum rođenja</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">%1$s</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Dob: %1$d</string>
+  <string name="remove_dob_icon_text">Ukloni datum rođenja</string>
+  <string name="blood_type">Krvna grupa</string>
+  <string name="unknown_blood_type">Nepoznata krvna grupa</string>
+  <string name="allergies">Alergije</string>
+  <string name="unknown_allergies">Nepoznato</string>
+  <string name="allergies_hint">Na primjer, kikiriki</string>
+  <string name="medications">Lijekovi</string>
+  <string name="unknown_medications">Nepoznato</string>
+  <string name="medications_hint">Na primjer, aspirin</string>
+  <string name="medical_conditions">Medicinske napomene</string>
+  <string name="unknown_medical_conditions">Nepoznato</string>
+  <string name="medical_conditions_hint">Na primjer, astma</string>
+  <string name="organ_donor">Donor organa</string>
+  <string name="unknown_organ_donor">Nepoznato</string>
+  <string name="info_bloodtype_op">O +</string>
+  <string name="info_bloodtype_on">O-</string>
+  <string name="info_bloodtype_ap">A +</string>
+  <string name="info_bloodtype_an">A -</string>
+  <string name="info_bloodtype_bp">B +</string>
+  <string name="info_bloodtype_bn">B -</string>
+  <string name="info_bloodtype_abp">AB +</string>
+  <string name="info_bloodtype_abn">AB -</string>
   <string name="yes">Da</string>
   <string name="no">Ne</string>
   <string name="battery">Baterija</string>
@@ -168,31 +268,87 @@
   <string name="qs_edit">Uredi</string>
   <string name="drag_to_add_tiles">Prevucite da dodate pločice</string>
   <string name="drag_to_remove_tiles">Prevucite ovdje da uklonite</string>
+  <string name="live_display">LiveDisplay</string>
   <string name="live_display_auto">Automatski</string>
   <string name="live_display_off">Isklj</string>
   <string name="live_display_day">Dan</string>
   <string name="live_display_night">Noć</string>
   <string name="live_display_outdoor">Vani (jako sunce)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s prije</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s preostalo</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Otprilike %1$s preostalo</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s preostalo</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s — pribl. %2$s preostalo</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s ostalo</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s do napunjenosti</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s do napunjenosti na AC</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s dok se napunjenosti preko USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
   <!-- Example: 75% - 3h -->
+  <string name="battery_info_status_unknown">Status baterije nepoznat</string>
+  <string name="battery_info_status_charging">Baterija se puni</string>
+  <string name="battery_info_status_charging_ac">Punjenje na AC</string>
+  <string name="battery_info_status_charging_ac_short">Baterija se puni</string>
+  <string name="battery_info_status_charging_usb">Punjenje preko USB</string>
+  <string name="battery_info_status_charging_usb_short">Baterija se puni</string>
+  <string name="battery_info_status_charging_wireless">Bežično punjenje</string>
+  <string name="battery_info_status_charging_wireless_short">Baterija se puni</string>
+  <string name="battery_info_status_discharging">Ne puni se</string>
+  <string name="battery_info_status_not_charging">Ne puni se</string>
+  <string name="battery_info_status_full">Baterija puna</string>
+  <string name="battery_panel_title">Korištenje baterije</string>
+  <string name="battery_detail_charging_summary">Ušteda baterije nije dostupna tokom punjenja</string>
   <!-- Add a custom tile -->
+  <string name="add">Dodati</string>
   <!-- Warning when the input for the custom tile is empty -->
+  <string name="spec_shouldnt_be_blank">Ovo polje ne smije biti prazno</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Resetiranje</string>
   <string name="dialog_color_picker">Birač boja</string>
   <string name="press_color_to_apply">Kliknite na boju da je primjenite</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="enable_install_source_title">Prikaži izvor instalacije aplikacije</string>
+  <string name="enable_install_source">Dodaje kategoriju na stranici za informacije o aplikaciji, te pokazuje na koji način je instalirana ( Google Play radnja, Sistem za instalirsnje paketa, itd.)</string>
+  <string name="battery_detail_switch_title">Ušteda baterije</string>
+  <string name="battery_detail_switch_summary">Smanjuje performanse i pozadinske podatke</string>
+  <string name="qs_add_notes_title">Bilješke</string>
+  <string name="done">Urađeno</string>
+  <string name="allow_direct_reply_on_keyguard">Direktan odgovor na zaključanom ekranu</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Omogućiti da na obavijesti bude odgovoreno sa zaključanog ekrana</string>
+  <string name="enable_notifications_background">Omogučiti obavijesti u pozadini</string>
+  <string name="enable_notifications_background_summary">Obojiti pozadinu notifikacija u bijelo kada ih odbacuješ</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Otvori brze postavke.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Zatvori brze postavke.</string>
+  <string name="warning">Upozorenje</string>
+  <string name="dont_show_again">Ne pokazuj više</string>
+  <string name="home">Početna</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Sad si %1$d korak od omogućavanja eksperimentalnih funkcija.</item>
+    <item quantity="few">Sad si %1$d korak od omogućavanja eksperimentalnih funkcija.</item>
+    <item quantity="other">Sad si %1$d koraka od omogućavanja eksperimentalnih funkcija.</item>
+  </plurals>
+  <string name="show_experimental_on">Omogućene eksperimentalne funkcije!</string>
+  <string name="show_experimental_on_already">Nema potrebe, već ste omogućili eksperimentalne funkcije.</string>
+  <string name="header_experimental">Eksperimentalno</string>
+  <string name="enable_experimental_features">Omogući eksperimentalne funkcije</string>
+  <string name="enable_n_style_settings_dashboard">N stil postavki</string>
 </resources>

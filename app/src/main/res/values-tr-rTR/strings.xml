@@ -4,11 +4,11 @@
   <string name="xposed_description">Lollipop ve Marshmallow\'da Android N özelliklerini deneyin!</string>
   <string name="restart_systemui">Sistem Arayüzünü yeniden başlat</string>
   <string name="restart_systemui_message">Sistem Arayüzünü yeniden başlatmak istediğinizden emin misiniz?</string>
-  <string name="restart_broadcast_sent">Sistem arayüzü yeniden başlatılıyor</string>
+  <string name="restart_broadcast_sent">Yeniden başlatma sinyali gönderildi</string>
   <string name="activity_about">Android N-ify Hakkında</string>
   <string name="about_author">Geliştirici @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
-  <string name="about_translator">Çeviri @Can OKUMUŞ • @Mevlüt TOPÇU • @trzpro • TheNexus TURKDEVS</string>
+  <string name="about_translator">Çeviri Can OKUMUŞ • Mevlüt TOPÇU • trzpro • TheNexus TURKDEVS</string>
   <string name="about_version">Sürüm %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
@@ -23,27 +23,38 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485"> bu XDA konusunu ziyaret edin</a>.<br>
         Bu seferde başarısız olursa, muhtemelen varsayılan değerler ile yaşamak zorundasınız üzgünüm :(
         ]]></string>
-  <string name="header_tweaks">Geliştirme</string>
+  <string name="automated_build_warning"><![CDATA[        Otomatik derlenen beta bir sürüm kullanıyorsunuz. Bazı kısımlar bazı tercihleri bozabilir.
+        Bir hata bulursanız <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> Github </a> adresinden yazın.<br><br>
+        Hata raporlarken mutlaka Xposed hata logu ve logcat alın.
+        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[        Deneysel otomatik derlenen beta sürüm kullanıyorsunuz. Bazı değişiklikler olabilir.
+        Bir hata bulursanız GitHub adresinee <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">  </a>yazın <br>
+        Bu sürüm <b>çok deneysel özellikleri</b> barındırabilir<br><br>
+        ]]></string>
+  <string name="header_tweaks">Geliştirmeler</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Uygulama</string>
-  <string name="app_dark_theme_title">Karanlık uygulama teması</string>
-  <string name="hide_launcher_icon_title">Simgeyi gizle</string>
+  <string name="app_theme_title">Uygulama teması</string>
+  <string name="app_theme_light">Aydınlık</string>
+  <string name="app_theme_dark">Karanlık</string>
+  <string name="app_theme_device">Cihaz Varsayılanı</string>
+  <string name="hide_launcher_icon_title">Başlatıcı simgesini gizle</string>
   <string name="hide_launcher_icon">Başlatıcının yeniden başlatılması gerekebilir</string>
   <string name="debug_log_title">Hata ayıklama günlüğü</string>
   <string name="debug_log">Dikkat: Log-flooding</string>
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
-  <string name="requires_android_version">Android %1$s sürümü gerekir</string>
+  <string name="requires_android_version">Android %1$s sürümü gerektirir</string>
   <string name="not_activated">Modül aktif değil</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Ana renk</string>
   <string name="header_lockscreen">Kilit ekranı</string>
   <string name="header_settings">Ayarlar</string>
-  <string name="enable_settings_summaries_title">Ayarlar geliştirmesi</string>
-  <string name="enable_settings_summaries">Ayarlarda seçeneklerinde doğrudan en önemli bilgileri gösterir.</string>
+  <string name="enable_settings_summaries_title">Ayarlardaki özetler</string>
+  <string name="enable_settings_summaries">Ayarlar menüsünde doğrudan en önemli bilgileri gösterir</string>
   <string name="fix_sound_notif_tile_title">\"Ses &amp; bildirim\" karesini düzelt</string>
   <string name="fix_sound_notif_tile">Bazı ROM\'lar Sesler ve Bildirimler karesini birleştirir. Kareye uygun kısaltmayı ayarlamak için etkinleştirin.</string>
   <string name="enable_n_platlogo_title">N sürpriz logosu</string>
-  <string name="use_namey_mcnameface_title">\"Namey McNameface\" logosunu kullan</string>
+  <string name="use_namey_mcnameface_title">\"Namey McNameface\" simgesini kullan</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Bağlı değil</string>
   <string name="disabled">Etkin değil</string>
@@ -51,7 +62,7 @@
   <string name="on">AÇIK</string>
   <string name="data_usage_summary">%1$s veri kullanıldı</string>
   <!-- Is on or off -->
-  <string name="display_summary">Otomatik parlaklık %1$s</string>
+  <string name="display_summary">Uyarlanan parlaklık %1$s</string>
   <string name="sound_summary">Zil sesi düzeyi %1$s</string>
   <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d uygulama yüklendi</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
@@ -59,11 +70,11 @@
   <!-- Battery settings summary: 58% - approx. 2h left -->
   <string name="battery_summary">%1$s - yaklaşık %2$s kaldı</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_wireless">%1$s - KABLOSUZ ŞARJ</string>
+  <string name="battery_charging_wireless">%1$s - Kablosuz şarj</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_usb">%1$s - USB Şarj</string>
+  <string name="battery_charging_usb">%1$s - USB üzerinden şarj</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s - Şarj Oluyor</string>
+  <string name="battery_charging_ac">%1$s - Priz üzerinden şarj</string>
   <string name="memory_summary">Ortalama bellek kullanımı %1$s</string>
   <string name="user_summary">%1$s olarak giriş yapıldı</string>
   <string name="location_on_power">AÇIK / Pil tasarrufu</string>
@@ -81,12 +92,13 @@
   <string name="enable_recents_double_tap_title">Hızlı geçiş</string>
   <string name="enable_recents_double_tap">Son uygulamalar tuşuna çift tıklamak son kullanılan uygulamayı açar</string>
   <string name="alternative_double_tap_title">Alternatif çift tıklama</string>
-  <string name="alternative_double_tap">Varsayılan Hızlı Geçiş doğru çalışmıyorsa aftif edin</string>
+  <string name="alternative_double_tap">Varsayılan Hızlı Geçiş doğru çalışmıyorsa aktif edin</string>
   <string name="double_tap_speed_title">Çift tıklama hızı</string>
   <string name="recents_button_behavior_title">Son uygulamalar tuşuna dokunma davranışı</string>
   <string name="recents_navigation_delay_title">Gezinme gecikmesi</string>
   <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
   <string name="enable_large_recents">Büyük son uygulamalar</string>
+  <string name="enable_large_recents_summary">Son uygulamaları sadece tam genişlik yapar, yüksekliği değiştirmez</string>
   <string name="no_recents_image">\"Son uygulama yok\" görüntüsünü değiştir</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Son uygulama yok</string>
@@ -94,25 +106,25 @@
   <string name="recents_button_behavior_current">Geçerli uygulamaya dön</string>
   <string name="recents_button_behavior_cycle">Uygulamalar arası geçiş</string>
   <string name="header_qs">Hızlı Ayarlar</string>
-  <string name="enable_notification_header">Başlık stili</string>
+  <string name="enable_notification_header">Başlığı şekillendir</string>
   <string name="keep_bg_title">Değiştirilmemiş arka plan</string>
   <string name="keep_bg">Özel arka planlara uygulanan temalar için faydalı</string>
   <string name="keep_header_bg">Başlık</string>
-  <string name="keep_panel_bg">Hızlı Ayarlar Paneli</string>
-  <string name="notification_header_qs_tiles_count">Hızlı ayarlar karelerini göster</string>
+  <string name="keep_panel_bg">HA Paneli</string>
+  <string name="notification_header_qs_tiles_count">Gösterilecek HA kareleri</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">kareler</string>
-  <string name="battery_tile_show_percentage">Pil simgesinde yüzdeyi göster</string>
-  <string name="battery_tile_show_percentage_summary">Pil simgesinde pil yüzdesini göster</string>
-  <string name="enable_qs_editor">Hızlı Ayarları düzenlemeyi etkinleştir</string>
-  <string name="allow_fancy_qs_transition">Aşırı Hızlı Ayarlara geçiş</string>
-  <string name="enable_new_tile_click_behavior">Android N stili kare tıklama davranışı</string>
+  <string name="battery_tile_show_percentage">Pil simgesinde yüzde göster</string>
+  <string name="battery_tile_show_percentage_summary">Pil karesinde pil yüzdesini göster</string>
+  <string name="enable_qs_editor">HA düzenleyici etkinleştir</string>
+  <string name="allow_fancy_qs_transition">Süslü HA geçişi</string>
+  <string name="enable_new_tile_click_behavior">N stili kare tıklama davranışı</string>
   <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
   <string name="enable_large_first_row">İlk satırı büyüt</string>
-  <string name="enable_large_first_row_summary">N-ify kareleri düzenleme modu yerine CM düzenleme menüsünü kullanın</string>
+  <string name="enable_large_first_row_summary2">Destekleniyorsa ilk iki satırı büyütür</string>
   <string name="fix_stuck_inversion_title">Takılmış ters çevirmeyi düzelt</string>
   <string name="fix_stuck_inversion">Etkinleştirildiğinde bazı cihazlarda ters çevirme takılıyor. Devre dışı bırakmaya zorlamak için tıklayın</string>
-  <string name="header_clock_size_title">Başlık saati boyutu</string>
+  <string name="header_clock_size_title">Başlıktaki saatin boyutu</string>
   <string name="header_clock_size_normal">Normal</string>
   <string name="header_clock_size_small">Küçük</string>
   <string name="header_clock_size_smaller">Daha küçük</string>
@@ -123,20 +135,21 @@
   <string name="hide_edit_tiles_summary">Bu sadece mevcut düzenleme düğmesini gizler!</string>
   <string name="hide_carrier_label_title">Operatör etiketini gizle</string>
   <string name="header_notifications">Bildirimler</string>
-  <string name="notifications_change_style">Bildirimler stili</string>
+  <string name="notifications_change_style">Bildirimleri Şekillendir</string>
   <string name="notification_dismiss_button_title">Temizleme tuşunu değiştir</string>
   <string name="notification_dismiss_button">Temizle tuşu yerine \"TÜMÜNÜ TEMİZLE\" yazısını göster</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Ara</string>
-  <string name="notification_blacklisted_apps_title">Kara listeye alınan uygulamalar</string>
-  <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullanır.</string>
-  <string name="notifications_custom_actions_color_title">Özelleştirilmiş arkaplan rengini kullan</string>
-  <string name="notifications_actions_color_title">Arkaplan renk eylemi</string>
+  <string name="notification_blacklisted_apps_title">Karalistedeki uygulamalar</string>
+  <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullan</string>
+  <string name="notifications_custom_actions_color_title">Butonlarda özel arkaplan rengi</string>
+  <string name="notifications_custom_actions_color">Bildirim tuşlarının arka planı olarak özel bir renk kullanın</string>
+  <string name="notifications_actions_color_title">Butonların arkaplan rengi</string>
   <string name="notification_experimental_title">Deneysel N bildirimleri davranışı</string>
-  <string name="notification_experimental">N kaydırma davranışı (hiçbir üst yığın) ve bildirim gölgeleri</string>
+  <string name="notification_experimental">N stili kaydırma davranışı (üst yığınsız)</string>
   <string name="notification_keyguard_max_title">Kilit ekranında maksimum bildirim sayısı</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
-  <string name="now_string_shortest">Şimdi</string>
+  <string name="now_string_shortest">şimdi</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
     <item quantity="one">%ddk</item>
@@ -183,10 +196,10 @@
   <string name="update_warning">Modül güncellendi</string>
   <string name="update_warning_details">Sistem kararsız olabilir ve hata raporları cihaz yeniden başlatılana kadar göz ardı edilecektir</string>
   <string name="check_for_updates_title">Güncellemeleri kontrol et</string>
-  <string name="check_for_updates">Uygulama başlatıldığında güncellemeleri kontrol eder.</string>
+  <string name="check_for_updates">Uygulama başlangıcında güncellemeleri kontrol et</string>
   <string name="checking_for_update">Güncellemeler kontrol ediliyor&#8230;</string>
   <string name="check_for_update_fail">Güncellemeler kontrol edilemedi!</string>
-  <string name="no_updates">Yeni sürüm bulunamadı!</string>
+  <string name="no_updates">Yeni sürüm bulunmadı</string>
   <string name="update_notification_downloading">Güncelleme indiriliyor!</string>
   <string name="update_notification_downloading_details">Yapı %1$d indiriliyor</string>
   <string name="update_notification_download_fail">İndirme başarısız!</string>
@@ -219,7 +232,7 @@
   <string name="unknown_address">Bilinmiyor</string>
   <string name="date_of_birth">Doğum tarihi</string>
   <string name="unknown_date_of_birth">Bilinmiyor</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Yaş: %1$d</string>
@@ -261,7 +274,7 @@
   <string name="live_display_night">Gece</string>
   <string name="live_display_outdoor">Dış mekan (parlak güneş)</string>
   <!-- Example: 3 hours ago -->
-  <string name="charge_length_format">%1$s saattir şarjda</string>
+  <string name="charge_length_format">%1$s tir kullanımda</string>
   <!-- Example: 3 hours left -->
   <string name="remaining_length_format">%1$s kaldı</string>
   <!-- Example: Approx. 3 hours left -->
@@ -290,9 +303,9 @@
   <string name="power_charging_duration_wireless">%1$s - Kablosuz ile tamamen dolmasına %2$s kaldı</string>
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
-  <string name="battery_info_status_unknown">Bilinmeyen</string>
+  <string name="battery_info_status_unknown">Bilinmiyor</string>
   <string name="battery_info_status_charging">Şarj oluyor</string>
-  <string name="battery_info_status_charging_ac">Güç ile şarj ediliyor</string>
+  <string name="battery_info_status_charging_ac">Prizde şarj ediliyor</string>
   <string name="battery_info_status_charging_ac_short">Şarj oluyor</string>
   <string name="battery_info_status_charging_usb">USB ile şarj oluyor</string>
   <string name="battery_info_status_charging_usb_short">Şarj oluyor</string>
@@ -315,7 +328,8 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Uygulama yükleme kaynağını göster</string>
-  <string name="battery_detail_switch_title">Güç tasarrufu</string>
+  <string name="enable_install_source">Uygulamanın nasıl yüklendiğini gösteren bir bilgi ekler. (Play Store , APK gibi)</string>
+  <string name="battery_detail_switch_title">Güç Tasarrufu</string>
   <string name="battery_detail_switch_summary">Performansı ve arka plan verilerini azaltır</string>
   <string name="qs_add_notes_title">Notlar</string>
   <string name="qs_add_notes">Bu, sadece (örneğin \"Özel Hızlı Ayarlar\" gibi) yayın kareleri sağlayan uygulamalar için kullanılır. Bunu kullanmadan önce kare sağlayıcı uygulamasından talimatlarını okuyun.</string>
@@ -323,4 +337,31 @@
   <string name="notification_spoof_api_version">Bu uygulamalara API seviyesini 24 gibi göster</string>
   <string name="hide_tiles_on_lockscreen">Kilit ekranında gizlenecek simgeler</string>
   <string name="done">Bitti</string>
+  <string name="cm_qs_settings">CM HA ayarları</string>
+  <string name="disable_qs_paging">HAlar\'ı yan sayfaya taşırtma</string>
+  <string name="disable_qs_paging_summary">Cihaz dikken HAlar yan sayfaya taşmasın</string>
+  <string name="allow_direct_reply_on_keyguard">Kilit ekranında doğrudan yanıt verme</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Bildirimlerin kilit ekranında yanıtlanabilmesini sağlar</string>
+  <string name="enable_notifications_background">Arka plan bildirimlerini etkinleştir</string>
+  <string name="enable_notifications_background_summary">Bildirimler kaydırılırken o bildirimin arkasına beyaz bir arkaplan çizer</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Hızlı ayarları aç.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Hızlı ayarları kapat.</string>
+  <string name="warning">Uyarı</string>
+  <string name="dont_show_again">Birdaha gösterme</string>
+  <string name="enable_data_disabled_indicator">Mobil veri kapalı göstergesini göster</string>
+  <string name="enable_data_disabled_indicator_summary">Mobil veri kapalıyken sinyal göstergesinin üstünde \"x\" gösterilir</string>
+  <string name="home">Ana menü</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Deneysel özellikleri aktif etmekten %1$d adım uzaktasınız.</item>
+    <item quantity="other">Deneysel özellikleri aktif etmekten %1$d adım uzaktasınız.</item>
+  </plurals>
+  <string name="show_experimental_on">Deneysel özellikleri aktif ettiniz!</string>
+  <string name="show_experimental_on_already">Gerek yok, deneysel özellikleri zaten aktif ettiniz.</string>
+  <string name="header_experimental">Deneysel</string>
+  <string name="enable_experimental_features">Deneysel özellikleri etkinleştir</string>
+  <string name="enable_n_style_settings_dashboard">N stili ayarlar</string>
+  <string name="enable_n_style_settings_dashboard_summary">Ayarlar kontrol paneline N teması uygula</string>
+  <string name="enable_settings_drawer">Ayarlar çekmecesini etkinleştir</string>
 </resources>

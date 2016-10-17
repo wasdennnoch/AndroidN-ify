@@ -23,10 +23,20 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">in questo thread di XDA</a>.<br>
         Se anche questo tentativo dovesse fallire, probabilmente dovrai restare con i valori di default, mi dispiace :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+Stai utilizzando una versione di sviluppo. Alcune parti di questo modulo potrebbero non funzionare.
+Se trovi un problema <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> segnalalo su Github </a> se non esista già.<br><br>
+Ricordati di allegare sempre il log di Xposed quando segnali un bug, e il Logcat in caso di crash.        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+Stai utilizzando una build di sviluppo. Alcune parti del modulo potrebbero non funzionare correttamente. Se trovi un problema, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> segnalalo su Github</a> se non è gia presente.<br>
+Questa build contiene delle funzioni <b>molto sperimentali.</b> Per favore cerca  su thread XDA e Github prima di segnalare qualsiasi problema. Le segnalazioni doppie verranno ignorate e chiuse.<br><br> Ricordati di fornire sempre il log di Xposed quando segnali bug e il Logcat in caso di crash.        ]]></string>
   <string name="header_tweaks">Modifiche</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">App</string>
-  <string name="app_dark_theme_title">Tema app scuro</string>
+  <string name="app_theme_title">Tema App</string>
+  <string name="app_theme_light">Chiaro</string>
+  <string name="app_theme_dark">Scuro</string>
+  <string name="app_theme_device">Default</string>
   <string name="hide_launcher_icon_title">Nascondi icona launcher</string>
   <string name="hide_launcher_icon">Potrebbe richiedere il riavvio del launcher</string>
   <string name="debug_log_title">Log di debug</string>
@@ -87,7 +97,8 @@
   <string name="recents_navigation_delay_title">Velocità navigazione</string>
   <string name="recents_navigation_delay">Tempo fino a quando l\'applicazione selezionata viene evidenziata</string>
   <string name="enable_large_recents">Grandi app recenti</string>
-  <string name="no_recents_image">Cambia l\'immagine di \"nessuna app precedente\"</string>
+  <string name="enable_large_recents_summary">Rende le app recenti alla massima larghezza, non cambia la loro altezza</string>
+  <string name="no_recents_image">Cambia l\'immagine di \"nessuna app recente\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Nessuna app precedente</string>
   <string name="recents_button_behavior_previous">Ritorna all\'app precedente</string>
@@ -109,7 +120,7 @@
   <string name="enable_new_tile_click_behavior">Click del tile in stile Android N</string>
   <string name="enable_new_tile_click_behavior_summary">Cliccando un tile nell\'intestazione lo farà attivare e cliccando un tile nel pannello farà aprire una finestra estesa</string>
   <string name="enable_large_first_row">Ingrandisci la prima riga</string>
-  <string name="enable_large_first_row_summary">Su CyanogenMod utilizza invece la configurazione di \"Edit Tiles\"</string>
+  <string name="enable_large_first_row_summary2">Rendi le prime due tiles più grandi se supportato</string>
   <string name="fix_stuck_inversion_title">Fix per l\'inversione bloccata</string>
   <string name="fix_stuck_inversion">In alcuni dispositivi l\'inversione rimane bloccata quando abilitata. Clicca per forzare la disattivazione</string>
   <string name="header_clock_size_title">Grandezza orologio nell\'intestazione</string>
@@ -131,9 +142,10 @@
   <string name="notification_blacklisted_apps_title">App disabilitate</string>
   <string name="notification_blacklisted_apps">Usa il vecchio stile delle notifiche per queste app</string>
   <string name="notifications_custom_actions_color_title">Usa un colore di sfondo delle azioni personalizzato</string>
+  <string name="notifications_custom_actions_color">Utilizza un colore personalizzato per i pulsanti nelle notifiche</string>
   <string name="notifications_actions_color_title">Colore di sfondo delle azioni</string>
   <string name="notification_experimental_title">Funzione sperimentale delle notifiche in stile Android N</string>
-  <string name="notification_experimental">Scorrimento Android N (senza raggruppamento in alto) e ombra delle notifiche</string>
+  <string name="notification_experimental">Comportamento di scrolling come Android N</string>
   <string name="notification_keyguard_max_title">Numero notifiche massime nella schermata di blocco</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ora</string>
@@ -219,7 +231,7 @@
   <string name="unknown_address">Sconosciuto</string>
   <string name="date_of_birth">Data di nascita</string>
   <string name="unknown_date_of_birth">Sconosciuto</string>
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
   <string name="age">Età: %1$d</string>
@@ -315,6 +327,7 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Mostra sorgente installazione dell\'app</string>
+  <string name="enable_install_source">Aggiunge una voce nelle informazioni app che mostra in che modo è stata installata (Play Store, Pacchetto installazione ecc)</string>
   <string name="battery_detail_switch_title">Risparmio Energetico</string>
   <string name="battery_detail_switch_summary">Riduce le prestazioni e i dati in background</string>
   <string name="qs_add_notes_title">Note</string>
@@ -323,4 +336,31 @@
   <string name="notification_spoof_api_version">Queste app useranno una falsa API 24</string>
   <string name="hide_tiles_on_lockscreen">Nascondi tile nella schermata di blocco</string>
   <string name="done">Fatto</string>
+  <string name="cm_qs_settings">Impostazioni QS CM</string>
+  <string name="disable_qs_paging">Disabilita la paginazione dei QS</string>
+  <string name="disable_qs_paging_summary">Disabilita la paginazione dei QS con schermo in verticale</string>
+  <string name="allow_direct_reply_on_keyguard">Risposta diretta nella lockscreen</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Consenti la risposta alle notifiche nella lockscreen</string>
+  <string name="enable_notifications_background">Abilitare sfondo nelle notifiche</string>
+  <string name="enable_notifications_background_summary">Mostra uno sfondo bianco dietro alle notifiche quando si cancellano</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Apri le impostazioni rapide.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Chiudi le impostazioni rapide.</string>
+  <string name="warning">Avviso</string>
+  <string name="dont_show_again">Non mostrare nuovamente</string>
+  <string name="enable_data_disabled_indicator">Mostra indicatore di dati mobili disabilitati</string>
+  <string name="enable_data_disabled_indicator_summary">Mostra una \"x\" sull\' icona del segnale quando il traffico dati è disabilitato</string>
+  <string name="home">Home</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Sei a %1$d passi per abilitare le funzioni sperimentali.</item>
+    <item quantity="other">Sei a %1$d passo per abilitare le funzioni sperimentali.</item>
+  </plurals>
+  <string name="show_experimental_on">Hai abilitato le funzioni sperimentali!</string>
+  <string name="show_experimental_on_already">Non ce n\'è bisogno, hai già abilitato le funzioni sperimentali.</string>
+  <string name="header_experimental">Funzioni sperimentali</string>
+  <string name="enable_experimental_features">Abilita funzioni sperimentali</string>
+  <string name="enable_n_style_settings_dashboard">Impostazioni stile Android N</string>
+  <string name="enable_n_style_settings_dashboard_summary">Rendi le impostazioni come in Android N</string>
+  <string name="enable_settings_drawer">Abilita il drawer nelle impostazioni</string>
 </resources>

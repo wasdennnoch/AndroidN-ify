@@ -10,10 +10,11 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">\@lirannl אודות המתרגם</string>
   <string name="about_version">%1$s (%2$d) אודות גרסה</string>
+  <string name="prefs_not_readable"><![CDATA[</b> - אזהרה !- <b>&#8230; הקובץ המבוקש לא יכול להיקרא על ידי xposed.
+תלחץ כאן לעוד מידע &#8230;]]></string>
   <string name="header_tweaks">שינויים</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">יישום</string>
-  <string name="app_dark_theme_title">ערכת נושא כהה</string>
   <string name="hide_launcher_icon_title">הסתר סמל</string>
   <string name="hide_launcher_icon">ייתכן שיהיה צורך להפעיל מחדש את מריץ האפליקציות</string>
   <string name="debug_log_title">רישום לצורכי תיקון שגיאות</string>
@@ -93,7 +94,6 @@
   <string name="enable_new_tile_click_behavior">התנהגות של נוגט בלחיצה על אריחים</string>
   <string name="enable_new_tile_click_behavior_summary">לחיצה על אריח בלוח ההתראות תאפשר או תכבה את ההגדרה, ולחיצה בלוח ההגדרות המהירות תפתח את תפריט האפשרויות</string>
   <string name="enable_large_first_row">הגדל שורה ראשונה</string>
-  <string name="enable_large_first_row_summary">משתמשים של סיאנוג\'/נמוד צריכים לשנות את ההגדרה בתפריט המובנה במערכת, ולא הגדרה זו</string>
   <string name="fix_stuck_inversion_title">תיקון היפוך תקוע</string>
   <string name="fix_stuck_inversion">במכשירים מסוימים ההיפוך עלול להיתקע פעיל עם הפעלתו. הגדרה זו תכריח את ההיפוך להיכבות</string>
   <string name="header_clock_size_title">גודל השעון בראש</string>
@@ -138,7 +138,7 @@
   <string name="update_notification_download_fail">ההורדה נכשלה</string>
   <string name="update_notification_download_fail_details">ההורדה נכשלה %1$d</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
   <string name="yes">כן</string>
   <string name="no">לא</string>
@@ -175,4 +175,6 @@
   <string name="dialog_color_picker">בוחר צבעים</string>
   <string name="press_color_to_apply">לחץ על צבע כדי להחיל</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
 </resources>

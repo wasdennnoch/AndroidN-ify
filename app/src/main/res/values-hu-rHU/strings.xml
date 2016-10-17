@@ -24,10 +24,24 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">ebben az XDA-s topikban</a> tölthetsz le.<br>
         Ha még ez sem segít, akkor kénytelen leszel az alapértelmezett beállításokkal élni, sajnálom :(
         ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+        Egy automatizált verziót futtatsz. A modul néhány része elromolhat az új változtatások miatt.
+        Ha bármilyen problémát tapasztalsz, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">jelezd a GitHubon</a>, amennyiben más még nem tette<br><br>
+        Ne felejtsd el az Xposed naplófájlok csatolását a hibák bejelentésekor, és a logcat-et összeomlás esetén.
+        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+        Egy kísérleti automatizált verziót futtatsz. A modul néhány része elromolhat az új változtatások miatt.
+        Ha bármilyen problémát tapasztalsz, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">jelezd a GitHubon</a>, amennyiben más még nem tette<br>
+        Ez a verzió <b>rendkívül kísérleti jellegű</b> funkciókat tartalmaz. Kérlek nézz körül az XDA-n és a GitHub-on, mielőtt hibát jelentenél. A redundáns hibajelentések figyelmen kívül lesznek hagyva és lezárásra kerülnek.<br><br>
+        Ne felejtsd el az Xposed naplófájlok csatolását a hibák bejelentésekor, és a logcat-et összeomlás esetén.
+        ]]></string>
   <string name="header_tweaks">Finomhangolás</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Alkalmazás</string>
-  <string name="app_dark_theme_title">Sötét alkalmazás téma</string>
+  <string name="app_theme_title">Alkalmazás téma</string>
+  <string name="app_theme_light">Világos</string>
+  <string name="app_theme_dark">Sötét</string>
+  <string name="app_theme_device">Eszköz alapértelmezés</string>
   <string name="hide_launcher_icon_title">Ikon eltűntetése az alkalmazásindítóból</string>
   <string name="hide_launcher_icon">Ehhez lehet, hogy újra kell indítani az alkalmazásindítót</string>
   <string name="debug_log_title">Hibaelhárítási naplózás</string>
@@ -88,6 +102,7 @@
   <string name="recents_navigation_delay_title">Navigációs késleltetés</string>
   <string name="recents_navigation_delay">Ennyi idő után kerül fókuszba a kiválasztott alkalmazás</string>
   <string name="enable_large_recents">Nagy alkalmazás-előképek</string>
+  <string name="enable_large_recents_summary">Csak teljes szélességűvé teszi az alkalmazás-előképeket, a magasságuk változatlan marad</string>
   <string name="no_recents_image">\"Nincs új alkalmazás\" kép megváltoztatása</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">A legutóbbi képernyők itt jelennek meg</string>
@@ -96,6 +111,10 @@
   <string name="recents_button_behavior_cycle">Váltogatás az alkalmazások között</string>
   <string name="header_qs">Gyorsbeállítások</string>
   <string name="enable_notification_header">Fejléc stílusának módosítása</string>
+  <string name="keep_bg_title">Változatlan hátterek</string>
+  <string name="keep_bg">Jól jöhet egyéni hátteret használó témáknál</string>
+  <string name="keep_header_bg">Fejléc</string>
+  <string name="keep_panel_bg">QS panel</string>
   <string name="notification_header_qs_tiles_count">Gyorsbeállítás csempék száma</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">csempe</string>
@@ -106,7 +125,7 @@
   <string name="enable_new_tile_click_behavior">Android N szerinti csempe viselkedés érintéskor</string>
   <string name="enable_new_tile_click_behavior_summary">A csempe érintéskor a fejlécben be- és kikapcsolja a beállítást, a lenyitott panelben pedig kiterjeszti azt</string>
   <string name="enable_large_first_row">Első sor nagyítása</string>
-  <string name="enable_large_first_row_summary">CM alatt ehelyett használd a csempék szerkesztése mód beállítás-menüjét</string>
+  <string name="enable_large_first_row_summary2">A két legelső csempét nagyobbá teszi, ha az támogatott</string>
   <string name="fix_stuck_inversion_title">Beragadt inverzió javítása</string>
   <string name="fix_stuck_inversion">Néhány eszközön az inverzió beragad, ha engedélyezik. Koppints ide a deaktiválás kényszerítéséhez</string>
   <string name="header_clock_size_title">Fejléc óra mérete</string>
@@ -128,35 +147,122 @@
   <string name="notification_blacklisted_apps_title">Alkalmazás feketelista</string>
   <string name="notification_blacklisted_apps">Ezeknél az alkalmazásoknál a régi értesítési stílust használja</string>
   <string name="notifications_custom_actions_color_title">Egyéni műveletek háttérszín használata</string>
+  <string name="notifications_custom_actions_color">Egyéni szín használata az értesítési gombok hátterénél</string>
   <string name="notifications_actions_color_title">Műveletek háttérszín</string>
   <string name="notification_experimental_title">Kísérleti N értesítés viselkedés</string>
-  <string name="notification_experimental">N görgetési viselkedés (nincs fölső csoport) és értesítés árnyék</string>
+  <string name="notification_experimental">N görgetési viselkedés (nincs felső halmaz)</string>
   <string name="notification_keyguard_max_title">Max értesítés képernyőzárnál</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">most</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dp</item>
+    <item quantity="other">%dp</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%dó</item>
+    <item quantity="other">%dó</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dn</item>
+    <item quantity="other">%dn</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%d év</item>
+    <item quantity="other">%d év</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">%dp múlva</item>
+    <item quantity="other">%dp múlva</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">%dó múlva</item>
+    <item quantity="other">%dó múlva</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">%d nap múlva</item>
+    <item quantity="other">%d nap múlva</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">%d év múlva</item>
+    <item quantity="other">%d év múlva</item>
+  </plurals>
   <string name="update_notification_title">Új frissítés érhető el</string>
   <string name="update_notification">A %1$d. számú build már elérhető frissítésre!</string>
   <string name="update_notification_download">Frissítés</string>
+  <string name="update_warning">Modul frissítve</string>
+  <string name="update_warning_details">A rendszer instabillá válhat és a hibajelentések figyelmen kívül lesznek hagyva az újraindításig</string>
   <string name="check_for_updates_title">Frissítések keresése</string>
   <string name="check_for_updates">Frissítések keresése az alkalmazás indulásakor</string>
   <string name="checking_for_update">Frissítések keresése folyamatban&#8230;</string>
   <string name="check_for_update_fail">Nem sikerült frissítéseket keresni</string>
   <string name="no_updates">Nem található újabb verzió</string>
   <string name="update_notification_downloading">Frissítés letöltése folyamaban</string>
+  <string name="update_notification_downloading_details">%1$d build letöltése</string>
   <string name="update_notification_download_fail">A letöltés nem sikerült</string>
   <string name="update_notification_download_fail_details">Nem lehetett letölteni a %1$d. számú buildet</string>
+  <string name="emergency_info">Vészhelyzeti információk</string>
   <string name="emergency_info_launch_hint">Koppints újra a megnyitáshoz</string>
+  <string name="enable_emergency_info_title">Vészhelyzeti információk engedélyezése</string>
+  <string name="enable_emergency_info">Egy Vészhelyzeti Információ gombot ad a vészhelyzeti tárcsázóhoz</string>
+  <string name="edit_emergency_info_title">Vészhelyzeti információ szerkesztése</string>
+  <string name="clear_all">Összes törlése</string>
+  <string name="tab_title_info">Infó</string>
+  <string name="tab_title_contacts">Kapcsolatok</string>
+  <string name="add_emergency_contact">Névjegy hozzáadása</string>
+  <string name="user_emergency_info_title">Vészhelyzeti információk</string>
+  <string name="user_emergency_info_consent">Az itt megadott információ segíthet az elsősegélyt nyújtóknak vészhelyzet esetén. Csak a készülékeden kerül tárolásra és bárki elolvashatja a vészhelyzeti tárcsázóból a telefon feloldása nélkül.</string>
+  <string name="emergency_info_continue">Tovább</string>
+  <string name="clear">Törlés</string>
+  <string name="clear_all_message">Törlöd az összes információt és névjegyet?</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: 3 feb 1987 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">Eltávolítod %1$s-t a vészhelyzet esetén értesítendő személyek közül?</string>
+  <string name="remove_contact_icon_text">Névjegy eltávolítása</string>
+  <string name="remove">Eltávolítás</string>
+  <string name="cancel">Mégse</string>
+  <string name="no_info_provided">Nincs megadva vészhelyzeti információ</string>
+  <string name="emergency_contacts_title">Vészhelyzetben értesítendő személyek</string>
+  <string name="name">Név</string>
+  <string name="unknown_name">Ismeretlen</string>
+  <string name="address">Cím</string>
+  <string name="unknown_address">Ismeretlen</string>
+  <string name="date_of_birth">Születési dátum</string>
+  <string name="unknown_date_of_birth">Ismeretlen</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Életkor: %1$d</string>
+  <string name="remove_dob_icon_text">Születési dátum eltávolítása</string>
+  <string name="blood_type">Vértípus</string>
+  <string name="unknown_blood_type">Ismeretlen</string>
+  <string name="allergies">Allergiák</string>
+  <string name="unknown_allergies">Ismeretlen</string>
+  <string name="allergies_hint">Például a földimogyoró</string>
+  <string name="medications">Gyógyszerek</string>
+  <string name="unknown_medications">Ismeretlen</string>
+  <string name="medications_hint">Például az aszpirin</string>
+  <string name="medical_conditions">Orvosi megjegyzések</string>
+  <string name="unknown_medical_conditions">Ismeretlen</string>
+  <string name="medical_conditions_hint">Például asztma</string>
+  <string name="organ_donor">Szervdonor</string>
+  <string name="unknown_organ_donor">Ismeretlen</string>
+  <string name="info_bloodtype_op">O+</string>
+  <string name="info_bloodtype_on">O-</string>
+  <string name="info_bloodtype_ap">A+</string>
+  <string name="info_bloodtype_an">A-</string>
+  <string name="info_bloodtype_bp">B+</string>
+  <string name="info_bloodtype_bn">B-</string>
+  <string name="info_bloodtype_abp">AB+</string>
+  <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">Igen</string>
   <string name="no">Nem</string>
   <string name="battery">Akkumulátor</string>
@@ -165,31 +271,101 @@
   <string name="qs_edit">Szerkesztés</string>
   <string name="drag_to_add_tiles">Húzd csempék hozzáadásához</string>
   <string name="drag_to_remove_tiles">Húzd ide a törléshez</string>
+  <string name="live_display">LiveDisplay</string>
   <string name="live_display_auto">Automatkus</string>
   <string name="live_display_off">Ki</string>
   <string name="live_display_day">Nappal</string>
   <string name="live_display_night">Éjszaka</string>
   <string name="live_display_outdoor">Kültér (erős napfény)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">Ennyi ideje: %1$s</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s van hátra</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Kb. %1$s van hátra</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s van hátra</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - kb. %2$s van hátra</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - %2$s van hátra</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s - %2$s a teljes tölöttségig</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s - %2$s a hálózatról való teljes feltöltődésig</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s az USB-ről való teljes feltöltődésig</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s a teljes vezeték nélküli feltöltődésig</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
+  <string name="battery_info_status_unknown">Ismeretlen</string>
+  <string name="battery_info_status_charging">Töltés</string>
+  <string name="battery_info_status_charging_ac">Töltés hálózatról</string>
+  <string name="battery_info_status_charging_ac_short">Töltés</string>
+  <string name="battery_info_status_charging_usb">Töltés USB-n keresztül</string>
+  <string name="battery_info_status_charging_usb_short">Töltés</string>
+  <string name="battery_info_status_charging_wireless">Vezeték nélküli töltés folyamatban</string>
+  <string name="battery_info_status_charging_wireless_short">Töltés</string>
+  <string name="battery_info_status_discharging">Nem töltődik</string>
+  <string name="battery_info_status_not_charging">Nem töltődik</string>
+  <string name="battery_info_status_full">Feltöltve</string>
+  <string name="battery_panel_title">Akkumulátorhasználat</string>
+  <string name="battery_detail_charging_summary">Az energiatakarékos üzemmód nem érhető el töltés közben</string>
   <!-- Add a custom tile -->
+  <string name="add">Hozzáadás</string>
+  <string name="add_custom_tile">Broadcast csempe hozzáadása</string>
   <!-- Warning when the input for the custom tile is empty -->
+  <string name="spec_shouldnt_be_blank">A csempe spec nem lehet üres</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Visszaállítás</string>
   <string name="dialog_color_picker">Színválasztó</string>
   <string name="press_color_to_apply">Koppints a Színre az alkalmazáshoz</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Alkalmazás telepítési forrásának mutatása</string>
+  <string name="enable_install_source">Hozzáad egy kategóriát az alkalmazás infrmációs oldalához, ami megmutatja, hogy honnan lett telepítve (Play Áruház, Csomagtelepítő, stb.)</string>
+  <string name="battery_detail_switch_title">Energiatakarékos üzemmód</string>
+  <string name="battery_detail_switch_summary">Csökkenti a teljesítményt és a háttéradat-felhasználást</string>
+  <string name="qs_add_notes_title">Jegyzetek</string>
+  <string name="qs_add_notes">Ez csak olyan alkalmazásokhoz használható, amelyek közvetítés csempéket szolgáltatnak (mint pl. az \"Egyéni Gyorsbeállítások\"). Kérlek olvasd el az utasításokat a csempeszolgáltatóban, mielőtt ezt használnád.</string>
+  <string name="notification_spoof_api_version_title">API 24 tettetése</string>
+  <string name="notification_spoof_api_version">Elhiteti ezekkel az alkalmazásokkal, hogy a 24-es API-n futnak</string>
+  <string name="hide_tiles_on_lockscreen">Csempék elrejtése a zárképernyőn</string>
+  <string name="done">Kész</string>
+  <string name="cm_qs_settings">CM-es QS beállítások</string>
+  <string name="disable_qs_paging">QS lapozás tiltása</string>
+  <string name="disable_qs_paging_summary">QS lapozás tiltása álló módban</string>
+  <string name="allow_direct_reply_on_keyguard">Közvetlen válasz a zárképernyőn</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Értesítések megválaszolásának engedélyezése a zárképernyőn</string>
+  <string name="enable_notifications_background">Értesítések hátterének engedélyezése</string>
+  <string name="enable_notifications_background_summary">Fehér hátteret rajzol az értesítések mögé amikor azokat elhúzzák oldalra</string>
+  <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Gyorsbeállítások megnyitása.</string>
+  <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Gyorsbeállítások bezárása.</string>
+  <string name="warning">Figyelmeztetés</string>
+  <string name="dont_show_again">Ne jelenjen meg újra</string>
+  <string name="enable_data_disabled_indicator">Mobil adat letiltva jelzés megjelenítése</string>
+  <string name="enable_data_disabled_indicator_summary">Egy \"x\"-et mutat jelerősség-indikátorként amikor az adatforgalom le van tiltva</string>
+  <string name="home">Kezdőképernyő</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">%1$d lépésre vagy a kísérleti funkciók engedélyezésétől.</item>
+    <item quantity="other">%1$d lépésre vagy a kísérleti funkciók engedélyezésétől.</item>
+  </plurals>
+  <string name="show_experimental_on">Engedélyezted a kísérleti funkciókat!</string>
+  <string name="show_experimental_on_already">Nincs rá szükség, már engedélyezted a kísérleti funkciókat.</string>
+  <string name="header_experimental">Kísérleti</string>
+  <string name="enable_experimental_features">Kísérleti funkciók engedélyezése</string>
+  <string name="enable_n_style_settings_dashboard">N stílus beállítások</string>
+  <string name="enable_n_style_settings_dashboard_summary">Olyanná teszi a beállítások pultot, mint ahogyan az az N-ben kinéz</string>
+  <string name="enable_settings_drawer">Beállítások pult engedélyezése</string>
 </resources>
