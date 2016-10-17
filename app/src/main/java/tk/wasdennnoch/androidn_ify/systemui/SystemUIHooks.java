@@ -106,7 +106,8 @@ public class SystemUIHooks {
                     @Override
                     public void runSafe() {
                         XposedHook.debug = ConfigUtils.getInstance().getPrefs().getBoolean("debug_log", false);
-                        RomUtils.init(ConfigUtils.getInstance().getPrefs());
+                        //RomUtils.init(ConfigUtils.getInstance().getPrefs());
+                        RomUtils.initRemote();
                     }
                 }, 2000);
             }

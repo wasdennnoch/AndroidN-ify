@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -16,6 +17,7 @@ import de.robv.android.xposed.XSharedPreferences;
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 
+@SuppressWarnings("WeakerAccess")
 public class ConfigUtils {
 
     private static final String TAG = "ConfigUtils";
@@ -25,7 +27,7 @@ public class ConfigUtils {
     public static boolean EXPERIMENTAL;
 
     private static ConfigUtils mInstance;
-    private final XSharedPreferences mPrefs;
+    private final SharedPreferences mPrefs;
 
     public SettingsConfig settings;
     public RecentsConfig recents;
@@ -37,6 +39,8 @@ public class ConfigUtils {
     private ConfigUtils() {
         mInstance = this;
         mPrefs = new XSharedPreferences(XposedHook.class.getPackage().getName());
+        //Context context = (Context) XposedHelpers.callMethod(XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"), "getSystemContext");
+        //mPrefs = new RemotePreferences(context, "tk.wasdennnoch.androidn_ify.PREFERENCES", "tk.wasdennnoch.androidn_ify_preferences");
         reload();
     }
 
@@ -49,7 +53,8 @@ public class ConfigUtils {
     }
 
     private void reload() {
-        mPrefs.reload();
+        if (mPrefs instanceof XSharedPreferences)
+            ((XSharedPreferences) mPrefs).reload();
         loadConfig();
     }
 
@@ -93,7 +98,7 @@ public class ConfigUtils {
         return getInstance().assistant;
     }
 
-    public XSharedPreferences getPrefs() {
+    public SharedPreferences getPrefs() {
         return mPrefs;
     }
 
@@ -107,7 +112,7 @@ public class ConfigUtils {
         public final boolean n_style_dashboard;
         public final boolean enable_drawer;
 
-        public SettingsConfig(XSharedPreferences prefs) {
+        public SettingsConfig(SharedPreferences prefs) {
             enable_summaries = prefs.getBoolean("enable_settings_summaries", true);
             fix_sound_notif_tile = prefs.getBoolean("fix_sound_notif_tile", false);
             enable_n_platlogo = prefs.getBoolean("enable_n_platlogo", true);
@@ -128,7 +133,7 @@ public class ConfigUtils {
         public final boolean large_recents;
         public final boolean no_recents_image;
 
-        public RecentsConfig(XSharedPreferences prefs) {
+        public RecentsConfig(SharedPreferences prefs) {
             double_tap = prefs.getBoolean("enable_recents_double_tap", true);
             alternative_method = prefs.getBoolean("alternative_method", false);
             double_tap_speed = prefs.getInt("double_tap_speed", 400);
@@ -166,7 +171,7 @@ public class ConfigUtils {
         public final boolean hide_carrier_label;
         public final boolean disable_qs_paging;
 
-        public QuickSettingsConfig(XSharedPreferences prefs) {
+        public QuickSettingsConfig(SharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
             battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", false);
@@ -200,7 +205,7 @@ public class ConfigUtils {
         public List<String> blacklistedApps;
         public List<String> spoofAPIApps;
 
-        public NotificationsConfig(XSharedPreferences prefs) {
+        public NotificationsConfig(SharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
@@ -249,7 +254,7 @@ public class ConfigUtils {
     public class LockscreenConfig {
         public final boolean enable_emergency_info;
 
-        public LockscreenConfig(XSharedPreferences prefs) {
+        public LockscreenConfig(SharedPreferences prefs) {
             enable_emergency_info = prefs.getBoolean("enable_emergency_info", true);
         }
     }
@@ -257,11 +262,12 @@ public class ConfigUtils {
     public class AssistantConfig {
         public final boolean enable_assistant;
 
-        public AssistantConfig(XSharedPreferences prefs) {
+        public AssistantConfig(SharedPreferences prefs) {
             enable_assistant = prefs.getBoolean("enable_assistant", true);
         }
     }
 
+    @SuppressLint("WorldReadableFiles")
     @SuppressWarnings("deprecation")
     public static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_WORLD_READABLE);

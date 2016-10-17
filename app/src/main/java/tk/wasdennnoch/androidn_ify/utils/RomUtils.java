@@ -6,7 +6,10 @@ import android.content.SharedPreferences;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 
+import com.crossbowffs.remotepreferences.RemotePreferences;
+
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -23,6 +26,10 @@ public class RomUtils {
     // Init from Xposed
     public static void init(XSharedPreferences prefs) {
         sPrefs = prefs;
+    }
+    public static void initRemote() {
+        Context context = (Context) XposedHelpers.callMethod(XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"), "getSystemContext");
+        sPrefs = new RemotePreferences(context, "tk.wasdennnoch.androidn_ify.PREFERENCES", "tk.wasdennnoch.androidn_ify_preferences");
     }
 
     // Call only from UI

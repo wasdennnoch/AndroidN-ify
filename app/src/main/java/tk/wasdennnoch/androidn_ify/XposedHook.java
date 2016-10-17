@@ -18,6 +18,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import tk.wasdennnoch.androidn_ify.google.AssistantHooks;
 import tk.wasdennnoch.androidn_ify.phone.emergency.EmergencyHooks;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
@@ -34,19 +35,6 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.PermissionGranter;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
-/**
- * Right now it's impossible to explicitly use classes of the hooked package
- * (e.g. <code>com.android.systemui.statusbar.policy.KeyButtonView</code>) because those
- * application classes aren't loaded yet when the method <code>handleLoadPackage</code>
- * gets called. Refection is used to find classes and methods, which forces ART to index
- * every class in the <code>CLASSPATH</code> variable. When indexing a hook class that
- * implements classes of the hooked package, a <code>NoClassDefFoundError</code> will be
- * thrown as those classes aren't stored in the <code>CLASSPATH</code> yet. This forces
- * us to work with standard framework classes and reflection. I hope this is sort of
- * understandable.
- *
- * @see <a href="https://github.com/rovo89/XposedBridge/issues/57">https://github.com/rovo89/XposedBridge/issues/57</a>
- */
 @SuppressWarnings("WeakerAccess")
 public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit, IXposedHookInitPackageResources {
 
@@ -61,7 +49,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
 
     public static final String ACTION_MARK_UNSTABLE = "tk.wasdennnoch.androidn_ify.action.ACTION_MARK_UNSTABLE";
-    public static final String GOOGLE_APP_VERSION_REGEX = "6\\.6\\.1[46]\\.21\\.[a-z]+[0-9]*";
+    public static final String GOOGLE_APP_VERSION_REGEX = "6\\.6\\.1[46]\\.21\\.[a-z]+[0-9]*"; // gotta love regex
 
     public static boolean debug = false;
     private static String sModulePath;
@@ -113,7 +101,12 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             logI(TAG, "Experimental features enabled");
         }
 
-        logDeviceInfo();
+        logI(TAG, "---- Device info ----");
+        logI(TAG, "SDK Version: " + Build.VERSION.SDK_INT);
+        logI(TAG, "Build ID: " + Build.DISPLAY);
+        logI(TAG, "Manufacturer: " + Build.MANUFACTURER);
+        logI(TAG, "Brand: " + Build.BRAND);
+        logI(TAG, "Model: " + Build.MODEL);
 
         if (!sPrefs.getBoolean("can_read_prefs", false)) {
             // With SELinux enforcing, it might happen that we don't have access
@@ -123,15 +116,6 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             logW(TAG, "Can't read prefs file, default values will be applied in hooks!");
         }
         debug = sPrefs.getBoolean("debug_log", false);
-    }
-
-    private void logDeviceInfo() {
-        logI(TAG, "---- Device info ----");
-        logI(TAG, "SDK Version: " + Build.VERSION.SDK_INT);
-        logI(TAG, "Build ID: " + Build.DISPLAY);
-        logI(TAG, "Manufacturer: " + Build.MANUFACTURER);
-        logI(TAG, "Brand: " + Build.BRAND);
-        logI(TAG, "Model: " + Build.MODEL);
     }
 
     @Override

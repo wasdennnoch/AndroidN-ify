@@ -1,4 +1,4 @@
-package tk.wasdennnoch.androidn_ify;
+package tk.wasdennnoch.androidn_ify.google;
 
 import android.content.SharedPreferences;
 
@@ -12,7 +12,7 @@ import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
-class AssistantHooks {
+public class AssistantHooks {
 
     private static final String GSA_PACKAGE = "com.google.android.apps.gsa";
     private static final String ASSISTANT_PACKAGE = GSA_PACKAGE + ".assistant";

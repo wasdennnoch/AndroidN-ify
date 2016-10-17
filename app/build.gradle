@@ -88,4 +88,5 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
     compile "com.android.support:palette-v7:$supportLibraryVersion"
     compile "com.android.support:design:$supportLibraryVersion"
+    compile 'com.crossbowffs.remotepreferences:remotepreferences:0.4'
 }

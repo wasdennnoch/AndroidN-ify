@@ -15,3 +15,5 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-keep class tk.wasdennnoch.androidn_ify.XposedHook
+-keep class tk.wasdennnoch.androidn_ify.ui.SettingsActivity
