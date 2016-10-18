@@ -25,13 +25,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
+import tk.wasdennnoch.androidn_ify.ui.emergency.PreferenceKeys;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
@@ -153,6 +159,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         private boolean mExperimental;
         private boolean mShowExperimental;
 
+        private boolean mAssistantSupported = false;
+        private String mGoogleAppVersionName;
+
         @SuppressLint("CommitPrefEdits")
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -178,6 +187,43 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             }
             // SELinux test, see XposedHook
             sharedPreferences.edit().putBoolean("can_read_prefs", true).commit();
+
+            try {
+                mGoogleAppVersionName = getActivity().getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                mGoogleAppVersionName = "Error";
+            }
+
+            // Load config from assets and update if newer
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().getAssets().open("assistant_hooks")));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                JSONArray hookConfigs = new JSONArray(result.toString());
+                // Should have thrown error here if no valid JSON
+                if (hookConfigs.optInt(0) > new JSONArray(sharedPreferences.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
+                    sharedPreferences.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, result.toString()).apply();
+                }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            // Read version and check if supported
+            try {
+                JSONArray hookConfigs = new JSONArray(sharedPreferences.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]"));
+                for (int i = 0; i < hookConfigs.length(); i++) {
+                    if (hookConfigs.optInt(i, -1) != -1)
+                        continue;
+                    if (mGoogleAppVersionName.matches(hookConfigs.getJSONObject(i).optString("version"))) {
+                        mAssistantSupported = true;
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -241,14 +287,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             if (assistant != null)
                                 screen.removePreference(assistant);
                         } else {
-                            try {
-                                String versionName = getActivity().getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName;
-                                if (!versionName.matches(XposedHook.GOOGLE_APP_VERSION_REGEX)) {
-                                    assistant.setEnabled(false);
-                                    assistant.setSummary(getResources().getString(R.string.enable_assistant_summary_unsupported, versionName));
-                                }
-                            } catch (PackageManager.NameNotFoundException e) {
-                                e.printStackTrace();
+                            if (!mAssistantSupported) {
+                                assistant.setEnabled(false);
+                                assistant.setSummary(getResources().getString(R.string.enable_assistant_summary_unsupported, mGoogleAppVersionName));
                             }
                         }
                         break;
