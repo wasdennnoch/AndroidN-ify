@@ -19,6 +19,8 @@ package tk.wasdennnoch.androidn_ify.ui.emergency;
  */
 @SuppressWarnings("UnnecessaryInterfaceModifier")
 public interface PreferenceKeys {
+    public static final String GOOGLE_APP_HOOK_CONFIGS = "google_app_hook_configs";
+
     /** Key for emergency contacts preference */
     public static final String KEY_EMERGENCY_CONTACTS = "emergency_contacts";
     /** Key for the add contact preference */

@@ -1,9 +1,14 @@
 package tk.wasdennnoch.androidn_ify.google;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 import static de.robv.android.xposed.XposedBridge.log;
@@ -17,11 +22,38 @@ public class AssistantHooks {
     private static final String GSA_PACKAGE = "com.google.android.apps.gsa";
     private static final String ASSISTANT_PACKAGE = GSA_PACKAGE + ".assistant";
 
+    private static final String KEY_VERSION = "version";
+    private static final String KEY_ASSISTANT_CLASS = "assistant_class";
+    private static final String KEY_PREFS = "prefs";
+    private static final String KEY_SET_PREFS = "set_prefs";
+    private static final String KEY_FAKE_CONFIG = "fake_config";
+    private static final String KEY_FAKE_CONFIG_TWO = "fake_config_two";
+    private static final String KEY_ENABLE_LANGS = "enable_langs";
+    private static final String KEY_FAKE_BUILDPROP_CLASS = "fake_buildprop_class";
+    private static final String KEY_FAKE_BUILDPROP = "fake_buildprop";
+
     public static void hook(final ClassLoader classLoader) {
         try {
-            if (!ConfigUtils.assistant().enable_assistant) {
+            // #############################################################################
+            // Thanks to XposedGELSettings for the following snippet (https://git.io/vP2Gw):
+            Object activityThread = XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread");
+            Context context = (Context) XposedHelpers.callMethod(activityThread, "getSystemContext");
+            // #############################################################################
+            String googleVersionName = context.getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName;
+
+            JSONArray hookConfigs = new JSONArray(ConfigUtils.assistant().google_app_hook_configs);
+            JSONObject activeHooksTemp = null;
+            for (int i = 0; i < hookConfigs.length(); i++) {
+                if (hookConfigs.optInt(i, -1) != -1)
+                    continue;
+                if (googleVersionName.matches(hookConfigs.getJSONObject(i).optString(KEY_VERSION))) {
+                    activeHooksTemp = hookConfigs.getJSONObject(i);
+                }
+            }
+            if (activeHooksTemp == null) {
                 return;
             }
+            final JSONObject activeHooks = activeHooksTemp;
 
             /*
             findAndHookMethod(ASSISTANT_PACKAGE + ".settings.AssistantSettingsActivity", classLoader, "onCreate", Bundle.class, new XC_MethodHook() {
@@ -40,12 +72,12 @@ public class AssistantHooks {
             });
             //*/
 
-            Class a = findClass(ASSISTANT_PACKAGE + ".a.e", classLoader);
+            Class a = findClass(ASSISTANT_PACKAGE + activeHooks.optString(KEY_ASSISTANT_CLASS, ".a.e"), classLoader);
 
             findAndHookConstructor(a, findClass("com.google.android.apps.gsa.search.core.config.GsaConfigFlags", classLoader), SharedPreferences.class, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    SharedPreferences prefs = (SharedPreferences) getObjectField(param.thisObject, "bhX");
+                    SharedPreferences prefs = (SharedPreferences) getObjectField(param.thisObject, activeHooks.optString(KEY_PREFS, "bhX"));
                     // Enable all prefs
                     prefs.edit().putBoolean("key_opa_eligible", true)
                             .putBoolean("opa_enabled", true)
@@ -55,7 +87,7 @@ public class AssistantHooks {
             });
 
             // Don't allow to disable pref
-            findAndHookMethod(a, "aG", boolean.class, new XC_MethodHook() {
+            findAndHookMethod(a, activeHooks.optString(KEY_SET_PREFS, "aG"), boolean.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     param.args[0] = true;
@@ -63,14 +95,14 @@ public class AssistantHooks {
             });
 
             // Fake config and build.prop item
-            findAndHookMethod(a, "pa", new XC_MethodReplacement() {
+            findAndHookMethod(a, activeHooks.optString(KEY_FAKE_CONFIG, "pa"), new XC_MethodReplacement() {
                 @Override
                 protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                     return true;
                 }
             });
 
-            findAndHookMethod(a, "oZ", new XC_MethodReplacement() {
+            findAndHookMethod(a, activeHooks.optString(KEY_FAKE_CONFIG_TWO, "oZ"), new XC_MethodReplacement() {
                 @Override
                 protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                     return true;
@@ -78,7 +110,7 @@ public class AssistantHooks {
             });
 
             // Enable for all languages, regardless of support from Google
-            findAndHookMethod(a, "pb", new XC_MethodReplacement() {
+            findAndHookMethod(a, activeHooks.optString(KEY_ENABLE_LANGS, "pb"), new XC_MethodReplacement() {
                 @Override
                 protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                     return true;
@@ -86,14 +118,15 @@ public class AssistantHooks {
             });
 
             // Fake build.prop item globally
-            findAndHookMethod(GSA_PACKAGE + ".shared.util.c", classLoader, "v", String.class, boolean.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    if (param.args[0].toString().equals("ro.opa.eligible_device")) {
-                        param.setResult(true);
-                    }
-                }
-            });
+            findAndHookMethod(GSA_PACKAGE + activeHooks.optString(KEY_FAKE_BUILDPROP_CLASS, ".shared.util.c"), classLoader,
+                    activeHooks.optString(KEY_FAKE_BUILDPROP, "v"), String.class, boolean.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            if (param.args[0].toString().equals("ro.opa.eligible_device")) {
+                                param.setResult(true);
+                            }
+                        }
+                    });
         } catch (Throwable t) {
             log(t);
         }

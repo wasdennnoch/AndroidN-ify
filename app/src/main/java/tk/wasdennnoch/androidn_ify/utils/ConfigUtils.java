@@ -261,9 +261,11 @@ public class ConfigUtils {
 
     public class AssistantConfig {
         public final boolean enable_assistant;
+        public final String google_app_hook_configs;
 
         public AssistantConfig(SharedPreferences prefs) {
             enable_assistant = prefs.getBoolean("enable_assistant", true);
+            google_app_hook_configs = prefs.getString("google_app_hook_configs", "[]");
         }
     }
 
