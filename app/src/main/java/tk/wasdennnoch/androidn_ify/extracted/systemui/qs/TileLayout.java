@@ -134,10 +134,12 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
     private void setDual(Object record, boolean dual) {
         View tileView = getTileViewFromRecord(record);
         try {
+            XposedHelpers.callMethod(tileView, "recreateLabel");
             XposedHelpers.callMethod(tileView, "setDual", new Class[] {boolean.class}, dual);
         } catch (Throwable t) { // CM13
             try {
                 Object tile = getTileFromRecord(record);
+                XposedHelpers.callMethod(tileView, "recreateLabel");
                 XposedHelpers.callMethod(tileView, "setDual", new Class[] {boolean.class, boolean.class}, dual, XposedHelpers.callMethod(tile, "hasDualTargetsDetails"));
             } catch (Throwable ignore) {
                 // Other ROMs
