@@ -429,7 +429,7 @@ public class StatusBarHeaderHooks {
                 }
                 mDateTimeGroup.addView(mAlarmStatusCollapsed);
                 mDateTimeAlarmGroup.addView(mDateTimeGroup);
-                mDateTimeAlarmGroup.addView(mAlarmStatus); // The view HAS to be attached to a parent, otherwise it apparently gets GC -> NPE
+                mDateTimeAlarmGroup.addView(mAlarmStatus); // The view HAS to be attached to a parent, otherwise it gets GC -> NPE. We hide it later if necessary
                 if (!mShowFullAlarm)
                     mDateTimeAlarmGroup.addView(mDateCollapsed);
                 mStatusBarHeaderView.addView(mLeftContainer);
@@ -517,13 +517,14 @@ public class StatusBarHeaderHooks {
                 mSystemIconsSuperContainer.setVisibility(View.GONE);
                 mDateExpanded.setVisibility(View.GONE);
                 mDateGroup.setVisibility(View.GONE);
-                mDateCollapsed.setVisibility(View.VISIBLE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
                 if (!mShowFullAlarm) {
                     mAlarmStatus.setVisibility(View.GONE);
+                    mDateCollapsed.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
                 } else {
                     mAlarmStatus.setVisibility(mExpanded && XposedHelpers.getBooleanField(mStatusBarHeaderView, "mAlarmShowing") ? View.VISIBLE : View.INVISIBLE);
+                    mDateCollapsed.setVisibility(View.VISIBLE);
                 }
                 mSettingsContainer.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE); // Apparently not implemented in some ROMs, so do it here manually
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
