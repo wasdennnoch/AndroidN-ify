@@ -21,7 +21,7 @@ class LollipopStatusBarHooks extends StatusBarHooks {
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 if (mDataDisabled && ConfigUtils.notifications().enable_data_disabled_indicator) {
                     int typeIcon = RomUtils.isCmBased() ? 3 : 2;
-                    int isTypeIconWide = ConfigUtils.L1 ? 5 : 6;
+                    int isTypeIconWide = ConfigUtils.L1 && !RomUtils.isCmBased() ? 5 : 6;
                     param.args[typeIcon] = SystemUIHooks.R_drawable_stat_sys_data_disabled;
                     if (param.args[isTypeIconWide] instanceof Boolean)
                         param.args[isTypeIconWide] = false;
