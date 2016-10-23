@@ -2,6 +2,7 @@ package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class NotificationPanelHooks {
             }
 
             FrameLayout.LayoutParams qsCustomizerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            qsCustomizerLp.gravity = Gravity.CENTER_HORIZONTAL;
             QSCustomizer qsCustomizer = new QSCustomizer(context);
             mNotificationPanelView.addView(qsCustomizer, qsCustomizerLp);
 

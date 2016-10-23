@@ -73,7 +73,6 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     public static final int MODE_CM_SETTINGS = 2;
 
     private final Context mContext;
-    private final Context mOwnContext;
     private final QSDetailClipper mClipper;
     private final Point mSizePoint = new Point();
     private final int mColor;
@@ -101,7 +100,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         super(context, null);
 
         mContext = context;
-        mOwnContext = ResourceUtils.createOwnContext(mContext);
+        Context ownContext = ResourceUtils.createOwnContext(mContext);
 
         ResourceUtils res = ResourceUtils.getInstance(mContext);
         Resources resources = mContext.getResources();
@@ -116,7 +115,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         setBackground(resources.getDrawable(resources.getIdentifier("qs_detail_background", "drawable", XposedHook.PACKAGE_SYSTEMUI)));
         mClipper = new QSDetailClipper(this);
 
-        LayoutInflater.from(mOwnContext).inflate(R.layout.qs_customize_panel_content, this);
+        LayoutInflater.from(ownContext).inflate(R.layout.qs_customize_panel_content, this);
 
         LayoutParams recyclerViewLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         RecyclerView recyclerView = new RecyclerView(context);
@@ -178,8 +177,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     }
 
     private View inflateCmSettings(Context context) {
-        LinearLayout.LayoutParams cmSettingsLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         View cmSettings = View.inflate(context, context.getResources().getIdentifier("qs_settings", "layout", XposedHook.PACKAGE_SYSTEMUI), null);
+        LinearLayout.LayoutParams cmSettingsLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         cmSettings.setLayoutParams(cmSettingsLp);
         return cmSettings;
     }
@@ -324,10 +323,13 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         getDisplay().getRealSize(mSizePoint);
-        setMeasuredDimension(widthMeasureSpec, MeasureSpec.makeMeasureSpec(mSizePoint.y, MeasureSpec.EXACTLY));
+        int maxWidth = MeasureSpec.getSize(widthMeasureSpec);
+        try {
+            maxWidth = getResources().getDimensionPixelSize(getResources().getIdentifier("notification_panel_width", "dimen", XposedHook.PACKAGE_SYSTEMUI));
+        } catch (Throwable ignore) {
+        }
+        super.onMeasure(MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(mSizePoint.y, MeasureSpec.EXACTLY));
     }
 
     private final NotificationPanelHooks.BarStateCallback mBarStateCallback = new NotificationPanelHooks.BarStateCallback() {
