@@ -110,6 +110,10 @@ public class QSTileHostHooks {
                 }
             }
 
+            if (tileSpecs.size() > 0 && tileSpecs.get(0).equals("default")) {
+                tileSpecs.remove(0);
+                tileSpecs.addAll(TileAdapter.getDefaultTiles());
+            }
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
                 String spec = tileSpecs.get(i);
@@ -174,6 +178,11 @@ public class QSTileHostHooks {
             tileSpecs.clear();
             tileSpecs.addAll(loadTileSpecsFromPrefs(context));
             tileMap.clear();
+
+            if (tileSpecs.size() > 0 && tileSpecs.get(0).equals("default")) {
+                tileSpecs.remove(0);
+                tileSpecs.addAll(TileAdapter.getDefaultTiles());
+            }
             int tileSpecCount = tileSpecs.size();
             for (int i = 0; i < tileSpecCount; i++) {
                 String spec = tileSpecs.get(i);

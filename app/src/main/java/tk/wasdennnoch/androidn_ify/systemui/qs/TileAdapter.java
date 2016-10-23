@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
@@ -393,16 +394,12 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
         mSecureTiles.clear();
         saveSecureTiles();
         List<String> newSpces = new ArrayList<>();
-        newSpces.add("wifi");
-        newSpces.add("cell");
-        newSpces.add("battery");
-        newSpces.add("dnd");
-        newSpces.add("flashlight");
-        newSpces.add("rotation");
-        newSpces.add("bt");
-        newSpces.add("airplane");
-        newSpces.add("location");
+        newSpces.addAll(getDefaultTiles());
         saveTiles(newSpces, true);
+    }
+
+    public static List<String> getDefaultTiles() {
+        return Arrays.asList("wifi", "cell", "battery", "dnd", "flashlight", "rotation", "bt", "airplane", "location");
     }
 
     private void saveTiles(List<String> tileSpecs, boolean update) {

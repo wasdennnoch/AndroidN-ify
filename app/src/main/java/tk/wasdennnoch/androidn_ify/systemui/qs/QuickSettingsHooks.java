@@ -174,7 +174,7 @@ public class QuickSettingsHooks {
                 try {
                     XposedHelpers.findAndHookMethod(mQsPanel.getClass(), "getGridHeight", getGridHeightHook);
                 } catch (Throwable ignore) {
-                    XposedHook.logW(TAG, "QSPanel#getGridHeight doesn't exist!");
+                    XposedHook.logW(TAG, "QSPanel#getGridHeight() doesn't exist!");
                 }
                 mHookedGetGridHeight = true;
             }
