@@ -222,4 +222,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         }
     }
 
+    public static String getModulePath() {
+        return sModulePath;
+    }
 }

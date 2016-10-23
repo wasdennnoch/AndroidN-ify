@@ -1,7 +1,11 @@
 package tk.wasdennnoch.androidn_ify.systemui.statusbar;
 
 import android.content.Context;
+import android.content.res.XModuleResources;
+import android.content.res.XResources;
 import android.os.Build;
+
+import java.lang.reflect.Array;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
@@ -21,7 +25,7 @@ public class StatusBarHooks {
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51_MOTO = "com.android.systemui.statusbar.policy.MotorolaMobileDataControllerImpl"; // yeah thx Motorola
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
 
-    private ClassLoader mClassLoader;
+    protected ClassLoader mClassLoader;
     Class<?> mSignalClusterClass;
     private Class<?> mMobileDataControllerClass;
     private boolean mLastDataDisabled = false;
@@ -149,8 +153,26 @@ public class StatusBarHooks {
                     int typeIcon = 2;
                     int qsTypeIcon = 3;
                     int isWide = 8;
-                    param.args[typeIcon] = SystemUIHooks.R_drawable_stat_sys_data_disabled;
-                    param.args[qsTypeIcon] = SystemUIHooks.R_drawable_ic_qs_data_disabled;
+
+                    Class mediaTekIconIdWrapperClass;
+                    try {
+                        mediaTekIconIdWrapperClass = XposedHelpers.findClass("com.mediatek.systemui.ext.IconIdWrapper", mClassLoader);
+                        XposedHook.logI(TAG, "Identified MediaTek device");
+                    } catch (XposedHelpers.ClassNotFoundError e) {
+                        mediaTekIconIdWrapperClass = null;
+                    }
+                    if (mediaTekIconIdWrapperClass != null && mediaTekIconIdWrapperClass.isInstance(param.args[typeIcon])) { // MediaTek devices wrap the id
+                        Object iconIdWrapperArray = Array.newInstance(mediaTekIconIdWrapperClass, 1);
+                        Array.set(iconIdWrapperArray, 0, XposedHelpers.newInstance(mediaTekIconIdWrapperClass, XModuleResources.createInstance(XposedHook.getModulePath(), null), SystemUIHooks.R_drawable_stat_sys_data_disabled));
+                        param.args[typeIcon] = iconIdWrapperArray;
+
+                        Object iconIdWrapperArray2 = Array.newInstance(mediaTekIconIdWrapperClass, 1);
+                        Array.set(iconIdWrapperArray2, 0, XposedHelpers.newInstance(mediaTekIconIdWrapperClass, XModuleResources.createInstance(XposedHook.getModulePath(), null), SystemUIHooks.R_drawable_ic_qs_data_disabled));
+                        param.args[qsTypeIcon] = iconIdWrapperArray2;
+                    } else {
+                        param.args[typeIcon] = SystemUIHooks.R_drawable_stat_sys_data_disabled;
+                        param.args[qsTypeIcon] = SystemUIHooks.R_drawable_ic_qs_data_disabled;
+                    }
                     if (param.args[isWide] instanceof Boolean) {
                         param.args[isWide] = false;
                     } else { // Xperia put a load of ints in between
