@@ -28,6 +28,7 @@ public class ConfigUtils {
 
     private static ConfigUtils mInstance;
     private final SharedPreferences mPrefs;
+    //private final SharedPreferences mPrefsRemote;
 
     public SettingsConfig settings;
     public RecentsConfig recents;
@@ -40,7 +41,7 @@ public class ConfigUtils {
         mInstance = this;
         mPrefs = new XSharedPreferences(XposedHook.class.getPackage().getName());
         //Context context = (Context) XposedHelpers.callMethod(XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"), "getSystemContext");
-        //mPrefs = new RemotePreferences(context, "tk.wasdennnoch.androidn_ify.PREFERENCES", "tk.wasdennnoch.androidn_ify_preferences");
+        //mPrefsRemote = new RemotePreferences(context, "tk.wasdennnoch.androidn_ify.PREFERENCES", "tk.wasdennnoch.androidn_ify_preferences");
         reload();
     }
 

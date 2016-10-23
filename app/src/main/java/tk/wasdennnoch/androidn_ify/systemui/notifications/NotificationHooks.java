@@ -705,10 +705,10 @@ public class NotificationHooks {
 
             if (config.notifications.dismiss_button) {
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_dismiss_all", status_bar_notification_dismiss_all);
-                try {
+                /*try {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_dismiss_button", status_bar_notification_dismiss_all);
                 } catch (Exception ignored) {
-                }
+                }*/
             }
 
         } catch (Throwable t) {

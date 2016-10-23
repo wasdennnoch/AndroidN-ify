@@ -63,7 +63,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity
+        <!--<activity
             android:name=".ui.SpoofAPIActivity"
             android:label="@string/notification_spoof_api_version_title"
             android:parentActivityName=".ui.SettingsActivity">
@@ -72,7 +72,7 @@
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </activity>
+        </activity>-->
         <activity
             android:name=".ui.AddTileActivity"
             android:excludeFromRecents="true"
