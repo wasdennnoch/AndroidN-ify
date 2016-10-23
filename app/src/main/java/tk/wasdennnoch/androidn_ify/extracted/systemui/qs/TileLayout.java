@@ -118,7 +118,7 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
                 row++;
                 column = 0;
             }
-            setDual(record, isDual(row));
+            setDual(record);
             try {
                 tileView.measure(exactly(getCellWidth(row)), exactly(mCellHeight));
             } catch (Throwable t) {
@@ -131,16 +131,14 @@ public class TileLayout extends ViewGroup implements QuickSettingsHooks.QSTileLa
                 (mCellHeight + mCellMargin) * rows + (mCellMarginTop - mCellMargin));
     }
 
-    private void setDual(Object record, boolean dual) {
+    private void setDual(Object record) {
         View tileView = getTileViewFromRecord(record);
         try {
-            XposedHelpers.callMethod(tileView, "recreateLabel");
-            XposedHelpers.callMethod(tileView, "setDual", new Class[] {boolean.class}, dual);
+            XposedHelpers.callMethod(tileView, "setDual", new Class[]{boolean.class}, false);
         } catch (Throwable t) { // CM13
             try {
                 Object tile = getTileFromRecord(record);
-                XposedHelpers.callMethod(tileView, "recreateLabel");
-                XposedHelpers.callMethod(tileView, "setDual", new Class[] {boolean.class, boolean.class}, dual, XposedHelpers.callMethod(tile, "hasDualTargetsDetails"));
+                XposedHelpers.callMethod(tileView, "setDual", new Class[]{boolean.class, boolean.class}, false, XposedHelpers.callMethod(tile, "hasDualTargetsDetails"));
             } catch (Throwable ignore) {
                 // Other ROMs
             }
