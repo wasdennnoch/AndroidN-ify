@@ -60,7 +60,7 @@ public class QSTileHostHooks {
     private static boolean mIsCm;
 
     // MM
-    private static final XC_MethodHook onTuningChangedHook = new XC_MethodHook(XC_MethodHook.PRIORITY_HIGHEST) {
+    private static final XC_MethodHook onTuningChangedHook = new XC_MethodHook(XC_MethodHook.PRIORITY_LOWEST) {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -137,7 +137,7 @@ public class QSTileHostHooks {
     };
 
     // LP
-    private static final XC_MethodHook recreateTilesHook = new XC_MethodHook(XC_MethodHook.PRIORITY_LOWEST) {
+    private static final XC_MethodHook recreateTilesHook = new XC_MethodHook(XC_MethodHook.PRIORITY_HIGHEST) {
         @SuppressWarnings("unchecked")
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
