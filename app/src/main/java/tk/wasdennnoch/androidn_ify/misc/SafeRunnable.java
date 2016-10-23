@@ -42,7 +42,7 @@ public abstract class SafeRunnable implements Runnable {
         try {
             runSafe();
         } catch (Throwable t) {
-            if (mLogMessage != null) XposedHook.logE(mLogTag, mLogMessage, t);
+            if (mLogTag != null) XposedHook.logE(mLogTag, mLogMessage, t);
         }
     }
 

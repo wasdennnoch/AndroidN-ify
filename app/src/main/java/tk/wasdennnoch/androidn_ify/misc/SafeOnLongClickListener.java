@@ -44,7 +44,7 @@ public abstract class SafeOnLongClickListener implements View.OnLongClickListene
         try {
             return onLongClickSafe(v);
         } catch (Throwable t) {
-            if (mLogMessage != null) XposedHook.logE(mLogTag, mLogMessage, t);
+            if (mLogTag != null) XposedHook.logE(mLogTag, mLogMessage, t);
             return false;
         }
     }

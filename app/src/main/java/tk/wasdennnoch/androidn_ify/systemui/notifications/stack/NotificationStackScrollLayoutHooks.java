@@ -32,6 +32,7 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.FakeShadowView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.Interpolators;
+import tk.wasdennnoch.androidn_ify.misc.SafeOnPreDrawListener;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -63,19 +64,16 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     private boolean mDontClampNextScroll;
     private boolean mContinuousShadowUpdate;
     private boolean mIsExpanded;
-    private ViewTreeObserver.OnPreDrawListener mBackgroundUpdater
-            = new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-               updateBackground();
-               return true;
-           }
-    };
-    private ViewTreeObserver.OnPreDrawListener mShadowUpdater
-            = new ViewTreeObserver.OnPreDrawListener() {
-
+    private ViewTreeObserver.OnPreDrawListener mBackgroundUpdater = new SafeOnPreDrawListener() {
         @Override
-        public boolean onPreDraw() {
+        public boolean onPreDrawSafe() {
+            updateBackground();
+            return true;
+        }
+    };
+    private ViewTreeObserver.OnPreDrawListener mShadowUpdater = new SafeOnPreDrawListener() {
+        @Override
+        public boolean onPreDrawSafe() {
             updateViewShadows();
             return true;
         }
@@ -644,7 +642,7 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     }
 
     private void setFakeShadowIntensity(View activatableNotificationView, float shadowIntensity, float outlineAlpha, int shadowYEnd,
-                                       int outlineTranslation) {
+                                        int outlineTranslation) {
         FakeShadowView mFakeShadow = (FakeShadowView) activatableNotificationView.findViewById(R.id.fake_shadow);
         if (mFakeShadow != null)
             mFakeShadow.setFakeShadowTranslationZ(shadowIntensity * (activatableNotificationView.getTranslationZ()

@@ -44,7 +44,7 @@ public abstract class SafeOnClickListener implements View.OnClickListener {
         try {
             onClickSafe(v);
         } catch (Throwable t) {
-            if (mLogMessage != null) XposedHook.logE(mLogTag, mLogMessage, t);
+            if (mLogTag != null) XposedHook.logE(mLogTag, mLogMessage, t);
         }
     }
 

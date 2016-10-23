@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +20,7 @@ import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
+@SuppressLint("StaticFieldLeak")
 public class NotificationPanelHooks {
 
     private static final String TAG = "NotificationPanelHooks";
@@ -140,7 +142,7 @@ public class NotificationPanelHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
-            if (ConfigUtils.qs().header) {
+            if (ConfigUtils.notifications().change_style) {
 
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
