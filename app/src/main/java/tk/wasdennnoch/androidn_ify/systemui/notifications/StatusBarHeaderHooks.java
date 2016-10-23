@@ -50,6 +50,7 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgor
 import tk.wasdennnoch.androidn_ify.systemui.qs.DetailViewManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.QuickSettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.BluetoothTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.CellularTileHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.hooks.WifiTileHook;
@@ -140,6 +141,7 @@ public class StatusBarHeaderHooks {
     private static final Rect mClipBounds = new Rect();
 
     public static QSAnimator mQsAnimator;
+    public static QuickSettingsHooks qsHooks;
 
     private static final XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -484,7 +486,7 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            int mGridHeight = SystemUIHooks.qsHooks.getGridHeight();
+            int mGridHeight = qsHooks.getGridHeight();
             if (mGridHeight == 0)
                 return;
             View view = (View) param.thisObject;
@@ -670,7 +672,7 @@ public class StatusBarHeaderHooks {
                 if (tileRecord != null) {
                     View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                     param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
-                    param.args[3] = tileView.getTop() + SystemUIHooks.qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
+                    param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
                             + mQsPanel.getTop();
                 }
             }
@@ -898,7 +900,7 @@ public class StatusBarHeaderHooks {
     }
 
     public static void showEditDismissingKeyguard(final int x, final int y) {
-        startRunnableDismissingKeyguard(new Runnable() {
+        SystemUIHooks.startRunnableDismissingKeyguard(new Runnable() {
             @Override
             public void run() {
                 showEdit(x, y);
@@ -956,13 +958,11 @@ public class StatusBarHeaderHooks {
         });
     }
 
-    private static void startRunnableDismissingKeyguard(final Runnable runnable) {
-        SystemUIHooks.startRunnableDismissingKeyguard(runnable);
-    }
-
     public static void hook(ClassLoader classLoader) {
         try {
             if (ConfigUtils.qs().header) {
+
+                qsHooks = QuickSettingsHooks.create(classLoader);
 
                 Class<?> classStatusBarHeaderView = XposedHelpers.findClass(CLASS_STATUS_BAR_HEADER_VIEW, classLoader);
                 Class<?> classLayoutValues = XposedHelpers.findClass(CLASS_LAYOUT_VALUES, classLoader);

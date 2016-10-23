@@ -2,7 +2,6 @@ package tk.wasdennnoch.androidn_ify.systemui.statusbar;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
@@ -15,7 +14,6 @@ public class StatusBarHooks {
 
     private static final String TAG = "StatusBarHooks";
 
-    private static final String CLASS_PHONE_STATUS_BAR = "com.android.systemui.statusbar.phone.PhoneStatusBar";
     private static final String CLASS_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.SignalController";
     private static final String CLASS_SIGNAL_CLUSTER_VIEW = "com.android.systemui.statusbar.SignalClusterView";
     private static final String CLASS_MOBILE_SIGNAL_CONTROLLER = "com.android.systemui.statusbar.policy.MobileSignalController";
@@ -23,16 +21,12 @@ public class StatusBarHooks {
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51_MOTO = "com.android.systemui.statusbar.policy.MotorolaMobileDataControllerImpl"; // yeah thx Motorola
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
 
-    ClassLoader mClassLoader;
-    private Class<?> mPhoneStatusBarClass;
+    private ClassLoader mClassLoader;
     Class<?> mSignalClusterClass;
     private Class<?> mMobileDataControllerClass;
     private boolean mLastDataDisabled = false;
     boolean mDataDisabled = false;
 
-    protected Context mContext;
-    Object mPhoneStatusBar;
-    private Handler mHandler;
     private Object mPhone;
 
     public static StatusBarHooks create(ClassLoader classLoader) {
@@ -46,7 +40,6 @@ public class StatusBarHooks {
     StatusBarHooks(ClassLoader classLoader) {
         try {
             mClassLoader = classLoader;
-            mPhoneStatusBarClass = XposedHelpers.findClass(CLASS_PHONE_STATUS_BAR, mClassLoader);
             mSignalClusterClass = XposedHelpers.findClass(CLASS_SIGNAL_CLUSTER_VIEW, mClassLoader);
             try {
                 mMobileDataControllerClass = XposedHelpers.findClass(getMobileDataControllerClass(), mClassLoader);
@@ -57,7 +50,6 @@ public class StatusBarHooks {
                     mMobileDataControllerClass = XposedHelpers.findClass(CLASS_MOBILE_DATA_CONTROLLER_50, mClassLoader);
                 }
             }
-            hookStart();
             if (ConfigUtils.M)
                 hookIsDirty();
             hookSetMobileDataIndicators();
@@ -110,17 +102,6 @@ public class StatusBarHooks {
                                     "getSubId"));
                 }
                 mDataDisabled = !isDataEnabled;
-            }
-        });
-    }
-
-    private void hookStart() {
-        XposedHelpers.findAndHookMethod(mPhoneStatusBarClass, "start", new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                mPhoneStatusBar = param.thisObject;
-                mHandler = (Handler) XposedHelpers.getObjectField(mPhoneStatusBar, "mHandler");
-                mContext = (Context) XposedHelpers.getObjectField(mPhoneStatusBar, "mContext");
             }
         });
     }
@@ -180,26 +161,7 @@ public class StatusBarHooks {
         });
     }
 
-    public void startRunnableDismissingKeyguard(final Runnable runnable) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    XposedHelpers.setBooleanField(mPhoneStatusBar, "mLeaveOpenOnKeyguardHide", true);
-                    XposedHelpers.callMethod(mPhoneStatusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
-                } catch (Throwable t) {
-                    XposedHook.logE(TAG, "Error in startRunnableDismissingKeyguard, executing instantly (" + t.toString() + ")", null);
-                    runnable.run();
-                }
-            }
-        });
-    }
-
     private String getMobileDataControllerClass() {
         return Build.VERSION.SDK_INT >= 22 ? CLASS_MOBILE_DATA_CONTROLLER_51 : CLASS_MOBILE_DATA_CONTROLLER_50;
-    }
-
-    public void post(Runnable r) {
-        mHandler.post(r);
     }
 }

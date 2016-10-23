@@ -11,6 +11,10 @@ import android.os.Handler;
 import android.os.Process;
 import android.provider.Settings;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
@@ -20,9 +24,7 @@ import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
-import tk.wasdennnoch.androidn_ify.systemui.qs.QuickSettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryInfoManager;
-import tk.wasdennnoch.androidn_ify.systemui.statusbar.StatusBarHooks;
 import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -34,17 +36,20 @@ public class SystemUIHooks {
     private static final String TAG = "SystemUIHooks";
 
     private static final String CLASS_SYSTEMUI_APPLICATION = "com.android.systemui.SystemUIApplication";
+    private static final String CLASS_PHONE_STATUS_BAR = "com.android.systemui.statusbar.phone.PhoneStatusBar";
 
-    public static QuickSettingsHooks qsHooks;
-    public static StatusBarHooks statusBarHooks;
+    private static ClassLoader mClassLoader;
+    private static Context mContext;
+    private static Object mPhoneStatusBar;
+    private static Handler mHandler;
     public static BatteryInfoManager batteryInfoManager;
     public static int R_drawable_ic_qs_data_disabled;
     public static int R_drawable_stat_sys_data_disabled;
 
     public static void hookSystemUI(ClassLoader classLoader) {
 
-        qsHooks = QuickSettingsHooks.create(classLoader);
-        statusBarHooks = StatusBarHooks.create(classLoader);
+        mClassLoader = classLoader;
+        hookStart(classLoader);
 
         XposedHelpers.findAndHookMethod(CLASS_SYSTEMUI_APPLICATION, classLoader, "onCreate", new XC_MethodHook() {
             @Override
@@ -120,9 +125,52 @@ public class SystemUIHooks {
         R_drawable_stat_sys_data_disabled = resparam.res.addResource(modRes, R.drawable.stat_sys_data_disabled);
     }
 
-    public static void startRunnableDismissingKeyguard(Runnable runnable) {
-        if (statusBarHooks != null)
-            statusBarHooks.startRunnableDismissingKeyguard(runnable);
+    private static void hookStart(ClassLoader classLoader) {
+        XposedHelpers.findAndHookMethod(CLASS_PHONE_STATUS_BAR, classLoader, "start", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                mPhoneStatusBar = param.thisObject;
+                mHandler = (Handler) XposedHelpers.getObjectField(mPhoneStatusBar, "mHandler");
+                mContext = (Context) XposedHelpers.getObjectField(mPhoneStatusBar, "mContext");
+            }
+        });
+    }
+
+    public static void startRunnableDismissingKeyguard(final Runnable runnable) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (ConfigUtils.M) {
+                        XposedHelpers.setBooleanField(mPhoneStatusBar, "mLeaveOpenOnKeyguardHide", true);
+                        XposedHelpers.callMethod(mPhoneStatusBar, "executeRunnableDismissingKeyguard", runnable, null, false, false);
+                    } else {
+                        XposedHelpers.callMethod(mPhoneStatusBar, "dismissKeyguardThenExecute", createOnDismissAction(runnable), true);
+                    }
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Error in startRunnableDismissingKeyguard, executing instantly (" + t.toString() + ")", null);
+                    runnable.run();
+                }
+            }
+        });
+    }
+
+    public static void post(Runnable r) {
+        mHandler.post(r);
+    }
+
+    private static Object createOnDismissAction(final Runnable runnable) {
+        Class<?> classOnDismissAction = XposedHelpers.findClass("com.android.keyguard.KeyguardHostView.OnDismissAction", mClassLoader);
+        return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{classOnDismissAction}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                switch (method.getName()) {
+                    case "onDismiss":
+                        runnable.run();
+                }
+                return false;
+            }
+        });
     }
 
 }

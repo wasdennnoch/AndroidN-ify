@@ -66,6 +66,7 @@ import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.NotificationStackScrollLayoutHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
+import tk.wasdennnoch.androidn_ify.systemui.statusbar.StatusBarHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -90,6 +91,7 @@ public class NotificationHooks {
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
     public static NotificationStackScrollLayoutHooks mStackScrollLayoutHooks;
+    public static StatusBarHooks statusBarHooks;
 
     private static SensitiveNotificationFilter mSensitiveFilter = new SensitiveNotificationFilter();
 
@@ -232,7 +234,7 @@ public class NotificationHooks {
                             SystemUIHooks.startRunnableDismissingKeyguard(new Runnable() {
                                 @Override
                                 public void run() {
-                                    SystemUIHooks.statusBarHooks.post(new Runnable() {
+                                    SystemUIHooks.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             handleRemoteInput(view);
@@ -769,6 +771,8 @@ public class NotificationHooks {
             mSensitiveFilter.hook(classLoader);
 
             if (config.notifications.change_style) {
+
+                statusBarHooks = StatusBarHooks.create(classLoader);
 
                 if (ConfigUtils.M) // For now
                     mStackScrollLayoutHooks = new NotificationStackScrollLayoutHooks(classLoader);

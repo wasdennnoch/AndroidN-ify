@@ -28,7 +28,6 @@ import java.util.List;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
-import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
@@ -71,7 +70,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         mQsPanel = panel;
         mQsPanel.addOnAttachStateChangeListener(this);
         container.addOnLayoutChangeListener(this);
-        mPagedLayout = SystemUIHooks.qsHooks.getTileLayout();
+        mPagedLayout = StatusBarHeaderHooks.qsHooks.getTileLayout();
         mPagedLayout.setPageListener(this);
         mKeyguard = QSTileHostHooks.mKeyguard;
     }
@@ -146,7 +145,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         mAllViews.clear();
         mTopFiveQs.clear();
 
-        mAllViews.add(SystemUIHooks.qsHooks.getTileLayout());
+        mAllViews.add(StatusBarHeaderHooks.qsHooks.getTileLayout());
 
         for (int i = 0; i < records.size(); i++) {
             Object tileRecord = records.get(i);
@@ -214,7 +213,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
             // Fade in the tiles/labels as we reach the final position.
             mFirstPageDelayedAnimator = new TouchAnimator.Builder()
                     .setStartDelay(EXPANDED_TILE_DELAY)
-                    .addFloat(SystemUIHooks.qsHooks.getTileLayout(), "alpha", 0, 1).build();
+                    .addFloat(StatusBarHeaderHooks.qsHooks.getTileLayout(), "alpha", 0, 1).build();
             mLastRowAnimator = lastRowBuilder
                     .setStartDelay(LAST_ROW_EXPANDED_DELAY)
                     .build();
