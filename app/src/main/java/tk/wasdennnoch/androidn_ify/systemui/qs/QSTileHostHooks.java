@@ -409,6 +409,8 @@ public class QSTileHostHooks {
             String[] availableSpecs = context.getString(
                     context.getResources().getIdentifier("quick_settings_tiles_default", "string", XposedHook.PACKAGE_SYSTEMUI))
                     .split(",");
+            if (availableSpecs.length == 1 && availableSpecs[0].equals("default"))
+                throw new Throwable();
             for (String s : availableSpecs) {
                 if (!TextUtils.isEmpty(s))
                     specs.add(s);
