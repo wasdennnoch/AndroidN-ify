@@ -537,6 +537,7 @@ public class StatusBarHeaderHooks {
                 mDateGroup.setVisibility(View.GONE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
+                mEdit.setVisibility(mExpanded && ConfigUtils.qs().enable_qs_editor ? View.VISIBLE : View.INVISIBLE);
                 if (!mShowFullAlarm) {
                     mAlarmStatus.setVisibility(View.GONE);
                     mDateCollapsed.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
@@ -545,7 +546,6 @@ public class StatusBarHeaderHooks {
                     mDateCollapsed.setVisibility(View.VISIBLE);
                 }
                 mSettingsContainer.setVisibility(View.VISIBLE);
-                mEdit.setVisibility(ConfigUtils.qs().enable_qs_editor ? View.VISIBLE : View.INVISIBLE);
                 if (mHideTunerIcon && mTunerIcon != null) mTunerIcon.setVisibility(View.INVISIBLE);
                 if (mHideEditTiles && mCustomQSEditButton != null) {
                     mCustomQSEditButton.setVisibility(View.GONE);
@@ -871,7 +871,7 @@ public class StatusBarHeaderHooks {
                     }
                     break;
                 case R.id.qs_edit:
-                    onClickEdit(mEdit.getLeft() + mEdit.getWidth() / 2, mEdit.getTop() + mEdit.getHeight() / 2);
+                    onClickEdit(mRightContainer.getLeft() + mEdit.getLeft() + mEdit.getWidth() / 2, mEdit.getTop() + mEdit.getHeight() / 2);
                     break;
             }
         }
