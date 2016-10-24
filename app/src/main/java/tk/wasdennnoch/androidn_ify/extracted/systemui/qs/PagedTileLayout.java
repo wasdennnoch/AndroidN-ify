@@ -30,6 +30,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
     private final ArrayList<Object> mTiles = new ArrayList<>();
     private final ArrayList<TilePage> mPages = new ArrayList<>();
     private final Context mContext;
+    private final int mBottomMargin;
 
     private PageIndicator mPageIndicator;
 
@@ -46,6 +47,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
     public PagedTileLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+        mBottomMargin = ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.qs_edit_bottom_margin);
         setClipChildren(false);
         setClipToPadding(false);
         setAdapter(mAdapter);
@@ -197,7 +199,8 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
                 maxHeight = height;
             }
         }
-        setMeasuredDimension(getMeasuredWidth(), maxHeight + mDecorGroup.getMeasuredHeight());
+        setMeasuredDimension(getMeasuredWidth(), maxHeight +
+                (mNumPages > 1 ? mDecorGroup.getMeasuredHeight() : mBottomMargin));
     }
 
     private final Runnable mDistribute = new Runnable() {

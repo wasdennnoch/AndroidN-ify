@@ -242,10 +242,7 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         public void removeTiles() {
-            for (int i = 0; i < mMaxTiles && i < mIconViews.size(); i++) {
-                removeViewAt(0); // Tile
-                removeViewAt(0); // Space
-            }
+            removeAllViews();
         }
 
         private RelativeLayout.LayoutParams generateLayoutParams() {
