@@ -8,8 +8,6 @@ import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 class LollipopStatusBarHooks extends StatusBarHooks {
 
-    private static final String TAG = "LollipopStatusBarHooks";
-
     LollipopStatusBarHooks(ClassLoader classLoader) {
         super(classLoader);
     }
@@ -25,7 +23,12 @@ class LollipopStatusBarHooks extends StatusBarHooks {
                     param.args[typeIcon] = SystemUIHooks.R_drawable_stat_sys_data_disabled;
                     if (param.args[isTypeIconWide] instanceof Boolean)
                         param.args[isTypeIconWide] = false;
-                    else // Xperia put a load of ints in between
+                    else if (param.args[7] instanceof Boolean) // Mediatek
+                        // (boolean visible, int strengthIcon, int mobileTypeId,
+                        // int ?, int ?, String ?, String ?,
+                        // boolean isTypeIconWide, int subId
+                        param.args[7] = false;
+                    else if (param.args[8] instanceof Boolean) // Xperia
                         // (boolean mobileVisible, int mobileStrengthId, int mobileActivityId, int mobileTypeId,
                         // int mobileRoamingIconId, String mobileDecription, String mobileTypeDescription, boolean roaming,
                         // boolean isMobileTypeIconWide, int noSimIconId)
