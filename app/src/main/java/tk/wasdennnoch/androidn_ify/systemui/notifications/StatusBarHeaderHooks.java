@@ -617,7 +617,7 @@ public class StatusBarHeaderHooks {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
                 } catch (Throwable t) {
-                    try { // OOS2
+                    try { // OOS
                         //noinspection unchecked
                         mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
                     } catch (Throwable t2) {
@@ -626,7 +626,7 @@ public class StatusBarHeaderHooks {
                     }
                 }
                 if (mRecords.size() == 0) {
-                    try { // OOS2 again because sometimes mRecords still seems to be in the StatusBarHeaderView (but empty)
+                    try { // OOS again because sometimes mRecords still seems to be in the StatusBarHeaderView (but empty)
                         //noinspection unchecked
                         mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
                     } catch (Throwable ignore) {
@@ -692,10 +692,13 @@ public class StatusBarHeaderHooks {
                 }
             } else {
                 if (tileRecord != null) {
-                    View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
-                    param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
-                    param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
-                            + mQsPanel.getTop();
+                    try {
+                        View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
+                        param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
+                        param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
+                                + mQsPanel.getTop();
+                    } catch (Throwable ignore) { // OOS3
+                    }
                 }
             }
             mCollapseAfterHideDatails = false;

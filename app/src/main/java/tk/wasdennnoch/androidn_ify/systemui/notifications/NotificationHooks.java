@@ -620,8 +620,8 @@ public class NotificationHooks {
     private static final XC_MethodHook dismissViewButtonConstructorHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            if (param.thisObject instanceof Button) {
-                Button button = (Button) param.thisObject;
+            if (param.thisObject instanceof TextView) {
+                TextView button = (TextView) param.thisObject; // It's a TextView on some ROMs
 
                 Drawable mAnimatedDismissDrawable = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mAnimatedDismissDrawable");
                 mAnimatedDismissDrawable.setBounds(0, 0, 0, 0);
@@ -1261,7 +1261,7 @@ public class NotificationHooks {
                 buttonView.setContentDescription(context.getResources().getString(context.getResources().getIdentifier("accessibility_clear_all", "string", PACKAGE_SYSTEMUI)));
                 layout.addView(buttonView);
             }
-            Button button = (Button) buttonView;
+            TextView button = (TextView) buttonView; // It's a TextView on some ROMs
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.gravity = Gravity.END;
             button.setLayoutParams(lp);
