@@ -816,10 +816,9 @@ public class NotificationHooks {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         Drawable bg = (Drawable) XposedHelpers.getObjectField(param.thisObject, "mBackground");
-                        try {
+                        if (bg instanceof ShapeDrawable) {
                             ((ShapeDrawable) bg).getPaint().setPathEffect(null);
-                        } catch (ClassCastException e) {
-                            //noinspection ConstantConditions
+                        } else if (bg instanceof GradientDrawable) {
                             ((GradientDrawable) bg).setCornerRadius(0);
                         }
                     }

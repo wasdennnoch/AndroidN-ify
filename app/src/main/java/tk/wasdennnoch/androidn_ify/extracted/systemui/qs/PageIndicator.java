@@ -81,7 +81,6 @@ public class PageIndicator extends ViewGroup {
         }
         if (position == lastPosition) return;
         if (mAnimating) {
-            XposedHook.logD(TAG, "Queueing transition to " + Integer.toHexString(position));
             mQueuedPositions.add(position);
             return;
         }
@@ -111,7 +110,6 @@ public class PageIndicator extends ViewGroup {
     }
 
     private void animate(int from, int to) {
-        XposedHook.logD(TAG, "Animating from " + Integer.toHexString(from) + " to " + Integer.toHexString(to));
         int fromIndex = from >> 1;
         int toIndex = to >> 1;
 
@@ -224,7 +222,6 @@ public class PageIndicator extends ViewGroup {
     private final Runnable mAnimationDone = new Runnable() {
         @Override
         public void run() {
-            XposedHook.logD(TAG, "onAnimationEnd - queued: " + mQueuedPositions.size());
             mAnimating = false;
             if (mQueuedPositions.size() != 0) {
                 setPosition(mQueuedPositions.remove(0));
