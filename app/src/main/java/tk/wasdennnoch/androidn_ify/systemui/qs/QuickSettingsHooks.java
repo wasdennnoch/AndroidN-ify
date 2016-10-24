@@ -246,6 +246,10 @@ public class QuickSettingsHooks {
         return mGridHeight;
     }
 
+    public View getBrightnessView() {
+        return mBrightnessView;
+    }
+
     public interface QSTileLayout {
         void addTile(Object tile);
 

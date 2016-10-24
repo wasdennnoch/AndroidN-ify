@@ -126,7 +126,7 @@
                 android:title="@string/keep_bg_title"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
-                android:defaultValue="5"
+                android:defaultValue="6"
                 android:dependency="enable_notification_header"
                 android:key="notification_header_qs_tiles_count"
                 android:title="@string/notification_header_qs_tiles_count"

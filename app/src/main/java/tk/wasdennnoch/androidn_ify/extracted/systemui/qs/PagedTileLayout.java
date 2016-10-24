@@ -23,7 +23,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.QuickSettingsHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QSTileLayout, View.OnClickListener {
+public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QSTileLayout {
 
     private static final String TAG = "PagedTileLayout";
 
@@ -230,11 +230,6 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         return mPages.get(0);
     }
 
-    @Override
-    public void onClick(View v) {
-        StatusBarHeaderHooks.onClickEdit(mEditBtn.getLeft() + mEditBtn.getWidth() / 2, getTop() + mDecorGroup.getTop() + mDecorGroup.getHeight() / 2);
-    }
-
     static class TilePage extends TileLayout {
         private int mMaxRows = 3;
 
@@ -329,29 +324,6 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         mPageIndicator = new PageIndicator(mContext);
         mPageIndicator.setLayoutParams(pageIndicatorLp);
         mDecorGroup.addView(mPageIndicator);
-
-        if (ConfigUtils.qs().enable_qs_editor) {
-            int editBtnPadding = res.getDimensionPixelSize(R.dimen.qs_edit_padding);
-
-            FrameLayout.LayoutParams editBtnLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            editBtnLp.gravity = Gravity.END;
-            mEditBtn = new TextView(mContext);
-            mEditBtn.setLayoutParams(editBtnLp);
-            mEditBtn.setId(R.id.qs_edit);
-            mEditBtn.setMinWidth(res.getDimensionPixelSize(R.dimen.qs_edit_min_width));
-            mEditBtn.setText(res.getString(R.string.qs_edit));
-            mEditBtn.setTextColor(res.getColor(R.color.edit_btn_text));
-            mEditBtn.setFocusable(true);
-            mEditBtn.setGravity(Gravity.CENTER);
-            mEditBtn.setBackground(res.getDrawable(R.drawable.qs_btn_borderless_rect));
-            mEditBtn.setOnClickListener(this);
-            mEditBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            mEditBtn.setTextColor(res.getColor(R.color.qs_detail_button));
-            mEditBtn.setAllCaps(true);
-            mEditBtn.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-            mEditBtn.setPadding(editBtnPadding, editBtnPadding, editBtnPadding, editBtnPadding);
-            mDecorGroup.addView(mEditBtn);
-        }
 
         addView(mDecorGroup);
         mPages.add(new TilePage(mContext, null));

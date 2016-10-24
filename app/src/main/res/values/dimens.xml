@@ -9,17 +9,18 @@
     <!-- /Recents -->
 
     <!-- Notifications / Status bar header -->
-    <dimen name="status_bar_header_height">80dp</dimen>
+    <dimen name="status_bar_header_height">104dp</dimen>
 
     <dimen name="right_layout_height">48dp</dimen>
-    <dimen name="right_layout_margin_top">28dp</dimen>
+    <dimen name="right_layout_margin_top">4dp</dimen>
     <dimen name="right_layout_margin_right">12dp</dimen>
     <dimen name="right_icon_size">48dp</dimen>
     <dimen name="right_icon_width_small">38dp</dimen>
     <dimen name="expand_indicator_padding">12dp</dimen>
 
     <dimen name="qs_quick_panel_margin_horizontal">12dp</dimen>
-    <dimen name="qs_quick_panel_padding_top">32dp</dimen>
+    <dimen name="qs_quick_panel_padding_top">52dp</dimen>
+    <!--<dimen name="qs_quick_panel_padding_top">56dp</dimen>-->
     <dimen name="qs_quick_panel_padding_bottom">8dp</dimen>
     <dimen name="qs_quick_tile_size">48dip</dimen>
     <dimen name="qs_quick_tile_padding">12dip</dimen>
@@ -34,7 +35,7 @@
     <dimen name="settings_gear_translation">16dp</dimen>
 
     <dimen name="date_time_alarm_group_margin_left">16dp</dimen>
-    <dimen name="date_time_alarm_group_margin_top">8dp</dimen>
+    <dimen name="date_time_alarm_group_margin_top">20dp</dimen>
     <dimen name="date_time_group_height">19dp</dimen>
     <dimen name="date_collapsed_drawable_padding">6dp</dimen>
     <dimen name="date_time_collapsed_size">14sp</dimen>
@@ -99,7 +100,7 @@
     <dimen name="qs_page_indicator_width">16dp</dimen>
     <dimen name="qs_page_indicator_height">8dp</dimen>
     <dimen name="qs_edit_min_width">88dp</dimen>
-    <dimen name="qs_edit_padding">12dp</dimen>
+    <dimen name="qs_edit_padding">14dp</dimen>
     <dimen name="borderless_button_radius">2dp</dimen>
     <dimen name="qs_panel_margin_bottom">34dp</dimen>
     <dimen name="qs_detail_header_text_size">20sp</dimen>
@@ -147,5 +148,7 @@
     <dimen name="action_bar_size">56dp</dimen>
     <dimen name="tab_height">48dp</dimen>
     <dimen name="notification_filter_button_width">52dp</dimen>
+    <dimen name="qs_panel_top_margin">80dp</dimen>
+    <dimen name="settings_icon_size">20dp</dimen>
 
 </resources>

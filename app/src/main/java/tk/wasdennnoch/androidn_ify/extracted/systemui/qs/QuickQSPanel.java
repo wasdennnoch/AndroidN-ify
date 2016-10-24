@@ -98,8 +98,6 @@ public class QuickQSPanel extends LinearLayout {
 
     private class HeaderTileLayout extends LinearLayout {
 
-        private final Space mEndSpacer;
-
         public HeaderTileLayout(Context context) {
             super(context);
             setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -107,10 +105,6 @@ public class QuickQSPanel extends LinearLayout {
             setGravity(Gravity.CENTER_VERTICAL);
             setClipChildren(false);
             setClipToPadding(false);
-            mEndSpacer = new Space(context);
-            mEndSpacer.setLayoutParams(generateSpacerLayoutParams());
-            updateDownArrowMargin();
-            addView(mEndSpacer);
         }
 
         public void addTile(Object tilerecord) {
@@ -206,14 +200,16 @@ public class QuickQSPanel extends LinearLayout {
 
             XposedHelpers.setAdditionalInstanceField(tile, KEY_QUICKQS_TILEVIEW, tileView);
 
-            int position = getChildCount() - 1;
+            if (getChildCount() != 0) {
+                // Add a spacer.
+                addView(new Space(getContext()), getChildCount(), generateSpaceParams());
+            }
             if (iconView != null) {
                 ((ViewGroup) iconView.getParent()).removeView(iconView);
-                addViewToLayout(iconView, position, click, longClick);
+                addViewToLayout(iconView, getChildCount(), click, longClick);
             } else {
-                addView(tileView, position, generateOriginalLayoutParams());
+                addView(tileView, getChildCount(), generateOriginalLayoutParams());
             }
-            addView(new Space(getContext()), position + 1, generateSpaceParams());
         }
 
         private void addViewToLayout(View view, int position, OnClickListener click, OnLongClickListener longClick) {
@@ -286,12 +282,6 @@ public class QuickQSPanel extends LinearLayout {
             return layoutparams;
         }
 
-        private void updateDownArrowMargin() {
-            LayoutParams layoutparams = (LayoutParams) mEndSpacer.getLayoutParams();
-            layoutparams.setMarginStart(mQuickTilePadding);
-            mEndSpacer.setLayoutParams(layoutparams);
-        }
-
         private Drawable newTileBackground() {
             final int[] attrs = new int[]{android.R.attr.selectableItemBackgroundBorderless};
             final TypedArray ta = getContext().obtainStyledAttributes(attrs);
@@ -303,12 +293,6 @@ public class QuickQSPanel extends LinearLayout {
         @Override
         public boolean hasOverlappingRendering() {
             return false;
-        }
-
-        @Override
-        protected void onConfigurationChanged(Configuration configuration) {
-            super.onConfigurationChanged(configuration);
-            updateDownArrowMargin();
         }
 
     }
