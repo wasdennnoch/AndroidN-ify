@@ -174,7 +174,7 @@ public class ConfigUtils {
 
         public QuickSettingsConfig(SharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
-            qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 5);
+            qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 6);
             battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", false);
             enable_qs_editor = prefs.getBoolean("enable_qs_editor", true);
             allow_fancy_qs_transition = prefs.getBoolean("allow_fancy_qs_transition", true);

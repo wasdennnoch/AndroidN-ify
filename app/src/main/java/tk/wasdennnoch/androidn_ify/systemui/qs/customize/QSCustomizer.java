@@ -55,6 +55,8 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
 /**
  * Allows full-screen customization of QS, through show() and hide().
  * <p/>
@@ -117,7 +119,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
 
         LayoutInflater.from(ownContext).inflate(R.layout.qs_customize_panel_content, this);
 
-        LayoutParams recyclerViewLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LayoutParams recyclerViewLp = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
         RecyclerView recyclerView = new RecyclerView(context);
         recyclerView.setId(android.R.id.list);
         recyclerView.setLayoutParams(recyclerViewLp);
@@ -178,7 +180,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
 
     private View inflateCmSettings(Context context) {
         View cmSettings = View.inflate(context, context.getResources().getIdentifier("qs_settings", "layout", XposedHook.PACKAGE_SYSTEMUI), null);
-        LinearLayout.LayoutParams cmSettingsLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams cmSettingsLp = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
         cmSettings.setLayoutParams(cmSettingsLp);
         return cmSettings;
     }
@@ -329,6 +331,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             maxWidth = getResources().getDimensionPixelSize(getResources().getIdentifier("notification_panel_width", "dimen", XposedHook.PACKAGE_SYSTEMUI));
         } catch (Throwable ignore) {
         }
+        if (maxWidth == MATCH_PARENT) maxWidth = widthMeasureSpec;
         super.onMeasure(MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(mSizePoint.y, MeasureSpec.EXACTLY));
     }
 

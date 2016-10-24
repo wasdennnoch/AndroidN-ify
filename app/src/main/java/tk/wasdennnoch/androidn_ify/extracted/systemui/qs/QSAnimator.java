@@ -28,6 +28,7 @@ import java.util.List;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
+import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
@@ -36,8 +37,7 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.PageListener, OnLayoutChangeListener,
         OnAttachStateChangeListener, TouchAnimator.Listener {
 
-    private static final float EXPANDED_TILE_DELAY = .7f;
-    private static final float LAST_ROW_EXPANDED_DELAY = .86f;
+    private static final float EXPANDED_TILE_DELAY = .86f;
 
     private final ArrayList<View> mAllViews = new ArrayList<>();
     private final ArrayList<View> mTopFiveQs = new ArrayList<>();
@@ -55,7 +55,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
     private TouchAnimator mTranslationXAnimator;
     private TouchAnimator mTranslationYAnimator;
     private TouchAnimator mNonfirstPageAnimator;
-    private TouchAnimator mLastRowAnimator;
+    private TouchAnimator mBrightnessAnimator;
 
     private boolean mOnKeyguard;
 
@@ -129,14 +129,12 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         TouchAnimator.Builder firstPageBuilder = new TouchAnimator.Builder();
         TouchAnimator.Builder translationXBuilder = new TouchAnimator.Builder();
         TouchAnimator.Builder translationYBuilder = new TouchAnimator.Builder();
-        TouchAnimator.Builder lastRowBuilder = new TouchAnimator.Builder();
 
         if (XposedHelpers.callMethod(mQsPanel, "getHost") == null) return;
         int count = 0;
         int[] loc1 = new int[2];
         int[] loc2 = new int[2];
         int lastXDiff = 0;
-        int lastYDiff = 0;
         int lastX = 0;
 
         int maxTilesOnPage = mPagedLayout.getFirstPage().getMaxTiles();
@@ -165,7 +163,6 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
                         + mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
 
                 lastXDiff = loc1[0] - lastX;
-                lastYDiff = yDiff;
                 // Move the quick tile right from its location to the new one.
                 translationXBuilder.addFloat(quickTileView, "translationX", 0, xDiff);
                 translationYBuilder.addFloat(quickTileView, "translationY", 0, yDiff);
@@ -200,13 +197,24 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
 
                 mAllViews.add(tileIcon);
             } else {
-                lastRowBuilder.addFloat(tileView, "alpha", 0, 1);
+                firstPageBuilder.addFloat(tileView, "alpha", 0, 1);
             }
             mAllViews.add(tileView);
             mAllViews.add(label);
             count++;
         }
         if (mAllowFancy) {
+            View brightness = StatusBarHeaderHooks.qsHooks.getBrightnessView();
+            if (brightness != null) {
+                firstPageBuilder.addFloat(brightness, "translationY", mQsPanel.getHeight(), 0);
+                mBrightnessAnimator = new TouchAnimator.Builder()
+                        .addFloat(brightness, "alpha", 0, 1)
+                        .setStartDelay(.5f)
+                        .build();
+                mAllViews.add(brightness);
+            } else {
+                mBrightnessAnimator = null;
+            }
             mFirstPageAnimator = firstPageBuilder
                     .setListener(this)
                     .build();
@@ -214,13 +222,14 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
             mFirstPageDelayedAnimator = new TouchAnimator.Builder()
                     .setStartDelay(EXPANDED_TILE_DELAY)
                     .addFloat(StatusBarHeaderHooks.qsHooks.getTileLayout(), "alpha", 0, 1).build();
-            mLastRowAnimator = lastRowBuilder
-                    .setStartDelay(LAST_ROW_EXPANDED_DELAY)
-                    .build();
-            Path path = new Path();
-            path.moveTo(0, 0);
-            path.cubicTo(0, 0, 0, 1, 1, 1);
-            PathInterpolatorBuilder interpolatorBuilder = new PathInterpolatorBuilder(0, 0, 0, 1);
+            float px = 0;
+            float py = 1;
+            if (records.size() <= 3) {
+                px = 1;
+            } else if (records.size() <= 6) {
+                px = .4f;
+            }
+            PathInterpolatorBuilder interpolatorBuilder = new PathInterpolatorBuilder(0, 0, px, py);
             translationXBuilder.setInterpolator(interpolatorBuilder.getXInterpolator());
             translationYBuilder.setInterpolator(interpolatorBuilder.getYInterpolator());
             mTranslationXAnimator = translationXBuilder.build();
@@ -285,7 +294,9 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
             mFirstPageDelayedAnimator.setPosition(position);
             mTranslationXAnimator.setPosition(position);
             mTranslationYAnimator.setPosition(position);
-            mLastRowAnimator.setPosition(position);
+            if (mBrightnessAnimator != null) {
+                mBrightnessAnimator.setPosition(position);
+            }
         } else {
             mNonfirstPageAnimator.setPosition(position);
         }
