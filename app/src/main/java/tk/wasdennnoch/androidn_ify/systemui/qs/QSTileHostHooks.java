@@ -442,6 +442,12 @@ public class QSTileHostHooks {
         }
         specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
+        if (XposedHook.debug) {
+            String s = "";
+            for (String sp : specs)
+                s += sp + ", ";
+            XposedHook.logD(TAG, "getAvailableTiles: Found specs: " + s);
+        }
         return specs;
     }
 

@@ -13,7 +13,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.FakeQSTileView;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-public class AvailableTileAdapter extends TileAdapter {
+class AvailableTileAdapter extends TileAdapter {
 
     private static final String CLASS_QS_TUNER = "com.android.systemui.tuner.QsTuner";
 
@@ -21,7 +21,7 @@ public class AvailableTileAdapter extends TileAdapter {
     private final Class<?> classResourceIcon;
     private Class<?> classQSTuner;
 
-    public AvailableTileAdapter(ArrayList<Object> records, Context context) {
+    AvailableTileAdapter(ArrayList<Object> records, Context context) {
         super(context);
 
         mRecords = new ArrayList<>();
