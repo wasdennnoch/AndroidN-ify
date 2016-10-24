@@ -149,6 +149,9 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="notification_experimental_title">Comportamiento experimental de las notificaciones Nougat</string>
   <string name="notification_experimental">Comportamiento de desplazamiento de Android N (no aplica a la pila superior)</string>
   <string name="notification_keyguard_max_title">Notificaciones máximas en la pantalla de bloqueo</string>
+  <string name="enable_assistant">Activar Google Assistant</string>
+  <string name="enable_assistant_summary">Reemplaza Now on Tap por el nuevo Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">Tu versión de la app de Google (%1$s) no es compatible.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ahora</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -277,11 +280,11 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <!-- Example: 3 hours ago -->
   <string name="charge_length_format">Hace %1$s</string>
   <!-- Example: 3 hours left -->
-  <string name="remaining_length_format">Faltan 1%</string>
+  <string name="remaining_length_format">Faltan %1$s</string>
   <!-- Example: Approx. 3 hours left -->
-  <string name="power_remaining_duration_only">Falta aprox. 1%</string>
+  <string name="power_remaining_duration_only">Falta aprox. %1$s</string>
   <!-- Example: 3h left -->
-  <string name="power_remaining_duration_only_short">Falta 1%</string>
+  <string name="power_remaining_duration_only_short">Faltan %1$s</string>
   <!-- Example: 75% - approx. 3 hours left -->
   <string name="power_discharging_duration">%1$s - Quedan %2$s apróximadamente</string>
   <!-- Example: 75% - 3h left -->

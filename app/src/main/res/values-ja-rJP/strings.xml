@@ -99,7 +99,17 @@
   <string name="enable_qs_editor">クイック設定エディターを有効にする</string>
   <string name="allow_fancy_qs_transition">ファンシーなクイック設定の遷移</string>
   <string name="enable_new_tile_click_behavior">新しいタイルをクリックしたときの動作</string>
+  <string name="enable_large_first_row">最初の行を拡大</string>
+  <string name="header_clock_size_title">ヘッダーの時計サイズ</string>
+  <string name="header_clock_size_tiny">さらに極小</string>
+  <string name="hide_icons_title">ヘッダーのアイテムを隠す</string>
+  <string name="hide_tuner_icon_title">システムUI調整ツールのアイコンを隠す</string>
+  <string name="hide_carrier_label_title">キャリア表示(auやdocomoなど) を隠す</string>
   <!-- Search hint in the blacklist app Activity -->
+  <string name="action_search">検索</string>
+  <string name="enable_assistant">Googleアシスタントを有効にする</string>
+  <string name="enable_assistant_summary">Now on Tap/画面の検索を新しいGoogleアシスタントに置き換えます</string>
+  <string name="enable_assistant_summary_unsupported">あなたのGoogleアプリのバージョン (%1$s) はサポートされていません。</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">現在</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -129,6 +139,7 @@
   <string name="emergency_info">緊急情報</string>
   <string name="emergency_info_launch_hint">開くにはもう一度タッチ</string>
   <string name="enable_emergency_info_title">緊急情報を有効にする</string>
+  <string name="enable_emergency_info">緊急通報ダイヤラーに緊急情報ボタンを追加します</string>
   <string name="edit_emergency_info_title">緊急情報を編集する</string>
   <string name="clear_all">すべて消去</string>
   <string name="tab_title_info">情報</string>
@@ -187,6 +198,9 @@
   <string name="qs_edit">編集</string>
   <string name="drag_to_add_tiles">タイルを追加するにはドラッグしてください</string>
   <string name="drag_to_remove_tiles">削除するにはここにドラッグ</string>
+  <string name="live_display">LiveDisplay</string>
+  <string name="live_display_auto">自動</string>
+  <string name="live_display_off">オフ</string>
   <string name="live_display_day">日</string>
   <string name="live_display_night">夜</string>
   <string name="live_display_outdoor">屋外 (太陽光)</string>

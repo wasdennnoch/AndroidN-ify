@@ -109,7 +109,7 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="enable_notification_header">Upravit záhlaví</string>
   <string name="keep_bg_title">Nezměněné pozadí</string>
   <string name="keep_bg">Užitečné pro témata, která používají vlastní pozadí</string>
-  <string name="keep_header_bg">Header</string>
+  <string name="keep_header_bg">Záhlaví</string>
   <string name="keep_panel_bg">Panel rychlého nastavení</string>
   <string name="notification_header_qs_tiles_count">Zobrazit maximální</string>
   <!-- The unit of the counter next to the slider -->
@@ -148,6 +148,9 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="notification_experimental_title">Experimental N notifications behavior</string>
   <string name="notification_experimental">N scrolling behavior (no top stack)</string>
   <string name="notification_keyguard_max_title">Max notifications on lockscreen</string>
+  <string name="enable_assistant">Povolit Google Assistenta</string>
+  <string name="enable_assistant_summary">Nahradit \"Now on Tap/Scree\" vyhledávání novým Google Assistentem</string>
+  <string name="enable_assistant_summary_unsupported">Vaše aplikace Google ve verzi (%1$s) není podporována.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teď</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -182,6 +185,11 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
     <item quantity="other">in %dh</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">v %dh</item>
+    <item quantity="few">v %dh</item>
+    <item quantity="other">v %dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <string name="update_notification_title">Je dostupná aktualizace</string>
   <string name="update_notification">Sestavení %1$d je dostupné pro aktualizaci.</string>
@@ -287,17 +295,66 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <!-- Example: 75% - 3 hours until full on AC -->
   <string name="power_charging_duration_ac">%1$s - %2$s until full on AC</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s - %2$s do 100%% přes USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s - %2$s do 100%% bezdrátově</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
+  <string name="battery_info_status_unknown">Neznámé</string>
+  <string name="battery_info_status_charging">Nabíjení</string>
+  <string name="battery_info_status_charging_ac">Nabíjení na AC</string>
+  <string name="battery_info_status_charging_ac_short">Nabíjení</string>
   <string name="battery_info_status_charging_usb">Nabíjení přes USB</string>
+  <string name="battery_info_status_charging_usb_short">Nabíjení</string>
+  <string name="battery_info_status_charging_wireless">Nabíjení bezdrátově</string>
+  <string name="battery_info_status_charging_wireless_short">Nabíjení</string>
+  <string name="battery_info_status_discharging">Nenabíjí se</string>
+  <string name="battery_info_status_not_charging">Nenabíjí se</string>
+  <string name="battery_info_status_full">Nabito</string>
+  <string name="battery_panel_title">Spotřeba baterie</string>
+  <string name="battery_detail_charging_summary">Úspora baterie není možná během nabíjení</string>
   <!-- Add a custom tile -->
+  <string name="add">Přidat</string>
+  <string name="add_custom_tile">Přidat název přenosu</string>
   <!-- Warning when the input for the custom tile is empty -->
+  <string name="spec_shouldnt_be_blank">Spec dlaždic by neměl být prázdný</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">Restartovat</string>
+  <string name="dialog_color_picker">Výběr barvy</string>
+  <string name="press_color_to_apply">Zmáčkněte barvu pro aplikování</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
+  <string name="enable_install_source_title">Zobrazit zdroj instalace aplikace</string>
+  <string name="enable_install_source">Přidat způsob, jakým se aplikace nainstalovala do informací aplikace (Play Store, instalátor aplikací atd.)</string>
+  <string name="battery_detail_switch_title">Spořič baterie</string>
+  <string name="battery_detail_switch_summary">Snížit výkon a data na pozadí</string>
+  <string name="qs_add_notes_title">Poznámky</string>
+  <string name="qs_add_notes">Toto je použito je pro aplikace, které umožnují broadcast dlaždice (jako třeba \"Upravení Rychlé Nastavení\"). Prosím, přečtete si nejdříve instrukce v určené aplikaci, než toto povolíte.</string>
+  <string name="notification_spoof_api_version_title">Zfalšovat API 24</string>
+  <string name="notification_spoof_api_version">Zfalšovat tyto aplikace, aby si myslely, že beží na API 24</string>
+  <string name="hide_tiles_on_lockscreen">Skrýt dlaždice na zamčené obrazovce</string>
+  <string name="done">Hotovo</string>
+  <string name="cm_qs_settings">CM QS nastavení</string>
+  <string name="disable_qs_paging">Vypnout QS paging</string>
+  <string name="disable_qs_paging_summary">Vypnout paging QS v režímu na výšku</string>
+  <string name="allow_direct_reply_on_keyguard">Rychlá odpověď na zamknuté obrazovce</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Povolit odpovědi na notifikace na zamčené obrazovce</string>
+  <string name="enable_notifications_background">Povolit pozadí notifikací</string>
+  <string name="enable_notifications_background_summary">Zobrazovat bíle pozadí notifikací během jejich odsouvání</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Otevřít rychlé nastavení.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Zavřít rychlé nastavení.</string>
+  <string name="warning">Varování</string>
+  <string name="dont_show_again">Znovu nezobrazovat</string>
+  <string name="enable_data_disabled_indicator">Zobrazit indikátor vypnutých dat</string>
+  <string name="enable_data_disabled_indicator_summary">Zobrazit \"x\" jako indikator vypnutých mobilních dat</string>
+  <string name="home">Domů</string>
+  <string name="show_experimental_on">Povolil jsi experimentální možnosti!</string>
   <string name="show_experimental_on_already">No need, you have already enabled experimental features.</string>
   <string name="header_experimental">Experimentální</string>
   <string name="enable_experimental_features">Enable experimental features</string>

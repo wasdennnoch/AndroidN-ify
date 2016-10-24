@@ -33,7 +33,7 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
         Această construcție conține caracteristici <b>foarte experimentale</b>. Vă rugăm căutați pe XDA și GitHub înainte de a raporta orice problemă. Raporturile duplicate vor fi ignorate și închise.<br><br>
         Amintiți-vă întotdeauna să atașați log-ul Xposed când raportați bug-uri și logcat în caz de crash.
         ]]></string>
-  <string name="header_tweaks">Setări</string>
+  <string name="header_tweaks">Îmbunătățiri</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplicație</string>
   <string name="app_theme_title">Tema aplicației</string>
@@ -150,6 +150,9 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="notification_experimental_title">Comportament experimental pt. notificări</string>
   <string name="notification_experimental">Comportament al derulării N (fără grămadă de sus)</string>
   <string name="notification_keyguard_max_title">Nr. maxim de notificări pe ecranul de blocare</string>
+  <string name="enable_assistant">Activează Google Assistant</string>
+  <string name="enable_assistant_summary">Înlocuiește căutarea Now on Tap/Screen cu noul Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">Versiunea dumneavoastră Google App (%1$s) nu este acceptată.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">acum</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

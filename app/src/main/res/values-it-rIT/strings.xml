@@ -147,6 +147,9 @@ Questa build contiene delle funzioni <b>molto sperimentali.</b> Per favore cerca
   <string name="notification_experimental_title">Funzione sperimentale delle notifiche in stile Android N</string>
   <string name="notification_experimental">Comportamento di scrolling come Android N</string>
   <string name="notification_keyguard_max_title">Numero notifiche massime nella schermata di blocco</string>
+  <string name="enable_assistant">Abilita Google Assistant</string>
+  <string name="enable_assistant_summary">Sostituisci Now on Tap con Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">La versione dell\'App Google in uso (%1$s) non è supportata.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ora</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

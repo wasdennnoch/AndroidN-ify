@@ -4,11 +4,11 @@
   <string name="xposed_description">Lollipop ve Marshmallow\'da Android N özelliklerini deneyin!</string>
   <string name="restart_systemui">Sistem Arayüzünü yeniden başlat</string>
   <string name="restart_systemui_message">Sistem Arayüzünü yeniden başlatmak istediğinizden emin misiniz?</string>
-  <string name="restart_broadcast_sent">Yeniden başlatma sinyali gönderildi</string>
+  <string name="restart_broadcast_sent">Sistem arayüzü yeniden başlatılıyor</string>
   <string name="activity_about">Android N-ify Hakkında</string>
   <string name="about_author">Geliştirici @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
-  <string name="about_translator">Çeviri Can OKUMUŞ • Mevlüt TOPÇU • trzpro • TheNexus TURKDEVS</string>
+  <string name="about_translator">Çeviri @Can OKUMUŞ @Mevlüt TOPÇU @trzpro @TheNexus Turkdevs</string>
   <string name="about_version">Sürüm %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
@@ -106,20 +106,20 @@
   <string name="recents_button_behavior_current">Geçerli uygulamaya dön</string>
   <string name="recents_button_behavior_cycle">Uygulamalar arası geçiş</string>
   <string name="header_qs">Hızlı Ayarlar</string>
-  <string name="enable_notification_header">Başlığı şekillendir</string>
+  <string name="enable_notification_header">Başlık stili</string>
   <string name="keep_bg_title">Değiştirilmemiş arka plan</string>
   <string name="keep_bg">Özel arka planlara uygulanan temalar için faydalı</string>
   <string name="keep_header_bg">Başlık</string>
   <string name="keep_panel_bg">HA Paneli</string>
-  <string name="notification_header_qs_tiles_count">Gösterilecek HA kareleri</string>
+  <string name="notification_header_qs_tiles_count">Gösterilecek Hızlı Ayarlar kareleri</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">kareler</string>
   <string name="battery_tile_show_percentage">Pil simgesinde yüzde göster</string>
   <string name="battery_tile_show_percentage_summary">Pil karesinde pil yüzdesini göster</string>
-  <string name="enable_qs_editor">HA düzenleyici etkinleştir</string>
-  <string name="allow_fancy_qs_transition">Süslü HA geçişi</string>
+  <string name="enable_qs_editor">Hızlı Ayarlar düzenleyici etkinleştir</string>
+  <string name="allow_fancy_qs_transition">Fantastik Hızlı Ayarlar geçişi</string>
   <string name="enable_new_tile_click_behavior">N stili kare tıklama davranışı</string>
-  <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp-kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
+  <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp/kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
   <string name="enable_large_first_row">İlk satırı büyüt</string>
   <string name="enable_large_first_row_summary2">Destekleniyorsa ilk iki satırı büyütür</string>
   <string name="fix_stuck_inversion_title">Takılmış ters çevirmeyi düzelt</string>
@@ -135,19 +135,22 @@
   <string name="hide_edit_tiles_summary">Bu sadece mevcut düzenleme düğmesini gizler!</string>
   <string name="hide_carrier_label_title">Operatör etiketini gizle</string>
   <string name="header_notifications">Bildirimler</string>
-  <string name="notifications_change_style">Bildirimleri Şekillendir</string>
+  <string name="notifications_change_style">Bildirimler stili</string>
   <string name="notification_dismiss_button_title">Temizleme tuşunu değiştir</string>
   <string name="notification_dismiss_button">Temizle tuşu yerine \"TÜMÜNÜ TEMİZLE\" yazısını göster</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Ara</string>
-  <string name="notification_blacklisted_apps_title">Karalistedeki uygulamalar</string>
+  <string name="notification_blacklisted_apps_title">Kara listeye alınan uygulamalar</string>
   <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullan</string>
-  <string name="notifications_custom_actions_color_title">Butonlarda özel arkaplan rengi</string>
+  <string name="notifications_custom_actions_color_title">Özel eylemler arka plan rengi</string>
   <string name="notifications_custom_actions_color">Bildirim tuşlarının arka planı olarak özel bir renk kullanın</string>
-  <string name="notifications_actions_color_title">Butonların arkaplan rengi</string>
+  <string name="notifications_actions_color_title">Eylemler arka plan rengi</string>
   <string name="notification_experimental_title">Deneysel N bildirimleri davranışı</string>
   <string name="notification_experimental">N stili kaydırma davranışı (üst yığınsız)</string>
   <string name="notification_keyguard_max_title">Kilit ekranında maksimum bildirim sayısı</string>
+  <string name="enable_assistant">Google Asistan\'ı Etkinleştir</string>
+  <string name="enable_assistant_summary">Now on Tap/Ekran Araması\'nı yeni Google Asistan ile değiştirir</string>
+  <string name="enable_assistant_summary_unsupported">Google Uygulaması sürümün (%1$s) desteklenmiyor.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">şimdi</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -196,7 +199,7 @@
   <string name="update_warning">Modül güncellendi</string>
   <string name="update_warning_details">Sistem kararsız olabilir ve hata raporları cihaz yeniden başlatılana kadar göz ardı edilecektir</string>
   <string name="check_for_updates_title">Güncellemeleri kontrol et</string>
-  <string name="check_for_updates">Uygulama başlangıcında güncellemeleri kontrol et</string>
+  <string name="check_for_updates">Uygulama başlatıldığında güncellemeleri kontrol et</string>
   <string name="checking_for_update">Güncellemeler kontrol ediliyor&#8230;</string>
   <string name="check_for_update_fail">Güncellemeler kontrol edilemedi!</string>
   <string name="no_updates">Yeni sürüm bulunmadı</string>
@@ -342,7 +345,7 @@
   <string name="disable_qs_paging_summary">Cihaz dikken HAlar yan sayfaya taşmasın</string>
   <string name="allow_direct_reply_on_keyguard">Kilit ekranında doğrudan yanıt verme</string>
   <string name="allow_direct_reply_on_keyguard_summary">Bildirimlerin kilit ekranında yanıtlanabilmesini sağlar</string>
-  <string name="enable_notifications_background">Arka plan bildirimlerini etkinleştir</string>
+  <string name="enable_notifications_background">Bildirimler arkaplanını etkinleştir</string>
   <string name="enable_notifications_background_summary">Bildirimler kaydırılırken o bildirimin arkasına beyaz bir arkaplan çizer</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">Hızlı ayarları aç.</string>

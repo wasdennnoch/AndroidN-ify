@@ -151,6 +151,9 @@
   <string name="notification_experimental_title">实验性 Android N 式通知行为</string>
   <string name="notification_experimental">Android N 式通知滚动行为（无顶部层叠）</string>
   <string name="notification_keyguard_max_title">锁屏内显示通知的最大数量</string>
+  <string name="enable_assistant">启用 Google 智能助理</string>
+  <string name="enable_assistant_summary">用新的 Google 智能助理功能替换原先的点按即时卡/屏幕搜索</string>
+  <string name="enable_assistant_summary_unsupported">不支持您所使用的 Google 应用版本 (%1$s)</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">现在</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

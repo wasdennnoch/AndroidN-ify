@@ -10,11 +10,15 @@
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">\@lirannl אודות המתרגם</string>
   <string name="about_version">%1$s (%2$d) אודות גרסה</string>
-  <string name="prefs_not_readable"><![CDATA[</b> - אזהרה !- <b>&#8230; הקובץ המבוקש לא יכול להיקרא על ידי xposed.
-תלחץ כאן לעוד מידע &#8230;]]></string>
+  <string name="prefs_not_readable"><![CDATA[</b> - אזהרה!- <b>&#8230; הקובץ המבוקש לא יכול להיקרא על ידי xposed.
+לחץ כאן לעוד מידע &#8230;]]></string>
   <string name="header_tweaks">שינויים</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">יישום</string>
+  <string name="app_theme_title">ערכת נושא של היישום</string>
+  <string name="app_theme_light">בהיר</string>
+  <string name="app_theme_dark">כהה</string>
+  <string name="app_theme_device">ברירת מחדל של המכשיר</string>
   <string name="hide_launcher_icon_title">הסתר סמל</string>
   <string name="hide_launcher_icon">ייתכן שיהיה צורך להפעיל מחדש את מריץ האפליקציות</string>
   <string name="debug_log_title">רישום לצורכי תיקון שגיאות</string>
@@ -43,13 +47,16 @@
   <string name="sound_summary">%1$s עוצמת הצלצולים היא</string>
   <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d מספר היישומים המותקנים הוא</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
+  <string name="storage_summary">%1$s בשימוש מתוך %2$s</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
+  <string name="battery_summary">%1$s. נותרו %2$s בקירוב</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_wireless">%1$s נטען אלחוטית, כרגע ב</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_usb">%1$s - נטען בכבל נתונים</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_ac">%1$s - נטען במטען</string>
+  <string name="memory_summary">%1$s מתוך %2$s בשימוש כעת</string>
   <string name="user_summary">%1$s מחובר כ</string>
   <string name="location_on_power">פעיל - חיסכון בסוללה</string>
   <string name="location_on_device">פעיל - מכשיר בלבד</string>
@@ -72,6 +79,7 @@
   <string name="recents_navigation_delay_title">השהיית ניווט</string>
   <string name="recents_navigation_delay">ההשהייה עד שהיישום הנבחר ייפתח</string>
   <string name="enable_large_recents">הגדלת יישומים אחרונים</string>
+  <string name="enable_large_recents_summary">עושה את הכרטיסי יישומים אחרונים ברוחב מלא, לא משנה את הגובה</string>
   <string name="no_recents_image">החלף את התמונה כאשר אין יישומים פתוחים</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">אין יישומים</string>
@@ -79,10 +87,10 @@
   <string name="recents_button_behavior_current">חזור ליישום הנוכחי</string>
   <string name="recents_button_behavior_cycle">גלגל בין היישומים</string>
   <string name="header_qs">הגדרות מהירות</string>
-  <string name="enable_notification_header">עיצוב הראש</string>
+  <string name="enable_notification_header">סגנון כותרת</string>
   <string name="keep_bg_title">השאר רקע מקורי</string>
-  <string name="keep_bg">הגדרה זו בשביל ערכות נושא המשנות רקע זה</string>
-  <string name="keep_header_bg">ראש</string>
+  <string name="keep_bg">השתמש בהגדרה זו בשביל ערכות נושא המשנות רקע זה</string>
+  <string name="keep_header_bg">כותרת</string>
   <string name="keep_panel_bg">לוח הגדרות מהירות</string>
   <string name="notification_header_qs_tiles_count">מספר הגדרות מהירות להצגה</string>
   <!-- The unit of the counter next to the slider -->
@@ -94,17 +102,18 @@
   <string name="enable_new_tile_click_behavior">התנהגות של נוגט בלחיצה על אריחים</string>
   <string name="enable_new_tile_click_behavior_summary">לחיצה על אריח בלוח ההתראות תאפשר או תכבה את ההגדרה, ולחיצה בלוח ההגדרות המהירות תפתח את תפריט האפשרויות</string>
   <string name="enable_large_first_row">הגדל שורה ראשונה</string>
+  <string name="enable_large_first_row_summary2">משנה את מראה שני האריחים הראשונים להראות גדולים יותר אם נתמך</string>
   <string name="fix_stuck_inversion_title">תיקון היפוך תקוע</string>
   <string name="fix_stuck_inversion">במכשירים מסוימים ההיפוך עלול להיתקע פעיל עם הפעלתו. הגדרה זו תכריח את ההיפוך להיכבות</string>
-  <string name="header_clock_size_title">גודל השעון בראש</string>
+  <string name="header_clock_size_title">גודל השעון בכותרת</string>
   <string name="header_clock_size_normal">רגיל</string>
   <string name="header_clock_size_small">קטן</string>
   <string name="header_clock_size_smaller">קטן יותר</string>
   <string name="header_clock_size_tiny">מזערי</string>
-  <string name="hide_icons_title">הסתר פריטי ראש</string>
+  <string name="hide_icons_title">הסתר פריטי כותרת</string>
   <string name="hide_tuner_icon_title">הסתר צלמית \"מגדיר SystemUI\"</string>
   <string name="hide_edit_tiles_title">הסתר את לחצן עורך האריחים</string>
-  <string name="hide_edit_tiles_summary">!הגדרה זו מסירה רק את לחצן העריכה המובנה</string>
+  <string name="hide_edit_tiles_summary">זה רק מסתיר את כפתור העריכה המובנה במערכת.</string>
   <string name="hide_carrier_label_title">הסתרת תווית מפעיל סלולרי</string>
   <string name="header_notifications">התראות</string>
   <string name="notifications_change_style">סגנון הגדרות של אנדרואיד נוגט</string>
@@ -115,19 +124,74 @@
   <string name="notification_blacklisted_apps_title">יישומים ברשימה השחורה</string>
   <string name="notification_blacklisted_apps">התשמש בסגנון הישן בשביל האפליקציות ברשימה השחורה</string>
   <string name="notifications_custom_actions_color_title">התשמש בצבע מותאם אישית לרקע של הפעולות המותאמות אישית</string>
+  <string name="notifications_custom_actions_color">השתמש בצבע מותאם אישית לרקע כפתורי ההתראות</string>
   <string name="notifications_actions_color_title">רקע לפעולות</string>
+  <string name="notification_experimental_title">התנהגות התראות כמו בנוגט (ניסיוני)</string>
+  <string name="notification_keyguard_max_title">מספר מירבי להתראות במסך נעילה</string>
+  <string name="enable_assistant">אפשר Google Assistant</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+  <string name="now_string_shortest">עכשיו</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">דקה אחת</item>
+    <item quantity="two">%d דקות</item>
+    <item quantity="many">%d דקות</item>
+    <item quantity="other">%d דקות</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">שעה אחת</item>
+    <item quantity="two">%d שעות</item>
+    <item quantity="many">%d שעות</item>
+    <item quantity="other">%d שעות</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">יום אחד</item>
+    <item quantity="two">%d ימים</item>
+    <item quantity="many">%d ימים</item>
+    <item quantity="other">%d ימים</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">שנה אחת</item>
+    <item quantity="two">%d שנים</item>
+    <item quantity="many">%d שנים</item>
+    <item quantity="other">%d שנים</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">תוך דקה אחת</item>
+    <item quantity="two">תוך %d דקות</item>
+    <item quantity="many">תוך %d דקות</item>
+    <item quantity="other">תוך %d דקות</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">תוך שעה</item>
+    <item quantity="two">תוך %d שעות</item>
+    <item quantity="many">תוך %d שעות</item>
+    <item quantity="other">תוך %d שעות</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">תוך יום</item>
+    <item quantity="two">תוך %d ימים</item>
+    <item quantity="many">תוך %d ימים</item>
+    <item quantity="other">תוך %d ימים</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">תוך שנה אחת</item>
+    <item quantity="two">תוך %d שנים</item>
+    <item quantity="many">תוך %d שנים</item>
+    <item quantity="other">תוך %d שנים</item>
+  </plurals>
   <string name="update_notification_title">עדכון חדש זמין</string>
   <string name="update_notification">גרסה %1$d זמינה להורדה!</string>
   <string name="update_notification_download">עדכן</string>
+  <string name="update_warning">המודול עודכן</string>
+  <string name="update_warning_details">המערכת עשויה להיות לא יציבה, דיווחי באגים לא יתקבלו עד הפעלה מחדש של המכשיר</string>
   <string name="check_for_updates_title">חפש עדכונים</string>
   <string name="check_for_updates">חפש עדכונים כאשר היישום מופעל</string>
   <string name="checking_for_update">מחפש עדכונים</string>
@@ -137,9 +201,58 @@
   <string name="update_notification_downloading_details">מוריד גרסה %1$d</string>
   <string name="update_notification_download_fail">ההורדה נכשלה</string>
   <string name="update_notification_download_fail_details">ההורדה נכשלה %1$d</string>
+  <string name="emergency_info">מידע לשעת חירום</string>
+  <string name="emergency_info_launch_hint">גע שוב כדי לפתוח</string>
+  <string name="enable_emergency_info_title">אפשר מידע לשעת חירום</string>
+  <string name="enable_emergency_info">הוסף כפתור מידע לשעת חירום לחייגן לשעת חירום</string>
+  <string name="edit_emergency_info_title">ערוך מידע לשעת חירום</string>
+  <string name="clear_all">נקה הכל</string>
+  <string name="tab_title_info">מידע</string>
+  <string name="tab_title_contacts">אנשי קשר</string>
+  <string name="add_emergency_contact">הוסף איש קשר</string>
+  <string name="user_emergency_info_title">אנשי קשר לשעת חירום</string>
+  <string name="emergency_info_continue">המשך</string>
+  <string name="clear">נקה</string>
+  <string name="clear_all_message">לנקות את כל המידע והאנשי קשר?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+  <string name="remove_contact">להסיר את %1$s מאנשי קשר לשעת חירום?</string>
+  <string name="remove_contact_icon_text">הסרת איש קשר</string>
+  <string name="remove">הסרה</string>
+  <string name="cancel">ביטול</string>
+  <string name="emergency_contacts_title">אנשי קשר לשעת חירום</string>
+  <string name="name">שם</string>
+  <string name="unknown_name">לא ידוע</string>
+  <string name="address">כתובת</string>
+  <string name="unknown_address">לא ידוע</string>
+  <string name="date_of_birth">תאריך לידה</string>
+  <string name="unknown_date_of_birth">לא ידוע</string>
   <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">גיל: %1$d</string>
+  <string name="remove_dob_icon_text">הסר תאריך לידה</string>
+  <string name="blood_type">סוג דם</string>
+  <string name="unknown_blood_type">לא ידוע</string>
+  <string name="allergies">אלרגיות</string>
+  <string name="unknown_allergies">לא ידוע</string>
+  <string name="allergies_hint">בוטנים, לדוגמה</string>
+  <string name="medications">תרופות</string>
+  <string name="unknown_medications">לא ידוע</string>
+  <string name="medications_hint">אספירין לדוגמה</string>
+  <string name="medical_conditions">הערות רפואיות</string>
+  <string name="unknown_medical_conditions">לא ידוע</string>
+  <string name="medical_conditions_hint">אסתמה לדוגמה</string>
+  <string name="organ_donor">תורם איברים</string>
+  <string name="unknown_organ_donor">לא ידוע</string>
+  <string name="info_bloodtype_op">O +</string>
+  <string name="info_bloodtype_on">O-</string>
+  <string name="info_bloodtype_ap">A +</string>
+  <string name="info_bloodtype_an">A-</string>
+  <string name="info_bloodtype_bp">B +</string>
+  <string name="info_bloodtype_bn">B-</string>
+  <string name="info_bloodtype_abp">AB +</string>
+  <string name="info_bloodtype_abn">AB-</string>
   <string name="yes">כן</string>
   <string name="no">לא</string>
   <string name="battery">סוללה</string>
@@ -155,26 +268,92 @@
   <string name="live_display_night">לילה</string>
   <string name="live_display_outdoor">תאורה חיצונית (שמש בהירה)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">לפני %1$s</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">נותרו %1$s</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">נותרו %1$s בקירוב</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">נותרו %1$s</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s. נותרו %2$s בקירוב</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s – %2$s נותרו</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s – %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s – %2$s לסיום הטעינה</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s – %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s – %2$s לסיום הטעינה מהחשמל</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s – %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s – %2$s לסיום הטעינה דרך USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s – %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s – %2$s לסיום טעינה אלחוטית</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s – %2$s</string>
+  <string name="battery_info_status_unknown">לא ידוע</string>
+  <string name="battery_info_status_charging">נטען</string>
+  <string name="battery_info_status_charging_ac">נטען מהחשמל</string>
+  <string name="battery_info_status_charging_ac_short">נטען</string>
+  <string name="battery_info_status_charging_usb">נטען דרך USB</string>
+  <string name="battery_info_status_charging_usb_short">נטען</string>
+  <string name="battery_info_status_charging_wireless">נטען אלחוטית</string>
+  <string name="battery_info_status_charging_wireless_short">נטען</string>
+  <string name="battery_info_status_discharging">פורק</string>
+  <string name="battery_info_status_not_charging">לא נטען</string>
+  <string name="battery_info_status_full">טעון במלואו</string>
+  <string name="battery_panel_title">צריכת סוללה</string>
+  <string name="battery_detail_charging_summary">חיסכון בסוללה אינו זמין תוך כדי טעינה</string>
   <!-- Add a custom tile -->
+  <string name="add">הוספה</string>
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">אפס</string>
   <string name="dialog_color_picker">בוחר צבעים</string>
   <string name="press_color_to_apply">לחץ על צבע כדי להחיל</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="enable_install_source_title">הראה מקור התקנת היישום</string>
+  <string name="enable_install_source">הוספת קטגוריה בדף מידע אפליקציה להצגת מקור התקנת האפליקציה (חנות הישומים, מתקין חבילות וכו)</string>
+  <string name="battery_detail_switch_title">שומר סוללה</string>
+  <string name="battery_detail_switch_summary">מפחית ביצועים וצריכת אינטרנט ברקע</string>
+  <string name="qs_add_notes_title">הערות</string>
+  <string name="notification_spoof_api_version_title">התחזה ל־API 24</string>
+  <string name="notification_spoof_api_version">עבוד על היישומים האלה שיש לך API 34</string>
+  <string name="hide_tiles_on_lockscreen">הסתר אריחים במסך הנעילה</string>
+  <string name="done">הסתיים</string>
+  <string name="cm_qs_settings">הגדרת הגדרות מהירות של CyanogenMod</string>
+  <string name="disable_qs_paging">בטל דפי הגדרות מהירות</string>
+  <string name="disable_qs_paging_summary">כל האריחים יהיו בדף אחד לאורך</string>
+  <string name="allow_direct_reply_on_keyguard">מהנה מהיר במסך נעילה</string>
+  <string name="allow_direct_reply_on_keyguard_summary">אפשר לענות להתראות במסך הנעילה</string>
+  <string name="enable_notifications_background">אפשר רקע התראות</string>
+  <string name="enable_notifications_background_summary">צייר רקע לבן מאוחרי התראות כאשר מחליקים אותם הצידה</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">פתח את הגדרות מהירות.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">סגור את הגדרות מהירות.</string>
+  <string name="warning">אזהרה</string>
+  <string name="dont_show_again">אל תראה זאת שוב</string>
+  <string name="enable_data_disabled_indicator">הראה \"x\" אינטרנט סלולרי כבוי</string>
+  <string name="enable_data_disabled_indicator_summary">הראה \"x\" על מחוון הקליטה שהאינטרנט הסלולרי כבוי</string>
+  <string name="home">בית</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">אתה צעד אחד מלהפעיל את האפשרויות הניסיוניות.</item>
+    <item quantity="two">אתה %1$d צעדים מלהפעיל את האפשרויות הניסיוניות.</item>
+    <item quantity="many">אתה %1$d צעדים מלהפעיל את האפשרויות הניסיוניות.</item>
+    <item quantity="other">אתה %1$d צעדים מלהפעיל את האפשרויות הניסיוניות.</item>
+  </plurals>
+  <string name="show_experimental_on">אפשרויות ניסיוניות הופעלו!</string>
+  <string name="show_experimental_on_already">אין צורך, אפשרויות ניסיוניות כבר מופעלות.</string>
+  <string name="header_experimental">נסיוני</string>
+  <string name="enable_experimental_features">אפשר אפשרויות ניסיוניות</string>
+  <string name="enable_n_style_settings_dashboard">הגדרות בעיצוב נוגט</string>
+  <string name="enable_n_style_settings_dashboard_summary">עצב את לוח ההגדרות כמו אנדרואיד נוגט</string>
+  <string name="enable_settings_drawer">אפשר מגירת הגדרות</string>
 </resources>

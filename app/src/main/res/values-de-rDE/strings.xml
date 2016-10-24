@@ -138,9 +138,14 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="notification_blacklisted_apps_title">Ausgeschlossene Apps</string>
   <string name="notification_blacklisted_apps">Alten Benachrichtigungs-Stil für diese Apps verwenden</string>
   <string name="notifications_custom_actions_color_title">Eigene Actions-Hintergrundfarbe nutzen</string>
+  <string name="notifications_custom_actions_color">Nutze eine eigene Farbe als Hintergrund für die Benachrichtigungs-Aktionen</string>
   <string name="notifications_actions_color_title">Actions-Hintergrundfarbe</string>
   <string name="notification_experimental_title">Experimentelles N Benachrichtigungs-Verhalten</string>
+  <string name="notification_experimental">N Scrollverhalten (kein \'Stacken\' am oberen Ende)</string>
   <string name="notification_keyguard_max_title">Maximale Benachrichtigungen auf Sperrbildschirm</string>
+  <string name="enable_assistant">Google-Assistent aktivieren</string>
+  <string name="enable_assistant_summary">Ersetzt Now on Tap/Screen search mit dem neuen Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">Deine Google-Appversion (%1$s) wird nicht unterstützt.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">jetzt</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -336,6 +341,7 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="allow_direct_reply_on_keyguard">Schnellantwort auf Sperrbildschirm</string>
   <string name="allow_direct_reply_on_keyguard_summary">Erlaubt Benachrichtigungen auf Sperrbildschirm zu beantworten</string>
   <string name="enable_notifications_background">Benachrichtigungshintergrund aktivieren</string>
+  <string name="enable_notifications_background_summary">Zeichnet einen weißen Hintergrund hinter Benachrichtigungen, wenn diese zur Seite gezogen werden</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">Schnelleinstellungen öffnen.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
@@ -354,4 +360,6 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="header_experimental">Experimental</string>
   <string name="enable_experimental_features">Experimentelle Funktionen aktivieren</string>
   <string name="enable_n_style_settings_dashboard">N Design Einstellungen</string>
+  <string name="enable_n_style_settings_dashboard_summary">Die Startseite der Einstellungen abändern, um wie in N auszusehen</string>
+  <string name="enable_settings_drawer">Seitenmenü in Einstellungen aktivieren</string>
 </resources>

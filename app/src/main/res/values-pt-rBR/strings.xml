@@ -151,6 +151,9 @@
   <string name="notification_experimental_title">Comportamento experimental para notificações</string>
   <string name="notification_experimental">Comportamento de rolagem do Nougat (sem pilha superior)</string>
   <string name="notification_keyguard_max_title">Núm. máximo de notif. na tela de bloqueio</string>
+  <string name="enable_assistant">Habilitar Google Assistant</string>
+  <string name="enable_assistant_summary">Substituir Now on Tap/Procura na tela pelo novo Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">Sua versão do Google App (%1$s) não é suportada.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">agora</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

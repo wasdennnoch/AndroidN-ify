@@ -33,6 +33,9 @@
   <string name="header_tweaks">خيارات</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">ضبط التطبيق</string>
+  <string name="app_theme_title">مظهر التطبيق</string>
+  <string name="app_theme_light">فاتح</string>
+  <string name="app_theme_dark">مظلم</string>
   <string name="hide_launcher_icon_title">اخفاء التطبيق</string>
   <string name="hide_launcher_icon">ربما يجب اعاده تشغيل اللانشر</string>
   <string name="debug_log_title">تصحيح الاخطاء</string>
@@ -136,9 +139,11 @@
   <string name="notification_blacklisted_apps_title">التطبيقات المدرجة في القائمة السوداء</string>
   <string name="notification_blacklisted_apps">استخدام نمط الاشعارات القديم لهذه التطبيقات</string>
   <string name="notifications_custom_actions_color_title">استخدام لون خلفية إجراءات مخصص</string>
+  <string name="notifications_custom_actions_color">استخدم لون معين كخلفية لأزرار التنبيهات</string>
   <string name="notifications_actions_color_title">لون خلفية الإجراءات</string>
   <string name="notification_experimental_title">استخدام سلوك اشعارات انرويد N التجريبي</string>
   <string name="notification_keyguard_max_title">اقصي حد للاشعارات في شاشه القفل</string>
+  <string name="enable_assistant">فعل مساعد ڨوڨل الشخصي</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">الآن</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

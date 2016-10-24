@@ -146,19 +146,22 @@
   <string name="notification_experimental_title">Эксперементальный стиль N уведомлений</string>
   <string name="notification_experimental">Прокрутка уведомлений в стиле N ( без верхнего стека )</string>
   <string name="notification_keyguard_max_title">Максимальное количество уведомлений при заблокированном экране</string>
+  <string name="enable_assistant">Включить Google Assistant</string>
+  <string name="enable_assistant_summary">Заменяет Now on Tap/Экран поиска новым Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">Ваша версия Google Apps (%1$s) не поддерживается.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">сейчас</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
     <item quantity="one">%d мин.</item>
-    <item quantity="few">%d мин</item>
+    <item quantity="few">%d мин.</item>
     <item quantity="other">%d мин.</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_hours_shortest">
     <item quantity="one">%d ч.</item>
-    <item quantity="few">%dh</item>
-    <item quantity="other">%dh</item>
+    <item quantity="few">%d ч.</item>
+    <item quantity="other">%d ч.</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
@@ -175,14 +178,14 @@
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
     <item quantity="one">в %d мин.</item>
-    <item quantity="few">в %dмин</item>
-    <item quantity="other">в %dm</item>
+    <item quantity="few">в %d мин.</item>
+    <item quantity="other">в %d мин.</item>
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_hours_shortest_future">
     <item quantity="one">в %d ч.</item>
-    <item quantity="few">в %dч</item>
-    <item quantity="other">в %dh</item>
+    <item quantity="few">в %d ч.</item>
+    <item quantity="other">в %d ч.</item>
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_days_shortest_future">

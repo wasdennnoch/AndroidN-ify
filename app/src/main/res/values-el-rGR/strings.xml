@@ -70,7 +70,13 @@
   <string name="header_recents">Πρόσφατα</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Γρήγορη εναλλαγή</string>
+  <string name="double_tap_speed_title">Ταχύτητα διπλού χτυπήματος</string>
+  <string name="recents_button_behavior_title">Συμπεριφορά του κουμπιού προσφάτων σε κλίκ</string>
+  <string name="recents_navigation_delay_title">Καθυστέρηση πλοήγησης</string>
+  <string name="recents_navigation_delay">Χρόνος μέχρι την εστίαση της επιλεγμένης εφαρμογής</string>
+  <string name="enable_large_recents">Μεγάλες μικρογραφίες στις πρόσφατες εφαρμογές</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
+  <string name="no_previous_recents">Δεν υπάρχουν πρόσφατα στοιχεία</string>
   <!-- The unit of the counter next to the slider -->
   <string name="header_clock_size_normal">Κανονική λειτουργία</string>
   <string name="header_clock_size_small">Μικρό</string>

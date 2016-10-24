@@ -34,6 +34,7 @@
   <string name="app_theme_title">Тема</string>
   <string name="app_theme_light">Світла</string>
   <string name="app_theme_dark">Темна</string>
+  <string name="app_theme_device">Пристрій за промовчанням</string>
   <string name="hide_launcher_icon_title">Приховати значок у лаунчері</string>
   <string name="hide_launcher_icon">Може знадобитися перезавантаження робочого столу</string>
   <string name="debug_log_title">Журнал налагодження</string>
@@ -141,6 +142,7 @@
   <string name="notification_experimental_title">Експериментальний стиль N сповіщень</string>
   <string name="notification_experimental">Метод прокрутки з N (немає верхнього складання)</string>
   <string name="notification_keyguard_max_title">Максимальна кількість сповіщень при заблокованій клавіатурі</string>
+  <string name="enable_assistant">Увімкнути помічник Google</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">щойно</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

@@ -28,9 +28,15 @@
         如果您找到任何問題且問題尚未被發現，請<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">前往 GitHub </a>進行回饋(英文)。<br><br>
         請在回饋錯誤時一定要附帶 Xposed 所產生的紀錄檔案和在 Logcat 裡面紀錄的崩潰的區段。
         ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+您正在使用實驗性組建。模組內的某些功能或會因新改變已損壞。        如果您發現有任何問題<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">在GitHub上提出</a>如果它還沒有被提出過。<br>        此組建包含<b>非常實驗性</b>的功能。如要報告任何問題，請先在XDA或GitHub上搜尋。重複的報告會比無視並關閉。<br><br>        請緊記報告任何錯誤時均要附上Xposed logs及logcat。        ]]></string>
   <string name="header_tweaks">調整</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">應用程式</string>
+  <string name="app_theme_title">程式的主題</string>
+  <string name="app_theme_light">亮</string>
+  <string name="app_theme_dark">暗</string>
+  <string name="app_theme_device">預設</string>
   <string name="hide_launcher_icon_title">隱藏啟動器的圖示</string>
   <string name="hide_launcher_icon">可能需要重新啟動你的桌面啟動器</string>
   <string name="debug_log_title">Debug log</string>
@@ -91,6 +97,7 @@
   <string name="recents_navigation_delay_title">導航攔延遲</string>
   <string name="recents_navigation_delay">所選的應用程式被打開的時間</string>
   <string name="enable_large_recents">開啟更多的 最近使用的應用程式 數量</string>
+  <string name="enable_large_recents_summary">只會改變最近開啟的應用程式的卡片的闊度，不會改變它們的高度</string>
   <string name="no_recents_image">變更 \"沒有最近使用的應用程式\" 圖案</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">你最近的螢幕會顯示在這裡</string>
@@ -113,6 +120,7 @@
   <string name="enable_new_tile_click_behavior">Android N 的瓷磚點擊行為</string>
   <string name="enable_new_tile_click_behavior_summary">點擊下拉式狀態列內的瓷磚時直接切換狀態\n點擊快速設定内的顯示項目时展開設定項目</string>
   <string name="enable_large_first_row">強制放大首行瓷磚</string>
+  <string name="enable_large_first_row_summary2">如果支援的話，使首兩個方塊變大。</string>
   <string name="fix_stuck_inversion_title">修復 官方ROM 所造成的倒置問題</string>
   <string name="fix_stuck_inversion">部分裝置的官方系統開啟此功能可能會造成倒置\n點此進行強制停用</string>
   <string name="header_clock_size_title">標題列的時鐘大小</string>
@@ -134,9 +142,13 @@
   <string name="notification_blacklisted_apps_title">黑名單應用程式</string>
   <string name="notification_blacklisted_apps">給這些應用程式使用舊式的通知風格</string>
   <string name="notifications_custom_actions_color_title">使用自訂的動作背景顏色</string>
+  <string name="notifications_custom_actions_color">以自訂的顏色作為通知按鍵的背景</string>
   <string name="notifications_actions_color_title">動作背景顏色</string>
   <string name="notification_experimental_title">試驗性 N 的通知行為</string>
   <string name="notification_keyguard_max_title">在鎖定螢幕裡開啟最大量的通知顯示</string>
+  <string name="enable_assistant">啟用Google Assistant</string>
+  <string name="enable_assistant_summary">以新的Google Assistant取代Now on Tap/Screen Search</string>
+  <string name="enable_assistant_summary_unsupported">不支援你的Google應用程式版本（%1$s）</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">此時此刻</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -321,6 +333,7 @@
   <string name="disable_qs_paging">停用 快速分頁</string>
   <string name="disable_qs_paging_summary">停用橫向螢幕顯示快速分頁</string>
   <string name="allow_direct_reply_on_keyguard">直接在鎖定螢幕上面回覆</string>
+  <string name="allow_direct_reply_on_keyguard_summary">允許在解鎖頁面上回覆通知</string>
   <string name="enable_notifications_background">啟用 背景通知</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">開啟快速設定</string>
@@ -329,4 +342,11 @@
   <string name="warning">警告</string>
   <string name="dont_show_again">不再提示</string>
   <string name="enable_data_disabled_indicator">顯示行動網路停用指示器</string>
+  <string name="enable_data_disabled_indicator_summary">當沒有啟用流動數據時，以 “x” 作為訊號標示</string>
+  <string name="home">主頁</string>
+  <string name="show_experimental_on">您已經成功開啟了實驗性功能！</string>
+  <string name="show_experimental_on_already">不需要了，你已經啟用了實驗性功能。</string>
+  <string name="header_experimental">實驗性的</string>
+  <string name="enable_experimental_features">啟動實驗性功能</string>
+  <string name="enable_n_style_settings_dashboard">安卓N樣式的設置</string>
 </resources>

@@ -145,6 +145,9 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="notification_experimental_title">Comportement des notifications N expérimental</string>
   <string name="notification_experimental">Comportement au défilement d\'android N (Pas de barre fixe en haut)</string>
   <string name="notification_keyguard_max_title">Nombre max de notifications sur l\'écran de verrouillage</string>
+  <string name="enable_assistant">Activer Google Assistant</string>
+  <string name="enable_assistant_summary">Remplace la recherche d\'écran Google -anciennement \"Now on Tap- par le nouvel Assistant Google</string>
+  <string name="enable_assistant_summary_unsupported">La version de votre application Google (%1$s) n’est pas prise en charge.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">maint.</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

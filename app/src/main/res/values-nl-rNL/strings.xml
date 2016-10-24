@@ -22,6 +22,10 @@
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485"> in deze XDA-thread</a>.<br>
         Als ook dat faalt, zal je moeten leven met de standaardwaardes, sorry :(
     ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+U gebruikt een automatische build. Sommige functies van de module doen het misschien niet goed. Als u een probleem gevonden heeft,<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> open een op GitHub</a>Als deze not niet bestaat. <br><br>Vergeet niet Xposed logs toe te voegen bij het melden van bugs. Voeg logcat toe bij crashes.        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+U gebruikt een experimentele automatische build. Sommige functies werken hierdoor niet. Als u een probleem vind, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> open een nieuwe op GitHub</a> als deze nog niet bestaat. <br>Deze build bevat <b>experimentele</b> functies. Zoek op XDA en GitHub voordat u problemen rapporteert. Dubbele meldingen worden genegeerd en gesloten. <br><br>ergeet niet Xposed logs toe te voegen bij het melden van bugs. Voeg logcat toe bij crashes.        ]]></string>
   <string name="header_tweaks">Aanpassingen</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">App</string>
@@ -89,6 +93,7 @@
   <string name="recents_navigation_delay_title">Navigatie vertraging</string>
   <string name="recents_navigation_delay">Tijd tot geselecteerde app wordt gefocust</string>
   <string name="enable_large_recents">Grote recente apps</string>
+  <string name="enable_large_recents_summary">Maakt recente kaarten breder niet hoger</string>
   <string name="no_recents_image">Verander \"geen recente apps\" afbeelding</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Geen recente items</string>
@@ -111,6 +116,7 @@
   <string name="enable_new_tile_click_behavior">Android N tegel klik gedrag</string>
   <string name="enable_new_tile_click_behavior_summary">Als je klikt op een tegel die zich in de header bevindt, wordt deze geopend en het paneel wordt uitgebreid</string>
   <string name="enable_large_first_row">Vouw eerste rij uit</string>
+  <string name="enable_large_first_row_summary2">Maakt de eerste twee tegels groter indien ondersteund</string>
   <string name="fix_stuck_inversion_title">Los vaste inversie op</string>
   <string name="fix_stuck_inversion">Op sommige apperaten loopt de inversie vast. Klik hier om het geforceerd uit te zetten</string>
   <string name="header_clock_size_title">Bovenkant klok formaat</string>
@@ -126,25 +132,62 @@
   <string name="header_notifications">Notificaties</string>
   <string name="notifications_change_style">Pas notificatie stijl aan</string>
   <string name="notification_dismiss_button_title">Afwijsknop aanpassen</string>
-  <string name="notification_dismiss_button">Laat \"WIS ALLES\" zien ipv het afwijsicoontje</string>
+  <string name="notification_dismiss_button">Laat \"ALLES WISSEN\" zien ipv het afwijsicoontje</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Zoeken</string>
   <string name="notification_blacklisted_apps_title">Geblacklistte apps</string>
   <string name="notification_blacklisted_apps">Gebruik de oude notificatie stijl voor deze apps</string>
   <string name="notifications_custom_actions_color_title">Gebruik angepaste actions achtergrond kleuren</string>
+  <string name="notifications_custom_actions_color">Gebruik een aangepaste kleur als de achtergrond van de notificatie knoppen</string>
   <string name="notifications_actions_color_title">Actions achtergrond kleur</string>
   <string name="notification_experimental_title">Experimentele N notificatie gedrag</string>
+  <string name="notification_experimental">N scrol gedrag (geen bovenste stapel)</string>
   <string name="notification_keyguard_max_title">Maximale notificaties</string>
+  <string name="enable_assistant">Google Assistant inschakelen</string>
+  <string name="enable_assistant_summary">Vervang de Now on Tap/Screen search met de nieuwe Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">Uw Google App versie (%1$s) wordt niet ondersteund.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">nu</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="one">%dm</item>
+    <item quantity="other">%dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_hours_shortest">
+    <item quantity="one">%dh</item>
+    <item quantity="other">%dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="one">%dd</item>
+    <item quantity="other">%dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="one">%dy</item>
+    <item quantity="other">%dy</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="one">over %dm</item>
+    <item quantity="other">over %dm</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="one">over %dh</item>
+    <item quantity="other">over %dh</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_days_shortest_future">
+    <item quantity="one">over %dd</item>
+    <item quantity="other">over %dd</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_years_shortest_future">
+    <item quantity="one">over %dy</item>
+    <item quantity="other">over %dy</item>
+  </plurals>
   <string name="update_notification_title">Nieuwe update beschikbaar</string>
   <string name="update_notification">Build %1$d is nu beschikbaar om te updaten!</string>
   <string name="update_notification_download">Update</string>
@@ -163,18 +206,48 @@
   <string name="emergency_info_launch_hint">Klik opnieuw om te openen</string>
   <string name="enable_emergency_info_title">Zet nood informatie aan</string>
   <string name="enable_emergency_info">Voegd een nood informatie knop toe op de nood beller</string>
+  <string name="edit_emergency_info_title">Verander noodgeval informatie</string>
+  <string name="clear_all">Alles wissen</string>
   <string name="tab_title_info">Info</string>
   <string name="tab_title_contacts">Contacten</string>
   <string name="add_emergency_contact">Contact toevoegen</string>
   <string name="user_emergency_info_title">Noodsituatie informatie</string>
+  <string name="user_emergency_info_consent">Informatie die u hier invoert kan hulpverleners helpen. Deze informatie wordt alleen op uw apparaat opgeslagen. Iedereen kan deze informatie inzien in de telefoon zonder het ontgrendelen van uw telefoon.</string>
+  <string name="emergency_info_continue">Doorgaan</string>
   <string name="clear">Wissen</string>
   <string name="clear_all_message">Wis alle informatie en contacten?</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%1$s•%2$s</string>
+  <string name="remove_contact">Verwijder %1$s van noodcontacten?</string>
+  <string name="remove_contact_icon_text">Contact verwijderen</string>
   <string name="remove">Verwijderen</string>
   <string name="cancel">Annuleren</string>
+  <string name="no_info_provided">Geen noodinformatie verstrekt</string>
+  <string name="emergency_contacts_title">Contacten voor noodgevallen</string>
   <string name="name">Naam</string>
+  <string name="unknown_name">Onbekend</string>
+  <string name="address">Adres</string>
+  <string name="unknown_address">Onbekend</string>
+  <string name="date_of_birth">Geboortedatum</string>
+  <string name="unknown_date_of_birth">Onbekend</string>
   <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
   <!-- Example: Age: 23 -->
+  <string name="age">Leeftijd: %1$d</string>
+  <string name="remove_dob_icon_text">Geboortedatum verwijderen</string>
+  <string name="blood_type">Bloedgroep</string>
+  <string name="unknown_blood_type">Onbekend</string>
+  <string name="allergies">Allergieën</string>
+  <string name="unknown_allergies">Onbekend</string>
+  <string name="allergies_hint">Bijvoorbeeld, pinda\'s</string>
+  <string name="medications">Medicijnen</string>
+  <string name="unknown_medications">Onbekend</string>
+  <string name="medications_hint">Bijvoorbeeld: aspirine</string>
+  <string name="medical_conditions">Medisch dossier</string>
+  <string name="unknown_medical_conditions">Onbekend</string>
+  <string name="medical_conditions_hint">Bijvoorbeeld: asthma</string>
+  <string name="organ_donor">Orgaandonor</string>
+  <string name="unknown_organ_donor">Onbekend</string>
   <string name="info_bloodtype_op">O+</string>
   <string name="info_bloodtype_on">O-</string>
   <string name="info_bloodtype_ap">A+</string>
@@ -186,10 +259,10 @@
   <string name="info_bloodtype_h_h">H H</string>
   <string name="yes">Ja</string>
   <string name="no">Nee</string>
-  <string name="battery">Batterij</string>
+  <string name="battery">Accu</string>
   <string name="charged">Opgeladen</string>
   <string name="charging">Opladen,</string>
-  <string name="qs_edit">Bewerk</string>
+  <string name="qs_edit">Bewerken</string>
   <string name="drag_to_add_tiles">Sleep om tegels toe te voegen</string>
   <string name="drag_to_remove_tiles">Sleep hier om te verwijderen</string>
   <string name="live_display">LiveScherm</string>
@@ -199,23 +272,38 @@
   <string name="live_display_night">Nacht</string>
   <string name="live_display_outdoor">Buiten (felle zon)</string>
   <!-- Example: 3 hours ago -->
+  <string name="charge_length_format">%1$s geleden</string>
   <!-- Example: 3 hours left -->
+  <string name="remaining_length_format">%1$s resterend</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">Ca. %1$s resterend</string>
   <!-- Example: 3h left -->
+  <string name="power_remaining_duration_only_short">%1$s over</string>
   <!-- Example: 75% - approx. 3 hours left -->
+  <string name="power_discharging_duration">%1$s - ongeveer %2$s resterend</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s-%2$s resterend</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s-%2$s</string>
   <!-- Example: 75% - 3 hours until full -->
+  <string name="power_charging_duration">%1$s-%2$s tot volledig</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s-%2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s-%2$s tot vol via stopcontact</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s-%2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
+  <string name="power_charging_duration_usb">%1$s-%2$s tot vol via USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s-%2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s-%2$s tot vol via draadloos</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s-%2$s</string>
   <string name="battery_info_status_unknown">Onbekend</string>
   <string name="battery_info_status_charging">Opladen</string>
-  <string name="battery_info_status_charging_ac">Opladen met oplader</string>
+  <string name="battery_info_status_charging_ac">Opladen via netvoeding</string>
   <string name="battery_info_status_charging_ac_short">Opladen</string>
   <string name="battery_info_status_charging_usb">Opladen over USB</string>
   <string name="battery_info_status_charging_usb_short">Opladen</string>
@@ -224,25 +312,54 @@
   <string name="battery_info_status_discharging">Niet opladen</string>
   <string name="battery_info_status_not_charging">Niet opladen</string>
   <string name="battery_info_status_full">Opgeladen</string>
-  <string name="battery_panel_title">Batterij verbruik</string>
-  <string name="battery_detail_charging_summary">Batterij bespaarstand niet beschikbaar tijdens opladen</string>
+  <string name="battery_panel_title">Accugebruik</string>
+  <string name="battery_detail_charging_summary">Accubesparing niet beschikbaar tijdens opladen</string>
   <!-- Add a custom tile -->
   <string name="add">Toevoegen</string>
   <string name="add_custom_tile">Uitzend tegel toevoegen</string>
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Tegel specificaties kunnen niet leeg zijn</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
-  <string name="reset_tiles">Reset</string>
+  <string name="reset_tiles">Resetten</string>
   <string name="dialog_color_picker">Kleurenkiezer</string>
   <string name="press_color_to_apply">Druk op een kleur om te veranderen</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
-  <string name="battery_detail_switch_title">Batterij besparing</string>
+  <string name="enable_install_source_title">Toon app installatiebron</string>
+  <string name="enable_install_source">Voeg een catogorie toe aan de app informatie om te zien hoe de app geïnstalleerd is(Playstore, Pakket Installer enz)</string>
+  <string name="battery_detail_switch_title">Accubesparing</string>
+  <string name="battery_detail_switch_summary">Verlaag prestaties en achtergrond gegevens</string>
   <string name="qs_add_notes_title">Notities</string>
+  <string name="qs_add_notes">Dit wordt alleen gebruikt voor app die uitzend tegels aanbieden (zoals \"Custom Quick Settings\"). Lees de instructie in de tegelprovider app alvorens dit te gebruiken.</string>
+  <string name="notification_spoof_api_version_title">Fop API 24</string>
+  <string name="notification_spoof_api_version">Fop deze apps dat ze API 24 gebruiken</string>
+  <string name="hide_tiles_on_lockscreen">Tegels op lockscreen verbergen</string>
   <string name="done">Klaar</string>
   <string name="cm_qs_settings">CM QS instellingen</string>
+  <string name="disable_qs_paging">QS wisselbestand uitschakelen</string>
+  <string name="disable_qs_paging_summary">Snelle instellingen pagina uitschakelen in portret modus</string>
+  <string name="allow_direct_reply_on_keyguard">Direct antwoorden op lockscreen</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Meldingen beantwoorden op lockscreen</string>
+  <string name="enable_notifications_background">Melding achtergrond inschakelen</string>
+  <string name="enable_notifications_background_summary">Toont een witte achtergrond achter meldingen bij het wegswipen</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">Open snelle instellingen.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">Sluit snelle instellingen.</string>
+  <string name="warning">Waarschuwing</string>
+  <string name="dont_show_again">Niet opnieuw weergeven</string>
+  <string name="enable_data_disabled_indicator">Toon mobiele data uitgeschakeld indicator</string>
+  <string name="enable_data_disabled_indicator_summary">Toont een \'x\' aks signaal indicator wanneer mobiele gegevens zijn uitgeschakeld</string>
+  <string name="home">Thuis</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Je bent nu %1$d stap verwijderd van experimentele functies.</item>
+    <item quantity="other">Je bent nu %1$d stap verwijderd van experimentele instellingen.</item>
+  </plurals>
+  <string name="show_experimental_on">U heeft experimentele functies ingeschakeld!</string>
+  <string name="show_experimental_on_already">Niet nodig, experimentele functies zijn al ingeschakeld.</string>
   <string name="header_experimental">Experimenteel</string>
+  <string name="enable_experimental_features">Experimentele functies inschakelen</string>
   <string name="enable_n_style_settings_dashboard">N stijl instellingen</string>
+  <string name="enable_n_style_settings_dashboard_summary">Laat de instellingen op her dashboard eruit zien als N</string>
+  <string name="enable_settings_drawer">Lade instellingen inschakelen</string>
 </resources>

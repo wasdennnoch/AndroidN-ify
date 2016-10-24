@@ -5,15 +5,35 @@
   <string name="restart_systemui">รีสตาร์ท SystemUI</string>
   <string name="restart_systemui_message">ต้องการที่จะรีสตาร์ท SystemUI หรือไม่?</string>
   <string name="restart_broadcast_sent">เริ่มส่งออกอากาศ</string>
-  <string name="activity_about">เกี่ยวกับ Android N-ify</string>
+  <string name="activity_about">เกี่ยวกับ Android N-if</string>
   <string name="about_author">พัฒนาโดย \"MrWasdennnoch\"</string>
   <!-- Insert your (preferably XDA) username here -->
   <string name="about_translator">แปลโดย @paphonb</string>
   <string name="about_version">เวอร์ชั่น %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>คำเตือน:</b> Xposed ไม่สามารถอ่านการตั้งค่าได้ คลิกเพื่อดูรายละเอียด&#8230;]]></string>
+  <string name="prefs_not_readable_description"><![CDATA[
+        Xposed can\'t read the preference file of this module, default values will be used in hooks.
+        There are several ways to fix this problem. Also note that this error pops up if you\'ve never
+        opened the app before.<br><br>
+        First, reboot the device (No soft reboot!).<br>
+        If that doesn\'t help, try reinstalling the module.<br>
+        If both attempts fail, ensure that your SELinux mode is set to <i>permissive</i>.
+        <i>Enforcing</i> SELinux might block access to the preference file. In order to change the mode,
+        use the app <tt>SELinuxModeChanger</tt> that you can download
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">in this XDA thread</a>.<br>
+        If even that fails, you probably have to live with the default values, sorry :(
+        ]]></string>
+  <string name="automated_build_warning"><![CDATA[
+อุ๊ปส์กำลังเรียกใช้ในการสร้างอัตโนมัติ บางส่วนของโมดูลอาจแบ่งเนื่องจากการเปลี่ยนแปลงใหม่         ถ้าคุณพบปัญหาใด ๆ <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">เปิดหนึ่งใน GitHub</a> ถ้ามันไม่มีอยู่แล้ว doesn\ <br><br>จำเสมอแนบล Xposed บันทึกเมื่อรายงานข้อบกพร่อง และ logcat ในกรณีเกิดปัญหา        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+อุ๊ปส์กำลังสร้างอัตโนมัติการทดลอง บางส่วนของโมดูลอาจแบ่งเนื่องจากการเปลี่ยนแปลงใหม่         ถ้าคุณพบปัญหาใด ๆ <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">เปิดหนึ่งใน GitHub</a> ถ้ามันไม่มีอยู่แล้ว doesn\ <br>โครงสร้างนี้ประกอบด้วยคุณลักษณะ<b>มากทดลอง</b> โปรดค้นหาใน XDA และ GitHub ก่อนที่จะรายงานปัญหาใด ๆ รายงานที่ซ้ำกันจะถูกละเว้น และปิด <br><br>จำเสมอแนบล Xposed บันทึกเมื่อรายงานข้อบกพร่อง และ logcat ในกรณีเกิดปัญหา        ]]></string>
   <string name="header_tweaks">ปรับแต่ง</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">แอพ</string>
+  <string name="app_theme_title">แอปธีม</string>
+  <string name="app_theme_light">แสง</string>
+  <string name="app_theme_dark">สีเข้ม</string>
+  <string name="app_theme_device">อุปกรณ์เริ่มต้น</string>
   <string name="hide_launcher_icon_title">ซ่อนไอคอนแอพ</string>
   <string name="hide_launcher_icon">อาจต้องการรีสตาร์ท Launcher</string>
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
@@ -181,6 +201,7 @@
   <string name="enable_install_source_title">แสดงที่มาของแอพ</string>
   <string name="battery_detail_switch_title">โหมดประหยัดแบตเตอรี่</string>
   <string name="battery_detail_switch_summary">ลดประสิทธิภาพการทำงานและข้อมูลแบ็กกราวด์</string>
+  <string name="cm_qs_settings">การตั้งค่า QS ซม.</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
 </resources>

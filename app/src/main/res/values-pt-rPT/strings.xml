@@ -26,7 +26,7 @@
   <string name="automated_build_warning"><![CDATA[
         Está a usar uma compilação automática. Algumas partes do módulo poderão não funcionar devido às novas alterações.
         Se encontrar algum problema, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">exponha o caso no GitHub</a>, se o mesmo ainda não existir.<br><br>
-        Lembre-se de anexar os logs da Xposed sempre que reportar problemas, e logcats nos casos de <i>crashes</i>.
+        Lembre-se de anexar os logs do Xposed sempre que reportar problemas, e logcat nos casos de <i>crashes</i>.
         ]]></string>
   <string name="experimental_build_warning"><![CDATA[
         Está a usar uma compilação compilada automaticamente. Algumas partes do módulo podem falhar devido às mais recentes alterações.
@@ -151,6 +151,9 @@
   <string name="notification_experimental_title">Comportamento experimental para notificações</string>
   <string name="notification_experimental">Comportamento de scroll do Nougat (sem pilha superior)</string>
   <string name="notification_keyguard_max_title">Núm. máximo de notif. no ecrã de bloqueio</string>
+  <string name="enable_assistant">Ativar o Assistente Google</string>
+  <string name="enable_assistant_summary">Substitui o Now on Tap/Pesquisa no ecrã com o novo Assistente Google</string>
+  <string name="enable_assistant_summary_unsupported">A sua versão do Google Apps (%1$s) não é suportada.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">agora</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->

@@ -100,6 +100,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="recents_navigation_delay_title">Opóźnienie zmiany poprzednich aplikacji</string>
   <string name="recents_navigation_delay">Czas po jakim nastąpi przełączenie na wybraną aplikację</string>
   <string name="enable_large_recents">Włącz duże okna poprzednich aplikacji</string>
+  <string name="enable_large_recents_summary">Sprawia, że karty w \"ostatnich\" są w pełnej szerokości, nie zmienia ich wysokości</string>
   <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Brak poprzednich aplikacji</string>
@@ -122,6 +123,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
   <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go, \na dotknięcie kafelka w rozwiniętym panelu rozszerzy go</string>
   <string name="enable_large_first_row">Powiększ pierwszy wiersz</string>
+  <string name="enable_large_first_row_summary2">Sprawia, że dwa pierwsze skróty są większe, o ile jest to obsługiwane</string>
   <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
   <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
   <string name="header_clock_size_title">Rozmiar zegarka w nagłówku</string>
@@ -146,7 +148,11 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="notifications_custom_actions_color">Użyj niestandardowego koloru jako tła przycisków notyfikacji</string>
   <string name="notifications_actions_color_title">Kolor tła akcji</string>
   <string name="notification_experimental_title">Eksperymentalne zachowanie notyfikacji z N</string>
+  <string name="notification_experimental">Przewijanie jak w N (bez górnego stosu)</string>
   <string name="notification_keyguard_max_title">Maksymalna ilośc notyfikacji z keyguard</string>
+  <string name="enable_assistant">Włącz Asystenta Google</string>
+  <string name="enable_assistant_summary">Zamienia Now on Tap/Wyszukiwanie ekranowe na nowego Asystenta Google</string>
+  <string name="enable_assistant_summary_unsupported">Twoja wersja aplikacji Google (%1$s) nie jest wspierana.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">teraz</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -335,6 +341,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Wyświetl źródło instalacji aplikacji</string>
+  <string name="enable_install_source">Dodaje kategorie do informacji o aplikacji, aby pokazać jak aplikacja została zainstalowana (Sklep Play, instalator pakietu, etc.)</string>
   <string name="battery_detail_switch_title">Oszczędzanie baterii</string>
   <string name="battery_detail_switch_summary">Zmniejsza wydajność i ogranicza dane w tle</string>
   <string name="qs_add_notes_title">Notatki</string>
@@ -347,7 +354,9 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="disable_qs_paging">Wyłącz stronicowanie QS</string>
   <string name="disable_qs_paging_summary">Wyłącz stronicowanie QS w pionie</string>
   <string name="allow_direct_reply_on_keyguard">Bezpośrednia odpowiedź na ekranie blokady</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Zezwala na odpowiedzi z ekranu blokowania</string>
   <string name="enable_notifications_background">Włącz powiadomienia w tle</string>
+  <string name="enable_notifications_background_summary">Tworzy białe tło za powiadomieniem gdy zostało przesunięte</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">Otwórz szybkie ustawienia.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
@@ -355,7 +364,14 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="warning">Ostrzeżenie</string>
   <string name="dont_show_again">Nie pokazuj ponownie</string>
   <string name="enable_data_disabled_indicator">Pokaż powiadomienie o wyłączonej transmisji danych</string>
+  <string name="enable_data_disabled_indicator_summary">Pokazuje \"x\" jako wskaźnik sygnału, gdy dane mobilne są wyłączone</string>
   <string name="home">Dom</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">Został %1$d krok od włączenia funkcji eksperymentalnych.</item>
+    <item quantity="few">Zostały %1$d kroki od włączenia funkcji eksperymentalnych.</item>
+    <item quantity="other">Zostało %1$d kroków od włączenia funkcji eksperymentalnych.</item>
+  </plurals>
+  <string name="show_experimental_on">Wyłączyłeś funkcje eksperymentalne!</string>
   <string name="show_experimental_on_already">Już uruchomiłeś funkcję eksperymentalne.</string>
   <string name="header_experimental">Eksperymentalne</string>
   <string name="enable_experimental_features">Uruchom eksperymentalne fukncję</string>
