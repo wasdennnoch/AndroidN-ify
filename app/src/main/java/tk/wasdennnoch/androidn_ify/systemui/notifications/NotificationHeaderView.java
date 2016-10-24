@@ -25,6 +25,7 @@ import android.graphics.Outline;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.RemotableViewMethod;
@@ -399,7 +400,7 @@ public class NotificationHeaderView extends ViewGroup {
     }
 
     @Override
-    protected boolean verifyDrawable(Drawable who) {
+    protected boolean verifyDrawable(@NonNull Drawable who) {
         return super.verifyDrawable(who) || who == mBackground;
     }
 
@@ -412,7 +413,7 @@ public class NotificationHeaderView extends ViewGroup {
     }
 
     private void updateTouchListener() {
-        if (mExpandClickListener != null && mIcon != null) {
+        if (mExpandClickListener != null) {
             mTouchListener.bindTouchRects();
         }
     }
@@ -484,11 +485,11 @@ public class NotificationHeaderView extends ViewGroup {
 
         public void bindTouchRects() {
             mTouchRects.clear();
-            addRectAroundViewView(mIcon);
+            if (mIcon != null)
+                addRectAroundViewView(mIcon);
             addRectAroundViewView(mExpandButton);
             addWidthRect();
             mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-
         }
 
         private void addWidthRect() {
