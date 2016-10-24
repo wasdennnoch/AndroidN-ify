@@ -9,7 +9,6 @@ import android.graphics.Outline;
 import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -266,7 +265,7 @@ public class StatusBarHeaderHooks {
                 createEditButton(rightIconHeight, rightIconWidth);
 
                 int settingsIconSize = res.getDimensionPixelSize(R.dimen.settings_icon_size);
-                VectorDrawable settingsIcon = (VectorDrawable) mSettingsButton.getDrawable();
+                Drawable settingsIcon = mSettingsButton.getDrawable();
                 settingsIcon.setBounds(0, 0, settingsIconSize, settingsIconSize);
 
                 RelativeLayout.LayoutParams rightContainerLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.right_layout_height));
@@ -1200,6 +1199,20 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
+                // Motorola
+                try {
+                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "zz_moto_status_bar_expanded_header", new XC_LayoutInflated() {
+                        @Override
+                        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                            liparam.view.setElevation(0);
+                            liparam.view.setPadding(0, 0, 0, 0);
+                            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) liparam.view.getLayoutParams();
+                            params.height = ResourceUtils.getInstance(liparam.view.getContext()).getDimensionPixelSize(R.dimen.status_bar_header_height);
+                        }
+                    });
+                } catch (Throwable ignore) {
+                }
+
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_detail_header", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
@@ -1223,20 +1236,6 @@ public class StatusBarHeaderHooks {
                         layout.setGravity(Gravity.CENTER);
                     }
                 });
-
-                // Motorola
-                try {
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "zz_moto_status_bar_expanded_header", new XC_LayoutInflated() {
-                        @Override
-                        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                            liparam.view.setElevation(0);
-                            liparam.view.setPadding(0, 0, 0, 0);
-                            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) liparam.view.getLayoutParams();
-                            params.height = ResourceUtils.getInstance(liparam.view.getContext()).getDimensionPixelSize(R.dimen.status_bar_header_height);
-                        }
-                    });
-                } catch (Throwable ignore) {
-                }
 
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_panel", new XC_LayoutInflated() {
                     @Override
