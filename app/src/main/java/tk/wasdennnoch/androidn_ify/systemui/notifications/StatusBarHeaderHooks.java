@@ -865,11 +865,6 @@ public class StatusBarHeaderHooks {
         @Override
         public void onClickSafe(View v) {
             switch (v.getId()) {
-                case R.id.qs_up:
-                    XposedHelpers.callMethod(mQsPanel, "announceForAccessibility",
-                            mContext.getString(mContext.getResources().getIdentifier("accessibility_desc_quick_settings", "string", PACKAGE_SYSTEMUI)));
-                    XposedHelpers.callMethod(mQsPanel, "closeDetail");
-                    break;
                 case R.id.qs_right:
                     if (mCurrentDetailView != null && mCurrentDetailView instanceof DetailViewManager.DetailViewAdapter) {
                         ((DetailViewManager.DetailViewAdapter) mCurrentDetailView).handleRightButtonClick();
@@ -1211,20 +1206,15 @@ public class StatusBarHeaderHooks {
                         ResourceUtils res = ResourceUtils.getInstance(context);
                         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                        int qsUpButtonSize = res.getDimensionPixelSize(R.dimen.qs_up_button_size);
-                        int qsUpButtonMarginEnd = res.getDimensionPixelSize(R.dimen.qs_up_button_margin_end);
+                        int padding = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_panel_padding", "dimen", PACKAGE_SYSTEMUI));
 
-                        LinearLayout.LayoutParams upButtonLp = new LinearLayout.LayoutParams(qsUpButtonSize, qsUpButtonSize);
-                        upButtonLp.setMarginEnd(qsUpButtonMarginEnd);
-                        View upButton = inflater.inflate(res.getLayout(R.layout.qs_up_button), null);
-                        upButton.setOnClickListener(onClickListener);
+                        TextView title = (TextView) layout.findViewById(android.R.id.title);
+                        title.setPadding(padding, padding, padding, padding);
+
                         mQsRightButton = (ImageView) inflater.inflate(res.getLayout(R.layout.qs_right_button), null);
                         mQsRightButton.setOnClickListener(onClickListener);
                         mQsRightButton.setVisibility(View.GONE);
 
-                        int padding = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_panel_padding", "dimen", PACKAGE_SYSTEMUI));
-
-                        layout.addView(upButton, 0, upButtonLp);
                         layout.addView(mQsRightButton);
                         layout.setPadding(0, 0, padding, 0);
                         layout.setGravity(Gravity.CENTER);
