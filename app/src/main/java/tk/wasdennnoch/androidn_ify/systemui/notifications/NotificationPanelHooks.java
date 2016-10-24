@@ -81,6 +81,14 @@ public class NotificationPanelHooks {
         }
     };
 
+    private static XC_MethodHook setVerticalPanelTranslationHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (mQsCustomizer != null)
+                mQsCustomizer.setTranslationX((float) param.args[0]);
+        }
+    };
+
     private static final View.OnClickListener mExpandIndicatorListener = new SafeOnClickListener() {
         @Override
         public void onClickSafe(View v) {
@@ -151,6 +159,8 @@ public class NotificationPanelHooks {
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
+
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "setVerticalPanelTranslation", float.class, setVerticalPanelTranslationHook);
 
                 XposedHelpers.findAndHookMethod(classPanelView, "schedulePeek", new XC_MethodHook() {
                     @Override
