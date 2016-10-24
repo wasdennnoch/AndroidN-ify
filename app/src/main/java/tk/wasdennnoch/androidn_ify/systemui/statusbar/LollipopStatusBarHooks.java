@@ -14,6 +14,8 @@ import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 class LollipopStatusBarHooks extends StatusBarHooks {
 
+    private static final String TAG = "LollipopStatusBarHooks";
+
     LollipopStatusBarHooks(ClassLoader classLoader) {
         super(classLoader);
     }
