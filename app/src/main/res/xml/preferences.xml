@@ -125,6 +125,13 @@
                 android:summary="@string/keep_bg"
                 android:title="@string/keep_bg_title"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_notification_header"
+                android:key="force_old_date_position"
+                android:summary="@string/force_old_date_position_summary"
+                android:title="@string/force_old_date_position"/>
+
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="6"
                 android:dependency="enable_notification_header"

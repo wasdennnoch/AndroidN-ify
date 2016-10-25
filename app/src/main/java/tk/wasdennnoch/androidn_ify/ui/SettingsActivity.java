@@ -169,11 +169,12 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             //noinspection deprecation
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
             addPreferencesFromResource(R.xml.preferences);
-            SharedPreferences sharedPreferences = ConfigUtils.getPreferences(getActivity());
-            mExperimental = ConfigUtils.isExperimental(sharedPreferences);
-            mShowExperimental = ConfigUtils.showExperimental(sharedPreferences);
+            SharedPreferences prefs = ConfigUtils.getPreferences(getActivity());
+            findPreference("theme_colorPrimary").setEnabled(!prefs.getString("app_theme", "light").equals("device"));
+            mExperimental = ConfigUtils.isExperimental(prefs);
+            mShowExperimental = ConfigUtils.showExperimental(prefs);
             if (UpdateUtils.isEnabled()) {
-                if (sharedPreferences.getBoolean("check_for_updates", true))
+                if (prefs.getBoolean("check_for_updates", true))
                     UpdateUtils.check(getActivity(), this);
             } else {
                 PreferenceCategory appCategory = (PreferenceCategory) findPreference("settings_app");
@@ -186,7 +187,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 tweaksCategory.removePreference(experimentalPref);
             }
             // SELinux test, see XposedHook
-            sharedPreferences.edit().putBoolean("can_read_prefs", true).commit();
+            prefs.edit().putBoolean("can_read_prefs", true).commit();
 
             try {
                 mGoogleAppVersionName = getActivity().getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName;
@@ -204,8 +205,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 }
                 JSONArray hookConfigs = new JSONArray(result.toString());
                 // Should have thrown error here if no valid JSON
-                if (hookConfigs.optInt(0) > new JSONArray(sharedPreferences.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
-                    sharedPreferences.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, result.toString()).apply();
+                if (hookConfigs.optInt(0) > new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
+                    prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, result.toString()).apply();
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -213,7 +214,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
             // Read version and check if supported
             try {
-                JSONArray hookConfigs = new JSONArray(sharedPreferences.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]"));
+                JSONArray hookConfigs = new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]"));
                 for (int i = 0; i < hookConfigs.length(); i++) {
                     if (hookConfigs.optInt(i, -1) != -1)
                         continue;
@@ -270,6 +271,13 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             });
                         }
                         break;
+                    case "settings_qs":
+                        if (getResources().getBoolean(R.bool.quick_settings_show_full_alarm)) { // Already showing full alarm
+                            final Preference forceOldDatePosPref = screen.findPreference("force_old_date_position");
+                            forceOldDatePosPref.setEnabled(false);
+                            forceOldDatePosPref.setSummary(R.string.force_old_date_position_disabled_summary);
+                        }
+                        break;
                     case "settings_notifications":
                         if (!ConfigUtils.M) {
                             lockPreference(screen.findPreference("notification_experimental"));
@@ -284,8 +292,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     case "settings_experimental":
                         Preference assistant = findPreference("enable_assistant");
                         if (!ConfigUtils.M) {
-                            if (assistant != null)
-                                screen.removePreference(assistant);
+                            lockPreference(assistant);
                         } else {
                             if (!mAssistantSupported) {
                                 assistant.setEnabled(false);
@@ -297,7 +304,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             } else {
                 switch (preference.getKey()) {
                     case "fix_stuck_inversion":
-                        getActivity().sendBroadcast(new Intent(ACTION_FIX_INVERSION));
+                        getActivity().sendBroadcast(new Intent(ACTION_FIX_INVERSION).setPackage("com.android.systemui"));
                         break;
                 }
             }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewParent;
 
-import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;

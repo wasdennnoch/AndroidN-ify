@@ -155,7 +155,7 @@ public class StatusBarHeaderHooks {
             ResourceUtils res = mResUtils;
             ConfigUtils config = ConfigUtils.getInstance();
 
-            mShowFullAlarm = res.getResources().getBoolean(R.bool.quick_settings_show_full_alarm);
+            mShowFullAlarm = res.getResources().getBoolean(R.bool.quick_settings_show_full_alarm) || config.qs.force_old_date_position;
 
             try {
                 if (!config.qs.keep_header_background) {

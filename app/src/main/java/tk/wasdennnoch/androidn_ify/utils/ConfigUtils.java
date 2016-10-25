@@ -161,6 +161,7 @@ public class ConfigUtils {
         public final boolean header;
         public final boolean keep_header_background;
         public final boolean keep_qs_panel_background;
+        public final boolean force_old_date_position;
         public final int qs_tiles_count;
         public final boolean battery_tile_show_percentage;
         public final boolean enable_qs_editor;
@@ -175,6 +176,7 @@ public class ConfigUtils {
 
         public QuickSettingsConfig(SharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
+            force_old_date_position = prefs.getBoolean("force_old_date_position", false);
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 6);
             battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", false);
             enable_qs_editor = prefs.getBoolean("enable_qs_editor", true);
