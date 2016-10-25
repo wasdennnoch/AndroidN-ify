@@ -28,8 +28,8 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_install_source"
-                android:title="@string/enable_install_source_title"
-                android:summary="@string/enable_install_source"/>
+                android:summary="@string/enable_install_source"
+                android:title="@string/enable_install_source_title"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -96,8 +96,8 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_large_recents"
-                android:title="@string/enable_large_recents"
-                android:summary="@string/enable_large_recents_summary"/>
+                android:summary="@string/enable_large_recents_summary"
+                android:title="@string/enable_large_recents"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -152,6 +152,13 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:dependency="enable_qs_editor"
+                android:key="alternative_qs_loading"
+                android:summary="@string/alternative_qs_loading_summary"
+                android:title="@string/alternative_qs_loading"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_qs_editor"
                 android:key="battery_tile_show_percentage"
                 android:summary="@string/battery_tile_show_percentage_summary"
                 android:title="@string/battery_tile_show_percentage"/>
@@ -167,8 +174,8 @@
                 android:defaultValue="false"
                 android:dependency="enable_notification_header"
                 android:key="enable_large_first_row"
-                android:title="@string/enable_large_first_row"
-                android:summary="@string/enable_large_first_row_summary2"/>
+                android:summary="@string/enable_large_first_row_summary2"
+                android:title="@string/enable_large_first_row"/>
 
             <SwitchPreference
                 android:defaultValue="false"
@@ -239,20 +246,20 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:key="allow_direct_reply_on_keyguard"
-                android:title="@string/allow_direct_reply_on_keyguard"
-                android:summary="@string/allow_direct_reply_on_keyguard_summary"/>
+                android:summary="@string/allow_direct_reply_on_keyguard_summary"
+                android:title="@string/allow_direct_reply_on_keyguard"/>
 
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_notifications_background"
-                android:title="@string/enable_notifications_background"
-                android:summary="@string/enable_notifications_background_summary"/>
+                android:summary="@string/enable_notifications_background_summary"
+                android:title="@string/enable_notifications_background"/>
 
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_data_disabled_indicator"
-                android:title="@string/enable_data_disabled_indicator"
-                android:summary="@string/enable_data_disabled_indicator_summary"/>
+                android:summary="@string/enable_data_disabled_indicator_summary"
+                android:title="@string/enable_data_disabled_indicator"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -264,8 +271,8 @@
                 android:defaultValue="false"
                 android:dependency="notification_change_style"
                 android:key="notifications_custom_actions_color"
-                android:title="@string/notifications_custom_actions_color_title"
-                android:summary="@string/notifications_custom_actions_color"/>
+                android:summary="@string/notifications_custom_actions_color"
+                android:title="@string/notifications_custom_actions_color_title"/>
 
             <net.margaritov.preference.colorpicker.ColorPickerPreference
                 alphaSlider="true"
@@ -302,7 +309,7 @@
                 android:dependency="enable_emergency_info"
                 android:key="edit_emergency_info"
                 android:title="@string/edit_emergency_info_title">
-                <intent android:action="tk.wasdennnoch.androidn_ify.LAUNCH_EDIT_EMERGENGY_INFO" />
+                <intent android:action="tk.wasdennnoch.androidn_ify.LAUNCH_EDIT_EMERGENGY_INFO"/>
             </PreferenceScreen>
 
         </PreferenceScreen>
@@ -341,7 +348,7 @@
                 android:dependency="enable_experimental_features"
                 android:key="enable_assistant"
                 android:summary="@string/enable_assistant_summary"
-                android:title="@string/enable_assistant" />
+                android:title="@string/enable_assistant"/>
 
         </PreferenceScreen>
 

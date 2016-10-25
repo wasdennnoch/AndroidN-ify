@@ -100,9 +100,7 @@
   <string name="allow_fancy_qs_transition">ファンシーなクイック設定の遷移</string>
   <string name="enable_new_tile_click_behavior">新しいタイルをクリックしたときの動作</string>
   <string name="enable_large_first_row">最初の行を拡大</string>
-  <string name="header_clock_size_title">ヘッダーの時計サイズ</string>
-  <string name="header_clock_size_tiny">さらに極小</string>
-  <string name="hide_icons_title">ヘッダーのアイテムを隠す</string>
+    <string name="hide_icons_title">ヘッダーのアイテムを隠す</string>
   <string name="hide_tuner_icon_title">システムUI調整ツールのアイコンを隠す</string>
   <string name="hide_carrier_label_title">キャリア表示(auやdocomoなど) を隠す</string>
   <!-- Search hint in the blacklist app Activity -->
@@ -162,14 +160,9 @@
   <string name="unknown_name">不明</string>
   <string name="address">住所</string>
   <string name="unknown_address">不明</string>
-  <string name="date_of_birth">生年月日</string>
-  <string name="unknown_date_of_birth">不明</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">年齢: %1$d</string>
-  <string name="remove_dob_icon_text">生年月日を削除</string>
-  <string name="blood_type">血液型</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">血液型</string>
   <string name="unknown_blood_type">不明</string>
   <string name="allergies">アレルギー</string>
   <string name="unknown_allergies">不明</string>
@@ -194,8 +187,7 @@
   <string name="yes">はい</string>
   <string name="no">いいえ</string>
   <string name="battery">電池</string>
-  <string name="charged">充電完了</string>
-  <string name="qs_edit">編集</string>
+    <string name="qs_edit">編集</string>
   <string name="drag_to_add_tiles">タイルを追加するにはドラッグしてください</string>
   <string name="drag_to_remove_tiles">削除するにはここにドラッグ</string>
   <string name="live_display">LiveDisplay</string>
@@ -256,9 +248,7 @@
   <string name="dialog_color_picker">カラーピッカー</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="battery_detail_switch_title">バッテリー セーバー</string>
-  <string name="notification_spoof_api_version_title">API 24に偽装</string>
-  <string name="notification_spoof_api_version">API 24で実行しているかのようにアプリを偽装します。</string>
-  <string name="hide_tiles_on_lockscreen">ロック画面でタイルを隠す</string>
+    <string name="hide_tiles_on_lockscreen">ロック画面でタイルを隠す</string>
   <string name="done">完了</string>
   <string name="cm_qs_settings">CM QSの設定</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->

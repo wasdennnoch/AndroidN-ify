@@ -78,11 +78,7 @@
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Δεν υπάρχουν πρόσφατα στοιχεία</string>
   <!-- The unit of the counter next to the slider -->
-  <string name="header_clock_size_normal">Κανονική λειτουργία</string>
-  <string name="header_clock_size_small">Μικρό</string>
-  <string name="header_clock_size_smaller">Μικρότερο</string>
-  <string name="header_clock_size_tiny">Μικροσκοπικό</string>
-  <string name="hide_icons_title">Απόκρυψη στοιχείων κεφαλίδας</string>
+    <string name="hide_icons_title">Απόκρυψη στοιχείων κεφαλίδας</string>
   <string name="hide_tuner_icon_title">Απόκρυψη εικονίδιο τροποποίησης SystemUI</string>
   <!-- Search hint in the blacklist app Activity -->
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
@@ -103,14 +99,9 @@
   <string name="unknown_name">Άγνωστο</string>
   <string name="address">Διεύθυνση</string>
   <string name="unknown_address">Άγνωστο</string>
-  <string name="date_of_birth">Ημερομηνία γέννησης</string>
-  <string name="unknown_date_of_birth">Άγνωστο</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Ηλικία: %1$d</string>
-  <string name="remove_dob_icon_text">Αφαίρεση ημερομηνίας γέννησης</string>
-  <string name="blood_type">Τύπο αίματος</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Τύπο αίματος</string>
   <string name="unknown_blood_type">Άγνωστο</string>
   <string name="allergies">Αλλεργίες</string>
   <string name="unknown_allergies">Άγνωστο</string>
@@ -135,9 +126,7 @@
   <string name="yes">Ναι</string>
   <string name="no">Όχι</string>
   <string name="battery">Μπαταρία</string>
-  <string name="charged">Φορτισμένο</string>
-  <string name="charging">Φόρτιση, %1$s</string>
-  <string name="qs_edit">Επεξεργασία</string>
+    <string name="qs_edit">Επεξεργασία</string>
   <string name="drag_to_add_tiles">Σύρετε για να προσθέσετε πλακίδια</string>
   <string name="drag_to_remove_tiles">Σύρετε εδώ για να αφαιρέσετε</string>
   <string name="live_display">Ζωντανή Προβολή</string>

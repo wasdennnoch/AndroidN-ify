@@ -135,6 +135,8 @@
     <string name="battery_tile_show_percentage">Show percentage in battery tile</string>
     <string name="battery_tile_show_percentage_summary">Show battery percentage in the battery tile</string>
     <string name="enable_qs_editor">Enable QS editor</string>
+    <string name="alternative_qs_loading">Alternative QS loading</string>
+    <string name="alternative_qs_loading_summary">Use a different way to get the available QS tiles. Only use if you are missing tiles in the editor</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
     <string name="enable_new_tile_click_behavior">New tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
@@ -143,11 +145,6 @@
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
     <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
 
-    <string name="header_clock_size_title">Header clock size</string>
-    <string name="header_clock_size_normal">Normal</string>
-    <string name="header_clock_size_small">Small</string>
-    <string name="header_clock_size_smaller">Smaller</string>
-    <string name="header_clock_size_tiny">Tiny</string>
     <string name="hide_icons_title">Hide header items</string>
     <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
     <string name="hide_edit_tiles_title">Hide edit tiles button</string>
@@ -265,13 +262,6 @@
     <string name="unknown_name">Unknown</string>
     <string name="address">Address</string>
     <string name="unknown_address">Unknown</string>
-    <string name="date_of_birth">Date of birth</string>
-    <string name="unknown_date_of_birth">Unknown</string>
-    <!-- Example: (3 feb 1987) -->
-    <string name="dob">(%1$s)</string>
-    <!-- Example: Age: 23 -->
-    <string name="age">Age: %1$d</string>
-    <string name="remove_dob_icon_text">Remove date of birth</string>
     <string name="blood_type">Blood type</string>
     <string name="unknown_blood_type">Unknown</string>
     <string name="allergies">Allergies</string>
@@ -300,8 +290,6 @@
     <string name="no">No</string>
 
     <string name="battery">Battery</string>
-    <string name="charged">Charged</string>
-    <string name="charging">Charging, %1$s</string>
 
     <string name="qs_edit">Edit</string>
     <string name="drag_to_add_tiles">Drag to add tiles</string>
@@ -374,8 +362,6 @@
     <string name="battery_detail_switch_summary">Reduces performance and background data</string>
     <string name="qs_add_notes_title">Notes</string>
     <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
-    <string name="notification_spoof_api_version_title">Spoof API 24</string>
-    <string name="notification_spoof_api_version">Spoof these apps into thinking they\'re running on API 24</string>
     <string name="hide_tiles_on_lockscreen">Hide tiles on lockscreen</string>
     <string name="done">Done</string>
     <string name="cm_qs_settings">CM QS settings</string>

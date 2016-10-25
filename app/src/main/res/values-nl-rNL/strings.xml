@@ -119,12 +119,7 @@ U gebruikt een experimentele automatische build. Sommige functies werken hierdoo
   <string name="enable_large_first_row_summary2">Maakt de eerste twee tegels groter indien ondersteund</string>
   <string name="fix_stuck_inversion_title">Los vaste inversie op</string>
   <string name="fix_stuck_inversion">Op sommige apperaten loopt de inversie vast. Klik hier om het geforceerd uit te zetten</string>
-  <string name="header_clock_size_title">Bovenkant klok formaat</string>
-  <string name="header_clock_size_normal">Normaal</string>
-  <string name="header_clock_size_small">Klein</string>
-  <string name="header_clock_size_smaller">Kleiner</string>
-  <string name="header_clock_size_tiny">Kleinst</string>
-  <string name="hide_icons_title">Verberg header items</string>
+    <string name="hide_icons_title">Verberg header items</string>
   <string name="hide_tuner_icon_title">Verberg SystemUI Tuner icoontje</string>
   <string name="hide_edit_tiles_title">Verberg \"pas tegels aan\" knop</string>
   <string name="hide_edit_tiles_summary">Dit verbergt alleen de standaard aanpassen knop!</string>
@@ -228,14 +223,9 @@ U gebruikt een experimentele automatische build. Sommige functies werken hierdoo
   <string name="unknown_name">Onbekend</string>
   <string name="address">Adres</string>
   <string name="unknown_address">Onbekend</string>
-  <string name="date_of_birth">Geboortedatum</string>
-  <string name="unknown_date_of_birth">Onbekend</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Leeftijd: %1$d</string>
-  <string name="remove_dob_icon_text">Geboortedatum verwijderen</string>
-  <string name="blood_type">Bloedgroep</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Bloedgroep</string>
   <string name="unknown_blood_type">Onbekend</string>
   <string name="allergies">Allergieën</string>
   <string name="unknown_allergies">Onbekend</string>
@@ -260,9 +250,7 @@ U gebruikt een experimentele automatische build. Sommige functies werken hierdoo
   <string name="yes">Ja</string>
   <string name="no">Nee</string>
   <string name="battery">Accu</string>
-  <string name="charged">Opgeladen</string>
-  <string name="charging">Opladen,</string>
-  <string name="qs_edit">Bewerken</string>
+    <string name="qs_edit">Bewerken</string>
   <string name="drag_to_add_tiles">Sleep om tegels toe te voegen</string>
   <string name="drag_to_remove_tiles">Sleep hier om te verwijderen</string>
   <string name="live_display">LiveScherm</string>
@@ -331,9 +319,7 @@ U gebruikt een experimentele automatische build. Sommige functies werken hierdoo
   <string name="battery_detail_switch_summary">Verlaag prestaties en achtergrond gegevens</string>
   <string name="qs_add_notes_title">Notities</string>
   <string name="qs_add_notes">Dit wordt alleen gebruikt voor app die uitzend tegels aanbieden (zoals \"Custom Quick Settings\"). Lees de instructie in de tegelprovider app alvorens dit te gebruiken.</string>
-  <string name="notification_spoof_api_version_title">Fop API 24</string>
-  <string name="notification_spoof_api_version">Fop deze apps dat ze API 24 gebruiken</string>
-  <string name="hide_tiles_on_lockscreen">Tegels op lockscreen verbergen</string>
+    <string name="hide_tiles_on_lockscreen">Tegels op lockscreen verbergen</string>
   <string name="done">Klaar</string>
   <string name="cm_qs_settings">CM QS instellingen</string>
   <string name="disable_qs_paging">QS wisselbestand uitschakelen</string>

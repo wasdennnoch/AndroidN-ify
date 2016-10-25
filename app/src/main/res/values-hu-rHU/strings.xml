@@ -128,12 +128,7 @@
   <string name="enable_large_first_row_summary2">A két legelső csempét nagyobbá teszi, ha az támogatott</string>
   <string name="fix_stuck_inversion_title">Beragadt inverzió javítása</string>
   <string name="fix_stuck_inversion">Néhány eszközön az inverzió beragad, ha engedélyezik. Koppints ide a deaktiválás kényszerítéséhez</string>
-  <string name="header_clock_size_title">Fejléc óra mérete</string>
-  <string name="header_clock_size_normal">Normál</string>
-  <string name="header_clock_size_small">Kicsi</string>
-  <string name="header_clock_size_smaller">Kisebb</string>
-  <string name="header_clock_size_tiny">Parányi</string>
-  <string name="hide_icons_title">Fejléc elemeinek elrejtése</string>
+    <string name="hide_icons_title">Fejléc elemeinek elrejtése</string>
   <string name="hide_tuner_icon_title">SystemUI Tuner ikon elrejtése</string>
   <string name="hide_edit_tiles_title">Csempék szerkesztése gomb elrejtése</string>
   <string name="hide_edit_tiles_summary">Ez csak az alap Androidos szerkesztés gombot tűnteti el!</string>
@@ -237,14 +232,9 @@
   <string name="unknown_name">Ismeretlen</string>
   <string name="address">Cím</string>
   <string name="unknown_address">Ismeretlen</string>
-  <string name="date_of_birth">Születési dátum</string>
-  <string name="unknown_date_of_birth">Ismeretlen</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Életkor: %1$d</string>
-  <string name="remove_dob_icon_text">Születési dátum eltávolítása</string>
-  <string name="blood_type">Vértípus</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Vértípus</string>
   <string name="unknown_blood_type">Ismeretlen</string>
   <string name="allergies">Allergiák</string>
   <string name="unknown_allergies">Ismeretlen</string>
@@ -269,9 +259,7 @@
   <string name="yes">Igen</string>
   <string name="no">Nem</string>
   <string name="battery">Akkumulátor</string>
-  <string name="charged">Feltöltve</string>
-  <string name="charging">Töltődik, %1$s</string>
-  <string name="qs_edit">Szerkesztés</string>
+    <string name="qs_edit">Szerkesztés</string>
   <string name="drag_to_add_tiles">Húzd csempék hozzáadásához</string>
   <string name="drag_to_remove_tiles">Húzd ide a törléshez</string>
   <string name="live_display">LiveDisplay</string>
@@ -340,9 +328,7 @@
   <string name="battery_detail_switch_summary">Csökkenti a teljesítményt és a háttéradat-felhasználást</string>
   <string name="qs_add_notes_title">Jegyzetek</string>
   <string name="qs_add_notes">Ez csak olyan alkalmazásokhoz használható, amelyek közvetítés csempéket szolgáltatnak (mint pl. az \"Egyéni Gyorsbeállítások\"). Kérlek olvasd el az utasításokat a csempeszolgáltatóban, mielőtt ezt használnád.</string>
-  <string name="notification_spoof_api_version_title">API 24 tettetése</string>
-  <string name="notification_spoof_api_version">Elhiteti ezekkel az alkalmazásokkal, hogy a 24-es API-n futnak</string>
-  <string name="hide_tiles_on_lockscreen">Csempék elrejtése a zárképernyőn</string>
+    <string name="hide_tiles_on_lockscreen">Csempék elrejtése a zárképernyőn</string>
   <string name="done">Kész</string>
   <string name="cm_qs_settings">CM-es QS beállítások</string>
   <string name="disable_qs_paging">QS lapozás tiltása</string>

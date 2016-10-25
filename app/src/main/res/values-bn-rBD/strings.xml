@@ -65,8 +65,7 @@ Xposed can\'t এই মডিউল অগ্রাধিকার ফাইল
   <!-- The unit of the counter next to the slider -->
   <string name="battery_tile_show_percentage">ব্যাটারিতে পার্সেন্টেজ চিহ্ন দেখান</string>
   <string name="enable_large_first_row">প্রথম সারি বড় করুন</string>
-  <string name="header_clock_size_title">হেডারের ঘড়ির সাইজ</string>
-  <string name="hide_tuner_icon_title">SystemUI টিউনার আইকন হাইড করুন</string>
+    <string name="hide_tuner_icon_title">SystemUI টিউনার আইকন হাইড করুন</string>
   <string name="hide_edit_tiles_title">এডিট টাইল বাটন হাইড করুন</string>
   <string name="hide_edit_tiles_summary">এটি শুধুমাত্র স্টক এডিট বাটন হাইড করে!</string>
   <!-- Search hint in the blacklist app Activity -->

@@ -122,12 +122,7 @@
   <string name="enable_large_first_row_summary2">Первые две плитки появляются большими , если поддерживается </string>
   <string name="fix_stuck_inversion_title">Исправить инверсию</string>
   <string name="fix_stuck_inversion">На некоторых устройствах инверсия застревает, когда включена. Нажмите для принудительного отключения</string>
-  <string name="header_clock_size_title">Размер часов в шапке статус-бара</string>
-  <string name="header_clock_size_normal">Нормальный</string>
-  <string name="header_clock_size_small">Уменьшенный</string>
-  <string name="header_clock_size_smaller">Маленький</string>
-  <string name="header_clock_size_tiny">Крошечный</string>
-  <string name="hide_icons_title">Спрятать элементы панели быстрых настроек</string>
+    <string name="hide_icons_title">Спрятать элементы панели быстрых настроек</string>
   <string name="hide_tuner_icon_title">Скрыть иконку SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Скрыть кнопку редактирования плиток</string>
   <string name="hide_edit_tiles_summary">Это прячет только стоковую кнопку редактирования плиток!</string>
@@ -239,14 +234,9 @@
   <string name="unknown_name">Неизвестно</string>
   <string name="address">Адрес</string>
   <string name="unknown_address">Неизвестно</string>
-  <string name="date_of_birth">Дата рождения</string>
-  <string name="unknown_date_of_birth">Неизвестно</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Возраст: %1$d</string>
-  <string name="remove_dob_icon_text">Удалить дату рождения</string>
-  <string name="blood_type">Группа крови</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Группа крови</string>
   <string name="unknown_blood_type">Неизвестно</string>
   <string name="allergies">Аллергия</string>
   <string name="unknown_allergies">Неизвестно</string>
@@ -271,9 +261,7 @@
   <string name="yes">Да</string>
   <string name="no">Нет</string>
   <string name="battery">Батарея</string>
-  <string name="charged">Заряжено</string>
-  <string name="charging">Зарядка, %1$s</string>
-  <string name="qs_edit">Изменить</string>
+    <string name="qs_edit">Изменить</string>
   <string name="drag_to_add_tiles">Перетащите плитку для добавления</string>
   <string name="drag_to_remove_tiles">Перетащите сюда для удаления</string>
   <string name="live_display">LiveDisplay</string>
@@ -342,9 +330,7 @@
   <string name="battery_detail_switch_summary">Сокращает производительность и фоновые программы</string>
   <string name="qs_add_notes_title">Примечания</string>
   <string name="qs_add_notes">Это используется только для приложений, которые предоставляют плитки трансляции (например, «Custom Quick Settings»). Пожалуйста, прочитайте инструкции в приложении поставщика плиток перед использованием.</string>
-  <string name="notification_spoof_api_version_title">Подменять на API 24</string>
-  <string name="notification_spoof_api_version">Обманывать эти приложения, чтобы они думали, что они работают на API 24</string>
-  <string name="hide_tiles_on_lockscreen">Скрыть плитки на экране блокировки</string>
+    <string name="hide_tiles_on_lockscreen">Скрыть плитки на экране блокировки</string>
   <string name="done">Готово</string>
   <string name="cm_qs_settings">Настройки CM QS</string>
   <string name="disable_qs_paging">Отключить страницы в QS</string>

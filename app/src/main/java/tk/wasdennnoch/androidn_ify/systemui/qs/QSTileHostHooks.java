@@ -409,7 +409,7 @@ public class QSTileHostHooks {
             String[] availableSpecs = context.getString(
                     context.getResources().getIdentifier("quick_settings_tiles_default", "string", XposedHook.PACKAGE_SYSTEMUI))
                     .split(",");
-            if (availableSpecs.length == 1 && availableSpecs[0].equals("default"))
+            if (ConfigUtils.qs().alternative_qs_loading || (availableSpecs.length == 1 && availableSpecs[0].equals("default")))
                 throw new Throwable();
             for (String s : availableSpecs) {
                 if (!TextUtils.isEmpty(s))
@@ -446,6 +446,7 @@ public class QSTileHostHooks {
             String s = "";
             for (String sp : specs)
                 s += sp + ", ";
+            s = s.substring(0, s.length() - 2);
             XposedHook.logD(TAG, "getAvailableTiles: Found specs: " + s);
         }
         return specs;

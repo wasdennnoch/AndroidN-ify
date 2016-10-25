@@ -124,12 +124,7 @@
   <string name="enable_large_first_row_summary2">Destekleniyorsa ilk iki satırı büyütür</string>
   <string name="fix_stuck_inversion_title">Takılmış ters çevirmeyi düzelt</string>
   <string name="fix_stuck_inversion">Etkinleştirildiğinde bazı cihazlarda ters çevirme takılıyor. Devre dışı bırakmaya zorlamak için tıklayın</string>
-  <string name="header_clock_size_title">Başlıktaki saatin boyutu</string>
-  <string name="header_clock_size_normal">Normal</string>
-  <string name="header_clock_size_small">Küçük</string>
-  <string name="header_clock_size_smaller">Daha küçük</string>
-  <string name="header_clock_size_tiny">En küçük</string>
-  <string name="hide_icons_title">Başlık öğelerini gizle</string>
+    <string name="hide_icons_title">Başlık öğelerini gizle</string>
   <string name="hide_tuner_icon_title">Sistem Arayüzü Ayar simgesini gizle</string>
   <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
   <string name="hide_edit_tiles_summary">Bu sadece mevcut düzenleme düğmesini gizler!</string>
@@ -233,14 +228,9 @@
   <string name="unknown_name">Bilinmiyor</string>
   <string name="address">Adres</string>
   <string name="unknown_address">Bilinmiyor</string>
-  <string name="date_of_birth">Doğum tarihi</string>
-  <string name="unknown_date_of_birth">Bilinmiyor</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Yaş: %1$d</string>
-  <string name="remove_dob_icon_text">Doğum tarihini kaldır</string>
-  <string name="blood_type">Kan grubu</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Kan grubu</string>
   <string name="unknown_blood_type">Bilinmiyor</string>
   <string name="allergies">Alerjiler</string>
   <string name="unknown_allergies">Bilinmiyor</string>
@@ -265,9 +255,7 @@
   <string name="yes">Evet</string>
   <string name="no">Hayır</string>
   <string name="battery">Pil</string>
-  <string name="charged">Şarj edildi</string>
-  <string name="charging">Şarj oluyor, %1$s</string>
-  <string name="qs_edit">Düzenle</string>
+    <string name="qs_edit">Düzenle</string>
   <string name="drag_to_add_tiles">Kare eklemek için sürükleyin</string>
   <string name="drag_to_remove_tiles">Kaldırmak için buraya sürükleyin</string>
   <string name="live_display">LiveDisplay</string>
@@ -336,9 +324,7 @@
   <string name="battery_detail_switch_summary">Performansı ve arka plan verilerini azaltır</string>
   <string name="qs_add_notes_title">Notlar</string>
   <string name="qs_add_notes">Bu, sadece (örneğin \"Özel Hızlı Ayarlar\" gibi) yayın kareleri sağlayan uygulamalar için kullanılır. Bunu kullanmadan önce kare sağlayıcı uygulamasından talimatlarını okuyun.</string>
-  <string name="notification_spoof_api_version_title">API 24 gibi göster</string>
-  <string name="notification_spoof_api_version">Bu uygulamalara API seviyesini 24 gibi göster</string>
-  <string name="hide_tiles_on_lockscreen">Kilit ekranında gizlenecek simgeler</string>
+    <string name="hide_tiles_on_lockscreen">Kilit ekranında gizlenecek simgeler</string>
   <string name="done">Bitti</string>
   <string name="cm_qs_settings">CM HA ayarları</string>
   <string name="disable_qs_paging">HAlar\'ı yan sayfaya taşırtma</string>

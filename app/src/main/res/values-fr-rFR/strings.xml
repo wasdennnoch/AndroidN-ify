@@ -121,12 +121,7 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="enable_large_first_row_summary2">Rendre les deux première tuiles plus larges si possible</string>
   <string name="fix_stuck_inversion_title">Corriger l\'inversion bloquée</string>
   <string name="fix_stuck_inversion">Sur certains périphériques l\'inversion se bloque lorsqu\'elle est activée. Appuyez pour forcer la désactivation</string>
-  <string name="header_clock_size_title">Taille de l\'horloge d\'en-tête</string>
-  <string name="header_clock_size_normal">Normale</string>
-  <string name="header_clock_size_small">Petite</string>
-  <string name="header_clock_size_smaller">Plus petite</string>
-  <string name="header_clock_size_tiny">Minime</string>
-  <string name="hide_icons_title">Cacher les éléments d\'en-tête</string>
+    <string name="hide_icons_title">Cacher les éléments d\'en-tête</string>
   <string name="hide_tuner_icon_title">Cacher l\'icone de  SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Cacher le bouton d\'édition des tuiles</string>
   <string name="hide_edit_tiles_summary">Ceci ne cache que le bouton d\'origine ! </string>
@@ -230,14 +225,9 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="unknown_name">Inconnu</string>
   <string name="address">Adresse</string>
   <string name="unknown_address">Inconnu</string>
-  <string name="date_of_birth">Date de naissance</string>
-  <string name="unknown_date_of_birth">Inconnu</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Âge: %1$d</string>
-  <string name="remove_dob_icon_text">Supprimer la date de naissance</string>
-  <string name="blood_type">Groupe sanguin</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Groupe sanguin</string>
   <string name="unknown_blood_type">Inconnu</string>
   <string name="allergies">Allergies</string>
   <string name="unknown_allergies">Inconnu</string>
@@ -262,9 +252,7 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="yes">Oui</string>
   <string name="no">Non</string>
   <string name="battery">Batterie</string>
-  <string name="charged">Chargée</string>
-  <string name="charging">En Charge, %1$s</string>
-  <string name="qs_edit">Editer</string>
+    <string name="qs_edit">Editer</string>
   <string name="drag_to_add_tiles">Faites glisser des tuiles ici pour les ajouter</string>
   <string name="drag_to_remove_tiles">Faites glisser des tuiles ici pour les supprimer</string>
   <string name="live_display">Live Display</string>
@@ -333,9 +321,7 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="battery_detail_switch_summary">Réduit les performances et les données en arrière plan</string>
   <string name="qs_add_notes_title">Notes</string>
   <string name="qs_add_notes">Ceci est utilisé uniquement pour les applis qui proposent des tuiles personnalisées (telle que \"Custom Quick Settings\"). Merci de lire les instructions de l/\'appli proposant des tuiles avant d/\'utiliser ceci. </string>
-  <string name="notification_spoof_api_version_title">Émuler API 24</string>
-  <string name="notification_spoof_api_version">Faire croire à ces applications qu\'elles fonctionnent sur 24 API</string>
-  <string name="hide_tiles_on_lockscreen">Masquer les tuiles sur l\'écran de verrouillage</string>
+    <string name="hide_tiles_on_lockscreen">Masquer les tuiles sur l\'écran de verrouillage</string>
   <string name="done">Terminé</string>
   <string name="cm_qs_settings">Paramètres QS CM</string>
   <string name="disable_qs_paging">Désactiver pagination QS</string>

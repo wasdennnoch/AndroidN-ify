@@ -126,12 +126,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="enable_large_first_row_summary2">Sprawia, że dwa pierwsze skróty są większe, o ile jest to obsługiwane</string>
   <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
   <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
-  <string name="header_clock_size_title">Rozmiar zegarka w nagłówku</string>
-  <string name="header_clock_size_normal">Normalny</string>
-  <string name="header_clock_size_small">Mały</string>
-  <string name="header_clock_size_smaller">Mniejszy</string>
-  <string name="header_clock_size_tiny">Najmniejszy</string>
-  <string name="hide_icons_title">Ukryj wybrane elementy nagłówka</string>
+    <string name="hide_icons_title">Ukryj wybrane elementy nagłówka</string>
   <string name="hide_tuner_icon_title">Ukryj ikonę edycji SystemUI</string>
   <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
   <string name="hide_edit_tiles_summary">Ukrywa tylko stockowy przycisk edycji!</string>
@@ -243,14 +238,9 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="unknown_name">Nieznane</string>
   <string name="address">Adres</string>
   <string name="unknown_address">Nieznany</string>
-  <string name="date_of_birth">Data urodzenia</string>
-  <string name="unknown_date_of_birth">Nieznana</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Wiek: %1$d</string>
-  <string name="remove_dob_icon_text">Usuń datę urodzenia</string>
-  <string name="blood_type">Grupa krwi</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Grupa krwi</string>
   <string name="unknown_blood_type">Nieznana</string>
   <string name="allergies">Alergie</string>
   <string name="unknown_allergies">Nieznane</string>
@@ -275,9 +265,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
   <string name="battery">Bateria</string>
-  <string name="charged">Naładowana</string>
-  <string name="charging">Ładowanie, %1$s</string>
-  <string name="qs_edit">Edycja</string>
+    <string name="qs_edit">Edycja</string>
   <string name="drag_to_add_tiles">Przeciągnij aby dodać kafelek</string>
   <string name="drag_to_remove_tiles">Przeciągnij tu, aby usunąć</string>
   <string name="live_display">LiveDisplay</string>
@@ -346,9 +334,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="battery_detail_switch_summary">Zmniejsza wydajność i ogranicza dane w tle</string>
   <string name="qs_add_notes_title">Notatki</string>
   <string name="qs_add_notes">Używane tylko dla aplikacji, które zapewniają emisję danych (jak na przykład \"Szybkie ustawienia\"). Proszę przeczytać instrukcje w odpowiedniej aplikacji przed użyciem tej opcji.</string>
-  <string name="notification_spoof_api_version_title">Okantuj API 24</string>
-  <string name="notification_spoof_api_version">Zmuś aplikacje do myślenia, że działają na API 24</string>
-  <string name="hide_tiles_on_lockscreen">Ukryj kafelki na ekranie blokady</string>
+    <string name="hide_tiles_on_lockscreen">Ukryj kafelki na ekranie blokady</string>
   <string name="done">Gotowe</string>
   <string name="cm_qs_settings">Ustawienia CM QS</string>
   <string name="disable_qs_paging">Wyłącz stronicowanie QS</string>

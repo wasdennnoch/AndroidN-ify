@@ -119,12 +119,7 @@
   <string name="enable_large_first_row">Збільшити перший рядок</string>
   <string name="fix_stuck_inversion_title">Виправити інверсію</string>
   <string name="fix_stuck_inversion">На деяких пристроях інверсія застряє, коли увімкнена. Натисніть для примусового вимкнення</string>
-  <string name="header_clock_size_title">Розмір годинника в рядку стану</string>
-  <string name="header_clock_size_normal">Звичайний</string>
-  <string name="header_clock_size_small">Маленький</string>
-  <string name="header_clock_size_smaller">Малий</string>
-  <string name="header_clock_size_tiny">Мінімальний</string>
-  <string name="hide_icons_title">Сховати елементи панелі швидких налаштувань</string>
+    <string name="hide_icons_title">Сховати елементи панелі швидких налаштувань</string>
   <string name="hide_tuner_icon_title">Приховати значок SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Приховати кнопку редагування плиток</string>
   <string name="hide_edit_tiles_summary">Це приховує тільки стокову кнопку редагування плиток!</string>
@@ -233,14 +228,9 @@
   <string name="unknown_name">Невідомо</string>
   <string name="address">Адреса</string>
   <string name="unknown_address">Невідомо</string>
-  <string name="date_of_birth">Дата народження</string>
-  <string name="unknown_date_of_birth">Невідомо</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Вік: %1$d</string>
-  <string name="remove_dob_icon_text">Видалити дату народження</string>
-  <string name="blood_type">Група крові</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Група крові</string>
   <string name="unknown_blood_type">Невідомо</string>
   <string name="allergies">Алергії</string>
   <string name="unknown_allergies">Невідомо</string>
@@ -265,9 +255,7 @@
   <string name="yes">Так</string>
   <string name="no">Ні</string>
   <string name="battery">Акумулятор</string>
-  <string name="charged">Заряджено</string>
-  <string name="charging">Зарядка, %1$s</string>
-  <string name="qs_edit">Змінити</string>
+    <string name="qs_edit">Змінити</string>
   <string name="drag_to_add_tiles">Перетягніть, щоб додати плитку</string>
   <string name="drag_to_remove_tiles">Перетягніть сюди, щоб видалити</string>
   <string name="live_display">LiveDisplay</string>
@@ -335,9 +323,7 @@
   <string name="battery_detail_switch_summary">Знижує продуктивність та фонові дані</string>
   <string name="qs_add_notes_title">Примітки</string>
   <string name="qs_add_notes">Це використовується лише для додатків, які надають плитки трансляції (наприклад, «Custom Quick Settings»). Будь ласка, прочитайте інструкції в додатку постачальника плиток перед використанням цього.</string>
-  <string name="notification_spoof_api_version_title">Підміняти на API 24</string>
-  <string name="notification_spoof_api_version">Обманювати ці додатки, щоб вони думали, що вони працюють на API 24</string>
-  <string name="hide_tiles_on_lockscreen">Приховати плитки на екрані блокування</string>
+    <string name="hide_tiles_on_lockscreen">Приховати плитки на екрані блокування</string>
   <string name="done">Зроблено</string>
   <string name="cm_qs_settings">Налаштування CM QS</string>
   <string name="disable_qs_paging">Вимкнути сторінки в QS</string>

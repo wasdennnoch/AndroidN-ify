@@ -127,12 +127,7 @@
   <string name="enable_large_first_row_summary2">当系统支持时放大显示前两个图块</string>
   <string name="fix_stuck_inversion_title">修复颜色反转卡顿</string>
   <string name="fix_stuck_inversion">一些设备可能在开启反色图块后出现屏幕卡顿的问题。点此可强制停用</string>
-  <string name="header_clock_size_title">顶栏时钟大小</string>
-  <string name="header_clock_size_normal">正常</string>
-  <string name="header_clock_size_small">小</string>
-  <string name="header_clock_size_smaller">更小</string>
-  <string name="header_clock_size_tiny">最小</string>
-  <string name="hide_icons_title">隐藏顶栏内的项目</string>
+    <string name="hide_icons_title">隐藏顶栏内的项目</string>
   <string name="hide_tuner_icon_title">隐藏系统界面调节工具</string>
   <string name="hide_edit_tiles_title">隐藏修改图块按钮</string>
   <string name="hide_edit_tiles_summary">该选项仅用于隐藏 ROM 内自带的修改按钮！</string>
@@ -228,14 +223,9 @@
   <string name="unknown_name">未知</string>
   <string name="address">地址</string>
   <string name="unknown_address">未知</string>
-  <string name="date_of_birth">出生日期</string>
-  <string name="unknown_date_of_birth">未知</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">年龄：%1$d</string>
-  <string name="remove_dob_icon_text">移除出生日期</string>
-  <string name="blood_type">血型</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">血型</string>
   <string name="unknown_blood_type">未知</string>
   <string name="allergies">过敏症</string>
   <string name="unknown_allergies">未知</string>
@@ -260,9 +250,7 @@
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">电池</string>
-  <string name="charged">已充满</string>
-  <string name="charging">正在充电, %1$s</string>
-  <string name="qs_edit">修改</string>
+    <string name="qs_edit">修改</string>
   <string name="drag_to_add_tiles">拖动即可添加图块</string>
   <string name="drag_to_remove_tiles">拖动到此处即可移除</string>
   <string name="live_display">LiveDisplay</string>
@@ -331,9 +319,7 @@
   <string name="battery_detail_switch_summary">降低设备性能并限制后台流量</string>
   <string name="qs_add_notes_title">注意</string>
   <string name="qs_add_notes">仅适用于提供播送图块的应用（例如 \"Custom Quick Settings\"）。使用前请参阅图块提供应用内的说明。</string>
-  <string name="notification_spoof_api_version_title">API 24 伪装</string>
-  <string name="notification_spoof_api_version">使被欺骗的应用认为其正运行于 API 24 上</string>
-  <string name="hide_tiles_on_lockscreen">隐藏安全锁屏下的图块</string>
+    <string name="hide_tiles_on_lockscreen">隐藏安全锁屏下的图块</string>
   <string name="done">完成</string>
   <string name="cm_qs_settings">CM 快速设置设定</string>
   <string name="disable_qs_paging">禁用快速设置分页</string>

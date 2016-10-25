@@ -164,6 +164,7 @@ public class ConfigUtils {
         public final int qs_tiles_count;
         public final boolean battery_tile_show_percentage;
         public final boolean enable_qs_editor;
+        public final boolean alternative_qs_loading;
         public final boolean allow_fancy_qs_transition;
         public final boolean new_click_behavior;
         public final boolean large_first_row;
@@ -177,6 +178,7 @@ public class ConfigUtils {
             qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 6);
             battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", false);
             enable_qs_editor = prefs.getBoolean("enable_qs_editor", true);
+            alternative_qs_loading = prefs.getBoolean("alternative_qs_loading", false);
             allow_fancy_qs_transition = prefs.getBoolean("allow_fancy_qs_transition", true);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
@@ -204,7 +206,6 @@ public class ConfigUtils {
         public final int actions_color;
 
         public List<String> blacklistedApps;
-        public List<String> spoofAPIApps;
 
         public NotificationsConfig(SharedPreferences prefs) {
             change_style = prefs.getBoolean("notification_change_style", true);
@@ -233,22 +234,6 @@ public class ConfigUtils {
                 XposedHook.logE(TAG, "Error loading blacklisted apps", e);
             }
             blacklistedApps = apps;
-        }
-
-        public void loadSpoofAPIApps() {
-            List<String> apps = new ArrayList<>();
-            try {
-                String jsonString = mPrefs.getString("notification_spoof_api_version", "[]");
-                JSONArray jsonArray = new JSONArray(jsonString);
-                int appCount = jsonArray.length();
-                for (int i = 0; i < appCount; i++) {
-                    String app = jsonArray.getString(i);
-                    apps.add(app);
-                }
-            } catch (JSONException e) {
-                XposedHook.logE(TAG, "Error loading spoof API apps", e);
-            }
-            spoofAPIApps = apps;
         }
     }
 

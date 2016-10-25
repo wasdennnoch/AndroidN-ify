@@ -110,12 +110,7 @@
   <string name="enable_large_first_row">Увећај први ред</string>
   <string name="fix_stuck_inversion_title">Поправи заглављену инверзију</string>
   <string name="fix_stuck_inversion">Не неким уређајима инверзија боја заблокира. Тапните овде за деактивацију</string>
-  <string name="header_clock_size_title">Величина сата заглавља</string>
-  <string name="header_clock_size_normal">Нормалан</string>
-  <string name="header_clock_size_small">Мали</string>
-  <string name="header_clock_size_smaller">Мањи</string>
-  <string name="header_clock_size_tiny">Сићушан</string>
-  <string name="hide_icons_title">Сакриј ставке заглавља</string>
+    <string name="hide_icons_title">Сакриј ставке заглавља</string>
   <string name="hide_tuner_icon_title">Сакриј икону штимера системског УИ-ја</string>
   <string name="hide_edit_tiles_title">Сакриј дугме уређивача плочица</string>
   <string name="hide_edit_tiles_summary">Ово сакрива само уграђену икону уређивача!</string>
@@ -160,9 +155,7 @@
   <string name="yes">Да</string>
   <string name="no">Не</string>
   <string name="battery">Батерија</string>
-  <string name="charged">Напуњена</string>
-  <string name="charging">Пуњење, %1$s</string>
-  <string name="qs_edit">Уреди</string>
+    <string name="qs_edit">Уреди</string>
   <string name="drag_to_add_tiles">Превуците да додате плочице</string>
   <string name="drag_to_remove_tiles">Превуците овде да уклоните</string>
   <string name="live_display_auto">Аутоматски</string>

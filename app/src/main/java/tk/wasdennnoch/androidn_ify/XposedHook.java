@@ -1,6 +1,5 @@
 package tk.wasdennnoch.androidn_ify;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
@@ -169,11 +168,6 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             } catch (Throwable ignore) {
             }
         }
-
-        /*ConfigUtils.notifications().loadSpoofAPIApps();
-        if (ConfigUtils.notifications().spoofAPIApps.contains(lpparam.packageName)) {
-            XposedHelpers.setStaticIntField(Build.VERSION.class, "SDK_INT", 24);
-        }*/
 
     }
 

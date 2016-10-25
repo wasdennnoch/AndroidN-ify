@@ -63,16 +63,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <!--<activity
-            android:name=".ui.SpoofAPIActivity"
-            android:label="@string/notification_spoof_api_version_title"
-            android:parentActivityName=".ui.SettingsActivity">
-            <intent-filter>
-                <action android:name="tk.wasdennnoch.androidn_ify.ui.SpoofAPIActivity"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>-->
         <activity
             android:name=".ui.AddTileActivity"
             android:excludeFromRecents="true"

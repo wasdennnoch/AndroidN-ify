@@ -126,12 +126,7 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="enable_large_first_row_summary2">Face ca primele două tile-uri să apară mai largi dacă este suportat</string>
   <string name="fix_stuck_inversion_title">Fixează inversiunea blocată</string>
   <string name="fix_stuck_inversion">Pe unele dispozitive inversiunea culorilor se blocheaza când este activată. Dați clic aici pentru a forța dezactivarea</string>
-  <string name="header_clock_size_title">Mărimea ceasului antetului</string>
-  <string name="header_clock_size_normal">Normal</string>
-  <string name="header_clock_size_small">Mic</string>
-  <string name="header_clock_size_smaller">Mai mic</string>
-  <string name="header_clock_size_tiny">Minusculă</string>
-  <string name="hide_icons_title">Ascunde elementele antetului</string>
+    <string name="hide_icons_title">Ascunde elementele antetului</string>
   <string name="hide_tuner_icon_title">Ascunde modificatorul SystemUI</string>
   <string name="hide_edit_tiles_title">Ascunde butonul de editare a chenarelor</string>
   <string name="hide_edit_tiles_summary">Aceasta ascunde numai butonul de editare implicit!</string>
@@ -243,14 +238,9 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="unknown_name">Necunoscut</string>
   <string name="address">Adresa</string>
   <string name="unknown_address">Necunoscut</string>
-  <string name="date_of_birth">Data nașterii</string>
-  <string name="unknown_date_of_birth">Necunoscut</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Varsta: %1$d</string>
-  <string name="remove_dob_icon_text">Elimina data naşterii</string>
-  <string name="blood_type">Grupă sanguină</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Grupă sanguină</string>
   <string name="unknown_blood_type">Necunoscut</string>
   <string name="allergies">Alergii</string>
   <string name="unknown_allergies">Necunoscut</string>
@@ -275,9 +265,7 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="yes">Da</string>
   <string name="no">Nu</string>
   <string name="battery">Baterie</string>
-  <string name="charged">Încărcat</string>
-  <string name="charging">Se încarcă, %1$s</string>
-  <string name="qs_edit">Editați</string>
+    <string name="qs_edit">Editați</string>
   <string name="drag_to_add_tiles">Trageți pentru a adăuga tile-uri</string>
   <string name="drag_to_remove_tiles">Trageți aici pentru a elimina</string>
   <string name="live_display">Display Adaptiv</string>
@@ -347,9 +335,7 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="qs_add_notes_title">Note</string>
   <string name="qs_add_notes">Acesta este folosit doar pentru aplicatii care furnizeaza titluri de difuzare (cum ar fi \'\'
 Setări rapide personalizate\'\'). Va rugam sa cititi informatiile in aplicatia furnizorului inainte de a utiliza aceasta functie.</string>
-  <string name="notification_spoof_api_version_title">Prezinta drept API 24</string>
-  <string name="notification_spoof_api_version">Minte aceste aplicaţii că rulează pe API 24</string>
-  <string name="hide_tiles_on_lockscreen">Ascunde iconiţele de setări din ecranul de blocare</string>
+    <string name="hide_tiles_on_lockscreen">Ascunde iconiţele de setări din ecranul de blocare</string>
   <string name="done">Terminat</string>
   <string name="cm_qs_settings">Setari QS pentru CM</string>
   <string name="disable_qs_paging">Dezactiveaza paginare QS</string>

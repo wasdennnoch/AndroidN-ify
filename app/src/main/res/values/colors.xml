@@ -9,7 +9,6 @@
     <!-- /App theme -->
 
     <!-- Notifications / Status bar header -->
-    <color name="edit_btn_text">#64FFFFFF</color>
     <color name="qs_detail_button">#FFB0BEC5</color>
     <color name="usage_graph_dots">#455A64</color>
     <color name="qs_text">#FFFFFFFF</color>

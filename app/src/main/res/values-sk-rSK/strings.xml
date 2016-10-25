@@ -127,12 +127,7 @@
   <string name="enable_large_first_row_summary2">Zobrazí prvé dve dlaždice väčšie, ak je podporované</string>
   <string name="fix_stuck_inversion_title">Opraviť invertované farby</string>
   <string name="fix_stuck_inversion">Na niektorých zariadeniach sa môžu povolené invertovné farby zaseknúť. Kliknite pre vynútenie zkázania</string>
-  <string name="header_clock_size_title">Veľkosť hodín v záhlaví</string>
-  <string name="header_clock_size_normal">Normálne</string>
-  <string name="header_clock_size_small">Melé</string>
-  <string name="header_clock_size_smaller">Menšie</string>
-  <string name="header_clock_size_tiny">Maličké</string>
-  <string name="hide_icons_title">Skryť položky záhlavia</string>
+    <string name="hide_icons_title">Skryť položky záhlavia</string>
   <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
   <string name="hide_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc</string>
   <string name="hide_edit_tiles_summary">Toto skryje iba základné tlačidlo pre úpravu!</string>
@@ -244,14 +239,9 @@
   <string name="unknown_name">Neznáme</string>
   <string name="address">Adresa</string>
   <string name="unknown_address">Neznáme</string>
-  <string name="date_of_birth">Dátum narodenia</string>
-  <string name="unknown_date_of_birth">Neznáme</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Vek: %1$d</string>
-  <string name="remove_dob_icon_text">Odstrániť dátum narodenia</string>
-  <string name="blood_type">Krvná skupina</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">Krvná skupina</string>
   <string name="unknown_blood_type">Neznáme</string>
   <string name="allergies">Alergie</string>
   <string name="unknown_allergies">Neznáme</string>
@@ -276,9 +266,7 @@
   <string name="yes">Áno</string>
   <string name="no">Nie</string>
   <string name="battery">Batéria</string>
-  <string name="charged">Nabitá</string>
-  <string name="charging">Nabíjanie, %1$s</string>
-  <string name="qs_edit">Upraviť</string>
+    <string name="qs_edit">Upraviť</string>
   <string name="drag_to_add_tiles">Potiahnite pre pridanie dlaždíc</string>
   <string name="drag_to_remove_tiles">Potiahnite sem pre odstránenie</string>
   <string name="live_display">LiveDisplay</string>
@@ -347,9 +335,7 @@
   <string name="battery_detail_switch_summary">Zníži výkonnosť a dátové prenosy na pozadí</string>
   <string name="qs_add_notes_title">Poznámky</string>
   <string name="qs_add_notes">Používa sa iba pre aplikácie, ktoré poskytujú dlaždice vysielania (ako napr. \"Custom Quick Settings\"). Prosím, pred použitím si prečítajte inštrukcie v aplikácii poskytujúcej dlaždicu.</string>
-  <string name="notification_spoof_api_version_title">Predstierať API 24</string>
-  <string name="notification_spoof_api_version">Donúti tieto aplikácie si myslieť, že používate API 24</string>
-  <string name="hide_tiles_on_lockscreen">Skryť dlaždice na uzamknutej obrazovke</string>
+    <string name="hide_tiles_on_lockscreen">Skryť dlaždice na uzamknutej obrazovke</string>
   <string name="done">Hotovo</string>
   <string name="cm_qs_settings">Nastavenia rýchlych nastavení CM</string>
   <string name="disable_qs_paging">Zakázať stránkovanie rýchlych nastavení</string>

@@ -105,12 +105,7 @@
   <string name="enable_large_first_row_summary2">משנה את מראה שני האריחים הראשונים להראות גדולים יותר אם נתמך</string>
   <string name="fix_stuck_inversion_title">תיקון היפוך תקוע</string>
   <string name="fix_stuck_inversion">במכשירים מסוימים ההיפוך עלול להיתקע פעיל עם הפעלתו. הגדרה זו תכריח את ההיפוך להיכבות</string>
-  <string name="header_clock_size_title">גודל השעון בכותרת</string>
-  <string name="header_clock_size_normal">רגיל</string>
-  <string name="header_clock_size_small">קטן</string>
-  <string name="header_clock_size_smaller">קטן יותר</string>
-  <string name="header_clock_size_tiny">מזערי</string>
-  <string name="hide_icons_title">הסתר פריטי כותרת</string>
+    <string name="hide_icons_title">הסתר פריטי כותרת</string>
   <string name="hide_tuner_icon_title">הסתר צלמית \"מגדיר SystemUI\"</string>
   <string name="hide_edit_tiles_title">הסתר את לחצן עורך האריחים</string>
   <string name="hide_edit_tiles_summary">זה רק מסתיר את כפתור העריכה המובנה במערכת.</string>
@@ -225,14 +220,9 @@
   <string name="unknown_name">לא ידוע</string>
   <string name="address">כתובת</string>
   <string name="unknown_address">לא ידוע</string>
-  <string name="date_of_birth">תאריך לידה</string>
-  <string name="unknown_date_of_birth">לא ידוע</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">גיל: %1$d</string>
-  <string name="remove_dob_icon_text">הסר תאריך לידה</string>
-  <string name="blood_type">סוג דם</string>
+    <!-- Example: (3 feb 1987) -->
+    <!-- Example: Age: 23 -->
+    <string name="blood_type">סוג דם</string>
   <string name="unknown_blood_type">לא ידוע</string>
   <string name="allergies">אלרגיות</string>
   <string name="unknown_allergies">לא ידוע</string>
@@ -256,9 +246,7 @@
   <string name="yes">כן</string>
   <string name="no">לא</string>
   <string name="battery">סוללה</string>
-  <string name="charged">טעונה</string>
-  <string name="charging">בטעינה, %1$s</string>
-  <string name="qs_edit">עריכה</string>
+    <string name="qs_edit">עריכה</string>
   <string name="drag_to_add_tiles">גרור כדי להוסיף אריח</string>
   <string name="drag_to_remove_tiles">גרור כדי להסיר אריח</string>
   <string name="live_display">תצוגה חיה</string>
@@ -323,9 +311,7 @@
   <string name="battery_detail_switch_title">שומר סוללה</string>
   <string name="battery_detail_switch_summary">מפחית ביצועים וצריכת אינטרנט ברקע</string>
   <string name="qs_add_notes_title">הערות</string>
-  <string name="notification_spoof_api_version_title">התחזה ל־API 24</string>
-  <string name="notification_spoof_api_version">עבוד על היישומים האלה שיש לך API 34</string>
-  <string name="hide_tiles_on_lockscreen">הסתר אריחים במסך הנעילה</string>
+    <string name="hide_tiles_on_lockscreen">הסתר אריחים במסך הנעילה</string>
   <string name="done">הסתיים</string>
   <string name="cm_qs_settings">הגדרת הגדרות מהירות של CyanogenMod</string>
   <string name="disable_qs_paging">בטל דפי הגדרות מהירות</string>
