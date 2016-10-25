@@ -93,10 +93,7 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public void handleClick() {
-        //if (ConfigUtils.M)
-            showDetail(true);
-        //else
-        //    handleLongClick(); // Until we figure out how to give BATTERY_STATS on LP
+        showDetail(true);
     }
 
     @Override
@@ -111,11 +108,14 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
 
     @Override
     public void setListening(boolean listening) {
-        super.setListening(listening);
+        if (mListening == listening) return;
         mListening = listening;
         if (mListening) {
-            refreshState();
-            mBatteryView.postInvalidate();
+            SystemUIHooks.batteryInfoManager.registerListener(this);
+            SystemUIHooks.batteryInfoManager.registerListener(mBatteryView);
+        } else {
+            SystemUIHooks.batteryInfoManager.unregisterListener(this);
+            SystemUIHooks.batteryInfoManager.unregisterListener(mBatteryView);
         }
     }
 

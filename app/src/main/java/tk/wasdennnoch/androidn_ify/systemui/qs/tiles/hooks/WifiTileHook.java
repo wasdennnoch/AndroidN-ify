@@ -40,17 +40,14 @@ public class WifiTileHook extends QSTileHook {
             }
             XposedHelpers.callMethod(mController, "setWifiEnabled", !enabled);
         } else {
-            if (ConfigUtils.M && (boolean) XposedHelpers.callMethod(mWifiController, "canConfigWifi")) {
+            if (ConfigUtils.M && !(boolean) XposedHelpers.callMethod(mWifiController, "canConfigWifi")) {
+                startSettings();
+            } else {
                 if (!enabled) {
                     XposedHelpers.callMethod(mController, "setWifiEnabled", true);
                     XposedHelpers.setBooleanField(mState, "enabled", true);
                 }
                 showDetail(true);
-            } else if (!ConfigUtils.M) {
-                XposedHelpers.callMethod(mController, "setWifiEnabled", true);
-                XposedHelpers.setBooleanField(mState, "enabled", true);
-            } else {
-                startSettings();
             }
         }
     }
