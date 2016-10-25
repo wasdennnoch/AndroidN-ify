@@ -32,7 +32,7 @@ public class NotificationPanelHooks {
 
     public static final int STATE_KEYGUARD = 1;
 
-    public static ViewGroup mNotificationPanelView;
+    private static ViewGroup mNotificationPanelView;
     private static ExpandableIndicator mExpandIndicator;
     private static QSCustomizer mQsCustomizer;
 
@@ -152,7 +152,7 @@ public class NotificationPanelHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
-            if (ConfigUtils.notifications().change_style) {
+            if (ConfigUtils.qs().header) { // Although this is the notification panel everything here is header-related (mainly QS editor)
 
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);

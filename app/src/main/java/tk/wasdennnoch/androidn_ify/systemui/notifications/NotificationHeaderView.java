@@ -46,6 +46,8 @@ import java.util.ArrayList;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 /**
  * A header of a notification view
  */
@@ -76,7 +78,7 @@ public class NotificationHeaderView extends ViewGroup {
     public static NotificationHeaderView newHeader(Context context) {
         ResourceUtils res = ResourceUtils.getInstance(context);
 
-        FrameLayout.LayoutParams headerLp = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.notification_header_height));
+        FrameLayout.LayoutParams headerLp = new FrameLayout.LayoutParams(WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.notification_header_height));
         NotificationHeaderView headerView = new NotificationHeaderView(context);
         headerView.setClipChildren(false);
         headerView.setId(R.id.notification_header);
@@ -97,7 +99,7 @@ public class NotificationHeaderView extends ViewGroup {
         icon.setLayoutParams(iconLp);
         headerView.addView(icon);
 
-        MarginLayoutParams appNameLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        MarginLayoutParams appNameLp = new MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         appNameLp.setMarginStart(res.getDimensionPixelSize(R.dimen.notification_app_name_margin_start));
         appNameLp.setMarginEnd(res.getDimensionPixelSize(R.dimen.notification_app_name_margin_end));
         TextView appName = new TextView(context);
@@ -113,7 +115,7 @@ public class NotificationHeaderView extends ViewGroup {
 
         int textMargin = res.getDimensionPixelSize(R.dimen.notification_header_text_margin);
 
-        MarginLayoutParams headerTextLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        MarginLayoutParams headerTextLp = new MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         headerTextLp.setMargins(textMargin, 0, textMargin, 0);
         TextView headerText = new TextView(context);
         headerText.setId(R.id.header_text);
@@ -127,7 +129,7 @@ public class NotificationHeaderView extends ViewGroup {
         timeDivider.setId(R.id.time_divider);
         headerView.addView(timeDivider);
 
-        MarginLayoutParams timeLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        MarginLayoutParams timeLp = new MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         timeLp.setMargins(textMargin, 0, textMargin, 0);
         RelativeDateTimeView time = new RelativeDateTimeView(context);
         time.setId(R.id.time);
@@ -138,7 +140,7 @@ public class NotificationHeaderView extends ViewGroup {
         time.setGravity(TEXT_ALIGNMENT_CENTER);
         headerView.addView(time);
 
-        MarginLayoutParams chronometerLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        MarginLayoutParams chronometerLp = new MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         chronometerLp.setMargins(textMargin, 0, textMargin, 0);
         Chronometer chronometer = new Chronometer(context);
         chronometer.setId(R.id.chronometer);
@@ -150,7 +152,7 @@ public class NotificationHeaderView extends ViewGroup {
 
         int expandButtonPaddingTop = res.getDimensionPixelSize(R.dimen.notification_header_expand_button_padding_top);
 
-        MarginLayoutParams expandButtonLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        MarginLayoutParams expandButtonLp = new MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         ImageView expandButton = new ImageView(context);
         expandButton.setId(R.id.expand_button);
         expandButton.setLayoutParams(expandButtonLp);
@@ -182,7 +184,7 @@ public class NotificationHeaderView extends ViewGroup {
     private static TextView newDivider(Context context, ResourceUtils res) {
         int dividerMargin = res.getDimensionPixelSize(R.dimen.notification_header_text_margin);
         String dividerSymbol = res.getString(R.string.notification_header_divider_symbol);
-        MarginLayoutParams dividerLp = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        MarginLayoutParams dividerLp = new MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         dividerLp.setMargins(dividerMargin, 0, dividerMargin, 0);
         TextView divider = new TextView(context);
         divider.setLayoutParams(dividerLp);
