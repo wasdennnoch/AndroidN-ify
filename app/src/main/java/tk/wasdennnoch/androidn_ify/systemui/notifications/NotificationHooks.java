@@ -1397,7 +1397,7 @@ public class NotificationHooks {
     private static final XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
-            FrameLayout layout = (FrameLayout) liparam.view;
+            ViewGroup layout = (ViewGroup) liparam.view;
             Context context = layout.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
 
