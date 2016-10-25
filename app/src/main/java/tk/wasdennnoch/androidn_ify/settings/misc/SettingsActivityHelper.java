@@ -22,6 +22,7 @@ import android.widget.Toolbar;
 
 import com.android.internal.view.menu.ActionMenuItem;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
@@ -56,7 +57,11 @@ public class SettingsActivityHelper implements View.OnClickListener, SettingsDra
     public SettingsActivityHelper(Activity activity, SettingsDrawerHooks settingsDrawerHooks) {
         mActivity = activity;
         if (sClassUtils == null) {
-            sClassUtils = XposedHelpers.findClass(CLASS_UTILS, mActivity.getClassLoader());
+            try {
+                sClassUtils = XposedHelpers.findClass(CLASS_UTILS, mActivity.getClassLoader());
+            } catch (Throwable t) { // HTC / Proguard
+                sClassUtils = XposedHelpers.findClass(XposedHook.PACKAGE_SETTINGS + ".sd", mActivity.getClassLoader());
+            }
         }
         LayoutInflater inflater = LayoutInflater.from(activity);
         inflater.setFactory2(new LayoutInflater.Factory2() {
@@ -172,8 +177,19 @@ public class SettingsActivityHelper implements View.OnClickListener, SettingsDra
             Bundle fragmentArguments = (Bundle) XposedHelpers.getObjectField(tile, "fragmentArguments");
             int titleRes = XposedHelpers.getIntField(tile, "titleRes");
             CharSequence title = (CharSequence) XposedHelpers.callMethod(tile, "getTitle", mActivity.getResources());
-            XposedHelpers.callStaticMethod(sClassUtils, "startWithFragment", new Class[] {Context.class, String.class, Bundle.class, Fragment.class, int.class, int.class, CharSequence.class},
-                    mActivity, fragment, fragmentArguments, null, 0, titleRes, title);
+            try {
+                XposedHelpers.callStaticMethod(sClassUtils, "startWithFragment", new Class[]{Context.class, String.class, Bundle.class, Fragment.class, int.class, int.class, CharSequence.class},
+                        mActivity, fragment, fragmentArguments, null, 0, titleRes, title);
+            } catch (Throwable t) { // HTC / Proguard
+                Method[] methods = XposedHelpers.findMethodsByExactParameters(sClassUtils, void.class, Context.class, String.class, Bundle.class, Fragment.class, int.class, int.class, CharSequence.class);
+                XposedHook.logD(TAG, "Found " + methods.length + " methods matching the parameters of 'startWithFragment'");
+                if (methods.length > 0) {
+                    String name = methods[0].getName();
+                    XposedHook.logD(TAG, "Calling method with name " + name);
+                    XposedHelpers.callStaticMethod(sClassUtils, name, new Class[]{Context.class, String.class, Bundle.class, Fragment.class, int.class, int.class, CharSequence.class},
+                            mActivity, fragment, fragmentArguments, null, 0, titleRes, title);
+                }
+            }
             return true;
         }
         return false;

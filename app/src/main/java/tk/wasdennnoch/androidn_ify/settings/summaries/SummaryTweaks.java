@@ -138,9 +138,9 @@ public class SummaryTweaks {
                             // Other method name
                             try {
                                 Method[] updateTileView = XposedHelpers.findMethodsByExactParameters(classDashboardSummary, void.class, Context.class, Resources.class, XposedHelpers.findClass("com.android.settings.dashboard.DashboardTile", classLoader), ImageView.class, TextView.class, TextView.class);
-                                XposedHook.logI(TAG, "Found " + updateTileView.length + " matches using findMethodsByExactParameters to find updateTileView");
-                                if (updateTileView.length == 1) {
-                                    XposedHook.logI(TAG, "Hooking method with name " + updateTileView[0].getName());
+                                XposedHook.logD(TAG, "Found " + updateTileView.length + " matches using findMethodsByExactParameters to find updateTileView");
+                                if (updateTileView.length > 0) {
+                                    XposedHook.logD(TAG, "Hooking method with name " + updateTileView[0].getName());
                                     XposedHelpers.findAndHookMethod(classDashboardSummary, updateTileView[0].getName(), Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, TextView.class, updateTileViewHook);
                                 }
                             } catch (Throwable t5) {

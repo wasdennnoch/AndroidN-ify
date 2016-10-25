@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Method;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
@@ -46,19 +48,31 @@ public class SettingsDrawerHooks {
                 }
             });
 
-            XposedHelpers.findAndHookMethod(classDashboardSummary, "rebuildUI", Context.class, new XC_MethodHook() {
-                @Override
-                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    if (mRebuildUiListener != null) {
-                        mRebuildUiListener.onRebuildUiFinished();
-                        mRebuildUiListener = null;
-                    }
+            try {
+                XposedHelpers.findAndHookMethod(classDashboardSummary, "rebuildUI", Context.class, rebuildUIHook);
+            } catch (Throwable t) { // HTC (Proguard (I hope))
+                Method[] methods = XposedHelpers.findMethodsByExactParameters(classDashboardSummary, void.class, Context.class);
+                XposedHook.logD(TAG, "Found " + methods.length + " methods matching the parameters of 'rebuildUI'");
+                if (methods.length > 0) {
+                    String name = methods[0].getName();
+                    XposedHook.logD(TAG, "Calling method with name " + name);
+                    XposedHelpers.findAndHookMethod(classDashboardSummary, name, Context.class, rebuildUIHook);
                 }
-            });
+            }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error while hooking settings dashboard", t);
         }
     }
+
+    private XC_MethodHook rebuildUIHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (mRebuildUiListener != null) {
+                mRebuildUiListener.onRebuildUiFinished();
+                mRebuildUiListener = null;
+            }
+        }
+    };
 
     void hookRes(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {

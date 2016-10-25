@@ -1,7 +1,6 @@
 package tk.wasdennnoch.androidn_ify.settings;
 
 import android.content.Context;
-import android.content.res.XModuleResources;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -24,7 +23,7 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SETTINGS;
 
-public class SettingsDashboardHooks {
+class SettingsDashboardHooks {
 
     private static final String TAG = "SettingsDashboardHooks";
     private static final String CLASS_DASHBOARD_SUMMARY = "com.android.settings.dashboard.DashboardSummary";
@@ -63,7 +62,7 @@ public class SettingsDashboardHooks {
         }
     }
 
-    public void hookRes(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
+    void hookRes(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
             //XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
             resparam.res.hookLayout(PACKAGE_SETTINGS, "layout", "dashboard_category", new XC_LayoutInflated() {
@@ -77,6 +76,7 @@ public class SettingsDashboardHooks {
 
                     TypedValue textColorSecondary = new TypedValue();
                     context.getTheme().resolveAttribute(android.R.attr.textColorSecondary, textColorSecondary, true);
+                    //noinspection deprecation
                     int textColorSecondaryValue = context.getResources().getColor(textColorSecondary.resourceId);
 
                     TextView title = (TextView) layout.getChildAt(0);

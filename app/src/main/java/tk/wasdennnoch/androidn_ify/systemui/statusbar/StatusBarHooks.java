@@ -2,7 +2,6 @@ package tk.wasdennnoch.androidn_ify.systemui.statusbar;
 
 import android.content.Context;
 import android.content.res.XModuleResources;
-import android.content.res.XResources;
 import android.os.Build;
 
 import java.lang.reflect.Array;
