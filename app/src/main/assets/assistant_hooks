@@ -1,5 +1,5 @@
 [
-  3,
+  4,
   {
     "version": "6\\.6\\.1[46]\\.21\\.[a-z]+[0-9]*",
     "assistant_class": ".a.e",
@@ -12,7 +12,7 @@
     "fake_buildprop": "v"
   },
   {
-    "version": "6\\.7\\.1[356]\\.21\\.[a-z]+[0-9]*",
+    "version": "6\\.7\\.1[3567]\\.21\\.[a-z]+[0-9]*",
     "assistant_class": ".a.e",
     "prefs": "biJ",
     "set_prefs": "aK",
