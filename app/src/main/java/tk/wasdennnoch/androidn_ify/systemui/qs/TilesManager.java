@@ -41,6 +41,8 @@ public class TilesManager {
     private List<String> mSecureTiles;
     public boolean useVolumeTile = false;
 
+    static public boolean enableNeko = false;
+
     static {
         mCustomTileSpecs.add(AndroidN_ifyTile.TILE_SPEC);
         mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
@@ -49,6 +51,9 @@ public class TilesManager {
             mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
     }
 
+    static public void setNekoEnabled(boolean enabled) {
+        enableNeko = enabled;
+    }
 
     static int getLabelResource(String spec) throws Exception {
         if (!mCustomTileSpecs.contains(spec))
@@ -79,7 +84,9 @@ public class TilesManager {
                 batteryMeterDrawable.setShowPercent(false);
                 return batteryMeterDrawable;
             case NekoTile.TILE_SPEC:
-                return ResourceUtils.getInstance(context).getDrawable(R.drawable.stat_icon);
+                Drawable icon =  ResourceUtils.getInstance(context).getDrawable(R.drawable.stat_icon);
+                icon.setTint(0x4DFFFFFF);
+                return icon;
             default:
                 throw new Exception("No icon for spec '" + spec + "'!");
         }
