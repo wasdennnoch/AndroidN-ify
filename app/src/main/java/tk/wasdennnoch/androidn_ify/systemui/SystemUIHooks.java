@@ -6,10 +6,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.XModuleResources;
 import android.os.Handler;
 import android.os.Process;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.widget.Toast;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -24,8 +27,10 @@ import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.ui.AddTileActivity;
+import tk.wasdennnoch.androidn_ify.ui.PlatLogoActivity;
 import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
@@ -59,6 +64,8 @@ public class SystemUIHooks {
                 final Application app = (Application) param.thisObject;
                 final Handler handler = new Handler(app.getMainLooper());
 
+                TilesManager.setNekoEnabled(PreferenceManager.getDefaultSharedPreferences(app).getBoolean("enable_neko", false));
+
                 batteryInfoManager = new BatteryInfoManager(app);
 
                 IntentFilter intentFilter = new IntentFilter();
@@ -66,6 +73,7 @@ public class SystemUIHooks {
                 intentFilter.addAction(SettingsActivity.ACTION_FIX_INVERSION);
                 intentFilter.addAction(SettingsActivity.ACTION_KILL_SYSTEMUI);
                 intentFilter.addAction(AddTileActivity.ACTION_ADD_TILE);
+                intentFilter.addAction(PlatLogoActivity.ACTION_TOGGLE_NEKO);
                 intentFilter.addAction(XposedHook.ACTION_MARK_UNSTABLE);
                 app.registerReceiver(new BroadcastReceiver() {
                     @Override
@@ -99,6 +107,15 @@ public class SystemUIHooks {
                                 NotificationPanelHooks.expandWithQs();
                                 NotificationPanelHooks.showQsCustomizer(StatusBarHeaderHooks.mRecords, true);
                                 break;
+                            case PlatLogoActivity.ACTION_TOGGLE_NEKO:
+                                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                                boolean enableNeko;
+                                enableNeko = !prefs.getBoolean("enable_neko", false);
+                                prefs.edit().putBoolean("enable_neko", enableNeko).apply();
+                                toastUp(enableNeko ? "\uD83D\uDC31" : "\uD83D\uDEAB", app);
+                                TilesManager.setNekoEnabled(enableNeko);
+                                NotificationPanelHooks.invalidateTileAdapter();
+                                break;
                             case XposedHook.ACTION_MARK_UNSTABLE:
                                 XposedHook.markUnstable();
                                 break;
@@ -117,6 +134,12 @@ public class SystemUIHooks {
                 }, 2000);
             }
         });
+    }
+
+    static private void toastUp(String s, Application app) {
+        Toast toast = Toast.makeText(app, s, Toast.LENGTH_SHORT);
+        toast.getView().setBackgroundDrawable(null);
+        toast.show();
     }
 
     public static void hookResSystemUI(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
