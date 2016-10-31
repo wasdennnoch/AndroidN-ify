@@ -138,5 +138,6 @@
     <dimen name="tab_height">48dp</dimen>
     <dimen name="notification_filter_button_width">52dp</dimen>
     <dimen name="qs_edit_bottom_margin">16dp</dimen>
+    <dimen name="neko_display_size">64dp</dimen>
 
 </resources>

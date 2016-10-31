@@ -81,6 +81,7 @@ public class NotificationHooks {
     private static final String PACKAGE_ANDROID = XposedHook.PACKAGE_ANDROID;
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String KEY_EXPAND_CLICK_LISTENER = "expandClickListener";
+    public static final String EXTRA_SUBSTITUTE_APP_NAME = "nify.substName";
 
     private static int mNotificationBgColor;
     private static int mAccentColor = 0;
@@ -285,9 +286,10 @@ public class NotificationHooks {
     private static void bindNotificationHeader(RemoteViews contentView, XC_MethodHook.MethodHookParam param) {
         Object builder = param.thisObject;
         Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
+        Bundle extras = (Bundle) XposedHelpers.getObjectField(builder, "mExtras");
         int color = resolveColor(builder);
         bindSmallIcon(contentView, builder, color);
-        bindHeaderAppName(contentView, context, color);
+        bindHeaderAppName(contentView, context, color, extras);
         bindHeaderText(contentView, builder, context, (Integer) param.args[0]);
         bindHeaderChronometerAndTime(contentView, builder);
         bindExpandButton(contentView, color);
@@ -345,8 +347,8 @@ public class NotificationHooks {
         processSmallIconColor(contentView, builder, color);
     }
 
-    private static void bindHeaderAppName(RemoteViews contentView, Context context, int color) {
-        contentView.setTextViewText(R.id.app_name_text, loadHeaderAppName(context));
+    private static void bindHeaderAppName(RemoteViews contentView, Context context, int color, Bundle extras) {
+        contentView.setTextViewText(R.id.app_name_text, loadHeaderAppName(context, extras));
         contentView.setTextColor(R.id.app_name_text, color);
     }
 
@@ -381,7 +383,16 @@ public class NotificationHooks {
         return (int) XposedHelpers.callMethod(builder, "resolveColor");
     }
 
-    private static String loadHeaderAppName(Context context) {
+    private static String loadHeaderAppName(Context context, Bundle extras) {
+        if (extras != null && extras.containsKey(EXTRA_SUBSTITUTE_APP_NAME)) {
+            // TODO why this doesn't work
+            final String pkg = context.getPackageName();
+            final String subName = extras.getString(EXTRA_SUBSTITUTE_APP_NAME);
+            if (pkg.equals(XposedHook.PACKAGE_OWN)) {
+                return subName;
+            }
+        }
+
         CharSequence appname = context.getPackageName();
         if (appname.equals(PACKAGE_SYSTEMUI))
             return context.getString(context.getResources().getIdentifier("android_system_label", "string", PACKAGE_ANDROID));
@@ -406,7 +417,6 @@ public class NotificationHooks {
             RemoteViews contentView = (RemoteViews) param.getResult();
 
             bindNotificationHeader(contentView, param);
-
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Icon mLargeIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
