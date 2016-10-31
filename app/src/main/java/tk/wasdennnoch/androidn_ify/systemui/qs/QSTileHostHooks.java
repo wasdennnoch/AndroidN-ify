@@ -25,6 +25,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.NekoTile;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.SettingsUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -442,6 +443,8 @@ public class QSTileHostHooks {
         }
         specs.addAll(TilesManager.mCustomTileSpecs);
         specs.remove("edit");
+        if (!TilesManager.enableNeko)
+            specs.remove(NekoTile.TILE_SPEC);
         if (XposedHook.debug) {
             String s = "";
             for (String sp : specs)

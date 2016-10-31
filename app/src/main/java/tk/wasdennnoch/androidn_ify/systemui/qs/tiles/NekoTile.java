@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 
 import com.android.egg.neko.Food;
+import com.android.egg.neko.NekoLand;
 import com.android.egg.neko.NekoLockedActivity;
 
 import tk.wasdennnoch.androidn_ify.R;
@@ -18,9 +19,9 @@ public class NekoTile extends QSTile {
     public static final String TILE_SPEC = "neko";
 
     private static final String TAG = "NekoTile";
-    public static final String ACTION_UPDATE_STATE = "tk.wasdennnoch.androidn_ify.action.ACTION_NEKO_UPDATE_STATE";
-    public static final String EXTRA_ICON = "EXTRA_ICON";
-    public static final String EXTRA_NAME = "EXTRA_NAME";
+    private static final String ACTION_UPDATE_STATE = "tk.wasdennnoch.androidn_ify.action.ACTION_NEKO_UPDATE_STATE";
+    private static final String EXTRA_ICON = "EXTRA_ICON";
+    private static final String EXTRA_NAME = "EXTRA_NAME";
 
     private int mIcon = R.drawable.food_dish;
     private String mName;
@@ -62,7 +63,7 @@ public class NekoTile extends QSTile {
     @Override
     public void handleUpdateState(Object state, Object arg) {
         Drawable icon = mResUtils.getDrawable(mIcon);
-        icon.setTint(0xFFFFFFFF);
+        icon.setTint(mIcon == R.drawable.food_dish ? 0x4DFFFFFF : 0xFFFFFFFF);
         mState.icon = icon;
         mState.label = mName;
         super.handleUpdateState(state, arg);
@@ -73,6 +74,15 @@ public class NekoTile extends QSTile {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClassName("tk.wasdennnoch.androidn_ify",
                 NekoLockedActivity.class.getName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityDismissingKeyguard(intent);
+    }
+
+    @Override
+    public void handleLongClick() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setClassName("tk.wasdennnoch.androidn_ify",
+                NekoLand.class.getName());
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityDismissingKeyguard(intent);
     }
