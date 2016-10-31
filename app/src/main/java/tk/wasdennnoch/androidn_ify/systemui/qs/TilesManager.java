@@ -21,6 +21,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.AndroidN_ifyTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BaseTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.LiveDisplayTile;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.NekoTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryMeterDrawable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -43,6 +44,7 @@ public class TilesManager {
     static {
         mCustomTileSpecs.add(AndroidN_ifyTile.TILE_SPEC);
         mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
+        mCustomTileSpecs.add(NekoTile.TILE_SPEC);
         if (RomUtils.isCm() && ConfigUtils.M)
             mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
     }
@@ -58,6 +60,8 @@ public class TilesManager {
                 return R.string.battery;
             case LiveDisplayTile.TILE_SPEC:
                 return R.string.live_display;
+            case NekoTile.TILE_SPEC:
+                return R.string.default_tile_name;
         }
         return 0;
     }
@@ -74,6 +78,8 @@ public class TilesManager {
                 batteryMeterDrawable.onPowerSaveChanged(false);
                 batteryMeterDrawable.setShowPercent(false);
                 return batteryMeterDrawable;
+            case NekoTile.TILE_SPEC:
+                return ResourceUtils.getInstance(context).getDrawable(R.drawable.stat_icon);
             default:
                 throw new Exception("No icon for spec '" + spec + "'!");
         }
@@ -97,6 +103,8 @@ public class TilesManager {
                 return new BatteryTile(this, mQSTileHost, key);
             case LiveDisplayTile.TILE_SPEC:
                 return new LiveDisplayTile(this, mQSTileHost, key);
+            case NekoTile.TILE_SPEC:
+                return new NekoTile(this, mQSTileHost, key);
         }
         return new QSTile(this, mQSTileHost, key);
     }
