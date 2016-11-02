@@ -21,7 +21,7 @@
     "enable_langs": "pd",
     "fake_buildprop_class": ".shared.util.c",
     "fake_buildprop": "v"
-  }
+  },
   {
     "version": "6\\.8\\.1[0-9]\\.21\\.[a-z]+[0-9]*",
     "assistant_class": ".a.e",
