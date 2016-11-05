@@ -11,7 +11,7 @@ You can translate this project on Crowdin: https://crowdin.com/project/android-n
 
 ### Builds
 
-If you always want to be up to date with the latest code changes: You can find automated builds here: https://ci.paphonb.xyz/jenkins/job/AndroidN-ify/. Note that they may be buggy or crash as they are built every time a commit gets pushed.
+If you always want to be up to date with the latest code changes: You can find automated builds here: https://ci.paphonb.xyz/jenkins/job/AndroidN-ify/. Note that they may be buggy or crash as they are built every time a commit gets pushed. If you are currently using a stable version from the Xposed repository yon'll have to disabel that version before installing a snapshot.
 
 
 ### Links

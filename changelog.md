@@ -9,6 +9,7 @@
 - QS pages
 - Battery tile
 - New QS tile click behaviour
+- Neko (Nougat Easter Egg)
 - App install source in App info screen
 - "Namey McNameface" icon in easter egg
 - Option to keep header and QS panel background (theming)
