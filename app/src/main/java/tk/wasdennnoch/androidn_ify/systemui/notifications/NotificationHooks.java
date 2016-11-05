@@ -72,6 +72,8 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
 @SuppressLint("StaticFieldLeak")
@@ -206,7 +208,7 @@ public class NotificationHooks {
         int startMargin = ((ViewGroup.MarginLayoutParams) actionsLayout.getLayoutParams()).getMarginStart();
         ViewGroup parent = (ViewGroup) actionsLayout.getParent();
         parent.removeView(actionsLayout);
-        parent.addView(actionContainer, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        parent.addView(actionContainer, MATCH_PARENT, WRAP_CONTENT);
         actionContainer.addView(actionsLayout);
         ViewUtils.setMarginStart(actionsLayout, startMargin);
 
@@ -215,8 +217,8 @@ public class NotificationHooks {
             LinearLayout riv = RemoteInputView.inflate(context, actionContainer);
             riv.setVisibility(View.INVISIBLE);
             actionContainer.addView(riv, new FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT)
+                    MATCH_PARENT,
+                    MATCH_PARENT)
             );
             riv.setBackgroundColor(color);
         }
@@ -1136,7 +1138,7 @@ public class NotificationHooks {
 
                         NotificationActionListLayout notificationActionListLayout = new NotificationActionListLayout(context, null);
                         notificationActionListLayout.setId(actionsId);
-                        notificationActionListLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, res.getDimensionPixelSize(R.dimen.notification_action_list_height)));
+                        notificationActionListLayout.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, res.getDimensionPixelSize(R.dimen.notification_action_list_height)));
                         container.addView(notificationActionListLayout);
                     }
                 });
@@ -1273,15 +1275,14 @@ public class NotificationHooks {
                 layout.addView(buttonView);
             }
             TextView button = (TextView) buttonView; // It's a TextView on some ROMs
-            if(button.getParent() instanceof LinearLayout) { // this is probably only for Xperia devices
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            if (button.getParent() instanceof LinearLayout) { // this is probably only for Xperia devices
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 lp.gravity = Gravity.END;
                 button.setLayoutParams(lp);
                 button.setTypeface(null, Typeface.NORMAL);
                 ((LinearLayout) button.getParent()).setBackground(null);
-            }
-            else{
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            } else {
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 lp.gravity = Gravity.END;
                 button.setLayoutParams(lp);
                 button.setTextColor(res.getColor(android.R.color.white));
@@ -1316,7 +1317,7 @@ public class NotificationHooks {
 
             LinearLayout linearLayout = new LinearLayout(context);
 
-            FrameLayout.LayoutParams linearLayoutLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, iconSize);
+            FrameLayout.LayoutParams linearLayoutLParams = new FrameLayout.LayoutParams(WRAP_CONTENT, iconSize);
             linearLayoutLParams.setMargins(0, notificationHeaderMarginTop, 0, notificationContentPadding);
 
             linearLayout.setLayoutParams(linearLayoutLParams);
@@ -1334,7 +1335,7 @@ public class NotificationHooks {
             icon.setId(R.id.notification_icon);
 
             TextView textView = new TextView(context);
-            LinearLayout.LayoutParams textViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams textViewLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             textViewLParams.setMarginStart(appNameMarginStart);
             textViewLParams.setMarginEnd(appNameMarginEnd);
             textView.setLayoutParams(textViewLParams);
@@ -1342,7 +1343,7 @@ public class NotificationHooks {
             textView.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
 
             TextView summaryDivider = new TextView(context);
-            LinearLayout.LayoutParams summaryDividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams summaryDividerLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             summaryDividerLParams.setMargins(0, dividerMarginTop, 0, 0);
             summaryDivider.setLayoutParams(summaryDividerLParams);
             summaryDivider.setId(R.id.notification_summary_divider);
@@ -1351,7 +1352,7 @@ public class NotificationHooks {
             summaryDivider.setVisibility(View.GONE);
 
             TextView summaryText = new TextView(context);
-            LinearLayout.LayoutParams summaryTextLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams summaryTextLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             summaryTextLParams.setMarginStart(appNameMarginStart);
             summaryTextLParams.setMarginEnd(appNameMarginEnd);
             summaryText.setLayoutParams(summaryTextLParams);
@@ -1360,7 +1361,7 @@ public class NotificationHooks {
             summaryText.setVisibility(View.GONE);
 
             TextView infoDivider = new TextView(context);
-            LinearLayout.LayoutParams infoDividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams infoDividerLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             infoDividerLParams.setMargins(0, dividerMarginTop, 0, 0);
             infoDivider.setLayoutParams(infoDividerLParams);
             infoDivider.setId(R.id.notification_info_divider);
@@ -1369,7 +1370,7 @@ public class NotificationHooks {
             infoDivider.setVisibility(View.GONE);
 
             TextView infoText = new TextView(context);
-            LinearLayout.LayoutParams infoTextLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams infoTextLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             infoTextLParams.setMarginStart(appNameMarginStart);
             infoTextLParams.setMarginEnd(appNameMarginEnd);
             infoText.setLayoutParams(summaryTextLParams);
@@ -1378,7 +1379,7 @@ public class NotificationHooks {
             infoText.setVisibility(View.GONE);
 
             TextView divider = new TextView(context);
-            LinearLayout.LayoutParams dividerLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams dividerLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             dividerLParams.setMargins(0, dividerMarginTop, 0, 0);
             divider.setLayoutParams(dividerLParams);
             divider.setId(R.id.time_divider);
@@ -1387,13 +1388,13 @@ public class NotificationHooks {
             divider.setVisibility(View.GONE);
 
             View timeView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_time", "layout", "android"), null);
-            LinearLayout.LayoutParams timeViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams timeViewLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             timeView.setLayoutParams(timeViewLParams);
             timeView.setId(context.getResources().getIdentifier("time", "id", "android"));
             timeView.setPadding(appNameMarginEnd, 0, 0, 0);
 
             View chronometerView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_chronometer", "layout", "android"), null);
-            LinearLayout.LayoutParams chronometerViewLParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams chronometerViewLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             chronometerView.setLayoutParams(chronometerViewLParams);
             chronometerView.setId(context.getResources().getIdentifier("chronometer", "id", "android"));
             chronometerView.setPadding(appNameMarginEnd, 0, 0, 0);
@@ -1439,10 +1440,10 @@ public class NotificationHooks {
             }
             ImageView rightIcon = new ImageView(context);
 
-            //FrameLayout.LayoutParams headerLayoutLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, headerHeight);
+            //FrameLayout.LayoutParams headerLayoutLParams = new FrameLayout.LayoutParams(WRAP_CONTENT, headerHeight);
             //headerLayout.setLayoutParams(headerLayoutLParams);
 
-            FrameLayout.LayoutParams notificationMainLParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            FrameLayout.LayoutParams notificationMainLParams = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
             notificationMainLParams.setMargins(0, notificationContentPaddingTop, 0, 0);
             notificationMain.setLayoutParams(notificationMainLParams);
 
@@ -1457,8 +1458,8 @@ public class NotificationHooks {
 
             ViewGroup.LayoutParams params = layout.getLayoutParams();
             if (params == null)
-                params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                params = new ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+            params.height = WRAP_CONTENT;
             layout.setLayoutParams(params);
 
             boolean isInboxLayout = liparam.resNames.fullName.contains("notification_template_material_inbox");
@@ -1516,7 +1517,7 @@ public class NotificationHooks {
 
                 int dividerHeight = res.getDimensionPixelSize(R.dimen.notification_separator_size);
 
-                FrameLayout.LayoutParams dividerLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight);
+                FrameLayout.LayoutParams dividerLp = new FrameLayout.LayoutParams(MATCH_PARENT, dividerHeight);
                 dividerLp.gravity = Gravity.TOP;
 
                 View divider = new View(context);
@@ -1528,7 +1529,7 @@ public class NotificationHooks {
             }
 
             if (ConfigUtils.M) {
-                FrameLayout.LayoutParams fakeShadowLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                FrameLayout.LayoutParams fakeShadowLp = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
 
                 FakeShadowView fakeShadow = new FakeShadowView(context);
                 fakeShadow.setId(R.id.fake_shadow);
@@ -1545,8 +1546,8 @@ public class NotificationHooks {
             Button button = (Button) liparam.view;
 
             ViewGroup.MarginLayoutParams buttonLp = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
-            buttonLp.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            buttonLp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            buttonLp.height = MATCH_PARENT;
+            buttonLp.width = WRAP_CONTENT;
             button.setLayoutParams(buttonLp);
         }
     };
@@ -1570,7 +1571,7 @@ public class NotificationHooks {
             ViewUtils.setHeight(layout, notificationMidHeight);
 
             ViewGroup.MarginLayoutParams headerLayoutLp = (ViewGroup.MarginLayoutParams) headerLayout.getLayoutParams();
-            headerLayoutLp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            headerLayoutLp.width = MATCH_PARENT;
             headerLayoutLp.height = headerHeightExcludeTop;
             headerLayout.setLayoutParams(headerLayoutLp);
 
@@ -1604,12 +1605,12 @@ public class NotificationHooks {
             int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
 
             ViewGroup.MarginLayoutParams headerLayoutLp = (ViewGroup.MarginLayoutParams) headerLayout.getLayoutParams();
-            headerLayoutLp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            headerLayoutLp.width = MATCH_PARENT;
             headerLayoutLp.height = headerHeight;
             headerLayout.setLayoutParams(headerLayoutLp);
 
             LinearLayout notificationLayout = new LinearLayout(context);
-            LinearLayout.LayoutParams notificationLayoutLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams notificationLayoutLp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
             notificationLayoutLp.setMargins(notificationContentPadding, 0, notificationContentPadding, 0);
             notificationLayout.setLayoutParams(notificationLayoutLp);
             notificationLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -1682,22 +1683,22 @@ public class NotificationHooks {
             RelativeLayout.LayoutParams iconLParams = new RelativeLayout.LayoutParams(iconSize, iconSize);
             iconLParams.setMargins(notificationContentPadding, notificationHeaderMarginTop, iconMarginEnd, 0);
 
-            RelativeLayout.LayoutParams timeLParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams timeLParams = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             timeLParams.setMargins(timeMarginStart, 0, 0, 0);
             timeLParams.addRule(RelativeLayout.RIGHT_OF, R.id.public_app_name_text);
             timeLParams.addRule(RelativeLayout.ALIGN_TOP, iconId);
 
-            RelativeLayout.LayoutParams titleLParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams titleLParams = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             titleLParams.setMargins(notificationContentPadding, notificationContentMarginTop, 0, 0);
             //titleLParams.addRule(RelativeLayout.BELOW, iconId);
 
-            RelativeLayout.LayoutParams textViewLParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams textViewLParams = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             textViewLParams.setMarginStart(appNameMarginStart);
             textViewLParams.setMarginEnd(appNameMarginEnd);
             textViewLParams.addRule(RelativeLayout.ALIGN_TOP, iconId);
             textViewLParams.addRule(RelativeLayout.RIGHT_OF, iconId);
 
-            RelativeLayout.LayoutParams dividerLParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams dividerLParams = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             dividerLParams.setMargins(0, dividerMarginTop, 0, 0);
             dividerLParams.addRule(RelativeLayout.RIGHT_OF, R.id.public_app_name_text);
             dividerLParams.addRule(RelativeLayout.ALIGN_TOP, iconId);
