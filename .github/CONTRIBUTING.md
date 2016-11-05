@@ -1,4 +1,4 @@
-## Issue guidlines
+## Issue guidelines
 
 Hey there! You found a problem with the module and found your way here to report it? Great! But there are some things you have to keep in mind before submitting a new issue:
 
