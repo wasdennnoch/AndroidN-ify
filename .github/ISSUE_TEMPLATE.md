@@ -5,10 +5,16 @@ First, CHECK FOR DUPLICATES. Use the search function to search for keywords matc
 
 Second, ALWAYS ATTACH YOUR XPOSED LOG. If an app crashes though you'll have to add a logcat. Use Google to learn how to capture a logcat.
 
-Third, if you are using a stable version from the Xposed repository, install a snapshot build to see if the issue is already fixed.
+Third, if you are using a stable version from the Xposed repository, INSTALL A SNAPSHOT BUILD to see if the issue is already fixed. You can find these snapshot in the readme.
 
 If the issue is new and not yet fixed in the snapshot builds go ahead and DESCRIBE YOUR ISSUE AS PRECISE AS POSSIBLE, add screenshots or videos if necessary.
 
 Note that there is no time limit in which the issue will be adressed. Some get fixed quickly, others take some time. Don't open a new issue because you think we forgot about the old one - we don't "forget" issues.
 Now that you've read all of this (and hopefully followed the instructions... ಠ_ಠ) you can add the description and logs. Do with this text what you want, it won't appear in the issue anyways.
 -->
+
+**Description**
+
+**Module version (build version)**
+
+**Xposed log / logcat**
