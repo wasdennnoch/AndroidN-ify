@@ -28,7 +28,7 @@
     <dimen name="lib_item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
     <dimen name="qs_panel_decor_height">48dp</dimen>
 
-    <dimen name="header_items_margin_top">4dp</dimen>
+    <dimen name="header_items_margin_top">3dp</dimen>
     <dimen name="brightness_slider_padding_top">-12dp</dimen>
     <dimen name="emergency_calls_only_text_size">12sp</dimen>
     <dimen name="multi_user_avatar_size">24dp</dimen>
