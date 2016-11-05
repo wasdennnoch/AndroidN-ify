@@ -127,7 +127,12 @@
   <string name="enable_large_first_row_summary2">Faz com que os dois primeiros mosaicos sejam maiores, se suportado</string>
   <string name="fix_stuck_inversion_title">Resolver bloqueio da inversão de cores</string>
   <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores fica bloqueada no modo ativo. Selecione esta opção para forçar a desativação.</string>
-    <string name="hide_icons_title">Esconder itens do cabeçalho</string>
+  <string name="header_clock_size_title">Tamanho do relógio do cabeçalho</string>
+  <string name="header_clock_size_normal">Normal</string>
+  <string name="header_clock_size_small">Pequeno</string>
+  <string name="header_clock_size_smaller">Menor</string>
+  <string name="header_clock_size_tiny">Minúsculo</string>
+  <string name="hide_icons_title">Esconder itens do cabeçalho</string>
   <string name="hide_tuner_icon_title">Ícone do Sintonizador da interface do sistema, se disponível</string>
   <string name="hide_edit_tiles_title">Botão de editar mosaicos, se disponível</string>
   <string name="hide_edit_tiles_summary">Apenas esconde o botão padrão de editar mosaicos!</string>
@@ -231,9 +236,14 @@
   <string name="unknown_name">Desconhecido</string>
   <string name="address">Morada</string>
   <string name="unknown_address">Desconhecida</string>
-    <!-- Example: (3 feb 1987) -->
-    <!-- Example: Age: 23 -->
-    <string name="blood_type">Tipo sanguíneo</string>
+  <string name="date_of_birth">Data de nascimento</string>
+  <string name="unknown_date_of_birth">Desconhecido</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
+  <!-- Example: Age: 23 -->
+  <string name="age">Idade: %1$d</string>
+  <string name="remove_dob_icon_text">Remover data de nascimento</string>
+  <string name="blood_type">Tipo sanguíneo</string>
   <string name="unknown_blood_type">Desconhecido</string>
   <string name="allergies">Alergias</string>
   <string name="unknown_allergies">Desconhecido</string>
@@ -258,7 +268,9 @@
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="battery">Bateria</string>
-    <string name="qs_edit">Editar</string>
+  <string name="charged">Carregado</string>
+  <string name="charging">A carregar, %1$s</string>
+  <string name="qs_edit">Editar</string>
   <string name="drag_to_add_tiles">Arraste para adicionar mosaicos</string>
   <string name="drag_to_remove_tiles">Arraste para aqui para remover</string>
   <string name="live_display">LiveDisplay</string>
@@ -327,7 +339,9 @@
   <string name="battery_detail_switch_summary">Reduz o desempenho e os dados de segundo plano</string>
   <string name="qs_add_notes_title">Notas</string>
   <string name="qs_add_notes">Isto é utilizado, apenas, por aplicações que fornecem mosaicos de difusão (como por exemplo, a aplicação \"Custom Quick Settings\"). Por favor, leia as instruções na aplicação antes de utilizar esta funcionalidade.</string>
-    <string name="hide_tiles_on_lockscreen">Esconder mosaicos no ecrã de bloqueio</string>
+  <string name="notification_spoof_api_version_title">Falsificar API 24</string>
+  <string name="notification_spoof_api_version">Enganar estas aplicações para que pensem que estão a correr na API 24</string>
+  <string name="hide_tiles_on_lockscreen">Esconder mosaicos no ecrã de bloqueio</string>
   <string name="done">Concluído</string>
   <string name="cm_qs_settings">Definições das Def. Rápidas da CM</string>
   <string name="disable_qs_paging">Desativar paginação das Def. Rápidas</string>

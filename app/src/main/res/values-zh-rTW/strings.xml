@@ -123,7 +123,12 @@
   <string name="enable_large_first_row_summary2">如果支援的話，使首兩個方塊變大。</string>
   <string name="fix_stuck_inversion_title">修復 官方ROM 所造成的倒置問題</string>
   <string name="fix_stuck_inversion">部分裝置的官方系統開啟此功能可能會造成倒置\n點此進行強制停用</string>
-    <string name="hide_icons_title">隱藏標題列的項目</string>
+  <string name="header_clock_size_title">標題列的時鐘大小</string>
+  <string name="header_clock_size_normal">正常</string>
+  <string name="header_clock_size_small">小</string>
+  <string name="header_clock_size_smaller">更小</string>
+  <string name="header_clock_size_tiny">最小</string>
+  <string name="hide_icons_title">隱藏標題列的項目</string>
   <string name="hide_tuner_icon_title">隱藏 系統使用介面調整 圖示</string>
   <string name="hide_edit_tiles_title">隱藏 編輯瓷磚 按鈕</string>
   <string name="hide_edit_tiles_summary">僅隱藏官方系統的編輯按鈕</string>
@@ -218,9 +223,14 @@
   <string name="unknown_name">未知</string>
   <string name="address">地址</string>
   <string name="unknown_address">未知</string>
-    <!-- Example: (3 feb 1987) -->
-    <!-- Example: Age: 23 -->
-    <string name="blood_type">血型</string>
+  <string name="date_of_birth">出生日期</string>
+  <string name="unknown_date_of_birth">未知</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
+  <!-- Example: Age: 23 -->
+  <string name="age">年齡：%1$d</string>
+  <string name="remove_dob_icon_text">移除出生日期</string>
+  <string name="blood_type">血型</string>
   <string name="unknown_blood_type">未知</string>
   <string name="allergies">過敏</string>
   <string name="unknown_allergies">未知</string>
@@ -245,7 +255,9 @@
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">電池</string>
-    <string name="qs_edit">編輯</string>
+  <string name="charged">已充滿</string>
+  <string name="charging">正在充電, %1$s</string>
+  <string name="qs_edit">編輯</string>
   <string name="drag_to_add_tiles">拖曳以新增瓷磚</string>
   <string name="drag_to_remove_tiles">拖曳到這裡移除</string>
   <string name="live_display">即時顯示(LiveDisplay)</string>
@@ -313,7 +325,9 @@
   <string name="battery_detail_switch_summary">減少效能和背景資料傳輸</string>
   <string name="qs_add_notes_title">備註</string>
   <string name="qs_add_notes">僅適用於提供廣播的瓷磚(例如：自訂的快速設定)。使用前請閱讀瓷磚提供應用程式內的說明。</string>
-    <string name="hide_tiles_on_lockscreen">在鎖定螢幕中隱藏瓷磚</string>
+  <string name="notification_spoof_api_version_title">欺騙 App 執行於 Android N</string>
+  <string name="notification_spoof_api_version">欺騙一些應用程式讓其誤以為他們正在 Android N 上面執行</string>
+  <string name="hide_tiles_on_lockscreen">在鎖定螢幕中隱藏瓷磚</string>
   <string name="done">完成</string>
   <string name="cm_qs_settings">CM 快速設定</string>
   <string name="disable_qs_paging">停用 快速分頁</string>
@@ -335,4 +349,5 @@
   <string name="header_experimental">實驗性的</string>
   <string name="enable_experimental_features">啟動實驗性功能</string>
   <string name="enable_n_style_settings_dashboard">安卓N樣式的設置</string>
+  <string name="enable_settings_drawer">啟用設定抽屜欄</string>
 </resources>

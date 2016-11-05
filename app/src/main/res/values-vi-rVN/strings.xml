@@ -29,8 +29,8 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="app_theme_light">Sáng</string>
   <string name="app_theme_dark">Tối</string>
   <string name="app_theme_device">Mặc định của thiết bị</string>
-  <string name="hide_launcher_icon_title">Ẩn icon trên Trang chủ</string>
-  <string name="hide_launcher_icon">Có thể phải nạp lại Trang chủ</string>
+  <string name="hide_launcher_icon_title">Ẩn icon trên Launcher</string>
+  <string name="hide_launcher_icon">Có thể phải khởi động lại Launcher</string>
   <string name="debug_log_title">Thông tin gỡ lỗi</string>
   <string name="debug_log">Chú ý: Rất nhiều thông tin trong trình gỡ lỗi</string>
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
@@ -42,13 +42,13 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="header_settings">Cài đặt</string>
   <string name="enable_settings_summaries_title">Tóm tắt cài đặt</string>
   <string name="enable_settings_summaries">Hiện những thông tin quan trọng trực tiếp lên màn hình Cài đặt</string>
-  <string name="fix_sound_notif_tile_title">Sửa \"Âm thanh và Thông báo\"</string>
+  <string name="fix_sound_notif_tile_title">Sửa ô \"Âm thanh và Thông báo\"</string>
   <string name="fix_sound_notif_tile">Một vài ROM gộp cài đặt Âm thanh và Thông báo. Bật để hiển thị tóm tắt phù hợp cho mục này</string>
   <string name="enable_n_platlogo_title">Logo trứng phục sinh N</string>
   <string name="use_namey_mcnameface_title">Dùng biểu tượng \"Namey McNameface\" </string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Đã ngắt kết nối</string>
-  <string name="disabled">Tắt</string>
+  <string name="disabled">Đã vô hiệu</string>
   <string name="off">TẮT</string>
   <string name="on">BẬT</string>
   <string name="data_usage_summary">Đã sử dụng %1$s dữ liệu</string>
@@ -65,7 +65,7 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_usb">%1$s - Sạc từ USB</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s - Sạc từ điện lưới</string>
+  <string name="battery_charging_ac">%1$s - Sạc từ ổ điện</string>
   <string name="memory_summary">Đang sử dụng %1$s trên %2$s bộ nhớ</string>
   <string name="user_summary">Đăng nhập với tên %1$s</string>
   <string name="location_on_power">BẬT / Tiết kiệm pin</string>
@@ -115,7 +115,12 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="enable_large_first_row_summary2">Phóng lớn hai nút đầu tiên nếu được hỗ trợ</string>
   <string name="fix_stuck_inversion_title">Sửa kẹt đảo ngược</string>
   <string name="fix_stuck_inversion">Trên một số thiết bị, hiệu ứng lộn ngược bị kẹt khi bật. Bấm để ép tắt</string>
-    <string name="hide_icons_title">Ẩn các mục trên thanh tiêu đề</string>
+  <string name="header_clock_size_title">Cỡ đồng hồ trên thanh tiêu đề </string>
+  <string name="header_clock_size_normal">Bình thường </string>
+  <string name="header_clock_size_small">Nhỏ </string>
+  <string name="header_clock_size_smaller">Nhỏ hơn </string>
+  <string name="header_clock_size_tiny">Tí hon </string>
+  <string name="hide_icons_title">Ẩn các mục trên thanh tiêu đề</string>
   <string name="hide_tuner_icon_title">Ẩn icon SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Ẩn nút tùy chỉnh ô</string>
   <string name="hide_edit_tiles_summary">Chỉ ẩn nút tùy chỉnh ô nguyên gốc!</string>
@@ -134,6 +139,9 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="notification_experimental_title">Thử nghiệm hành vi thông báo kiểu N </string>
   <string name="notification_experimental">Cuộn theo phong cách Android N (không dồn lên đầu)</string>
   <string name="notification_keyguard_max_title">Số thông báo tối đa trên màn hình khóa </string>
+  <string name="enable_assistant">Bật Google Assistant</string>
+  <string name="enable_assistant_summary">Thay thế Now on Tap/Screen search bằng Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">Phiên bản Google App (%1$s) của bạn không hỗ trợ.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">ngay bây giờ</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -208,9 +216,14 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="unknown_name">Không biết</string>
   <string name="address">Địa chỉ</string>
   <string name="unknown_address">Không biết</string>
-    <!-- Example: (3 feb 1987) -->
-    <!-- Example: Age: 23 -->
-    <string name="blood_type">Nhóm máu</string>
+  <string name="date_of_birth">Ngày sinh</string>
+  <string name="unknown_date_of_birth">Không biết</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
+  <!-- Example: Age: 23 -->
+  <string name="age">Tuổi: %1$d</string>
+  <string name="remove_dob_icon_text">Loại bỏ ngày sinh</string>
+  <string name="blood_type">Nhóm máu</string>
   <string name="unknown_blood_type">Chưa biết</string>
   <string name="allergies">Bị dị ứng</string>
   <string name="unknown_allergies">Chưa biết</string>
@@ -235,7 +248,9 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="battery">Pin</string>
-    <string name="qs_edit">Sửa</string>
+  <string name="charged">Đã sạc xong</string>
+  <string name="charging">Đang sạc, %1$s</string>
+  <string name="qs_edit">Sửa</string>
   <string name="drag_to_add_tiles">Kéo để thêm ô</string>
   <string name="drag_to_remove_tiles">Kéo vào đây để xóa</string>
   <string name="live_display">LiveDisplay</string>
@@ -304,7 +319,9 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="battery_detail_switch_summary">Giảm hiệu năng và dữ liệu nền </string>
   <string name="qs_add_notes_title">Ghi chú</string>
   <string name="qs_add_notes">Điều này chỉ được sử dụng cho các ứng dụng cung cấp cho tiêu đề phát sóng (chẳng hạn như \"Tùy chỉnh nhanh chóng cài đặt\"). Xin vui lòng đọc hướng dẫn trong các ứng dụng nhà cung cấp tiêu đề trước khi sử dụng điều này.</string>
-    <string name="hide_tiles_on_lockscreen">Ẩn tiêu đề trên màn hình khóa khóa</string>
+  <string name="notification_spoof_api_version_title">Spoof API 24</string>
+  <string name="notification_spoof_api_version">Spoof các ứng dụng vào suy nghĩ họ đang chạy vào API 24</string>
+  <string name="hide_tiles_on_lockscreen">Ẩn tiêu đề trên màn hình khóa khóa</string>
   <string name="done">Xong</string>
   <string name="cm_qs_settings">Cài đặt CM QS</string>
   <string name="disable_qs_paging">Vô hiệu hoá QS phân trang</string>

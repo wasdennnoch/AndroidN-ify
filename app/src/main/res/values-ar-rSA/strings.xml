@@ -36,6 +36,7 @@
   <string name="app_theme_title">مظهر التطبيق</string>
   <string name="app_theme_light">فاتح</string>
   <string name="app_theme_dark">مظلم</string>
+  <string name="app_theme_device">Device Default</string>
   <string name="hide_launcher_icon_title">اخفاء التطبيق</string>
   <string name="hide_launcher_icon">ربما يجب اعاده تشغيل اللانشر</string>
   <string name="debug_log_title">تصحيح الاخطاء</string>
@@ -96,6 +97,7 @@
   <string name="recents_navigation_delay_title">مده تاخير الانتقال</string>
   <string name="recents_navigation_delay">الزمن الازم للتركيز علي التطبيق المحدد</string>
   <string name="enable_large_recents">تكبير شكل التطبيقات الاخيره</string>
+  <string name="enable_large_recents_summary">Only makes the recents cards full width, doesn\'t change the height</string>
   <string name="no_recents_image">تغيير صورة \"لا يوجد تطبيقات حديثه\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">لا توجد تطبيقات حديثه</string>
@@ -118,9 +120,15 @@
   <string name="enable_new_tile_click_behavior">السلوك نقر بلاط اندرويد ان</string>
   <string name="enable_new_tile_click_behavior_summary">الضغط علي احد الاختصارات المصغره سيشغل الاختصار اما النقر علي الاختصار سيقوم بتوسيعه</string>
   <string name="enable_large_first_row">توسيع الصف الأول</string>
+  <string name="enable_large_first_row_summary2">Makes the first two tiles appear large if supported</string>
   <string name="fix_stuck_inversion_title">إصلاح الانعكاس العالق</string>
   <string name="fix_stuck_inversion">في بعض الأجهزة يحصل عطل في عكس عند تمكين. انقر فوق لإجبار الايقاف</string>
-    <string name="hide_icons_title">إخفاء عناصر الرأس</string>
+  <string name="header_clock_size_title">حجم الساعه في شريط الاشعارات</string>
+  <string name="header_clock_size_normal">عادي</string>
+  <string name="header_clock_size_small">صغير</string>
+  <string name="header_clock_size_smaller">أصغر</string>
+  <string name="header_clock_size_tiny">شدة في الصغر</string>
+  <string name="hide_icons_title">إخفاء عناصر الرأس</string>
   <string name="hide_tuner_icon_title">اخفاء رمز معدل شريط الاشعارات</string>
   <string name="hide_edit_tiles_title">إخفاء زر تحرير الاختصارات</string>
   <string name="hide_edit_tiles_summary">هذا يخفي فقط زر تحرير الاختصارات!</string>
@@ -137,8 +145,11 @@
   <string name="notifications_custom_actions_color">استخدم لون معين كخلفية لأزرار التنبيهات</string>
   <string name="notifications_actions_color_title">لون خلفية الإجراءات</string>
   <string name="notification_experimental_title">استخدام سلوك اشعارات انرويد N التجريبي</string>
+  <string name="notification_experimental">N scrolling behavior (no top stack)</string>
   <string name="notification_keyguard_max_title">اقصي حد للاشعارات في شاشه القفل</string>
   <string name="enable_assistant">فعل مساعد ڨوڨل الشخصي</string>
+  <string name="enable_assistant_summary">Replaces Now on Tap/Screen search with the new Google Assistant</string>
+  <string name="enable_assistant_summary_unsupported">Your Google App\'s version (%1$s) is not supported.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">الآن</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -184,9 +195,13 @@
   <string name="unknown_name">مجهول</string>
   <string name="address">العنوان</string>
   <string name="unknown_address">مجهول</string>
-    <!-- Example: (3 feb 1987) -->
+  <string name="date_of_birth">تاريخ الميلاد</string>
+  <string name="unknown_date_of_birth">مجهول</string>
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
-    <string name="blood_type">زمره الدم</string>
+  <string name="age">العمر: %1$d</string>
+  <string name="remove_dob_icon_text">إزالة تاريخ الميلاد</string>
+  <string name="blood_type">زمره الدم</string>
   <string name="unknown_blood_type">مجهول</string>
   <string name="allergies">الحساسية</string>
   <string name="unknown_allergies">مجهول</string>
@@ -210,7 +225,9 @@
   <string name="yes">نعم</string>
   <string name="no">لا</string>
   <string name="battery">البطارية</string>
-    <string name="qs_edit">تحرير</string>
+  <string name="charged">تم الشحن</string>
+  <string name="charging">جار الشحن %1$s</string>
+  <string name="qs_edit">تحرير</string>
   <string name="drag_to_add_tiles">اسحب الاختصار لاضافته</string>
   <string name="drag_to_remove_tiles">اسحب هنا لإزالة</string>
   <string name="live_display">العرض النشط</string>

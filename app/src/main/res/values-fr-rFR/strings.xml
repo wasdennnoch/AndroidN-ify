@@ -8,7 +8,7 @@
   <string name="activity_about">À propos d\'Android N-ify</string>
   <string name="about_author">Developpé par @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
-  <string name="about_translator">Traduit par cab13140, dekefake, prisciou, Toumz42 et Riichard63, Atok_fr</string>
+  <string name="about_translator">Traduit par cab13140, dekefake, prisciou, Toumz42 et Riichard63, Atok_fr, tetra96</string>
   <string name="about_version">Version %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Attention:</b> Le fichier de préférences n\'est pas lisible par Xposed. Appuyez pour plus d\'info&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
@@ -23,7 +23,7 @@
         Si cela échoue, vous devrez probablement faire avec les valeurs par défaut, désolé :(
         ]]></string>
   <string name="automated_build_warning"><![CDATA[
-Vous utilisez une version compilée automatiquement. Certaines parties du module peuvent mal fonctionner à cause des nouveaux changements.         Si vous avez trouvé n’importe quel problème, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> ouvrez un bug sur GitHub </a> s\'il n\' existe pas déjà. <br><br>N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des bogues et logcat en cas d’accident.        ]]></string>
+Vous utilisez une version compilée automatiquement. Certaines parties du module peuvent mal fonctionner à cause des nouveaux changements.         Si vous avez trouvé un problème, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> ouvrez un bug sur GitHub </a> s\'il n\' existe pas déjà. <br><br>N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des bogues et logcat en cas d’accident.        ]]></string>
   <string name="experimental_build_warning"><![CDATA[
 Vous utilisez une version compilée automatiquement. Certaines parties du module peuvent mal fonctionner à cause des nouveaux changements.         Si vous avez trouvé n’importe quel problème, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> ouvrez un bug sur GitHub </a> s\'il n\' existe pas déjà. <br>
 Cette version contient des fonctionnalités <b>très expérimentales</b>. S’il vous plaît, cherchez sur XDA et GitHub avant de signaler tout problème. Les rapports en double seront ignorés et fermés. <br><br>
@@ -31,16 +31,16 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="header_tweaks">Réglages</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">App</string>
-  <string name="app_theme_title">Thème de l\'app</string>
+  <string name="app_theme_title">Thème de l\'appli</string>
   <string name="app_theme_light">Clair</string>
   <string name="app_theme_dark">Sombre</string>
   <string name="app_theme_device">Réglage par défaut de l\'appareil</string>
   <string name="hide_launcher_icon_title">Cacher l\'icône dans le lanceur</string>
   <string name="hide_launcher_icon">Peut nécessiter un redémarrage du lanceur</string>
-  <string name="debug_log_title">Log de Débogage</string>
+  <string name="debug_log_title">Log de débogage</string>
   <string name="debug_log">Attention : Beaucoup de Log</string>
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
-  <string name="requires_android_version">Nécessite Android %1$s</string>
+  <string name="requires_android_version">Nécessite Android %1$s :(</string>
   <string name="not_activated">Module désactivé</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Couleur primaire</string>
@@ -49,7 +49,7 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="enable_settings_summaries_title">Résumé des paramètres</string>
   <string name="enable_settings_summaries">Afficher les informations les plus importantes directement dans le tableau de bord</string>
   <string name="fix_sound_notif_tile_title">Corriger la tuile \"Son &amp; notifications\" </string>
-  <string name="fix_sound_notif_tile">Certaines ROMs combinent les Sons et Notifications. Activer pour régler le paramètre souhaité pour cette tuile</string>
+  <string name="fix_sound_notif_tile">Certaines ROMs combinent les sons et notifications. Activer pour régler le paramètre, si nécessaire</string>
   <string name="enable_n_platlogo_title">Logo N dans easter egg</string>
   <string name="use_namey_mcnameface_title">Utiliser \"Namey McNameface\" icon</string>
   <!-- Wifi disconnected -->
@@ -81,7 +81,7 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <!-- Header of app installation source -->
   <string name="store">Magasin</string>
   <!-- Header of app installation source -->
-  <string name="app_details">Détails de l\'app</string>
+  <string name="app_details">Détails de l\'appli</string>
   <string name="install_source">Appli installée depuis %1$s</string>
   <string name="from_pm">Appli installée depuis le Package Installer</string>
   <string name="header_recents">Applications Récentes</string>
@@ -93,10 +93,10 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="double_tap_speed_title">Vitesse du double-tap</string>
   <string name="recents_button_behavior_title">Comportement du bouton récent</string>
   <string name="recents_navigation_delay_title">Délai de navigation</string>
-  <string name="recents_navigation_delay">Durée avant que l\'app selectionnée soit agrandie</string>
-  <string name="enable_large_recents">Activer applications récentes larges</string>
-  <string name="enable_large_recents_summary">Mettre en pleine largeur uniquement les cartes récentes, ne pas changer la hauteur</string>
-  <string name="no_recents_image">Changer l\'image \"aucune apps récentes\"</string>
+  <string name="recents_navigation_delay">Durée avant que l\'appli selectionnée soit agrandie</string>
+  <string name="enable_large_recents">Activer la vue large des applications récentes</string>
+  <string name="enable_large_recents_summary">Change uniquement la largeur, pas la hauteur</string>
+  <string name="no_recents_image">Changer l\'image \"Aucunes apps récentes\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Aucune application récente</string>
   <string name="recents_button_behavior_previous">Retourner à l\'appli précédente</string>
@@ -117,31 +117,36 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="allow_fancy_qs_transition">Transitions QS améliorées</string>
   <string name="enable_new_tile_click_behavior">Comportement de tuiles Android N</string>
   <string name="enable_new_tile_click_behavior_summary">Appuyer sur une tuile dans l\'en-tête va l\'activer et appuyer sur une tuile dans le panneau va l\'étendre</string>
-  <string name="enable_large_first_row">Elargir première ligne</string>
+  <string name="enable_large_first_row">Elargir la première ligne</string>
   <string name="enable_large_first_row_summary2">Rendre les deux première tuiles plus larges si possible</string>
   <string name="fix_stuck_inversion_title">Corriger l\'inversion bloquée</string>
   <string name="fix_stuck_inversion">Sur certains périphériques l\'inversion se bloque lorsqu\'elle est activée. Appuyez pour forcer la désactivation</string>
-    <string name="hide_icons_title">Cacher les éléments d\'en-tête</string>
-  <string name="hide_tuner_icon_title">Cacher l\'icone de  SystemUI Tuner</string>
+  <string name="header_clock_size_title">Taille de l\'horloge d\'en-tête</string>
+  <string name="header_clock_size_normal">Normale</string>
+  <string name="header_clock_size_small">Petite</string>
+  <string name="header_clock_size_smaller">Plus petite</string>
+  <string name="header_clock_size_tiny">Minime</string>
+  <string name="hide_icons_title">Cacher les éléments d\'en-tête</string>
+  <string name="hide_tuner_icon_title">Cacher l\'icone de SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Cacher le bouton d\'édition des tuiles</string>
-  <string name="hide_edit_tiles_summary">Ceci ne cache que le bouton d\'origine ! </string>
+  <string name="hide_edit_tiles_summary">Ceci ne cache que le bouton d\'origine !</string>
   <string name="hide_carrier_label_title">Cacher le label opérateur</string>
   <string name="header_notifications">Notifications</string>
   <string name="notifications_change_style">Style des notifications</string>
-  <string name="notification_dismiss_button_title">Changer le bouton tout effacer</string>
+  <string name="notification_dismiss_button_title">Changer le bouton Tout effacer</string>
   <string name="notification_dismiss_button">Afficher \"TOUT EFFACER\" au lieu de l\'icône d\'élimination</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Rechercher</string>
   <string name="notification_blacklisted_apps_title">Liste noire des apps</string>
-  <string name="notification_blacklisted_apps">Utilisation de l\'ancien style de notifications pour ces apps</string>
+  <string name="notification_blacklisted_apps">Utilisation de l\'ancien style de notifications pour ces applis</string>
   <string name="notifications_custom_actions_color_title">Utiliser une couleur personnalisée pour le fond des actions</string>
   <string name="notifications_custom_actions_color">Utiliser une couleur de fond personnalisée pour les boutons de notification</string>
   <string name="notifications_actions_color_title">Couleur fond des actions</string>
   <string name="notification_experimental_title">Comportement des notifications N expérimental</string>
-  <string name="notification_experimental">Comportement au défilement d\'android N (Pas de barre fixe en haut)</string>
+  <string name="notification_experimental">Comportement au défilement d\'Android N (Pas de barre fixe en haut)</string>
   <string name="notification_keyguard_max_title">Nombre max de notifications sur l\'écran de verrouillage</string>
   <string name="enable_assistant">Activer Google Assistant</string>
-  <string name="enable_assistant_summary">Remplace la recherche d\'écran Google -anciennement \"Now on Tap- par le nouvel Assistant Google</string>
+  <string name="enable_assistant_summary">Remplace la recherche d\'écran Google -anciennement \"Now on Tap\"- par Google Assistant</string>
   <string name="enable_assistant_summary_unsupported">La version de votre application Google (%1$s) n’est pas prise en charge.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">maint.</string>
@@ -186,14 +191,14 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
     <item quantity="other">dans %da</item>
   </plurals>
   <string name="update_notification_title">Nouvelle mise à jour disponible</string>
-  <string name="update_notification">La build %1$d est prête à être installé !</string>
+  <string name="update_notification">La build %1$d est prête à être installée !</string>
   <string name="update_notification_download">Mise à jour</string>
-  <string name="update_warning">Le module à été mis à jour</string>
+  <string name="update_warning">Le module a été mis à jour</string>
   <string name="update_warning_details">Le système peut être instable et les rapports de bugs seront ignorés jusqu\'au redémarrage du périphérique</string>
   <string name="check_for_updates_title">Vérifier les mises à jours</string>
   <string name="check_for_updates">Vérifier les mises à jours au démarrage de l\'appli</string>
   <string name="checking_for_update">Vérification de mises à jour&#8230;</string>
-  <string name="check_for_update_fail">Impossible de récupérer les mises à jour</string>
+  <string name="check_for_update_fail">Impossible de vérifier si une mise à jour est diponible</string>
   <string name="no_updates">Pas de nouvelles versions trouvées</string>
   <string name="update_notification_downloading">Téléchargement de la mise à jour</string>
   <string name="update_notification_downloading_details">Téléchargement de la build %1$d</string>
@@ -225,14 +230,19 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="unknown_name">Inconnu</string>
   <string name="address">Adresse</string>
   <string name="unknown_address">Inconnu</string>
-    <!-- Example: (3 feb 1987) -->
-    <!-- Example: Age: 23 -->
-    <string name="blood_type">Groupe sanguin</string>
+  <string name="date_of_birth">Date de naissance</string>
+  <string name="unknown_date_of_birth">Inconnu</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
+  <!-- Example: Age: 23 -->
+  <string name="age">Âge: %1$d</string>
+  <string name="remove_dob_icon_text">Supprimer la date de naissance</string>
+  <string name="blood_type">Groupe sanguin</string>
   <string name="unknown_blood_type">Inconnu</string>
   <string name="allergies">Allergies</string>
   <string name="unknown_allergies">Inconnu</string>
   <string name="allergies_hint">Par exemple, arachides</string>
-  <string name="medications">Médications</string>
+  <string name="medications">Traitements</string>
   <string name="unknown_medications">Inconnu</string>
   <string name="medications_hint">Par exemple, aspirine</string>
   <string name="medical_conditions">Notes médicales</string>
@@ -252,7 +262,9 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="yes">Oui</string>
   <string name="no">Non</string>
   <string name="battery">Batterie</string>
-    <string name="qs_edit">Editer</string>
+  <string name="charged">Chargée</string>
+  <string name="charging">En charge, %1$s</string>
+  <string name="qs_edit">Editer</string>
   <string name="drag_to_add_tiles">Faites glisser des tuiles ici pour les ajouter</string>
   <string name="drag_to_remove_tiles">Faites glisser des tuiles ici pour les supprimer</string>
   <string name="live_display">Live Display</string>
@@ -260,13 +272,13 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="live_display_off">Désactivé</string>
   <string name="live_display_day">Jour</string>
   <string name="live_display_night">Nuit</string>
-  <string name="live_display_outdoor">Extérieur (soleil brillant)</string>
+  <string name="live_display_outdoor">Extérieur (soleil)</string>
   <!-- Example: 3 hours ago -->
   <string name="charge_length_format">Il y a %1$s</string>
   <!-- Example: 3 hours left -->
   <string name="remaining_length_format">%1$s restants</string>
   <!-- Example: Approx. 3 hours left -->
-  <string name="power_remaining_duration_only">Env. %1$s restants</string>
+  <string name="power_remaining_duration_only">Environ %1$s restants</string>
   <!-- Example: 3h left -->
   <string name="power_remaining_duration_only_short">%1$s restants</string>
   <!-- Example: 75% - approx. 3 hours left -->
@@ -299,7 +311,7 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <string name="battery_info_status_charging_usb_short">En charge</string>
   <string name="battery_info_status_charging_wireless">En charge sans fil</string>
   <string name="battery_info_status_charging_wireless_short">En charge</string>
-  <string name="battery_info_status_discharging">Pas en charge</string>
+  <string name="battery_info_status_discharging">Sur batterie</string>
   <string name="battery_info_status_not_charging">Pas en charge</string>
   <string name="battery_info_status_full">Charge complète</string>
   <string name="battery_panel_title">Utilisation batterie</string>
@@ -316,24 +328,26 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Afficher les sources d\'installation de l\'app</string>
-  <string name="enable_install_source">Ajouter une catégorie à la page d\'infos de l\'app pour montrer comment l\'app a été installée (PlayStore, installation de l\'apk....)</string>
+  <string name="enable_install_source">Ajouter une catégorie à la page d\'infos de l\'app pour montrer comment l\'app a été installée (PlayStore, installation par apk)</string>
   <string name="battery_detail_switch_title">Économiseur de batterie</string>
   <string name="battery_detail_switch_summary">Réduit les performances et les données en arrière plan</string>
   <string name="qs_add_notes_title">Notes</string>
   <string name="qs_add_notes">Ceci est utilisé uniquement pour les applis qui proposent des tuiles personnalisées (telle que \"Custom Quick Settings\"). Merci de lire les instructions de l/\'appli proposant des tuiles avant d/\'utiliser ceci. </string>
-    <string name="hide_tiles_on_lockscreen">Masquer les tuiles sur l\'écran de verrouillage</string>
+  <string name="notification_spoof_api_version_title">Émuler API 24</string>
+  <string name="notification_spoof_api_version">Faire croire à ces applications qu\'elles fonctionnent sur 24 API</string>
+  <string name="hide_tiles_on_lockscreen">Masquer les tuiles sur l\'écran de verrouillage</string>
   <string name="done">Terminé</string>
   <string name="cm_qs_settings">Paramètres QS CM</string>
   <string name="disable_qs_paging">Désactiver pagination QS</string>
-  <string name="disable_qs_paging_summary">Désactive pagination QS en mode portrait</string>
-  <string name="allow_direct_reply_on_keyguard">Direct reply sur écran verrouillé</string>
+  <string name="disable_qs_paging_summary">Désactiver la pagination QS en mode portrait</string>
+  <string name="allow_direct_reply_on_keyguard">Réponse rapide sur l\'écran de verrouillage</string>
   <string name="allow_direct_reply_on_keyguard_summary">Permettre de répondre à partir de notifications de l\'écran de verrouillage</string>
   <string name="enable_notifications_background">Activer les notifications en arrière-plan</string>
   <string name="enable_notifications_background_summary">Insérer un fond blanc derrière les notifications lorsque l\'on les fait glisser</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_expand">Ouvrir paramètres rapides.</string>
+  <string name="accessibility_quick_settings_expand">Ouvrir les paramètres rapides.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_collapse">Fermer réglages rapides.</string>
+  <string name="accessibility_quick_settings_collapse">Fermer les réglages rapides.</string>
   <string name="warning">Attention</string>
   <string name="dont_show_again">Ne plus afficher</string>
   <string name="enable_data_disabled_indicator">Afficher l’indicateur de données mobile désactivées</string>
@@ -343,11 +357,12 @@ N’oubliez pas de toujours joindre les journaux Xposed lors du signalement des 
     <item quantity="one">Vous êtes maintenant à %1$d étape d\'activer des fonctionnalités expérimentales.</item>
     <item quantity="other">Vous êtes maintenant à %1$d étapes d\'activer des fonctionnalités expérimentales.</item>
   </plurals>
-  <string name="show_experimental_on">Vous avez activé des fonctionnalités expérimentales!</string>
+  <string name="show_experimental_on">Vous avez activé des fonctionnalités expérimentales!
+Attention, risques de crash (notamment à cause du tiroir de l\'appli Paramètres)</string>
   <string name="show_experimental_on_already">Pas besoin, vous avez déjà activé des fonctionnalités expérimentales.</string>
   <string name="header_experimental">Expérimental</string>
   <string name="enable_experimental_features">Activer les fonctionnalités expérimentales</string>
   <string name="enable_n_style_settings_dashboard">Paramètres de style Android N</string>
-  <string name="enable_n_style_settings_dashboard_summary">Appliquer un thème android N sur le panneau de configuration</string>
-  <string name="enable_settings_drawer">Permettre le paramétrage du tiroir d\'apps</string>
+  <string name="enable_n_style_settings_dashboard_summary">Appliquer un thème Android N sur l\'appli Paramètres</string>
+  <string name="enable_settings_drawer">Activer le tiroir de l\'appli Paramètres</string>
 </resources>

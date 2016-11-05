@@ -123,7 +123,12 @@ Questa build contiene delle funzioni <b>molto sperimentali.</b> Per favore cerca
   <string name="enable_large_first_row_summary2">Rendi le prime due tiles più grandi se supportato</string>
   <string name="fix_stuck_inversion_title">Fix per l\'inversione bloccata</string>
   <string name="fix_stuck_inversion">In alcuni dispositivi l\'inversione rimane bloccata quando abilitata. Clicca per forzare la disattivazione</string>
-    <string name="hide_icons_title">Nascondi elementi intestazione</string>
+  <string name="header_clock_size_title">Grandezza orologio nell\'intestazione</string>
+  <string name="header_clock_size_normal">Normale</string>
+  <string name="header_clock_size_small">Piccolo</string>
+  <string name="header_clock_size_smaller">Più piccolo</string>
+  <string name="header_clock_size_tiny">Minuscolo</string>
+  <string name="hide_icons_title">Nascondi elementi intestazione</string>
   <string name="hide_tuner_icon_title">Nascondi l\'icona del SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Nascondi il tile \"Edit Tiles\"</string>
   <string name="hide_edit_tiles_summary">Questo nasconde solo l\'Edit Button originale!</string>
@@ -227,9 +232,14 @@ Questa build contiene delle funzioni <b>molto sperimentali.</b> Per favore cerca
   <string name="unknown_name">Sconosciuto</string>
   <string name="address">Indirizzo</string>
   <string name="unknown_address">Sconosciuto</string>
-    <!-- Example: (3 feb 1987) -->
-    <!-- Example: Age: 23 -->
-    <string name="blood_type">Gruppo sanguigno</string>
+  <string name="date_of_birth">Data di nascita</string>
+  <string name="unknown_date_of_birth">Sconosciuto</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
+  <!-- Example: Age: 23 -->
+  <string name="age">Età: %1$d</string>
+  <string name="remove_dob_icon_text">Rimuovi la data di nascita</string>
+  <string name="blood_type">Gruppo sanguigno</string>
   <string name="unknown_blood_type">Sconosciuto</string>
   <string name="allergies">Allergie</string>
   <string name="unknown_allergies">Sconosciuto</string>
@@ -254,7 +264,9 @@ Questa build contiene delle funzioni <b>molto sperimentali.</b> Per favore cerca
   <string name="yes">Si</string>
   <string name="no">No</string>
   <string name="battery">Batteria</string>
-    <string name="qs_edit">Modifica</string>
+  <string name="charged">Carico</string>
+  <string name="charging">In carica, %1$s</string>
+  <string name="qs_edit">Modifica</string>
   <string name="drag_to_add_tiles">Trascina per aggiungere tile</string>
   <string name="drag_to_remove_tiles">Trascina qui per rimuovere</string>
   <string name="live_display">LiveDisplay</string>
@@ -323,7 +335,9 @@ Questa build contiene delle funzioni <b>molto sperimentali.</b> Per favore cerca
   <string name="battery_detail_switch_summary">Riduce le prestazioni e i dati in background</string>
   <string name="qs_add_notes_title">Note</string>
   <string name="qs_add_notes">Viene utilizzato solo per le app che forniscono i tile di broadcast (come \"Custom Quick Settings\"). Si prega di leggere le istruzioni nell\'app per i tile di broadcast prima di usare questo.</string>
-    <string name="hide_tiles_on_lockscreen">Nascondi tile nella schermata di blocco</string>
+  <string name="notification_spoof_api_version_title">Falsifica API 24</string>
+  <string name="notification_spoof_api_version">Queste app useranno una falsa API 24</string>
+  <string name="hide_tiles_on_lockscreen">Nascondi tile nella schermata di blocco</string>
   <string name="done">Fatto</string>
   <string name="cm_qs_settings">Impostazioni QS CM</string>
   <string name="disable_qs_paging">Disabilita la paginazione dei QS</string>

@@ -6,9 +6,9 @@
   <string name="restart_systemui_message">Sunteți sigur(ă) că vreți să reporniți SystemUI?</string>
   <string name="restart_broadcast_sent">Broadcast-ul de repornire a fost trimis</string>
   <string name="activity_about">Despre Android N-ify</string>
-  <string name="about_author">Dezvoltată de @MrWasdennnoch</string>
+  <string name="about_author">Dezvoltat de @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
-  <string name="about_translator">Tradusă de @IonutGherman și @Kamin4ri</string>
+  <string name="about_translator">Tradusă de @IonutGherman, @Kamin4ri și @minealex2244</string>
   <string name="about_version">Versiunea %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Atenție:</b> Fișierul de preferință nu poate fi citit de Xposed. Dați clic pentru mai multe informații&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
@@ -16,16 +16,16 @@
         Există câteva metode de a rezolva această problemă. Totodată această eroare va apărea dacă nu ați deschis aplicația niciodată.<br><br>
         Prima dată reporniți dispozitivul (Fără repornire rapidă!).<br>
         Dacă nu ajută, încercați reinstalarea modulului.<br>
-        Dacă ambele metode eșueze, verificați dacă modul lui SELinux este setat pe <i>Permisiv</i>.
+        Dacă ambele metode eșuează, verificați dacă modul SELinux este setat pe <i>Permisiv</i>.
         SELinux-ul setat pe <i>Obligatoriu</i> poate bloca accesul la fișierul cu setările preferențiale. Ca să schimbi modul,
-        folosește aplicația <tt>SELinuxModeChanger</tt> care o puteți descărca
+        folosește aplicația <tt>SELinuxModeChanger</tt> pe care o puteți descărca
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">din acest topic XDA</a>.<br>
-        Dacă și această metodă eșuează, probabil v-a trebui să rămâi cu setările inițiale. Scuze :(
+        Dacă și această metodă eșuează, probabil va trebui să rămâi cu setările inițiale. Scuze :(
         ]]></string>
   <string name="automated_build_warning"><![CDATA[
-Rulați o construcție a aplicației automată. Câteva părți din modul nu vor funcționa din cauza schimbărilor.
-        Dacă ați găsit vreo problemă, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">raportați-o pe GitHub</a><br><br>
-        Amintiți-vă întotdeauna să atașați log-ul Xposed când raportați bug-uri și logcat în caz de crash.
+        Rulați o construcție a aplicației automată. Câteva părți din modul nu vor funcționa din cauza schimbărilor.
+        Dacă ați găsit vreo problemă, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">deschideți una în Github</a> dacă nu există deja.<br>
+        Amintiți-vă întotdeauna să atașați log-ul Xposed când raportați bug-uri și logcat în caz de crash. 
         ]]></string>
   <string name="experimental_build_warning"><![CDATA[
         Rulați o construcție automată experimentală. Câteva părți ale modulului s-ar putea să nu funcționeze din cauza noilor schimbări.
@@ -37,13 +37,13 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplicație</string>
   <string name="app_theme_title">Tema aplicației</string>
-  <string name="app_theme_light">Luminos</string>
-  <string name="app_theme_dark">Întunecat</string>
-  <string name="app_theme_device">Implicitul dispozitivului</string>
+  <string name="app_theme_light">Luminoasă</string>
+  <string name="app_theme_dark">Întunecată</string>
+  <string name="app_theme_device">Implicită a dispozitivului</string>
   <string name="hide_launcher_icon_title">Ascunde iconita în lansator</string>
   <string name="hide_launcher_icon">Poate necesita repornirea lansatorului</string>
-  <string name="debug_log_title">Loguri de depanare</string>
-  <string name="debug_log">Atentie: încărcare log</string>
+  <string name="debug_log_title">Log de depanare</string>
+  <string name="debug_log">Atenție: încărcare log</string>
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
   <string name="requires_android_version">Necesită Android %1$s</string>
   <string name="not_activated">Modulul nu este activat</string>
@@ -51,35 +51,35 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="theme_colorPrimary">Culoare primară</string>
   <string name="header_lockscreen">Ecran de blocare</string>
   <string name="header_settings">Setări</string>
-  <string name="enable_settings_summaries_title">Sumar setări</string>
-  <string name="enable_settings_summaries">Afișează cele mai importante caracteristici în pagina principală</string>
+  <string name="enable_settings_summaries_title">Sumar Setări</string>
+  <string name="enable_settings_summaries">Afișează cele mai importante informații pe pagina principală</string>
   <string name="fix_sound_notif_tile_title">Fixează titlul \"Sunete &amp; Notificări\"</string>
   <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete &amp; Notificări. Activează această setare pentru a afișa titlul corect</string>
-  <string name="enable_n_platlogo_title">Logo-ul N în versiune Android</string>
+  <string name="enable_n_platlogo_title">Logo-ul N în easter egg</string>
   <string name="use_namey_mcnameface_title">Folosește imaginea \"Namey McNameface\"</string>
   <!-- Wifi disconnected -->
-  <string name="disconnected">Deconectat/ă</string>
-  <string name="disabled">Dezactivat/ă</string>
-  <string name="off">Oprit/ă</string>
-  <string name="on">Pornit/ă</string>
+  <string name="disconnected">Deconectat</string>
+  <string name="disabled">Dezactivat</string>
+  <string name="off">Oprit</string>
+  <string name="on">Pornit</string>
   <string name="data_usage_summary">%1$s din datele mobile utilizate</string>
   <!-- Is on or off -->
   <string name="display_summary">Luminozitatea adaptivă este %1$s</string>
   <string name="sound_summary">Volum sunet apel la %1$s</string>
-  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d aplicații instalate</string>
+  <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d (de) aplicații instalate</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s din %2$s utilizați</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
-  <string name="battery_summary">%1$s - aproximativ %2$s ramase</string>
+  <string name="battery_summary">%1$s - aproximativ %2$s rămase</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_wireless">%1$s - Se încarcă wireless</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_usb">%1$s - Se încarcă prin USB</string>
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_ac">%1$s - Se încarcă AC</string>
-  <string name="memory_summary">%1$s din %2$s din memoria Ram utilizată</string>
+  <string name="memory_summary">%1$s din %2$s din memoria RAM utilizată</string>
   <string name="user_summary">Logat ca %1$s</string>
-  <string name="location_on_power">Pornit / Salvare energie</string>
+  <string name="location_on_power">Pornită / Economisire energie</string>
   <string name="location_on_device">Pornit / Numai dispozitiv</string>
   <string name="location_on_high">Pornit / Acuratețe ridicată</string>
   <string name="print_summary" tools:ignore="PluralsCandidate">%1$d sarcini de printat</string>
@@ -96,12 +96,12 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="alternative_double_tap_title">Detectare alternativă a apăsării duble</string>
   <string name="alternative_double_tap">Activați dacă Comutatorul nu funcționează corect</string>
   <string name="double_tap_speed_title">Viteză apăsare dublă</string>
-  <string name="recents_button_behavior_title">Comportament aplicatii recente</string>
-  <string name="recents_navigation_delay_title">Întârziere navigare</string>
-  <string name="recents_navigation_delay">Timpul în care aplicațiia selectata focalizeaza</string>
+  <string name="recents_button_behavior_title">Comportament la apăsarea butonului Recente</string>
+  <string name="recents_navigation_delay_title">Întârzierea navigării</string>
+  <string name="recents_navigation_delay">Timpul în care aplicația selectată este focalizată</string>
   <string name="enable_large_recents">Aplicații recente mari</string>
   <string name="enable_large_recents_summary">Numai face cardurile din recente pline în lățime, nu schimbă înălțimea</string>
-  <string name="no_recents_image">Schimbă imaginea \"nici-o aplicație recentă\"</string>
+  <string name="no_recents_image">Schimbă imaginea \"nicio aplicație recentă\" </string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Nu există aplicații recente</string>
   <string name="recents_button_behavior_previous">Revino la aplicația anterioară</string>
@@ -109,35 +109,40 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="recents_button_behavior_cycle">Comută printre aplicații</string>
   <string name="header_qs">Setări rapide</string>
   <string name="enable_notification_header">Schimbă stilul antetului</string>
-  <string name="keep_bg_title">Fundaluri Nealterate</string>
-  <string name="keep_bg">Folositor pentru teme care aplica fundaluri personalizate</string>
+  <string name="keep_bg_title">Fundaluri nealterate</string>
+  <string name="keep_bg">Folositor pentru teme care aplică fundaluri personalizate</string>
   <string name="keep_header_bg">Antet</string>
   <string name="keep_panel_bg">Panou Setari Rapide</string>
-  <string name="notification_header_qs_tiles_count">Afișare titluri SR</string>
+  <string name="notification_header_qs_tiles_count">Afișare titluri QS</string>
   <!-- The unit of the counter next to the slider -->
-  <string name="notification_header_qs_tiles_count_monitor">titluri</string>
-  <string name="battery_tile_show_percentage">Afișează procentajul în iconita</string>
-  <string name="battery_tile_show_percentage_summary">Afișează procentajul bateriei în iconita bateriei</string>
-  <string name="enable_qs_editor">Activează editorul SR</string>
-  <string name="allow_fancy_qs_transition">Tranziția SR pompoasă</string>
-  <string name="enable_new_tile_click_behavior">Comportament click ca la Android N</string>
+  <string name="notification_header_qs_tiles_count_monitor">tile-uri</string>
+  <string name="battery_tile_show_percentage">Afișează procentajul bateriei în iconița bateriei</string>
+  <string name="battery_tile_show_percentage_summary">Afișează procentajul bateriei în iconița bateriei</string>
+  <string name="enable_qs_editor">Activează editorul QS</string>
+  <string name="allow_fancy_qs_transition">Tranziție QS pompoasă</string>
+  <string name="enable_new_tile_click_behavior">Noul comportament la click pe un tile</string>
   <string name="enable_new_tile_click_behavior_summary">Apăsând un chenar în antet îl vei comuta și apăsând un chenar în panou îl vei extinde</string>
   <string name="enable_large_first_row">Lărgește primul rând</string>
   <string name="enable_large_first_row_summary2">Face ca primele două tile-uri să apară mai largi dacă este suportat</string>
   <string name="fix_stuck_inversion_title">Fixează inversiunea blocată</string>
-  <string name="fix_stuck_inversion">Pe unele dispozitive inversiunea culorilor se blocheaza când este activată. Dați clic aici pentru a forța dezactivarea</string>
-    <string name="hide_icons_title">Ascunde elementele antetului</string>
-  <string name="hide_tuner_icon_title">Ascunde modificatorul SystemUI</string>
+  <string name="fix_stuck_inversion">Pe unele dispozitive inversiunea culorilor se blochează când este activată. Dați clic aici pentru a forța dezactivarea</string>
+  <string name="header_clock_size_title">Mărimea ceasului din antet</string>
+  <string name="header_clock_size_normal">Normală</string>
+  <string name="header_clock_size_small">Mică</string>
+  <string name="header_clock_size_smaller">Mai mică</string>
+  <string name="header_clock_size_tiny">Minusculă</string>
+  <string name="hide_icons_title">Ascunde elementele antetului</string>
+  <string name="hide_tuner_icon_title">Ascunde SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Ascunde butonul de editare a chenarelor</string>
   <string name="hide_edit_tiles_summary">Aceasta ascunde numai butonul de editare implicit!</string>
   <string name="hide_carrier_label_title">Ascunde numele operatorului</string>
   <string name="header_notifications">Notificări</string>
-  <string name="notifications_change_style">Schimbă stilul notificărilor</string>
-  <string name="notification_dismiss_button_title">Schimbă butonul de stergere a notificărilor</string>
+  <string name="notifications_change_style">Stilul notificărilor</string>
+  <string name="notification_dismiss_button_title">Schimbă butonul de ștergere a notificărilor</string>
   <string name="notification_dismiss_button">Arată \"ȘTERGEȚI TOATE NOTIFICĂRILE\" în locul butonului</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Căutare</string>
-  <string name="notification_blacklisted_apps_title">Aplicații pe lista neagră</string>
+  <string name="notification_blacklisted_apps_title">Aplicațiile din lista neagră</string>
   <string name="notification_blacklisted_apps">Folosește stilul vechi al notificărilor pt. aceste aplicații</string>
   <string name="notifications_custom_actions_color_title">Utilizați o culoare de fundal al acțiunilor personalizată</string>
   <string name="notifications_custom_actions_color">Utilizează o culoare particularizată ca fundal al butoanelor din notificări</string>
@@ -222,7 +227,7 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="tab_title_contacts">Contacte</string>
   <string name="add_emergency_contact">Adauga contacte</string>
   <string name="user_emergency_info_title">Informatii de urgenta</string>
-  <string name="user_emergency_info_consent">Informaţiile pe care le introduceţi aici poate ajuta primii raspunzatori în caz de urgenţă. Aceasta este stocată doar in dispozitivul dumneavoastra, şi oricine o poate citi din dialer-ul de urgenta fără deblocarea telefonului.</string>
+  <string name="user_emergency_info_consent">Informaţiile pe care le introduceţi aici pot ajuta primii răspunzători în caz de urgenţă. Acestea sunt stocate doar în dispozitivul dumneavoastră, şi oricine le poate citi din dialer-ul de urgență fără deblocarea telefonului.</string>
   <string name="emergency_info_continue">Continua</string>
   <string name="clear">Sterge tot</string>
   <string name="clear_all_message">Sunteti sigur ca vreti sa stergeti toate informatiile si persoanele de contact?</string>
@@ -238,9 +243,14 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="unknown_name">Necunoscut</string>
   <string name="address">Adresa</string>
   <string name="unknown_address">Necunoscut</string>
-    <!-- Example: (3 feb 1987) -->
-    <!-- Example: Age: 23 -->
-    <string name="blood_type">Grupă sanguină</string>
+  <string name="date_of_birth">Data nașterii</string>
+  <string name="unknown_date_of_birth">Necunoscut</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
+  <!-- Example: Age: 23 -->
+  <string name="age">Varsta: %1$d</string>
+  <string name="remove_dob_icon_text">Elimina data naşterii</string>
+  <string name="blood_type">Grupă sanguină</string>
   <string name="unknown_blood_type">Necunoscut</string>
   <string name="allergies">Alergii</string>
   <string name="unknown_allergies">Necunoscut</string>
@@ -265,7 +275,9 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="yes">Da</string>
   <string name="no">Nu</string>
   <string name="battery">Baterie</string>
-    <string name="qs_edit">Editați</string>
+  <string name="charged">Încărcat</string>
+  <string name="charging">Se încarcă, %1$s</string>
+  <string name="qs_edit">Editați</string>
   <string name="drag_to_add_tiles">Trageți pentru a adăuga tile-uri</string>
   <string name="drag_to_remove_tiles">Trageți aici pentru a elimina</string>
   <string name="live_display">Display Adaptiv</string>
@@ -277,15 +289,15 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <!-- Example: 3 hours ago -->
   <string name="charge_length_format">%1$s în urmă</string>
   <!-- Example: 3 hours left -->
-  <string name="remaining_length_format">%1$s ramas</string>
+  <string name="remaining_length_format">%1$s rămas(e)</string>
   <!-- Example: Approx. 3 hours left -->
-  <string name="power_remaining_duration_only">Aproximativ %1$s ramas</string>
+  <string name="power_remaining_duration_only">Aproximativ %1$s rămas(e)</string>
   <!-- Example: 3h left -->
-  <string name="power_remaining_duration_only_short">%1$s ramas</string>
+  <string name="power_remaining_duration_only_short">%1$s rămas(e)</string>
   <!-- Example: 75% - approx. 3 hours left -->
-  <string name="power_discharging_duration">%1$s - aprox. %2$s ramas</string>
+  <string name="power_discharging_duration">%1$s - aprox. %2$s rămas(e)</string>
   <!-- Example: 75% - 3h left -->
-  <string name="power_discharging_duration_short">%1$s - %2$s ramas</string>
+  <string name="power_discharging_duration_short">%1$s - %2$s rămas(e)</string>
   <!-- Example: 75% - Charging -->
   <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
@@ -333,11 +345,13 @@ Rulați o construcție a aplicației automată. Câteva părți din modul nu vor
   <string name="battery_detail_switch_title">Economizator de baterie</string>
   <string name="battery_detail_switch_summary">Reduce performanța și datele de fundal</string>
   <string name="qs_add_notes_title">Note</string>
-  <string name="qs_add_notes">Acesta este folosit doar pentru aplicatii care furnizeaza titluri de difuzare (cum ar fi \'\'
-Setări rapide personalizate\'\'). Va rugam sa cititi informatiile in aplicatia furnizorului inainte de a utiliza aceasta functie.</string>
-    <string name="hide_tiles_on_lockscreen">Ascunde iconiţele de setări din ecranul de blocare</string>
+  <string name="qs_add_notes">Această funcție este folosită doar pentru aplicații care furnizează titluri de difuzare (cum ar fi \'\'
+Setări rapide personalizate\'\'). Vă rugăm să citiți informațiile din aplicația furnizorului înainte de a utiliza această funcție.</string>
+  <string name="notification_spoof_api_version_title">Prezinta drept API 24</string>
+  <string name="notification_spoof_api_version">Minte aceste aplicaţii că rulează pe API 24</string>
+  <string name="hide_tiles_on_lockscreen">Ascunde iconiţele de setări din ecranul de blocare</string>
   <string name="done">Terminat</string>
-  <string name="cm_qs_settings">Setari QS pentru CM</string>
+  <string name="cm_qs_settings">Setari QS din CM</string>
   <string name="disable_qs_paging">Dezactiveaza paginare QS</string>
   <string name="disable_qs_paging_summary">Dezactiveaza paginare QS in mod portret</string>
   <string name="allow_direct_reply_on_keyguard">Raspunde direct din ecranul de blocare</string>

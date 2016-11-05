@@ -92,7 +92,6 @@ public class NotificationHooks {
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
     public static NotificationStackScrollLayoutHooks mStackScrollLayoutHooks;
-    public static StatusBarHooks statusBarHooks;
 
     private static SensitiveNotificationFilter mSensitiveFilter = new SensitiveNotificationFilter();
 
@@ -782,7 +781,7 @@ public class NotificationHooks {
 
             if (config.notifications.change_style) {
 
-                statusBarHooks = StatusBarHooks.create(classLoader);
+                StatusBarHooks.create(classLoader);
 
                 if (ConfigUtils.M) // For now
                     mStackScrollLayoutHooks = new NotificationStackScrollLayoutHooks(classLoader);

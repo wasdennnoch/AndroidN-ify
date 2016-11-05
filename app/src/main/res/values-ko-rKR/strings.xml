@@ -97,7 +97,12 @@
   <string name="battery_tile_show_percentage">배터리 타일에 퍼센트 표시</string>
   <string name="battery_tile_show_percentage_summary">배터리 타일에 남은 배터리의 퍼센트를 표시합니다</string>
   <string name="enable_qs_editor">퀵세팅 수정 활성화</string>
-    <string name="hide_icons_title">헤더 아이템 숨기기</string>
+  <string name="header_clock_size_title">헤더 시계 크기 조절</string>
+  <string name="header_clock_size_normal">보통</string>
+  <string name="header_clock_size_small">조금 작게</string>
+  <string name="header_clock_size_smaller">작게</string>
+  <string name="header_clock_size_tiny">아주 작게</string>
+  <string name="hide_icons_title">헤더 아이템 숨기기</string>
   <string name="hide_tuner_icon_title">시스템UI 튜너 아이콘 숨기기</string>
   <string name="hide_edit_tiles_title">타일 수정 버튼 숨기기</string>
   <string name="hide_edit_tiles_summary">이 기능은 순정의 수정 버튼만을 숨겨줍니다!</string>
@@ -161,9 +166,13 @@
   <string name="unknown_name">알 수 없음</string>
   <string name="address">주소</string>
   <string name="unknown_address">알 수 없음</string>
-    <!-- Example: (3 feb 1987) -->
+  <string name="date_of_birth">생년월일</string>
+  <string name="unknown_date_of_birth">알 수 없음</string>
+  <!-- Example: (3 feb 1987) -->
   <!-- Example: Age: 23 -->
-    <string name="blood_type">혈액형</string>
+  <string name="age">나이: %1$d</string>
+  <string name="remove_dob_icon_text">생년월일 삭제</string>
+  <string name="blood_type">혈액형</string>
   <string name="unknown_blood_type">알 수 없음</string>
   <string name="allergies">알레르기</string>
   <string name="unknown_allergies">알 수 없음</string>
@@ -188,7 +197,9 @@
   <string name="yes">예</string>
   <string name="no">아니오</string>
   <string name="battery">배터리</string>
-    <string name="qs_edit">수정</string>
+  <string name="charged">충전 됨</string>
+  <string name="charging">충전 중, %1$s</string>
+  <string name="qs_edit">수정</string>
   <string name="drag_to_add_tiles">드래그하여 타일 추가</string>
   <string name="drag_to_remove_tiles">삭제하려면 여기를 드래그</string>
   <string name="live_display">라이브 디스플레이</string>

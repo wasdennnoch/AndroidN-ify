@@ -101,7 +101,12 @@
   <string name="notification_header_qs_tiles_count_monitor">ปุ่ม</string>
   <string name="enable_qs_editor">เปิดใช้งานตัวปรับแต่ง QS</string>
   <string name="enable_large_first_row">ขยายแถวแรก</string>
-    <string name="header_notifications">การแจ้งเตือน</string>
+  <string name="header_clock_size_title">ขนาดนาฬิกา</string>
+  <string name="header_clock_size_normal">ปกติ</string>
+  <string name="header_clock_size_small">เล็ก</string>
+  <string name="header_clock_size_smaller">เล็กกว่า</string>
+  <string name="header_clock_size_tiny">เล็กมาก</string>
+  <string name="header_notifications">การแจ้งเตือน</string>
   <string name="notifications_change_style">ปรับแต่งการแจ้งเตือน</string>
   <string name="notification_dismiss_button_title">เปลี่ยนปุ่มลบการแจ้งเตือน</string>
   <string name="notification_dismiss_button">แสดง \"ลบทั้งหมด\" แทนที่ไอคอน</string>
@@ -145,7 +150,9 @@
   <string name="yes">ใช่</string>
   <string name="no">ไม่ใช่</string>
   <string name="battery">แบตเตอรี่</string>
-    <string name="qs_edit">แก้ไข</string>
+  <string name="charged">ชาร์จแล้ว</string>
+  <string name="charging">กำลังชาร์จ (%1$s)</string>
+  <string name="qs_edit">แก้ไข</string>
   <string name="drag_to_add_tiles">ลากเพื่อเพิ่มชิ้นส่วน</string>
   <string name="drag_to_remove_tiles">ลากมาที่นี่เพื่อนำออก</string>
   <string name="live_display">LiveDisplay</string>

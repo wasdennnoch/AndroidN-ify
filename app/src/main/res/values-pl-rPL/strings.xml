@@ -4,7 +4,7 @@
   <string name="xposed_description">Dodaje funkcje wprowadzone w Android N do Androida Lollipop i Marshmallow!</string>
   <string name="restart_systemui">Zrestartuj SystemUI</string>
   <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
-  <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
+  <string name="restart_broadcast_sent">Wysłano polecenie restartu</string>
   <string name="activity_about">O Android N-ify</string>
   <string name="about_author">Stworzone przez @MrWasdennnoch</string>
   <!-- Insert your (preferably XDA) username here -->
@@ -92,20 +92,20 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="header_recents">Poprzednie aplikacje</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Szybkie przełączanie</string>
-  <string name="enable_recents_double_tap">Podwójne dotknij klawisz poprzednio używanych aplikacji aby zmienić na poprzednio używaną aplikację</string>
+  <string name="enable_recents_double_tap">Podwójne dotknij klawisz poprzednio używanych aplikacji, aby zmienić na poprzednio używaną aplikację</string>
   <string name="alternative_double_tap_title">Aletratywna metoda wykrywania podwójnego dotknięcia</string>
   <string name="alternative_double_tap">Włącz, jeśli Szybkie przełączanie nie działa poprawnie</string>
   <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
   <string name="recents_button_behavior_title">Zachowanie przycisku poprzednich aplikacji</string>
   <string name="recents_navigation_delay_title">Opóźnienie zmiany poprzednich aplikacji</string>
-  <string name="recents_navigation_delay">Czas po jakim nastąpi przełączenie na wybraną aplikację</string>
+  <string name="recents_navigation_delay">Czas, po jakim nastąpi przełączenie na wybraną aplikację</string>
   <string name="enable_large_recents">Włącz duże okna poprzednich aplikacji</string>
   <string name="enable_large_recents_summary">Sprawia, że karty w \"ostatnich\" są w pełnej szerokości, nie zmienia ich wysokości</string>
   <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Brak poprzednich aplikacji</string>
-  <string name="recents_button_behavior_previous">Wróc do poprzedniej aplikacji</string>
-  <string name="recents_button_behavior_current">Wróc do obecnej aplikacji</string>
+  <string name="recents_button_behavior_previous">Wróć do poprzedniej aplikacji</string>
+  <string name="recents_button_behavior_current">Wróć do obecnej aplikacji</string>
   <string name="recents_button_behavior_cycle">Przełączaj między aplikacjami</string>
   <string name="header_qs">Szybkie ustawienia</string>
   <string name="enable_notification_header">Styl nagłówka</string>
@@ -126,7 +126,12 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="enable_large_first_row_summary2">Sprawia, że dwa pierwsze skróty są większe, o ile jest to obsługiwane</string>
   <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
   <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
-    <string name="hide_icons_title">Ukryj wybrane elementy nagłówka</string>
+  <string name="header_clock_size_title">Rozmiar zegarka w nagłówku</string>
+  <string name="header_clock_size_normal">Normalny</string>
+  <string name="header_clock_size_small">Mały</string>
+  <string name="header_clock_size_smaller">Mniejszy</string>
+  <string name="header_clock_size_tiny">Najmniejszy</string>
+  <string name="hide_icons_title">Ukryj wybrane elementy nagłówka</string>
   <string name="hide_tuner_icon_title">Ukryj ikonę edycji SystemUI</string>
   <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
   <string name="hide_edit_tiles_summary">Ukrywa tylko stockowy przycisk edycji!</string>
@@ -142,9 +147,9 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="notifications_custom_actions_color_title">Użyj niestandardowego koloru tła akcji</string>
   <string name="notifications_custom_actions_color">Użyj niestandardowego koloru jako tła przycisków notyfikacji</string>
   <string name="notifications_actions_color_title">Kolor tła akcji</string>
-  <string name="notification_experimental_title">Eksperymentalne zachowanie notyfikacji z N</string>
-  <string name="notification_experimental">Przewijanie jak w N (bez górnego stosu)</string>
-  <string name="notification_keyguard_max_title">Maksymalna ilośc notyfikacji z keyguard</string>
+  <string name="notification_experimental_title">Eksperymentalne zachowanie notyfikacji z Androida Nougat</string>
+  <string name="notification_experimental">Przewijanie jak w Nougacie (bez górnego stosu)</string>
+  <string name="notification_keyguard_max_title">Maksymalna ilość powiadomień na ekranie blokady</string>
   <string name="enable_assistant">Włącz Asystenta Google</string>
   <string name="enable_assistant_summary">Zamienia Now on Tap/Wyszukiwanie ekranowe na nowego Asystenta Google</string>
   <string name="enable_assistant_summary_unsupported">Twoja wersja aplikacji Google (%1$s) nie jest wspierana.</string>
@@ -152,7 +157,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="now_string_shortest">teraz</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
-    <item quantity="one">%d min.</item>
+    <item quantity="one">%d min</item>
     <item quantity="few">%d min</item>
     <item quantity="other">%d min</item>
   </plurals>
@@ -164,7 +169,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_days_shortest">
-    <item quantity="one">%d dzień/dni</item>
+    <item quantity="one">%d dzień</item>
     <item quantity="few">%d dni</item>
     <item quantity="other">%d dni</item>
   </plurals>
@@ -176,7 +181,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_minutes_shortest_future">
-    <item quantity="one">za %d min.</item>
+    <item quantity="one">za %d min</item>
     <item quantity="few">za %d min</item>
     <item quantity="other">za %d min</item>
   </plurals>
@@ -188,13 +193,13 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_days_shortest_future">
-    <item quantity="one">za %d dni</item>
+    <item quantity="one">za %d dzień</item>
     <item quantity="few">za %d dni</item>
     <item quantity="other">za %d dni</item>
   </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <plurals name="duration_years_shortest_future">
-    <item quantity="one">za %d lat</item>
+    <item quantity="one">za %d rok</item>
     <item quantity="few">za %d lata</item>
     <item quantity="other">za %d lat</item>
   </plurals>
@@ -205,7 +210,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="update_warning_details">System może być niestabilny i raporty o błędach będą ignorowane do momentu ponownego uruchomienia urządzenia</string>
   <string name="check_for_updates_title">Sprawdzaj dostępność aktualizacji</string>
   <string name="check_for_updates">Sprawdzaj dostępność aktualizacji przy uruchamianiu aplikacji</string>
-  <string name="checking_for_update">Szukanie aktualizacji&#8230;</string>
+  <string name="checking_for_update">Sprawdzanie aktualizacji&#8230;</string>
   <string name="check_for_update_fail">Nie można sprawdzić aktualizacji</string>
   <string name="no_updates">Nie znaleziono nowszych wersji</string>
   <string name="update_notification_downloading">Pobieranie aktualizacji</string>
@@ -222,7 +227,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="tab_title_contacts">Kontakty</string>
   <string name="add_emergency_contact">Dodaj kontakt</string>
   <string name="user_emergency_info_title">Informacje awaryjne</string>
-  <string name="user_emergency_info_consent">Informacje, które podasz tutaj mogą pomóc w nagłych przypadkach. Są przechowywane tylko na Twoim urządzeniu, a każdy może je odczytać bez odblokowywania telefonu.</string>
+  <string name="user_emergency_info_consent">Informacje, które podasz tutaj, mogą pomóc w nagłych przypadkach. Są przechowywane tylko na Twoim urządzeniu, a każdy może je odczytać bez odblokowywania telefonu.</string>
   <string name="emergency_info_continue">Kontynuuj</string>
   <string name="clear">Wyczyść</string>
   <string name="clear_all_message">Wyczyścić wszystkie informacje i kontakty?</string>
@@ -238,9 +243,14 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="unknown_name">Nieznane</string>
   <string name="address">Adres</string>
   <string name="unknown_address">Nieznany</string>
-    <!-- Example: (3 feb 1987) -->
-    <!-- Example: Age: 23 -->
-    <string name="blood_type">Grupa krwi</string>
+  <string name="date_of_birth">Data urodzenia</string>
+  <string name="unknown_date_of_birth">Nieznana</string>
+  <!-- Example: (3 feb 1987) -->
+  <string name="dob">(%1$s)</string>
+  <!-- Example: Age: 23 -->
+  <string name="age">Wiek: %1$d</string>
+  <string name="remove_dob_icon_text">Usuń datę urodzenia</string>
+  <string name="blood_type">Grupa krwi</string>
   <string name="unknown_blood_type">Nieznana</string>
   <string name="allergies">Alergie</string>
   <string name="unknown_allergies">Nieznane</string>
@@ -265,7 +275,9 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
   <string name="battery">Bateria</string>
-    <string name="qs_edit">Edycja</string>
+  <string name="charged">Naładowana</string>
+  <string name="charging">Ładowanie, %1$s</string>
+  <string name="qs_edit">Edycja</string>
   <string name="drag_to_add_tiles">Przeciągnij aby dodać kafelek</string>
   <string name="drag_to_remove_tiles">Przeciągnij tu, aby usunąć</string>
   <string name="live_display">LiveDisplay</string>
@@ -324,7 +336,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="spec_shouldnt_be_blank">Wykaz kafelka nie powinien być pusty</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="reset_tiles">Resetuj</string>
-  <string name="dialog_color_picker">Wybór Koloru</string>
+  <string name="dialog_color_picker">Wybór koloru</string>
   <string name="press_color_to_apply">Naciśnij na kolorze, aby wybrać</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
@@ -334,15 +346,17 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="battery_detail_switch_summary">Zmniejsza wydajność i ogranicza dane w tle</string>
   <string name="qs_add_notes_title">Notatki</string>
   <string name="qs_add_notes">Używane tylko dla aplikacji, które zapewniają emisję danych (jak na przykład \"Szybkie ustawienia\"). Proszę przeczytać instrukcje w odpowiedniej aplikacji przed użyciem tej opcji.</string>
-    <string name="hide_tiles_on_lockscreen">Ukryj kafelki na ekranie blokady</string>
+  <string name="notification_spoof_api_version_title">Okantuj API 24</string>
+  <string name="notification_spoof_api_version">Zmuś aplikacje do myślenia, że działają na API 24</string>
+  <string name="hide_tiles_on_lockscreen">Ukryj kafelki na ekranie blokady</string>
   <string name="done">Gotowe</string>
-  <string name="cm_qs_settings">Ustawienia CM QS</string>
-  <string name="disable_qs_paging">Wyłącz stronicowanie QS</string>
-  <string name="disable_qs_paging_summary">Wyłącz stronicowanie QS w pionie</string>
-  <string name="allow_direct_reply_on_keyguard">Bezpośrednia odpowiedź na ekranie blokady</string>
+  <string name="cm_qs_settings">Ustawienia szybkich ustawień CM</string>
+  <string name="disable_qs_paging">Wyłącz stronicowanie szybkich ustawień</string>
+  <string name="disable_qs_paging_summary">Wyłącz stronicowanie szybkich ustawień w pionie</string>
+  <string name="allow_direct_reply_on_keyguard">Bezpośrednio odpowiadaj na ekranie blokady</string>
   <string name="allow_direct_reply_on_keyguard_summary">Zezwala na odpowiedzi z ekranu blokowania</string>
   <string name="enable_notifications_background">Włącz powiadomienia w tle</string>
-  <string name="enable_notifications_background_summary">Tworzy białe tło za powiadomieniem gdy zostało przesunięte</string>
+  <string name="enable_notifications_background_summary">Tworzy białe tło za powiadomieniem, gdy zostało przesunięte</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">Otwórz szybkie ustawienia.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
@@ -351,17 +365,17 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="dont_show_again">Nie pokazuj ponownie</string>
   <string name="enable_data_disabled_indicator">Pokaż powiadomienie o wyłączonej transmisji danych</string>
   <string name="enable_data_disabled_indicator_summary">Pokazuje \"x\" jako wskaźnik sygnału, gdy dane mobilne są wyłączone</string>
-  <string name="home">Dom</string>
+  <string name="home">Strona główna</string>
   <plurals name="enable_experimental_countdown">
     <item quantity="one">Został %1$d krok od włączenia funkcji eksperymentalnych.</item>
     <item quantity="few">Zostały %1$d kroki od włączenia funkcji eksperymentalnych.</item>
     <item quantity="other">Zostało %1$d kroków od włączenia funkcji eksperymentalnych.</item>
   </plurals>
-  <string name="show_experimental_on">Wyłączyłeś funkcje eksperymentalne!</string>
-  <string name="show_experimental_on_already">Już uruchomiłeś funkcję eksperymentalne.</string>
+  <string name="show_experimental_on">Włączyłeś funkcje eksperymentalne!</string>
+  <string name="show_experimental_on_already">Już uruchomiłeś funkcje eksperymentalne.</string>
   <string name="header_experimental">Eksperymentalne</string>
-  <string name="enable_experimental_features">Uruchom eksperymentalne fukncję</string>
+  <string name="enable_experimental_features">Uruchom eksperymentalne funkcje</string>
   <string name="enable_n_style_settings_dashboard">Ustawienia w stylu N</string>
-  <string name="enable_n_style_settings_dashboard_summary">Motyw i powłoka ustawień wyglądają jak N</string>
-  <string name="enable_settings_drawer">Uruchom wybór ustawień</string>
+  <string name="enable_n_style_settings_dashboard_summary">Motyw i powłoka ustawień wyglądają jak Androidzie Nougat</string>
+  <string name="enable_settings_drawer">Uruchom menu boczne w ustawieniach</string>
 </resources>
