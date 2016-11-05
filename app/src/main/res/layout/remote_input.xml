@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:visibility="invisible">
+
+    <tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView.RemoteEditText
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@null"
+        android:ellipsize="start"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="start|center_vertical"
+        android:imeOptions="actionNone|flagNoExtractUi"
+        android:inputType="textShortMessage|textAutoCorrect|textCapSentences"
+        android:maxLines="1"
+        android:paddingBottom="4dp"
+        android:paddingEnd="12dp"
+        android:paddingStart="16dp"
+        android:paddingTop="2dp"
+        android:textColor="@color/remote_input_text"
+        android:textColorHint="@color/remote_input_hint"
+        android:textCursorDrawable="@drawable/remote_input_cursor"
+        android:textIsSelectable="true"
+        android:textSize="16sp"
+        tools:ignore="LabelFor" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/remote_input_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ripple_drawable"
+            android:paddingBottom="16dp"
+            android:paddingEnd="24dp"
+            android:paddingStart="12dp"
+            android:paddingTop="16dp"
+            android:src="@drawable/ic_send_24dp"
+            android:tint="@color/remote_input_send"
+            android:tintMode="src_in"
+            tools:ignore="ContentDescription" />
+
+        <ProgressBar
+            android:id="@+id/remote_input_progress"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_marginEnd="6dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/remote_input_send"
+            android:visibility="invisible" />
+    </FrameLayout>
+</tk.wasdennnoch.androidn_ify.extracted.systemui.RemoteInputView>

@@ -12,6 +12,8 @@
 
     <style name="LightTheme" parent="android:Theme.Material.Light.DarkActionBar"/>
 
+    <style name="DeviceDefault" parent="android:Theme.DeviceDefault"/>
+
     <declare-styleable name="SeekBarPreference">
         <attr name="minimum" format="integer"/>
         <attr name="maximum" format="integer"/>
@@ -27,4 +29,83 @@
         <attr name="android:entryValues"/>
     </declare-styleable>
 
+    <style name="TextAppearance" />
+
+    <style name="TextAppearance.QS">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/qs_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.QS.DetailHeader">
+        <item name="android:textSize">@dimen/qs_detail_header_text_size</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.QS.DetailItemPrimary">
+        <item name="android:textSize">@dimen/qs_detail_item_primary_text_size</item>
+    </style>
+
+    <style name="TextAppearance.QS.DetailItemSecondary">
+        <item name="android:textSize">@dimen/qs_detail_item_secondary_text_size</item>
+        <item name="android:textColor">@color/system_accent_color</item>
+    </style>
+
+    <style name="QSTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="TransparentTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:navigationBarColor">#00000000</item>
+    </style>
+
+    <style name="AppTheme.TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/AppTheme.TabText</item>
+        <item name="tabSelectedTextColor">@color/tab_text_color</item>
+        <item name="tabIndicatorColor">?attr/tabIndicatorColor</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">24dp</item>
+        <item name="tabPaddingEnd">24dp</item>
+        <item name="tabMode">scrollable</item>
+    </style>
+
+    <style name="AppTheme.TabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/tab_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:preferenceCategoryStyle">@style/AppTheme.PreferenceCategoryStyle</item>
+        <item name="colorPrimary">@color/m_blue_grey_900</item>
+        <item name="colorPrimaryDark">@color/m_blue_grey_950</item>
+        <item name="tabIndicatorColor">@color/material_teal_200</item>
+        <item name="android:datePickerStyle">@style/AppTheme.DatePickerStyle</item>
+    </style>
+
+    <style name="AppThemeEmergency" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:preferenceCategoryStyle">@style/AppTheme.PreferenceCategoryStyle</item>
+        <item name="colorPrimaryDark">@color/emergency_primary_dark</item>
+        <item name="colorPrimary">@color/emergency_primary</item>
+        <item name="colorAccent">@color/emergency_accent</item>
+        <item name="tabIndicatorColor">@color/emergency_accent</item>
+    </style>
+
+    <style name="PreferenceCategory">
+        <item name="android:shouldDisableView">false</item>
+        <item name="android:selectable">false</item>
+    </style>
+
+    <style name="AppTheme.PreferenceCategoryStyle" parent="PreferenceCategory">
+        <item name="android:layout">@layout/custom_preference_category_layout</item>
+    </style>
+
+    <style name="AppTheme.DatePickerStyle" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+    </style>
 </resources>

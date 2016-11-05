@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidUnknownAttribute -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
+        android:key="settings_tweaks"
         android:title="@string/header_tweaks">
 
         <PreferenceScreen
@@ -22,6 +24,12 @@
                 android:key="fix_sound_notif_tile"
                 android:summary="@string/fix_sound_notif_tile"
                 android:title="@string/fix_sound_notif_tile_title"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_install_source"
+                android:summary="@string/enable_install_source"
+                android:title="@string/enable_install_source_title"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -46,6 +54,13 @@
                 android:key="enable_recents_double_tap"
                 android:summary="@string/enable_recents_double_tap"
                 android:title="@string/enable_recents_double_tap_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_recents_double_tap"
+                android:key="alternative_method"
+                android:summary="@string/alternative_double_tap"
+                android:title="@string/alternative_double_tap_title"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="400"
@@ -81,6 +96,7 @@
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="enable_large_recents"
+                android:summary="@string/enable_large_recents_summary"
                 android:title="@string/enable_large_recents"/>
 
             <SwitchPreference
@@ -100,15 +116,24 @@
                 android:key="enable_notification_header"
                 android:title="@string/enable_notification_header"/>
 
+            <MultiSelectListPreference
+                android:defaultValue="@array/empty_array"
+                android:dependency="enable_notification_header"
+                android:entries="@array/keep_backgrounds"
+                android:entryValues="@array/keep_backgrounds_values"
+                android:key="keep_backgrounds"
+                android:summary="@string/keep_bg"
+                android:title="@string/keep_bg_title"/>
+
             <SwitchPreference
                 android:defaultValue="false"
                 android:dependency="enable_notification_header"
-                android:key="keep_qs_panel_background"
-                android:summary="@string/keep_qs_panel_bg"
-                android:title="@string/keep_qs_panel_bg_title"/>
+                android:key="force_old_date_position"
+                android:summary="@string/force_old_date_position_summary"
+                android:title="@string/force_old_date_position"/>
 
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
-                android:defaultValue="5"
+                android:defaultValue="6"
                 android:dependency="enable_notification_header"
                 android:key="notification_header_qs_tiles_count"
                 android:title="@string/notification_header_qs_tiles_count"
@@ -118,13 +143,6 @@
                 app:monitorBoxEnabled="true"
                 app:monitorBoxLeadingSpace="true"
                 app:monitorBoxUnit="@string/notification_header_qs_tiles_count_monitor"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
-                android:dependency="enable_notification_header"
-                android:key="alternative_quick_qs_method"
-                android:summary="@string/alternative_header_qs_method"
-                android:title="@string/alternative_header_qs_method_title"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -139,11 +157,18 @@
                 android:title="@string/enable_qs_editor"/>
 
             <SwitchPreference
-                android:defaultValue="true"
+                android:defaultValue="false"
+                android:dependency="enable_qs_editor"
+                android:key="alternative_qs_loading"
+                android:summary="@string/alternative_qs_loading_summary"
+                android:title="@string/alternative_qs_loading"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
                 android:dependency="enable_qs_editor"
                 android:key="battery_tile_show_percentage"
-                android:title="@string/battery_tile_show_percentage"
-                android:summary="@string/battery_tile_show_percentage_summary"/>
+                android:summary="@string/battery_tile_show_percentage_summary"
+                android:title="@string/battery_tile_show_percentage"/>
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -154,17 +179,17 @@
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:dependency="enable_new_tile_click_behavior"
+                android:dependency="enable_notification_header"
                 android:key="enable_large_first_row"
-                android:summary="@string/enable_large_first_row_summary"
+                android:summary="@string/enable_large_first_row_summary2"
                 android:title="@string/enable_large_first_row"/>
 
             <SwitchPreference
                 android:defaultValue="false"
-                android:dependency="enable_notification_header"
-                android:key="smaller_header_clock"
-                android:summary="@string/smaller_header_clock"
-                android:title="@string/smaller_header_clock_title"/>
+                android:dependency="enable_qs_editor"
+                android:key="disable_qs_paging"
+                android:summary="@string/disable_qs_paging_summary"
+                android:title="@string/disable_qs_paging"/>
 
             <PreferenceScreen
                 android:dependency="enable_notification_header"
@@ -181,6 +206,7 @@
                     android:defaultValue="false"
                     android:dependency="enable_notification_header"
                     android:key="hide_edit_tiles"
+                    android:summary="@string/hide_edit_tiles_summary"
                     android:title="@string/hide_edit_tiles_title"/>
 
                 <SwitchPreference
@@ -190,12 +216,6 @@
                     android:title="@string/hide_carrier_label_title"/>
 
             </PreferenceScreen>
-
-            <SwitchPreference
-                android:defaultValue="false"
-                android:key="notification_full_width_volume"
-                android:summary="@string/notification_full_width_volume"
-                android:title="@string/notification_full_width_volume_title"/>
 
             <Preference
                 android:key="fix_stuck_inversion"
@@ -222,6 +242,32 @@
                 <intent android:action="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity"/>
             </PreferenceScreen>
 
+            <!--<PreferenceScreen
+                android:dependency="notification_change_style"
+                android:key="notification_spoof_api_version"
+                android:summary="@string/notification_spoof_api_version"
+                android:title="@string/notification_spoof_api_version_title">
+                <intent android:action="tk.wasdennnoch.androidn_ify.ui.SpoofAPIActivity"/>
+            </PreferenceScreen>-->
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="allow_direct_reply_on_keyguard"
+                android:summary="@string/allow_direct_reply_on_keyguard_summary"
+                android:title="@string/allow_direct_reply_on_keyguard"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_notifications_background"
+                android:summary="@string/enable_notifications_background_summary"
+                android:title="@string/enable_notifications_background"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="enable_data_disabled_indicator"
+                android:summary="@string/enable_data_disabled_indicator_summary"
+                android:title="@string/enable_data_disabled_indicator"/>
+
             <SwitchPreference
                 android:defaultValue="true"
                 android:key="notification_dismiss_button"
@@ -231,28 +277,28 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:dependency="notification_change_style"
-                android:key="notifications_custom_color"
-                android:title="@string/notifications_custom_color_title"/>
-
-            <com.thebluealliance.spectrum.SpectrumPreference
-                android:defaultValue="0"
-                android:dependency="notifications_custom_color"
-                android:key="notifications_appname_color"
-                android:title="@string/notifications_accent_color_title"
-                app:spectrum_colors="@array/appname_colors"/>
-
-            <SwitchPreference
-                android:defaultValue="false"
-                android:dependency="notification_change_style"
                 android:key="notifications_custom_actions_color"
+                android:summary="@string/notifications_custom_actions_color"
                 android:title="@string/notifications_custom_actions_color_title"/>
 
-            <com.thebluealliance.spectrum.SpectrumPreference
+            <net.margaritov.preference.colorpicker.ColorPickerPreference
+                alphaSlider="true"
+                hexValue="true"
                 android:defaultValue="0"
                 android:dependency="notifications_custom_actions_color"
                 android:key="actions_background_colors"
-                android:title="@string/notifications_actions_color_title"
-                app:spectrum_colors="@array/actions_background_colors"/>
+                android:title="@string/notifications_actions_color_title"/>
+
+            <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+                android:defaultValue="3"
+                android:dependency="notification_change_style"
+                android:key="notification_keyguard_max"
+                android:title="@string/notification_keyguard_max_title"
+                app:interval="1"
+                app:maximum="5"
+                app:minimum="0"
+                app:monitorBoxEnabled="true"
+                app:monitorBoxUnit=""/>
 
         </PreferenceScreen>
 
@@ -261,21 +307,55 @@
             android:title="@string/header_lockscreen">
 
             <SwitchPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:key="enable_emergency_info"
+                android:summary="@string/enable_emergency_info"
                 android:title="@string/enable_emergency_info_title"/>
 
             <PreferenceScreen
                 android:dependency="enable_emergency_info"
                 android:key="edit_emergency_info"
                 android:title="@string/edit_emergency_info_title">
-                <intent android:action="tk.wasdennnoch.androidn_ify.ui.EmergencyInfoActivity">
-                    <!--suppress AndroidElementNotAllowed -->
-                    <extra
-                        android:name="editable"
-                        android:value="true"/>
-                </intent>
+                <intent android:action="tk.wasdennnoch.androidn_ify.LAUNCH_EDIT_EMERGENGY_INFO"/>
             </PreferenceScreen>
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="settings_experimental"
+            android:title="@string/header_experimental">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="enable_experimental_features"
+                android:title="@string/enable_experimental_features"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_experimental_features"
+                android:key="enable_n_style_settings_dashboard"
+                android:summary="@string/enable_n_style_settings_dashboard_summary"
+                android:title="@string/enable_n_style_settings_dashboard"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_experimental_features"
+                android:key="enable_settings_drawer"
+                android:title="@string/enable_settings_drawer"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_experimental_features"
+                android:key="notification_experimental"
+                android:summary="@string/notification_experimental"
+                android:title="@string/notification_experimental_title"/>
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="enable_experimental_features"
+                android:key="enable_assistant"
+                android:summary="@string/enable_assistant_summary"
+                android:title="@string/enable_assistant"/>
 
         </PreferenceScreen>
 
@@ -285,16 +365,20 @@
         android:key="settings_app"
         android:title="@string/header_app">
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="app_dark_theme"
-            android:title="@string/app_dark_theme_title"/>
+        <tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference
+            android:defaultValue="light"
+            android:entries="@array/app_theme_entries"
+            android:entryValues="@array/app_theme_values"
+            android:key="app_theme"
+            android:summary="[%s]"
+            android:title="@string/app_theme_title"/>
 
-        <com.thebluealliance.spectrum.SpectrumPreference
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            alphaSlider="true"
+            hexValue="true"
             android:defaultValue="@color/colorPrimary"
             android:key="theme_colorPrimary"
-            android:title="@string/theme_colorPrimary"
-            app:spectrum_colors="@array/theme_colors"/>
+            android:title="@string/theme_colorPrimary"/>
 
         <SwitchPreference
             android:defaultValue="false"
@@ -318,11 +402,6 @@
             android:key="debug_log"
             android:summary="@string/debug_log"
             android:title="@string/debug_log_title"/>
-
-        <Preference
-            android:key="share_logcat"
-            android:summary="@string/share_logcat"
-            android:title="@string/share_logcat_title"/>
 
     </PreferenceCategory>
 

@@ -12,33 +12,33 @@ import android.view.WindowManagerPolicy;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class DoubleTapHwKeys extends DoubleTapBase {
 
     private static final String TAG = "DoubleTapHwKeys";
 
-    private static final String CLASS_PHONE_WINDOW_MANAGER;
-
-    static {
-        CLASS_PHONE_WINDOW_MANAGER = Build.VERSION.SDK_INT >= 23 ? "com.android.server.policy.PhoneWindowManager" : "com.android.internal.policy.impl.PhoneWindowManager";
-    }
+    private static final String CLASS_PHONE_WINDOW_MANAGER =
+            Build.VERSION.SDK_INT >= 23 ? "com.android.server.policy.PhoneWindowManager" :
+                    "com.android.internal.policy.impl.PhoneWindowManager";
 
     private static Object mPhoneWindowManager;
     private static Context mContext;
     private static Handler mHandler;
 
     private static boolean mWasPressed = false;
-    private static Runnable resetPressedState = new Runnable() {
+    private static final Runnable resetPressedState = new SafeRunnable() {
         @Override
-        public void run() {
+        public void runSafe() {
             XposedHook.logD(TAG, "Double tap timed out after " + mDoubletapSpeed + "ms, injecting original KeyEvent");
             mWasPressed = false;
             injectKey(KeyEvent.KEYCODE_APP_SWITCH);
         }
     };
 
-    private static XC_MethodHook initHook = new XC_MethodHook() {
+    private static final XC_MethodHook initHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mPhoneWindowManager = param.thisObject;
@@ -48,7 +48,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             registerReceiver(mContext, true);
         }
     };
-    private static XC_MethodHook interceptKeyBeforeDispatchingHook = new XC_MethodHook() {
+    private static final XC_MethodHook interceptKeyBeforeDispatchingHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             if ((boolean) XposedHelpers.callMethod(mPhoneWindowManager, "keyguardOn")) return;
@@ -57,25 +57,28 @@ public class DoubleTapHwKeys extends DoubleTapBase {
             int keyCode = event.getKeyCode();
             boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
             boolean isFromSystem = (event.getFlags() & KeyEvent.FLAG_FROM_SYSTEM) != 0;
-            XposedHook.logD(TAG, "interceptKeyBeforeDispatching: keyCode= " + keyCode +
-                    "; keyCodeString=" + KeyEvent.keyCodeToString(keyCode) +
-                    "; down= " + down +
-                    "; repeatCount= " + event.getRepeatCount() +
-                    "; isInjected= " + (((Integer) param.args[2] & 0x01000000) != 0) +
-                    "; fromSystem= " + isFromSystem);
 
-            if (keyCode == KeyEvent.KEYCODE_APP_SWITCH && isFromSystem && !isTaskLocked(mContext) && down && event.getRepeatCount() == 0) {
-                if (!mWasPressed) {
-                    XposedHook.logD(TAG, "HW recents clicked");
-                    mWasPressed = true;
-                    mHandler.postDelayed(resetPressedState, mDoubletapSpeed);
-                } else {
-                    XposedHook.logD(TAG, "Double tap detected");
-                    mHandler.removeCallbacks(resetPressedState);
-                    mWasPressed = false;
-                    switchToLastApp(mContext, mHandler);
+            if (keyCode == KeyEvent.KEYCODE_APP_SWITCH) {
+                XposedHook.logD(TAG, "interceptKeyBeforeDispatching: keyCode= " + keyCode +
+                        "; keyCodeString=" + KeyEvent.keyCodeToString(keyCode) +
+                        "; down= " + down +
+                        "; repeatCount= " + event.getRepeatCount() +
+                        "; isInjected= " + (((Integer) param.args[2] & 0x01000000) != 0) +
+                        "; fromSystem= " + isFromSystem);
+
+                if (isFromSystem && !isTaskLocked(mContext) && down && event.getRepeatCount() == 0) {
+                    if (!mWasPressed) {
+                        XposedHook.logD(TAG, "HW recents clicked");
+                        mWasPressed = true;
+                        mHandler.postDelayed(resetPressedState, mDoubletapSpeed);
+                    } else {
+                        XposedHook.logD(TAG, "Double tap detected");
+                        mHandler.removeCallbacks(resetPressedState);
+                        mWasPressed = false;
+                        switchToLastApp(mContext, mHandler);
+                    }
+                    param.setResult(-1);
                 }
-                param.setResult(-1);
             }
 
         }
@@ -83,18 +86,16 @@ public class DoubleTapHwKeys extends DoubleTapBase {
 
     public static void hook(ClassLoader classLoader) {
         try {
+            if (Build.VERSION.SDK_INT >= 23 && !ConfigUtils.recents().alternative_method) return;
 
             Class<?> classPhoneWindowManager = XposedHelpers.findClass(CLASS_PHONE_WINDOW_MANAGER, classLoader);
 
             XposedHelpers.findAndHookMethod(classPhoneWindowManager, "init", Context.class, IWindowManager.class, WindowManagerPolicy.WindowManagerFuncs.class, initHook);
 
-            ConfigUtils config = ConfigUtils.getInstance();
-            config.reload();
             loadPrefDoubleTapSpeed();
-            if (config.recents.double_tap) {
-
-                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching", WindowManagerPolicy.WindowState.class, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
-
+            if (ConfigUtils.recents().double_tap) {
+                XposedHelpers.findAndHookMethod(classPhoneWindowManager, "interceptKeyBeforeDispatching",
+                        WindowManagerPolicy.WindowState.class, KeyEvent.class, int.class, interceptKeyBeforeDispatchingHook);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in hook", t);

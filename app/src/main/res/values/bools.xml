@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Will be injected by build server. Don't touch it. -->
-    <bool name="enable_updater">false</bool>
-</resources>

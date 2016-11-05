@@ -5,14 +5,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
-import android.util.Log;
+
+import com.crossbowffs.remotepreferences.RemotePreferences;
 
 import de.robv.android.xposed.XSharedPreferences;
-import tk.wasdennnoch.androidn_ify.XposedHook;
+import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class RomUtils {
+
     private static SharedPreferences sPrefs;
-    private static boolean isReadOnly = false;
 
     // Init from UI
     public static void init(Context context) {
@@ -23,17 +26,24 @@ public class RomUtils {
     // Init from Xposed
     public static void init(XSharedPreferences prefs) {
         sPrefs = prefs;
-        isReadOnly = true;
-        checkRom();
+    }
+    public static void initRemote() {
+        Context context = (Context) XposedHelpers.callMethod(XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"), "getSystemContext");
+        sPrefs = new RemotePreferences(context, "tk.wasdennnoch.androidn_ify.PREFERENCES", "tk.wasdennnoch.androidn_ify_preferences");
     }
 
+    // Call only from UI
     @SuppressLint("CommitPrefEdits")
     private static void checkRom() {
-        if (isReadOnly) return;
         if (sPrefs.contains("rom")) return;
         String rrVersion = SystemProperties.get("ro.rr.version", "");
         if (!"".equals(rrVersion)) {
             sPrefs.edit().putString("rom", "rr").commit();
+            return;
+        }
+        String aicpVersion = SystemProperties.get("ro.aicp.version", "");
+        if (!aicpVersion.equals("")) {
+            sPrefs.edit().putString("rom", "aicp").commit();
             return;
         }
         int cmSdkVersion = SystemProperties.getInt("ro.cm.build.version.plat.sdk", 0);
@@ -45,17 +55,22 @@ public class RomUtils {
     }
 
     public static boolean isCm() {
-        return sPrefs.getString("rom", "").equals("cm");
+        return StatusBarHeaderHooks.mUseDragPanel;
     }
 
     public static boolean isRr() {
         return sPrefs.getString("rom", "").equals("rr");
     }
 
+    public static boolean isAicp() {
+        return sPrefs.getString("rom", "").equals("aicp");
+    }
+
     public static boolean isCmBased() {
         String rom = sPrefs.getString("rom", "");
         switch (rom) {
             case "rr":
+            case "aicp":
             case "cm":
                 return true;
             default:

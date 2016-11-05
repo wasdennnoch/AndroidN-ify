@@ -21,6 +21,7 @@ import tk.wasdennnoch.androidn_ify.settings.summaries.categories.WirelessAndNetw
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings("WeakerAccess")
 public class SummaryTweaks {
 
     private static final String TAG = "SummaryTweaks";
@@ -85,14 +86,14 @@ public class SummaryTweaks {
         sHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
     }*/
 
-    private static XC_MethodHook loadCategoriesFromResourceHook = new XC_MethodHook() {
+    private static final XC_MethodHook loadCategoriesFromResourceHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             afterLoadCategoriesFromResource(param);
         }
     };
 
-    private static XC_MethodHook updateTileViewHook = new XC_MethodHook() {
+    private static final XC_MethodHook updateTileViewHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             beforeUpdateTileView(param);
@@ -137,9 +138,9 @@ public class SummaryTweaks {
                             // Other method name
                             try {
                                 Method[] updateTileView = XposedHelpers.findMethodsByExactParameters(classDashboardSummary, void.class, Context.class, Resources.class, XposedHelpers.findClass("com.android.settings.dashboard.DashboardTile", classLoader), ImageView.class, TextView.class, TextView.class);
-                                XposedHook.logI(TAG, "Found " + updateTileView.length + " matches using findMethodsByExactParameters to find updateTileView");
-                                if (updateTileView.length == 1) {
-                                    XposedHook.logI(TAG, "Hooking method with name " + updateTileView[0].getName());
+                                XposedHook.logD(TAG, "Found " + updateTileView.length + " matches using findMethodsByExactParameters to find updateTileView");
+                                if (updateTileView.length > 0) {
+                                    XposedHook.logD(TAG, "Hooking method with name " + updateTileView[0].getName());
                                     XposedHelpers.findAndHookMethod(classDashboardSummary, updateTileView[0].getName(), Context.class, Resources.class, "com.android.settings.dashboard.DashboardTile", ImageView.class, TextView.class, TextView.class, updateTileViewHook);
                                 }
                             } catch (Throwable t5) {

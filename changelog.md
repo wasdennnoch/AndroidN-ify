@@ -1,11 +1,21 @@
 # Changelog
 
-### Next version (v0.2.1):
+### Next version (v0.3.0):
 
+- Code improvements based on Nougat source
 - Emergency info
 - QS transition
-- Improved "prefs not reabable" warning message
-- Minor fixes and improvements
+- QS editor
+- QS pages
+- Battery tile
+- New QS tile click behaviour
+- App install source in App info screen
+- "Namey McNameface" icon in easter egg
+- Option to keep header and QS panel background (theming)
+- Improved compatibility with PA and OOS
+- Fix preferences not readable
+- Many other fixes and improvements
+- Many new translations
 
 ### v0.2.0 (5):
 

@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <item name="app_name_text" type="id"/>
     <item name="time_divider" type="id"/>
     <item name="public_app_name_text" type="id"/>
     <item name="notification_icon" type="id"/>
     <item name="public_time_divider" type="id"/>
     <item name="statusbar_header_expand_indicator" type="id"/>
-    <item name="notification_summary" type="id"/>
-    <item name="notification_summary_divider" type="id"/>
     <item name="notification_info_divider" type="id"/>
     <item name="task_progress" type="id"/>
     <item name="qs_edit" type="id"/>
+    <item name="notification_divider" type="id"/>
+    <item name="header_text" type="id" />
+    <item name="expand_button" type="id" />
+    <item name="profile_badge" type="id" />
+    <item name="notification_header" type="id" />
+    <item name="usage_graph" type="id" />
+    <item name="battery_usage" type="id" />
+    <item name="edit" type="id" />
+    <item name="actions_container" type="id" />
+    <item name="fake_shadow" type="id" />
+
 </resources>

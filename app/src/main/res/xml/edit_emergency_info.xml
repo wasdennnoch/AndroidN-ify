@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.NameAutoCompletePreference
+        android:icon="@drawable/ic_account_circle"
+        android:inputType="textCapWords|textPersonName"
+        android:key="name"
+        android:singleLine="true"
+        android:summary="@string/unknown_name"
+        android:title="@string/name" />
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyEditTextPreference
+        android:icon="@drawable/ic_address_black_24dp"
+        android:inputType="textCapWords|textPostalAddress|textMultiLine"
+        android:key="address"
+        android:singleLine="false"
+        android:summary="@string/unknown_address"
+        android:title="@string/address" />
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyListPreference
+        android:defaultValue=""
+        android:entries="@array/blood_type_entries"
+        android:entryValues="@array/blood_type_values"
+        android:icon="@drawable/ic_bloodtype_black_24dp"
+        android:key="blood_type"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="@string/unknown_blood_type"
+        android:title="@string/blood_type" />
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyEditTextPreference
+        android:capitalize="sentences"
+        android:hint="@string/allergies_hint"
+        android:textColorHint="@color/hint_text_color"
+        android:icon="@drawable/ic_allergies_black_24dp"
+        android:inputType="textMultiLine"
+        android:key="allergies"
+        android:singleLine="false"
+        android:summary="@string/unknown_allergies"
+        android:title="@string/allergies" />
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyEditTextPreference
+        android:capitalize="sentences"
+        android:hint="@string/medications_hint"
+        android:textColorHint="@color/hint_text_color"
+        android:icon="@drawable/ic_medication_24dp"
+        android:inputType="textMultiLine"
+        android:key="medications"
+        android:singleLine="false"
+        android:summary="@string/unknown_medications"
+        android:title="@string/medications" />
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyListPreference
+        android:entries="@array/organ_donor_entries"
+        android:entryValues="@array/organ_donor_values"
+        android:icon="@drawable/ic_heart_black_24dp"
+        android:key="organ_donor"
+        android:defaultValue=""
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="@string/unknown_organ_donor"
+        android:title="@string/organ_donor" />
+    <tk.wasdennnoch.androidn_ify.ui.emergency.preferences.EmergencyEditTextPreference
+        android:capitalize="sentences"
+        android:hint="@string/medical_conditions_hint"
+        android:textColorHint="@color/hint_text_color"
+        android:icon="@drawable/ic_notes_black_24dp"
+        android:inputType="textMultiLine"
+        android:key="medical_conditions"
+        android:singleLine="false"
+        android:summary="@string/unknown_medical_conditions"
+        android:title="@string/medical_conditions" />
+</PreferenceScreen>

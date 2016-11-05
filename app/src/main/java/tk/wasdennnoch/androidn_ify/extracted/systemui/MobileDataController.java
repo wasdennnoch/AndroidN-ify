@@ -25,6 +25,7 @@ import static android.net.NetworkStatsHistory.FIELD_TX_BYTES;
 import static android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
 import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
 
+@SuppressWarnings("SameReturnValue")
 public class MobileDataController {
     private static final String TAG = "MobileDataController";
 
@@ -72,7 +73,8 @@ public class MobileDataController {
     private static String getActiveSubscriberId(Context context) {
         final TelephonyManager tele = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         Class<?> SubscriptionManager = XposedHelpers.findClass("android.telephony.SubscriptionManager", null);
-        int getDefaultDataSubId = (int) XposedHelpers.callStaticMethod(SubscriptionManager, "getDefaultDataSubId");
+        // On some ROMs this seems to be a Float, so don't cast it
+        Object getDefaultDataSubId = XposedHelpers.callStaticMethod(SubscriptionManager, "getDefaultDataSubId");
         return (String) XposedHelpers.callMethod(tele, "getSubscriberId", getDefaultDataSubId);
     }
 
@@ -176,6 +178,7 @@ public class MobileDataController {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static class DataUsageInfo {
         public String period;
         public long limitLevel;

@@ -2,6 +2,7 @@ package tk.wasdennnoch.androidn_ify.systemui.recents.navigate;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RecentsNavigation {
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
@@ -39,7 +41,7 @@ public class RecentsNavigation {
     private static boolean mBackPressed = false;
     private static boolean mSkipFirstApp = false;
 
-    private static XC_MethodHook startRecentsActivityHook = new XC_MethodHook() {
+    private static final XC_MethodHook startRecentsActivityHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             mStartRecentsActivityTime = SystemClock.elapsedRealtime();
@@ -49,7 +51,7 @@ public class RecentsNavigation {
             }
         }
     };
-    private static XC_MethodHook recentsActivityOnStartHook = new XC_MethodHook() {
+    private static final XC_MethodHook recentsActivityOnStartHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             mRecentsActivity = param.thisObject;
@@ -61,7 +63,7 @@ public class RecentsNavigation {
         return (mConfig.recents.force_double_tap || (mConfig.recents.double_tap && ((SystemClock.elapsedRealtime() - mStartRecentsActivityTime) < mConfig.recents.double_tap_speed)));
     }
 
-    private static XC_MethodHook onBackPressedHook = new XC_MethodHook() {
+    private static final XC_MethodHook onBackPressedHook = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             mIsNavigating = false;
@@ -69,14 +71,14 @@ public class RecentsNavigation {
         }
     };
 
-    private static XC_MethodHook resetNavigatingStatus = new XC_MethodHook() {
+    private static final XC_MethodHook resetNavigatingStatus = new XC_MethodHook() {
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             mIsNavigating = false;
         }
     };
 
-    private static XC_MethodHook dismissRecentsToFocusedTaskOrHomeHook = new XC_MethodReplacement() {
+    private static final XC_MethodHook dismissRecentsToFocusedTaskOrHomeHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             return dismissRecentsToFocusedTaskOrHome((boolean) param.args[0]);
@@ -210,13 +212,13 @@ public class RecentsNavigation {
     }
 
     private static class TaskProgress implements Animation.AnimationListener {
-        private FrameLayout mTaskView;
-        private FrameLayout mTaskViewHeader;
-        private View mProgressView;
+        private final FrameLayout mTaskView;
+        private final FrameLayout mTaskViewHeader;
+        private final View mProgressView;
         private ScaleAnimation mScaleAnim;
-        private Object mStackView;
-        private Object mStack;
-        private Object mTask;
+        private final Object mStackView;
+        private final Object mStack;
+        private final Object mTask;
 
         public TaskProgress(FrameLayout taskView, Object stackView, Object stack, Object task) {
             mTaskView = taskView;
@@ -280,6 +282,7 @@ public class RecentsNavigation {
 
     public static void hookSystemUI(ClassLoader classLoader) {
         try {
+            if (Build.VERSION.SDK_INT < 23 || ConfigUtils.recents().alternative_method) return;
             mConfig = ConfigUtils.getInstance();
             mClassLoader = classLoader;
             if (mConfig.recents.double_tap || mConfig.recents.navigate_recents) {
@@ -304,32 +307,7 @@ public class RecentsNavigation {
         }
     }
 
-    /*private static Context mContext;
-    private static Handler mHandler;
-    private static XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "prepareNavigationBarViewHook called");
-
-            mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
-            mHandler = (Handler) XposedHelpers.getObjectField(param.thisObject, "mHandler");
-
-            mContext.registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            XposedHook.logD(TAG, "Kill broadcast received, sending kill signal");
-                            Process.sendSignal(Process.myPid(), Process.SIGNAL_KILL);
-                        }
-                    }, 100);
-                }
-            }, new IntentFilter(SettingsActivity.ACTION_KILL_SYSTEMUI));
-        }
-    };*/
-
-    private static XC_LayoutInflated recents_task_view_header = new XC_LayoutInflated() {
+    private static final XC_LayoutInflated recents_task_view_header = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
             FrameLayout header = (FrameLayout) liparam.view;
@@ -350,8 +328,7 @@ public class RecentsNavigation {
         }
     };
 
-    @SuppressWarnings("unused")
-    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
+    public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam) {
         try {
             if (ConfigUtils.notifications().change_style) {
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "recents_task_view_header", recents_task_view_header);

@@ -1,0 +1,36 @@
+[
+  5,
+  {
+    "version": "6\\.6\\.1[46]\\.21\\.[a-z]+[0-9]*",
+    "assistant_class": ".a.e",
+    "prefs": "bhX",
+    "set_prefs": "aG",
+    "fake_config": "pa",
+    "fake_config_two": "oZ",
+    "enable_langs": "pb",
+    "fake_buildprop_class": ".shared.util.c",
+    "fake_buildprop": "v"
+  },
+  {
+    "version": "6\\.7\\.1[3567]\\.21\\.[a-z]+[0-9]*",
+    "assistant_class": ".a.e",
+    "prefs": "biJ",
+    "set_prefs": "aK",
+    "fake_config": "pc",
+    "fake_config_two": "pb",
+    "enable_langs": "pd",
+    "fake_buildprop_class": ".shared.util.c",
+    "fake_buildprop": "v"
+  },
+  {
+    "version": "6\\.8\\.1[0-9]\\.21\\.[a-z]+[0-9]*",
+    "assistant_class": ".a.e",
+    "prefs": "bnp",
+    "set_prefs": "aK",
+    "fake_config": "pU",
+    "fake_config_two": "pT",
+    "enable_langs": "pV",
+    "fake_buildprop_class": ".shared.util.c",
+    "fake_buildprop": "v"
+  }
+]

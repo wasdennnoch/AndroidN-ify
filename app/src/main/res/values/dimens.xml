@@ -1,79 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <dimen name="match_parent" tools:ignore="UnusedResources">-1px</dimen>
+
+    <!-- Recents -->
+    <dimen name="recents_empty_drawable_padding">25dp</dimen>
+    <dimen name="recents_stack_top_padding">32dp</dimen>
+    <!-- /Recents -->
 
     <!-- Notifications / Status bar header -->
-    <dimen name="status_bar_header_height">80dp</dimen>
+    <dimen name="status_bar_header_height">104dp</dimen>
 
     <dimen name="right_layout_height">48dp</dimen>
-    <dimen name="right_layout_margin_top">28dp</dimen>
+    <dimen name="right_layout_margin_top">4dp</dimen>
     <dimen name="right_layout_margin_right">12dp</dimen>
     <dimen name="right_icon_size">48dp</dimen>
     <dimen name="right_icon_width_small">38dp</dimen>
     <dimen name="expand_indicator_padding">12dp</dimen>
 
     <dimen name="qs_quick_panel_margin_horizontal">12dp</dimen>
-    <dimen name="qs_quick_panel_padding_top">32dp</dimen>
-    <dimen name="qs_quick_panel_padding_top_alternative">22dp</dimen>
+    <dimen name="qs_quick_panel_padding_top">52dp</dimen>
+    <!--<dimen name="qs_quick_panel_padding_top">56dp</dimen>-->
     <dimen name="qs_quick_panel_padding_bottom">8dp</dimen>
     <dimen name="qs_quick_tile_size">48dip</dimen>
     <dimen name="qs_quick_tile_padding">12dip</dimen>
 
     <dimen name="lib_item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
-    <dimen name="qs_panel_margin_bottom">40dp</dimen>
+    <dimen name="qs_panel_decor_height">48dp</dimen>
 
     <dimen name="header_items_margin_top">8dp</dimen>
     <dimen name="brightness_slider_padding_top">-12dp</dimen>
     <dimen name="emergency_calls_only_text_size">12sp</dimen>
     <dimen name="multi_user_avatar_size">24dp</dimen>
-    <dimen name="settings_gear_translation">16dp</dimen>
 
     <dimen name="date_time_alarm_group_margin_left">16dp</dimen>
-    <dimen name="date_time_alarm_group_margin_top">8dp</dimen>
+    <dimen name="date_time_alarm_group_margin_top">20dp</dimen>
     <dimen name="date_time_group_height">19dp</dimen>
     <dimen name="date_collapsed_drawable_padding">6dp</dimen>
     <dimen name="date_time_collapsed_size">14sp</dimen>
-    <dimen name="date_time_expanded_size_small">15sp</dimen>
-    <dimen name="date_time_expanded_size">16sp</dimen>
-    <dimen name="date_anim_translation">32dp</dimen>
-    <dimen name="date_alarm_anim_translation">22dp</dimen>
     <dimen name="alarm_status_height">20dp</dimen>
     <dimen name="alarm_status_padding_top">3dp</dimen>
     <dimen name="alarm_status_drawable_padding">6dp</dimen>
     <dimen name="alarm_status_collapsed_drawable_padding">6dp</dimen>
+    <dimen name="alarm_status_collapsed_drawable_padding_small">0dp</dimen>
 
     <dimen name="notification_icon_size">18dp</dimen>
     <dimen name="notification_icon_margin_end">3dp</dimen>
     <dimen name="notification_app_name_margin_start">3dp</dimen>
-    <dimen name="notification_app_name_margin_end">3dp</dimen>
+    <dimen name="notification_app_name_margin_end">2dp</dimen>
     <dimen name="notification_actions_margin_start">8dp</dimen>
     <dimen name="notification_content_margin_start">16dp</dimen>
-    <dimen name="notification_content_margin_top">24dp</dimen>
-    <dimen name="notification_header_height">37.5dp</dimen>
-    <dimen name="notification_header_margin_top">10dp</dimen>
+    <dimen name="notification_content_margin_top">25.5dp</dimen> <!-- 37.5 - 12 -->
+    <dimen name="notification_header_height">53dp</dimen>
+    <dimen name="notification_header_margin_top" tools:ignore="UnusedResources">10dp</dimen>
     <dimen name="notification_right_icon_size">40dp</dimen>
     <dimen name="notification_right_icon_margin_top">36dp</dimen>
     <dimen name="notification_right_icon_margin_end">16dp</dimen>
-    <dimen name="notification_min_height">88dp</dimen>
-    <dimen name="notification_mid_height">152dp</dimen>
-    <dimen name="notification_max_height">280dp</dimen>
+    <dimen name="notification_min_height_legacy" tools:ignore="UnusedResources">64dp</dimen>
+    <dimen name="notification_min_height">92dp</dimen>
+    <dimen name="notification_mid_height">156dp</dimen>
+    <dimen name="notification_max_height">284dp</dimen>
     <dimen name="notification_time_margin_start">1dp</dimen>
     <dimen name="notification_divider_margin_top">1dp</dimen>
     <dimen name="notification_header_height_exclude_top">34dp</dimen>
     <dimen name="notification_text_margin_end">56dp</dimen>
     <dimen name="notification_text_inbox_margin_end">48dp</dimen>
     <dimen name="notification_actions_margin_top">16dp</dimen>
+    <dimen name="notification_action_list_height">56dp</dimen>
     <dimen name="notification_dismiss_button_padding">16dp</dimen>
     <dimen name="notification_dismiss_button_padding_top">14dp</dimen>
+    <dimen name="notification_divider_height">0.5dp</dimen>
+    <dimen name="z_distance_between_notifications">0.5dp</dimen>
     <dimen name="task_progress_height">2dp</dimen>
     <dimen name="no_notifications_padding_top">28dp</dimen>
     <dimen name="no_notifications_text_size">16sp</dimen>
 
     <dimen name="notification_separator_size">1dp</dimen>
+    <dimen name="notification_header_shrink_min_width">72dp</dimen>
+    <dimen name="notification_content_margin_end">16dp</dimen>
+    <dimen name="notification_badge_size" tools:ignore="UnusedResources">12dp</dimen>
+
+    <dimen name="notification_panel_width" tools:ignore="UnusedResources">@dimen/match_parent</dimen>
+    <dimen name="navigation_bar_size">48dp</dimen>
     <!-- /Notifications / Status bar header -->
 
-    <!-- Recents -->
-    <dimen name="recents_empty_drawable_padding">25dp</dimen>
-    <dimen name="recents_stack_top_padding">32dp</dimen>
-    <!-- /Recents -->
+    <dimen name="notification_header_background_height">45.5dp</dimen>
+    <dimen name="notification_header_padding_top">10dp</dimen>
+    <dimen name="notification_header_padding_bottom">16dp</dimen>
+    <dimen name="notification_header_padding_end">16dp</dimen>
+    <dimen name="notification_header_text_margin">2dp</dimen>
+    <dimen name="qs_page_indicator_width">16dp</dimen>
+    <dimen name="qs_page_indicator_height">8dp</dimen>
+    <dimen name="qs_edit_padding">14dp</dimen>
+    <dimen name="borderless_button_radius">2dp</dimen>
+    <dimen name="qs_detail_header_text_size">20sp</dimen>
+    <dimen name="qs_detail_item_primary_text_size">16sp</dimen>
+    <dimen name="qs_detail_item_secondary_text_size">14sp</dimen>
+
+    <dimen name="qs_dual_tile_width">134dp</dimen>
+    <dimen name="qs_tile_height">88dp</dimen>
+    <dimen name="qs_tile_margin">16dp</dimen>
+    <dimen name="qs_tile_margin_top">16dp</dimen>
+    <dimen name="qs_container_elevation">4dp</dimen>
+    <dimen name="settings_icon_size">20dp</dimen>
+
+    <dimen name="battery_height">14.5dp</dimen>
+    <dimen name="battery_width">9.5dp</dimen>
+
+    <!-- Usage graph dimens -->
+    <dimen name="usage_graph_area_height" tools:ignore="UnusedResources">122dp</dimen>
+    <dimen name="usage_graph_margin_top_bottom">9dp</dimen>
+    <dimen name="usage_graph_labels_width">56dp</dimen>
+    <dimen name="usage_graph_labels_padding" tools:ignore="UnusedResources">16dp</dimen>
+
+    <dimen name="usage_graph_divider_size">1dp</dimen>
+
+    <dimen name="usage_graph_line_width">3dp</dimen>
+    <dimen name="usage_graph_line_corner_radius">6dp</dimen>
+
+    <dimen name="usage_graph_dot_size">.75dp</dimen>
+    <dimen name="usage_graph_dot_interval">7dp</dimen>
+
+    <dimen name="battery_detail_graph_space_top">27dp</dimen>
+    <dimen name="battery_detail_graph_space_bottom">27dp</dimen>
+    <dimen name="battery_usage_height">141dp</dimen>
+    <dimen name="battery_usage_margin_start">16dp</dimen>
+    <dimen name="battery_usage_margin_end">24dp</dimen>
+    <dimen name="notification_header_expand_button_padding_top">1dp</dimen>
+    <dimen name="notification_fake_header_margin_top">14.5dp</dimen>
+
+    <!-- Emergency info -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="circle_avatar_size">40dp</dimen>
+    <dimen name="tab_elevation">4dp</dimen>
+    <dimen name="action_bar_size">56dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="notification_filter_button_width">52dp</dimen>
+    <dimen name="qs_edit_bottom_margin">16dp</dimen>
+    <dimen name="neko_display_size">64dp</dimen>
 
 </resources>

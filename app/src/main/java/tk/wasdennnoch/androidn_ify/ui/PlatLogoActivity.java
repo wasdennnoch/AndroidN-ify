@@ -37,12 +37,18 @@ import android.view.animation.PathInterpolator;
 import android.widget.FrameLayout;
 
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 
+@SuppressWarnings("WeakerAccess")
 public class PlatLogoActivity extends Activity {
+
+    private static final String TAG = "PlatLogoActivity";
+    public static final String ACTION_TOGGLE_NEKO = "tk.wasdennnoch.androidn_ify.action.ACTION_TOGGLE_NEKO";
+
     FrameLayout mLayout;
     int mTapCount;
     int mKeyCount;
-    PathInterpolator mInterpolator = new PathInterpolator(0f, 0f, 0.5f, 1f);
+    final PathInterpolator mInterpolator = new PathInterpolator(0f, 0f, 0.5f, 1f);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,33 +94,7 @@ public class PlatLogoActivity extends Activity {
                     public boolean onLongClick(View v) {
                         if (mTapCount < 5) return false;
 
-                        final ContentResolver cr = getContentResolver();
-                        if (Settings.System.getLong(cr, "egg_mode", 0)
-                                == 0) {
-                            // For posterity: the moment this user unlocked the easter egg
-                            try {
-                                Settings.System.putLong(cr,
-                                        "egg_mode",
-                                        System.currentTimeMillis());
-                            } catch (RuntimeException e) {
-                                Log.e("PlatLogoActivity", "Can't write settings", e);
-                            }
-                        }
-                        im.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    startActivity(new Intent(Intent.ACTION_MAIN)
-                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                    | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-                                            .addCategory("com.android.internal.category.PLATLOGO"));
-                                } catch (ActivityNotFoundException ex) {
-                                    Log.e("PlatLogoActivity", "No more eggs.");
-                                }
-                                finish();
-                            }
-                        });
+                        sendBroadcast(new Intent(ACTION_TOGGLE_NEKO).setPackage(XposedHook.PACKAGE_SYSTEMUI));
                         return true;
                     }
                 });

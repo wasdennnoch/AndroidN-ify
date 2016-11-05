@@ -8,10 +8,10 @@
     <string name="restart_broadcast_sent">Restart broadcast sent</string>
     <string name="activity_about">About Android N-ify</string>
     <string name="about_author">Developed by @MrWasdennnoch</string>
-    <string name="about_translator">Translated by @MrWasdennnoch</string> <!-- Insert your (preferably XDA) username here -->
+    <!-- Insert/Add your (preferably XDA) username here -->
+    <string name="about_translator">Translated by @MrWasdennnoch</string>
     <string name="about_version">Version %1$s (%2$d)</string>
 
-    <!-- prefs -->
     <string name="prefs_not_readable"><![CDATA[<b>Warning:</b> The preference file isn\'t readable by Xposed. Click for more info&#8230;]]></string>
     <string name="prefs_not_readable_description"><![CDATA[
         Xposed can\'t read the preference file of this module, default values will be used in hooks.
@@ -26,42 +26,41 @@
         If even that fails, you probably have to live with the default values, sorry :(
         ]]></string>
 
+    <string name="automated_build_warning"><![CDATA[
+        You\'re running on an automated build. Some parts of the module may break due to new changes.
+        If you found any issue, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">open one on GitHub</a> if it doesn\'t already exists.<br><br>
+        Remember to always attach Xposed logs when reporting bugs, and logcat in case of crashes.
+        ]]></string>
+
+    <string name="experimental_build_warning"><![CDATA[
+        You\'re running on an experimental automated build. Some parts of the module may break due to new changes.
+        If you found any issue, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">open one on GitHub</a> if it doesn\'t already exists.<br>
+        This build contains <b>very experimental</b> features. Please search in XDA and GitHub before reporting any issues. Duplicate reports will be ignored and closed.<br><br>
+        Remember to always attach Xposed logs when reporting bugs, and logcat in case of crashes.
+        ]]></string>
+
     <string name="header_tweaks">Tweaks</string>
+    <!-- The header of the app settings like dark theme and language. Short for application. -->
     <string name="header_app">App</string>
 
-    <string name="app_dark_theme_title">Dark app theme</string>
+    <string name="app_theme_title">App theme</string>
+    <string name="app_theme_light">Light</string>
+    <string name="app_theme_dark">Dark</string>
+    <string name="app_theme_device">Device Default</string>
     <string name="hide_launcher_icon_title">Hide launcher icon</string>
     <string name="hide_launcher_icon">May require launcher restart</string>
     <string name="debug_log_title">Debug log</string>
     <string name="debug_log">Warning: Log-flooding</string>
-    <string name="share_logcat_title">Share logcat</string>
-    <string name="share_logcat">Saves your logcat to a file</string>
-    <string name="logcat_notif_ongoing_title">Saving logcat&#8230;</string>
-    <string name="logcat_notif_finished_title">Logcat saved</string>
-    <string name="logcat_notif_preparing">Preparing&#8230;</string>
-    <string name="logcat_notif_ongoing_lines">Saved %1$s lines&#8230;</string>
-    <string name="logcat_notif_finished_lines">%1$s lines saved</string>
-    <string name="action_stop">Stop</string>
-    <string name="action_share">Share</string>
 
-    <string name="requesting_root">Requesting root access&#8230;</string>
-    <string name="root_failed">Failed to gain READ_LOGS permission</string>
-    <string name="permission_required">Permission required</string>
-    <string name="logs_permission_description">
-        In Android versions since Jelly Bean applications aren\'t allowed to read the full logcat anymore.
-        You can however manually grant the READ_LOGS permission with root access.
-        After that the app needs to be restarted in order to apply the newly granted permissions.
-    </string>
-
+    <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
     <string name="requires_android_version">Requires Android %1$s</string>
     <string name="not_activated">Module not activated</string>
 
+    <!-- Primary color of app theme -->
     <string name="theme_colorPrimary">Primary color</string>
 
     <string name="header_lockscreen">Lock screen</string>
-    <!-- /prefs -->
 
-    <!-- SETTINGS -->
     <string name="header_settings">Settings</string>
     <string name="enable_settings_summaries_title">Settings summaries</string>
     <string name="enable_settings_summaries">Show the most important information directly in the dashboard</string>
@@ -70,94 +69,166 @@
     <string name="enable_n_platlogo_title">N logo in easter egg</string>
     <string name="use_namey_mcnameface_title">Use \"Namey McNameface\" icon</string>
 
+    <!-- Wifi disconnected -->
     <string name="disconnected">Disconnected</string>
     <string name="disabled">Disabled</string>
     <string name="off">OFF</string>
     <string name="on">ON</string>
     <string name="data_usage_summary">%1$s of data used</string>
+    <!-- Is on or off -->
     <string name="display_summary">Adaptive brightness is %1$s</string>
     <string name="sound_summary">Ringer volume at %1$s</string>
-    <string name="apps_summary">%1$d apps installed</string>
+    <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d apps installed</string>
+    <!-- Storage settings summary: 10GB of 12GB used -->
     <string name="storage_summary">%1$s of %2$s used</string>
+    <!-- Battery settings summary: 58% - approx. 2h left -->
     <string name="battery_summary">%1$s - approx. %2$s left</string>
+    <!-- Battery settings summary: Percentage -->
     <string name="battery_charging_wireless">%1$s - Charging wirelessly</string>
+    <!-- Battery settings summary: Percentage -->
     <string name="battery_charging_usb">%1$s - Charging on USB</string>
+    <!-- Battery settings summary: Percentage -->
     <string name="battery_charging_ac">%1$s - Charging on AC</string>
     <string name="memory_summary">Currently %1$s of %2$s memory used</string>
     <string name="user_summary">Signed in as %1$s</string>
     <string name="location_on_power">ON / Power saving</string>
     <string name="location_on_device">ON / Device only</string>
     <string name="location_on_high">ON / High accuracy</string>
-    <string name="print_summary">%1$d print jobs</string>
-    <!-- /SETTINGS -->
+    <string name="print_summary" tools:ignore="PluralsCandidate">%1$d print jobs</string>
+    <!-- Header of app installation source -->
+    <string name="store">Store</string>
+    <!-- Header of app installation source -->
+    <string name="app_details">App details</string>
+    <string name="install_source">App installed from %1$s</string>
+    <string name="from_pm">App installed from Package Installer</string>
 
-    <!-- RECENTS -->
     <string name="header_recents">Recents</string>
-    <string name="enable_recents_double_tap_title">Quick switch</string> <!-- That's how Google calls it -->
+    <!-- That's how Google calls it -->
+    <string name="enable_recents_double_tap_title">Quick switch</string>
     <string name="enable_recents_double_tap">Double tap the recents key to switch to the last used app</string>
+    <string name="alternative_double_tap_title">Alternative double tap detection</string>
+    <string name="alternative_double_tap">Enable if Quick switch isn\'t working correctly</string>
     <string name="double_tap_speed_title">Double tap speed</string>
     <string name="recents_button_behavior_title">Recents button click behavior</string>
     <string name="recents_navigation_delay_title">Navigation delay</string>
     <string name="recents_navigation_delay">Time until the selected app gets focused</string>
     <string name="enable_large_recents">Large recent apps</string>
+    <string name="enable_large_recents_summary">Only makes the recents cards full width, doesn\'t change the height</string>
     <string name="no_recents_image">Change \"no recents\" image</string>
 
+    <!-- Appears as a toast if there's no recent app to switch to -->
     <string name="no_previous_recents">No recent items</string>
 
     <string name="recents_button_behavior_previous">Return to previous app</string>
     <string name="recents_button_behavior_current">Return to current app</string>
     <string name="recents_button_behavior_cycle">Cycle through apps</string>
-    <!-- /RECENTS -->
 
-    <!-- QUICK SETTINGS -->
     <string name="header_qs">Quick Settings</string>
     <string name="enable_notification_header">Style header</string>
-    <string name="keep_qs_panel_bg_title">Unaltered QS background</string>
-    <string name="keep_qs_panel_bg">Useful for themes that apply a custom QS panel background</string>
+    <string name="keep_bg_title">Unaltered backgrounds</string>
+    <string name="keep_bg">Useful for themes that apply custom backgrounds</string>
+    <string name="keep_header_bg">Header</string>
+    <string name="keep_panel_bg">QS Panel</string>
+    <string name="force_old_date_position">Force date next to time</string>
+    <string name="force_old_date_position_summary">On screens smaller than a certain size the date gets displayed below the clock instead of next to it, only visible when expanding the QS panel. Enable to override this behavior</string>
+    <string name="force_old_date_position_disabled_summary">Your device already supports the new date position</string>
     <string name="notification_header_qs_tiles_count">QS tiles to show</string>
+    <!-- The unit of the counter next to the slider -->
     <string name="notification_header_qs_tiles_count_monitor">tiles</string>
     <string name="battery_tile_show_percentage">Show percentage in battery tile</string>
-    <string name="battery_tile_show_percentage_summary">Show battery percentage in the battery tile</string>
+    <string name="battery_tile_show_percentage_summary">Show remaining battery percentage in the battery tile</string>
     <string name="enable_qs_editor">Enable QS editor</string>
+    <string name="alternative_qs_loading">Alternative QS loading method</string>
+    <string name="alternative_qs_loading_summary">Use a different way to get the available QS tiles. Only use if you are missing tiles in the editor</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
-    <string name="alternative_header_qs_method_title">Alternative QS loading method</string>
-    <string name="alternative_header_qs_method">Enable when there are positioning issues with the QS icons</string>
-    <string name="enable_new_tile_click_behavior">Android N tile click behavior</string>
+    <string name="enable_new_tile_click_behavior">New tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>
     <string name="enable_large_first_row">Enlarge first row</string>
-    <string name="enable_large_first_row_summary">On CM use the configuration menu of the edit tiles mode instead</string>
-    <string name="smaller_header_clock_title">Smaller clock</string>
-    <string name="smaller_header_clock">Lower the text size of the clock in the expanded header. Useful for small screens</string>
-    <string name="notification_full_width_volume_title">Full width volume dialog</string>
-    <string name="notification_full_width_volume">Remove volume dialog width limit for phones with large display</string>
+    <string name="enable_large_first_row_summary2">Makes the first two tiles appear large if supported</string>
     <string name="fix_stuck_inversion_title">Fix stuck inversion</string>
     <string name="fix_stuck_inversion">On some devices the inversion gets stuck when enabled. Click to force deactivation</string>
-    <!-- Hide header icons -->
+
     <string name="hide_icons_title">Hide header items</string>
     <string name="hide_tuner_icon_title">Hide SystemUI Tuner icon</string>
     <string name="hide_edit_tiles_title">Hide edit tiles button</string>
+    <string name="hide_edit_tiles_summary">This only hides the stock edit button!</string>
     <string name="hide_carrier_label_title">Hide carrier label</string>
-    <!-- /Hide header icons -->
-    <!-- /QUICK SETTINGS -->
 
-    <!-- NOTIFICATIONS -->
     <string name="header_notifications">Notifications</string>
     <string name="notifications_change_style">Style Notifications</string>
     <string name="notification_dismiss_button_title">Change dismiss button</string>
     <string name="notification_dismiss_button">Show \"CLEAR ALL\" instead of dismiss icon</string>
+    <!-- Search hint in the blacklist app Activity -->
     <string name="action_search">Search</string>
     <string name="notification_blacklisted_apps_title">Blacklisted apps</string>
     <string name="notification_blacklisted_apps">Use old notification style for these apps</string>
-    <string name="notifications_custom_color_title">Use custom accent color</string>
-    <string name="notifications_accent_color_title">Accent color</string>
-    <string name="notifications_custom_actions_color_title">Use custom actions background color</string>
+    <string name="notifications_custom_actions_color_title">Custom actions background color</string>
+    <string name="notifications_custom_actions_color">Use a custom color as the background of the notification buttons</string>
     <string name="notifications_actions_color_title">Actions background color</string>
-    <!-- /NOTIFICATIONS -->
+    <string name="notification_experimental_title">Experimental N notifications behavior</string>
+    <string name="notification_experimental">N scrolling behavior (no top stack)</string>
+    <string name="notification_keyguard_max_title">Max notifications on lockscreen</string>
 
-    <!-- UPDATE -->
+    <string name="enable_assistant">Enable Google Assistant</string>
+    <string name="enable_assistant_summary">Replaces Now on Tap/Screen search with the new Google Assistant</string>
+    <string name="enable_assistant_summary_unsupported">Your Google App\'s version (%1$s) is not supported.</string>
+
+    <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+    <string name="now_string_shortest">now</string>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_minutes_shortest">
+        <item quantity="one">%dm</item>
+        <item quantity="other">%dm</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_hours_shortest">
+        <item quantity="one">%dh</item>
+        <item quantity="other">%dh</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_days_shortest">
+        <item quantity="one">%dd</item>
+        <item quantity="other">%dd</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+    <plurals name="duration_years_shortest">
+        <item quantity="one">%dy</item>
+        <item quantity="other">%dy</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_minutes_shortest_future">
+        <item quantity="one">in %dm</item>
+        <item quantity="other">in %dm</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_hours_shortest_future">
+        <item quantity="one">in %dh</item>
+        <item quantity="other">in %dh</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_days_shortest_future">
+        <item quantity="one">in %dd</item>
+        <item quantity="other">in %dd</item>
+    </plurals>
+
+    <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+    <plurals name="duration_years_shortest_future">
+        <item quantity="one">in %dy</item>
+        <item quantity="other">in %dy</item>
+    </plurals>
+
     <string name="update_notification_title">New update available</string>
     <string name="update_notification">Build %1$d is now available to update!</string>
     <string name="update_notification_download">Update</string>
+    <string name="update_warning">Module was updated</string>
+    <string name="update_warning_details">System might be unstable and bug reports will be ignored until a device restart</string>
     <string name="check_for_updates_title">Check for updates</string>
     <string name="check_for_updates">Check for updates on app start</string>
     <string name="checking_for_update">Checking for updates…</string>
@@ -167,49 +238,63 @@
     <string name="update_notification_downloading_details">Downloading build %1$d</string>
     <string name="update_notification_download_fail">Download failed</string>
     <string name="update_notification_download_fail_details">Failed to download build %1$d</string>
-    <!-- /UPDATE -->
 
-    <!-- EMERGENCY -->
-    <string name="emergency_info">Emergency Info</string>
-    <string name="enable_emergency_info_title">Enable Emergency Info</string>
-    <string name="edit_emergency_info_title">Edit Emergency Info</string>
+    <string name="emergency_info">Emergency information</string>
+    <string name="emergency_info_launch_hint">Touch again to open</string>
+    <string name="enable_emergency_info_title">Enable emergency information</string>
+    <string name="enable_emergency_info">Adds an emergency information button to the emergency dialer</string>
+    <string name="edit_emergency_info_title">Edit emergency information</string>
+    <string name="clear_all">Clear all</string>
+    <string name="tab_title_info">Info</string>
+    <string name="tab_title_contacts">Contacts</string>
+    <string name="add_emergency_contact">Add contact</string>
+    <string name="user_emergency_info_title">Emergency information</string>
+    <string name="user_emergency_info_consent">Information you enter here can help first responders in an emergency. It is stored on your device only, and anyone can read it from the emergency dialer without unlocking your phone.</string>
+    <string name="emergency_info_continue">Continue</string>
+    <string name="clear">Clear</string>
+    <string name="clear_all_message">Clear all information and contacts?</string>
+    <!-- Example: Mobile • 333-444-5566 -->
+    <string name="phone_type_and_phone_number">%1$s • %2$s</string>
+    <string name="remove_contact">Remove %1$s from emergency contacts?</string>
+    <string name="remove_contact_icon_text">Remove contact</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_info_provided">No emergency information provided</string>
+    <string name="emergency_contacts_title">Emergency contacts</string>
+    <string name="name">Name</string>
+    <string name="unknown_name">Unknown</string>
+    <string name="address">Address</string>
+    <string name="unknown_address">Unknown</string>
+    <string name="blood_type">Blood type</string>
+    <string name="unknown_blood_type">Unknown</string>
+    <string name="allergies">Allergies</string>
+    <string name="unknown_allergies">Unknown</string>
+    <string name="allergies_hint">For example, peanuts</string>
+    <string name="medications">Medications</string>
+    <string name="unknown_medications">Unknown</string>
+    <string name="medications_hint">For example, aspirin</string>
+    <string name="medical_conditions">Medical notes</string>
+    <string name="unknown_medical_conditions">Unknown</string>
+    <string name="medical_conditions_hint">For example, asthma</string>
+    <string name="organ_donor">Organ donor</string>
+    <string name="unknown_organ_donor">Unknown</string>
 
-    <string name="header_personal">Personal</string>
-    <string name="info_fullname">Full name</string>
-    <string name="info_address">Address</string>
-    <string name="info_birthdate">Date of birth</string>
-
-    <string name="header_medical">Medical</string>
-    <string name="info_bloodtype">Blood type</string>
-    <string name="info_allergies">Allergies</string>
-    <string name="info_medications">Medications</string>
-    <string name="info_medicalnotes">Medical conditions and notes</string>
-    <string name="info_organdonor">Organ donor</string>
-
-    <string name="info_unspecified">None specified</string>
-
-    <string name="info_bloodtype_op">0+</string>
-    <string name="info_bloodtype_on">0-</string>
+    <string name="info_bloodtype_op">O+</string>
+    <string name="info_bloodtype_on">O-</string>
     <string name="info_bloodtype_ap">A+</string>
     <string name="info_bloodtype_an">A-</string>
     <string name="info_bloodtype_bp">B+</string>
     <string name="info_bloodtype_bn">B-</string>
     <string name="info_bloodtype_abp">AB+</string>
     <string name="info_bloodtype_abn">AB-</string>
-    <!-- /EMERGENCY -->
+    <string name="info_bloodtype_h_h">H H</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <!-- BATTERY -->
     <string name="battery">Battery</string>
-    <string name="charged">Charged</string>
-    <string name="charging">Charging, %1$s</string>
-    <!-- /BATTERY -->
 
-    <!-- QS -->
     <string name="qs_edit">Edit</string>
-    <string name="qs_edit_detail">Edit tiles</string>
     <string name="drag_to_add_tiles">Drag to add tiles</string>
     <string name="drag_to_remove_tiles">Drag here to remove</string>
     <string name="live_display">LiveDisplay</string>
@@ -218,6 +303,132 @@
     <string name="live_display_day">Day</string>
     <string name="live_display_night">Night</string>
     <string name="live_display_outdoor">Outdoor (bright sun)</string>
-    <!-- /QS -->
+    <!-- Example: 3 hours ago -->
+    <string name="charge_length_format">%1$s ago</string>
+    <!-- Example: 3 hours left -->
+    <string name="remaining_length_format">%1$s left</string>
+    <!-- Example: Approx. 3 hours left -->
+    <string name="power_remaining_duration_only">Approx. %1$s left</string>
+    <!-- Example: 3h left -->
+    <string name="power_remaining_duration_only_short">%1$s left</string>
+    <!-- Example: 75% - approx. 3 hours left -->
+    <string name="power_discharging_duration">%1$s - approx. %2$s left</string>
+    <!-- Example: 75% - 3h left -->
+    <string name="power_discharging_duration_short">%1$s - %2$s left</string>
+    <!-- Example: 75% - Charging -->
+    <string name="power_charging">%1$s - %2$s</string>
+    <!-- Example: 75% - 3 hours until full -->
+    <string name="power_charging_duration">%1$s - %2$s until full</string>
+    <!-- Example: 75% - 3h -->
+    <string name="power_charging_duration_short">%1$s - %2$s</string>
+    <!-- Example: 75% - 3 hours until full on AC -->
+    <string name="power_charging_duration_ac">%1$s - %2$s until full on AC</string>
+    <!-- Example: 75% - 3h -->
+    <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
+    <!-- Example: 75% - 3 hours until full over USB -->
+    <string name="power_charging_duration_usb">%1$s - %2$s until full over USB</string>
+    <!-- Example: 75% - 3h -->
+    <string name="power_charging_duration_usb_short">>%1$s - %2$s</string>
+    <!-- Example: 75% - 3 hours until full from wireless -->
+    <string name="power_charging_duration_wireless">%1$s - %2$s until full from wireless</string>
+    <!-- Example: 75% - 3h -->
+    <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
+    <string name="battery_info_status_unknown">Unknown</string>
+    <string name="battery_info_status_charging">Charging</string>
+    <string name="battery_info_status_charging_ac">Charging on AC</string>
+    <string name="battery_info_status_charging_ac_short">Charging</string>
+    <string name="battery_info_status_charging_usb">Charging over USB</string>
+    <string name="battery_info_status_charging_usb_short">Charging</string>
+    <string name="battery_info_status_charging_wireless">Charging wirelessly</string>
+    <string name="battery_info_status_charging_wireless_short">Charging</string>
+    <string name="battery_info_status_discharging">Not charging</string>
+    <string name="battery_info_status_not_charging">Not charging</string>
+    <string name="battery_info_status_full">Charged</string>
+    <string name="battery_panel_title">Battery usage</string>
+    <string name="battery_detail_charging_summary">Battery Saver not available during charging</string>
+    <!-- Add a custom tile -->
+    <string name="add">Add</string>
+    <string name="add_custom_tile">Add broadcast tile</string>
+    <!-- Warning when the input for the custom tile is empty -->
+    <string name="spec_shouldnt_be_blank">Tile spec shouldn\'t be blank</string>
+    <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+    <string name="reset_tiles">Reset</string>
+
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on color to apply</string>
+    <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+    <string name="color_picker_hex">HEX</string>
+
+    <string name="enable_install_source_title">Show app installation source</string>
+    <string name="enable_install_source">Adds a category to the app info page to show how the app got installed (Play Store, Package Installer etc)</string>
+    <string name="battery_detail_switch_title">Battery Saver</string>
+    <string name="battery_detail_switch_summary">Reduces performance and background data</string>
+    <string name="qs_add_notes_title">Notes</string>
+    <string name="qs_add_notes">This is only used for apps that provide broadcast tiles (such as \"Custom Quick Settings\"). Please read the instructions in the tile provider app before using this.</string>
+    <string name="hide_tiles_on_lockscreen">Hide tiles on lockscreen</string>
+    <string name="done">Done</string>
+    <string name="cm_qs_settings">CM QS settings</string>
+    <string name="disable_qs_paging">Disable QS paging</string>
+    <string name="disable_qs_paging_summary">Disable QS paging in portrait</string>
+    <string name="allow_direct_reply_on_keyguard">Direct reply on lockscreen</string>
+    <string name="allow_direct_reply_on_keyguard_summary">Allows notifications to be answered on lockscreen</string>
+    <string name="enable_notifications_background">Enable notifications background</string>
+    <string name="enable_notifications_background_summary">Draws a white background behind notifications when swiping them away</string>
+    <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_expand">Open quick settings.</string>
+    <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_collapse">Close quick settings.</string>
+    <string name="warning">Warning</string>
+    <string name="dont_show_again">Don\'t show again</string>
+    <string name="enable_data_disabled_indicator">Show mobile data disabled indicator</string>
+    <string name="enable_data_disabled_indicator_summary">Shows a \"x\" as the signal indicator when mobile data is disabled</string>
+    <string name="home">Home</string>
+    <plurals name="enable_experimental_countdown">
+        <item quantity="one">You are now %1$d step away from enabling experimental features.</item>
+        <item quantity="other">You are now %1$d steps away from enabling experimental features.</item>
+    </plurals>
+    <string name="show_experimental_on">You have enabled experimental features!</string>
+    <string name="show_experimental_on_already">No need, you have already enabled experimental features.</string>
+    <string name="header_experimental">Experimental</string>
+    <string name="enable_experimental_features">Enable experimental features</string>
+    <string name="enable_n_style_settings_dashboard">N style settings</string>
+    <string name="enable_n_style_settings_dashboard_summary">Theme the settings dashboard to look like N</string>
+    <string name="enable_settings_drawer">Enable settings drawer</string>
+
+    <!-- EasterEgg -->
+    <string name="notification_name" translatable="false">Android Neko</string>
+    <string name="default_tile_name" translatable="false">\????</string>
+    <string name="notification_title" translatable="false">A cat is here.</string>
+    <string name="default_cat_name" translatable="false">Cat #%s</string>
+    <string name="directory_name" translatable="false">Cats</string>
+    <string name="confirm_delete" translatable="false">Forget %s?</string>
+    <string-array name="food_names" translatable="false">
+        <item>Empty dish</item>
+        <item>Bits</item>
+        <item>Fish</item>
+        <item>Chicken</item>
+        <item>Treat</item>
+    </string-array>
+    <array name="food_icons">
+        <item>@drawable/food_dish</item>
+        <item>@drawable/food_bits</item>
+        <item>@drawable/food_sysuituna</item>
+        <item>@drawable/food_chicken</item>
+        <item>@drawable/food_donut</item>
+    </array>
+    <integer-array name="food_intervals">
+        <item>0</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+    </integer-array>
+    <integer-array name="food_new_cat_prob">
+        <item>0</item>
+        <item>5</item>
+        <item>35</item>
+        <item>65</item>
+        <item>90</item>
+    </integer-array>
 
 </resources>

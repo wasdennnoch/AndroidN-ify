@@ -1,12 +1,14 @@
 package tk.wasdennnoch.androidn_ify.systemui.recents.doubletap;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.view.View;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class DoubleTapSwKeys extends DoubleTapBase {
@@ -20,16 +22,16 @@ public class DoubleTapSwKeys extends DoubleTapBase {
     private static boolean sWasPressed = false;
     private static View.OnClickListener sOriginalRecentsClickListener;
     private static View sRecentsButton;
-    private static Runnable sResetPressedStateRunnable = new Runnable() {
+    private static final Runnable sResetPressedStateRunnable = new SafeRunnable() {
         @Override
-        public void run() {
+        public void runSafe() {
             XposedHook.logD(TAG, "Double tap timed out after " + mDoubletapSpeed + "ms, invoking original mRecentsClickListener");
             sWasPressed = false;
             sOriginalRecentsClickListener.onClick(sRecentsButton);
         }
     };
 
-    private static XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
+    private static final XC_MethodHook prepareNavigationBarViewHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             XposedHook.logD(TAG, "prepareNavigationBarViewHook called");
@@ -64,7 +66,7 @@ public class DoubleTapSwKeys extends DoubleTapBase {
     public static void hook(ClassLoader classLoader) {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
-            config.reload();
+            if (Build.VERSION.SDK_INT >= 23 && !config.recents.alternative_method) return;
             loadPrefDoubleTapSpeed();
             if (config.recents.double_tap) {
                 try {
