@@ -105,7 +105,7 @@ public class StatusBarHeaderHooks {
     private static TextView mAlarmStatus;
     private static TextView mEditTileDoneText;
     private static View mTunerIcon;
-    private static View mWeatherContainer;
+    private static LinearLayout mWeatherContainer;
     private static View mTaskManagerButton;
     private static View mCustomQSEditButton;
     private static View mCustomQSEditButton2;
@@ -169,6 +169,8 @@ public class StatusBarHeaderHooks {
             TextView mTime;
             TextView mAmPm;
             TextView mEmergencyCallsOnly;
+            TextView mWeatherLine1 = null;
+            TextView mWeatherLine2 = null;
             try {
                 mSystemIconsSuperContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mSystemIconsSuperContainer");
                 mDateGroup = (View) XposedHelpers.getObjectField(param.thisObject, "mDateGroup");
@@ -206,7 +208,9 @@ public class StatusBarHeaderHooks {
             dummyClock.setVisibility(View.GONE);
             XposedHelpers.setObjectField(param.thisObject, "mClock", dummyClock);
             try {
-                mWeatherContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
+                mWeatherContainer = (LinearLayout) XposedHelpers.getObjectField(param.thisObject, "mWeatherContainer");
+                mWeatherLine1 = (TextView) XposedHelpers.getObjectField(param.thisObject, "mWeatherLine1");
+                mWeatherLine2 = (TextView) XposedHelpers.getObjectField(param.thisObject, "mWeatherLine2");
             } catch (Throwable ignore) {
             }
             try {
@@ -390,12 +394,24 @@ public class StatusBarHeaderHooks {
                 mHeaderQsPanel.setClipChildren(false);
                 mHeaderQsPanel.setClipToPadding(false);
 
-                if (mWeatherContainer != null) {
+                if (mWeatherContainer != null && mWeatherLine1 != null && mWeatherLine2 != null) {
                     RelativeLayout.LayoutParams weatherContainerLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                     weatherContainerLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                    //weatherContainerLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                     weatherContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
-                    weatherContainerLp.topMargin = headerItemsMarginTop;
+                    weatherContainerLp.bottomMargin = headerItemsMarginTop;
+                    //mWeatherContainer.setOrientation(LinearLayout.HORIZONTAL); // TODO Setting the orientation completely fu**s it up?! Positioned at the parent top
                     mWeatherContainer.setLayoutParams(weatherContainerLp);
+
+                    //mWeatherLine1.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+                    //mWeatherLine2.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+                    //int padding = mContext.getResources().getDimensionPixelSize(mContext.getResources().getIdentifier("status_bar_weather_padding_end", "dimen", PACKAGE_SYSTEMUI));
+                    //mWeatherLine1.setPadding(0, 0, 0, 0);
+                    //mWeatherLine2.setPadding(0, 0, padding, 0);
+
+                    //TextView dash = new TextView(mWeatherLine2.getContext());
+                    //dash.setText(" - ");
+                    //mWeatherContainer.addView(dash, 1, new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
                 }
                 if (mCarrierText != null) {
                     ((ViewGroup) mCarrierText.getParent()).removeView(mCarrierText);
@@ -435,7 +451,7 @@ public class StatusBarHeaderHooks {
                 }
                 mDateTimeGroup.addView(mAlarmStatusCollapsed);
                 mDateTimeAlarmGroup.addView(mDateTimeGroup);
-                mDateTimeAlarmGroup.addView(mAlarmStatus); // The view HAS to be attached to a parent, otherwise it gets GC -> NPE. We hide it later if necessary
+                mDateTimeAlarmGroup.addView(mAlarmStatus); // The view HAS to be attached to a parent, otherwise it apparently gets GC -> NPE. We hide it later if necessary
                 if (!mShowFullAlarm)
                     mDateTimeAlarmGroup.addView(mDateCollapsed);
                 mStatusBarHeaderView.addView(mLeftContainer);

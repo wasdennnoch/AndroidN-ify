@@ -41,13 +41,13 @@ public class TilesManager {
     private List<String> mSecureTiles;
     public boolean useVolumeTile = false;
 
-    static public boolean enableNeko = false;
+    static boolean enableNeko = false;
 
     static {
         mCustomTileSpecs.add(AndroidN_ifyTile.TILE_SPEC);
         mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
         mCustomTileSpecs.add(NekoTile.TILE_SPEC);
-        if (RomUtils.isCm() && ConfigUtils.M)
+        if (RomUtils.isCm() && ConfigUtils.M && !ConfigUtils.qs().alternative_qs_loading)
             mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
     }
 
