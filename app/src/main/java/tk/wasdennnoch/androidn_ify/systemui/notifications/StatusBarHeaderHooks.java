@@ -483,8 +483,6 @@ public class StatusBarHeaderHooks {
         mEdit.setBackground(mContext.getDrawable(background.resourceId));
         mEdit.setPadding(padding, padding, padding, padding);
         mEdit.setOnClickListener(onClickListener);
-        if (ConfigUtils.qs().enable_qs_editor)
-            mEdit.setVisibility(View.GONE);
     }
 
     private static final XC_MethodHook setExpansionHook = new XC_MethodHook() {
@@ -500,7 +498,6 @@ public class StatusBarHeaderHooks {
                     }
                     mSecondHalfAnimator.setPosition(f);
                     mSettingsAlpha.setPosition(f);
-                    //mHeaderQsPanel.setPosition(f);
                     mQsAnimator.setPosition(f);
                 }
                 mExpandIndicator.setExpanded(f > 0.93F);
@@ -538,8 +535,7 @@ public class StatusBarHeaderHooks {
                 mDateGroup.setVisibility(View.GONE);
                 updateAlarmVisibilities();
                 mMultiUserSwitch.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
-                if (ConfigUtils.qs().enable_qs_editor)
-                    mEdit.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
+                mEdit.setVisibility(ConfigUtils.qs().enable_qs_editor ? mExpanded ? View.VISIBLE : View.INVISIBLE : View.GONE);
                 if (!mShowFullAlarm) {
                     mAlarmStatus.setVisibility(View.GONE);
                     mDateCollapsed.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
