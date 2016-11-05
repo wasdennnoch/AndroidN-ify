@@ -14,6 +14,7 @@ import android.content.res.XResources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -1261,6 +1262,7 @@ public class NotificationHooks {
                 ((LinearLayout) buttonView).getChildAt(0).setVisibility(View.GONE);
                 ((LinearLayout) buttonView).getChildAt(1).setVisibility(View.VISIBLE);
                 buttonView = ((LinearLayout) buttonView).getChildAt(1);
+                buttonView.setId(context.getResources().getIdentifier("dismiss_text", "id", PACKAGE_SYSTEMUI));
             }
             if (buttonView instanceof ImageButton) {
                 layout.removeView(buttonView);
@@ -1271,12 +1273,21 @@ public class NotificationHooks {
                 layout.addView(buttonView);
             }
             TextView button = (TextView) buttonView; // It's a TextView on some ROMs
-            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.gravity = Gravity.END;
-            button.setLayoutParams(lp);
-            button.setTextColor(res.getColor(android.R.color.white));
+            if(button.getParent() instanceof LinearLayout) { // this is probably only for Xperia devices
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.END;
+                button.setLayoutParams(lp);
+                button.setTypeface(null, Typeface.NORMAL);
+                ((LinearLayout) button.getParent()).setBackground(null);
+            }
+            else{
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.END;
+                button.setLayoutParams(lp);
+                button.setTextColor(res.getColor(android.R.color.white));
+                button.setAllCaps(true);
+            }
             button.setText(context.getString(context.getResources().getIdentifier("clear_all_notifications_text", "string", PACKAGE_SYSTEMUI)));
-            button.setAllCaps(true);
             button.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
             button.setPadding(dismissButtonPadding, dismissButtonPaddingTop, dismissButtonPadding, dismissButtonPadding);
         }
