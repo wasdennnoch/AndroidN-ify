@@ -29,12 +29,11 @@ class LollipopStatusBarHooks extends StatusBarHooks {
                     int typeIcon = !RomUtils.isCmBased() ? 2 : 3;
                     int isTypeIconWide = ConfigUtils.L1 && !RomUtils.isCmBased() ? 5 : 6;
 
-                    Class mediaTekIconIdWrapperClass;
+                    Class mediaTekIconIdWrapperClass = null;
                     try {
                         mediaTekIconIdWrapperClass = XposedHelpers.findClass("com.mediatek.systemui.ext.IconIdWrapper", mClassLoader);
                         XposedHook.logI(TAG, "Identified MediaTek device");
-                    } catch (XposedHelpers.ClassNotFoundError e) {
-                        mediaTekIconIdWrapperClass = null;
+                    } catch (XposedHelpers.ClassNotFoundError ignore) {
                     }
                     if (mediaTekIconIdWrapperClass != null && mediaTekIconIdWrapperClass.isInstance(param.args[typeIcon])) { // MediaTek devices wrap the id
                         Object iconIdWrapperArray = Array.newInstance(mediaTekIconIdWrapperClass, 1);

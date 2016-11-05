@@ -24,7 +24,7 @@ public class StatusBarHooks {
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51_MOTO = "com.android.systemui.statusbar.policy.MotorolaMobileDataControllerImpl"; // yeah thx Motorola
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
 
-    protected ClassLoader mClassLoader;
+    ClassLoader mClassLoader;
     Class<?> mSignalClusterClass;
     private Class<?> mMobileDataControllerClass;
     private boolean mLastDataDisabled = false;
@@ -153,12 +153,11 @@ public class StatusBarHooks {
                     int qsTypeIcon = 3;
                     int isWide = 8;
 
-                    Class mediaTekIconIdWrapperClass;
+                    Class mediaTekIconIdWrapperClass = null;
                     try {
                         mediaTekIconIdWrapperClass = XposedHelpers.findClass("com.mediatek.systemui.ext.IconIdWrapper", mClassLoader);
                         XposedHook.logI(TAG, "Identified MediaTek device");
-                    } catch (XposedHelpers.ClassNotFoundError e) {
-                        mediaTekIconIdWrapperClass = null;
+                    } catch (XposedHelpers.ClassNotFoundError ignore) {
                     }
                     if (mediaTekIconIdWrapperClass != null && mediaTekIconIdWrapperClass.isInstance(param.args[typeIcon])) { // MediaTek devices wrap the id
                         Object iconIdWrapperArray = Array.newInstance(mediaTekIconIdWrapperClass, 1);
