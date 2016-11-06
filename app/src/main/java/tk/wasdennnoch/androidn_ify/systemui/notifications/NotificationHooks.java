@@ -1279,15 +1279,18 @@ public class NotificationHooks {
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 lp.gravity = Gravity.END;
                 button.setLayoutParams(lp);
-                button.setTypeface(null, Typeface.NORMAL);
                 ((LinearLayout) button.getParent()).setBackground(null);
+                LinearLayout.MarginLayoutParams lp2 = (LinearLayout.MarginLayoutParams) ((LinearLayout) button.getParent()).getLayoutParams();
+                lp2.setMarginEnd(0);
+                ((LinearLayout) button.getParent()).setLayoutParams(lp2);
             } else {
                 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 lp.gravity = Gravity.END;
                 button.setLayoutParams(lp);
-                button.setTextColor(res.getColor(android.R.color.white));
-                button.setAllCaps(true);
             }
+            button.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            button.setTextColor(res.getColor(android.R.color.white));
+            button.setAllCaps(true);
             button.setText(context.getString(context.getResources().getIdentifier("clear_all_notifications_text", "string", PACKAGE_SYSTEMUI)));
             button.setBackground(res.getDrawable(R.drawable.ripple_dismiss_all));
             button.setPadding(dismissButtonPadding, dismissButtonPaddingTop, dismissButtonPadding, dismissButtonPadding);
@@ -1319,7 +1322,7 @@ public class NotificationHooks {
 
             FrameLayout.LayoutParams linearLayoutLParams = new FrameLayout.LayoutParams(WRAP_CONTENT, iconSize);
             linearLayoutLParams.setMargins(0, notificationHeaderMarginTop, 0, notificationContentPadding);
-
+            
             linearLayout.setLayoutParams(linearLayoutLParams);
             linearLayout.setPadding(notificationContentPadding, 0, notificationContentPadding, 0);
 
