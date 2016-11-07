@@ -30,6 +30,7 @@ import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapHwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.navigate.RecentsNavigation;
 import tk.wasdennnoch.androidn_ify.systemui.recents.stack.RecentsStackHooks;
+import tk.wasdennnoch.androidn_ify.systemui.screenshot.ScreenshotHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.PermissionGranter;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
@@ -125,6 +126,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 break;
             case PACKAGE_SYSTEMUI:
                 SystemUIHooks.hookSystemUI(lpparam.classLoader);
+                ScreenshotHooks.hook(lpparam.classLoader);
                 StatusBarHeaderHooks.hook(lpparam.classLoader);
                 NotificationPanelHooks.hook(lpparam.classLoader);
                 StackScrollAlgorithmHooks.hook(lpparam.classLoader);

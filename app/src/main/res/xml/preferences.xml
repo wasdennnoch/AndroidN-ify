@@ -357,6 +357,12 @@
                 android:summary="@string/enable_assistant_summary"
                 android:title="@string/enable_assistant"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_experimental_features"
+                android:key="enable_partial_screenshot"
+                android:title="@string/enable_partial_screenshot"/>
+
         </PreferenceScreen>
 
     </PreferenceCategory>
