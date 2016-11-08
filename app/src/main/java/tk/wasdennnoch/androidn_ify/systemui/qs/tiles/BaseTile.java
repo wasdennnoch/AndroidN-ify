@@ -25,6 +25,9 @@ public abstract class BaseTile implements KeyguardMonitor.Callback {
 
     /**
      * ALWAYS CALL {@link #registerCallbacks()} AS THHE LAST LINE OF THE OVERRIDDEN CONSTRUCTOR
+     * If for some reason the tile creation fails the callbacks will already be registered leading to
+     * a ghost tile which eats memory and logs a crash when a callback is received. Add the callbacks
+     * last so they won't get registered if something crashes.
      */
     BaseTile(TilesManager tilesManager, Object host, String key) {
         mTilesManager = tilesManager;
@@ -62,6 +65,7 @@ public abstract class BaseTile implements KeyguardMonitor.Callback {
 
     @CallSuper
     public void handleDestroy() {
+        setListening(false);
         mTilesManager.unregisterTile(this);
         mTilesManager = null;
         mTile = null;
