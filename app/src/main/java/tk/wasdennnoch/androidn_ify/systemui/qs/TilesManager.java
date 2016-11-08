@@ -22,6 +22,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BaseTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.BatteryTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.LiveDisplayTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.NekoTile;
+import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.PartialScreenshotTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryMeterDrawable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -47,6 +48,7 @@ public class TilesManager {
         mCustomTileSpecs.add(AndroidN_ifyTile.TILE_SPEC);
         mCustomTileSpecs.add(BatteryTile.TILE_SPEC);
         mCustomTileSpecs.add(NekoTile.TILE_SPEC);
+        mCustomTileSpecs.add(PartialScreenshotTile.TILE_SPEC);
         if (RomUtils.isCm() && ConfigUtils.M && !ConfigUtils.qs().alternative_qs_loading)
             mCustomTileSpecs.add(LiveDisplayTile.TILE_SPEC);
     }
@@ -67,6 +69,8 @@ public class TilesManager {
                 return R.string.live_display;
             case NekoTile.TILE_SPEC:
                 return R.string.default_tile_name;
+            case PartialScreenshotTile.TILE_SPEC:
+                return R.string.partial_screenshot;
         }
         return 0;
     }
@@ -87,6 +91,8 @@ public class TilesManager {
                 Drawable icon =  ResourceUtils.getInstance(context).getDrawable(R.drawable.stat_icon);
                 icon.setTint(0x4DFFFFFF);
                 return icon;
+            case PartialScreenshotTile.TILE_SPEC:
+                return ResourceUtils.getInstance(context).getDrawable(R.drawable.ic_crop);
             default:
                 throw new Exception("No icon for spec '" + spec + "'!");
         }
@@ -112,6 +118,8 @@ public class TilesManager {
                 return new LiveDisplayTile(this, mQSTileHost, key);
             case NekoTile.TILE_SPEC:
                 return new NekoTile(this, mQSTileHost, key);
+            case PartialScreenshotTile.TILE_SPEC:
+                return new PartialScreenshotTile(this, mQSTileHost, key);
         }
         return new QSTile(this, mQSTileHost, key);
     }

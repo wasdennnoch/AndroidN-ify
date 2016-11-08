@@ -1,11 +1,13 @@
 package tk.wasdennnoch.androidn_ify.systemui.screenshot;
 
+import android.app.Service;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,15 +18,18 @@ import android.widget.FrameLayout;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.android.AndroidHooks;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ScreenshotSelectorView;
-import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
 
 public class ScreenshotHooks {
 
     public static final String TAG = "ScreenshotHooks";
+    private static final String KEY_PARTIAL_SCREENSHOT = "nify_partial_screenshot";
+
     private static int x, y, width, height;
+    private static Service mService;
 
     public static void hook(final ClassLoader classLoader) {
         try {
@@ -68,12 +73,20 @@ public class ScreenshotHooks {
                 }
             });
 
+            XposedHelpers.findAndHookMethod(Service.class, "onCreate", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    Service service = (Service) param.thisObject;
+                    if (!service.getClass().getName().contains("TakeScreenshotService")) return;
+                    mService = service;
+                }
+            });
+
             XposedHelpers.findAndHookMethod(XposedHook.PACKAGE_SYSTEMUI + ".screenshot.TakeScreenshotService$1", classLoader, "handleMessage", Message.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    if (!ConfigUtils.getInstance().getPrefs().getBoolean("enable_partial_screenshot", false)) {
-                        return;
-                    }
+                    if (!shouldTakePartial(mService)) return;
+                    Settings.Global.putInt(mService.getContentResolver(), KEY_PARTIAL_SCREENSHOT, 0);
                     Message msg = (Message) param.args[0];
                     final Messenger callback = msg.replyTo;
                     Runnable finisher = new Runnable() {
@@ -118,6 +131,15 @@ public class ScreenshotHooks {
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Crash in screenshot hooks", t);
         }
+    }
+
+    public static void takePartialScreenshot(Context context) {
+        Settings.Global.putInt(context.getContentResolver(), KEY_PARTIAL_SCREENSHOT, 1);
+        AndroidHooks.sendTakeScreenshot(context);
+    }
+
+    private static boolean shouldTakePartial(Context context) {
+        return Settings.Global.getInt(context.getContentResolver(), KEY_PARTIAL_SCREENSHOT, 0) != 0;
     }
 
     private static void takeScreenshotPartial(final Object globalScreenshot, final Runnable finisher, final boolean statusBarVisible, final boolean navBarVisible) {
