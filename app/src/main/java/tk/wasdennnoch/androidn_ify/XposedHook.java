@@ -17,6 +17,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import tk.wasdennnoch.androidn_ify.android.AndroidHooks;
 import tk.wasdennnoch.androidn_ify.google.AssistantHooks;
 import tk.wasdennnoch.androidn_ify.phone.emergency.EmergencyHooks;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
@@ -136,6 +137,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 DoubleTapSwKeys.hook(lpparam.classLoader);
                 break;
             case PACKAGE_ANDROID:
+                AndroidHooks.hook(lpparam.classLoader);
                 DoubleTapHwKeys.hook(lpparam.classLoader);
                 LiveDisplayObserver.hook(lpparam.classLoader);
                 PermissionGranter.initAndroid(lpparam.classLoader);

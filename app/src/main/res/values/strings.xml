@@ -394,6 +394,6 @@
     <string name="enable_n_style_settings_dashboard">N style settings</string>
     <string name="enable_n_style_settings_dashboard_summary">Theme the settings dashboard to look like N</string>
     <string name="enable_settings_drawer">Enable settings drawer</string>
-    <string name="enable_partial_screenshot">Enable partial screenshot</string>
+    <string name="partial_screenshot">Partial screenshot</string>
 
 </resources>

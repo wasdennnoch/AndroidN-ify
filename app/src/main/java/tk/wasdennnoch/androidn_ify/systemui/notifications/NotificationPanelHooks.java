@@ -98,6 +98,16 @@ public class NotificationPanelHooks {
         }
     };
 
+    private static Runnable mRunAfterInstantCollapse;
+    private static Runnable mInstantCollapseRunnable = new Runnable() {
+        @Override
+        public void run() {
+            instantCollapse();
+            if (mRunAfterInstantCollapse != null)
+                mNotificationPanelView.post(mRunAfterInstantCollapse);
+        }
+    };
+
     public static void expandWithQs() {
         try {
             if (ConfigUtils.M) {
@@ -187,6 +197,15 @@ public class NotificationPanelHooks {
         }
     }
 
+    public static void postInstantCollapse(Runnable after) {
+        mRunAfterInstantCollapse = after;
+        mNotificationPanelView.post(mInstantCollapseRunnable);
+    }
+
+    private static void instantCollapse() {
+        XposedHelpers.callMethod(mNotificationPanelView, "instantCollapse");
+    }
+
     public static void addBarStateCallback(BarStateCallback callback) {
         mBarStateCallbacks.add(callback);
     }
@@ -195,7 +214,7 @@ public class NotificationPanelHooks {
         mBarStateCallbacks.remove(callback);
     }
 
-    public static QSCustomizer getQsCustomizer() {
+    static QSCustomizer getQsCustomizer() {
         return mQsCustomizer;
     }
 
