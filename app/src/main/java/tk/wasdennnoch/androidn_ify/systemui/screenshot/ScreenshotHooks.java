@@ -87,7 +87,7 @@ public class ScreenshotHooks {
             Class handlerClass;
             try {
                 handlerClass = XposedHelpers.findClass(XposedHook.PACKAGE_SYSTEMUI + ".screenshot.TakeScreenshotService$1", classLoader);
-            } catch (XposedHelpers.ClassNotFoundError e) { // CM I guess
+            } catch (XposedHelpers.ClassNotFoundError e) { // Some ROMs
                 handlerClass = XposedHelpers.findClass(XposedHook.PACKAGE_SYSTEMUI + ".screenshot.TakeScreenshotService$ScreenshotHandler", classLoader);
             }
             XposedHelpers.findAndHookMethod(handlerClass, "handleMessage", Message.class, new XC_MethodHook() {
@@ -108,7 +108,12 @@ public class ScreenshotHooks {
                             }
                         }
                     };
-                    Context service = (Context) XposedHelpers.getObjectField(param.thisObject, "this$0");
+                    Context service;
+                    try {
+                        service = (Context) XposedHelpers.getObjectField(param.thisObject, "this$0");
+                    } catch (NoSuchFieldError e) { // Some ROMs
+                        service = (Context) XposedHelpers.getObjectField(param.thisObject, "takeScreenshotService");
+                    }
                     Object mScreenshot = XposedHelpers.getObjectField(service, "mScreenshot");
                     if (mScreenshot == null) {
                         mScreenshot = XposedHelpers.newInstance(XposedHelpers.findClass(XposedHook.PACKAGE_SYSTEMUI + ".screenshot.GlobalScreenshot", classLoader), service);
