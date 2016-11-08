@@ -1279,10 +1279,11 @@ public class NotificationHooks {
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 lp.gravity = Gravity.END;
                 button.setLayoutParams(lp);
-                ((LinearLayout) button.getParent()).setBackground(null);
-                LinearLayout.MarginLayoutParams lp2 = (LinearLayout.MarginLayoutParams) ((LinearLayout) button.getParent()).getLayoutParams();
+                LinearLayout parent = (LinearLayout) button.getParent();
+                parent.setBackground(null);
+                LinearLayout.MarginLayoutParams lp2 = (LinearLayout.MarginLayoutParams) parent.getLayoutParams();
                 lp2.setMarginEnd(0);
-                ((LinearLayout) button.getParent()).setLayoutParams(lp2);
+                parent.setLayoutParams(lp2);
             } else {
                 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
                 lp.gravity = Gravity.END;
