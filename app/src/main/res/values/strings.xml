@@ -140,6 +140,9 @@
     <string name="enable_qs_editor">Enable QS editor</string>
     <string name="alternative_qs_loading">Alternative QS loading method</string>
     <string name="alternative_qs_loading_summary">Use a different way to get the available QS tiles. Only use if you are missing tiles in the editor</string>
+    <string name="inject_gb_tiles">Inject GravityBox tiles</string>
+    <string name="inject_gb_tiles_summary">Enable if you want to add QS tiles provided by GravityBox</string>
+    <string name="inject_gb_tiles_not_installed">GravityBox is not installed</string>
     <string name="allow_fancy_qs_transition">Fancy QS transition</string>
     <string name="enable_new_tile_click_behavior">New tile click behavior</string>
     <string name="enable_new_tile_click_behavior_summary">Clicking a tile in header will toggle it and clicking a tile in the panel will expand it</string>

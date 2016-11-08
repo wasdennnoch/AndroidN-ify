@@ -40,6 +40,7 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelpe
 import tk.wasdennnoch.androidn_ify.ui.emergency.PreferenceKeys;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.MiscUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
@@ -171,6 +172,11 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             addPreferencesFromResource(R.xml.preferences);
             SharedPreferences prefs = ConfigUtils.getPreferences(getActivity());
             findPreference("theme_colorPrimary").setEnabled(!prefs.getString("app_theme", "light").equals("device"));
+            if (!MiscUtils.isGBInstalled(getActivity())) {
+                Preference p = findPreference("inject_gb_tiles");
+                p.setEnabled(false);
+                p.setSummary(R.string.inject_gb_tiles_not_installed);
+            }
             mExperimental = ConfigUtils.isExperimental(prefs);
             mShowExperimental = ConfigUtils.showExperimental(prefs);
             if (UpdateUtils.isEnabled()) {

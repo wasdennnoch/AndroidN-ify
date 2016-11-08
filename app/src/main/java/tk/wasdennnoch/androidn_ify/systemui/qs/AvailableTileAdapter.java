@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.QSTile;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.FakeQSTileView;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
@@ -42,6 +43,7 @@ class AvailableTileAdapter extends TileAdapter {
             Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             String spec = (String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME);
             availableTiles.remove(spec);
+            XposedHook.logD(TAG, "<init>: Removing already used spec " + spec);
         }
 
         /*if (RomUtils.isCmBased()) {
@@ -61,6 +63,7 @@ class AvailableTileAdapter extends TileAdapter {
         for (String spec : availableTiles) {
             addSpec(spec);
         }
+        XposedHook.logD(TAG, "<init>: Got total tiles " + mRecords.size());
     }
 
     private void addSpec(String spec) {

@@ -166,6 +166,7 @@ public class ConfigUtils {
         public final boolean battery_tile_show_percentage;
         public final boolean enable_qs_editor;
         public final boolean alternative_qs_loading;
+        public final boolean inject_gb_tiles;
         public final boolean allow_fancy_qs_transition;
         public final boolean new_click_behavior;
         public final boolean large_first_row;
@@ -181,6 +182,7 @@ public class ConfigUtils {
             battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", false);
             enable_qs_editor = prefs.getBoolean("enable_qs_editor", true);
             alternative_qs_loading = prefs.getBoolean("alternative_qs_loading", false);
+            inject_gb_tiles = prefs.getBoolean("inject_gb_tiles", false);
             allow_fancy_qs_transition = prefs.getBoolean("allow_fancy_qs_transition", true);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);

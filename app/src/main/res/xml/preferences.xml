@@ -166,6 +166,13 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:dependency="enable_qs_editor"
+                android:key="inject_gb_tiles"
+                android:title="@string/inject_gb_tiles"
+                android:summary="@string/inject_gb_tiles_summary"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_qs_editor"
                 android:key="battery_tile_show_percentage"
                 android:summary="@string/battery_tile_show_percentage_summary"
                 android:title="@string/battery_tile_show_percentage"/>
