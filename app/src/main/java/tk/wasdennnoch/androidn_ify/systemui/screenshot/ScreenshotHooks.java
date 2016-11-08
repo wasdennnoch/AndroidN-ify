@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.screenshot;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.ScreenshotSelectorView;
 
 import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
 
+@SuppressLint("StaticFieldLeak")
 public class ScreenshotHooks {
 
     public static final String TAG = "ScreenshotHooks";
@@ -82,7 +84,13 @@ public class ScreenshotHooks {
                 }
             });
 
-            XposedHelpers.findAndHookMethod(XposedHook.PACKAGE_SYSTEMUI + ".screenshot.TakeScreenshotService$1", classLoader, "handleMessage", Message.class, new XC_MethodHook() {
+            Class handlerClass;
+            try {
+                handlerClass = XposedHelpers.findClass(XposedHook.PACKAGE_SYSTEMUI + ".screenshot.TakeScreenshotService$1", classLoader);
+            } catch (XposedHelpers.ClassNotFoundError e) { // CM I guess
+                handlerClass = XposedHelpers.findClass(XposedHook.PACKAGE_SYSTEMUI + ".screenshot.TakeScreenshotService$ScreenshotHandler", classLoader);
+            }
+            XposedHelpers.findAndHookMethod(handlerClass, "handleMessage", Message.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     if (!shouldTakePartial(mService)) return;
