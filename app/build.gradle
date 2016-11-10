@@ -32,7 +32,7 @@ android {
         minSdkVersion 21
         //noinspection OldTargetApi
         targetSdkVersion 23
-        versionCode 6
+        versionCode 7
         versionName "$buildName"
 
         buildConfigField 'String', 'BUILD_TIME', "\"$buildTime\""
