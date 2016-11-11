@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.recents.doubletap;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.input.InputManager;
 import android.os.Build;
@@ -15,13 +16,13 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
-@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
+@SuppressLint("StaticFieldLeak")
 public class DoubleTapHwKeys extends DoubleTapBase {
 
     private static final String TAG = "DoubleTapHwKeys";
 
     private static final String CLASS_PHONE_WINDOW_MANAGER =
-            Build.VERSION.SDK_INT >= 23 ? "com.android.server.policy.PhoneWindowManager" :
+            ConfigUtils.M ? "com.android.server.policy.PhoneWindowManager" :
                     "com.android.internal.policy.impl.PhoneWindowManager";
 
     private static Object mPhoneWindowManager;
@@ -102,7 +103,7 @@ public class DoubleTapHwKeys extends DoubleTapBase {
         }
     }
 
-    public static void injectKey(final int keyCode) {
+    private static void injectKey(final int keyCode) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {

@@ -595,17 +595,21 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            if (mRecreatingStatusBar) {
-                XposedHook.logD(TAG, "setTilesHook: Skipping changed check due to StatusBar recreation");
-                return; // Otherwise all tiles are gone after recreation
-            }
-            if (mUseDragPanel && !RomUtils.isAicp()) {
-                return; // CM has tile caching logics
-            }
             if (mHeaderQsPanel != null) { // keep
+                XposedHook.logD(TAG, "setTilesHook Called");
+                if (mRecreatingStatusBar) {
+                    XposedHook.logD(TAG, "setTilesHook: Skipping changed check due to StatusBar recreation");
+                    return; // Otherwise all tiles are gone after recreation
+                }
+                if (mUseDragPanel && !RomUtils.isAicp()) {
+                    XposedHook.logD(TAG, "setTilesHook: Skipping check because mUseDragPanel && !RomUtils.isAicp()");
+                    return; // CM has tile caching logics
+                }
                 // Only set up views if the tiles actually changed
-                if (param.args == null || param.args.length == 0)
+                if (param.args == null || param.args.length == 0) {
+                    XposedHook.logD(TAG, "setTilesHook: Skipping check because param.args == null || param.args.length == 0");
                     return; // PA already checks itself
+                }
                 Collection tiles = (Collection) param.args[0];
                 ArrayList<String> newTiles = new ArrayList<>();
                 for (Object qstile : tiles) {
@@ -614,8 +618,9 @@ public class StatusBarHeaderHooks {
                 cancelled = false;
                 if (mPreviousTiles.equals(newTiles)) {
                     cancelled = true;
-                    XposedHook.logD(TAG, "setTilesHook: Cancelling original method");
+                    XposedHook.logD(TAG, "setTilesHook: Cancelling original method because mPreviousTiles.equals(newTiles)");
                     param.setResult(null);
+                    return;
                 }
                 mPreviousTiles.clear();
                 mPreviousTiles.addAll(newTiles);
@@ -624,10 +629,12 @@ public class StatusBarHeaderHooks {
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            if (mHeaderQsPanel != null && !cancelled) { // keep
+            if (mHeaderQsPanel != null) { // keep
                 try {
                     //noinspection unchecked
                     mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(param.thisObject, "mRecords");
+                    // OOS: sometimes mRecords still seems to be in the StatusBarHeaderView (but empty)
+                    if (mRecords.size() == 0) throw new Throwable();
                 } catch (Throwable t) {
                     try { // OOS
                         //noinspection unchecked
@@ -637,16 +644,11 @@ public class StatusBarHeaderHooks {
                         return;
                     }
                 }
-                if (mRecords.size() == 0) {
-                    try { // OOS again because sometimes mRecords still seems to be in the StatusBarHeaderView (but empty)
-                        //noinspection unchecked
-                        mRecords = (ArrayList<Object>) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mGridView"), "mRecords");
-                    } catch (Throwable ignore) {
-                    }
+                if (!cancelled) {
+                    mHeaderQsPanel.setTiles(mRecords);
+                } else {
+                    XposedHook.logD(TAG, "setTilesHook: Not setting tiles to header because cancelled");
                 }
-                mHeaderQsPanel.setTiles(mRecords);
-            } else if (cancelled) {
-                XposedHook.logD(TAG, "setTilesHook: afterHookedMethod not executing beause cancelled");
             }
         }
     };
@@ -654,13 +656,13 @@ public class StatusBarHeaderHooks {
     private static final XC_MethodHook handleStateChangedHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            // This method gets called from two different processes,
-            // so we have to check if we are in the right one
-            Object state = XposedHelpers.getObjectField(param.thisObject, "mState");
+            // This method gets called from two different processes, so we have
+            // to check if we are in the right one by testing if the panel is null
             if (mHeaderQsPanel != null) {
+                Object state = XposedHelpers.getObjectField(param.thisObject, "mState");
                 mHeaderQsPanel.handleStateChanged(param.thisObject, state);
+                NotificationPanelHooks.handleStateChanged(param.thisObject, state);
             }
-            NotificationPanelHooks.handleStateChanged(param.thisObject, state);
         }
     };
 

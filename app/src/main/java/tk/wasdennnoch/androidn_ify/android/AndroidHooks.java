@@ -9,6 +9,7 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class AndroidHooks {
 
@@ -22,7 +23,11 @@ public class AndroidHooks {
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case ACTION_SCREENSHOT:
-                    XposedHelpers.callMethod(mPhoneWindowManager, "takeScreenshot");
+                    try {
+                        XposedHelpers.callMethod(mPhoneWindowManager, "takeScreenshot");
+                    } catch (Throwable t) {
+                        XposedHook.logE(TAG, "Error while taking screenshot", t);
+                    }
                     break;
             }
         }
@@ -30,7 +35,9 @@ public class AndroidHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
-            Class<?> classPhoneWindowManager = XposedHelpers.findClass("com.android.server.policy.PhoneWindowManager", classLoader);
+            Class<?> classPhoneWindowManager = XposedHelpers.findClass(
+                    ConfigUtils.M ? "com.android.server.policy.PhoneWindowManager" :
+                            "com.android.internal.policy.impl.PhoneWindowManager", classLoader);
             XposedBridge.hookAllMethods(classPhoneWindowManager, "init", new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {

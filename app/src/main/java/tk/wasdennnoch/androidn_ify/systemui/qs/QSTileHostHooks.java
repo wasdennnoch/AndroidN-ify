@@ -120,7 +120,7 @@ public class QSTileHostHooks {
             Map<String, Object> mTiles = (Map<String, Object>) XposedHelpers.getObjectField(param.thisObject, "mTiles");
             List<String> mTileSpecs;
             try {
-                mTileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs"); // TOD
+                mTileSpecs = (List<String>) XposedHelpers.getObjectField(param.thisObject, "mTileSpecs");
             } catch (Throwable t) { // PA
                 Object tileSpecsWrapper = XposedHelpers.callMethod(param.thisObject, "loadTileSpecs");
                 mTileSpecs = (List<String>) XposedHelpers.getObjectField(tileSpecsWrapper, "list");

@@ -1,7 +1,6 @@
 package tk.wasdennnoch.androidn_ify.extracted.systemui.qs;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -61,11 +60,11 @@ public class QuickQSPanel extends LinearLayout {
     }
 
     public void setTiles(ArrayList<Object> tileRecords) {
-        XposedHook.logD(TAG, "setTiles tile record count: " + tileRecords.size());
-        if (tileRecords.size() == 0) {
-            XposedHook.logW(TAG, "setTiles: Empty tileRecord list!");
+        if (tileRecords == null || tileRecords.size() == 0) {
+            XposedHook.logW(TAG, "setTiles: Empty tileRecord list! (null: " + (tileRecords == null) + ")");
             return;
         }
+        XposedHook.logD(TAG, "setTiles: Tile record count: " + tileRecords.size());
         mTileLayout.removeTiles();
         mRecords.clear();
         mIconViews.clear();
@@ -165,8 +164,7 @@ public class QuickQSPanel extends LinearLayout {
             } catch (Throwable t) { // CM13
                 try {
                     XposedHelpers.callMethod(tileView, "setDual", false, false);
-                } catch (Throwable ignore) {
-                    // Other ROMs
+                } catch (Throwable ignore) { // Other ROMs
                 }
             }
             try {
@@ -225,11 +223,10 @@ public class QuickQSPanel extends LinearLayout {
             mIconViews.add(view);
         }
 
-        @SuppressWarnings("WeakerAccess")
         private class GlobalLayoutListener {
             private final View mView;
 
-            protected GlobalLayoutListener(View view) {
+            GlobalLayoutListener(View view) {
                 mView = view;
                 mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -252,13 +249,6 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         private LayoutParams generateOriginalLayoutParams() {
-            int i = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size);
-            LayoutParams layoutparams = new LayoutParams(i, i);
-            layoutparams.gravity = Gravity.CENTER;
-            return layoutparams;
-        }
-
-        private LayoutParams generateSpacerLayoutParams() {
             int i = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size);
             LayoutParams layoutparams = new LayoutParams(i, i);
             layoutparams.gravity = Gravity.CENTER;
