@@ -60,7 +60,12 @@ public class KeyguardMonitor {
         return Proxy.newProxyInstance(mContext.getClassLoader(), new Class<?>[]{classCallback}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                onKeyguardChanged();
+                String methodName = method.getName();
+                if (methodName.equals("onKeyguardChanged")) {
+                    onKeyguardChanged();
+                } else if (methodName.equals("equals")) { // lol (#1191)
+                    return proxy.equals(args[0]);
+                }
                 return null;
             }
         });
