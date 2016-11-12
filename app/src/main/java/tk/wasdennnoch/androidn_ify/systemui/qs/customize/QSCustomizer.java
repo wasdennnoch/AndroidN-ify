@@ -247,7 +247,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     }
 
     public void hideCircular() {
-        hide(mLastX, mLastY);
+        hide(getWidth() / 2, getHeight() / 2);
     }
 
     public void hide(int x, int y) {

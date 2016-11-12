@@ -398,5 +398,6 @@
     <string name="enable_n_style_settings_dashboard_summary">Theme the settings dashboard to look like N</string>
     <string name="enable_settings_drawer">Enable settings drawer</string>
     <string name="partial_screenshot">Partial screenshot</string>
+    <string name="fix_header_space_title">Fix huge space under qs header</string>
 
 </resources>
