@@ -80,7 +80,7 @@ public class QSContainerHelper {
 
     public void updateBottom() {
         int height = calculateContainerHeight();
-        XposedHook.logI(TAG, "height: " + height);
+        XposedHook.logD(TAG, "height: " + height);
         mQSContainer.setBottom(mQSContainer.getTop() + height);
         mQSDetail.setBottom(mQSContainer.getTop() + height);
     }
