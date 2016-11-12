@@ -1272,7 +1272,8 @@ public class StatusBarHeaderHooks {
                         layout.setElevation(ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.qs_container_elevation));
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layout.getLayoutParams();
                         params.setMargins(0, 0, 0, 0);
-                        //params.topMargin = ResourceUtils.getInstance(liparam.view.getContext()).getDimensionPixelSize(R.dimen.qs_panel_top_margin);
+                        params.setMarginStart(0);
+                        params.setMarginEnd(0);
                         layout.setLayoutParams(params);
 
                         mQsPanel = (ViewGroup) layout.findViewById(context.getResources().getIdentifier("quick_settings_panel", "id", PACKAGE_SYSTEMUI));
