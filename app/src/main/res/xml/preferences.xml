@@ -353,6 +353,12 @@
             <SwitchPreference
                 android:defaultValue="false"
                 android:dependency="enable_experimental_features"
+                android:key="fix_header_space"
+                android:title="@string/fix_header_space_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="enable_experimental_features"
                 android:key="notification_experimental"
                 android:summary="@string/notification_experimental"
                 android:title="@string/notification_experimental_title"/>

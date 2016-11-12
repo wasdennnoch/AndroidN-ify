@@ -136,6 +136,8 @@ public class StatusBarHeaderHooks {
     private static float mExpansion = 0;
     private static boolean mRecreatingStatusBar = false;
 
+    private static int mQsTopMargin;
+
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
     public static ArrayList<Object> mRecords;
 
@@ -160,7 +162,8 @@ public class StatusBarHeaderHooks {
             try {
                 if (!config.qs.keep_header_background) {
                     //noinspection deprecation
-                    mStatusBarHeaderView.setBackgroundColor(mContext.getResources().getColor(mContext.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                    mStatusBarHeaderView.setBackgroundColor(config.qs.fix_header_space ? 0 :
+                            mContext.getResources().getColor(mContext.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
                 }
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Couldn't change header background color", t);
@@ -707,10 +710,14 @@ public class StatusBarHeaderHooks {
             } else {
                 if (tileRecord != null) {
                     try {
+                        if (ConfigUtils.qs().fix_header_space && mQsTopMargin == 0) {
+                            mQsTopMargin = mResUtils.getDimensionPixelSize(R.dimen.qs_margin_top);
+                        }
+
                         View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                         param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
                         param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
-                                + mQsPanel.getTop();
+                                + mQsPanel.getTop() - mQsTopMargin;
                     } catch (Throwable ignore) { // OOS3
                     }
                 }
@@ -1264,8 +1271,7 @@ public class StatusBarHeaderHooks {
 
                         layout.setElevation(ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.qs_container_elevation));
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) layout.getLayoutParams();
-                        params.setMarginStart(0);
-                        params.setMarginEnd(0);
+                        params.setMargins(0, 0, 0, 0);
                         //params.topMargin = ResourceUtils.getInstance(liparam.view.getContext()).getDimensionPixelSize(R.dimen.qs_panel_top_margin);
                         layout.setLayoutParams(params);
 
