@@ -3,15 +3,19 @@ package tk.wasdennnoch.androidn_ify.systemui.statusbar;
 import android.content.Context;
 import android.content.res.XModuleResources;
 import android.os.Build;
+import android.view.View;
 
 import java.lang.reflect.Array;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+
+import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 
 public class StatusBarHooks {
 
@@ -23,6 +27,10 @@ public class StatusBarHooks {
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51 = "com.android.systemui.statusbar.policy.MobileDataControllerImpl";
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51_MOTO = "com.android.systemui.statusbar.policy.MotorolaMobileDataControllerImpl"; // yeah thx Motorola
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
+    private static final String CLASS_NAVIGATION_BAR_TRANSITIONS = "com.android.systemui.statusbar.phone.NavigationBarTransitions";
+
+    public static final int LIGHTS_IN_DURATION = 250;
+    public static final int LIGHTS_OUT_DURATION = 750;
 
     ClassLoader mClassLoader;
     Class<?> mSignalClusterClass;
@@ -58,8 +66,46 @@ public class StatusBarHooks {
             hookSetMobileDataIndicators();
             hookUpdateTelephony();
             hookSetMobileDataEnabled();
+            hookApplyLightsOut();
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in <init>", t);
+        }
+    }
+
+    private void hookApplyLightsOut() {
+        try {
+            Class classNavigationBarTransitions = XposedHelpers.findClass(CLASS_NAVIGATION_BAR_TRANSITIONS, mClassLoader);
+            XposedHelpers.findAndHookMethod(classNavigationBarTransitions, "applyLightsOut", boolean.class, boolean.class, boolean.class, new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                    boolean lightsOut = (boolean) param.args[0], animate = (boolean) param.args[1], force = (boolean) param.args[2];
+                    if (!force && lightsOut == XposedHelpers.getBooleanField(param.thisObject, "mLightsOut")) return null;
+
+                    XposedHelpers.setBooleanField(param.thisObject, "mLightsOut", lightsOut);
+
+                    View layout = (View) XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "mView"), "getCurrentView");
+                    Context context = layout.getContext();
+                    final View navButtons = layout.findViewById(context.getResources().getIdentifier("nav_buttons", "id", PACKAGE_SYSTEMUI));
+
+                    // ok, everyone, stop it right there
+                    navButtons.animate().cancel();
+
+                    final float navButtonsAlpha = lightsOut ? 0.5f : 1f;
+
+                    if (!animate) {
+                        navButtons.setAlpha(navButtonsAlpha);
+                    } else {
+                        final int duration = lightsOut ? LIGHTS_OUT_DURATION : LIGHTS_IN_DURATION;
+                        navButtons.animate()
+                                .alpha(navButtonsAlpha)
+                                .setDuration(duration)
+                                .start();
+                    }
+                    return null;
+                }
+            });
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Can't hook applyLightsOut", t);
         }
     }
 
