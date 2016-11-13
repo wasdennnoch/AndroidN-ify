@@ -17,6 +17,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.Interpolators;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QSDetail;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 @SuppressWarnings("ResourceType")
@@ -157,30 +158,39 @@ public class QSContainerHelper {
         if (mQsExpanded && XposedHelpers.getBooleanField(notificationPanelView, "mQsFullyExpanded")) {
             XposedHelpers.setIntField(notificationPanelView, "mQsExpansionHeight", mQsMaxExpansionHeight);
             XposedHelpers.callMethod(notificationPanelView, "requestScrollerTopPaddingUpdate", false);
-            XposedHelpers.callMethod(notificationPanelView, "requestPanelHeightUpdate");
-
-            // Size has changed, start an animation.
-            if (mQsMaxExpansionHeight != oldMaxHeight) {
-                XposedHelpers.callMethod(notificationPanelView, "startQsSizeChangeAnimation", oldMaxHeight, mQsMaxExpansionHeight);
+            if (ConfigUtils.M) {
+                XposedHelpers.callMethod(notificationPanelView, "requestPanelHeightUpdate");
+                // Size has changed, start an animation.
+                if (mQsMaxExpansionHeight != oldMaxHeight) {
+                    XposedHelpers.callMethod(notificationPanelView, "startQsSizeChangeAnimation", oldMaxHeight, mQsMaxExpansionHeight);
+                }
             }
         } else if (!mQsExpanded) {
             setQsExpansion((float) XposedHelpers.callMethod(param.thisObject, "getQsExpansionFraction"),
                     (float) XposedHelpers.callMethod(param.thisObject, "getHeaderTranslation"));
+            if (!ConfigUtils.M) {
+                XposedHelpers.callMethod(mNotificationStackScroller, "setStackHeight", (float) XposedHelpers.callMethod(notificationPanelView, "getExpandedHeight"));
+                XposedHelpers.callMethod(notificationPanelView, "updateHeader");
+            }
         }
-        XposedHelpers.callMethod(notificationPanelView, "updateStackHeight", (float) XposedHelpers.callMethod(notificationPanelView, "getExpandedHeight"));
-        XposedHelpers.callMethod(notificationPanelView, "updateHeader");
+        if (ConfigUtils.M) {
+            XposedHelpers.callMethod(notificationPanelView, "updateStackHeight", (float) XposedHelpers.callMethod(notificationPanelView, "getExpandedHeight"));
+            XposedHelpers.callMethod(notificationPanelView, "updateHeader");
+        }
         XposedHelpers.callMethod(mNotificationStackScroller, "updateIsSmallScreen", mHeaderHeight);
 
-        // If we are running a size change animation, the animation takes care of the height of
-        // the container. However, if we are not animating, we always need to make the QS container
-        // the desired height so when closing the QS detail, it stays smaller after the size change
-        // animation is finished but the detail view is still being animated away (this animation
-        // takes longer than the size change animation).
-        if (XposedHelpers.getObjectField(notificationPanelView, "mQsSizeChangeAnimator") == null) {
-            if (mQsMaxExpansionHeight != -1) mQsMaxExpansionHeight -= mHeaderHeight;
-            XposedHelpers.callMethod(mQSContainer, "setHeightOverride", mQsMaxExpansionHeight);
+        if (ConfigUtils.M) {
+            // If we are running a size change animation, the animation takes care of the height of
+            // the container. However, if we are not animating, we always need to make the QS container
+            // the desired height so when closing the QS detail, it stays smaller after the size change
+            // animation is finished but the detail view is still being animated away (this animation
+            // takes longer than the size change animation).
+            if (XposedHelpers.getObjectField(notificationPanelView, "mQsSizeChangeAnimator") == null) {
+                if (mQsMaxExpansionHeight != -1) mQsMaxExpansionHeight -= mHeaderHeight;
+                XposedHelpers.callMethod(mQSContainer, "setHeightOverride", mQsMaxExpansionHeight);
+            }
+            XposedHelpers.callMethod(notificationPanelView, "updateMaxHeadsUpTranslation");
         }
-        XposedHelpers.callMethod(notificationPanelView, "updateMaxHeadsUpTranslation");
     }
 
     public int getDesiredHeight() {
