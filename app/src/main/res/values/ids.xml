@@ -20,5 +20,6 @@
     <item name="edit" type="id" />
     <item name="actions_container" type="id" />
     <item name="fake_shadow" type="id" />
+    <item name="qs_detail_header" type="id" />
 
 </resources>

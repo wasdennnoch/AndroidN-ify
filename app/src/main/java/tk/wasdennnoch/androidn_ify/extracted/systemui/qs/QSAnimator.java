@@ -14,7 +14,6 @@
 
 package tk.wasdennnoch.androidn_ify.extracted.systemui.qs;
 
-import android.graphics.Path;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.View.OnLayoutChangeListener;
@@ -29,7 +28,6 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
-import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;

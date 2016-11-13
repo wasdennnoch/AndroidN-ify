@@ -29,6 +29,7 @@ public class NotificationPanelHooks {
     private static final String TAG = "NotificationPanelHooks";
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
+    private static final String CLASS_NOTIFICATION_STACK_SCROLL_LAYOUT = "com.android.systemui.statusbar.stack.NotificationStackScrollLayout";
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_QS_CONTAINER = "com.android.systemui.qs.QSContainer";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
@@ -177,6 +178,7 @@ public class NotificationPanelHooks {
         try {
             if (ConfigUtils.qs().header) { // Although this is the notification panel everything here is header-related (mainly QS editor)
 
+                Class<?> classNotificationStackScrollLayout = XposedHelpers.findClass(CLASS_NOTIFICATION_STACK_SCROLL_LAYOUT, classLoader);
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classQSContainer = XposedHelpers.findClass(CLASS_QS_CONTAINER, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
@@ -206,7 +208,7 @@ public class NotificationPanelHooks {
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onTouchEvent", MotionEvent.class, returnIfCustomizing);
 
                 if (ConfigUtils.qs().fix_header_space) {
-                    XposedHelpers.findAndHookMethod(classNotificationPanelView, "setQsTranslation", float.class, new XC_MethodReplacement() {
+                    XC_MethodReplacement updateQsTranslation = new XC_MethodReplacement() {
                         @Override
                         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                             if (mQsContainerHelper != null)
@@ -214,7 +216,9 @@ public class NotificationPanelHooks {
                                         (float) XposedHelpers.callMethod(param.thisObject, "getHeaderTranslation"));
                             return null;
                         }
-                    });
+                    };
+
+                    XposedHelpers.findAndHookMethod(classNotificationPanelView, "setQsTranslation", float.class, updateQsTranslation);
 
                     XposedHelpers.findAndHookMethod(classQSContainer, "getDesiredHeight", new XC_MethodReplacement() {
                         @Override
@@ -234,7 +238,47 @@ public class NotificationPanelHooks {
                         }
                     });
 
+                    XposedHelpers.findAndHookMethod(classNotificationPanelView, "isQsDetailShowing", new XC_MethodReplacement() {
+                        @Override
+                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                            if (mQsContainerHelper != null)
+                                return mQsContainerHelper.getQSDetail().isShowingDetail();
+                            return null;
+                        }
+                    });
+
                     hookOnLayout(classNotificationPanelView, classPanelView);
+
+                    /*
+                    XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingIn", new XC_MethodReplacement() {
+                        @Override
+                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                            if (mQsContainerHelper != null)
+                                mQsContainerHelper.animateHeaderSlidingIn();
+                            return null;
+                        }
+                    });
+
+                    XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingOut", new XC_MethodReplacement() {
+                        @Override
+                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                            if (mQsContainerHelper != null)
+                                mQsContainerHelper.animateHeaderSlidingOut();
+                            return null;
+                        }
+                    });
+
+                    XposedHelpers.findAndHookMethod(classNotificationPanelView, "updateHeaderShade", updateQsTranslation);
+
+                    XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onScrollTouch", MotionEvent.class, new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            MotionEvent ev = (MotionEvent) param.args[0];
+                            if (mQsContainerHelper != null && ev.getY() < mQsContainerHelper.getBottom())
+                                param.setResult(false);
+                        }
+                    });
+                    */
                 }
             }
         } catch (Throwable t) {

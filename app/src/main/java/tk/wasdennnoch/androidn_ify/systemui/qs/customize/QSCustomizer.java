@@ -89,8 +89,6 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
     private final View mDoneButton;
     private boolean mCustomizing;
 
-    private int mLastX = 0;
-    private int mLastY = 0;
     private final int mNavigationBarSize;
     private final int mNotificationPanelWidth;
     private int mMode = MODE_NORMAL;
@@ -206,8 +204,6 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         initShow(records);
         setAlpha(1);
         mClipper.animateCircularClip(x, y, true, mExpandAnimationListener);
-        mLastX = x;
-        mLastY = y;
     }
 
     private void initShow(ArrayList<Object> records) {

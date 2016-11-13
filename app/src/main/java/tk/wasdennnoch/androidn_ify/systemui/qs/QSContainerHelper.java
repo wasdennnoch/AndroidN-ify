@@ -1,8 +1,10 @@
 package tk.wasdennnoch.androidn_ify.systemui.qs;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.graphics.Rect;
-import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -12,6 +14,9 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.Interpolators;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QSDetail;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 @SuppressWarnings("ResourceType")
@@ -22,7 +27,8 @@ public class QSContainerHelper {
     private final ViewGroup mHeader;
     private final ViewGroup mQSContainer;
     private final ViewGroup mQSPanel;
-    private final View mQSDetail;
+    private final QSDetail mQSDetail;
+    //private final View mQSDetail;
     private float mQsExpansion;
     private int mHeaderHeight;
     private int mQsTopMargin;
@@ -34,6 +40,7 @@ public class QSContainerHelper {
     private TextView mClockView;
     private Rect mQsBounds = new Rect();
     private boolean mKeyguardShowing = false;
+    private boolean mHeaderAnimating;
 
     public QSContainerHelper(ViewGroup notificationPanelView, ViewGroup qsContainer, ViewGroup header, ViewGroup qsPanel) {
         mNotificationPanelView = notificationPanelView;
@@ -42,7 +49,12 @@ public class QSContainerHelper {
         mQSPanel = qsPanel;
         mQSPanel.setClipToPadding(false);
         mQSContainer.setPadding(0, 0, 0, 0);
-        mQSDetail = (View) XposedHelpers.getObjectField(mQSPanel, "mDetail");
+        mQSDetail = StatusBarHeaderHooks.qsHooks.setupQsDetail(mQSPanel, mHeader);
+
+        //((ViewGroup) mHeader.getParent()).removeView(mHeader);
+        //mQSContainer.addView(mHeader);
+        mQSContainer.addView(mQSDetail);
+        //mQSDetail = (View) XposedHelpers.getObjectField(mQSPanel, "mDetail");
 
         ResourceUtils res = ResourceUtils.getInstance(qsContainer.getContext());
         mHeaderHeight = res.getDimensionPixelSize(R.dimen.status_bar_header_height);
@@ -68,7 +80,7 @@ public class QSContainerHelper {
         }
         mQsExpansion = expansion;
         final float translationScaleY = expansion - 1;
-        if (!isHeaderAnimating()) {
+        if (!mHeaderAnimating) {
             float translation = keyguardShowing ? (translationScaleY * mHeader.getHeight())
                     : headerTranslation;
             mQSContainer.setTranslationY(translation);
@@ -77,7 +89,9 @@ public class QSContainerHelper {
         XposedHelpers.callMethod(mHeader, "setExpansion", keyguardShowing ? 1 : expansion);
         float qsPanelTranslationY = translationScaleY * mQSPanel.getHeight();
         mQSPanel.setTranslationY(qsPanelTranslationY);
-        mQSDetail.setTranslationY(keyguardShowing ? 0 : -qsPanelTranslationY);
+        mQSDetail.setFullyExpanded(expansion == 1);
+        // TODO implement this
+        //mQSDetail.setTranslationY(keyguardShowing ? 0 : -qsPanelTranslationY);
         updateBottom();
 
         // Set bounds on the QS panel so it doesn't run over the header.
@@ -87,19 +101,11 @@ public class QSContainerHelper {
         mQSPanel.setClipBounds(mQsBounds);
     }
 
-    private boolean isHeaderAnimating() {
-        try {
-            return XposedHelpers.getBooleanField(mNotificationPanelView, "mHeaderAnimating");
-        } catch (Throwable t) {
-            return false;
-        }
-    }
-
     public void updateBottom() {
         int height = calculateContainerHeight();
         XposedHook.logD(TAG, "height: " + height);
         mQSContainer.setBottom(mQSContainer.getTop() + height);
-        mQSDetail.setBottom(mQSContainer.getTop() + height);
+        //mQSDetail.setBottom(mQSContainer.getTop() + height);
     }
 
     private int calculateContainerHeight() {
@@ -178,10 +184,67 @@ public class QSContainerHelper {
     }
 
     public int getDesiredHeight() {
-        if ((boolean) XposedHelpers.callMethod(mQSPanel, "isClosingDetail")) {
+        if (mQSDetail.isClosingDetail()) {
             return (int) XposedHelpers.callMethod(mQSPanel, "getGridHeight") + mQsTopMargin + mQSContainer.getPaddingBottom();
         } else {
             return mQSContainer.getMeasuredHeight();
         }
+    }
+
+    public void animateHeaderSlidingIn() {
+        if (!XposedHelpers.getBooleanField(mNotificationPanelView, "mQsExpanded")) {
+            mHeaderAnimating = true;
+            mQSContainer.getViewTreeObserver().addOnPreDrawListener(mStartHeaderSlidingIn);
+        }
+    }
+
+    public void animateHeaderSlidingOut() {
+        mHeaderAnimating = true;
+        mQSContainer.animate().y(-mHeader.getHeight())
+                .setStartDelay(0)
+                .setDuration(360)
+                .setInterpolator(Interpolators.FAST_OUT_SLOW_IN)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mQSContainer.animate().setListener(null);
+                        mHeaderAnimating = false;
+                        XposedHelpers.callMethod(mNotificationPanelView, "updateQsState");
+                    }
+                })
+                .start();
+    }
+
+    private final ViewTreeObserver.OnPreDrawListener mStartHeaderSlidingIn
+            = new ViewTreeObserver.OnPreDrawListener() {
+        @Override
+        public boolean onPreDraw() {
+            mQSContainer.getViewTreeObserver().removeOnPreDrawListener(this);
+            mQSContainer.animate()
+                    .translationY(0f)
+                    .setDuration(448)
+                    .setInterpolator(Interpolators.FAST_OUT_SLOW_IN)
+                    .setListener(mAnimateHeaderSlidingInListener)
+                    .start();
+            mQSContainer.setY(-mHeader.getHeight());
+            return true;
+        }
+    };
+
+    private final Animator.AnimatorListener mAnimateHeaderSlidingInListener
+            = new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            mHeaderAnimating = false;
+            XposedHelpers.callMethod(mNotificationPanelView, "updateQsState");
+        }
+    };
+
+    public int getBottom() {
+        return mQSContainer.getBottom();
+    }
+
+    public QSDetail getQSDetail() {
+        return mQSDetail;
     }
 }

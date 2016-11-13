@@ -10,10 +10,13 @@ import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.PagedTileLayout;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QSDetail;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
 public class QuickSettingsHooks {
 
@@ -31,6 +34,7 @@ public class QuickSettingsHooks {
     View mDetail;
 
     private PagedTileLayout mTileLayout;
+    private QSDetail mQSDetail;
     private boolean mHookedGetGridHeight = false;
     private boolean mExpanded;
     private int mGridHeight;
@@ -59,6 +63,8 @@ public class QuickSettingsHooks {
         hookUpdateResources();
         hookSetTiles();
         hookSetExpanded();
+        hookShowDetail();
+        hookFireScanStateChanged();
     }
 
     protected void hookConstructor() {
@@ -124,6 +130,30 @@ public class QuickSettingsHooks {
                 if (!mExpanded) {
                     mTileLayout.setCurrentItem(0, false);
                 }
+            }
+        });
+    }
+
+    private void hookShowDetail() {
+        if (!ConfigUtils.qs().fix_header_space) return;
+        XposedBridge.hookAllMethods(mHookClass, "handleShowDetailImpl", new XC_MethodReplacement() {
+            @Override
+            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                if (mQSDetail != null)
+                    mQSDetail.handleShowingDetail(param.args[0], (boolean) param.args[1], (int) param.args[2], (int) param.args[3]);
+                return null;
+            }
+        });
+    }
+
+    private void hookFireScanStateChanged() {
+        if (!ConfigUtils.qs().fix_header_space) return;
+        XposedHelpers.findAndHookMethod(mHookClass, "fireScanStateChanged", boolean.class, new XC_MethodReplacement() {
+            @Override
+            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                if (mQSDetail != null)
+                    mQSDetail.onScanStateChanged((boolean) param.args[0]);
+                return null;
             }
         });
     }
@@ -248,6 +278,11 @@ public class QuickSettingsHooks {
 
     public View getBrightnessView() {
         return mBrightnessView;
+    }
+
+    QSDetail setupQsDetail(ViewGroup panel, ViewGroup header) {
+        mQSDetail = new QSDetail(panel.getContext(), panel, header);
+        return mQSDetail;
     }
 
     public interface QSTileLayout {

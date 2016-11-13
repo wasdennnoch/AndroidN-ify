@@ -717,7 +717,7 @@ public class StatusBarHeaderHooks {
                         View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                         param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
                         param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
-                                + mQsPanel.getTop() - mQsTopMargin;
+                                + mQsPanel.getTop();
                     } catch (Throwable ignore) { // OOS3
                     }
                 }
@@ -787,6 +787,7 @@ public class StatusBarHeaderHooks {
     }
 
     private static void handleShowingDetail(final Object detail) {
+        if (ConfigUtils.qs().fix_header_space) return;
         final boolean showingDetail = detail != null;
         mCurrentDetailView = getCurrentDetailView();
         int rightButtonVisibility = View.GONE;
@@ -864,7 +865,7 @@ public class StatusBarHeaderHooks {
         return null;
     }
 
-    private static void transition(final View v, final boolean in) {
+    public static void transition(final View v, final boolean in) {
         if (in) {
             v.bringToFront();
             v.setVisibility(View.VISIBLE);
@@ -1240,24 +1241,28 @@ public class StatusBarHeaderHooks {
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "qs_detail_header", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        LinearLayout layout = (LinearLayout) liparam.view;
-                        Context context = layout.getContext();
+                        try {
+                            LinearLayout layout = (LinearLayout) liparam.view;
+                            Context context = layout.getContext();
 
-                        ResourceUtils res = ResourceUtils.getInstance(context);
-                        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            ResourceUtils res = ResourceUtils.getInstance(context);
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                        int padding = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_panel_padding", "dimen", PACKAGE_SYSTEMUI));
+                            int padding = context.getResources().getDimensionPixelSize(context.getResources().getIdentifier("qs_panel_padding", "dimen", PACKAGE_SYSTEMUI));
 
-                        TextView title = (TextView) layout.findViewById(android.R.id.title);
-                        title.setPadding(padding, padding, padding, padding);
+                            TextView title = (TextView) layout.findViewById(android.R.id.title);
+                            title.setPadding(padding, padding, padding, padding);
 
-                        mQsRightButton = (ImageView) inflater.inflate(res.getLayout(R.layout.qs_right_button), null);
-                        mQsRightButton.setOnClickListener(onClickListener);
-                        mQsRightButton.setVisibility(View.GONE);
+                            mQsRightButton = (ImageView) inflater.inflate(res.getLayout(R.layout.qs_right_button), null);
+                            mQsRightButton.setOnClickListener(onClickListener);
+                            mQsRightButton.setVisibility(View.GONE);
 
-                        layout.addView(mQsRightButton);
-                        layout.setPadding(0, 0, padding, 0);
-                        layout.setGravity(Gravity.CENTER);
+                            layout.addView(mQsRightButton);
+                            layout.setPadding(0, 0, padding, 0);
+                            layout.setGravity(Gravity.CENTER);
+                        } catch (Throwable ignore) {
+
+                        }
                     }
                 });
 
