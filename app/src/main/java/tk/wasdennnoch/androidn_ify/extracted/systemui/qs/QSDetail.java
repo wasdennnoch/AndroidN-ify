@@ -243,6 +243,7 @@ public class QSDetail extends LinearLayout {
             mDetailContent.removeAllViews();
             mDetailContent.addView(detailView);
             mDetailAdapter = adapter;
+            XposedHelpers.callMethod(mQsPanel, "setDetailRecord", r);
             listener = mHideGridContentWhenDone;
             setVisibility(View.VISIBLE);
             transition(mHeader, false);
@@ -331,8 +332,9 @@ public class QSDetail extends LinearLayout {
     private final AnimatorListenerAdapter mTeardownDetailWhenDone = new AnimatorListenerAdapter() {
         public void onAnimationEnd(Animator animation) {
             mDetailContent.removeAllViews();
+            XposedHelpers.callMethod(mQsPanel, "setDetailRecord", (Object) null);
             setVisibility(View.INVISIBLE);
             mClosingDetail = false;
-        };
+        }
     };
 }
