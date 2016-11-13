@@ -33,6 +33,7 @@ public class QSContainerHelper {
     private Object mKeyguardStatusView;
     private TextView mClockView;
     private Rect mQsBounds = new Rect();
+    private boolean mKeyguardShowing = false;
 
     public QSContainerHelper(ViewGroup notificationPanelView, ViewGroup qsContainer, ViewGroup header, ViewGroup qsPanel) {
         mNotificationPanelView = notificationPanelView;
@@ -56,10 +57,18 @@ public class QSContainerHelper {
     }
 
     public void setQsExpansion(float expansion, float headerTranslation) {
-        mQsExpansion = expansion;
+        expansion = Math.max(0, expansion);
         boolean keyguardShowing = XposedHelpers.getBooleanField(mNotificationPanelView, "mKeyguardShowing");
+        if (mKeyguardShowing != keyguardShowing) {
+            mKeyguardShowing = keyguardShowing;
+            if (mKeyguardShowing) {
+                expansion = 0;
+                XposedHelpers.setFloatField(mNotificationPanelView, "mQsExpansionHeight", expansion);
+            }
+        }
+        mQsExpansion = expansion;
         final float translationScaleY = expansion - 1;
-        if (!XposedHelpers.getBooleanField(mNotificationPanelView, "mHeaderAnimating")) {
+        if (!isHeaderAnimating()) {
             float translation = keyguardShowing ? (translationScaleY * mHeader.getHeight())
                     : headerTranslation;
             mQSContainer.setTranslationY(translation);
@@ -76,6 +85,14 @@ public class QSContainerHelper {
         mQsBounds.right = mQSPanel.getWidth();
         mQsBounds.bottom = mQSPanel.getHeight();
         mQSPanel.setClipBounds(mQsBounds);
+    }
+
+    private boolean isHeaderAnimating() {
+        try {
+            return XposedHelpers.getBooleanField(mNotificationPanelView, "mHeaderAnimating");
+        } catch (Throwable t) {
+            return false;
+        }
     }
 
     public void updateBottom() {
