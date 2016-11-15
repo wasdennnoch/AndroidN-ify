@@ -717,7 +717,7 @@ public class StatusBarHeaderHooks {
                         View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                         param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
                         param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
-                                + mQsPanel.getTop();
+                                + mQsPanel.getTop() - mQsTopMargin
                     } catch (Throwable ignore) { // OOS3
                     }
                 }
