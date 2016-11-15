@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -16,7 +15,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -26,7 +24,6 @@ import java.util.List;
 
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.ui.emergency.PreferenceKeys;
 import tk.wasdennnoch.androidn_ify.ui.misc.DownloadService;
 
 @SuppressWarnings("WeakerAccess")
@@ -36,30 +33,6 @@ public class UpdateUtils {
         if (!isEnabled()) return;
         if (!isConnected(context)) return;
         new CheckUpdateTask(context).execute(BuildConfig.UPDATER_URL, listener);
-    }
-
-    // TODO FINISH and turn public
-    private static void checkConfig(Context context, SharedPreferences preferences) {
-        if (UpdateUtils.isConnected(context)) {
-            try {
-                URL url = new URL("https://raw.githubusercontent.com/wasdennnoch/AndroidN-ify/master/app/src/main/assets/assistant_hooks");
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                StringBuilder result = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-                JSONArray hookConfigs = new JSONArray(result.toString());
-                // Should have thrown error here if no valid JSON
-                preferences.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, result.toString()).apply();
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public static boolean isEnabled() {

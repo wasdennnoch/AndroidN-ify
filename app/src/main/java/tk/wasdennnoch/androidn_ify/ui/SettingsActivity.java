@@ -3,10 +3,13 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.LoaderManager;
+import android.content.AsyncTaskLoader;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -28,10 +31,14 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
@@ -157,6 +164,55 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
 
+        private LoaderManager.LoaderCallbacks updateLoaderCallbacks = new LoaderManager.LoaderCallbacks() {
+            @Override
+            public Loader onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader(getActivity()) {
+
+                    @Override
+                    protected void onStartLoading() {
+                        forceLoad();
+                    }
+
+                    @Override
+                    public Object loadInBackground() {
+                        if (UpdateUtils.isConnected(getContext())) {
+                            try {
+                                URL url = new URL("https://raw.githubusercontent.com/wasdennnoch/AndroidN-ify/master/app/src/main/assets/assistant_hooks");
+                                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+                                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                                StringBuilder result = new StringBuilder();
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    result.append(line);
+                                }
+                                new JSONArray(result.toString());
+                                // Should have thrown error here if no valid JSON
+                                prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, result.toString()).apply();
+                            } catch (IOException | JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        return null;
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader loader, Object data) {
+
+            }
+
+            @Override
+            public void onLoaderReset(Loader loader) {
+
+            }
+        };
+
+        private SharedPreferences prefs;
         private boolean mExperimental;
         private boolean mShowExperimental;
 
@@ -170,7 +226,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             //noinspection deprecation
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
             addPreferencesFromResource(R.xml.preferences);
-            SharedPreferences prefs = ConfigUtils.getPreferences(getActivity());
+            prefs = ConfigUtils.getPreferences(getActivity());
             findPreference("theme_colorPrimary").setEnabled(!prefs.getString("app_theme", "light").equals("device"));
             if (!MiscUtils.isGBInstalled(getActivity())) {
                 Preference p = findPreference("inject_gb_tiles");
@@ -230,6 +286,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+            if (!mAssistantSupported) {
+                getLoaderManager().initLoader(0, null, updateLoaderCallbacks).startLoading();
             }
         }
 
