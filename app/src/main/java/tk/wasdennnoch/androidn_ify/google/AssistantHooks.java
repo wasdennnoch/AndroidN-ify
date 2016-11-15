@@ -3,11 +3,14 @@ package tk.wasdennnoch.androidn_ify.google;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.crossbowffs.remotepreferences.RemotePreferences;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
@@ -33,6 +36,7 @@ public class AssistantHooks {
 
     public static void hook(final ClassLoader classLoader) {
         try {
+            ((XSharedPreferences) ConfigUtils.getInstance().getPrefs()).reload();
             // #############################################################################
             // Thanks to XposedGELSettings for the following snippet (https://git.io/vP2Gw):
             Object activityThread = XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread");

@@ -32,11 +32,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -164,10 +162,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
 
-        private LoaderManager.LoaderCallbacks updateLoaderCallbacks = new LoaderManager.LoaderCallbacks() {
+        private LoaderManager.LoaderCallbacks<String> updateLoaderCallbacks = new LoaderManager.LoaderCallbacks<String>() {
             @Override
-            public Loader onCreateLoader(int id, Bundle args) {
-                return new AsyncTaskLoader(getActivity()) {
+            public Loader<String> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<String>(getActivity()) {
 
                     @Override
                     protected void onStartLoading() {
@@ -175,37 +173,33 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     }
 
                     @Override
-                    public Object loadInBackground() {
+                    public String loadInBackground() {
                         try {
-                            URL url = new URL("https://raw.githubusercontent.com/wasdennnoch/AndroidN-ify/master/app/src/main/assets/assistant_hooks");
+                            URL url = new URL("https://raw.githubusercontent.com/Maxr1998/AndroidN-ify/master/app/src/main/assets/assistant_hooks");
                             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-                            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                            StringBuilder result = new StringBuilder();
-                            String line;
-                            while ((line = reader.readLine()) != null) {
-                                result.append(line);
-                            }
-                            // Should have throw error here if no valid JSON
-                            prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, new JSONArray(result.toString()).toString()).apply();
-                        } catch (IOException | JSONException e) {
+                            return MiscUtils.readInputStream(in);
+                        } catch (IOException e) {
                             e.printStackTrace();
+                            return null;
                         }
-                        return null;
                     }
                 };
             }
 
+            @SuppressLint("CommitPrefEdits")
             @Override
-            public void onLoadFinished(Loader loader, Object data) {
-
+            public void onLoadFinished(Loader loader, String data) {
+                try {
+                    prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, MiscUtils.checkValidJSONArray(data).toString()).commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onLoaderReset(Loader loader) {
-
             }
         };
 
@@ -254,21 +248,21 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 mGoogleAppVersionName = "Error";
             }
 
-            // Load config from assets and update if newer
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().getAssets().open("assistant_hooks")));
-                StringBuilder result = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
+            if (UpdateUtils.isConnected(getActivity())) {
+                // Always update from cloud if connected
+                getLoaderManager().initLoader(0, null, updateLoaderCallbacks).startLoading();
+            } else {
+                // Else load config from assets
+                try {
+                    String result = MiscUtils.readInputStream(getResources().getAssets().open("assistant_hooks"));
+                    JSONArray hookConfigs = MiscUtils.checkValidJSONArray(result);
+                    // Only update if config from assets is newer
+                    if (hookConfigs.optInt(0) > new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
+                        prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, hookConfigs.toString()).commit();
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
                 }
-                JSONArray hookConfigs = new JSONArray(result.toString());
-                // Should have thrown error here if no valid JSON
-                if (hookConfigs.optInt(0) > new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
-                    prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, hookConfigs.toString()).apply();
-                }
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
             }
 
             // Read version and check if supported
@@ -284,9 +278,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            // Always update from cloud if connected
-            if (UpdateUtils.isConnected(getActivity()))
-                getLoaderManager().initLoader(0, null, updateLoaderCallbacks).startLoading();
         }
 
         @Override
