@@ -17,8 +17,6 @@
 package tk.wasdennnoch.androidn_ify.ui;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Outline;
@@ -26,9 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;

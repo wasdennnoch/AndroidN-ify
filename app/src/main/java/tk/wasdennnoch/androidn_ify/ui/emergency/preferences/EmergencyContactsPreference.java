@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package tk.wasdennnoch.androidn_ify.ui.emergency.preferences;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,7 +24,9 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+
 import com.android.internal.annotations.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;

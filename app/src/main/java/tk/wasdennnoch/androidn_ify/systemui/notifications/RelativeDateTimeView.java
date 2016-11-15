@@ -16,12 +16,6 @@
 
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
-import static android.text.format.DateUtils.DAY_IN_MILLIS;
-import static android.text.format.DateUtils.HOUR_IN_MILLIS;
-import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
-import static android.text.format.DateUtils.YEAR_IN_MILLIS;
-import static android.text.format.Time.getJulianDay;
-
 import android.app.ActivityThread;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,6 +38,12 @@ import java.util.TimeZone;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
+
+import static android.text.format.DateUtils.DAY_IN_MILLIS;
+import static android.text.format.DateUtils.HOUR_IN_MILLIS;
+import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
+import static android.text.format.DateUtils.YEAR_IN_MILLIS;
+import static android.text.format.Time.getJulianDay;
 
 //
 // TODO

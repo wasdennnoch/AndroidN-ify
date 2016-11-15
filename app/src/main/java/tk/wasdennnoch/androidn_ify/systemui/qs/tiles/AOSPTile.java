@@ -6,7 +6,6 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
-import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 
 public class AOSPTile extends BaseTile {

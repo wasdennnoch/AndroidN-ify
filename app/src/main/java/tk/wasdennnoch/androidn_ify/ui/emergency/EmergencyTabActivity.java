@@ -27,7 +27,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.widget.Toolbar;
+
 import com.android.internal.annotations.VisibleForTesting;
+
 import java.util.ArrayList;
 
 import tk.wasdennnoch.androidn_ify.R;

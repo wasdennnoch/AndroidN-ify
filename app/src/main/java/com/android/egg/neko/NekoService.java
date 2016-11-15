@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Random;
 
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.*;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.NekoTile;
 
 public class NekoService extends JobService {

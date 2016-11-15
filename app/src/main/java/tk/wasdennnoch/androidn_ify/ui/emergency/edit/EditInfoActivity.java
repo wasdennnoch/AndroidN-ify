@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package tk.wasdennnoch.androidn_ify.ui.emergency.edit;
-import static android.view.WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -31,12 +30,15 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import java.util.ArrayList;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.ui.emergency.EmergencyTabActivity;
 import tk.wasdennnoch.androidn_ify.ui.emergency.PreferenceKeys;
 import tk.wasdennnoch.androidn_ify.ui.emergency.view.ViewInfoActivity;
+
+import static android.view.WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD;
 
 /**
  * Activity for editing emergency information.

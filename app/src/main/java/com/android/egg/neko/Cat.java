@@ -19,14 +19,19 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import com.android.internal.logging.MetricsLogger;
+
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
-import com.android.internal.logging.MetricsLogger;
 
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
