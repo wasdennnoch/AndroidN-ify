@@ -30,8 +30,6 @@ public class AssistantHooks {
     private static final String KEY_FAKE_CONFIG = "fake_config";
     private static final String KEY_FAKE_CONFIG_TWO = "fake_config_two";
     private static final String KEY_ENABLE_LANGS = "enable_langs";
-    private static final String KEY_FAKE_BUILDPROP_CLASS = "fake_buildprop_class";
-    private static final String KEY_FAKE_BUILDPROP = "fake_buildprop";
 
     public static void hook(final ClassLoader classLoader) {
         try {
@@ -117,17 +115,6 @@ public class AssistantHooks {
                     return true;
                 }
             });
-
-            // Fake build.prop item globally
-            findAndHookMethod(GSA_PACKAGE + activeHooks.optString(KEY_FAKE_BUILDPROP_CLASS, ".shared.util.c"), classLoader,
-                    activeHooks.optString(KEY_FAKE_BUILDPROP, "v"), String.class, boolean.class, new XC_MethodHook() {
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            if (param.args[0].toString().equals("ro.opa.eligible_device")) {
-                                param.setResult(true);
-                            }
-                        }
-                    });
         } catch (Throwable t) {
             log(t);
         }

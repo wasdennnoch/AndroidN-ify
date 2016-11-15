@@ -176,25 +176,22 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
                     @Override
                     public Object loadInBackground() {
-                        if (UpdateUtils.isConnected(getContext())) {
-                            try {
-                                URL url = new URL("https://raw.githubusercontent.com/wasdennnoch/AndroidN-ify/master/app/src/main/assets/assistant_hooks");
-                                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                        try {
+                            URL url = new URL("https://raw.githubusercontent.com/wasdennnoch/AndroidN-ify/master/app/src/main/assets/assistant_hooks");
+                            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-                                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                                StringBuilder result = new StringBuilder();
-                                String line;
-                                while ((line = reader.readLine()) != null) {
-                                    result.append(line);
-                                }
-                                new JSONArray(result.toString());
-                                // Should have thrown error here if no valid JSON
-                                prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, result.toString()).apply();
-                            } catch (IOException | JSONException e) {
-                                e.printStackTrace();
+                            StringBuilder result = new StringBuilder();
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                result.append(line);
                             }
+                            // Should have throw error here if no valid JSON
+                            prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, new JSONArray(result.toString()).toString()).apply();
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
                         }
                         return null;
                     }
@@ -268,7 +265,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 JSONArray hookConfigs = new JSONArray(result.toString());
                 // Should have thrown error here if no valid JSON
                 if (hookConfigs.optInt(0) > new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
-                    prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, result.toString()).apply();
+                    prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, hookConfigs.toString()).apply();
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -287,9 +284,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (!mAssistantSupported) {
+            // Always update from cloud if connected
+            if (UpdateUtils.isConnected(getActivity()))
                 getLoaderManager().initLoader(0, null, updateLoaderCallbacks).startLoading();
-            }
         }
 
         @Override
