@@ -17,6 +17,7 @@ package tk.wasdennnoch.androidn_ify.extracted.systemui.qs;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -43,6 +44,7 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 import static tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks.transition;
 
+@SuppressLint("ViewConstructor")
 public class QSDetail extends LinearLayout {
 
     private static final String TAG = "QSDetail";
@@ -79,6 +81,7 @@ public class QSDetail extends LinearLayout {
         mHeader = header;
 
         Resources resources = mContext.getResources();
+        //noinspection deprecation
         setBackground(resources.getDrawable(resources.getIdentifier("qs_detail_background", "drawable", PACKAGE_SYSTEMUI)));
 
         addView(new ResizingSpace(mContext, ViewGroup.LayoutParams.MATCH_PARENT, R.dimen.qs_detail_margin_top));
@@ -182,8 +185,15 @@ public class QSDetail extends LinearLayout {
     public void handleShowingDetail(Object r, boolean showingDetail, int x, int y) {
         setClickable(showingDetail);
         Object adapter = null;
+        View detailView = null;
         if (showingDetail) {
             adapter = XposedHelpers.getObjectField(r, "detailAdapter");
+
+            // Have to move this bafore getToggleState because of CM Profiles tile crash (#1207, getToggleState makes changes to the detail view)
+            detailView = (View) XposedHelpers.callMethod(adapter, "createDetailView", mContext,
+                    XposedHelpers.getObjectField(r, "detailView"), mDetailContent);
+            XposedHelpers.setObjectField(r, "detailView", detailView);
+
             mQsDetailHeaderTitle.setText((int) XposedHelpers.callMethod(adapter, "getTitle"));
             final Boolean toggleState = (Boolean) XposedHelpers.callMethod(adapter, "getToggleState");
             if (toggleState == null) {
@@ -226,9 +236,6 @@ public class QSDetail extends LinearLayout {
         if (!visibleDiff && mDetailAdapter == adapter) return;  // already in right state
         AnimatorListener listener;
         if (adapter != null) {
-            View detailView = (View) XposedHelpers.callMethod(adapter, "createDetailView", mContext,
-                    XposedHelpers.getObjectField(r, "detailView"), mDetailContent);
-            XposedHelpers.setObjectField(r, "detailView", detailView);
             if (detailView == null) throw new IllegalStateException("Must return detail view");
 
             final Intent settingsIntent = (Intent) XposedHelpers.callMethod(adapter, "getSettingsIntent");
