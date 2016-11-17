@@ -219,8 +219,10 @@ public class StatusBarHooks {
                     }
                     if (param.args[isWide] instanceof Boolean) {
                         param.args[isWide] = false;
-                    } else { // Xperia put a load of ints in between
+                    } else if (param.args[isWide] instanceof Boolean) { // Xperia put a load of ints in between
                         param.args[12] = false;
+                    } else {
+                        XposedHook.logW(TAG, "setMobileDataIndicators: Didn't find isWide param");
                     }
                 }
             }
