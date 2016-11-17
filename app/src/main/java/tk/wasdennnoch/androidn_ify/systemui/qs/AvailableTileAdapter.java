@@ -3,6 +3,7 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 class AvailableTileAdapter extends TileAdapter {
 
+    private static final String TAG = "AvailableTileAdapter";
+
     private static final String CLASS_QS_TUNER = "com.android.systemui.tuner.QsTuner";
 
     private final Class<?> classQSTileHost;
@@ -25,7 +28,7 @@ class AvailableTileAdapter extends TileAdapter {
     AvailableTileAdapter(ArrayList<Object> records, Context context) {
         super(context);
 
-        mRecords = new ArrayList<>();
+        mRecords.clear();
 
         classQSTileHost = XposedHelpers.findClass(QSTileHostHooks.CLASS_TILE_HOST, mContext.getClassLoader());
         classResourceIcon = XposedHelpers.findClass(QSTile.CLASS_QS_TILE + "$ResourceIcon", mContext.getClassLoader());
@@ -42,28 +45,14 @@ class AvailableTileAdapter extends TileAdapter {
             Object tilerecord = records.get(i);
             Object tile = XposedHelpers.getObjectField(tilerecord, "tile");
             String spec = (String) XposedHelpers.getAdditionalInstanceField(tile, QSTileHostHooks.TILE_SPEC_NAME);
-            availableTiles.remove(spec);
             XposedHook.logD(TAG, "<init>: Removing already used spec " + spec);
+            availableTiles.remove(spec);
         }
-
-        /*if (RomUtils.isCmBased()) {
-            try {
-                Class<?> classQSUtils = XposedHelpers.findClass(QSTileHostHooks.CLASS_QS_UTILS, mContext.getClassLoader());
-                for (String spec : availableTiles) {
-                    if (!(boolean) XposedHelpers.callStaticMethod(classQSUtils, "isStaticQsTile", spec) && !TilesManager.mCustomTileSpecs.contains(spec)) {
-                        availableTiles.remove(spec);
-                    }
-                }
-            } catch (Throwable t) {
-                XposedHook.logW(TAG, "Couldn't determine static tiles (" + t.getClass().getSimpleName() + ")");
-                // TODO crashing although the CMSDK is clearly there?
-            }
-        }*/
 
         for (String spec : availableTiles) {
             addSpec(spec);
         }
-        XposedHook.logD(TAG, "<init>: Got total tiles " + mRecords.size());
+        XposedHook.logD(TAG, "<init>: Got total tiles " + mRecords.size() + "(" + TextUtils.join(", ", mRecords) + ")");
     }
 
     private void addSpec(String spec) {

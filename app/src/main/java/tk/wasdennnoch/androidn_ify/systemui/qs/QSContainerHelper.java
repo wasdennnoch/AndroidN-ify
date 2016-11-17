@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.Interpolators;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QSDetail;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
@@ -104,7 +103,6 @@ public class QSContainerHelper {
 
     public void updateBottom() {
         int height = calculateContainerHeight();
-        XposedHook.logD(TAG, "height: " + height);
         mQSContainer.setBottom(mQSContainer.getTop() + height);
         //mQSDetail.setBottom(mQSContainer.getTop() + height);
     }

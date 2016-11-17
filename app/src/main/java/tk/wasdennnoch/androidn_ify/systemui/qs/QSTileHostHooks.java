@@ -475,13 +475,7 @@ public class QSTileHostHooks {
         if (ConfigUtils.qs().inject_gb_tiles && MiscUtils.isGBInstalled(context)) {
             specs.addAll(GB_TILE_KEYS);
         }
-        if (XposedHook.debug) {
-            String s = "";
-            for (String sp : specs)
-                s += sp + ", ";
-            s = s.substring(0, s.length() - 2);
-            XposedHook.logD(TAG, "getAvailableTiles: Found specs: " + s);
-        }
+        XposedHook.logD(TAG, "getAvailableTiles: Found " + specs.size() +  " specs: " + TextUtils.join(", ", specs));
         return specs;
     }
 

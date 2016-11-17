@@ -9,6 +9,7 @@ import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     private static final float DRAG_SCALE = 1.2f;
     public static final float TILE_ASPECT = 1.2f;
 
-    public static final String TAG = "TileAdapter";
+    private static final String TAG = "TileAdapter";
     private final ItemTouchHelper mItemTouchHelper;
     private final ListUpdateCallback mTileUpdateCallback = new TileUpdateCallback();
     private List<String> mSecureTiles = new ArrayList<>();
@@ -403,7 +404,7 @@ public class TileAdapter extends RecyclerView.Adapter<TileAdapter.TileViewHolder
     }
 
     private void saveTiles(List<String> tileSpecs, boolean update) {
-        XposedHook.logD(TAG, "saveTiles called");
+        XposedHook.logD(TAG, "saveTiles called with update: " + update + " and specs " + TextUtils.join(", ", tileSpecs));
         List<String> oldTiles = update ? getAddedTileSpecs() : QSTileHostHooks.mTileSpecs;
         if (oldTiles == null || !oldTiles.equals(tileSpecs)) {
             if (!compareSpecs(tileSpecs)) invalidate();

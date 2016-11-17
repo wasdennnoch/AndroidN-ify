@@ -19,6 +19,7 @@ public class AOSPTile extends BaseTile {
     public AOSPTile(TilesManager tilesManager, Object host, String key) {
         super(tilesManager, host, key);
         mTile = XposedHelpers.callMethod(host, "createTile", key);
+        if (mTile == null) throw new NullPointerException("crateTile returned null");
         mTileClass = mTile.getClass();
         XposedHelpers.setAdditionalInstanceField(mTile, TILE_KEY_NAME, mKey);
         registerCallbacks();
