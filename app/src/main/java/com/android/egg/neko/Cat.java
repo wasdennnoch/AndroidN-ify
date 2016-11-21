@@ -317,30 +317,6 @@ public class Cat extends Drawable {
         return mBodyColor;
     }
 
-    public void logAdd(Context context) {
-        logCatAction(context, "egg_neko_add");
-    }
-
-    public void logRename(Context context) {
-        logCatAction(context, "egg_neko_rename");
-    }
-
-    public void logRemove(Context context) {
-        logCatAction(context, "egg_neko_remove");
-    }
-
-    public void logShare(Context context) {
-        logCatAction(context, "egg_neko_share");
-    }
-
-    private void logCatAction(Context context, String prefix) {
-        MetricsLogger.count(context, prefix, 1);
-        MetricsLogger.histogram(context, prefix +"_color",
-                getColorIndex(mBodyColor, P_BODY_COLORS));
-        MetricsLogger.histogram(context, prefix + "_bowtie", mBowTie ? 1 : 0);
-        MetricsLogger.histogram(context, prefix + "_feet", mFootType);
-    }
-
     public static class CatParts {
         public Drawable leftEar;
         public Drawable rightEar;

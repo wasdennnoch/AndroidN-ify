@@ -25,8 +25,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.internal.logging.MetricsLogger;
-
 import java.util.ArrayList;
 
 import tk.wasdennnoch.androidn_ify.R;
@@ -54,7 +52,6 @@ public class NekoDialog extends Dialog {
         if (currentState == 0 && food.getType() != 0) {
             NekoService.registerJob(getContext(), food.getInterval(getContext()));
         }
-        MetricsLogger.histogram(getContext(), "egg_neko_offered_food", food.getType());
         prefs.setFoodState(food.getType());
 
         NekoTile.sendUpdate(food, getContext());
