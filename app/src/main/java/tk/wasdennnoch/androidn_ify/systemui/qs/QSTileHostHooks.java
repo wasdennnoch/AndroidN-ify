@@ -165,7 +165,12 @@ public class QSTileHostHooks {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             if (ConfigUtils.M) {
-                return loadTileSpecsFromList((String) param.args[0]);
+                if (param.args != null) {
+                    return loadTileSpecsFromList((String) param.args[0]);
+                }
+                else {
+                    return loadTileSpecsFromPrefs((Context) XposedHelpers.callMethod(param.thisObject, "getContext"));
+                }
             } else {
                 return loadTileSpecsFromPrefs((Context) XposedHelpers.callMethod(param.thisObject, "getContext"));
             }
