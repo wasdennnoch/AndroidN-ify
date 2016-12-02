@@ -1,5 +1,5 @@
 [
-  6,
+  7,
   {
     "version": "6\\.7\\.1[3567]\\.21\\.[a-z]+[0-9]*",
     "assistant_class": ".a.e",
@@ -17,5 +17,14 @@
     "fake_config": "pU",
     "fake_config_two": "pT",
     "enable_langs": "pV"
+  },
+  {
+    "version": "6\\.9\\.[3][0-9]\\.21\\.[a-z]+[0-9]*",
+    "assistant_class": ".shared.f",
+    "prefs": "bpY",
+    "set_prefs": "aQ",
+    "fake_config": "rp",
+    "fake_config_two": "ro",
+    "enable_langs": "rq"
   }
 ]
