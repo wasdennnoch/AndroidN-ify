@@ -222,7 +222,7 @@ public class StatusBarHooks {
                     } else if (param.args[isWide] instanceof Boolean) { // Xperia put a load of ints in between
                         param.args[12] = false;
                     } else {
-                        XposedHook.logW(TAG, "setMobileDataIndicators: Didn't find isWide param");
+                        XposedHook.logD(TAG, "setMobileDataIndicators: Didn't find isWide param");
                     }
                 }
             }
