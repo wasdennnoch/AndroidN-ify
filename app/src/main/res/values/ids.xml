@@ -22,5 +22,9 @@
     <item name="fake_shadow" type="id" />
     <item name="qs_detail_header" type="id" />
     <item name="dummy_id" type="id" />
+    <item name="content_container" type="id" />
+    <item name="line1_container" type="id" />
+    <item name="line2_container" type="id" />
+    <item name="line3_container" type="id" />
 
 </resources>

@@ -55,6 +55,7 @@ import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LayoutInflated;
@@ -70,6 +71,7 @@ import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelpe
 import tk.wasdennnoch.androidn_ify.systemui.qs.customize.QSCustomizer;
 import tk.wasdennnoch.androidn_ify.systemui.statusbar.StatusBarHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.RemoteMarginLinearLayout;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
@@ -428,7 +430,42 @@ public class NotificationHooks {
                 Bitmap mLargeIcon = (Bitmap) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
                 contentView.setImageViewBitmap(res.getIdentifier("right_icon", "id", PACKAGE_ANDROID), mLargeIcon);
             }
+
+            if (XposedHelpers.getObjectField(param.thisObject, "mLargeIcon") != null) {
+                int notificationTextMarginEnd = R.dimen.notification_text_margin_end;
+                contentView.setInt(R.id.line1_container, "setMarginEnd", notificationTextMarginEnd);
+                contentView.setInt(R.id.line2_container, "setMarginEnd", notificationTextMarginEnd);
+                contentView.setInt(R.id.line3_container, "setMarginEnd", notificationTextMarginEnd);
+            }
+
             contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
+        }
+    };
+
+    private static final XC_MethodHook makeMediaContentViewHook = new XC_MethodHook() {
+
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            Context context = (Context) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mBuilder"), "mContext");
+            RemoteViews view = (RemoteViews) param.getResult();
+
+            int endMargin = R.dimen.notification_content_margin_end;
+            if (XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mBuilder"), "mLargeIcon") != null) {
+                endMargin = R.dimen.notification_content_plus_picture_margin_end;
+            }
+            view.setInt(context.getResources().getIdentifier("notification_main_column", "id", "android"), "setMarginEnd", endMargin);
+        }
+    };
+
+    private static XC_MethodHook generateMediaActionButtonHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            Context context = (Context) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mBuilder"), "mContext");
+            RemoteViews button = (RemoteViews) param.getResult();
+
+            XposedHelpers.callMethod(button, "setDrawableParameters", context.getResources().getIdentifier("action0", "id", PACKAGE_ANDROID), false, -1,
+                    context.getResources().getColor(context.getResources().getIdentifier("secondary_text_material_light", "color", PACKAGE_ANDROID)),
+                    PorterDuff.Mode.SRC_ATOP, -1);
         }
     };
 
@@ -774,6 +811,9 @@ public class NotificationHooks {
                 XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
 
                 XposedHelpers.findAndHookMethod(classNotificationMediaStyle, "hideRightIcon", RemoteViews.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classNotificationMediaStyle, "styleText", RemoteViews.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classNotificationMediaStyle, "generateMediaActionButton", Notification.Action.class, generateMediaActionButtonHook);
+                XposedHelpers.findAndHookMethod(classNotificationMediaStyle, "makeMediaContentView", makeMediaContentViewHook);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking app", t);
@@ -989,6 +1029,42 @@ public class NotificationHooks {
                     XposedHelpers.findAndHookMethod(classVolumePanel, "updateWidth", updateWidthHook);
                 }
 
+                XposedBridge.hookAllMethods(classBaseStatusBar, "applyColorsAndBackgrounds", new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        try {
+                            Object entry = param.args[1];
+                            if (((View) XposedHelpers.callMethod(entry, "getContentView")).getId()
+                                    != com.android.internal.R.id.status_bar_latest_event_content) {
+                                // Using custom RemoteViews
+                                int targetSdk = XposedHelpers.getIntField(entry, "targetSdk");
+                                if (targetSdk >= Build.VERSION_CODES.GINGERBREAD
+                                        && targetSdk < Build.VERSION_CODES.LOLLIPOP) {
+                                    XposedHelpers.callMethod(XposedHelpers.getObjectField(entry, "row"), "setShowingLegacyBackground", true);
+                                    XposedHelpers.setBooleanField(entry, "legacy", true);
+                                }
+                            }
+
+                            ImageView icon = (ImageView) XposedHelpers.getObjectField(entry, "icon");
+                            if (icon != null) {
+                                int targetSdk = XposedHelpers.getIntField(entry, "targetSdk");
+                                if (Build.VERSION.SDK_INT > 22) {
+                                    icon.setTag(icon.getResources().getIdentifier("icon_is_pre_L", "id", PACKAGE_SYSTEMUI), targetSdk < Build.VERSION_CODES.LOLLIPOP);
+                                } else {
+                                    if (targetSdk >= Build.VERSION_CODES.LOLLIPOP) {
+                                        icon.setColorFilter(icon.getResources().getColor(android.R.color.white));
+                                    } else {
+                                        icon.setColorFilter(null);
+                                    }
+                                }
+                            }
+                            param.setResult(null);
+                        } catch (Throwable ignore) {
+
+                        }
+                    }
+                });
+
             }
 
             if (config.notifications.dismiss_button) {
@@ -1151,20 +1227,21 @@ public class NotificationHooks {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
                         LinearLayout layout = (LinearLayout) liparam.view;
-                        if (layout.getChildAt(1) != null) {
-                            layout.removeViewAt(1);
-                        }
-                        if (layout.getChildAt(1) != null) {
+                        while (layout.getChildCount() > 1) {
                             layout.removeViewAt(1);
                         }
 
                         Context context = layout.getContext();
-                        ResourceUtils res = ResourceUtils.getInstance(context);
-
-                        int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
 
                         TextView title = (TextView) layout.findViewById(context.getResources().getIdentifier("title", "id", PACKAGE_ANDROID));
-                        ViewUtils.setMarginEnd(title, notificationTextMarginEnd);
+
+                        layout.removeView(title);
+
+                        LinearLayout container = new RemoteMarginLinearLayout(context);
+                        container.addView(title);
+                        container.setId(R.id.line1_container);
+
+                        layout.addView(container);
                     }
                 });
 
@@ -1187,16 +1264,21 @@ public class NotificationHooks {
                         LinearLayout layout = (LinearLayout) liparam.view;
 
                         Context context = layout.getContext();
-                        ResourceUtils res = ResourceUtils.getInstance(context);
-
-                        int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
-
-                        TextView text = (TextView) layout.findViewById(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID));
-                        ViewUtils.setMarginEnd(text, notificationTextMarginEnd);
 
                         if (layout.getChildAt(1) != null) {
                             layout.removeViewAt(1);
                         }
+
+                        LinearLayout container = new RemoteMarginLinearLayout(context);
+                        container.setId(R.id.line3_container);
+
+                        while (layout.getChildCount() > 0) {
+                            View view = layout.getChildAt(0);
+                            layout.removeView(view);
+                            container.addView(view);
+                        }
+
+                        layout.addView(container);
                     }
                 });
 
@@ -1538,11 +1620,6 @@ public class NotificationHooks {
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
             notificationMain.setOrientation(LinearLayout.HORIZONTAL);
 
-            FrameLayout.LayoutParams notificationMainLp = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
-            notificationMainLp.setMargins(0, res.getDimensionPixelSize(R.dimen.notification_content_media_margin_top), 0, 0);
-            notificationMainLp.setMarginEnd(res.getDimensionPixelSize(R.dimen.notification_content_plus_picture_margin_end));
-            notificationMain.setLayoutParams(notificationMainLp);
-
             ViewUtils.setMarginEnd(notificationMain.findViewById(context.getResources().getIdentifier("title", "id", PACKAGE_ANDROID)), 0);
             ViewUtils.setMarginEnd(notificationMain.findViewById(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID)), 0);
 
@@ -1554,6 +1631,18 @@ public class NotificationHooks {
                 notificationMain.removeViewAt(0);
                 contentContainer.addView(view);
             }
+
+            layout.removeView(notificationMain);
+
+            int notificationMainId = notificationMain.getId();
+            notificationMain = new RemoteMarginLinearLayout(context);
+            notificationMain.setId(notificationMainId);
+
+            layout.addView(notificationMain, 1);
+
+            FrameLayout.LayoutParams notificationMainLp = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
+            notificationMainLp.setMargins(0, res.getDimensionPixelSize(R.dimen.notification_content_media_margin_top), 0, 0);
+            notificationMain.setLayoutParams(notificationMainLp);
 
             LinearLayout.LayoutParams contentContainerLp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
             contentContainerLp.gravity = Gravity.FILL_VERTICAL;

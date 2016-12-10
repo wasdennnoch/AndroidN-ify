@@ -191,7 +191,7 @@ public class ConfigUtils {
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
             disable_qs_paging = prefs.getBoolean("disable_qs_paging", false);
-            fix_header_space = prefs.getBoolean("fix_header_space", false);
+            fix_header_space = prefs.getBoolean("fix_header_space", true);
 
             Set<String> keepBgs = prefs.getStringSet("keep_backgrounds", Collections.<String>emptySet());
             keep_header_background = keepBgs.contains("header");

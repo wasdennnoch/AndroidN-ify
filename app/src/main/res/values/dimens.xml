@@ -87,7 +87,7 @@
     <dimen name="notification_header_shrink_min_width">72dp</dimen>
     <dimen name="notification_content_margin_end">16dp</dimen>
     <dimen name="notification_content_plus_picture_margin_end">72dp</dimen>
-    <dimen name="notification_content_plus_big_picture_margin_end">126dp</dimen>
+    <dimen name="notification_content_plus_big_picture_margin_end">110dp</dimen>
     <dimen name="notification_badge_size" tools:ignore="UnusedResources">12dp</dimen>
 
     <dimen name="notification_panel_width" tools:ignore="UnusedResources">@dimen/match_parent</dimen>
