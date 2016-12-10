@@ -21,6 +21,7 @@
     <dimen name="right_layout_margin_right">12dp</dimen>
     <dimen name="right_icon_size">48dp</dimen>
     <dimen name="right_icon_width_small">38dp</dimen>
+    <dimen name="media_notification_expanded_image_max_size">94dp</dimen>
     <dimen name="expand_indicator_padding">12dp</dimen>
 
     <dimen name="qs_quick_panel_margin_horizontal">12dp</dimen>
@@ -56,11 +57,13 @@
     <dimen name="notification_actions_margin_start">8dp</dimen>
     <dimen name="notification_content_margin_start">16dp</dimen>
     <dimen name="notification_content_margin_top">25.5dp</dimen> <!-- 37.5 - 12 -->
+    <dimen name="notification_content_media_margin_top">34.5dp</dimen>
     <dimen name="notification_header_height">53dp</dimen>
     <dimen name="notification_header_margin_top" tools:ignore="UnusedResources">10dp</dimen>
     <dimen name="notification_right_icon_size">40dp</dimen>
     <dimen name="notification_right_icon_margin_top">36dp</dimen>
     <dimen name="notification_right_icon_margin_end">16dp</dimen>
+    <dimen name="notification_right_icon_margin_bottom">20dp</dimen>
     <dimen name="notification_min_height_legacy" tools:ignore="UnusedResources">64dp</dimen>
     <dimen name="notification_min_height">92dp</dimen>
     <dimen name="notification_mid_height">156dp</dimen>
@@ -83,10 +86,15 @@
     <dimen name="notification_separator_size">1dp</dimen>
     <dimen name="notification_header_shrink_min_width">72dp</dimen>
     <dimen name="notification_content_margin_end">16dp</dimen>
+    <dimen name="notification_content_plus_picture_margin_end">72dp</dimen>
+    <dimen name="notification_content_plus_big_picture_margin_end">126dp</dimen>
     <dimen name="notification_badge_size" tools:ignore="UnusedResources">12dp</dimen>
 
     <dimen name="notification_panel_width" tools:ignore="UnusedResources">@dimen/match_parent</dimen>
     <dimen name="navigation_bar_size">48dp</dimen>
+
+    <dimen name="notification_min_content_height">41dp</dimen>
+    <dimen name="notification_content_margin_bottom">16dp</dimen>
     <!-- /Notifications / Status bar header -->
 
     <dimen name="notification_header_background_height">45.5dp</dimen>
@@ -144,5 +152,8 @@
     <dimen name="notification_filter_button_width">52dp</dimen>
     <dimen name="qs_edit_bottom_margin">16dp</dimen>
     <dimen name="neko_display_size">64dp</dimen>
+    <dimen name="media_actions_margin_bottom">12dp</dimen>
+    <dimen name="media_actions_margin_start">10dp</dimen>
+    <dimen name="big_media_actions_margin_start">8dp</dimen>
 
 </resources>

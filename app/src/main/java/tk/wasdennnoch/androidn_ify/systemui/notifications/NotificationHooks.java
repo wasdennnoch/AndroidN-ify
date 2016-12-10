@@ -32,6 +32,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -754,6 +755,7 @@ public class NotificationHooks {
 
                 Class classNotificationBuilder = Notification.Builder.class;
                 Class classNotificationStyle = Notification.Style.class;
+                Class classNotificationMediaStyle = Notification.MediaStyle.class;
                 Class classRemoteViews = RemoteViews.class;
 
                 if (ConfigUtils.M) {
@@ -770,6 +772,8 @@ public class NotificationHooks {
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "build", buildHook);
                 XposedHelpers.findAndHookMethod(NotificationCompat.Builder.class, "build", buildHook);
                 XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
+
+                XposedHelpers.findAndHookMethod(classNotificationMediaStyle, "hideRightIcon", RemoteViews.class, XC_MethodReplacement.DO_NOTHING);
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking app", t);
@@ -1298,127 +1302,6 @@ public class NotificationHooks {
         }
     };
 
-    /*
-    @SuppressWarnings("deprecation")
-    private static XC_LayoutInflated notification_template_icon_group = new XC_LayoutInflated() {
-        @Override
-        public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
-            FrameLayout layout = (FrameLayout) liparam.view;
-            layout.removeAllViews();
-
-            Context context = layout.getContext();
-            ResourceUtils res = ResourceUtils.getInstance(context);
-
-            int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
-            int notificationHeaderMarginTop = res.getDimensionPixelSize(R.dimen.notification_header_margin_top);
-            int iconSize = res.getDimensionPixelSize(R.dimen.notification_icon_size);
-            int iconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_icon_margin_end);
-            int appNameMarginStart = res.getDimensionPixelSize(R.dimen.notification_app_name_margin_start);
-            int appNameMarginEnd = res.getDimensionPixelSize(R.dimen.notification_app_name_margin_end);
-            int dividerMarginTop = res.getDimensionPixelSize(R.dimen.notification_divider_margin_top);
-
-            String dividerText = res.getString(R.string.notification_header_divider_symbol);
-
-            LinearLayout linearLayout = new LinearLayout(context);
-
-            FrameLayout.LayoutParams linearLayoutLParams = new FrameLayout.LayoutParams(WRAP_CONTENT, iconSize);
-            linearLayoutLParams.setMargins(0, notificationHeaderMarginTop, 0, notificationContentPadding);
-            
-            linearLayout.setLayoutParams(linearLayoutLParams);
-            linearLayout.setPadding(notificationContentPadding, 0, notificationContentPadding, 0);
-
-            ImageView fakeIcon = new ImageView(context);
-            LinearLayout.LayoutParams fakeIconLParams = new LinearLayout.LayoutParams(0, 0);
-            fakeIcon.setLayoutParams(fakeIconLParams);
-            fakeIcon.setId(android.R.id.icon);
-
-            ImageView icon = new ImageView(context);
-            LinearLayout.LayoutParams iconLParams = new LinearLayout.LayoutParams(iconSize, iconSize);
-            iconLParams.setMarginEnd(iconMarginEnd);
-            icon.setLayoutParams(iconLParams);
-            icon.setId(R.id.notification_icon);
-
-            TextView textView = new TextView(context);
-            LinearLayout.LayoutParams textViewLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-            textViewLParams.setMarginStart(appNameMarginStart);
-            textViewLParams.setMarginEnd(appNameMarginEnd);
-            textView.setLayoutParams(textViewLParams);
-            textView.setId(R.id.app_name_text);
-            textView.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
-
-            TextView summaryDivider = new TextView(context);
-            LinearLayout.LayoutParams summaryDividerLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-            summaryDividerLParams.setMargins(0, dividerMarginTop, 0, 0);
-            summaryDivider.setLayoutParams(summaryDividerLParams);
-            summaryDivider.setId(R.id.notification_summary_divider);
-            summaryDivider.setText(dividerText);
-            summaryDivider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
-            summaryDivider.setVisibility(View.GONE);
-
-            TextView summaryText = new TextView(context);
-            LinearLayout.LayoutParams summaryTextLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-            summaryTextLParams.setMarginStart(appNameMarginStart);
-            summaryTextLParams.setMarginEnd(appNameMarginEnd);
-            summaryText.setLayoutParams(summaryTextLParams);
-            summaryText.setId(R.id.notification_summary);
-            summaryText.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
-            summaryText.setVisibility(View.GONE);
-
-            TextView infoDivider = new TextView(context);
-            LinearLayout.LayoutParams infoDividerLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-            infoDividerLParams.setMargins(0, dividerMarginTop, 0, 0);
-            infoDivider.setLayoutParams(infoDividerLParams);
-            infoDivider.setId(R.id.notification_info_divider);
-            infoDivider.setText(dividerText);
-            infoDivider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
-            infoDivider.setVisibility(View.GONE);
-
-            TextView infoText = new TextView(context);
-            LinearLayout.LayoutParams infoTextLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-            infoTextLParams.setMarginStart(appNameMarginStart);
-            infoTextLParams.setMarginEnd(appNameMarginEnd);
-            infoText.setLayoutParams(summaryTextLParams);
-            infoText.setId(context.getResources().getIdentifier("info", "id", PACKAGE_ANDROID));
-            infoText.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
-            infoText.setVisibility(View.GONE);
-
-            TextView divider = new TextView(context);
-            LinearLayout.LayoutParams dividerLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-            dividerLParams.setMargins(0, dividerMarginTop, 0, 0);
-            divider.setLayoutParams(dividerLParams);
-            divider.setId(R.id.time_divider);
-            divider.setText(res.getString(R.string.notification_header_divider_symbol));
-            divider.setTextAppearance(context, context.getResources().getIdentifier("TextAppearance.Material.Notification.Info", "style", "android"));
-            divider.setVisibility(View.GONE);
-
-            View timeView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_time", "layout", "android"), null);
-            LinearLayout.LayoutParams timeViewLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-            timeView.setLayoutParams(timeViewLParams);
-            timeView.setId(context.getResources().getIdentifier("time", "id", "android"));
-            timeView.setPadding(appNameMarginEnd, 0, 0, 0);
-
-            View chronometerView = LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_part_chronometer", "layout", "android"), null);
-            LinearLayout.LayoutParams chronometerViewLParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-            chronometerView.setLayoutParams(chronometerViewLParams);
-            chronometerView.setId(context.getResources().getIdentifier("chronometer", "id", "android"));
-            chronometerView.setPadding(appNameMarginEnd, 0, 0, 0);
-
-            linearLayout.addView(fakeIcon);
-            linearLayout.addView(icon);
-            linearLayout.addView(textView);
-            linearLayout.addView(summaryDivider);
-            linearLayout.addView(summaryText);
-            linearLayout.addView(infoDivider);
-            linearLayout.addView(infoText);
-            linearLayout.addView(divider);
-            linearLayout.addView(timeView);
-            linearLayout.addView(chronometerView);
-
-            layout.addView(linearLayout);
-        }
-    };
-    */
-
     private static final XC_LayoutInflated notification_template_material_base = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
@@ -1429,34 +1312,20 @@ public class NotificationHooks {
             layout.removeViewAt(0);
             layout.addView(NotificationHeaderView.newHeader(context), 0);
 
-            //int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height);
             int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
             int notificationContentPaddingTop = res.getDimensionPixelSize(R.dimen.notification_content_margin_top);
-            int rightIconSize = res.getDimensionPixelSize(R.dimen.notification_right_icon_size);
-            int rightIconMarginTop = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_top);
-            int rightIconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_end);
             int actionsMarginTop = res.getDimensionPixelSize(R.dimen.notification_actions_margin_top);
 
-            //FrameLayout headerLayout = (FrameLayout) layout.getChildAt(0);
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
             if (notificationMain == null) { // Some ROMs completely removed the ID
                 notificationMain = (LinearLayout) layout.getChildAt(layout.getChildCount() - 1);
             }
-            ImageView rightIcon = new ImageView(context);
-
-            //FrameLayout.LayoutParams headerLayoutLParams = new FrameLayout.LayoutParams(WRAP_CONTENT, headerHeight);
-            //headerLayout.setLayoutParams(headerLayoutLParams);
 
             FrameLayout.LayoutParams notificationMainLParams = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
             notificationMainLParams.setMargins(0, notificationContentPaddingTop, 0, 0);
             notificationMain.setLayoutParams(notificationMainLParams);
 
-            //noinspection SuspiciousNameCombination
-            FrameLayout.LayoutParams rightIconLParams = new FrameLayout.LayoutParams(rightIconSize, rightIconSize);
-            rightIconLParams.setMargins(0, rightIconMarginTop, rightIconMarginEnd, 0);
-            rightIconLParams.gravity = Gravity.TOP | Gravity.END;
-            rightIcon.setLayoutParams(rightIconLParams);
-            rightIcon.setId(context.getResources().getIdentifier("right_icon", "id", "android"));
+            ImageView rightIcon = getRightIcon(context);
 
             layout.addView(rightIcon);
 
@@ -1556,73 +1425,152 @@ public class NotificationHooks {
         }
     };
 
+    @NonNull
+    private static ImageView getRightIcon(Context context) {
+        ResourceUtils res = ResourceUtils.getInstance(context);
+
+        int rightIconSize = res.getDimensionPixelSize(R.dimen.notification_right_icon_size);
+        int rightIconMarginTop = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_top);
+        int rightIconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_end);
+
+        ImageView rightIcon = new ImageView(context);
+
+        //noinspection SuspiciousNameCombination
+        FrameLayout.LayoutParams rightIconLp = new FrameLayout.LayoutParams(rightIconSize, rightIconSize);
+        rightIconLp.setMargins(0, rightIconMarginTop, 0, 0);
+        rightIconLp.setMarginEnd(rightIconMarginEnd);
+        rightIconLp.gravity = Gravity.TOP | Gravity.END;
+        rightIcon.setLayoutParams(rightIconLp);
+        rightIcon.setId(context.getResources().getIdentifier("right_icon", "id", "android"));
+
+        return rightIcon;
+    }
+
+    @NonNull
+    private static ImageView getLargeRightIcon(Context context) {
+        ResourceUtils res = ResourceUtils.getInstance(context);
+
+        int rightIconSize = res.getDimensionPixelSize(R.dimen.media_notification_expanded_image_max_size);
+        int rightIconMarginBottom = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_bottom);
+        int rightIconMarginEnd = res.getDimensionPixelSize(R.dimen.notification_right_icon_margin_end);
+
+        ImageView rightIcon = new ImageView(context);
+
+        //noinspection SuspiciousNameCombination
+        FrameLayout.LayoutParams rightIconLp = new FrameLayout.LayoutParams(rightIconSize, rightIconSize);
+        rightIconLp.setMargins(0, 0, 0, rightIconMarginBottom);
+        rightIconLp.setMarginEnd(rightIconMarginEnd);
+        rightIconLp.gravity = Gravity.BOTTOM | Gravity.END;
+        rightIcon.setLayoutParams(rightIconLp);
+        rightIcon.setId(context.getResources().getIdentifier("right_icon", "id", "android"));
+
+        return rightIcon;
+    }
+
     private static final XC_LayoutInflated notification_template_material_big_media = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-            RelativeLayout layout = (RelativeLayout) liparam.view;
-            Context context = layout.getContext();
+            RelativeLayout oldLayout = (RelativeLayout) liparam.view;
+            Context context = oldLayout.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
 
-            View headerLayout = layout.getChildAt(0);
-            LinearLayout notificationMain = (LinearLayout) layout.getChildAt(1);
+            View mediaActions = oldLayout.findViewById(context.getResources().getIdentifier("media_actions", "id", PACKAGE_ANDROID));
+            oldLayout.removeAllViews();
 
-            int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height);
-            int headerHeightExcludeTop = res.getDimensionPixelSize(R.dimen.notification_header_height_exclude_top);
-            int notificationHeight = res.getDimensionPixelSize(R.dimen.notification_min_height);
-            int notificationMidHeight = res.getDimensionPixelSize(R.dimen.notification_mid_height);
-            int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
+            FrameLayout layout = (FrameLayout) LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_material_base", "layout", PACKAGE_ANDROID), null);
+            layout.setId(R.id.dummy_id);
+            oldLayout.addView(layout);
 
-            ViewUtils.setHeight(layout, notificationMidHeight);
+            LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
+            notificationMain.setMinimumHeight(res.getDimensionPixelSize(R.dimen.notification_min_content_height));
 
-            ViewGroup.MarginLayoutParams headerLayoutLp = (ViewGroup.MarginLayoutParams) headerLayout.getLayoutParams();
-            headerLayoutLp.width = MATCH_PARENT;
-            headerLayoutLp.height = headerHeightExcludeTop;
-            headerLayout.setLayoutParams(headerLayoutLp);
+            ViewUtils.setMarginEnd(notificationMain.findViewById(context.getResources().getIdentifier("title", "id", PACKAGE_ANDROID)), 0);
+            ViewUtils.setMarginEnd(notificationMain.findViewById(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID)), 0);
 
-            RelativeLayout.LayoutParams notificationMainLp = (RelativeLayout.LayoutParams) notificationMain.getLayoutParams();
-            notificationMainLp.topMargin = headerHeight;
-            notificationMainLp.leftMargin = notificationContentPadding;
+            LinearLayout contentContainer = new LinearLayout(context);
+            contentContainer.setPadding(0, res.getDimensionPixelSize(R.dimen.notification_content_media_margin_top), 0, 0);
+            contentContainer.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout.LayoutParams contentContainerLp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+            contentContainerLp.gravity = Gravity.FILL_VERTICAL;
+            contentContainerLp.weight = 1;
+            contentContainer.setLayoutParams(contentContainerLp);
+
+            LinearLayout.LayoutParams mediaActionsLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+            mediaActionsLp.gravity = Gravity.TOP;
+            mediaActionsLp.setMargins(0, 0, 0, res.getDimensionPixelSize(R.dimen.media_actions_margin_bottom));
+            mediaActionsLp.setMarginStart(res.getDimensionPixelSize(R.dimen.big_media_actions_margin_start));
+            mediaActions.setLayoutParams(mediaActionsLp);
+
+            layout.removeView(layout.findViewById(context.getResources().getIdentifier("right_icon", "id", "android")));
+            layout.removeView(notificationMain);
+
+            ViewUtils.setMarginEnd(layout.findViewById(R.id.notification_header), res.getDimensionPixelSize(R.dimen.notification_content_plus_big_picture_margin_end));
+
+            FrameLayout.LayoutParams notificationMainLp = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
+            notificationMainLp.setMargins(0, 0, 0, res.getDimensionPixelSize(R.dimen.notification_content_margin_bottom));
+            notificationMainLp.setMarginStart(res.getDimensionPixelSize(R.dimen.notification_content_margin_start));
+            notificationMainLp.setMarginEnd(res.getDimensionPixelSize(R.dimen.notification_content_plus_picture_margin_end));
             notificationMain.setLayoutParams(notificationMainLp);
-            notificationMain.setMinimumHeight(notificationHeight);
+
+            contentContainer.addView(notificationMain);
+            contentContainer.addView(mediaActions);
+
+            layout.addView(contentContainer);
+            layout.addView(getLargeRightIcon(context));
         }
     };
 
     private static final XC_LayoutInflated notification_template_material_media = new XC_LayoutInflated() {
         @Override
         public void handleLayoutInflated(XC_LayoutInflated.LayoutInflatedParam liparam) throws Throwable {
-            LinearLayout layout = (LinearLayout) liparam.view;
-            Context context = layout.getContext();
+            LinearLayout oldLayout = (LinearLayout) liparam.view;
+            Context context = oldLayout.getContext();
             ResourceUtils res = ResourceUtils.getInstance(context);
 
-            layout.setOrientation(LinearLayout.VERTICAL);
+            View mediaActions = oldLayout.findViewById(context.getResources().getIdentifier("media_actions", "id", PACKAGE_ANDROID));
+            oldLayout.removeAllViews();
 
-            View headerLayout = layout.getChildAt(0);
-            LinearLayout notificationMain = (LinearLayout) layout.getChildAt(1);
-            LinearLayout mediaActions = (LinearLayout) layout.getChildAt(2);
+            FrameLayout layout = (FrameLayout) LayoutInflater.from(context).inflate(context.getResources().getIdentifier("notification_template_material_base", "layout", PACKAGE_ANDROID), null);
+            layout.setId(R.id.dummy_id);
+            oldLayout.addView(layout);
 
-            layout.removeViewAt(2);
-            layout.removeViewAt(1);
+            LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
+            notificationMain.setOrientation(LinearLayout.HORIZONTAL);
 
-            layout.setClipChildren(false);
+            FrameLayout.LayoutParams notificationMainLp = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
+            notificationMainLp.setMargins(0, res.getDimensionPixelSize(R.dimen.notification_content_media_margin_top), 0, 0);
+            notificationMainLp.setMarginEnd(res.getDimensionPixelSize(R.dimen.notification_content_plus_picture_margin_end));
+            notificationMain.setLayoutParams(notificationMainLp);
 
-            int headerHeight = res.getDimensionPixelSize(R.dimen.notification_header_height_exclude_top);
-            int notificationContentPadding = res.getDimensionPixelSize(R.dimen.notification_content_margin_start);
+            ViewUtils.setMarginEnd(notificationMain.findViewById(context.getResources().getIdentifier("title", "id", PACKAGE_ANDROID)), 0);
+            ViewUtils.setMarginEnd(notificationMain.findViewById(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID)), 0);
 
-            ViewGroup.MarginLayoutParams headerLayoutLp = (ViewGroup.MarginLayoutParams) headerLayout.getLayoutParams();
-            headerLayoutLp.width = MATCH_PARENT;
-            headerLayoutLp.height = headerHeight;
-            headerLayout.setLayoutParams(headerLayoutLp);
+            LinearLayout contentContainer = new LinearLayout(context);
+            contentContainer.setOrientation(LinearLayout.VERTICAL);
 
-            LinearLayout notificationLayout = new LinearLayout(context);
-            LinearLayout.LayoutParams notificationLayoutLp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
-            notificationLayoutLp.setMargins(notificationContentPadding, 0, notificationContentPadding, 0);
-            notificationLayout.setLayoutParams(notificationLayoutLp);
-            notificationLayout.setOrientation(LinearLayout.HORIZONTAL);
+            while (notificationMain.getChildCount() > 0) {
+                View view = notificationMain.getChildAt(0);
+                notificationMain.removeViewAt(0);
+                contentContainer.addView(view);
+            }
 
-            layout.addView(notificationLayout);
+            LinearLayout.LayoutParams contentContainerLp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+            contentContainerLp.gravity = Gravity.FILL_VERTICAL;
+            contentContainerLp.weight = 1;
+            contentContainer.setLayoutParams(contentContainerLp);
 
-            notificationLayout.addView(notificationMain);
-            notificationLayout.addView(mediaActions);
+            contentContainer.setMinimumHeight(res.getDimensionPixelSize(R.dimen.notification_min_content_height));
+            contentContainer.setPadding(0, 0, 0, res.getDimensionPixelSize(R.dimen.notification_content_margin_bottom));
+
+            LinearLayout.LayoutParams mediaActionsLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+            mediaActionsLp.gravity = Gravity.BOTTOM | Gravity.END;
+            mediaActionsLp.setMargins(0, 0, 0, res.getDimensionPixelSize(R.dimen.media_actions_margin_bottom));
+            mediaActionsLp.setMarginStart(res.getDimensionPixelSize(R.dimen.media_actions_margin_start));
+            mediaActions.setLayoutParams(mediaActionsLp);
+
+            notificationMain.addView(contentContainer);
+            notificationMain.addView(mediaActions);
         }
     };
 

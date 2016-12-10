@@ -21,5 +21,6 @@
     <item name="actions_container" type="id" />
     <item name="fake_shadow" type="id" />
     <item name="qs_detail_header" type="id" />
+    <item name="dummy_id" type="id" />
 
 </resources>
