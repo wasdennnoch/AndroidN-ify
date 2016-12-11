@@ -452,6 +452,9 @@ public class NotificationHooks {
             int endMargin = R.dimen.notification_content_margin_end;
             if (XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mBuilder"), "mLargeIcon") != null) {
                 endMargin = R.dimen.notification_content_plus_picture_margin_end;
+                view.setInt(R.id.line1_container, "setMarginEnd", R.dimen.zero);
+                view.setInt(R.id.line2_container, "setMarginEnd", R.dimen.zero);
+                view.setInt(R.id.line3_container, "setMarginEnd", R.dimen.zero);
             }
             view.setInt(context.getResources().getIdentifier("notification_main_column", "id", "android"), "setMarginEnd", endMargin);
         }
@@ -464,7 +467,7 @@ public class NotificationHooks {
             RemoteViews button = (RemoteViews) param.getResult();
 
             XposedHelpers.callMethod(button, "setDrawableParameters", context.getResources().getIdentifier("action0", "id", PACKAGE_ANDROID), false, -1,
-                    context.getResources().getColor(context.getResources().getIdentifier("secondary_text_material_light", "color", PACKAGE_ANDROID)),
+                    XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "mBuilder"), "resolveColor"),
                     PorterDuff.Mode.SRC_ATOP, -1);
         }
     };

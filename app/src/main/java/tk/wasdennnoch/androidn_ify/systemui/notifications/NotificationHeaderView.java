@@ -26,6 +26,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.RemotableViewMethod;
@@ -320,6 +321,7 @@ public class NotificationHeaderView extends ViewGroup {
                 int newSize = appWidth - Math.min(appWidth - mChildMinWidth, overFlow);
                 int childWidthSpec = MeasureSpec.makeMeasureSpec(newSize, MeasureSpec.AT_MOST);
                 mAppName.measure(childWidthSpec, wrapContentHeightSpec);
+                ((TextView) mAppName).setEllipsize(TextUtils.TruncateAt.END);
                 overFlow -= appWidth - newSize;
             }
             // still overflowing, finaly we shrink the header text
@@ -329,6 +331,7 @@ public class NotificationHeaderView extends ViewGroup {
                 int newSize = Math.max(0, textWidth - overFlow);
                 int childWidthSpec = MeasureSpec.makeMeasureSpec(newSize, MeasureSpec.AT_MOST);
                 mHeaderText.measure(childWidthSpec, wrapContentHeightSpec);
+                ((TextView) mHeaderText).setEllipsize(TextUtils.TruncateAt.END);
             }
         }
         setMeasuredDimension(givenWidth, givenHeight);
