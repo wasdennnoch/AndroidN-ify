@@ -191,7 +191,7 @@ public class ConfigUtils {
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
             disable_qs_paging = prefs.getBoolean("disable_qs_paging", false);
-            fix_header_space = prefs.getBoolean("fix_header_space", true);
+            fix_header_space = prefs.getBoolean("fix_header_space", true) && EXPERIMENTAL;
 
             Set<String> keepBgs = prefs.getStringSet("keep_backgrounds", Collections.<String>emptySet());
             keep_header_background = keepBgs.contains("header");
@@ -205,6 +205,7 @@ public class ConfigUtils {
         public final boolean custom_actions_color;
         public final boolean experimental;
         public final boolean allow_direct_reply_on_keyguard;
+        public final boolean generate_notification_accent_color;
         public final boolean enable_notifications_background;
         public final boolean enable_data_disabled_indicator;
         public final boolean filter_sensitive_notifications;
@@ -219,6 +220,7 @@ public class ConfigUtils {
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
             experimental = M && EXPERIMENTAL && prefs.getBoolean("notification_experimental", false);
             allow_direct_reply_on_keyguard = prefs.getBoolean("allow_direct_reply_on_keyguard", false);
+            generate_notification_accent_color = M && prefs.getBoolean("generate_notification_accent_color", false);
             enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true);
             enable_data_disabled_indicator = prefs.getBoolean("enable_data_disabled_indicator", true);
             filter_sensitive_notifications = M && EXPERIMENTAL;

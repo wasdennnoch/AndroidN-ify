@@ -399,5 +399,6 @@
     <string name="enable_settings_drawer">Enable settings drawer</string>
     <string name="partial_screenshot">Partial screenshot</string>
     <string name="fix_header_space_title">Fix huge space under qs header</string>
+    <string name="generate_notification_accent_color">Generate notification color from app icon</string>
 
 </resources>
