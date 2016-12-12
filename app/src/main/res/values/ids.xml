@@ -26,5 +26,6 @@
     <item name="line1_container" type="id" />
     <item name="line2_container" type="id" />
     <item name="line3_container" type="id" />
+    <item name="text_line_1" type="id" />
 
 </resources>

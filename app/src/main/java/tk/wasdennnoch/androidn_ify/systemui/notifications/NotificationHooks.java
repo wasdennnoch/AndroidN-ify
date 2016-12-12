@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.RemoteInput;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -48,6 +49,7 @@ import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,6 +100,8 @@ public class NotificationHooks {
     public static boolean remoteInputActive = false;
     public static Object statusBarWindowManager = null;
     public static NotificationStackScrollLayoutHooks mStackScrollLayoutHooks;
+
+    private static Class<?> classBuilderRemoteViews;
 
     private static SensitiveNotificationFilter mSensitiveFilter = new SensitiveNotificationFilter();
 
@@ -295,9 +299,30 @@ public class NotificationHooks {
         int color = resolveColor(builder);
         bindSmallIcon(contentView, builder, color);
         bindHeaderAppName(contentView, context, color, extras);
-        bindHeaderText(contentView, builder, context, (Integer) param.args[0]);
+        bindHeaderText(contentView, builder, context);
         bindHeaderChronometerAndTime(contentView, builder);
         bindExpandButton(contentView, color);
+    }
+
+    private static void bindLargeIcon(RemoteViews contentView, XC_MethodHook.MethodHookParam param) {
+        Object builder = param.thisObject;
+        Resources res = ((Context) XposedHelpers.getObjectField(builder, "mContext")).getResources();
+
+        Object mLargeIcon = XposedHelpers.getObjectField(builder, "mLargeIcon");
+        if (mLargeIcon != null) {
+            contentView.setViewVisibility(res.getIdentifier("right_icon", "id", "android"), View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                contentView.setImageViewIcon(res.getIdentifier("right_icon", "id", "android"), (Icon) mLargeIcon);
+            } else {
+                contentView.setImageViewBitmap(res.getIdentifier("right_icon", "id", PACKAGE_ANDROID), (Bitmap) mLargeIcon);
+            }
+            XposedHelpers.callMethod(builder, "processLargeLegacyIcon", mLargeIcon, contentView);
+
+            int notificationTextMarginEnd = R.dimen.notification_text_margin_end;
+            contentView.setInt(R.id.line1_container, "setMarginEnd", notificationTextMarginEnd);
+            contentView.setInt(R.id.line2_container, "setMarginEnd", notificationTextMarginEnd);
+            contentView.setInt(R.id.line3_container, "setMarginEnd", notificationTextMarginEnd);
+        }
     }
 
     private static void bindHeaderChronometerAndTime(RemoteViews contentView, Object builder) {
@@ -318,25 +343,22 @@ public class NotificationHooks {
         }
     }
 
-    private static void bindHeaderText(RemoteViews contentView, Object builder, Context context, int resId) {
-        if (resId == context.getResources().getIdentifier("notification_template_material_big_media", "layout", PACKAGE_ANDROID) ||
-                resId == context.getResources().getIdentifier("notification_template_material_media", "layout", PACKAGE_ANDROID)) {
-            CharSequence mContentText = (CharSequence) XposedHelpers.getObjectField(builder, "mContentText");
-            CharSequence mSubText = (CharSequence) XposedHelpers.getObjectField(builder, "mSubText");
-            if (mContentText != null && mSubText != null) {
-                contentView.setTextViewText(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID),
-                        processLegacyText(builder, mContentText));
-                contentView.setViewVisibility(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID), View.GONE);
-                contentView.setTextViewText(R.id.header_text, processLegacyText(builder, mSubText));
-                contentView.setViewVisibility(R.id.header_text, View.VISIBLE);
-                contentView.setViewVisibility(R.id.header_text_divider, View.VISIBLE);
-                try {
-                    // TODO Why it's crashing here
-                    XposedHelpers.callMethod(builder, "unshrinkLine3Text");
-                } catch (Throwable ignore) {
+    private static void bindHeaderText(RemoteViews contentView, Object builder, Context context) {
+        CharSequence mContentText = (CharSequence) XposedHelpers.getObjectField(builder, "mContentText");
+        CharSequence mSubText = (CharSequence) XposedHelpers.getObjectField(builder, "mSubText");
+        if (mContentText != null && mSubText != null) {
+            contentView.setTextViewText(context.getResources().getIdentifier("text", "id", PACKAGE_ANDROID),
+                    processLegacyText(builder, mContentText));
+            contentView.setViewVisibility(context.getResources().getIdentifier("text2", "id", PACKAGE_ANDROID), View.GONE);
+            contentView.setTextViewText(R.id.header_text, processLegacyText(builder, mSubText));
+            contentView.setViewVisibility(R.id.header_text, View.VISIBLE);
+            contentView.setViewVisibility(R.id.header_text_divider, View.VISIBLE);
+        }
+        try {
+            // TODO Why it's crashing here
+            XposedHelpers.callMethod(builder, "unshrinkLine3Text");
+        } catch (Throwable ignore) {
 
-                }
-            }
         }
     }
 
@@ -413,34 +435,72 @@ public class NotificationHooks {
         return String.valueOf(appname);
     }
 
+    private static boolean handleProgressBar(boolean hasProgress, RemoteViews contentView, Object builder) {
+        final int max = XposedHelpers.getIntField(builder, "mProgressMax");
+        final int progress = XposedHelpers.getIntField(builder, "mProgress");
+        final boolean ind = XposedHelpers.getBooleanField(builder, "mProgressIndeterminate");
+        if (hasProgress && (max != 0 || ind)) {
+            contentView.setViewVisibility(com.android.internal.R.id.progress, View.VISIBLE);
+
+            int color = resolveColor(builder);
+
+            contentView.setProgressBar(
+                    android.R.id.progress, max, progress, ind);
+            ColorStateList colorStateList = ColorStateList.valueOf(color);
+            XposedHelpers.callMethod(contentView, "setProgressTintList", android.R.id.progress, colorStateList);
+            XposedHelpers.callMethod(contentView, "setProgressIndeterminateTintList", android.R.id.progress, colorStateList);
+            return true;
+        } else {
+            contentView.setViewVisibility(android.R.id.progress, View.GONE);
+            return false;
+        }
+    }
+
     private static final XC_MethodHook applyStandardTemplateHook = new XC_MethodHook() {
 
         @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            Object builder = param.thisObject;
+            Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
             Resources res = context.getResources();
-            RemoteViews contentView = (RemoteViews) param.getResult();
+
+            Constructor<?> constructor = XposedHelpers.findConstructorExact(classBuilderRemoteViews, ApplicationInfo.class, int.class);
+            RemoteViews contentView = (RemoteViews) constructor.newInstance(context.getApplicationInfo(), param.args[0]);
+            param.setResult(contentView);
+
+            XposedHelpers.callMethod(builder, "resetStandardTemplate", contentView);
 
             bindNotificationHeader(contentView, param);
+            bindLargeIcon(contentView, param);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Icon mLargeIcon = (Icon) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
-                contentView.setImageViewIcon(res.getIdentifier("right_icon", "id", "android"), mLargeIcon);
-            } else {
-                Bitmap mLargeIcon = (Bitmap) XposedHelpers.getObjectField(param.thisObject, "mLargeIcon");
-                contentView.setImageViewBitmap(res.getIdentifier("right_icon", "id", PACKAGE_ANDROID), mLargeIcon);
+            boolean hasProgress = (boolean) param.args[1];
+            CharSequence title = (CharSequence) XposedHelpers.getObjectField(builder, "mContentTitle");
+            CharSequence text = (CharSequence) XposedHelpers.getObjectField(builder, "mContentText");
+            boolean showProgress = handleProgressBar(hasProgress, contentView, builder);
+            contentView.setViewPadding(res.getIdentifier("line1", "id", PACKAGE_ANDROID), 0, calculateTopPadding(builder, context,
+                    false, context.getResources().getConfiguration().fontScale),
+                    0, 0);
+            if (title != null) {
+                contentView.setViewVisibility(android.R.id.title, View.VISIBLE);
+                contentView.setTextViewText(android.R.id.title, (CharSequence) XposedHelpers.callMethod(builder, "processLegacyText", title));
             }
-
-            if (XposedHelpers.getObjectField(param.thisObject, "mLargeIcon") != null) {
-                int notificationTextMarginEnd = R.dimen.notification_text_margin_end;
-                contentView.setInt(R.id.line1_container, "setMarginEnd", notificationTextMarginEnd);
-                contentView.setInt(R.id.line2_container, "setMarginEnd", notificationTextMarginEnd);
-                contentView.setInt(R.id.line3_container, "setMarginEnd", notificationTextMarginEnd);
+            if (text != null) {
+                int textId = showProgress ? R.id.text_line_1
+                        : res.getIdentifier("text", "id", PACKAGE_ANDROID);
+                contentView.setTextViewText(textId, text);
+                contentView.setViewVisibility(textId, View.VISIBLE);
+                if (!showProgress) {
+                    contentView.setViewVisibility(res.getIdentifier("line3", "id", PACKAGE_ANDROID), View.VISIBLE);
+                }
             }
 
             contentView.setInt(res.getIdentifier("right_icon", "id", "android"), "setBackgroundResource", 0);
         }
     };
+
+    private static int calculateTopPadding(Object builder, Context ctx, boolean hasThreeLines, float fontScale) {
+        return (int) XposedHelpers.callMethod(builder, "calculateTopPadding", ctx, hasThreeLines, fontScale);
+    }
 
     private static final XC_MethodHook makeMediaContentViewHook = new XC_MethodHook() {
 
@@ -484,6 +544,8 @@ public class NotificationHooks {
             contentView.setViewVisibility(R.id.header_text_divider, View.GONE);
             contentView.setViewVisibility(R.id.time_divider, View.GONE);
             contentView.setViewVisibility(R.id.time, View.GONE);
+            contentView.setViewVisibility(R.id.text_line_1, View.GONE);
+            contentView.setTextViewText(R.id.text_line_1, null);
         }
     };
 
@@ -622,6 +684,13 @@ public class NotificationHooks {
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Error in buildHook (car extender)", t);
             }
+        }
+    };
+
+    private static final XC_MethodHook calculateTopPaddingHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            param.args[1] = false;
         }
     };
 
@@ -799,6 +868,7 @@ public class NotificationHooks {
                 Class classNotificationStyle = Notification.Style.class;
                 Class classNotificationMediaStyle = Notification.MediaStyle.class;
                 Class classRemoteViews = RemoteViews.class;
+                classBuilderRemoteViews = XposedHelpers.findClass("android.app.Notification$BuilderRemoteViews", classLoader);
 
                 if (ConfigUtils.M) {
                     XposedHelpers.findAndHookMethod(classNotificationBuilder, "processSmallIconAsLarge", Icon.class, classRemoteViews, processSmallIconAsLargeHook);
@@ -811,6 +881,7 @@ public class NotificationHooks {
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "calculateTopPadding", Context.class, boolean.class, float.class, calculateTopPaddingHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "build", buildHook);
                 XposedHelpers.findAndHookMethod(NotificationCompat.Builder.class, "build", buildHook);
                 XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
@@ -1239,12 +1310,30 @@ public class NotificationHooks {
                         Context context = layout.getContext();
 
                         TextView title = (TextView) layout.findViewById(context.getResources().getIdentifier("title", "id", PACKAGE_ANDROID));
+                        LinearLayout.LayoutParams titleLp = (LinearLayout.LayoutParams) title.getLayoutParams();
+                        titleLp.width = WRAP_CONTENT;
+                        titleLp.weight = 0;
 
                         layout.removeView(title);
 
                         LinearLayout container = new RemoteMarginLinearLayout(context);
-                        container.addView(title);
+                        container.setOrientation(LinearLayout.HORIZONTAL);
                         container.setId(R.id.line1_container);
+
+                        TextView textLine1 = new TextView(context);
+                        textLine1.setId(R.id.text_line_1);
+                        textLine1.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification);
+                        textLine1.setGravity(Gravity.START | Gravity.BOTTOM);
+                        textLine1.setSingleLine(true);
+                        textLine1.setEllipsize(TextUtils.TruncateAt.END);
+                        textLine1.setHorizontalFadingEdgeEnabled(true);
+
+                        LinearLayout.LayoutParams textLine1Lp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+                        textLine1Lp.setMarginStart(ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_text_line1_margin_start));
+                        textLine1.setLayoutParams(textLine1Lp);
+
+                        container.addView(title);
+                        container.addView(textLine1);
 
                         layout.addView(container);
                     }

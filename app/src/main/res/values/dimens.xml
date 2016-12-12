@@ -95,6 +95,7 @@
 
     <dimen name="notification_min_content_height">41dp</dimen>
     <dimen name="notification_content_margin_bottom">16dp</dimen>
+    <dimen name="notification_top_pad">10dp</dimen>
     <!-- /Notifications / Status bar header -->
 
     <dimen name="notification_header_background_height">45.5dp</dimen>
@@ -156,5 +157,6 @@
     <dimen name="media_actions_margin_start">10dp</dimen>
     <dimen name="big_media_actions_margin_start">8dp</dimen>
     <dimen name="zero">0dp</dimen>
+    <dimen name="notification_text_line1_margin_start">16dp</dimen>
 
 </resources>
