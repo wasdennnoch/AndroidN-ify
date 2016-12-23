@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">重新啟動 系統UI 的廣播指令已推送</string>
   <string name="activity_about">關於 Android N-ify</string>
   <string name="about_author">程式開發 來自 @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">繁體中文翻譯 來自 ㄚ龍@阿榮中文化俱樂部</string>
   <string name="about_version">版本 %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>警告：</b> 您目前的設定檔無法被 Xposed 讀取。 點擊獲得更多資訊&#8230;]]></string>
@@ -110,12 +110,22 @@
   <string name="keep_bg">適用於使用自訂的快速設定背景</string>
   <string name="keep_header_bg">應用程式通知</string>
   <string name="keep_panel_bg">快速設定 面板</string>
+  <string name="force_old_date_position">強制在時間旁顯示日期</string>
+  <string name="force_old_date_position_summary">在小於特定大小的螢幕上，日期顯示在時鐘下面而不是旁邊，僅在展開快速設定面板時可見。
+啟用來覆寫此狀態</string>
+  <string name="force_old_date_position_disabled_summary">您的裝置已經支援新的日期位置</string>
   <string name="notification_header_qs_tiles_count">顯示快速設定的抽屜</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">瓷磚</string>
   <string name="battery_tile_show_percentage">在電池瓷磚顯示 % </string>
   <string name="battery_tile_show_percentage_summary">在電池的瓷磚裏面顯示 % 符號</string>
   <string name="enable_qs_editor">啟用 快速設定編輯器</string>
+  <string name="alternative_qs_loading">另一種快速設定面板載入方法</string>
+  <string name="alternative_qs_loading_summary">使用不同的方式獲取可用的快速設定瓷磚。
+僅在編輯器中缺少瓷磚時使用</string>
+  <string name="inject_gb_tiles">放入 GravityBox 瓷磚</string>
+  <string name="inject_gb_tiles_summary">如果要新增GravityBox提供的快速設定瓷磚，請啟用此選項</string>
+  <string name="inject_gb_tiles_not_installed">未安裝GravityBox</string>
   <string name="allow_fancy_qs_transition">花俏的快速設定過渡動畫</string>
   <string name="enable_new_tile_click_behavior">Android N 的瓷磚點擊行為</string>
   <string name="enable_new_tile_click_behavior_summary">點擊下拉式狀態列內的瓷磚時直接切換狀態\n點擊快速設定内的顯示項目时展開設定項目</string>
@@ -123,11 +133,6 @@
   <string name="enable_large_first_row_summary2">如果支援的話，使首兩個方塊變大。</string>
   <string name="fix_stuck_inversion_title">修復 官方ROM 所造成的倒置問題</string>
   <string name="fix_stuck_inversion">部分裝置的官方系統開啟此功能可能會造成倒置\n點此進行強制停用</string>
-  <string name="header_clock_size_title">標題列的時鐘大小</string>
-  <string name="header_clock_size_normal">正常</string>
-  <string name="header_clock_size_small">小</string>
-  <string name="header_clock_size_smaller">更小</string>
-  <string name="header_clock_size_tiny">最小</string>
   <string name="hide_icons_title">隱藏標題列的項目</string>
   <string name="hide_tuner_icon_title">隱藏 系統使用介面調整 圖示</string>
   <string name="hide_edit_tiles_title">隱藏 編輯瓷磚 按鈕</string>
@@ -145,12 +150,13 @@
   <string name="notifications_custom_actions_color">以自訂的顏色作為通知按鍵的背景</string>
   <string name="notifications_actions_color_title">動作背景顏色</string>
   <string name="notification_experimental_title">試驗性 N 的通知行為</string>
+  <string name="notification_experimental">N 的滾動行為(沒有頂部堆疊)</string>
   <string name="notification_keyguard_max_title">在鎖定螢幕裡開啟最大量的通知顯示</string>
   <string name="enable_assistant">啟用Google Assistant</string>
   <string name="enable_assistant_summary">以新的Google Assistant取代Now on Tap/Screen Search</string>
   <string name="enable_assistant_summary_unsupported">不支援你的Google應用程式版本（%1$s）</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
-  <string name="now_string_shortest">此時此刻</string>
+  <string name="now_string_shortest">現在</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_minutes_shortest">
     <item quantity="other">%d 分鐘前</item>
@@ -223,13 +229,6 @@
   <string name="unknown_name">未知</string>
   <string name="address">地址</string>
   <string name="unknown_address">未知</string>
-  <string name="date_of_birth">出生日期</string>
-  <string name="unknown_date_of_birth">未知</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">年齡：%1$d</string>
-  <string name="remove_dob_icon_text">移除出生日期</string>
   <string name="blood_type">血型</string>
   <string name="unknown_blood_type">未知</string>
   <string name="allergies">過敏</string>
@@ -255,8 +254,6 @@
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">電池</string>
-  <string name="charged">已充滿</string>
-  <string name="charging">正在充電, %1$s</string>
   <string name="qs_edit">編輯</string>
   <string name="drag_to_add_tiles">拖曳以新增瓷磚</string>
   <string name="drag_to_remove_tiles">拖曳到這裡移除</string>
@@ -321,12 +318,11 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">十六進位</string>
   <string name="enable_install_source_title">顯示應用程式安裝資源</string>
+  <string name="enable_install_source">在應用程式資訊頁中加入類別，以顯示應用程式的安裝方式(Play商店、程式安裝器 等)</string>
   <string name="battery_detail_switch_title">省電模式</string>
   <string name="battery_detail_switch_summary">減少效能和背景資料傳輸</string>
   <string name="qs_add_notes_title">備註</string>
   <string name="qs_add_notes">僅適用於提供廣播的瓷磚(例如：自訂的快速設定)。使用前請閱讀瓷磚提供應用程式內的說明。</string>
-  <string name="notification_spoof_api_version_title">欺騙 App 執行於 Android N</string>
-  <string name="notification_spoof_api_version">欺騙一些應用程式讓其誤以為他們正在 Android N 上面執行</string>
   <string name="hide_tiles_on_lockscreen">在鎖定螢幕中隱藏瓷磚</string>
   <string name="done">完成</string>
   <string name="cm_qs_settings">CM 快速設定</string>
@@ -334,7 +330,8 @@
   <string name="disable_qs_paging_summary">停用橫向螢幕顯示快速分頁</string>
   <string name="allow_direct_reply_on_keyguard">直接在鎖定螢幕上面回覆</string>
   <string name="allow_direct_reply_on_keyguard_summary">允許在解鎖頁面上回覆通知</string>
-  <string name="enable_notifications_background">啟用 背景通知</string>
+  <string name="enable_notifications_background">啟用通知的背景白色圖層</string>
+  <string name="enable_notifications_background_summary">滑掉通知時在通知後方繪製白色背景</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">開啟快速設定</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
@@ -344,10 +341,15 @@
   <string name="enable_data_disabled_indicator">顯示行動網路停用指示器</string>
   <string name="enable_data_disabled_indicator_summary">當沒有啟用流動數據時，以 “x” 作為訊號標示</string>
   <string name="home">主頁</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="other">你距離取得實驗性功能只有 %1$d 步之遙。</item>
+  </plurals>
   <string name="show_experimental_on">您已經成功開啟了實驗性功能！</string>
   <string name="show_experimental_on_already">不需要了，你已經啟用了實驗性功能。</string>
   <string name="header_experimental">實驗性的</string>
   <string name="enable_experimental_features">啟動實驗性功能</string>
   <string name="enable_n_style_settings_dashboard">安卓N樣式的設置</string>
+  <string name="enable_n_style_settings_dashboard_summary">讓手機的設定介面看起來像 Android N</string>
   <string name="enable_settings_drawer">啟用設定抽屜欄</string>
+  <string name="partial_screenshot">局部螢幕截圖</string>
 </resources>

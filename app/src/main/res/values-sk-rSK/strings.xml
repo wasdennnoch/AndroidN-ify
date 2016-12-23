@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Žiadosť o reštartovanie odoslaná</string>
   <string name="activity_about">O aplikácii Android N-ify</string>
   <string name="about_author">Vytvoril @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Preložil: @Ja_som</string>
   <string name="about_version">Verzia %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Upozornenie:</b> Xposed nedokáže prečítať súbor nastavení. Kliknite pre viac informácií&#8230;]]></string>
@@ -114,12 +114,20 @@
   <string name="keep_bg">Užitočné pre témy, ktoré používajú vlastné pozadia</string>
   <string name="keep_header_bg">Záhlavie</string>
   <string name="keep_panel_bg">Panel rýchlych nastavení</string>
+  <string name="force_old_date_position">Vynútiť dátum vedľa času</string>
+  <string name="force_old_date_position_summary">Na menších obrazovkách sa dátum zobrazuje pod hodinami namiesto vedľa nich, je viditeľný len pri rozbaľovaní panela rýchlych nastavení. Povolením prepíšete toto správanie</string>
+  <string name="force_old_date_position_disabled_summary">Vaše zariadenie už podporuje novú pozíciu dátumu</string>
   <string name="notification_header_qs_tiles_count">Zobraziť maximálne</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">dlaž.</string>
   <string name="battery_tile_show_percentage">Zobraziť percentá v dlaždici s batériou</string>
   <string name="battery_tile_show_percentage_summary">Zobrazí stav batérie v dlaždici s batériou</string>
   <string name="enable_qs_editor">Povoliť úpravu rýchlych nastavení</string>
+  <string name="alternative_qs_loading">Alternatívna metóda načítavania rýchlych nastavení</string>
+  <string name="alternative_qs_loading_summary">Použije iný spôsob zosťovania dostupných dlaždíc. Použite iba ak chýbajú dlaždice</string>
+  <string name="inject_gb_tiles">Použiť dlaždice z GravityBox</string>
+  <string name="inject_gb_tiles_summary">Povoľte ak chcete pridať dlaždice rýchlych nastavení z GravityBox</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox nie je nainštalovaný</string>
   <string name="allow_fancy_qs_transition">Ozdobný prechod rýchlych nastavení</string>
   <string name="enable_new_tile_click_behavior">Android N správanie dlaždice po klepnutí</string>
   <string name="enable_new_tile_click_behavior_summary">Klepnutie na dlaždicu v záhlaví ju prepne a klepnutie na dlaždicu v panely ju rozbalí</string>
@@ -127,11 +135,6 @@
   <string name="enable_large_first_row_summary2">Zobrazí prvé dve dlaždice väčšie, ak je podporované</string>
   <string name="fix_stuck_inversion_title">Opraviť invertované farby</string>
   <string name="fix_stuck_inversion">Na niektorých zariadeniach sa môžu povolené invertovné farby zaseknúť. Kliknite pre vynútenie zkázania</string>
-  <string name="header_clock_size_title">Veľkosť hodín v záhlaví</string>
-  <string name="header_clock_size_normal">Normálne</string>
-  <string name="header_clock_size_small">Melé</string>
-  <string name="header_clock_size_smaller">Menšie</string>
-  <string name="header_clock_size_tiny">Maličké</string>
   <string name="hide_icons_title">Skryť položky záhlavia</string>
   <string name="hide_tuner_icon_title">Skryť ikonu pre tuner používateľského rozhrania systému</string>
   <string name="hide_edit_tiles_title">Skryť tlačidlo pre úpravu dlaždíc</string>
@@ -244,13 +247,6 @@
   <string name="unknown_name">Neznáme</string>
   <string name="address">Adresa</string>
   <string name="unknown_address">Neznáme</string>
-  <string name="date_of_birth">Dátum narodenia</string>
-  <string name="unknown_date_of_birth">Neznáme</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Vek: %1$d</string>
-  <string name="remove_dob_icon_text">Odstrániť dátum narodenia</string>
   <string name="blood_type">Krvná skupina</string>
   <string name="unknown_blood_type">Neznáme</string>
   <string name="allergies">Alergie</string>
@@ -276,8 +272,6 @@
   <string name="yes">Áno</string>
   <string name="no">Nie</string>
   <string name="battery">Batéria</string>
-  <string name="charged">Nabitá</string>
-  <string name="charging">Nabíjanie, %1$s</string>
   <string name="qs_edit">Upraviť</string>
   <string name="drag_to_add_tiles">Potiahnite pre pridanie dlaždíc</string>
   <string name="drag_to_remove_tiles">Potiahnite sem pre odstránenie</string>
@@ -347,8 +341,6 @@
   <string name="battery_detail_switch_summary">Zníži výkonnosť a dátové prenosy na pozadí</string>
   <string name="qs_add_notes_title">Poznámky</string>
   <string name="qs_add_notes">Používa sa iba pre aplikácie, ktoré poskytujú dlaždice vysielania (ako napr. \"Custom Quick Settings\"). Prosím, pred použitím si prečítajte inštrukcie v aplikácii poskytujúcej dlaždicu.</string>
-  <string name="notification_spoof_api_version_title">Predstierať API 24</string>
-  <string name="notification_spoof_api_version">Donúti tieto aplikácie si myslieť, že používate API 24</string>
   <string name="hide_tiles_on_lockscreen">Skryť dlaždice na uzamknutej obrazovke</string>
   <string name="done">Hotovo</string>
   <string name="cm_qs_settings">Nastavenia rýchlych nastavení CM</string>
@@ -379,4 +371,5 @@
   <string name="enable_n_style_settings_dashboard">Nastavenia v štýle N</string>
   <string name="enable_n_style_settings_dashboard_summary">Upraviť vzhľad nastavení ako v N</string>
   <string name="enable_settings_drawer">Povoliť menu v nastaveniach</string>
+  <string name="partial_screenshot">Čiastočná snímka obrazovky</string>
 </resources>

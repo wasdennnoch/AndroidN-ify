@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">已发送重启广播</string>
   <string name="activity_about">关于 Android N-ify</string>
   <string name="about_author">开发者 @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">翻译 @haseoxth</string>
   <string name="about_version">版本 %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>警告：</b>首选项文件无法被 Xposed 读取。点击查看详细信息&#8230;]]></string>
@@ -114,12 +114,20 @@
   <string name="keep_bg">适用于包含有自定义背景的主题</string>
   <string name="keep_header_bg">顶栏</string>
   <string name="keep_panel_bg">快速设置面板</string>
+  <string name="force_old_date_position">强制在时间旁显示日期</string>
+  <string name="force_old_date_position_summary">在小于特定尺寸的屏幕上日期将被显示于时钟下方而非旁边，这将导致其仅在展开快速设置面板时可见。启用该选项可覆盖此行为</string>
+  <string name="force_old_date_position_disabled_summary">您的设备已支持新的日期位置布局</string>
   <string name="notification_header_qs_tiles_count">顶栏内的图块数量</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">个</string>
   <string name="battery_tile_show_percentage">显示百分比</string>
   <string name="battery_tile_show_percentage_summary">在电池图块内显示电量百分比</string>
   <string name="enable_qs_editor">启用快速设置修改按钮</string>
+  <string name="alternative_qs_loading">备选的快速设置加载方案</string>
+  <string name="alternative_qs_loading_summary">使用备选方案来加载可用的快速设置图块。仅在于修改器内丢失图块时使用</string>
+  <string name="inject_gb_tiles">植入 GravityBox 图块</string>
+  <string name="inject_gb_tiles_summary">当想要添加由 GravityBox 提供的图块时启用该选项</string>
+  <string name="inject_gb_tiles_not_installed">未安装 GravityBox</string>
   <string name="allow_fancy_qs_transition">快速设置过渡动画</string>
   <string name="enable_new_tile_click_behavior">启用 Android N 式图块点击行为</string>
   <string name="enable_new_tile_click_behavior_summary">点击顶栏内的图块时直接切换状态\n点击快速设置面板内的图块时展开设置项</string>
@@ -127,11 +135,6 @@
   <string name="enable_large_first_row_summary2">当系统支持时放大显示前两个图块</string>
   <string name="fix_stuck_inversion_title">修复颜色反转卡顿</string>
   <string name="fix_stuck_inversion">一些设备可能在开启反色图块后出现屏幕卡顿的问题。点此可强制停用</string>
-  <string name="header_clock_size_title">顶栏时钟大小</string>
-  <string name="header_clock_size_normal">正常</string>
-  <string name="header_clock_size_small">小</string>
-  <string name="header_clock_size_smaller">更小</string>
-  <string name="header_clock_size_tiny">最小</string>
   <string name="hide_icons_title">隐藏顶栏内的项目</string>
   <string name="hide_tuner_icon_title">隐藏系统界面调节工具</string>
   <string name="hide_edit_tiles_title">隐藏修改图块按钮</string>
@@ -228,13 +231,6 @@
   <string name="unknown_name">未知</string>
   <string name="address">地址</string>
   <string name="unknown_address">未知</string>
-  <string name="date_of_birth">出生日期</string>
-  <string name="unknown_date_of_birth">未知</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">年龄：%1$d</string>
-  <string name="remove_dob_icon_text">移除出生日期</string>
   <string name="blood_type">血型</string>
   <string name="unknown_blood_type">未知</string>
   <string name="allergies">过敏症</string>
@@ -260,8 +256,6 @@
   <string name="yes">是</string>
   <string name="no">否</string>
   <string name="battery">电池</string>
-  <string name="charged">已充满</string>
-  <string name="charging">正在充电, %1$s</string>
   <string name="qs_edit">修改</string>
   <string name="drag_to_add_tiles">拖动即可添加图块</string>
   <string name="drag_to_remove_tiles">拖动到此处即可移除</string>
@@ -331,8 +325,6 @@
   <string name="battery_detail_switch_summary">降低设备性能并限制后台流量</string>
   <string name="qs_add_notes_title">注意</string>
   <string name="qs_add_notes">仅适用于提供播送图块的应用（例如 \"Custom Quick Settings\"）。使用前请参阅图块提供应用内的说明。</string>
-  <string name="notification_spoof_api_version_title">API 24 伪装</string>
-  <string name="notification_spoof_api_version">使被欺骗的应用认为其正运行于 API 24 上</string>
   <string name="hide_tiles_on_lockscreen">隐藏安全锁屏下的图块</string>
   <string name="done">完成</string>
   <string name="cm_qs_settings">CM 快速设置设定</string>
@@ -361,4 +353,5 @@
   <string name="enable_n_style_settings_dashboard">Android N 风格设置</string>
   <string name="enable_n_style_settings_dashboard_summary">使用 Android N 风格的设置面板样式</string>
   <string name="enable_settings_drawer">启用设置抽屉栏</string>
+  <string name="partial_screenshot">区域截屏</string>
 </resources>

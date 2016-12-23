@@ -6,30 +6,32 @@
   <string name="restart_systemui_message">Sistem Arayüzünü yeniden başlatmak istediğinizden emin misiniz?</string>
   <string name="restart_broadcast_sent">Sistem arayüzü yeniden başlatılıyor</string>
   <string name="activity_about">Android N-ify Hakkında</string>
-  <string name="about_author">Geliştirici @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
-  <string name="about_translator">Çeviri @Can OKUMUŞ @Mevlüt TOPÇU @trzpro @TheNexus Turkdevs</string>
+  <string name="about_author">Uygulama Geliştiricisi @MrWasdennnoch</string>
+  <!-- Insert/Add your (preferably XDA) username here -->
+  <string name="about_translator">Çeviri @Can OKUMUŞ • @Mevlüt TOPÇU • @TechGenius • @trzpro OneTeam • @HelliosDarkline One Team • @EypCnn One Team • @TheNexus Biz Turkdevsiz Bizler Orospu Çocuğuyuz </string>
   <string name="about_version">Sürüm %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
-        Xposed Bu modülün tercih dosyasını okuyamıyor, varsayılan değerleri kullanılacaktır.
+Xposed bu modülün tercih dosyasını okuyor\okuyamıyor, fabrika değerleri kullanılacaktır.
         Bu sorunu gidermek için çeşitli yollar vardır. Ayrıca, bu hata uygulamayı daha önce
         hiç açmadıysanız bu sebeple ortaya çıktığını unutmayın.<br><br>
-        İlk olarak, cihaz yeniden başlatın (yazılımsal yeniden başlat değil!).<br>
+        İlk olarak, cihazı yeniden başlatın (yazılımsal yeniden başlat değil!).<br>
         Bu işe yaramazsa, modülü yeniden yüklemeyi deneyin.<br>
-        Her iki denemede başarısız olursa, SELinux modunun <i>permissive(serbest)</i> olarak ayarlanmış olduğundan emin olun.
-        <i>Enforcing(Zorunlu)</i> SELinux modu tercih dosyasına erişimi engelleyebilir. modunu değiştirmek için,
+        Her iki denemede başarısız olursa, SELinux modunun <i>permissive (serbest)</i> olarak ayarlanmış olduğundan emin olun.
+        <i>Enforcing (Zorunlu)</i> SELinux modu tercih dosyasına erişimi engelleyebilir. Modunu değiştirmek için,
         <tt>SELinuxModeChanger</tt> uygulamasını kullanabilirsiniz. İndirmek için
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485"> bu XDA konusunu ziyaret edin</a>.<br>
         Bu seferde başarısız olursa, muhtemelen varsayılan değerler ile yaşamak zorundasınız üzgünüm :(
         ]]></string>
-  <string name="automated_build_warning"><![CDATA[        Otomatik derlenen beta bir sürüm kullanıyorsunuz. Bazı kısımlar bazı tercihleri bozabilir.
-        Bir hata bulursanız <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> Github </a> adresinden yazın.<br><br>
-        Hata raporlarken mutlaka Xposed hata logu ve logcat alın.
+  <string name="automated_build_warning"><![CDATA[
+Otomatik inşa edilen bir sürüm kullanıyorsunuz. Yeni değişiklikler bazı ayarları bozabilir.
+       Hata bulursanız <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">Github</a> adresinden iletin.<br><br>
+       Hataları bildirirken her zaman Xposed veri günlükleri eklemeyi ve çökme durumunda logcat eklemeyi unutmayın.
         ]]></string>
-  <string name="experimental_build_warning"><![CDATA[        Deneysel otomatik derlenen beta sürüm kullanıyorsunuz. Bazı değişiklikler olabilir.
-        Bir hata bulursanız GitHub adresinee <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">  </a>yazın <br>
-        Bu sürüm <b>çok deneysel özellikleri</b> barındırabilir<br><br>
+  <string name="experimental_build_warning"><![CDATA[
+Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler olabilir.
+        Bir hata bulursanız GitHub adresine <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">  </a>iletin <br>
+        Bu sürüm <b>çok deneysel özellikleri</b> barındırabilir<br><br>.
         ]]></string>
   <string name="header_tweaks">Geliştirmeler</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
@@ -43,7 +45,7 @@
   <string name="debug_log_title">Hata ayıklama günlüğü</string>
   <string name="debug_log">Dikkat: Log-flooding</string>
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
-  <string name="requires_android_version">Android %1$s sürümü gerektirir</string>
+  <string name="requires_android_version">Android %1$s sürümü gerekir</string>
   <string name="not_activated">Modül aktif değil</string>
   <!-- Primary color of app theme -->
   <string name="theme_colorPrimary">Ana renk</string>
@@ -53,7 +55,7 @@
   <string name="enable_settings_summaries">Ayarlar menüsünde doğrudan en önemli bilgileri gösterir</string>
   <string name="fix_sound_notif_tile_title">\"Ses &amp; bildirim\" karesini düzelt</string>
   <string name="fix_sound_notif_tile">Bazı ROM\'lar Sesler ve Bildirimler karesini birleştirir. Kareye uygun kısaltmayı ayarlamak için etkinleştirin.</string>
-  <string name="enable_n_platlogo_title">N sürpriz logosu</string>
+  <string name="enable_n_platlogo_title">Süprizli N logosu</string>
   <string name="use_namey_mcnameface_title">\"Namey McNameface\" simgesini kullan</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Bağlı değil</string>
@@ -86,7 +88,7 @@
   <!-- Header of app installation source -->
   <string name="app_details">Uygulama ayrıntıları</string>
   <string name="install_source">Uygulama %1$s yüklendi</string>
-  <string name="from_pm">Uygulama APK olarak yüklendi</string>
+  <string name="from_pm">Uygulama Apk olarak yüklendi</string>
   <string name="header_recents">Son Uygulamalar</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Hızlı geçiş</string>
@@ -110,30 +112,33 @@
   <string name="keep_bg_title">Değiştirilmemiş arka plan</string>
   <string name="keep_bg">Özel arka planlara uygulanan temalar için faydalı</string>
   <string name="keep_header_bg">Başlık</string>
-  <string name="keep_panel_bg">HA Paneli</string>
+  <string name="keep_panel_bg">Hızlı Ayarlar Paneli</string>
+  <string name="force_old_date_position">Tarihi saatin yanına konumlandırmaya zorla</string>
+  <string name="force_old_date_position_summary">Belirli bir boyuttan küçük ekranlarda tarihi saatin yanında olmak yerine altında görünür. Bu davranışı geçersiz kılmak için etkinleştirin</string>
+  <string name="force_old_date_position_disabled_summary">Aygıtınız zaten yeni tarih konumunu destekliyor</string>
   <string name="notification_header_qs_tiles_count">Gösterilecek Hızlı Ayarlar kareleri</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">kareler</string>
   <string name="battery_tile_show_percentage">Pil simgesinde yüzde göster</string>
   <string name="battery_tile_show_percentage_summary">Pil karesinde pil yüzdesini göster</string>
   <string name="enable_qs_editor">Hızlı Ayarlar düzenleyici etkinleştir</string>
+  <string name="alternative_qs_loading">Alternatif Hızlı Ayarlar Yükleme Methodu</string>
+  <string name="alternative_qs_loading_summary">Kullanılabilir HA karelerini almak için farklı bir yol kullan. Sadece HA kare düzenleyicisinde kare eksik ise kullanın</string>
+  <string name="inject_gb_tiles">GravityBox Hızlı Ayarlar Yönetimini Kullan</string>
+  <string name="inject_gb_tiles_summary">GravityBox tarafından sağlanan HA Karelerini eklemek istiyorsanız etkinleştirin</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox yüklü değil</string>
   <string name="allow_fancy_qs_transition">Fantastik Hızlı Ayarlar geçişi</string>
   <string name="enable_new_tile_click_behavior">N stili kare tıklama davranışı</string>
   <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp/kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
   <string name="enable_large_first_row">İlk satırı büyüt</string>
-  <string name="enable_large_first_row_summary2">Destekleniyorsa ilk iki satırı büyütür</string>
+  <string name="enable_large_first_row_summary2">Destekliyorsa ilk iki satırı büyütür</string>
   <string name="fix_stuck_inversion_title">Takılmış ters çevirmeyi düzelt</string>
   <string name="fix_stuck_inversion">Etkinleştirildiğinde bazı cihazlarda ters çevirme takılıyor. Devre dışı bırakmaya zorlamak için tıklayın</string>
-  <string name="header_clock_size_title">Başlıktaki saatin boyutu</string>
-  <string name="header_clock_size_normal">Normal</string>
-  <string name="header_clock_size_small">Küçük</string>
-  <string name="header_clock_size_smaller">Daha küçük</string>
-  <string name="header_clock_size_tiny">En küçük</string>
   <string name="hide_icons_title">Başlık öğelerini gizle</string>
   <string name="hide_tuner_icon_title">Sistem Arayüzü Ayar simgesini gizle</string>
   <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
   <string name="hide_edit_tiles_summary">Bu sadece mevcut düzenleme düğmesini gizler!</string>
-  <string name="hide_carrier_label_title">Operatör etiketini gizle</string>
+  <string name="hide_carrier_label_title">Sim durumunu gizle</string>
   <string name="header_notifications">Bildirimler</string>
   <string name="notifications_change_style">Bildirimler stili</string>
   <string name="notification_dismiss_button_title">Temizleme tuşunu değiştir</string>
@@ -233,13 +238,6 @@
   <string name="unknown_name">Bilinmiyor</string>
   <string name="address">Adres</string>
   <string name="unknown_address">Bilinmiyor</string>
-  <string name="date_of_birth">Doğum tarihi</string>
-  <string name="unknown_date_of_birth">Bilinmiyor</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Yaş: %1$d</string>
-  <string name="remove_dob_icon_text">Doğum tarihini kaldır</string>
   <string name="blood_type">Kan grubu</string>
   <string name="unknown_blood_type">Bilinmiyor</string>
   <string name="allergies">Alerjiler</string>
@@ -265,8 +263,6 @@
   <string name="yes">Evet</string>
   <string name="no">Hayır</string>
   <string name="battery">Pil</string>
-  <string name="charged">Şarj edildi</string>
-  <string name="charging">Şarj oluyor, %1$s</string>
   <string name="qs_edit">Düzenle</string>
   <string name="drag_to_add_tiles">Kare eklemek için sürükleyin</string>
   <string name="drag_to_remove_tiles">Kaldırmak için buraya sürükleyin</string>
@@ -327,7 +323,7 @@
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="reset_tiles">Sıfırla</string>
   <string name="dialog_color_picker">Renk Seçici</string>
-  <string name="press_color_to_apply">Rengi uygulamak için dokunun</string>
+  <string name="press_color_to_apply">Rengi uygulamak için renge dokunun</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Uygulama yükleme kaynağını göster</string>
@@ -336,13 +332,11 @@
   <string name="battery_detail_switch_summary">Performansı ve arka plan verilerini azaltır</string>
   <string name="qs_add_notes_title">Notlar</string>
   <string name="qs_add_notes">Bu, sadece (örneğin \"Özel Hızlı Ayarlar\" gibi) yayın kareleri sağlayan uygulamalar için kullanılır. Bunu kullanmadan önce kare sağlayıcı uygulamasından talimatlarını okuyun.</string>
-  <string name="notification_spoof_api_version_title">API 24 gibi göster</string>
-  <string name="notification_spoof_api_version">Bu uygulamalara API seviyesini 24 gibi göster</string>
   <string name="hide_tiles_on_lockscreen">Kilit ekranında gizlenecek simgeler</string>
   <string name="done">Bitti</string>
   <string name="cm_qs_settings">CM HA ayarları</string>
-  <string name="disable_qs_paging">HAlar\'ı yan sayfaya taşırtma</string>
-  <string name="disable_qs_paging_summary">Cihaz dikken HAlar yan sayfaya taşmasın</string>
+  <string name="disable_qs_paging">Hızlı ayarlar sayfalandırmayı devre dışı bırak</string>
+  <string name="disable_qs_paging_summary">Hızlı ayarlar sayfalandırmayı dikey modda devre dışı bırak</string>
   <string name="allow_direct_reply_on_keyguard">Kilit ekranında doğrudan yanıt verme</string>
   <string name="allow_direct_reply_on_keyguard_summary">Bildirimlerin kilit ekranında yanıtlanabilmesini sağlar</string>
   <string name="enable_notifications_background">Bildirimler arkaplanını etkinleştir</string>
@@ -367,4 +361,5 @@
   <string name="enable_n_style_settings_dashboard">N stili ayarlar</string>
   <string name="enable_n_style_settings_dashboard_summary">Ayarlar kontrol paneline N teması uygula</string>
   <string name="enable_settings_drawer">Ayarlar çekmecesini etkinleştir</string>
+  <string name="partial_screenshot">Kısmi Ekran Görüntüsü</string>
 </resources>

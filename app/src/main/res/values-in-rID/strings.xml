@@ -3,11 +3,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="xposed_description">Gunakan fitur yang diperkenalkan di Android N pada perangkat Android Lollipop dan Marshmallow!</string>
   <string name="restart_systemui">Mulai ulang SystemUI</string>
-  <string name="restart_systemui_message">Apakah Anda yakin ingin me-restart SystemUI?</string>
+  <string name="restart_systemui_message">Apakah Anda yakin ingin muat ulang SystemUI?</string>
   <string name="restart_broadcast_sent">Mulai ulang broadcast terkirim</string>
   <string name="activity_about">Tentang Android N-ify</string>
   <string name="about_author">Dikembangkan oleh @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Diterjemahkan oleh @NovanoElfikry, @HarisNilwan</string>
   <string name="about_version">Versi %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Peringatan:</b> File yang dipilih tidak dapat dibaca oleh Xposed. Klik untuk info lebih lanjut &#8230;]]></string>
@@ -98,7 +98,7 @@ Versi ini berisi <b> banyak percobaan </b> fitur. Silahkan cari di XDA dan GitHu
   <string name="recents_navigation_delay">Waktu sampai aplikasi yang dipilih terfokus</string>
   <string name="enable_large_recents">Recent apps besar</string>
   <string name="enable_large_recents_summary">Hanya membuat recents lebar penuh, tidak mengubah ketinggian</string>
-  <string name="no_recents_image">Ubah gambar \"no recents\"</string>
+  <string name="no_recents_image">Ubah gambar \"Tidak Ada App Terbaru\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Tidak ada item baru</string>
   <string name="recents_button_behavior_previous">Kembali ke aplikasi sebelumnya</string>
@@ -110,24 +110,27 @@ Versi ini berisi <b> banyak percobaan </b> fitur. Silahkan cari di XDA dan GitHu
   <string name="keep_bg">Berguna untuk tema yang menerapkan custom backgrounds</string>
   <string name="keep_header_bg">Header</string>
   <string name="keep_panel_bg">Panel QS</string>
+  <string name="force_old_date_position">Paksa tanggal di sebelah jam</string>
+  <string name="force_old_date_position_summary">Pada layar yang lebih kecil daripada ukuran tertentu tanggal akan ditampilkan di bawah jam bukan di sampingnya, hanya terlihat bila memperluas QS panel. Aktifkan untuk mengesampingkan tindakan ini</string>
+  <string name="force_old_date_position_disabled_summary">Perangkat Anda sudah mendukung posisi tanggal baru</string>
   <string name="notification_header_qs_tiles_count">Tile QS untuk ditampilkan</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">tiles</string>
   <string name="battery_tile_show_percentage">Tampilkan persentase di tile baterai</string>
   <string name="battery_tile_show_percentage_summary">Tampilkan persentase baterai di tile baterai</string>
   <string name="enable_qs_editor">Aktifkan QS editor</string>
+  <string name="alternative_qs_loading">Metode alternatif QS loading</string>
+  <string name="alternative_qs_loading_summary">Menggunakan cara yang berbeda untuk mendapatkan ubin QS yang tersedia. Hanya gunakan jika anda kehilangan ubin di editor</string>
+  <string name="inject_gb_tiles">Masukkan ubin GravityBox</string>
+  <string name="inject_gb_tiles_summary">Aktifkan jika Anda ingin menambahkan ubin QS disediakan oleh GravityBox</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox tidak diinstal</string>
   <string name="allow_fancy_qs_transition">Transisi indah QS</string>
   <string name="enable_new_tile_click_behavior">Tindakan klik tile baru</string>
   <string name="enable_new_tile_click_behavior_summary">Meng-klik tile di header akan mengalihkan dan meng-klik tile di panel akan memperluasnya</string>
   <string name="enable_large_first_row">Perbesar baris pertama</string>
   <string name="enable_large_first_row_summary2">Membuat dua tile pertama terlihat lebih besar jika mendukung</string>
   <string name="fix_stuck_inversion_title">Perbaiki stuck inversi</string>
-  <string name="fix_stuck_inversion">Pada beberapa perangkat inversi warna tidak berubah ketika diaktifkan. Klik untuk memaksa penonaktifan</string>
-  <string name="header_clock_size_title">Ukuran header jam</string>
-  <string name="header_clock_size_normal">Normal</string>
-  <string name="header_clock_size_small">Kecil</string>
-  <string name="header_clock_size_smaller">Lebih kecil</string>
-  <string name="header_clock_size_tiny">Sangat kecil</string>
+  <string name="fix_stuck_inversion">Pada beberapa perangkat inversi warna tidak berubah ketika diaktifkan. Klik untuk paksa penonaktifan</string>
   <string name="hide_icons_title">Sembunyikan item header</string>
   <string name="hide_tuner_icon_title">Sembunyikan ikon SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Sembunyikan tombol edit tiles</string>
@@ -144,9 +147,9 @@ Versi ini berisi <b> banyak percobaan </b> fitur. Silahkan cari di XDA dan GitHu
   <string name="notifications_custom_actions_color_title">Kustom warna background</string>
   <string name="notifications_custom_actions_color">Gunakan warna kustom sebagai background tombol notifikasi</string>
   <string name="notifications_actions_color_title">Warna background aksi</string>
-  <string name="notification_experimental_title">Tindakan notifikasi eksperimental N</string>
+  <string name="notification_experimental_title">Tindakan pemberitahuan eksperimental N</string>
   <string name="notification_experimental">Penggulir N (tidak ada tumpukan atas)</string>
-  <string name="notification_keyguard_max_title">Notifikasi maksimal pada lockscreen</string>
+  <string name="notification_keyguard_max_title">Notifikasi maksimal pada layar kunci</string>
   <string name="enable_assistant">Aktifkan Google Assistant</string>
   <string name="enable_assistant_summary">Mengubah Pencarian Now on Tap dengan Google Assistant</string>
   <string name="enable_assistant_summary_unsupported">Versi Google App anda (%1$s) tidak didukung.</string>
@@ -224,13 +227,6 @@ Versi ini berisi <b> banyak percobaan </b> fitur. Silahkan cari di XDA dan GitHu
   <string name="unknown_name">Tidak diketahui</string>
   <string name="address">Alamat</string>
   <string name="unknown_address">Tidak diketahui</string>
-  <string name="date_of_birth">Tanggal lahir</string>
-  <string name="unknown_date_of_birth">Tidak diketahui</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Usia: %1$d</string>
-  <string name="remove_dob_icon_text">Hapus tanggal lahir</string>
   <string name="blood_type">Golongan darah</string>
   <string name="unknown_blood_type">Tidak diketahui</string>
   <string name="allergies">Alergi</string>
@@ -256,8 +252,6 @@ Versi ini berisi <b> banyak percobaan </b> fitur. Silahkan cari di XDA dan GitHu
   <string name="yes">Ya</string>
   <string name="no">Tidak</string>
   <string name="battery">Baterai</string>
-  <string name="charged">Terisi penuh</string>
-  <string name="charging">Mengisi, %1$s</string>
   <string name="qs_edit">Ubah</string>
   <string name="drag_to_add_tiles">Seret untuk menambahkan tiles</string>
   <string name="drag_to_remove_tiles">Seret kesini untuk menghapus</string>
@@ -327,13 +321,11 @@ Versi ini berisi <b> banyak percobaan </b> fitur. Silahkan cari di XDA dan GitHu
   <string name="battery_detail_switch_summary">Mengurangi kinerja dan data latar belakang</string>
   <string name="qs_add_notes_title">Catatan</string>
   <string name="qs_add_notes">Ini hanya digunakan untuk aplikasi yang mendukung broadcast tile (seperti aplikasi \"Kustom Quick Settings\"). Silakan baca petunjuk di tile penyedia aplikasi sebelum menggunakan ini.</string>
-  <string name="notification_spoof_api_version_title">Menipu API 24</string>
-  <string name="notification_spoof_api_version">Menipu ke dalam pemikiran aplikasi ini bahwa berjalan pada API 24</string>
   <string name="hide_tiles_on_lockscreen">Sembunyikan tiles di lockscreen</string>
   <string name="done">Selesai</string>
   <string name="cm_qs_settings">Pengaturan CM QS</string>
-  <string name="disable_qs_paging">Nonaktifkan QS paging</string>
-  <string name="disable_qs_paging_summary">Nonaktifkan paging QS di mode potret</string>
+  <string name="disable_qs_paging">Nonaktifkan halaman QS</string>
+  <string name="disable_qs_paging_summary">Nonaktifkan halaman QS di mode potret</string>
   <string name="allow_direct_reply_on_keyguard">Balas langsung pada lockscreen</string>
   <string name="allow_direct_reply_on_keyguard_summary">Izinkan pemberitahuan untuk dijawab di layar kunci</string>
   <string name="enable_notifications_background">Aktifkan background notifikasi</string>
@@ -357,4 +349,5 @@ Versi ini berisi <b> banyak percobaan </b> fitur. Silahkan cari di XDA dan GitHu
   <string name="enable_n_style_settings_dashboard">Setelan gaya N</string>
   <string name="enable_n_style_settings_dashboard_summary">Tema dasbor pengaturan terlihat seperti N</string>
   <string name="enable_settings_drawer">Aktifkan pengaturan drawer</string>
+  <string name="partial_screenshot">Parsial screenshot</string>
 </resources>

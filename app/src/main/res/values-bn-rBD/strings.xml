@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">পুনরায় broadcast প্রেরণ</string>
   <string name="activity_about">Android N-ify কথা</string>
   <string name="about_author">\@MrWasdennnoch দ্বারা।</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">\@MrWasdennnoch দ্বারা।</string>
   <string name="about_version">সংস্করণ %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>সতর্কীকরণ:</b> অগ্রাধিকার ফাইল Xposed দ্বারা রিডেবল নয়। আরও তথ্যের জন্য ক্লিক করুন &#8230;]]></string>
@@ -38,9 +38,15 @@ Xposed can\'t এই মডিউল অগ্রাধিকার ফাইল
   <string name="theme_colorPrimary">মূল রং</string>
   <string name="header_lockscreen">স্ক্রীন লক</string>
   <string name="header_settings">সেটিংস</string>
+  <string name="enable_settings_summaries_title">সংক্ষিপ্ত সেটিংস</string>
   <string name="enable_settings_summaries">Dashboard এ সরাসরি সবচেয়ে গুরুত্বপূর্ণ তথ্যগুলো প্রদর্শন করুন</string>
+  <string name="fix_sound_notif_tile_title">\'শব্দ ও বিজ্ঞপ্তি\' টাইল ঠিক করুন</string>
   <string name="fix_sound_notif_tile">কিছু ROM এ সাউন্ড ও নোটিফিকেশন টাইল একসাথে থাকে। এই টাইলের ঠিকঠাক সামারির জন্য এটি এনাবল করুন</string>
+  <string name="enable_n_platlogo_title">Easter egg এ N লোগো</string>
+  <string name="use_namey_mcnameface_title">\"Namey McNameface\" আইকন ব্যবহার করুন</string>
   <!-- Wifi disconnected -->
+  <string name="disconnected">সংযোগ বিচ্ছিন্ন</string>
+  <string name="disabled">সংযোগ বন্ধ</string>
   <string name="off">বন্ধ</string>
   <string name="on">চালু</string>
   <string name="data_usage_summary">%1$s ডাটা ব্যবহার করা হয়েছে</string>
@@ -49,14 +55,36 @@ Xposed can\'t এই মডিউল অগ্রাধিকার ফাইল
   <string name="sound_summary">স্বর প্রাবল্য হচ্ছে %1$s</string>
   <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d আপ ইনস্টল করা আছে</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
+  <string name="storage_summary">%1$s ও %2$s ব্যবহার</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
+  <string name="battery_summary">%1$s - approx. %2$s বাকি</string>
   <!-- Battery settings summary: Percentage -->
+  <string name="battery_charging_wireless">%1$s - ওয়ারলেস চার্জ হচ্ছে</string>
   <!-- Battery settings summary: Percentage -->
+  <string name="battery_charging_usb">%1$s - ইউএসবি চার্জ হচ্ছে</string>
   <!-- Battery settings summary: Percentage -->
+  <string name="battery_charging_ac">%1$s - এসি এ চার্জ হচ্ছে</string>
+  <string name="memory_summary">বর্তমানে %2$s এর %1$s ব্যবহৃত</string>
+  <string name="user_summary">%1$s হিসাবে সাইন করা</string>
+  <string name="location_on_power">চালু / শক্তি সংরক্ষণ</string>
+  <string name="location_on_device">চালু / শুধুমাত্র ডিভাইস</string>
+  <string name="location_on_high">চালু / উচ্চ নির্ভুলতা</string>
+  <string name="print_summary" tools:ignore="PluralsCandidate">মুদ্রণ কাজ %1$d</string>
   <!-- Header of app installation source -->
+  <string name="store">স্টোর</string>
   <!-- Header of app installation source -->
+  <string name="app_details">অ্যাপ সংক্রান্ত তথ্য</string>
+  <string name="install_source">অ্যাপটি %1$s থেকে ইনস্টল করা</string>
+  <string name="from_pm">অ্যাপটি Package Installer থেকে ইন্সটল করা</string>
+  <string name="header_recents">রিসেন্ট</string>
   <!-- That's how Google calls it -->
+  <string name="enable_recents_double_tap_title">দ্রুত পরিবর্তন</string>
+  <string name="enable_recents_double_tap">Recent Key দুইবার চেপে পূর্ববর্তী অ্যাপ চালু করা</string>
+  <string name="alternative_double_tap_title">বিকল্প উপায়ে Double tap শনাক্তকরণ</string>
+  <string name="alternative_double_tap">দ্রুত পরিবর্তন সঠিকভাবে কাজ না করলে সক্রিয় করুন</string>
+  <string name="double_tap_speed_title">Double tap এর গতি</string>
   <string name="recents_button_behavior_title">রিসেন্ট বাটনের ক্লিক আচরন</string>
+  <string name="recents_navigation_delay_title">নেভিগেশন বিলম্ব</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="recents_button_behavior_previous">আগের অ্যাপে ফিরে যান</string>
   <string name="recents_button_behavior_current">বর্তমান অ্যাপে ফিরে যান</string>
@@ -65,12 +93,11 @@ Xposed can\'t এই মডিউল অগ্রাধিকার ফাইল
   <!-- The unit of the counter next to the slider -->
   <string name="battery_tile_show_percentage">ব্যাটারিতে পার্সেন্টেজ চিহ্ন দেখান</string>
   <string name="enable_large_first_row">প্রথম সারি বড় করুন</string>
-  <string name="header_clock_size_title">হেডারের ঘড়ির সাইজ</string>
   <string name="hide_tuner_icon_title">SystemUI টিউনার আইকন হাইড করুন</string>
   <string name="hide_edit_tiles_title">এডিট টাইল বাটন হাইড করুন</string>
   <string name="hide_edit_tiles_summary">এটি শুধুমাত্র স্টক এডিট বাটন হাইড করে!</string>
   <!-- Search hint in the blacklist app Activity -->
-  <string name="notifications_custom_actions_color_title">কাস্টম অ্যাকসন ব্যাকগ্রাউন্ডের কালার ব্যবহার করুন</string>
+  <string name="notifications_custom_actions_color_title">কাস্টম অ্যাকসন ব্যাকগ্রাউন্ডের কালার</string>
   <string name="notifications_actions_color_title">অ্যাকসন ব্যাকগ্রাউন্ড এর রং</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -82,8 +109,6 @@ Xposed can\'t এই মডিউল অগ্রাধিকার ফাইল
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: (3 feb 1987) -->
-  <!-- Example: Age: 23 -->
   <!-- Example: 3 hours ago -->
   <!-- Example: 3 hours left -->
   <!-- Example: Approx. 3 hours left -->
@@ -99,10 +124,55 @@ Xposed can\'t এই মডিউল অগ্রাধিকার ফাইল
   <!-- Example: 75% - 3h -->
   <!-- Example: 75% - 3 hours until full from wireless -->
   <!-- Example: 75% - 3h -->
+  <string name="battery_info_status_not_charging">চার্জ হচ্ছে না</string>
+  <string name="battery_info_status_full">চার্জ হয়েছে</string>
+  <string name="battery_panel_title">ব্যাটারির ব্যবহার</string>
+  <string name="battery_detail_charging_summary">Battery Saver চার্জ চলাকালীন ব্যবহারযোগ্য নয়</string>
   <!-- Add a custom tile -->
+  <string name="add">যুক্ত করুন</string>
+  <string name="add_custom_tile">সম্প্রচার টাইল যুক্ত করুন</string>
   <!-- Warning when the input for the custom tile is empty -->
+  <string name="spec_shouldnt_be_blank">টাইল স্পেক খালি রাখা উচিৎ নয়</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">পুনরায় সেট করুন</string>
+  <string name="dialog_color_picker">রঙ নির্ধারণ</string>
+  <string name="press_color_to_apply">রঙ-এ চেপে প্রয়োগ করুন</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">HEX</string>
+  <string name="enable_install_source_title">অ্যাপ ইন্সটলের উৎস প্রদর্শন করুন</string>
+  <string name="enable_install_source">অ্যাপ ইনফো পেজ এ অ্যাপটি কোথা থেকে ইন্সটল করা হয়েছে (প্লে স্টোর অথবা প্যাকেজ ইন্সটলার) তা প্রদর্শন</string>
+  <string name="battery_detail_switch_title">ব্যাটারি সেভার</string>
+  <string name="battery_detail_switch_summary">ডাটা সম্পাদন ও প্রেক্ষাপট কমায়</string>
+  <string name="qs_add_notes_title">নোট</string>
+  <string name="qs_add_notes">এটি সম্প্রচার টাইল (যেমন \"পছন্দসই দ্রুত বিন্যাসন\")-এর জন্য ব্যবহৃত হয়। অনুগ্রহ করে টাইল প্রদানকারী app নির্দেশাবলী এর ব্যবহার করার আগে পড়ুন।</string>
+  <string name="hide_tiles_on_lockscreen">Lockscreen এ টাইল লুকিয়ে রাখুন</string>
+  <string name="done">হয়ে গেছে</string>
+  <string name="cm_qs_settings">CM QS সেটিংস</string>
+  <string name="disable_qs_paging">QS এ পেজিং নিষ্ক্রিয় করুন</string>
+  <string name="disable_qs_paging_summary">Portrait অবস্থায় QS পেজিং নিষ্ক্রিয় করুন</string>
+  <string name="allow_direct_reply_on_keyguard">Lockscreen এ সরাসরি রিপ্লাই</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Lockscreen থেকে Notification এর জবাব দেয়ার অনুমতি দিন</string>
+  <string name="enable_notifications_background">Notification এর ব্যাকগ্রাউন্ড চালু করুন</string>
+  <string name="enable_notifications_background_summary">Notification swipe করে মোছার সময় পিছনে সাদা ব্যাকগ্রাউন্ড প্রদর্শন</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_expand">কুইক সেটিংস চালু করুন।</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_collapse">কুইক সেটিংস বন্ধ করুন।</string>
+  <string name="warning">সতর্কতা</string>
+  <string name="dont_show_again">পুনরায় প্রদর্শন করবেন না</string>
+  <string name="enable_data_disabled_indicator">মোবাইল ডাটা বন্ধ প্রদর্শন করুন</string>
+  <string name="enable_data_disabled_indicator_summary">মোবাইল ডাটা বন্ধ হলে নির্দেশক হিসেবে \"x\" দেখান</string>
+  <string name="home">হোম</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="one">আপনি পরীক্ষামূলক বৈশিষ্ট্য চালু করতে %1$d ধাপ দূরে।</item>
+    <item quantity="other">আপনি পরীক্ষামূলক বৈশিষ্ট্য চালু করতে %1$d ধাপ দূরে।</item>
+  </plurals>
+  <string name="show_experimental_on">পরীক্ষামূলক বৈশিষ্ট্য চালু হয়েছে!</string>
+  <string name="show_experimental_on_already">কোন প্রয়োজন নেই, আপনি ইতিমধ্যে পরীক্ষামূলক বৈশিষ্ট্য চালু করেছেন।</string>
+  <string name="header_experimental">পরীক্ষামূলক</string>
+  <string name="enable_experimental_features">পরীক্ষামূলক বৈশিষ্ট্য সক্রিয় করুন</string>
+  <string name="enable_n_style_settings_dashboard">N স্টাইলের সেটিংস</string>
+  <string name="enable_n_style_settings_dashboard_summary">সেটিংস N এর মতো করুন</string>
+  <string name="enable_settings_drawer">Settings drawer Enable করুন</string>
+  <string name="partial_screenshot">আংশিক screenshot</string>
 </resources>

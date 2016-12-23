@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Послат је захтев за поновно покретање.</string>
   <string name="activity_about">О апликацији</string>
   <string name="about_author">Развио @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Превео Ђорђе Васиљевић</string>
   <string name="about_version">Верзија %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Упозорење:</b> Xposed не може да прочита датотеку са подешавањима. Додирните за више информација&#8230;]]></string>
@@ -110,11 +110,6 @@
   <string name="enable_large_first_row">Увећај први ред</string>
   <string name="fix_stuck_inversion_title">Исправи инверзију</string>
   <string name="fix_stuck_inversion">Не неким уређајима инверзија боја заблокира. Тапните овде за деактивацију</string>
-  <string name="header_clock_size_title">Величина сата у статусној траци</string>
-  <string name="header_clock_size_normal">Нормалан</string>
-  <string name="header_clock_size_small">Мали</string>
-  <string name="header_clock_size_smaller">Мањи</string>
-  <string name="header_clock_size_tiny">Сићушан</string>
   <string name="hide_icons_title">Сакриј елементе из панела брзих подешавања</string>
   <string name="hide_tuner_icon_title">Сакриј икону SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Сакриј дугме за уређивање плочица</string>
@@ -155,13 +150,9 @@
   <string name="update_notification_download_fail_details">Не могу да преузмем верзију %1$d.</string>
   <string name="emergency_info_launch_hint">Додирните поново да бисте отворили.</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: (3 feb 1987) -->
-  <!-- Example: Age: 23 -->
   <string name="yes">Да</string>
   <string name="no">Не</string>
   <string name="battery">Батерија</string>
-  <string name="charged">Напуњено</string>
-  <string name="charging">Пуњење, %1$s</string>
   <string name="qs_edit">Уреди</string>
   <string name="drag_to_add_tiles">Превуците плочицу да бисте је додали.</string>
   <string name="drag_to_remove_tiles">Превуците овде да бисте уклонили.</string>

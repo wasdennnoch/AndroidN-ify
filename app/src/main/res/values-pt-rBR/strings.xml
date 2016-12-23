@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Broadcast de reinício enviado</string>
   <string name="activity_about">Sobre o Android N-ify</string>
   <string name="about_author">Desenvolvido por @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Traduzido por @Kamin4ri, @marciozomb13 e @abacate123</string>
   <string name="about_version">Versão %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Aviso:</b> O arquivo de preferências não pode ser lido pelo Xposed. Clique para mais informações&#8230;]]></string>
@@ -77,7 +77,7 @@
   <!-- Battery settings summary: Percentage -->
   <string name="battery_charging_usb">%1$s - Carregando via USB</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s - Carregando via CA</string>
+  <string name="battery_charging_ac">%1$s - Carregando via Carregador</string>
   <string name="memory_summary">Uso de memória %1$s de %2$s </string>
   <string name="user_summary">Conectado como %1$s</string>
   <string name="location_on_power">ATIVADA / Economia de energia</string>
@@ -97,29 +97,37 @@
   <string name="alternative_double_tap_title">Detecção alternativa do toque duplo</string>
   <string name="alternative_double_tap">Ative se a Troca rápida não estiver funcionando corretamente</string>
   <string name="double_tap_speed_title">Velocidade do duplo toque</string>
-  <string name="recents_button_behavior_title">Ação do botão de apps recentes</string>
+  <string name="recents_button_behavior_title">Comportamento do botão de apps recentes</string>
   <string name="recents_navigation_delay_title">Intervalo de navegação</string>
   <string name="recents_navigation_delay">Tempo até que o app selecionado seja colocado em foco</string>
   <string name="enable_large_recents">Apps recentes grandes</string>
   <string name="enable_large_recents_summary">Apenas altera a largura das aplicações recentes, e não a altura</string>
-  <string name="no_recents_image">Mudar a imagem de \"sem itens recentes\"</string>
+  <string name="no_recents_image">Alterar a imagem de \"Nenhum app recente\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
-  <string name="no_previous_recents">Sem itens recentes</string>
+  <string name="no_previous_recents">Nenhum app recente</string>
   <string name="recents_button_behavior_previous">Voltar para o app anterior</string>
   <string name="recents_button_behavior_current">Voltar para o app atual</string>
   <string name="recents_button_behavior_cycle">Alternar entre apps</string>
   <string name="header_qs">Configurações rápidas</string>
   <string name="enable_notification_header">Mudar o estilo do cabeçalho</string>
-  <string name="keep_bg_title">Fundos sem alterações</string>
+  <string name="keep_bg_title">Planos de fundo sem alterações</string>
   <string name="keep_bg">Útil para temas que aplicam fundos personalizados</string>
   <string name="keep_header_bg">Cabeçalho</string>
   <string name="keep_panel_bg">Painel de CR</string>
+  <string name="force_old_date_position">Forçar data ao lado do relógio</string>
+  <string name="force_old_date_position_summary">Em telas menores do que um determinado tamanho a data é exibida abaixo do relógio em vez de ao lado dela, visível apenas ao expandir o painel de Configurações Rápidas. Habilite para substituir esse comportamento</string>
+  <string name="force_old_date_position_disabled_summary">O seu dispositivo já suporta a nova posição de data</string>
   <string name="notification_header_qs_tiles_count">Blocos de configurações rápidas a mostrar</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">bloco(s)</string>
   <string name="battery_tile_show_percentage">Mostrar porcentagem no bloco de bateria</string>
   <string name="battery_tile_show_percentage_summary">Mostra a porcentagem de bateria nas configurações rápidas</string>
   <string name="enable_qs_editor">Ativar editor de CR</string>
+  <string name="alternative_qs_loading">Método alternativo de carregamento de Configurações Rápidas</string>
+  <string name="alternative_qs_loading_summary">Use uma forma alternativa para obter os itens de Configurações Rápidas disponíveis. Use apenas se estiver faltando itens no editor</string>
+  <string name="inject_gb_tiles">Injetar itens de Configurações Rápidas do GravityBox</string>
+  <string name="inject_gb_tiles_summary">Habilitar se você deseja adicionar itens de Configurações Rápidas fornecidas pelo GravityBox</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox não está instalado</string>
   <string name="allow_fancy_qs_transition">Nova transição de CR</string>
   <string name="enable_new_tile_click_behavior">Ativar novo estilo de clique no bloco</string>
   <string name="enable_new_tile_click_behavior_summary">Clicar em um bloco no cabeçalho o ativa/desativa e clicar em um bloco no painel o expande</string>
@@ -127,11 +135,6 @@
   <string name="enable_large_first_row_summary2">Faz com que os dois primeiros blocos sejam maiores, se suportado</string>
   <string name="fix_stuck_inversion_title">Consertar inversão presa</string>
   <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores falha quando ativada. Selecione esta opção para forçar a desativação</string>
-  <string name="header_clock_size_title">Tamanho do relógio do cabeçalho</string>
-  <string name="header_clock_size_normal">Normal</string>
-  <string name="header_clock_size_small">Pequeno</string>
-  <string name="header_clock_size_smaller">Menor</string>
-  <string name="header_clock_size_tiny">Minúsculo</string>
   <string name="hide_icons_title">Esconder itens do cabeçalho</string>
   <string name="hide_tuner_icon_title">Esconder o ícone do SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Esconder o botão de editar blocos</string>
@@ -145,7 +148,7 @@
   <string name="action_search">Buscar</string>
   <string name="notification_blacklisted_apps_title">Lista negra</string>
   <string name="notification_blacklisted_apps">Não usar o novo estilo de notificações para estes apps</string>
-  <string name="notifications_custom_actions_color_title">Usar cor de fundo das ações personalizada</string>
+  <string name="notifications_custom_actions_color_title">Usar cor de fundo das ações personalizadas</string>
   <string name="notifications_custom_actions_color">Usar uma cor personalizada para o fundo dos botões das notificações</string>
   <string name="notifications_actions_color_title">Cor de fundo das ações</string>
   <string name="notification_experimental_title">Comportamento experimental para notificações</string>
@@ -236,13 +239,6 @@
   <string name="unknown_name">Desconhecido</string>
   <string name="address">Endereço</string>
   <string name="unknown_address">Desconhecido</string>
-  <string name="date_of_birth">Data de nascimento</string>
-  <string name="unknown_date_of_birth">Desconhecido</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Idade: %1$d</string>
-  <string name="remove_dob_icon_text">Remover data de nascimento</string>
   <string name="blood_type">Tipo de sangue</string>
   <string name="unknown_blood_type">Desconhecido</string>
   <string name="allergies">Alergias</string>
@@ -268,8 +264,6 @@
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="battery">Bateria</string>
-  <string name="charged">Carregado</string>
-  <string name="charging">Carregando, %1$s</string>
   <string name="qs_edit">Editar</string>
   <string name="drag_to_add_tiles">Arraste para adicionar blocos</string>
   <string name="drag_to_remove_tiles">Arraste aqui para remover</string>
@@ -331,7 +325,7 @@ transmissão</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="reset_tiles">Resetar</string>
   <string name="dialog_color_picker">Seletor de cores</string>
-  <string name="press_color_to_apply">Pressione Cor para aplicar</string>
+  <string name="press_color_to_apply">Pressione a cor para aplicar</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Mostrar fonte de instalação dos aplicativos</string>
@@ -340,8 +334,6 @@ transmissão</string>
   <string name="battery_detail_switch_summary">Reduz o desempenho e os dados em segundo plano</string>
   <string name="qs_add_notes_title">Notas</string>
   <string name="qs_add_notes">Isto é usado somente para aplicativos que fornecem tiles de broadcast (tais como \"Custom Quick Settings\"). Leia as instruções no tile do provedor do app antes de usar isto.</string>
-  <string name="notification_spoof_api_version_title">Simular API 24</string>
-  <string name="notification_spoof_api_version">Enganar esses aplicativos para que pensem que estão rodando na API 24</string>
   <string name="hide_tiles_on_lockscreen">Esconder blocos na tela de bloqueio</string>
   <string name="done">Concluído</string>
   <string name="cm_qs_settings">Definições de CR da CM</string>
@@ -371,4 +363,5 @@ transmissão</string>
   <string name="enable_n_style_settings_dashboard">Configurações do estilo Nougat</string>
   <string name="enable_n_style_settings_dashboard_summary">Tematizar painel de configurações no estilo N</string>
   <string name="enable_settings_drawer">Ativar a gaveta de configurações</string>
+  <string name="partial_screenshot">Captura de tela parcial</string>
 </resources>

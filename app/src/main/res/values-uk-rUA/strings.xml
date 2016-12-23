@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Запит на перезавантаження надіслано</string>
   <string name="activity_about">Про Android N-ify</string>
   <string name="about_author">Розробник @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Переклад @Electroz</string>
   <string name="about_version">Версія %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Попередження:</b> Файл конфігурації не може бути прочитаний Xposed. Натисніть для детальної інформації&#8230;]]></string>
@@ -27,6 +27,12 @@
         Ви запускаєте автоматичну збірку. Деякі частини модуля можуть зламатися через нові зміни.
         Якщо ви знайшли якусь проблему, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">повідомте про неї на GitHub</a> якщо вона там не існує.<br><br>
         Не забувайте завжди прикріплювати журнали Xposed до повідомлень про помилки та logcat у разі аварій.
+        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+        Ви запустили експериментальну автоматичну збірку. Деякі частини модуля можуть зламатися через нові зміни.
+        Якщо у вас з\'являться будь-які питання, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> відкрийте GitHub</a>, і перегляньте, чи не задавалося це питання раніше.<br>
+        Ця збірка містить <b>дуже експериментальні</b> функції. Будь ласка, пошукайте на XDA та GitHub, перш ніж задавати будь-які питання. Повторювані звіти будуть проігноровані та закриті.<br><br>
+        Пам\'ятайте: завжди прикріплюйте журнал Xposed до повідомлення про помилки і logcat у разі аварій.
         ]]></string>
   <string name="header_tweaks">Твіки</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
@@ -95,6 +101,7 @@
   <string name="recents_navigation_delay_title">Затримка навігації</string>
   <string name="recents_navigation_delay">Час, за який виділений додаток отримає фокус</string>
   <string name="enable_large_recents">Великі нещодавні програми</string>
+  <string name="enable_large_recents_summary">Робить запущені додатки ширшими, але не високими</string>
   <string name="no_recents_image">Змінити зображення \"Немає нещодавніх додатків\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Немає нещодавних додатків</string>
@@ -107,23 +114,27 @@
   <string name="keep_bg">Корисно для тих, які використовують своє тло для панелі швидких налаштувань</string>
   <string name="keep_header_bg">Заголовок рядка стану</string>
   <string name="keep_panel_bg">Панель Швидких налаштувань</string>
+  <string name="force_old_date_position">Дата після часу</string>
+  <string name="force_old_date_position_summary">На екранах менше певного розміру дата відображається під годинником, а не поруч з ними, видно тільки при розширенні групи QS. Увімкніть, щоб змінити цю поведінку</string>
+  <string name="force_old_date_position_disabled_summary">Ваш пристрій вже підтримує нову позицію дати</string>
   <string name="notification_header_qs_tiles_count">Кількість плиток в панелі Швидкого перемикання</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">плитків</string>
   <string name="battery_tile_show_percentage">Показувати відсотки на плитці з акумулятором</string>
   <string name="battery_tile_show_percentage_summary">Показувати залишок батареї у відсотках на плитці з акумулятором</string>
   <string name="enable_qs_editor">Новий редактор плиток</string>
+  <string name="alternative_qs_loading">Альтернативний варіант завантаження QS</string>
+  <string name="alternative_qs_loading_summary">Використовуйте інший спосіб, щоб отримати QS плитки. Використовуйте тільки, якщо ви отримуєте помилку в редакторі</string>
+  <string name="inject_gb_tiles">Додати плитки GravityBox</string>
+  <string name="inject_gb_tiles_summary">Увімкніть, якщо ви хочете додати QS плитки, що надаються GravityBox</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox не встановлено</string>
   <string name="allow_fancy_qs_transition">Анімація переходу плиток</string>
   <string name="enable_new_tile_click_behavior">Перемикати швидкі налаштування одним натисканням</string>
   <string name="enable_new_tile_click_behavior_summary">При натисканні на плитку у рядку швидкого доступу перемкне стан, і натисніть плитку на панелі, щоб розширити</string>
   <string name="enable_large_first_row">Збільшити перший рядок</string>
+  <string name="enable_large_first_row_summary2">Перші дві плитки з\'являються великими, якщо підтримується</string>
   <string name="fix_stuck_inversion_title">Виправити інверсію</string>
   <string name="fix_stuck_inversion">На деяких пристроях інверсія застряє, коли увімкнена. Натисніть для примусового вимкнення</string>
-  <string name="header_clock_size_title">Розмір годинника в рядку стану</string>
-  <string name="header_clock_size_normal">Звичайний</string>
-  <string name="header_clock_size_small">Маленький</string>
-  <string name="header_clock_size_smaller">Малий</string>
-  <string name="header_clock_size_tiny">Мінімальний</string>
   <string name="hide_icons_title">Сховати елементи панелі швидких налаштувань</string>
   <string name="hide_tuner_icon_title">Приховати значок SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Приховати кнопку редагування плиток</string>
@@ -138,11 +149,13 @@
   <string name="notification_blacklisted_apps_title">Чорний список додатків</string>
   <string name="notification_blacklisted_apps">Використовувати старий стиль сповіщень для цих додатків</string>
   <string name="notifications_custom_actions_color_title">Змінити колір фону панелі дій</string>
+  <string name="notifications_custom_actions_color">Використовуйте користувацький колір, як тло кнопки сповіщення</string>
   <string name="notifications_actions_color_title">Колір фону панелі дій</string>
   <string name="notification_experimental_title">Експериментальний стиль N сповіщень</string>
   <string name="notification_experimental">Метод прокрутки з N (немає верхнього складання)</string>
   <string name="notification_keyguard_max_title">Максимальна кількість сповіщень при заблокованій клавіатурі</string>
   <string name="enable_assistant">Увімкнути помічник Google</string>
+  <string name="enable_assistant_summary">Замінює Now on Tap/Екран пошуку нового Google Assistant</string>
   <string name="enable_assistant_summary_unsupported">Ваша версія Google App\'s (%1$s) не підтрімується.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">щойно</string>
@@ -234,13 +247,6 @@
   <string name="unknown_name">Невідомо</string>
   <string name="address">Адреса</string>
   <string name="unknown_address">Невідомо</string>
-  <string name="date_of_birth">Дата народження</string>
-  <string name="unknown_date_of_birth">Невідомо</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Вік: %1$d</string>
-  <string name="remove_dob_icon_text">Видалити дату народження</string>
   <string name="blood_type">Група крові</string>
   <string name="unknown_blood_type">Невідомо</string>
   <string name="allergies">Алергії</string>
@@ -266,8 +272,6 @@
   <string name="yes">Так</string>
   <string name="no">Ні</string>
   <string name="battery">Акумулятор</string>
-  <string name="charged">Заряджено</string>
-  <string name="charging">Зарядка, %1$s</string>
   <string name="qs_edit">Змінити</string>
   <string name="drag_to_add_tiles">Перетягніть, щоб додати плитку</string>
   <string name="drag_to_remove_tiles">Перетягніть сюди, щоб видалити</string>
@@ -337,15 +341,15 @@
   <string name="battery_detail_switch_summary">Знижує продуктивність та фонові дані</string>
   <string name="qs_add_notes_title">Примітки</string>
   <string name="qs_add_notes">Це використовується лише для додатків, які надають плитки трансляції (наприклад, «Custom Quick Settings»). Будь ласка, прочитайте інструкції в додатку постачальника плиток перед використанням цього.</string>
-  <string name="notification_spoof_api_version_title">Підміняти на API 24</string>
-  <string name="notification_spoof_api_version">Обманювати ці додатки, щоб вони думали, що вони працюють на API 24</string>
   <string name="hide_tiles_on_lockscreen">Приховати плитки на екрані блокування</string>
   <string name="done">Зроблено</string>
   <string name="cm_qs_settings">Налаштування CM QS</string>
   <string name="disable_qs_paging">Вимкнути сторінки в QS</string>
   <string name="disable_qs_paging_summary">Вимкнути сторінки у верт. орієнтації</string>
   <string name="allow_direct_reply_on_keyguard">Швидка відповідь на екрані блокування</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Увімкнути сповіщення для відповіді на екрані блокування</string>
   <string name="enable_notifications_background">Увімкнути тло сповіщень</string>
+  <string name="enable_notifications_background_summary">Малює білий фон сповіщення при його змахуванні</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">Відкрити швидкі налаштування.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
@@ -353,12 +357,19 @@
   <string name="warning">Увага</string>
   <string name="dont_show_again">Більше не показувати</string>
   <string name="enable_data_disabled_indicator">Показати індикатор вимкнених моб. даних</string>
+  <string name="enable_data_disabled_indicator_summary">Показує «x» в якості індикатора сигналу при вимкнених даних</string>
   <string name="home">Головна</string>
   <plurals name="enable_experimental_countdown">
     <item quantity="one">Ви в %1$d кроці вид увімкнення експериментальних функцій.</item>
     <item quantity="few">Ви в %1$d кроках вид увімкнення експериментальних функцій.</item>
     <item quantity="other">Ви в %1$d кроках вид увімкнення експериментальних функцій.</item>
   </plurals>
+  <string name="show_experimental_on">Ви увімкнули експериментальні можливості!</string>
+  <string name="show_experimental_on_already">Немає необхідності, ви вже увімкнули експериментальні функції.</string>
+  <string name="header_experimental">Експериментальні</string>
   <string name="enable_experimental_features">Увімкнути експериментальні функції</string>
   <string name="enable_n_style_settings_dashboard">Налаштування в стилі N</string>
+  <string name="enable_n_style_settings_dashboard_summary">Тема налаштування панелі в стилі N</string>
+  <string name="enable_settings_drawer">Включити бокове меню в налаштуваннях</string>
+  <string name="partial_screenshot">Частковий знімок екрану</string>
 </resources>

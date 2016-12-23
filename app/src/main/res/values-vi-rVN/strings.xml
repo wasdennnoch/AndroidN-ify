@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Đã gửi tín hiệu khởi động lại</string>
   <string name="activity_about">Về Android N-ify</string>
   <string name="about_author">Lập trình bởi @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Dịch bởi @xpduyson</string>
   <string name="about_version">Phiên bản %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Cảnh báo:</b> Xposed không thể đọc file cấu hình. Nhấn để thêm thông tin&#8230;]]></string>
@@ -102,12 +102,20 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="keep_bg">Hữu ích cho giao diện áp dụng tùy biến màu nền</string>
   <string name="keep_header_bg">Tiêu đề </string>
   <string name="keep_panel_bg">Thanh C.đặt nhanh</string>
+  <string name="force_old_date_position">Bắt buộc ngày bên cạnh giờ</string>
+  <string name="force_old_date_position_summary">Trên màn hình nhỏ hơn so với một kích thước nhất định ngày được hiển thị bên dưới đồng hồ thay vì bên cạnh nó, chỉ có thể nhìn thấy khi mở rộng bảng điều khiển của QS. Cho phép ghi đè lên các hành vi này</string>
+  <string name="force_old_date_position_disabled_summary">Điện thoại đã hỗ trợ vị trí ngày mới</string>
   <string name="notification_header_qs_tiles_count">Số lượng ô cài đặt nhanh</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">ô</string>
   <string name="battery_tile_show_percentage">Hiện phần trăm trên ô Pin</string>
   <string name="battery_tile_show_percentage_summary">Hiện phần trăm pin trên ô Pin</string>
   <string name="enable_qs_editor">Bật trình sửa C.đặt nhanh</string>
+  <string name="alternative_qs_loading">Thay thế phương pháp tải QS</string>
+  <string name="alternative_qs_loading_summary">Sử dụng một cách khác cho các mục QS có sẵn. Chỉ sử dụng nếu bạn đang thiếu mục trong trình biên tập</string>
+  <string name="inject_gb_tiles">Thêm mục GravityBox</string>
+  <string name="inject_gb_tiles_summary">Kích hoạt nếu bạn muốn thêm mục QS được cung cấp bởi GravityBox</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox không được cài đặt</string>
   <string name="allow_fancy_qs_transition">Hiệu ứng đẹp mắt cho C.đặt nhanh</string>
   <string name="enable_new_tile_click_behavior">Hành vi kiểu Android N khi nhấn vào ô</string>
   <string name="enable_new_tile_click_behavior_summary">Nhấn vào ô trên thanh tiêu đề để bật/tắt, nhấn vào ô trong Cài đặt nhanh để phóng lớn nó</string>
@@ -115,11 +123,6 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="enable_large_first_row_summary2">Phóng lớn hai nút đầu tiên nếu được hỗ trợ</string>
   <string name="fix_stuck_inversion_title">Sửa kẹt đảo ngược</string>
   <string name="fix_stuck_inversion">Trên một số thiết bị, hiệu ứng lộn ngược bị kẹt khi bật. Bấm để ép tắt</string>
-  <string name="header_clock_size_title">Cỡ đồng hồ trên thanh tiêu đề </string>
-  <string name="header_clock_size_normal">Bình thường </string>
-  <string name="header_clock_size_small">Nhỏ </string>
-  <string name="header_clock_size_smaller">Nhỏ hơn </string>
-  <string name="header_clock_size_tiny">Tí hon </string>
   <string name="hide_icons_title">Ẩn các mục trên thanh tiêu đề</string>
   <string name="hide_tuner_icon_title">Ẩn icon SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Ẩn nút tùy chỉnh ô</string>
@@ -216,13 +219,6 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="unknown_name">Không biết</string>
   <string name="address">Địa chỉ</string>
   <string name="unknown_address">Không biết</string>
-  <string name="date_of_birth">Ngày sinh</string>
-  <string name="unknown_date_of_birth">Không biết</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Tuổi: %1$d</string>
-  <string name="remove_dob_icon_text">Loại bỏ ngày sinh</string>
   <string name="blood_type">Nhóm máu</string>
   <string name="unknown_blood_type">Chưa biết</string>
   <string name="allergies">Bị dị ứng</string>
@@ -248,8 +244,6 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="yes">Có</string>
   <string name="no">Không</string>
   <string name="battery">Pin</string>
-  <string name="charged">Đã sạc xong</string>
-  <string name="charging">Đang sạc, %1$s</string>
   <string name="qs_edit">Sửa</string>
   <string name="drag_to_add_tiles">Kéo để thêm ô</string>
   <string name="drag_to_remove_tiles">Kéo vào đây để xóa</string>
@@ -319,8 +313,6 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="battery_detail_switch_summary">Giảm hiệu năng và dữ liệu nền </string>
   <string name="qs_add_notes_title">Ghi chú</string>
   <string name="qs_add_notes">Điều này chỉ được sử dụng cho các ứng dụng cung cấp cho tiêu đề phát sóng (chẳng hạn như \"Tùy chỉnh nhanh chóng cài đặt\"). Xin vui lòng đọc hướng dẫn trong các ứng dụng nhà cung cấp tiêu đề trước khi sử dụng điều này.</string>
-  <string name="notification_spoof_api_version_title">Spoof API 24</string>
-  <string name="notification_spoof_api_version">Spoof các ứng dụng vào suy nghĩ họ đang chạy vào API 24</string>
   <string name="hide_tiles_on_lockscreen">Ẩn tiêu đề trên màn hình khóa khóa</string>
   <string name="done">Xong</string>
   <string name="cm_qs_settings">Cài đặt CM QS</string>
@@ -349,4 +341,5 @@ Bạn đang chạy trên một bản xây dựng tự động. Một số phần
   <string name="enable_n_style_settings_dashboard">Menu cài đặt theo phong cách Android N</string>
   <string name="enable_n_style_settings_dashboard_summary">Đổi giao diện cài đặt thành phong cách Android N</string>
   <string name="enable_settings_drawer">Bật ngăn cài đặt</string>
+  <string name="partial_screenshot">Ảnh chụp màn hình một phần</string>
 </resources>

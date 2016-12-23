@@ -4,10 +4,10 @@
   <string name="xposed_description">Dodaje funkcje wprowadzone w Android N do Androida Lollipop i Marshmallow!</string>
   <string name="restart_systemui">Zrestartuj SystemUI</string>
   <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
-  <string name="restart_broadcast_sent">Wysłano polecenie restartu</string>
+  <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
   <string name="activity_about">O Android N-ify</string>
   <string name="about_author">Stworzone przez @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Przetłumaczone przez @ziggynlp</string>
   <string name="about_version">Wersja %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Uwaga:</b> Plik ustawień nie może zostać odczytany przez Xposed. Kliknij aby uzyskać więcej informacji&#8230;]]></string>
@@ -93,7 +93,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Szybkie przełączanie</string>
   <string name="enable_recents_double_tap">Podwójne dotknij klawisz poprzednio używanych aplikacji, aby zmienić na poprzednio używaną aplikację</string>
-  <string name="alternative_double_tap_title">Aletratywna metoda wykrywania podwójnego dotknięcia</string>
+  <string name="alternative_double_tap_title">Alternatywna metoda wykrywania podwójnego dotknięcia</string>
   <string name="alternative_double_tap">Włącz, jeśli Szybkie przełączanie nie działa poprawnie</string>
   <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
   <string name="recents_button_behavior_title">Zachowanie przycisku poprzednich aplikacji</string>
@@ -113,12 +113,20 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="keep_bg">Przydatne dla motywów, które używają niestandardowe tła</string>
   <string name="keep_header_bg">Nagłówek</string>
   <string name="keep_panel_bg">Panel szybkich ustawień</string>
+  <string name="force_old_date_position">Wymuś datę obok czasu</string>
+  <string name="force_old_date_position_summary">Na ekranach mniejszych niż określony rozmiar data wyświetla się pod godziną zamiast obok niej i jest widoczna tylko po rozwinięciu panelu szybkich ustawień. Włącz tę opcję, aby to zmienić</string>
+  <string name="force_old_date_position_disabled_summary">Twoje urządzenie już obsługuje nową pozycję daty</string>
   <string name="notification_header_qs_tiles_count">Ilość kafelków szybkich ustawień</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">kafelków</string>
   <string name="battery_tile_show_percentage">Pokaż procent naładowania baterii w kafelku</string>
   <string name="battery_tile_show_percentage_summary">Wyświetla wartość procentową naładowania baterii w kafelku</string>
   <string name="enable_qs_editor">Włącz edytor szybkich ustawień</string>
+  <string name="alternative_qs_loading">Alternatywna metoda ładowania szybkich ustawień</string>
+  <string name="alternative_qs_loading_summary">Używa innego sposobu, aby uzyskać dostępne kafelki szybkich ustawień. Użyj tylko, gdy niektóre z dostępnych kafelków nie wyświetlają się w edytorze ustawień</string>
+  <string name="inject_gb_tiles">Dodaj kafelki z GravityBox</string>
+  <string name="inject_gb_tiles_summary">Włącz, jeśli chcesz dodać kafelki szybkich ustawień z GravityBox</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox nie jest zainstalowany</string>
   <string name="allow_fancy_qs_transition">Efektowna animacja szybkich ustawień</string>
   <string name="enable_new_tile_click_behavior">Zachowanie kafelków z Androida N</string>
   <string name="enable_new_tile_click_behavior_summary">Dotknięcie kafelka w nagłówku włączy/wyłączy go, \na dotknięcie kafelka w rozwiniętym panelu rozszerzy go</string>
@@ -126,11 +134,6 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="enable_large_first_row_summary2">Sprawia, że dwa pierwsze skróty są większe, o ile jest to obsługiwane</string>
   <string name="fix_stuck_inversion_title">Napraw zacinanie się kafelka odwrócenia kolorów</string>
   <string name="fix_stuck_inversion">Na niektórych urządzeniach odwrócenie kolorów zacina się gdy jest włączone. Kliknij aby je wyłączyć</string>
-  <string name="header_clock_size_title">Rozmiar zegarka w nagłówku</string>
-  <string name="header_clock_size_normal">Normalny</string>
-  <string name="header_clock_size_small">Mały</string>
-  <string name="header_clock_size_smaller">Mniejszy</string>
-  <string name="header_clock_size_tiny">Najmniejszy</string>
   <string name="hide_icons_title">Ukryj wybrane elementy nagłówka</string>
   <string name="hide_tuner_icon_title">Ukryj ikonę edycji SystemUI</string>
   <string name="hide_edit_tiles_title">Ukryj przycisk edycji kafelków</string>
@@ -243,13 +246,6 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="unknown_name">Nieznane</string>
   <string name="address">Adres</string>
   <string name="unknown_address">Nieznany</string>
-  <string name="date_of_birth">Data urodzenia</string>
-  <string name="unknown_date_of_birth">Nieznana</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Wiek: %1$d</string>
-  <string name="remove_dob_icon_text">Usuń datę urodzenia</string>
   <string name="blood_type">Grupa krwi</string>
   <string name="unknown_blood_type">Nieznana</string>
   <string name="allergies">Alergie</string>
@@ -275,8 +271,6 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
   <string name="battery">Bateria</string>
-  <string name="charged">Naładowana</string>
-  <string name="charging">Ładowanie, %1$s</string>
   <string name="qs_edit">Edycja</string>
   <string name="drag_to_add_tiles">Przeciągnij aby dodać kafelek</string>
   <string name="drag_to_remove_tiles">Przeciągnij tu, aby usunąć</string>
@@ -346,8 +340,6 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="battery_detail_switch_summary">Zmniejsza wydajność i ogranicza dane w tle</string>
   <string name="qs_add_notes_title">Notatki</string>
   <string name="qs_add_notes">Używane tylko dla aplikacji, które zapewniają emisję danych (jak na przykład \"Szybkie ustawienia\"). Proszę przeczytać instrukcje w odpowiedniej aplikacji przed użyciem tej opcji.</string>
-  <string name="notification_spoof_api_version_title">Okantuj API 24</string>
-  <string name="notification_spoof_api_version">Zmuś aplikacje do myślenia, że działają na API 24</string>
   <string name="hide_tiles_on_lockscreen">Ukryj kafelki na ekranie blokady</string>
   <string name="done">Gotowe</string>
   <string name="cm_qs_settings">Ustawienia szybkich ustawień CM</string>
@@ -356,7 +348,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="allow_direct_reply_on_keyguard">Bezpośrednio odpowiadaj na ekranie blokady</string>
   <string name="allow_direct_reply_on_keyguard_summary">Zezwala na odpowiedzi z ekranu blokowania</string>
   <string name="enable_notifications_background">Włącz powiadomienia w tle</string>
-  <string name="enable_notifications_background_summary">Tworzy białe tło za powiadomieniem, gdy zostało przesunięte</string>
+  <string name="enable_notifications_background_summary">Tworzy białe tło za powiadomieniem, gdy zostanie ono przesunięte</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">Otwórz szybkie ustawienia.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
@@ -375,7 +367,8 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="show_experimental_on_already">Już uruchomiłeś funkcje eksperymentalne.</string>
   <string name="header_experimental">Eksperymentalne</string>
   <string name="enable_experimental_features">Uruchom eksperymentalne funkcje</string>
-  <string name="enable_n_style_settings_dashboard">Ustawienia w stylu N</string>
+  <string name="enable_n_style_settings_dashboard">Ustawienia w stylu Nougat</string>
   <string name="enable_n_style_settings_dashboard_summary">Motyw i powłoka ustawień wyglądają jak Androidzie Nougat</string>
   <string name="enable_settings_drawer">Uruchom menu boczne w ustawieniach</string>
+  <string name="partial_screenshot">Zrzut kawałka ekranu</string>
 </resources>

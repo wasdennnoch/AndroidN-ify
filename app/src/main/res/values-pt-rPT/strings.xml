@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Pedido de reinício enviado</string>
   <string name="activity_about">Acerca do Android N-ify</string>
   <string name="about_author">Desenvolvido por @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Traduzido por @tfaeusebio e @Kamin4ri</string>
   <string name="about_version">Versão %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Aviso:</b> O ficheiro de preferências não pode ser lido pelo Xposed. Clique para mais informações&#8230;]]></string>
@@ -114,12 +114,20 @@
   <string name="keep_bg">Permitir que os temas apliquem fundos personalizados</string>
   <string name="keep_header_bg">Cabeçalho</string>
   <string name="keep_panel_bg">Painel de Definições Rápidas</string>
+  <string name="force_old_date_position">Forçar data em linha com o relógio</string>
+  <string name="force_old_date_position_summary">Em ecrãs mais pequenos a data aparece por baixo do relógio em vez de aparecer ao seu lado, ficando apenas visível ao expandir o painel de Def. Rápidas. Ative para substituir este comportamento</string>
+  <string name="force_old_date_position_disabled_summary">O seu dispositivo já suporta a nova posição para a data</string>
   <string name="notification_header_qs_tiles_count">Núm. de Definições Rápidas a mostrar</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">mosaicos</string>
   <string name="battery_tile_show_percentage">Mostrar percentagem no ícone da bateria</string>
   <string name="battery_tile_show_percentage_summary">Mostra a percentagem no ícone do mosaico da bateria</string>
   <string name="enable_qs_editor">Ativar o editor de Def. Rápidas</string>
+  <string name="alternative_qs_loading">Método alternativo de carregamento das Def. Rápidas</string>
+  <string name="alternative_qs_loading_summary">Obter os mosaicos de Def. Rápidas utilizando um método diferente. Utilize apenas se verificar que estão mosaicos em falta no editor</string>
+  <string name="inject_gb_tiles">Injetar mosaicos do GravityBox</string>
+  <string name="inject_gb_tiles_summary">Ative se desejar adicionar mosaicos disponibilizados pelo GravityBox</string>
+  <string name="inject_gb_tiles_not_installed">O GravityBox não está instalado</string>
   <string name="allow_fancy_qs_transition">Transição de Def. Rápidas animada</string>
   <string name="enable_new_tile_click_behavior">Alterar estado ao invés de expandir</string>
   <string name="enable_new_tile_click_behavior_summary">Ao tocar num mosaico do cabeçalho, alterar-se-à o seu estado e tocar num bloco no painel irá expandi-lo</string>
@@ -127,11 +135,6 @@
   <string name="enable_large_first_row_summary2">Faz com que os dois primeiros mosaicos sejam maiores, se suportado</string>
   <string name="fix_stuck_inversion_title">Resolver bloqueio da inversão de cores</string>
   <string name="fix_stuck_inversion">Em alguns dispositivos, a inversão de cores fica bloqueada no modo ativo. Selecione esta opção para forçar a desativação.</string>
-  <string name="header_clock_size_title">Tamanho do relógio do cabeçalho</string>
-  <string name="header_clock_size_normal">Normal</string>
-  <string name="header_clock_size_small">Pequeno</string>
-  <string name="header_clock_size_smaller">Menor</string>
-  <string name="header_clock_size_tiny">Minúsculo</string>
   <string name="hide_icons_title">Esconder itens do cabeçalho</string>
   <string name="hide_tuner_icon_title">Ícone do Sintonizador da interface do sistema, se disponível</string>
   <string name="hide_edit_tiles_title">Botão de editar mosaicos, se disponível</string>
@@ -236,13 +239,6 @@
   <string name="unknown_name">Desconhecido</string>
   <string name="address">Morada</string>
   <string name="unknown_address">Desconhecida</string>
-  <string name="date_of_birth">Data de nascimento</string>
-  <string name="unknown_date_of_birth">Desconhecido</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Idade: %1$d</string>
-  <string name="remove_dob_icon_text">Remover data de nascimento</string>
   <string name="blood_type">Tipo sanguíneo</string>
   <string name="unknown_blood_type">Desconhecido</string>
   <string name="allergies">Alergias</string>
@@ -268,8 +264,6 @@
   <string name="yes">Sim</string>
   <string name="no">Não</string>
   <string name="battery">Bateria</string>
-  <string name="charged">Carregado</string>
-  <string name="charging">A carregar, %1$s</string>
   <string name="qs_edit">Editar</string>
   <string name="drag_to_add_tiles">Arraste para adicionar mosaicos</string>
   <string name="drag_to_remove_tiles">Arraste para aqui para remover</string>
@@ -339,8 +333,6 @@
   <string name="battery_detail_switch_summary">Reduz o desempenho e os dados de segundo plano</string>
   <string name="qs_add_notes_title">Notas</string>
   <string name="qs_add_notes">Isto é utilizado, apenas, por aplicações que fornecem mosaicos de difusão (como por exemplo, a aplicação \"Custom Quick Settings\"). Por favor, leia as instruções na aplicação antes de utilizar esta funcionalidade.</string>
-  <string name="notification_spoof_api_version_title">Falsificar API 24</string>
-  <string name="notification_spoof_api_version">Enganar estas aplicações para que pensem que estão a correr na API 24</string>
   <string name="hide_tiles_on_lockscreen">Esconder mosaicos no ecrã de bloqueio</string>
   <string name="done">Concluído</string>
   <string name="cm_qs_settings">Definições das Def. Rápidas da CM</string>
@@ -370,4 +362,5 @@
   <string name="enable_n_style_settings_dashboard">Definições com o estilo do Nougat</string>
   <string name="enable_n_style_settings_dashboard_summary">Aplique um tema para que as Definições pareçam as do Nougat</string>
   <string name="enable_settings_drawer">Ativar a gaveta de configurações</string>
+  <string name="partial_screenshot">Captura de ecrã parcial</string>
 </resources>

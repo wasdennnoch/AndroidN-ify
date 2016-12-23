@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">पुनःआरंभ प्रसारण भेजा</string>
   <string name="activity_about">Android N-ify के बारे में</string>
   <string name="about_author">\@MrWasdennnoch द्वारा विकसित</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">\@kanzariya99 द्वारा अनुवादित</string>
   <string name="about_version">संस्करण %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>चेतावनी:</b> preference फ़ाइल Xposed द्वारा पढ़ने योग्य नहीं है. 
@@ -28,14 +28,28 @@
 आप एक स्वचालित निर्माण पर चला रहे हैं। मॉड्यूल के कुछ भागों में नए परिवर्तन की वजह से तोड़ सकता है।
 यदि आप किसी भी मुद्दे पाया,<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> GitHub पर एक समस्या को खोलें</a> यदि यह पहले से ही नहीं है,<br><br>
 हमेशा Xposed logs संलग्न करने के लिए याद रखें जब reporting bugs. और crashes के मामले में logcat.        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">]]></string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">ऐप</string>
   <string name="hide_launcher_icon_title">लॉन्चर चिह्न छुपाएँ</string>
+  <string name="hide_launcher_icon">लांचर पुनरारंभ की आवश्यकता हो सकता है</string>
+  <string name="debug_log_title">डीबग लॉग करें</string>
   <string name="debug_log">चेतावनी: लॉग की-बाढ़</string>
   <!-- For example "Requires Android Marshmallow" (Actually the only logical version) -->
+  <string name="not_activated">मॉड्यूल सक्रिय नहीं हुआ</string>
   <!-- Primary color of app theme -->
+  <string name="theme_colorPrimary">प्राथमिक रंग</string>
+  <string name="header_lockscreen">लॉक स्क्रीन</string>
+  <string name="header_settings">सेटिंग्स</string>
+  <string name="enable_settings_summaries_title">सेटिंग्स सारांश</string>
+  <string name="fix_sound_notif_tile_title">\"ध्वनि और नोटिफिकेशन\" टाइल ठीक करें</string>
+  <string name="fix_sound_notif_tile">लगता है कुछ रोम गठबंधन और सूचनाएँ टाइल करें। इस टाइल के लिए उचित सारांश सेट करने के लिए सक्षम करें</string>
+  <string name="use_namey_mcnameface_title">\"Namey McNameface\" चिह्न का उपयोग करें</string>
   <!-- Wifi disconnected -->
+  <string name="disconnected">काट दिया</string>
   <string name="disabled">विकलांग</string>
+  <string name="off">बंद</string>
+  <string name="on">चालू</string>
   <!-- Is on or off -->
   <string name="display_summary">Adaptive brightness is %1$s</string>
   <string name="sound_summary">Ringer volume at %1$s</string>
@@ -51,13 +65,28 @@
   <string name="battery_charging_ac">%1$s - Charging on AC</string>
   <string name="memory_summary">Currently %1$s of %2$s memory used</string>
   <string name="user_summary">Signed in as %1$s</string>
+  <string name="location_on_power">चालू / पावर बचत</string>
+  <string name="location_on_device">चालू / डिवाइस केवल</string>
+  <string name="location_on_high">चालू / उच्च सटीकता</string>
   <!-- Header of app installation source -->
+  <string name="store">स्टोर (दुकान)</string>
   <!-- Header of app installation source -->
+  <string name="header_recents">हाल ही</string>
   <!-- That's how Google calls it -->
+  <string name="enable_recents_double_tap_title">त्वरित स्विच</string>
+  <string name="enable_recents_double_tap">एप्लिकेशन डबल थपथपाहट हाल कुंजी अंतिम स्विच करने के लिए इस्तेमाल किया</string>
+  <string name="alternative_double_tap_title">वैकल्पिक डबल थपथपाहट डिटेक् शन</string>
+  <string name="double_tap_speed_title">डबल थपथपाहट स्पीड करें</string>
+  <string name="recents_navigation_delay_title">नेविगेशन देरी</string>
+  <string name="enable_large_recents">बड़े हाल ही के एप्लिकेशन</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
+  <string name="recents_button_behavior_previous">पिछले ऐप पर वापस जाएँ</string>
+  <string name="header_qs">त्वरित सेटिंग्स</string>
+  <string name="enable_notification_header">शैली शीर्ष लेख</string>
   <!-- The unit of the counter next to the slider -->
   <!-- Search hint in the blacklist app Activity -->
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
+  <string name="now_string_shortest">अब</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
@@ -66,9 +95,27 @@
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <string name="check_for_updates_title">अद्यतनों के लिए जाँचें</string>
+  <string name="check_for_updates">अद्यतनों के लिए जाँच करें पर अनुप्रयोग प्रारंभ करें</string>
+  <string name="check_for_update_fail">अद्यतनों के लिए जाँच नहीं कर सका</string>
+  <string name="no_updates">कोई नए संस्करण नहीं पाया</string>
+  <string name="update_notification_downloading">अद्यतन डाउनलोड कर रहा है</string>
+  <string name="update_notification_download_fail">डाउनलोड विफल हुआ</string>
+  <string name="clear_all">सभी को साफ़ करें</string>
+  <string name="tab_title_info">जानकारी</string>
+  <string name="tab_title_contacts">संपर्क</string>
+  <string name="add_emergency_contact">संपर्क जोड़ें</string>
+  <string name="user_emergency_info_title">आपातकालीन सूचना</string>
+  <string name="emergency_info_continue">जारी रखें</string>
   <!-- Example: Mobile • 333-444-5566 -->
-  <!-- Example: (3 feb 1987) -->
-  <!-- Example: Age: 23 -->
+  <string name="unknown_blood_type">अज्ञात</string>
+  <string name="allergies">एलर्जी</string>
+  <string name="info_bloodtype_op">O +</string>
+  <string name="info_bloodtype_on">O-</string>
+  <string name="battery">बैटरी</string>
+  <string name="live_display_day">दिन</string>
+  <string name="live_display_night">रात</string>
+  <string name="live_display_outdoor">आउटडोर (उज्ज्वल सूरज)</string>
   <!-- Example: 3 hours ago -->
   <!-- Example: 3 hours left -->
   <!-- Example: Approx. 3 hours left -->
@@ -84,10 +131,20 @@
   <!-- Example: 75% - 3h -->
   <!-- Example: 75% - 3 hours until full from wireless -->
   <!-- Example: 75% - 3h -->
+  <string name="battery_info_status_charging_ac_short">चार्ज</string>
+  <string name="battery_info_status_charging_usb">USB से चार्ज</string>
+  <string name="battery_info_status_charging_usb_short">चार्ज</string>
   <!-- Add a custom tile -->
+  <string name="add">जोड़ें</string>
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
+  <string name="reset_tiles">रीसेट करें</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="battery_detail_switch_title">बैटरी सेवर</string>
+  <string name="qs_add_notes_title">नोट्स</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
+  <string name="warning">चेतावनी</string>
+  <string name="home">घर</string>
+  <string name="header_experimental">प्रयोगात्मक</string>
 </resources>

@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Žádost na restart odeslaná</string>
   <string name="activity_about">O aplikaci Android N-ify</string>
   <string name="about_author">Vytvořil: @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Přeložil: @matlala (@matlala.se, @petrmatula190), za impulz děkuji slovenskému překladu od @ja-som</string>
   <string name="about_version">Verze: %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Upozornění:</b> Xposed nemůže číst soubor nastavení. Klikněte pro více informací&#8230;]]></string>
@@ -124,11 +124,6 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="enable_large_first_row_summary2">Zvětší první dvě dlaždice, pokud je to podporováno</string>
   <string name="fix_stuck_inversion_title">Opravit invertované barvy</string>
   <string name="fix_stuck_inversion">Na některých zařízeních může povolení intertování barev průsobit zamrznutí. Kliknete pro vynucení zakázání.</string>
-  <string name="header_clock_size_title">Header clock size</string>
-  <string name="header_clock_size_normal">Normální</string>
-  <string name="header_clock_size_small">Malé</string>
-  <string name="header_clock_size_smaller">Menší</string>
-  <string name="header_clock_size_tiny">Nejmenší</string>
   <string name="hide_icons_title">Skrýt položky záhlaví</string>
   <string name="hide_tuner_icon_title">Skrýt ikonu pro nástroj ladění uživatelského rozhraní systému</string>
   <string name="hide_edit_tiles_title">Skrýt tlačítko pro úpravu dlaždic</string>
@@ -231,13 +226,6 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="unknown_name">Unknown</string>
   <string name="address">Adresa</string>
   <string name="unknown_address">Unknown</string>
-  <string name="date_of_birth">Datum narození</string>
-  <string name="unknown_date_of_birth">Unknown</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Věk: %1$d</string>
-  <string name="remove_dob_icon_text">Odebrat datum narození</string>
   <string name="blood_type">Blood type</string>
   <string name="unknown_blood_type">Unknown</string>
   <string name="allergies">Alergie</string>
@@ -263,8 +251,6 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
   <string name="battery">Baterie</string>
-  <string name="charged">Nabito</string>
-  <string name="charging">Nabíjení, %1$s</string>
   <string name="qs_edit">Upravit</string>
   <string name="drag_to_add_tiles">Přetáhněte pro přidání dlaždic</string>
   <string name="drag_to_remove_tiles">Přetáhněte sem pro odstranění</string>
@@ -334,8 +320,6 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="battery_detail_switch_summary">Snížit výkon a data na pozadí</string>
   <string name="qs_add_notes_title">Poznámky</string>
   <string name="qs_add_notes">Toto je použito je pro aplikace, které umožnují broadcast dlaždice (jako třeba \"Upravení Rychlé Nastavení\"). Prosím, přečtete si nejdříve instrukce v určené aplikaci, než toto povolíte.</string>
-  <string name="notification_spoof_api_version_title">Zfalšovat API 24</string>
-  <string name="notification_spoof_api_version">Zfalšovat tyto aplikace, aby si myslely, že beží na API 24</string>
   <string name="hide_tiles_on_lockscreen">Skrýt dlaždice na zamčené obrazovce</string>
   <string name="done">Hotovo</string>
   <string name="cm_qs_settings">CM QS nastavení</string>

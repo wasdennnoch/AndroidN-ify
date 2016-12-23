@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">تم ارسال بث اعادة التشغيل</string>
   <string name="activity_about">عن اندرويد ان-ايفاي</string>
   <string name="about_author">تطوير MrWasdennnoch@</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">ترجمه بواسطه Tevfik Xung@xda</string>
   <string name="about_version">اصدار البرنامج %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>تحذير:</b> التفضيل ملف غير ممكن قراءتها بواسطة إكسبوسيد. انقر للحصول على مزيد من المعلومات ;8230#&]]></string>
@@ -110,12 +110,20 @@
   <string name="keep_bg">مفيدة للمواضيع التي تطبق الخلفيات المخصصة</string>
   <string name="keep_header_bg">الجزء العلوي</string>
   <string name="keep_panel_bg">لوحة الإعدادات السريعة</string>
+  <string name="force_old_date_position">إجبار التاريخ ليكون بجانب الساعة</string>
+  <string name="force_old_date_position_summary">يحصل على عرض التاريخ على شاشات أصغر من حجم معين أدناه على مدار الساعة بدلاً من جواره، مرئية فقط عند توسيع الفريق QS. تمكين لتجاوز هذا السلوك</string>
+  <string name="force_old_date_position_disabled_summary">ان جهازك يدعم بالفعل موقف التاريخ الجديد</string>
   <string name="notification_header_qs_tiles_count">البلاط الإعدادات السريعة الظاهرة</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">البلاط</string>
   <string name="battery_tile_show_percentage">إظهار النسبة المئوية في بلاط البطارية</string>
   <string name="battery_tile_show_percentage_summary">إظهار النسبة المئوية للبطارية في اختصار البطارية</string>
   <string name="enable_qs_editor">تمكين مغير الإعدادات السريعة</string>
+  <string name="alternative_qs_loading">تحميل الـQS بأسلوب بديل</string>
+  <string name="alternative_qs_loading_summary">الطريقة الاخرى لتحميل الإعدادات السريعة</string>
+  <string name="inject_gb_tiles">وضع اعدادات gravitybox السريعة</string>
+  <string name="inject_gb_tiles_summary">فعل إذا كنت تريد إضافة إعدادات Gravity Box السريعة</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox ليس منزلا</string>
   <string name="allow_fancy_qs_transition">انتقال الاختصارات</string>
   <string name="enable_new_tile_click_behavior">السلوك نقر بلاط اندرويد ان</string>
   <string name="enable_new_tile_click_behavior_summary">الضغط علي احد الاختصارات المصغره سيشغل الاختصار اما النقر علي الاختصار سيقوم بتوسيعه</string>
@@ -123,11 +131,6 @@
   <string name="enable_large_first_row_summary2">Makes the first two tiles appear large if supported</string>
   <string name="fix_stuck_inversion_title">إصلاح الانعكاس العالق</string>
   <string name="fix_stuck_inversion">في بعض الأجهزة يحصل عطل في عكس عند تمكين. انقر فوق لإجبار الايقاف</string>
-  <string name="header_clock_size_title">حجم الساعه في شريط الاشعارات</string>
-  <string name="header_clock_size_normal">عادي</string>
-  <string name="header_clock_size_small">صغير</string>
-  <string name="header_clock_size_smaller">أصغر</string>
-  <string name="header_clock_size_tiny">شدة في الصغر</string>
   <string name="hide_icons_title">إخفاء عناصر الرأس</string>
   <string name="hide_tuner_icon_title">اخفاء رمز معدل شريط الاشعارات</string>
   <string name="hide_edit_tiles_title">إخفاء زر تحرير الاختصارات</string>
@@ -153,16 +156,57 @@
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
   <string name="now_string_shortest">الآن</string>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_minutes_shortest">
+    <item quantity="zero">%d دقيقة</item>
+    <item quantity="one">%d دقيقتين</item>
+    <item quantity="two">%d دقائق</item>
+    <item quantity="few">%d دقائق</item>
+    <item quantity="many">%d دقائق</item>
+    <item quantity="other">%d دقائق</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_days_shortest">
+    <item quantity="zero">%d يوم</item>
+    <item quantity="one">%d يومين</item>
+    <item quantity="two">%d ايام</item>
+    <item quantity="few">%d ايام</item>
+    <item quantity="many">%d ايام</item>
+    <item quantity="other">%d ايام</item>
+  </plurals>
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
+  <plurals name="duration_years_shortest">
+    <item quantity="zero">%d سنة</item>
+    <item quantity="one">%d سنين</item>
+    <item quantity="two">%d سنوات</item>
+    <item quantity="few">%d سنوات</item>
+    <item quantity="many">%d سنوات</item>
+    <item quantity="other">%d سنوات</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_minutes_shortest_future">
+    <item quantity="zero">خلال %d دقيقة</item>
+    <item quantity="one">خلال %d دقيقتين</item>
+    <item quantity="two">خلال %d دقائق</item>
+    <item quantity="few">خلال %d دقائق</item>
+    <item quantity="many">خلال %d دقائق</item>
+    <item quantity="other">خلال %d دقائق</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
+  <plurals name="duration_hours_shortest_future">
+    <item quantity="zero">خلال %d ساعة</item>
+    <item quantity="one">خلال %d ساعتين</item>
+    <item quantity="two">خلال %d ساعات</item>
+    <item quantity="few">خلال %d ساعات</item>
+    <item quantity="many">خلال %d ساعات</item>
+    <item quantity="other">خلال %d ساعات</item>
+  </plurals>
   <!-- Phrase describing a time duration using days that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <!-- Phrase describing a time duration using years that is as short as possible, preferrably one character. This version should be a future point in time. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=14] -->
   <string name="update_notification_title">يوجد تحديث جديد</string>
   <string name="update_notification">التحديث %1$d متاح الان للتنزيل!</string>
   <string name="update_notification_download">تحديث</string>
+  <string name="update_warning">تم تحديث الوحدة النمطية</string>
   <string name="update_warning_details">قد يكون النظام غير مستقر، وسيتم تجاهل تقارير الأخطاء حتى إعادة تشغيل الجهاز</string>
   <string name="check_for_updates_title">بحث عن التحديثات</string>
   <string name="check_for_updates">بحث عن التحديثات عند تشغيل التطبيق</string>
@@ -176,31 +220,29 @@
   <string name="emergency_info">معلومات الطوارئ</string>
   <string name="emergency_info_launch_hint">اللمس مرة أخرى للفتح</string>
   <string name="enable_emergency_info_title">تمكين معلومات الطوارئ</string>
+  <string name="enable_emergency_info">إضافة زر معلومات الطوارئ إلى هاتف الطوارئ</string>
   <string name="edit_emergency_info_title">تحرير معلومات الطوارئ</string>
   <string name="clear_all">مسح الكل</string>
   <string name="tab_title_info">معلومات</string>
   <string name="tab_title_contacts">جهات الاتصال</string>
   <string name="add_emergency_contact">إضافة جهة اتصال</string>
   <string name="user_emergency_info_title">معلومات الطوارئ</string>
+  <string name="user_emergency_info_consent">المعلومات التي تضيفها هنا باستطاعتها المساعدة في حالات الطوارئ. إنها مخزنة على جهازك فقط، ويمكن لأي أحد قرائتها من هاتف الطوارئ بدون فتح قفل هاتفك.</string>
   <string name="emergency_info_continue">مواصلة</string>
   <string name="clear">مسح</string>
   <string name="clear_all_message">مسح كافة المعلومات وجهات الاتصال؟</string>
   <!-- Example: Mobile • 333-444-5566 -->
+  <string name="phone_type_and_phone_number">%2$s • %1$s</string>
   <string name="remove_contact">إزالة %1$s من جهات اتصال الطوارئ؟</string>
   <string name="remove_contact_icon_text">إزالة جهة اتصال</string>
   <string name="remove">إزالة</string>
   <string name="cancel">إلغاء</string>
+  <string name="no_info_provided">لا يوجد معلومات طوارئ</string>
   <string name="emergency_contacts_title">اتصالات الطوارئ</string>
   <string name="name">الاسم</string>
   <string name="unknown_name">مجهول</string>
   <string name="address">العنوان</string>
   <string name="unknown_address">مجهول</string>
-  <string name="date_of_birth">تاريخ الميلاد</string>
-  <string name="unknown_date_of_birth">مجهول</string>
-  <!-- Example: (3 feb 1987) -->
-  <!-- Example: Age: 23 -->
-  <string name="age">العمر: %1$d</string>
-  <string name="remove_dob_icon_text">إزالة تاريخ الميلاد</string>
   <string name="blood_type">زمره الدم</string>
   <string name="unknown_blood_type">مجهول</string>
   <string name="allergies">الحساسية</string>
@@ -225,8 +267,6 @@
   <string name="yes">نعم</string>
   <string name="no">لا</string>
   <string name="battery">البطارية</string>
-  <string name="charged">تم الشحن</string>
-  <string name="charging">جار الشحن %1$s</string>
   <string name="qs_edit">تحرير</string>
   <string name="drag_to_add_tiles">اسحب الاختصار لاضافته</string>
   <string name="drag_to_remove_tiles">اسحب هنا لإزالة</string>

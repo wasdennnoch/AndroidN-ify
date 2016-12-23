@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">ریستارت</string>
   <string name="activity_about">درباره N-ify</string>
   <string name="about_author">MrWasdennnoch برنامه نویس و سازنده</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">ترجمه فارسی توسط علی حسنی با کمک SirHydarnes</string>
   <string name="about_version">%1$s (%2$d) نسخه</string>
   <string name="prefs_not_readable"><![CDATA[<b>هشدار</b>فایل تنظیمات توسط اکسپوزد قابل خواندن نیست. برای اطلاعات بیشتر کلیک کنید&#8230;]]></string>
@@ -118,11 +118,6 @@
   <string name="enable_large_first_row">بزرگ کردن ردیف اول</string>
   <string name="fix_stuck_inversion_title">حل مشکل وارگونی</string>
   <string name="fix_stuck_inversion">اگر مشکل خاصی دارید، فعال کنید</string>
-  <string name="header_clock_size_title">اندازه ی ساعت</string>
-  <string name="header_clock_size_normal">معمولی</string>
-  <string name="header_clock_size_small">کوچک</string>
-  <string name="header_clock_size_smaller">کوچکتر</string>
-  <string name="header_clock_size_tiny">ریز</string>
   <string name="hide_icons_title">مخفی کردن آیکن های بالا</string>
   <string name="hide_tuner_icon_title">مخفی کردن آیکن SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">مخفی کردن دکمه ویرایش</string>
@@ -169,12 +164,6 @@
   <string name="unknown_name">ناشناخته</string>
   <string name="address">آدرس</string>
   <string name="unknown_address">ناشناخته</string>
-  <string name="date_of_birth">تاریخ تولد</string>
-  <string name="unknown_date_of_birth">ناشناخته</string>
-  <!-- Example: (3 feb 1987) -->
-  <!-- Example: Age: 23 -->
-  <string name="age">سن: %1$d</string>
-  <string name="remove_dob_icon_text">حذف تاریخ تولد</string>
   <string name="medications_hint">به عنوان مثال، آسپرین</string>
   <string name="medical_conditions">یادداشت های پزشکی</string>
   <string name="unknown_medical_conditions">ناشناخته</string>
@@ -193,8 +182,6 @@
   <string name="yes">بله</string>
   <string name="no">خیر</string>
   <string name="battery">باتری</string>
-  <string name="charged">شارژ شده</string>
-  <string name="charging">%1$s در حال شارژ</string>
   <string name="qs_edit">ویرایش</string>
   <string name="drag_to_add_tiles">برای افزودن نگه دارید</string>
   <string name="drag_to_remove_tiles">برای حذف کردن به اینجا منتقل کنید</string>

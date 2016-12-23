@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Poslata naredba za restart</string>
   <string name="activity_about">О Android N-u</string>
   <string name="about_author">O autoru: @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Preveo: Fahrudin Husukić</string>
   <string name="about_version">Verzija %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Upozorenje:</b> Fajl postavki nije čitljiv za Xposed. Kliknite za više informacija…]]></string>
@@ -118,11 +118,6 @@ Koristite automatsko izdanje. Neki dijelovi modula mogu ne raditi zbog novih pro
   <string name="enable_large_first_row_summary2">Omogućava povećanje prva dva reda ikona, ako je podržano</string>
   <string name="fix_stuck_inversion_title">Popravi zaglavljenu inverziju</string>
   <string name="fix_stuck_inversion">Na nekim uređajima inverzija boja zablokira. Kliknite ovdje za deaktivaciju</string>
-  <string name="header_clock_size_title">Veličina sata zaglavlja</string>
-  <string name="header_clock_size_normal">Normalan</string>
-  <string name="header_clock_size_small">Mali</string>
-  <string name="header_clock_size_smaller">Manji</string>
-  <string name="header_clock_size_tiny">Sićušan</string>
   <string name="hide_icons_title">Sakrij stavke zaglavlja</string>
   <string name="hide_tuner_icon_title">Sakrij ikonu štimera sistemskog UI-ja</string>
   <string name="hide_edit_tiles_title">Sakrij dugme uređivača pločica</string>
@@ -232,13 +227,6 @@ Koristite automatsko izdanje. Neki dijelovi modula mogu ne raditi zbog novih pro
   <string name="unknown_name">Nepoznato</string>
   <string name="address">Adresa</string>
   <string name="unknown_address">Nepoznata</string>
-  <string name="date_of_birth">Datum rođenja</string>
-  <string name="unknown_date_of_birth">Nepoznat datum rođenja</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">%1$s</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Dob: %1$d</string>
-  <string name="remove_dob_icon_text">Ukloni datum rođenja</string>
   <string name="blood_type">Krvna grupa</string>
   <string name="unknown_blood_type">Nepoznata krvna grupa</string>
   <string name="allergies">Alergije</string>
@@ -263,8 +251,6 @@ Koristite automatsko izdanje. Neki dijelovi modula mogu ne raditi zbog novih pro
   <string name="yes">Da</string>
   <string name="no">Ne</string>
   <string name="battery">Baterija</string>
-  <string name="charged">Napunjena</string>
-  <string name="charging">Punjenje, %1$s</string>
   <string name="qs_edit">Uredi</string>
   <string name="drag_to_add_tiles">Prevucite da dodate pločice</string>
   <string name="drag_to_remove_tiles">Prevucite ovdje da uklonite</string>

@@ -7,7 +7,7 @@
   <string name="restart_broadcast_sent">Petición de reinicio enviada</string>
   <string name="activity_about">Acerca de Android N-ify</string>
   <string name="about_author">Desarrollado por @MrWasdennnoch</string>
-  <!-- Insert your (preferably XDA) username here -->
+  <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Traducido por @Raikem</string>
   <string name="about_version">Versión %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Advertencia:</b> Xposed no puede leer el archivo de preferencias. Pulsar para más información&#8230;]]></string>
@@ -34,7 +34,7 @@ Esta build contiene muchas <b>características experimentales</b>. Por favor bus
 Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat en caso de cierres inesperados (crasheos).        ]]></string>
   <string name="header_tweaks">Modificaciones</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
-  <string name="header_app">Ajustes</string>
+  <string name="header_app">Aplicación</string>
   <string name="app_theme_title">Tema de aplicación</string>
   <string name="app_theme_light">Claro</string>
   <string name="app_theme_dark">Oscuro</string>
@@ -112,12 +112,20 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="keep_bg">Útil para temas que usan fondos personalizados</string>
   <string name="keep_header_bg">Encabezado</string>
   <string name="keep_panel_bg">Panel de ajustes rápidos</string>
+  <string name="force_old_date_position">Forzar fecha junto a la hora</string>
+  <string name="force_old_date_position_summary">En pantallas más pequeñas que cierto tamaño la fecha obtiene aparece debajo del reloj en vez de al lado, sólo está visible al expandir el panel de QS. Activar para anular este comportamiento</string>
+  <string name="force_old_date_position_disabled_summary">Su dispositivo ya es compatible con la nueva posición de la fecha</string>
   <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
   <string name="battery_tile_show_percentage">Mostrar porcentaje de batería</string>
   <string name="battery_tile_show_percentage_summary">Muestra el porcentaje de batería en el ajuste rápido</string>
   <string name="enable_qs_editor">Activar editor de ajustes</string>
+  <string name="alternative_qs_loading">Método de carga alternativo para ajustes rápidos</string>
+  <string name="alternative_qs_loading_summary">Utilice una forma diferente para obtener los elementos de ajustes rápidos disponibles. Úselo solo si faltan elementos en el editor</string>
+  <string name="inject_gb_tiles">Inyectar elementos de GravityBox</string>
+  <string name="inject_gb_tiles_summary">Activar si desea agregar elementos de ajustes rápidos proporcionados por GravityBox</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox no está instalado</string>
   <string name="allow_fancy_qs_transition">Animación de ajustes rápidos</string>
   <string name="enable_new_tile_click_behavior">Pulsación de ajustes de Android Nougat</string>
   <string name="enable_new_tile_click_behavior_summary">Pulsar un ajuste rápido lo activa o desactiva, y pulsarlo en el panel lo expande</string>
@@ -125,11 +133,6 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="enable_large_first_row_summary2">Hace que los dos primeros ajustes rápidos aparezcan en grande si es compatible</string>
   <string name="fix_stuck_inversion_title">Arreglar inversión bloqueada</string>
   <string name="fix_stuck_inversion">En algunos dispositivos la inversión de colores se bloquea al activarla. Selecciona para forzar desactivación</string>
-  <string name="header_clock_size_title">Tamaño del reloj</string>
-  <string name="header_clock_size_normal">Normal</string>
-  <string name="header_clock_size_small">Pequeño</string>
-  <string name="header_clock_size_smaller">Muy pequeño</string>
-  <string name="header_clock_size_tiny">Diminuto</string>
   <string name="hide_icons_title">Ocultar información</string>
   <string name="hide_tuner_icon_title">Ocultar icono de SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
@@ -234,13 +237,6 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="unknown_name">Desconocido</string>
   <string name="address">Dirección</string>
   <string name="unknown_address">Desconocido</string>
-  <string name="date_of_birth">Fecha de nacimiento</string>
-  <string name="unknown_date_of_birth">Desconocido</string>
-  <!-- Example: (3 feb 1987) -->
-  <string name="dob">(%1$s)</string>
-  <!-- Example: Age: 23 -->
-  <string name="age">Edad: %1$d</string>
-  <string name="remove_dob_icon_text">Quitar fecha de nacimiento</string>
   <string name="blood_type">Grupo sanguíneo</string>
   <string name="unknown_blood_type">Desconocido</string>
   <string name="allergies">Alergias</string>
@@ -266,8 +262,6 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="battery">Batería</string>
-  <string name="charged">Cargada</string>
-  <string name="charging">Cargando, %1$s</string>
   <string name="qs_edit">Editar</string>
   <string name="drag_to_add_tiles">Arrastrar para añadir</string>
   <string name="drag_to_remove_tiles">Arrastra aquí para eliminar</string>
@@ -337,8 +331,6 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="battery_detail_switch_summary">Reduce el rendimiento y el consumo de datos en segundo plano</string>
   <string name="qs_add_notes_title">Notas</string>
   <string name="qs_add_notes">Esto sólo se utiliza para aplicaciones que usan el ajuste de difusión (tales como \"Custom Quick Settings\"). Por favor lea las instrucciones de la aplicación antes de usar esta opción.</string>
-  <string name="notification_spoof_api_version_title">Fingir API 24</string>
-  <string name="notification_spoof_api_version">Hacer creer a estas apps que están siendo ejecutadas en API 24</string>
   <string name="hide_tiles_on_lockscreen">Ocultar ajustes rápidos en pantalla de bloqueo</string>
   <string name="done">Hecho</string>
   <string name="cm_qs_settings">Ajustes de QS de CM</string>
@@ -368,4 +360,5 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="enable_n_style_settings_dashboard">Configuración estilo N</string>
   <string name="enable_n_style_settings_dashboard_summary">Cambiar la apariencia de Configuración para verse como en Android N</string>
   <string name="enable_settings_drawer">Activar el cajón de configuraciones</string>
+  <string name="partial_screenshot">Captura de pantalla parcial</string>
 </resources>
