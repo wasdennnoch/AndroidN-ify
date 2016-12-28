@@ -11,6 +11,10 @@
   <string name="about_translator">翻訳: @MrWasdennnoch</string>
   <string name="about_version">バージョン %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>警告:</b> Xposedから設定ファイルを読み取ることはできません。詳細情報&#8230;]]></string>
+  <string name="automated_build_warning"><![CDATA[
+あなたは自動的に生成されたビルドを実行しています。 新しい変更によってモジュールの一部が壊れることがあります。
+問題が見つかった場合、それらの報告がまだ存在しない場合は<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">GitHubで公開</a>してください。<br><br>
+バグを報告するときは常にXposedログを添付し、クラッシュした場合はlogcatをつけてください。        ]]></string>
   <string name="header_tweaks">調整</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">アプリ</string>
@@ -108,7 +112,9 @@
   <string name="notifications_change_style">通知のスタイル</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">検索</string>
+  <string name="notification_blacklisted_apps">これらのアプリには古い通知スタイルを使用する</string>
   <string name="notifications_custom_actions_color_title">カスタムアクションの背景色</string>
+  <string name="notifications_custom_actions_color">通知ボタンの背景としてカスタムカラーを使用する</string>
   <string name="notification_keyguard_max_title">ロック画面の最大通知数</string>
   <string name="enable_assistant">Googleアシスタントを有効にする</string>
   <string name="enable_assistant_summary">Now on Tap/画面の検索を新しいGoogleアシスタントに置き換えます</string>
@@ -139,6 +145,7 @@
   <string name="update_notification">最新のビルド(%1$d) が利用可能です！</string>
   <string name="update_notification_download">更新</string>
   <string name="update_warning">モジュールが更新されました</string>
+  <string name="update_warning_details">システムが不安定になる可能性がありますのでデバイスが再起動されるまでのバグ報告は無視されます</string>
   <string name="check_for_updates_title">更新の確認</string>
   <string name="check_for_updates">アプリ起動時に更新を確認する</string>
   <string name="checking_for_update">更新を確認しています&#8230;</string>
@@ -270,6 +277,8 @@
   <string name="accessibility_quick_settings_collapse">クイック設定を閉じる</string>
   <string name="warning">警告</string>
   <string name="dont_show_again">次回から表示しない</string>
+  <string name="show_experimental_on">実験的な機能を有効にしました！</string>
+  <string name="show_experimental_on_already">その必要はありません、あなたは既に実験的な機能を有効にしています。</string>
   <string name="header_experimental">実験的</string>
   <string name="enable_experimental_features">実験的な機能を有効にする</string>
   <string name="enable_n_style_settings_dashboard">Nスタイルの設定</string>

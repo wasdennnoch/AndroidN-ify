@@ -264,6 +264,7 @@
   <string name="info_bloodtype_bn">B-</string>
   <string name="info_bloodtype_abp">AB+</string>
   <string name="info_bloodtype_abn">AB-</string>
+  <string name="info_bloodtype_h_h">أنا أنا</string>
   <string name="yes">نعم</string>
   <string name="no">لا</string>
   <string name="battery">البطارية</string>
@@ -281,11 +282,13 @@
   <!-- Example: 3 hours left -->
   <string name="remaining_length_format">%1$s باقي</string>
   <!-- Example: Approx. 3 hours left -->
+  <string name="power_remaining_duration_only">تقريبا باقي %1$s</string>
   <!-- Example: 3h left -->
   <string name="power_remaining_duration_only_short">%1$s باقي</string>
   <!-- Example: 75% - approx. 3 hours left -->
   <string name="power_discharging_duration">%1$s تبقي %2$s تقريبا</string>
   <!-- Example: 75% - 3h left -->
+  <string name="power_discharging_duration_short">%1$s - متبقي %2$s</string>
   <!-- Example: 75% - Charging -->
   <!-- Example: 75% - 3 hours until full -->
   <string name="power_charging_duration">%1$s-%2$s حتى يكتمل</string>

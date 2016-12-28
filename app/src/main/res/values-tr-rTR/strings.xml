@@ -8,7 +8,7 @@
   <string name="activity_about">Android N-ify Hakkında</string>
   <string name="about_author">Uygulama Geliştiricisi @MrWasdennnoch</string>
   <!-- Insert/Add your (preferably XDA) username here -->
-  <string name="about_translator">Çeviri @Can OKUMUŞ • @Mevlüt TOPÇU • @TechGenius • @trzpro OneTeam • @HelliosDarkline One Team • @EypCnn One Team • @TheNexus Biz Turkdevsiz Bizler Orospu Çocuğuyuz </string>
+  <string name="about_translator">Çeviri @Can OKUMUŞ - @Mevlüt TOPÇU - @trzpro</string>
   <string name="about_version">Sürüm %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
