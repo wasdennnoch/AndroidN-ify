@@ -28,8 +28,6 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import com.android.internal.logging.MetricsLogger;
-
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
