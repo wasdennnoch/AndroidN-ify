@@ -101,7 +101,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         return mExperimental ? "experimental_build_warning" : "automated_build_warning";
     }
 
-    private boolean isActivated() {
+    public static boolean isActivated() {
         return false;
     }
 

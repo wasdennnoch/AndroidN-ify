@@ -1057,34 +1057,17 @@ public class NotificationHooks {
 
                 XposedBridge.hookAllMethods(classBaseStatusBar, "applyColorsAndBackgrounds", new XC_MethodHook() {
                     @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         try {
                             Object entry = param.args[1];
-                            if (((View) XposedHelpers.callMethod(entry, "getContentView")).getId()
-                                    != com.android.internal.R.id.status_bar_latest_event_content) {
-                                // Using custom RemoteViews
-                                int targetSdk = XposedHelpers.getIntField(entry, "targetSdk");
-                                if (targetSdk >= Build.VERSION_CODES.GINGERBREAD
-                                        && targetSdk < Build.VERSION_CODES.LOLLIPOP) {
-                                    XposedHelpers.callMethod(XposedHelpers.getObjectField(entry, "row"), "setShowingLegacyBackground", true);
-                                    XposedHelpers.setBooleanField(entry, "legacy", true);
+                            View contentView = (View) XposedHelpers.callMethod(entry, "getContentView");
+                            if (contentView != null && contentView.getId()
+                                    == contentView.getContext().getResources().getIdentifier("status_bar_latest_event_content", "id", PACKAGE_ANDROID)) {
+                                if ((boolean) XposedHelpers.callMethod(param.thisObject, "isMediaNotification", entry)) {
+                                    XposedHelpers.callMethod(XposedHelpers.getObjectField(entry, "row"), "setTintColor", mNotificationBgColor);
+                                    param.setResult(null);
                                 }
                             }
-
-                            ImageView icon = (ImageView) XposedHelpers.getObjectField(entry, "icon");
-                            if (icon != null) {
-                                int targetSdk = XposedHelpers.getIntField(entry, "targetSdk");
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    icon.setTag(icon.getResources().getIdentifier("icon_is_pre_L", "id", PACKAGE_SYSTEMUI), targetSdk < Build.VERSION_CODES.LOLLIPOP);
-                                } else {
-                                    if (targetSdk >= Build.VERSION_CODES.LOLLIPOP) {
-                                        icon.setColorFilter(icon.getResources().getColor(android.R.color.white));
-                                    } else {
-                                        icon.setColorFilter(null);
-                                    }
-                                }
-                            }
-                            param.setResult(null);
                         } catch (Throwable ignore) {
 
                         }
@@ -1694,7 +1677,7 @@ public class NotificationHooks {
             contentContainer.setLayoutParams(contentContainerLp);
 
             contentContainer.setMinimumHeight(res.getDimensionPixelSize(R.dimen.notification_min_content_height));
-            contentContainer.setPadding(0, 0, 0, res.getDimensionPixelSize(R.dimen.notification_content_margin_bottom));
+            contentContainer.setPadding(0, 0, 0, 0);
 
             LinearLayout.LayoutParams mediaActionsLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
             mediaActionsLp.gravity = Gravity.BOTTOM | Gravity.END;

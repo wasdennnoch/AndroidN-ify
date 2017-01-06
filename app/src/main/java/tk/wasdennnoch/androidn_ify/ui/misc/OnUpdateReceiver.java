@@ -5,11 +5,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import tk.wasdennnoch.androidn_ify.ui.SettingsActivity;
+
 public class OnUpdateReceiver extends BroadcastReceiver {
 
+    @SuppressWarnings("ConstantConditions")
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
-        context.startService(new Intent(context, UpdateWarningService.class));
+        if (SettingsActivity.isActivated()) {
+            context.startService(new Intent(context, UpdateWarningService.class));
+        }
     }
 }
