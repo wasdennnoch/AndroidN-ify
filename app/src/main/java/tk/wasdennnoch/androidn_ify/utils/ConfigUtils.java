@@ -223,8 +223,8 @@ public class ConfigUtils {
             generate_notification_accent_color = prefs.getBoolean("generate_notification_accent_color", false);
             enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true);
             enable_data_disabled_indicator = prefs.getBoolean("enable_data_disabled_indicator", true);
-            filter_sensitive_notifications = M && EXPERIMENTAL;
-            keyguard_max = prefs.getInt("notification_keyguard_max", 3);
+            filter_sensitive_notifications = M && EXPERIMENTAL && prefs.getBoolean("filter_sensitive_notifications", false);
+            keyguard_max = prefs.getInt("notification_keyguard_max", 4);
             actions_color = prefs.getInt("actions_background_colors", 0);
         }
 
