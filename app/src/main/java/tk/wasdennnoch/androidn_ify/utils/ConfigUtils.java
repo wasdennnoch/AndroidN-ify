@@ -205,6 +205,7 @@ public class ConfigUtils {
         public final boolean custom_actions_color;
         public final boolean experimental;
         public final boolean allow_direct_reply_on_keyguard;
+        public final boolean generate_notification_accent_color;
         public final boolean enable_notifications_background;
         public final boolean enable_data_disabled_indicator;
         public final boolean filter_sensitive_notifications;
