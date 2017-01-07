@@ -555,11 +555,19 @@ public class NotificationHooks {
             int mColor = XposedHelpers.getIntField(param.thisObject, "mColor");
             if (mColor != 0) return mColor; // App specified color in notification builder
             Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+            String packageName = context.getPackageName();
+            if (mGeneratedColors.containsKey(packageName))
+                return mGeneratedColors.get(packageName);
             if (mAccentColor == 0) {
                 //noinspection deprecation
                 mAccentColor = context.getResources().getColor(context.getResources().getIdentifier("notification_icon_bg_color", "color", PACKAGE_ANDROID));
             }
             int c = mAccentColor;
+            try {
+                Drawable appIcon = context.getPackageManager().getApplicationIcon(packageName);
+                c = tk.wasdennnoch.androidn_ify.utils.ColorUtils.generateColor(appIcon, mAccentColor);
+                mGeneratedColors.put(packageName, c);
+                } catch (PackageManager.NameNotFoundException ignore) {
             if (ConfigUtils.notifications().generate_notification_accent_color) {
                 String packageName = context.getPackageName();
                 if (mGeneratedColors.containsKey(packageName))
