@@ -1057,19 +1057,37 @@ public class NotificationHooks {
 
                 XposedBridge.hookAllMethods(classBaseStatusBar, "applyColorsAndBackgrounds", new XC_MethodHook() {
                     @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         try {
                             Object entry = param.args[1];
-                            View contentView = (View) XposedHelpers.callMethod(entry, "getContentView");
-                            if (contentView != null && contentView.getId()
-                                    == contentView.getContext().getResources().getIdentifier("status_bar_latest_event_content", "id", PACKAGE_ANDROID)) {
-                                if ((boolean) XposedHelpers.callMethod(param.thisObject, "isMediaNotification", entry)) {
-                                    XposedHelpers.callMethod(XposedHelpers.getObjectField(entry, "row"), "setTintColor", mNotificationBgColor);
-                                    param.setResult(null);
+                            View contentView = ConfigUtils.M ? (View) XposedHelpers.callMethod(entry, "getContentView") : (View) XposedHelpers.getObjectField(entry, "expanded");
+                            if (contentView.getId() !=
+                                    contentView.getContext().getResources().getIdentifier("status_bar_latest_event_content", "id", PACKAGE_ANDROID)) {
+                                // Using custom RemoteViews
+                                int targetSdk = XposedHelpers.getIntField(entry, "targetSdk");
+                                if (targetSdk >= Build.VERSION_CODES.GINGERBREAD
+                                        && targetSdk < Build.VERSION_CODES.LOLLIPOP) {
+                                    XposedHelpers.callMethod(XposedHelpers.getObjectField(entry, "row"), "setShowingLegacyBackground", true);
+                                    XposedHelpers.setBooleanField(entry, "legacy", true);
                                 }
                             }
-                        } catch (Throwable ignore) {
 
+                            ImageView icon = (ImageView) XposedHelpers.getObjectField(entry, "icon");
+                            if (icon != null) {
+                                int targetSdk = XposedHelpers.getIntField(entry, "targetSdk");
+                                if (Build.VERSION.SDK_INT > 22) {
+                                    icon.setTag(icon.getResources().getIdentifier("icon_is_pre_L", "id", PACKAGE_SYSTEMUI), targetSdk < Build.VERSION_CODES.LOLLIPOP);
+                                } else {
+                                    if (targetSdk >= Build.VERSION_CODES.LOLLIPOP) {
+                                        icon.setColorFilter(icon.getResources().getColor(android.R.color.white));
+                                    } else {
+                                        icon.setColorFilter(null);
+                                    }
+                                }
+                            }
+                            param.setResult(null);
+                        } catch (Throwable t) {
+                            XposedHook.logE(TAG, "Error in applyColorsAndBackgrounds", t);
                         }
                     }
                 });
