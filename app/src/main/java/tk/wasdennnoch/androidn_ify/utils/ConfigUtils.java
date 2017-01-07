@@ -220,7 +220,7 @@ public class ConfigUtils {
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
             experimental = M && EXPERIMENTAL && prefs.getBoolean("notification_experimental", false);
             allow_direct_reply_on_keyguard = prefs.getBoolean("allow_direct_reply_on_keyguard", false);
-            generate_notification_accent_color = M && prefs.getBoolean("generate_notification_accent_color", false);
+            generate_notification_accent_color = prefs.getBoolean("generate_notification_accent_color", false);
             enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true);
             enable_data_disabled_indicator = prefs.getBoolean("enable_data_disabled_indicator", true);
             filter_sensitive_notifications = M && EXPERIMENTAL;
