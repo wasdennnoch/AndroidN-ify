@@ -3,8 +3,6 @@ package tk.wasdennnoch.androidn_ify.google;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.crossbowffs.remotepreferences.RemotePreferences;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
