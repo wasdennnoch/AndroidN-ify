@@ -1,5 +1,5 @@
 [
-  7,
+  8,
   {
     "version": "6\\.7\\.1[3567]\\.21\\.[a-z]+[0-9]*",
     "assistant_class": ".a.e",
@@ -25,6 +25,15 @@
     "set_prefs": "aQ",
     "fake_config": "rp",
     "fake_config_two": "ro",
+    "enable_langs": "rq"
+  },
+  {
+    "version": "6\\.10\\.[3][0-9]\\.21\\.[a-z]+[0-9]*",
+    "assistant_class": ".shared.h",
+    "prefs": "bpY",
+    "set_prefs": "aQ",
+    "fake_config": "rC",
+    "fake_config_two": "rE",
     "enable_langs": "rq"
   }
 ]
