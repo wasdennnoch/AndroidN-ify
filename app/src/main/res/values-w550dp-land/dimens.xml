@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="quick_settings_num_rows">3</integer>
+    <dimen name="notification_panel_width">544dp</dimen>
 </resources>

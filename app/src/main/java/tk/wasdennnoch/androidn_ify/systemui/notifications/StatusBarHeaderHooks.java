@@ -1188,6 +1188,7 @@ public class StatusBarHeaderHooks {
 
                 R_string_battery_panel_title = resparam.res.addResource(modRes, R.string.battery_panel_title);
 
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_panel_width", modRes.fwd(R.dimen.notification_panel_width));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "qs_peek_height", zero);
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height", modRes.fwd(R.dimen.status_bar_header_height));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "status_bar_header_height_expanded", modRes.fwd(R.dimen.status_bar_header_height));
