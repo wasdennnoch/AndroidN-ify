@@ -13,8 +13,8 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 
+import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
 import static de.robv.android.xposed.XposedBridge.log;
-import static de.robv.android.xposed.XposedHelpers.findAndHookConstructor;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -75,7 +75,7 @@ public class AssistantHooks {
 
             Class a = findClass(ASSISTANT_PACKAGE + activeHooks.optString(KEY_ASSISTANT_CLASS, ".a.e"), classLoader);
 
-            findAndHookConstructor(a, findClass("com.google.android.apps.gsa.search.core.config.GsaConfigFlags", classLoader), SharedPreferences.class, new XC_MethodHook() {
+            hookAllConstructors(a, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     SharedPreferences prefs = (SharedPreferences) getObjectField(param.thisObject, activeHooks.optString(KEY_PREFS, "bhX"));
