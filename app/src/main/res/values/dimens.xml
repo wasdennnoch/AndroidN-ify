@@ -163,6 +163,6 @@
     <dimen name="media_actions_margin_start">10dp</dimen>
     <dimen name="big_media_actions_margin_start">8dp</dimen>
     <dimen name="zero">0dp</dimen>
-    <dimen name="notification_text_line1_margin_start">16dp</dimen>
+    <dimen name="notification_text_line1_margin_start">10dp</dimen>
 
 </resources>
