@@ -87,6 +87,7 @@ public class NekoLand extends Activity implements PrefsListener {
         mAdapter = new CatAdapter();
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        updateCats();
     }
 
     @Override
