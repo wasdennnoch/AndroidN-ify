@@ -216,7 +216,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
         // Has to be hooked in every app because every hook only applies to the current process
         ConfigUtils.notifications().loadBlacklistedApps();
         if (!ConfigUtils.notifications().blacklistedApps.contains(resparam.packageName)) {
-            NotificationHooks.hookResAndroid(resparam);
+            NotificationHooks.hookResAndroid(resparam, sModulePath);
         }
     }
 

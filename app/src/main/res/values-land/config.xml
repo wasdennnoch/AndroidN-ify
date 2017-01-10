@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="quick_settings_wide">true</bool>
+    <integer name="quick_settings_num_rows">2</integer>
     <integer name="quick_settings_num_columns">4</integer>
 </resources>

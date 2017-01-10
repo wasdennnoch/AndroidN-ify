@@ -115,7 +115,7 @@ public class StackScrollAlgorithmHooks {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         if (mStackTop == mStateTop || mStackScrollLayout == null) return;
-                        mStackTop = mStateTop;
+                        /*mStackTop = mStateTop;
                         if (mStackTop <= 0) {
                             mStackScrollLayout.setClipBounds(null);
                         } else {
@@ -124,9 +124,11 @@ public class StackScrollAlgorithmHooks {
                                     mStackScrollLayout.getRight(),
                                     mStackScrollLayout.getBottom());
                             mStackScrollLayout.setClipBounds(mClipBounds);
+                        }*/
+                        mStackScrollLayout.setClipBounds(null); //until a better solution is found, because previously it clipped the bottom notification
                         }
                     }
-                });
+                );
 
                 XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onInterceptTouchEvent", MotionEvent.class, new XC_MethodHook() {
                     @Override
