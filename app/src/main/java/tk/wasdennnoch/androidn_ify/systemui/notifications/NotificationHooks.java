@@ -568,6 +568,7 @@ public class NotificationHooks {
                 c = tk.wasdennnoch.androidn_ify.utils.ColorUtils.generateColor(appIcon, mAccentColor);
                 mGeneratedColors.put(packageName, c);
                 } catch (PackageManager.NameNotFoundException ignore) {
+            }
             if (ConfigUtils.notifications().generate_notification_accent_color) {
                 String packageName = context.getPackageName();
                 if (mGeneratedColors.containsKey(packageName))
