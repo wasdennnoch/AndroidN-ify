@@ -117,6 +117,8 @@ public class QSDetail extends LinearLayout {
         mQsDetailHeaderProgress.setImageDrawable(mContext.getDrawable(mContext.getResources().getIdentifier("indeterminate_anim", "drawable", PACKAGE_SYSTEMUI)));
         mQsDetailHeaderProgress.setBackground(mContext.getDrawable(mContext.getResources().getIdentifier("qs_detail_progress_track", "color", PACKAGE_SYSTEMUI)));
 
+        mQsDetailHeaderTitle.setPadding(ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_detail_title_padding),0,0,0);
+
         updateDetailText();
 
         mClipper = new QSDetailClipper(this);
@@ -172,6 +174,11 @@ public class QSDetail extends LinearLayout {
     private void updateDetailText() {
         //mDetailDoneButton.setText(R.string.quick_settings_done);
         //mDetailSettingsButton.setText(R.string.quick_settings_more_settings);
+        int buttonPadding = ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_detail_button_padding);
+        mDetailDoneButton.setBackground(ResourceUtils.getInstance(mContext).getDrawable(R.drawable.qs_btn_borderless_rect));
+        mDetailSettingsButton.setBackground(ResourceUtils.getInstance(mContext).getDrawable(R.drawable.qs_btn_borderless_rect));
+        mDetailDoneButton.setPadding(buttonPadding,buttonPadding,buttonPadding,buttonPadding);
+        mDetailSettingsButton.setPadding(buttonPadding,buttonPadding,buttonPadding,buttonPadding);
     }
 
     public void updateResources() {

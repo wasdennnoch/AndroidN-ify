@@ -15,6 +15,8 @@
 
     <dimen name="qs_detail_margin_top">28dp</dimen>
     <dimen name="qs_detail_padding_bottom">8dp</dimen>
+    <dimen name="qs_detail_title_padding">16dp</dimen>
+    <dimen name="qs_detail_button_padding">12dp</dimen>
 
     <dimen name="right_layout_height">48dp</dimen>
     <dimen name="right_layout_margin_top">4dp</dimen>
