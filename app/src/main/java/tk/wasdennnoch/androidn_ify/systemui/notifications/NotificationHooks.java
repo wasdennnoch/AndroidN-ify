@@ -1237,6 +1237,21 @@ public class NotificationHooks {
 
                 resparam.res.setReplacement(PACKAGE_ANDROID, "dimen", "notification_title_text_size", modRes.fwd(R.dimen.notification_title_text_size));
 
+                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_media_action", new XC_LayoutInflated() {
+                    @Override
+                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
+                        ImageButton action = (ImageButton) liparam.view;
+                        Context context = action.getContext();
+                        ResourceUtils res = ResourceUtils.getInstance(context);
+                        int width_height = res.getDimensionPixelSize(R.dimen.notification_media_action_width);
+                        RelativeLayout.LayoutParams lParams = new RelativeLayout.LayoutParams(width_height,width_height);
+                        lParams.setMarginEnd(res.getDimensionPixelSize(R.dimen.notification_media_action_margin));
+                        int padding = ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_media_action_padding);
+                        action.setPadding(0, padding, 0, padding);
+                        action.setBackground(res.getDrawable(R.drawable.notification_material_media_action_background));
+                    }
+                });
+
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action_list", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
