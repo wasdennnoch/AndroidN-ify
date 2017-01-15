@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="qs_tile_margin_top">2dp</dimen>
+    <dimen name="qs_brightness_padding_top">0dp</dimen>
+
+    <dimen name="qs_detail_margin_top">0dp</dimen>
+
+    <dimen name="battery_detail_graph_space_top">9dp</dimen>
+    <dimen name="battery_detail_graph_space_bottom">9dp</dimen>
+</resources>
