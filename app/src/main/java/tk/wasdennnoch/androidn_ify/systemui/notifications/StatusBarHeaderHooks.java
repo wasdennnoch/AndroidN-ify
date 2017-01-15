@@ -459,10 +459,10 @@ public class StatusBarHeaderHooks {
                 mDateTimeAlarmGroup.addView(mAlarmStatus); // The view HAS to be attached to a parent, otherwise it apparently gets GC -> NPE. We hide it later if necessary
                 if (!mShowFullAlarm)
                     mDateTimeAlarmGroup.addView(mDateCollapsed);
-                mStatusBarHeaderView.addView(mLeftContainer);
-                mStatusBarHeaderView.addView(mRightContainer);
-                mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
-                mStatusBarHeaderView.addView(mHeaderQsPanel);
+                mStatusBarHeaderView.addView(mRightContainer,0);
+                mStatusBarHeaderView.addView(mLeftContainer,1);
+                mStatusBarHeaderView.addView(mDateTimeAlarmGroup,2);
+                mStatusBarHeaderView.addView(mHeaderQsPanel,3);
                 mStatusBarHeaderView.setClipChildren(false);
                 mStatusBarHeaderView.setClipToPadding(false);
 

@@ -65,6 +65,19 @@ public class StackScrollAlgorithmHooks {
                 }
             });
 
+            XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "updateChildren", new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            //if (((mStackTop == mStateTop || mStackScrollLayout == null) && config.notifications.experimental)) return;
+                            mClipBounds.right = mStackScrollLayout.getWidth();
+                            mClipBounds.left = 0;
+                            mClipBounds.top = (int)mStackScrollLayout.getY();
+                            mClipBounds.bottom = Integer.MAX_VALUE;
+                            mStackScrollLayout.setClipBounds(mClipBounds);
+                        }
+                    }
+            );
+
             if (!config.notifications.experimental) return;
 
             if (config.notifications.change_style) {
@@ -110,25 +123,6 @@ public class StackScrollAlgorithmHooks {
 
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "clampPositionToTopStackEnd", XC_MethodReplacement.DO_NOTHING);
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "findNumberOfItemsInTopStackAndUpdateState", XC_MethodReplacement.DO_NOTHING);
-
-                XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "updateChildren", new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        if (mStackTop == mStateTop || mStackScrollLayout == null) return;
-                        /*mStackTop = mStateTop;
-                        if (mStackTop <= 0) {
-                            mStackScrollLayout.setClipBounds(null);
-                        } else {
-                            mClipBounds.set(-mStackScrollLayout.getLeft(),
-                                    (int) mStackTop,
-                                    mStackScrollLayout.getRight(),
-                                    mStackScrollLayout.getBottom());
-                            mStackScrollLayout.setClipBounds(mClipBounds);
-                        }*/
-                        mStackScrollLayout.setClipBounds(null); //until a better solution is found, because previously it clipped the bottom notification
-                        }
-                    }
-                );
 
                 XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onInterceptTouchEvent", MotionEvent.class, new XC_MethodHook() {
                     @Override

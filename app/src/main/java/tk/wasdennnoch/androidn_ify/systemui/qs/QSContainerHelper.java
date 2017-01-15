@@ -3,9 +3,11 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.graphics.Rect;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -64,6 +66,23 @@ public class QSContainerHelper {
         FrameLayout.LayoutParams qsPanelLp = (FrameLayout.LayoutParams) mQSPanel.getLayoutParams();
         qsPanelLp.setMargins(0, res.getDimensionPixelSize(R.dimen.qs_margin_top), 0, 0);
         qsPanel.setLayoutParams(qsPanelLp);
+
+        ViewGroup notificationContainer = (ViewGroup)mNotificationPanelView.getChildAt(1);
+        ViewGroup scrollView = (ViewGroup)notificationContainer.getChildAt(0);
+        LinearLayout linearLayout = (LinearLayout)scrollView.getChildAt(0);
+        FrameLayout frameLayout = new FrameLayout(qsContainer.getContext());
+        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        linearLayout.removeViewAt(0);
+        scrollView.removeView(linearLayout);
+        notificationContainer.removeView(scrollView);
+        notificationContainer.addView(scrollView);
+
+        notificationContainer.addView(frameLayout,0);
+        frameLayout.addView(mQSContainer);
+        notificationContainer.setLayoutParams(scrollView.getLayoutParams());
+        mNotificationPanelView.removeView(mHeader);
+        mQSContainer.addView(mHeader,1);
+        mQSPanel.setVisibility(View.INVISIBLE);
 
         setUpOnLayout();
     }
