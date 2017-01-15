@@ -117,8 +117,6 @@ public class QSDetail extends LinearLayout {
         mQsDetailHeaderProgress.setImageDrawable(mContext.getDrawable(mContext.getResources().getIdentifier("indeterminate_anim", "drawable", PACKAGE_SYSTEMUI)));
         mQsDetailHeaderProgress.setBackground(mContext.getDrawable(mContext.getResources().getIdentifier("qs_detail_progress_track", "color", PACKAGE_SYSTEMUI)));
 
-        mQsDetailHeaderTitle.setPadding(ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_detail_title_padding),0,0,0);
-
         updateDetailText();
 
         mClipper = new QSDetailClipper(this);
