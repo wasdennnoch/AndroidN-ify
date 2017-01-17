@@ -166,11 +166,10 @@ public class NotificationPanelHooks {
         }
     }
 
-    public static boolean isOnKeyguard() {
-        return getStatusBarState() == NotificationPanelHooks.STATE_KEYGUARD;
-    }
-
     public static int getStatusBarState() {
+        if (mNotificationPanelView == null) {
+            return 0;
+        }
         return XposedHelpers.getIntField(mNotificationPanelView, "mStatusBarState");
     }
 
