@@ -94,8 +94,11 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             logI(TAG, "Automated Build; Version: " + BuildConfig.BUILD_NUMBER);
             logI(TAG, "Build Time: " + BuildConfig.BUILD_TIME);
             logI(TAG, "Git SHA: " + BuildConfig.GIT_COMMIT);
+            logI(TAG, "Git info: \n | " + BuildConfig.GIT_INFO);
         } else {
             logI(TAG, "3rd Party Build; Version: " + BuildConfig.BUILD_NUMBER);
+            logI(TAG, "Git SHA: " + BuildConfig.GIT_COMMIT);
+            logI(TAG, "Git info: \n | " + BuildConfig.GIT_INFO);
         }
         if (ConfigUtils.isExperimental(sPrefs)) {
             logI(TAG, "Experimental features enabled");
