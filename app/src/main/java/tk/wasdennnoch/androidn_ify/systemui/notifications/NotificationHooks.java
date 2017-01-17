@@ -1223,6 +1223,7 @@ public class NotificationHooks {
 
             if (ConfigUtils.notifications().change_style) {
 
+                resparam.res.setReplacement(PACKAGE_ANDROID, "dimen", "notification_title_text_size", modRes.fwd(R.dimen.notification_title_text_size));
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action", notification_material_action);
                 //resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_icon_group", notification_template_icon_group);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_base", notification_template_material_base);
@@ -1234,8 +1235,6 @@ public class NotificationHooks {
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_picture", notification_template_material_big_picture);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_big_text", notification_template_material_base);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_inbox", notification_template_material_base);
-
-                resparam.res.setReplacement(PACKAGE_ANDROID, "dimen", "notification_title_text_size", modRes.fwd(R.dimen.notification_title_text_size));
 
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_media_action", new XC_LayoutInflated() {
                     @Override

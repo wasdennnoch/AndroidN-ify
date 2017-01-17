@@ -33,10 +33,19 @@ public class NotificationPanelHooks {
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_QS_CONTAINER = "com.android.systemui.qs.QSContainer";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
+    private static final String CLASS_OBSERVABLE_SCROLL_VIEW = "com.android.systemui.statusbar.phone.ObservableScrollView";
 
+    public static final int STATE_SHADE = 0;
     public static final int STATE_KEYGUARD = 1;
+    public static final int STATE_SHADE_LOCKED = 2;
 
     private static ViewGroup mNotificationPanelView;
+    private static ViewGroup mScrollView;
+    private static ViewGroup mQsContainer;
+    private static ViewGroup mHeader;
+    private static ViewGroup mQsPanel;
+    private static ViewGroup mNotificationStackScroller;
+
     private static ExpandableIndicator mExpandIndicator;
     private static QSCustomizer mQsCustomizer;
     private static QSContainerHelper mQsContainerHelper;
@@ -51,10 +60,15 @@ public class NotificationPanelHooks {
 
             mNotificationPanelView.setClipChildren(false);
             mNotificationPanelView.setClipToPadding(false);
-            View mHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mHeader");
+            mHeader = (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mHeader");
             mHeader.setOnClickListener(null);
             mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
             mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
+
+            mScrollView = (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mScrollView");
+            mQsContainer = (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mQsContainer");
+            mQsPanel = (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mQsPanel");
+            mNotificationStackScroller = (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mNotificationStackScroller");
 
             if (!ConfigUtils.qs().keep_qs_panel_background) {
                 View mQsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mQsContainer");
@@ -74,15 +88,189 @@ public class NotificationPanelHooks {
             mQsCustomizer = qsCustomizer;
 
             if (ConfigUtils.qs().fix_header_space) {
-                mQsContainerHelper = new QSContainerHelper(mNotificationPanelView,
-                        (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mQsContainer"),
-                        (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mHeader"),
-                        (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mQsPanel"));
+                mQsContainerHelper = new QSContainerHelper(mNotificationPanelView,mQsContainer,mHeader,
+                        mQsPanel);
 
                 mNotificationPanelView.requestLayout();
             }
         }
     };
+
+    private static final XC_MethodReplacement onQsExpansionStarted = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHelpers.callMethod(mNotificationPanelView, "cancelQsAnimation");
+            XposedHelpers.callMethod(mNotificationPanelView, "cancelHeightAnimator");
+            float height = XposedHelpers.getFloatField(mNotificationPanelView, "mQsExpansionHeight") - (int)param.args[0];
+            XposedHelpers.callMethod(mNotificationPanelView, "setQsExpansion",height);
+            XposedHelpers.callMethod(mNotificationPanelView, "requestPanelHeightUpdate");
+            return null;
+        }
+    };
+
+    private static final XC_MethodReplacement setVerticalPanelTranslation = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            float translation = (float) param.args[0];
+            XposedHelpers.callMethod(mNotificationStackScroller, "setTranslationX", translation);
+            XposedHelpers.callMethod(mScrollView, "setTranslationX", translation);
+            return null;
+        }
+    };
+
+    private static final XC_MethodHook updateHeaderShade = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHook.logI(TAG, "getHeaderTranslation" + XposedHelpers.callMethod(mNotificationPanelView, "getHeaderTranslation").toString());
+        }
+    };
+
+    private static final XC_MethodReplacement getTempQsMaxExpansion = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            return XposedHelpers.getIntField(mNotificationPanelView, "mQsMaxExpansionHeight");
+        }
+    };
+
+    private static final XC_MethodHook onExpandingStartedHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHelpers.callMethod(mHeader,"setListening", true);
+        }
+    };
+
+    private static final XC_MethodReplacement onClick = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            if(((View)param.args[0]).getId() == R.id.statusbar_header_expand_indicator) {
+                XposedHelpers.callMethod(mNotificationPanelView, "onQsExpansionStarted");
+                if (XposedHelpers.getBooleanField(mNotificationPanelView, "mQsExpanded")) {
+                    XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", 0, false, null, true);
+                }
+                else if (XposedHelpers.getBooleanField(mNotificationPanelView, "mQsExpansionEnabled")) {
+                    XposedHelpers.callMethod(mNotificationPanelView, "flingSettings", 0, true, null, true);
+                }
+            }
+            return null;
+        }
+    };
+
+    private static final XC_MethodReplacement shouldQuickSettingsIntercept = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            float x = (float)param.args[0];
+            float y = (float)param.args[1];
+            float yDiff = (float)param.args[2];
+
+            if (!XposedHelpers.getBooleanField(mNotificationPanelView,"mQsExpansionEnabled") || XposedHelpers.getBooleanField(mNotificationPanelView,"mCollapsedOnDown")) {
+                return false;
+            }
+            View header = XposedHelpers.getBooleanField(mNotificationPanelView,"mKeyguardShowing") ? (View)XposedHelpers.getObjectField(mNotificationPanelView,"mKeyguardStatusBar") : (View)XposedHelpers.getObjectField(mNotificationPanelView, "mHeader");
+            View mScrollView = (View)(XposedHelpers.getObjectField(mNotificationPanelView, "mScrollView"));
+            boolean onHeader = x >= mScrollView.getX()
+                    && x <= mScrollView.getX() + mScrollView.getWidth()
+                    && y >= header.getTop() && y <= header.getBottom();
+            if (XposedHelpers.getBooleanField(mNotificationPanelView, "mQsExpanded")) {
+                return onHeader || (yDiff < 0 && (boolean)XposedHelpers.callMethod(mNotificationPanelView,"isInQsArea", x, y));
+            } else {
+                return onHeader;
+            }
+        }
+    };
+
+    private static final XC_MethodReplacement updateQsState = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            boolean mQsExpanded = XposedHelpers.getBooleanField(mNotificationPanelView, "mQsExpanded");
+            boolean mStackScrollerOverscrolling = XposedHelpers.getBooleanField(mNotificationPanelView, "mStackScrollerOverscrolling");
+            boolean mHeaderAnimating = XposedHelpers.getBooleanField(mNotificationPanelView, "mHeaderAnimating");
+            boolean mKeyguardShowing = XposedHelpers.getBooleanField(mNotificationPanelView, "mKeyguardShowing");
+            boolean mQsExpansionFromOverscroll = XposedHelpers.getBooleanField(mNotificationPanelView, "mQsExpansionFromOverscroll");
+            boolean mQsScrimEnabled = XposedHelpers.getBooleanField(mNotificationPanelView, "mQsScrimEnabled");
+            Object mKeyguardUserSwitcher = XposedHelpers.getObjectField(mNotificationPanelView, "mKeyguardUserSwitcher");
+            int mStatusBarState = XposedHelpers.getIntField(mNotificationPanelView, "mStatusBarState");
+            View mQsNavbarScrim = (View)XposedHelpers.getObjectField(mNotificationPanelView, "mQsNavbarScrim");
+            boolean expandVisually = mQsExpanded || mStackScrollerOverscrolling || mHeaderAnimating;
+            mHeader.setVisibility((mQsExpanded || !mKeyguardShowing || mHeaderAnimating)
+                    ? View.VISIBLE
+                    : View.INVISIBLE);
+            XposedHelpers.callMethod(mHeader, "setExpanded", ((mKeyguardShowing && !mHeaderAnimating)
+                    || (mQsExpanded && !mStackScrollerOverscrolling)));
+            XposedHelpers.callMethod(mQsPanel, "setVisibility", (expandVisually ? View.VISIBLE : View.INVISIBLE));
+            XposedHelpers.callMethod(mQsPanel, "setExpanded", mQsExpanded);
+            XposedHelpers.callMethod(mNotificationStackScroller, "setScrollingEnabled", (
+                    mStatusBarState != STATE_KEYGUARD && (!mQsExpanded
+                            || mQsExpansionFromOverscroll)));
+            XposedHelpers.callMethod(mNotificationPanelView, "updateEmptyShadeView");
+            mQsNavbarScrim.setVisibility(mStatusBarState == STATE_SHADE && mQsExpanded
+                    && !mStackScrollerOverscrolling && mQsScrimEnabled
+                    ? View.VISIBLE
+                    : View.INVISIBLE);
+            if (mKeyguardUserSwitcher != null && mQsExpanded && !mStackScrollerOverscrolling) {
+                XposedHelpers.callMethod(mKeyguardUserSwitcher, "hideIfNotSimple", true /* animate */);
+            }
+            return null;
+        }
+        };
+
+    private static final XC_MethodHook onTouchEventHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHelpers.setBooleanField(mNotificationStackScroller, "mDelegateToScrollView", false);
+            XposedHelpers.setBooleanField(mNotificationStackScroller, "mOnlyScrollingInThisMotion", false);
+        }
+    };
+
+    private static final XC_MethodHook onInterceptTouchEventHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHelpers.setBooleanField(mNotificationStackScroller, "mInterceptDelegateEnabled", false);
+            XposedHelpers.setBooleanField(mNotificationStackScroller, "mOnlyScrollingInThisMotion", false);
+        }
+    };
+
+    private static final XC_MethodReplacement isScrolledToBottom = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            Object mStatusBar = XposedHelpers.getObjectField(mNotificationPanelView, "mStatusBar");
+            int getBarState = (int)XposedHelpers.callMethod(mStatusBar, "getBarState");
+            boolean isScrolledToBottom = (boolean)XposedHelpers.callMethod(mNotificationStackScroller, "isScrolledToBottom");
+            boolean isInSettings = (boolean)XposedHelpers.callMethod(mNotificationPanelView, "isInSettings");
+            if (!isInSettings) {
+                return (getBarState == STATE_KEYGUARD)
+                        || isScrolledToBottom;
+            } else {
+                return true;
+
+            }
+        }
+    };
+
+    private static final XC_MethodHook onScrollTouchHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            MotionEvent ev = (MotionEvent)param.args[0];
+            boolean mIsBeingDragged = XposedHelpers.getBooleanField(mNotificationStackScroller, "mIsBeingDragged");
+            if(ev.getY() < mQsContainer.getBottom() && !mIsBeingDragged) {
+                param.setResult(false);
+            }
+        }
+    };
+
+    /*private static final XC_MethodReplacement getHeaderTranslation = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            int mQsMinExpansionHeight = XposedHelpers.getIntField(mNotificationPanelView, "mQsMinExpansionHeight");
+            if (getStatusBarState() == STATE_KEYGUARD) {
+                return 0;
+            }
+            float translation = NotificationUtils.interpolate(-mQsMinExpansionHeight, 0, mNotificationStackScroller.getAppearFraction(mExpandedHeight));
+            height - appearStartPosition)
+            / (appearEndPosition - appearStartPosition);
+            return start * (1.0f - amount) + end * amount;
+            return Math.min(0, translation);
+        }
+    }*/
 
     private static final XC_MethodHook setBarStateHook = new XC_MethodHook() {
         @Override
@@ -182,9 +370,48 @@ public class NotificationPanelHooks {
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classQSContainer = XposedHelpers.findClass(CLASS_QS_CONTAINER, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
+                Class<?> classObservableScrollView = XposedHelpers.findClass(CLASS_OBSERVABLE_SCROLL_VIEW, classLoader);
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "requestDisallowInterceptTouchEvent", boolean.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onOverscrolled", float.class, float.class, int.class, XC_MethodReplacement.DO_NOTHING);
+                //XposedHelpers.findAndHookMethod(classNotificationPanelView, "updateHeaderShade", updateHeaderShade);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "getTempQsMaxExpansion", getTempQsMaxExpansion);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onExpandingStarted", onExpandingStartedHook);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onClick", View.class, onClick);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "setVerticalPanelTranslation", float.class, setVerticalPanelTranslation);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onQsExpansionStarted", int.class, onQsExpansionStarted);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "updateQsState", updateQsState);
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "isScrolledToBottom", isScrolledToBottom);
+
+                XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setScrollView", ViewGroup.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onTouchEvent", MotionEvent.class, onTouchEventHook);
+                XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onInterceptTouchEvent", MotionEvent.class, onInterceptTouchEventHook);
+                XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onScrollTouch", MotionEvent.class, onScrollTouchHook);
+
+                XposedHelpers.findAndHookMethod(classObservableScrollView, "onScrollChanged", int.class, int.class, int.class, int.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classObservableScrollView, "onOverScrolled", int.class, int.class, boolean.class, boolean.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classObservableScrollView, "overScrollBy", int.class, int.class, int.class, int.class, int.class, int.class, int.class, int.class, boolean.class, XC_MethodReplacement.returnConstant(false));
+                XposedHelpers.findAndHookMethod(classObservableScrollView, "isHandlingTouchEvent", XC_MethodReplacement.returnConstant(false));
+                //XposedHelpers.findAndHookMethod(classObservableScrollView, "setTouchEnabled", boolean.class, XC_MethodReplacement.DO_NOTHING);
+                //XposedHelpers.findAndHookMethod(classObservableScrollView, "dispatchTouchEvent", MotionEvent.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classObservableScrollView, "fling", int.class, XC_MethodReplacement.DO_NOTHING);
+                //XposedHelpers.findAndHookMethod(classObservableScrollView, "onInterceptTouchEvent", MotionEvent.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classObservableScrollView, "getMaxScrollY", XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.findAndHookMethod(classObservableScrollView, "isScrolledToBottom", XC_MethodReplacement.DO_NOTHING);
+                //XposedHelpers.findAndHookMethod(classObservableScrollView, "dispatchTouchEvent", MotionEvent.class, XC_MethodReplacement.DO_NOTHING);
+
+
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "setQsExpansionEnabled", boolean.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        param.args[0] = true;
+                    }
+                });
+
+                XposedHelpers.findAndHookMethod(classNotificationPanelView, "shouldQuickSettingsIntercept", float.class, float.class, float.class, shouldQuickSettingsIntercept);
+
 
                 if (ConfigUtils.M)
                     XposedHelpers.findAndHookMethod(classNotificationPanelView, "setVerticalPanelTranslation", float.class, setVerticalPanelTranslationHook);

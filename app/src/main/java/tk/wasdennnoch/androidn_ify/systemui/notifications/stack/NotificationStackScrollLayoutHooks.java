@@ -328,6 +328,7 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
         mBackgroundPaint.setXfermode(mSrcMode);
         mStackScrollLayout.setWillNotDraw(false);
         mStackScrollLayout.setOnApplyWindowInsetsListener(NotificationStackScrollLayoutHooks.this);
+        mStackScrollLayout.setFocusable(false);
     }
 
     private void updateBackground() {

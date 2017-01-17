@@ -43,7 +43,7 @@ public class StackScrollAlgorithmHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
-            ConfigUtils config = ConfigUtils.getInstance();
+            final ConfigUtils config = ConfigUtils.getInstance();
 
             Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
             XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "initView", new XC_MethodHook() {
@@ -68,7 +68,7 @@ public class StackScrollAlgorithmHooks {
             XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "updateChildren", new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                            //if (((mStackTop == mStateTop || mStackScrollLayout == null) && config.notifications.experimental)) return;
+                            if (((mStackTop == mStateTop || mStackScrollLayout == null) && config.notifications.experimental)) return;
                             mClipBounds.right = mStackScrollLayout.getWidth();
                             mClipBounds.left = 0;
                             mClipBounds.top = (int)mStackScrollLayout.getY();

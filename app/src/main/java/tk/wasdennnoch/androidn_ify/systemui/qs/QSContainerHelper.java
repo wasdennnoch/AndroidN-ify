@@ -25,12 +25,12 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 public class QSContainerHelper {
 
     private static final String TAG = "QSContainerHelper";
+
     private final ViewGroup mNotificationPanelView;
     private final ViewGroup mHeader;
-    private final ViewGroup mQSContainer;
-    private final ViewGroup mQSPanel;
+    private static ViewGroup mQSContainer;
+    private static ViewGroup mQSPanel;
     private final QSDetail mQSDetail;
-    //private final View mQSDetail;
     private float mQsExpansion;
     private int mHeaderHeight;
     private int mQsTopMargin;
@@ -68,21 +68,23 @@ public class QSContainerHelper {
         qsPanel.setLayoutParams(qsPanelLp);
 
         ViewGroup notificationContainer = (ViewGroup)mNotificationPanelView.getChildAt(1);
+        ViewGroup notificationScrollLayout = (ViewGroup)notificationContainer.getChildAt(1);
         ViewGroup scrollView = (ViewGroup)notificationContainer.getChildAt(0);
         LinearLayout linearLayout = (LinearLayout)scrollView.getChildAt(0);
-        FrameLayout frameLayout = new FrameLayout(qsContainer.getContext());
-        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
         linearLayout.removeViewAt(0);
         scrollView.removeView(linearLayout);
-        notificationContainer.removeView(scrollView);
-        notificationContainer.addView(scrollView);
-
-        notificationContainer.addView(frameLayout,0);
-        frameLayout.addView(mQSContainer);
-        notificationContainer.setLayoutParams(scrollView.getLayoutParams());
+        scrollView.addView(mQSContainer);
+        ViewGroup.LayoutParams notificationContainerParams = scrollView.getLayoutParams();
+        notificationContainerParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
+        notificationContainer.setLayoutParams(notificationContainerParams);
         mNotificationPanelView.removeView(mHeader);
         mQSContainer.addView(mHeader,1);
         mQSPanel.setVisibility(View.INVISIBLE);
+        mHeader.setClickable(false);
+        mHeader.setFocusable(false);
+        mHeader.setActivated(false);
+        mHeader.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
 
         setUpOnLayout();
     }
