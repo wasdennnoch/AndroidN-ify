@@ -353,7 +353,7 @@ public class NotificationPanelHooks {
             int mIntrinsicPadding = XposedHelpers.getIntField(mNotificationStackScroller, "mIntrinsicPadding");
             int mBottomStackSlowDownHeight = XposedHelpers.getIntField(mNotificationStackScroller, "mBottomStackSlowDownHeight");
             int mBottomStackPeekSize = XposedHelpers.getIntField(mNotificationStackScroller, "mBottomStackPeekSize");
-            int mCollapsedSize = XposedHelpers.getIntField(mNotificationStackScroller, "mCollpasedSize");
+            int mCollapsedSize = XposedHelpers.getIntField(mNotificationStackScroller, "mCollapsedSize");
             return mIntrinsicPadding + mCollapsedSize + mBottomStackPeekSize
                     + mBottomStackSlowDownHeight;
         }
