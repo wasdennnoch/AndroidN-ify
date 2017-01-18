@@ -30,6 +30,7 @@ public class QSContainerHelper {
     private final ViewGroup mHeader;
     private static ViewGroup mQSContainer;
     private static ViewGroup mQSPanel;
+    private static ViewGroup mNotificationStackScroller;
     private final QSDetail mQSDetail;
     private float mQsExpansion;
     private int mHeaderHeight;
@@ -37,7 +38,6 @@ public class QSContainerHelper {
 
     private static final int CAP_HEIGHT = 1456;
     private static final int FONT_HEIGHT = 2163;
-    private Object mNotificationStackScroller;
     private Object mKeyguardStatusView;
     private TextView mClockView;
     private Rect mQsBounds = new Rect();
@@ -85,6 +85,8 @@ public class QSContainerHelper {
         mHeader.setFocusable(false);
         mHeader.setActivated(false);
         mHeader.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+        scrollView.setClipChildren(false);
+        scrollView.setClipToPadding(false);
 
         setUpOnLayout();
     }
@@ -135,7 +137,7 @@ public class QSContainerHelper {
     }
 
     private void setUpOnLayout() {
-        mNotificationStackScroller = XposedHelpers.getObjectField(mNotificationPanelView, "mNotificationStackScroller");
+        mNotificationStackScroller = (ViewGroup)XposedHelpers.getObjectField(mNotificationPanelView, "mNotificationStackScroller");
         mKeyguardStatusView = XposedHelpers.getObjectField(mNotificationPanelView, "mKeyguardStatusView");
         mClockView = (TextView) XposedHelpers.getObjectField(mNotificationPanelView, "mClockView");
     }
