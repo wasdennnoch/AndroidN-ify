@@ -26,23 +26,23 @@ public class QSContainerHelper {
 
     private static final String TAG = "QSContainerHelper";
 
-    private final ViewGroup mNotificationPanelView;
-    private final ViewGroup mHeader;
+    private static ViewGroup mNotificationPanelView;
+    private static ViewGroup mHeader;
     private static ViewGroup mQSContainer;
     private static ViewGroup mQSPanel;
     private static ViewGroup mNotificationStackScroller;
-    private final QSDetail mQSDetail;
-    private float mQsExpansion;
-    private int mHeaderHeight;
-    private int mQsTopMargin;
+    private static QSDetail mQSDetail;
+    private static float mQsExpansion;
+    private static int mHeaderHeight;
+    private static int mQsTopMargin;
 
     private static final int CAP_HEIGHT = 1456;
     private static final int FONT_HEIGHT = 2163;
     private Object mKeyguardStatusView;
     private TextView mClockView;
-    private Rect mQsBounds = new Rect();
-    private boolean mKeyguardShowing = false;
-    private boolean mHeaderAnimating;
+    private static Rect mQsBounds = new Rect();
+    private static boolean mKeyguardShowing = false;
+    private static boolean mHeaderAnimating;
 
     public QSContainerHelper(ViewGroup notificationPanelView, ViewGroup qsContainer, ViewGroup header, ViewGroup qsPanel) {
         mNotificationPanelView = notificationPanelView;
@@ -91,28 +91,23 @@ public class QSContainerHelper {
         setUpOnLayout();
     }
 
-    public void setQsExpansion(float expansion, float headerTranslation) {
+    public static void setQsExpansion(float expansion, float headerTranslation) {
         expansion = Math.max(0, expansion);
         boolean keyguardShowing = XposedHelpers.getBooleanField(mNotificationPanelView, "mKeyguardShowing");
-        if (mKeyguardShowing != keyguardShowing) {
-            mKeyguardShowing = keyguardShowing;
-            if (mKeyguardShowing) {
+        if (keyguardShowing) {
                 expansion = 0;
                 XposedHelpers.setFloatField(mNotificationPanelView, "mQsExpansionHeight", expansion);
-            }
         }
         mQsExpansion = expansion;
         final float translationScaleY = expansion - 1;
         if (!mHeaderAnimating) {
-            float translation = keyguardShowing ? (translationScaleY * mHeader.getHeight())
-                    : headerTranslation;
-            mQSContainer.setTranslationY(translation);
-            mHeader.setTranslationY(translation);
+            XposedHelpers.callMethod(mQSContainer, "setTranslationY", keyguardShowing ? (translationScaleY * mHeader.getHeight())
+                    : headerTranslation);
         }
-        XposedHelpers.callMethod(mHeader, "setExpansion", keyguardShowing ? 1 : expansion);
-        float qsPanelTranslationY = translationScaleY * mQSPanel.getHeight();
-        mQSPanel.setTranslationY(qsPanelTranslationY);
+        XposedHelpers.callMethod(mHeader, "setExpansion", mKeyguardShowing ? 1 : expansion);
+        mQSPanel.setTranslationY(translationScaleY * mQSPanel.getHeight());
         mQSDetail.setFullyExpanded(expansion == 1);
+        //mQSAnimator.setPosition(expansion); //not yet
         // TODO implement this
         //mQSDetail.setTranslationY(keyguardShowing ? 0 : -qsPanelTranslationY);
         updateBottom();
@@ -124,13 +119,13 @@ public class QSContainerHelper {
         mQSPanel.setClipBounds(mQsBounds);
     }
 
-    public void updateBottom() {
+    public static void updateBottom() {
         int height = calculateContainerHeight();
         mQSContainer.setBottom(mQSContainer.getTop() + height);
         //mQSDetail.setBottom(mQSContainer.getTop() + height);
     }
 
-    private int calculateContainerHeight() {
+    private static int calculateContainerHeight() {
         int mHeightOverride = XposedHelpers.getIntField(mQSContainer, "mHeightOverride");
         int heightOverride = mHeightOverride != -1 ? mHeightOverride : mQSContainer.getMeasuredHeight() - mHeaderHeight;
         return (int) (mQsExpansion * heightOverride) + mHeaderHeight;
