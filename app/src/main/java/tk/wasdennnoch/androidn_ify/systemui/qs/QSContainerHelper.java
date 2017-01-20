@@ -94,9 +94,12 @@ public class QSContainerHelper {
     public static void setQsExpansion(float expansion, float headerTranslation) {
         expansion = Math.max(0, expansion);
         boolean keyguardShowing = XposedHelpers.getBooleanField(mNotificationPanelView, "mKeyguardShowing");
-        if (keyguardShowing) {
+        if (mKeyguardShowing != keyguardShowing) {
+            mKeyguardShowing = keyguardShowing;
+            if (mKeyguardShowing) {
                 expansion = 0;
                 XposedHelpers.setFloatField(mNotificationPanelView, "mQsExpansionHeight", expansion);
+            }
         }
         mQsExpansion = expansion;
         final float translationScaleY = expansion - 1;
@@ -108,8 +111,6 @@ public class QSContainerHelper {
         mQSPanel.setTranslationY(translationScaleY * mQSPanel.getHeight());
         mQSDetail.setFullyExpanded(expansion == 1);
         //mQSAnimator.setPosition(expansion); //not yet
-        // TODO implement this
-        //mQSDetail.setTranslationY(keyguardShowing ? 0 : -qsPanelTranslationY);
         updateBottom();
 
         // Set bounds on the QS panel so it doesn't run over the header.
@@ -122,7 +123,7 @@ public class QSContainerHelper {
     public static void updateBottom() {
         int height = calculateContainerHeight();
         mQSContainer.setBottom(mQSContainer.getTop() + height);
-        //mQSDetail.setBottom(mQSContainer.getTop() + height);
+        mQSDetail.setBottom(mQSContainer.getTop() + height);
     }
 
     private static int calculateContainerHeight() {
