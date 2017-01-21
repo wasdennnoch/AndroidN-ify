@@ -86,24 +86,24 @@ public class StackScrollAlgorithmHooks {
                 }
             });
 
-            XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "updateChildren", new XC_MethodHook() {
+            /*XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "updateChildren", new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                            if (((mStackTop == mStateTop || mStackScrollLayout == null) && config.notifications.experimental))
+                            if (((mStackTop == mStateTop || mStackScrollLayout == null)))
                                 return;
                             mClipBounds.right = mStackScrollLayout.getWidth();
                             mClipBounds.left = 0;
-                            mClipBounds.top = (int) mStackScrollLayout.getY();
+                            mClipBounds.top = mStackScrollLayout.getTop();
                             mClipBounds.bottom = Integer.MAX_VALUE;
                             mStackScrollLayout.setClipBounds(mClipBounds);
                         }
                     }
-            );
+            );*/
 
             if (!config.notifications.experimental) return;
 
             if (config.notifications.change_style) {
-                Class classStackScrollAlgorithmState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm.StackScrollAlgorithmState", classLoader);
+                /*Class classStackScrollAlgorithmState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollAlgorithm.StackScrollAlgorithmState", classLoader);
                 Class classStackScrollState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackScrollState", classLoader);
                 Class classStackViewState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackViewState", classLoader);
                 Class classAmbientState = XposedHelpers.findClass("com.android.systemui.statusbar.stack.AmbientState", classLoader);
@@ -156,10 +156,10 @@ public class StackScrollAlgorithmHooks {
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         isExpansionChanging = fieldIsExpansionChanging.getBoolean(param.thisObject);
                     }
-                });
+                });*/
 
-                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "clampPositionToTopStackEnd", XC_MethodReplacement.DO_NOTHING);
-                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "findNumberOfItemsInTopStackAndUpdateState", XC_MethodReplacement.DO_NOTHING); //this causes problems
+                //XposedBridge.hookAllMethods(classStackScrollAlgorithm, "clampPositionToTopStackEnd", XC_MethodReplacement.DO_NOTHING);
+                //XposedBridge.hookAllMethods(classStackScrollAlgorithm, "findNumberOfItemsInTopStackAndUpdateState", XC_MethodReplacement.DO_NOTHING); //this causes problems
                 /*XposedBridge.hookAllMethods(classStackScrollAlgorithm, "updatePositionsForState", new XC_MethodReplacement() {
                     @Override
                     protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
