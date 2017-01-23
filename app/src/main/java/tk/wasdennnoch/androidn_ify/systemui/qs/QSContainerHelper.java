@@ -38,8 +38,8 @@ public class QSContainerHelper {
 
     private static final int CAP_HEIGHT = 1456;
     private static final int FONT_HEIGHT = 2163;
-    private Object mKeyguardStatusView;
-    private TextView mClockView;
+    private static Object mKeyguardStatusView;
+    private static TextView mClockView;
     private static Rect mQsBounds = new Rect();
     private static boolean mKeyguardShowing = false;
     private static boolean mHeaderAnimating;
@@ -84,7 +84,6 @@ public class QSContainerHelper {
         mHeader.setClickable(false);
         mHeader.setFocusable(false);
         mHeader.setActivated(false);
-        mHeader.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         scrollView.setClipChildren(false);
         scrollView.setClipToPadding(false);
 

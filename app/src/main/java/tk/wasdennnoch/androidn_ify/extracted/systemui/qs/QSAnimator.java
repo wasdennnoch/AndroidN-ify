@@ -166,7 +166,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
                 getRelativePosition(loc2, tileIcon, mQsContainer);
                 final int xDiff = loc2[0] - loc1[0] + ((i < maxTilesOnPage) ? 0 : mPagedLayout.getWidth());
                 final int yDiff = loc2[1] - loc1[1] +
-                        + mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
+                        + mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : mQsContainer.getPaddingTop());
 
                 lastXDiff = loc1[0] - lastX;
                 // Move the quick tile right from its location to the new one.
@@ -351,7 +351,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
                                int oldTop, int oldRight, int oldBottom) {
-        //mQsPanel.post(mUpdateAnimators);
+        mQsPanel.post(mUpdateAnimators);
     }
 
     /*
