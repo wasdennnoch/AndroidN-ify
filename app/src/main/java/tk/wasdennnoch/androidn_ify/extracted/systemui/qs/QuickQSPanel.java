@@ -212,7 +212,9 @@ public class QuickQSPanel extends LinearLayout {
 
         private void addViewToLayout(View view, int position, OnClickListener click, OnLongClickListener longClick) {
             view.setClickable(false);
-            RelativeLayout container = new RelativeLayout(view.getContext());
+            FrameLayout container = new FrameLayout(view.getContext());
+            container.setClipChildren(false);
+            container.setClipToPadding(false);
             container.setClickable(true);
             container.setOnClickListener(click);
             container.setOnLongClickListener(longClick);
@@ -242,9 +244,9 @@ public class QuickQSPanel extends LinearLayout {
             removeAllViews();
         }
 
-        private RelativeLayout.LayoutParams generateLayoutParams() {
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mIconSizePx);
-            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+        private FrameLayout.LayoutParams generateLayoutParams() {
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mIconSizePx);
+            lp.gravity = Gravity.CENTER;
             return lp;
         }
 

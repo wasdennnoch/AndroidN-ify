@@ -67,8 +67,8 @@ public class QSContainerHelper {
         qsPanelLp.setMargins(0, res.getDimensionPixelSize(R.dimen.qs_margin_top), 0, 0);
         qsPanel.setLayoutParams(qsPanelLp);
 
-        ViewGroup notificationContainer = (ViewGroup)mNotificationPanelView.getChildAt(1);
-        ViewGroup notificationScrollLayout = (ViewGroup)notificationContainer.getChildAt(1);
+        ViewGroup notificationContainer = (ViewGroup) mNotificationPanelView.getChildAt(1);
+        ViewGroup notificationScrollLayout = (ViewGroup) notificationContainer.getChildAt(1);
         ViewGroup scrollView = (ViewGroup)notificationContainer.getChildAt(0);
         LinearLayout linearLayout = (LinearLayout)scrollView.getChildAt(0);
 
@@ -84,8 +84,11 @@ public class QSContainerHelper {
         mHeader.setClickable(false);
         mHeader.setFocusable(false);
         mHeader.setActivated(false);
+
         scrollView.setClipChildren(false);
         scrollView.setClipToPadding(false);
+        mQSContainer.setClipChildren(false);
+        mQSContainer.setClipToPadding(false);
 
         setUpOnLayout();
     }

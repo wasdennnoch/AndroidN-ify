@@ -137,7 +137,7 @@ public class StatusBarHeaderHooks {
     private static float mExpansion = 0;
     private static boolean mRecreatingStatusBar = false;
 
-    private static int mQsTopMargin;
+    private static int mQsRippleAdjustment;
 
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
     public static ArrayList<Object> mRecords;
@@ -157,6 +157,9 @@ public class StatusBarHeaderHooks {
             mResUtils = ResourceUtils.getInstance(mContext);
             ResourceUtils res = mResUtils;
             ConfigUtils config = ConfigUtils.getInstance();
+
+            mQsRippleAdjustment = mResUtils.getDimensionPixelSize(R.dimen.status_bar_header_height) -
+                    mResUtils.getDimensionPixelSize(R.dimen.qs_margin_top);
 
             mShowFullAlarm = res.getResources().getBoolean(R.bool.quick_settings_show_full_alarm) || config.qs.force_old_date_position;
 
@@ -712,14 +715,10 @@ public class StatusBarHeaderHooks {
             } else {
                 if (tileRecord != null) {
                     try {
-                        if (ConfigUtils.qs().fix_header_space && mQsTopMargin == 0) {
-                            mQsTopMargin = mResUtils.getDimensionPixelSize(R.dimen.qs_margin_top);
-                        }
-
                         View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                         param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
                         param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
-                                + mQsPanel.getTop();
+                                + mQsPanel.getTop() + (ConfigUtils.qs().fix_header_space ? mQsRippleAdjustment : 0);
                     } catch (Throwable ignore) { // OOS3
                     }
                 }
