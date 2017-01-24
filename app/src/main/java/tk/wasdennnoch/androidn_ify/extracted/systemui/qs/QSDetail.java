@@ -258,13 +258,13 @@ public class QSDetail extends LinearLayout {
             XposedHelpers.callMethod(mQsPanel, "setDetailRecord", r);
             listener = mHideGridContentWhenDone;
             setVisibility(View.VISIBLE);
-            transition(mHeader, false);
+            //transition(mHeader, false);
         } else {
             mClosingDetail = true;
             mDetailAdapter = null;
             listener = mTeardownDetailWhenDone;
             //mHeader.setVisibility(View.VISIBLE);
-            transition(mHeader, true);
+            //transition(mHeader, true);
             XposedHelpers.callMethod(mQsPanel, "setGridContentVisibility", true);
             XposedHelpers.callMethod(mQsPanel, "fireScanStateChanged", false);
         }
