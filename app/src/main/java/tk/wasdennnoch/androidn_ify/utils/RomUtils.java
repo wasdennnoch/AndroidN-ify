@@ -26,7 +26,7 @@ public class RomUtils {
     // Init from Xposed
     public static void init(XSharedPreferences prefs) {
         sPrefs = prefs;
-        isOxygen35();
+        isOneplusStock();
     }
     public static void initRemote() {
         Context context = (Context) XposedHelpers.callMethod(XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"), "getSystemContext");
@@ -58,8 +58,8 @@ public class RomUtils {
         return sPrefs.getString("rom", "").equals("aicp");
     }
 
-    public static boolean isOxygen35() {
-        return SystemProperties.get("ro.oxygen.version", "").contains("3.5");
+    public static boolean isOneplusStock() {
+        return SystemProperties.get("ro.oxygen.version", "").contains("3.5") || SystemProperties.get("ro.rom.version", "").contains("H2OS V2.5");
     }
 
     public static boolean isCmBased() {
