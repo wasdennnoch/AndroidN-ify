@@ -252,10 +252,6 @@ public class StackScrollAlgorithmHooks {
         }
     }
 
-    private static int getInnerHeight() {
-            return Math.max(getInt(fieldLayoutHeight, classAmbientState) - getInt(fieldTopPadding, classAmbientState), mLayoutMinHeight);
-    }
-
     private static final XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -282,15 +278,17 @@ public class StackScrollAlgorithmHooks {
             // First we reset the view states to their default values.
             invoke(methodResetViewStates, resultState);
 
-            initAlgorithmState(resultState, algorithmState, ambientState);
-            updatePositionsForState(resultState, algorithmState, ambientState);
-            updateZValuesForState(resultState, algorithmState, ambientState);
-            updateHeadsUpStates(resultState, algorithmState, ambientState);
-            invoke(methodHandleDraggedViews, mStackScrollAlgorithm, ambientState, resultState, algorithmState);
-            invoke(methodUpdateDimmedActivatedHideSensitive, mStackScrollAlgorithm, ambientState, resultState, algorithmState);
-            updateClipping(resultState, algorithmState, ambientState);
-            invoke(methodUpdateSpeedBumpState, mStackScrollAlgorithm, resultState, algorithmState, (int)invoke(methodGetSpeedBumpIndex, ambientState));
-            invoke(methodGetNotificationChildrenStates, mStackScrollAlgorithm, resultState, algorithmState);
+            /** Trying to find where the headsup problem is **/
+
+            initAlgorithmState(resultState, algorithmState, ambientState); //could be here?
+            updatePositionsForState(resultState, algorithmState, ambientState);//probably not here
+            updateZValuesForState(resultState, algorithmState, ambientState); //not here
+            updateHeadsUpStates(resultState, algorithmState, ambientState); //not here
+            invoke(methodHandleDraggedViews, mStackScrollAlgorithm, ambientState, resultState, algorithmState); //not here
+            invoke(methodUpdateDimmedActivatedHideSensitive, mStackScrollAlgorithm, ambientState, resultState, algorithmState); //probably not here
+            updateClipping(resultState, algorithmState, ambientState);//not here
+            invoke(methodUpdateSpeedBumpState, mStackScrollAlgorithm, resultState, algorithmState, (int)invoke(methodGetSpeedBumpIndex, ambientState)); //not here
+            invoke(methodGetNotificationChildrenStates, mStackScrollAlgorithm, resultState, algorithmState); //not here
             return null;
         }
     };
@@ -587,7 +585,7 @@ public class StackScrollAlgorithmHooks {
                 // The first card can get into the bottom stack if it's the only one
                 // on the lockscreen which pushes it up. Let's make sure that doesn't happen and
                 // it stays at the top
-                setFloat(fieldYTranslation, childViewState, Math.max(0, getFloat(fieldYTranslation, childViewState)));
+                setFloat(fieldYTranslation, childViewState, Math.max(0, getFloat(fieldYTranslation, childViewState))); //if the translation is decremented by ~130, the dismiss button will be shown as it should
             }
             currentYPosition = getFloat(fieldYTranslation, childViewState) + childHeight + paddingAfterChild;
             if (currentYPosition <= 0) {
@@ -634,7 +632,7 @@ public class StackScrollAlgorithmHooks {
             if (isPinned) {
                 setFloat(fieldYTranslation, childState, Math.max(getFloat(fieldYTranslation, childState), 0));
                 int height = getInt(fieldHeight, childState);
-                setInt(fieldHeight, childState, Math.max((int)invoke(methodGetIntrinsicHeightRow, row), height));
+                setInt(fieldHeight, childState, Math.min((int)invoke(methodGetHeadsUpHeight, row), (int)invoke(methodGetIntrinsicHeight, row)));
                 Object topState = invoke(methodGetViewStateForView, resultState, topHeadsUpEntry);
                 if (!isTopEntry && (!mIsExpanded
                         || unmodifiedEndLocation < getFloat(fieldYTranslation, topState) + getInt(fieldHeight, topState))) {

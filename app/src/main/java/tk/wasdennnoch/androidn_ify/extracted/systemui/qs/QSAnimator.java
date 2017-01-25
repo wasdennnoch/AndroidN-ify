@@ -74,11 +74,6 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         mPagedLayout = StatusBarHeaderHooks.qsHooks.getTileLayout();
         mPagedLayout.setPageListener(this);
         mKeyguard = QSTileHostHooks.mKeyguard;
-
-        if (ConfigUtils.qs().fix_header_space) {
-            ResourceUtils res = ResourceUtils.getInstance(container.getContext());
-            mQsTopAdjustment = res.getDimensionPixelSize(R.dimen.qs_margin_top) - res.getDimensionPixelSize(R.dimen.status_bar_header_height);
-        }
     }
 
     private void setOnKeyguard(boolean onKeyguard) {
@@ -151,6 +146,9 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
 
         mAllViews.add(StatusBarHeaderHooks.qsHooks.getTileLayout());
 
+        if(!ConfigUtils.qs().fix_header_space)
+            mQsTopAdjustment = mQuickQsPanel.getHeight();
+
         for (int i = 0; i < records.size(); i++) {
             Object tileRecord = records.get(i);
             final ViewGroup tileView = (ViewGroup) XposedHelpers.getObjectField(tileRecord, "tileView");
@@ -166,12 +164,12 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
                 getRelativePosition(loc2, tileIcon, mQsContainer);
                 final int xDiff = loc2[0] - loc1[0] + ((i < maxTilesOnPage) ? 0 : mPagedLayout.getWidth());
                 final int yDiff = loc2[1] - loc1[1] +
-                        + mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : mQsContainer.getPaddingTop());
+                        mQsTopAdjustment + (StatusBarHeaderHooks.mUseDragPanel ? 0 : mQsContainer.getPaddingTop());
 
                 lastXDiff = loc1[0] - lastX;
                 // Move the quick tile right from its location to the new one.
                 translationXBuilder.addFloat(quickTileView, "translationX", 0, xDiff);
-                translationYBuilder.addFloat(quickTileView, "translationY", 0, yDiff + mQsTopAdjustment);
+                translationYBuilder.addFloat(quickTileView, "translationY", 0, yDiff);
 
                 // Counteract the parent translation on the tile. So we have a static base to
                 // animate the label position off from.
