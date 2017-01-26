@@ -87,6 +87,7 @@ public class QSContainerHelper {
 
         scrollView.setClipChildren(false);
         scrollView.setClipToPadding(false);
+        scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         mQSContainer.setClipChildren(false);
         mQSContainer.setClipToPadding(false);
 
