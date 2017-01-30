@@ -193,7 +193,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             public void onLoadFinished(Loader loader, String data) {
                 try {
                     prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, MiscUtils.checkValidJSONArray(data).toString()).commit();
-                } catch (JSONException e) {
+                } catch (JSONException | NullPointerException e) {
                     e.printStackTrace();
                 }
             }
