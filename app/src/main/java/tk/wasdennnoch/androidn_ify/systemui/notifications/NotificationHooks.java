@@ -359,7 +359,12 @@ public class NotificationHooks {
         boolean colorable = true;
         int color = NotificationHeaderView.NO_COLOR;
         Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
-        if ((boolean) XposedHelpers.callMethod(builder, "isLegacy")) {
+        boolean legacy = false;
+        try {
+            legacy = (boolean) XposedHelpers.callMethod(builder, "isLegacy");
+        } catch (Throwable ignore) {
+        }
+        if (legacy) {
             Object mColorUtil = XposedHelpers.getObjectField(builder, "mColorUtil");
             Object mSmallIcon = XposedHelpers.getObjectField(builder, "mSmallIcon"); // Icon if Marshmallow, int if Lollipop. So we shouldn't specify which type is this.
             if (!(boolean) XposedHelpers.callMethod(mColorUtil, "isGrayscaleIcon", context, mSmallIcon)) {
@@ -504,7 +509,12 @@ public class NotificationHooks {
     private static final XC_MethodHook processSmallIconAsLargeHook = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-            if (!((boolean) XposedHelpers.callMethod(methodHookParam.thisObject, "isLegacy"))) {
+            boolean legacy = false;
+            try {
+                legacy = ((boolean) XposedHelpers.callMethod(methodHookParam.thisObject, "isLegacy"));
+            } catch (Throwable ignore) {
+            }
+            if (!legacy) {
                 RemoteViews contentView = (RemoteViews) methodHookParam.args[1];
                 int mColor = (int) XposedHelpers.callMethod(methodHookParam.thisObject, "resolveColor");
                 XposedHelpers.callMethod(contentView, "setDrawableParameters",
