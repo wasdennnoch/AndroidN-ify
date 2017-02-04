@@ -11,10 +11,26 @@
   <string name="about_translator">翻訳: @MrWasdennnoch</string>
   <string name="about_version">バージョン %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>警告:</b> Xposedから設定ファイルを読み取ることはできません。詳細情報&#8230;]]></string>
+  <string name="prefs_not_readable_description"><![CDATA[
+        Xposedはこのモジュールの設定ファイルを読むことはできません。デフォルト値はフックで使用されます。
+        この問題を解決する方法はいくつかあります。 また、あなたが以前にこのアプリを開いたことがない場合でも、        このエラーが表示されることがあるので注意してください。<br><br>
+        はじめに、端末を再起動します（ソフトリブートではありません！）<br>
+        それでも問題が解決しない場合は、次にモジュールを再インストールしてみてください。<br>
+        両方を試して解決しない場合は、SELinuxモードが<i>Permissive</i>に設定されていることを確認します。
+        <i>Enforcing</i>状態のSELinuxは設定ファイルへのアクセスをブロックしてしまう可能性があります。 モードを変更するには、<tt>SELinuxModeChanger</tt>を使用します。
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485">このXDAのスレッドから</a>.<br>
+        それでも失敗した場合は、おそらくその状態のまま使用しないといけないかもしれません 申し訳ありません:(
+        ]]></string>
   <string name="automated_build_warning"><![CDATA[
 あなたは自動的に生成されたビルドを実行しています。 新しい変更によってモジュールの一部が壊れることがあります。
 問題が見つかった場合、それらの報告がまだ存在しない場合は<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">GitHubで公開</a>してください。<br><br>
 バグを報告するときは常にXposedログを添付し、クラッシュした場合はlogcatをつけてください。        ]]></string>
+  <string name="experimental_build_warning"><![CDATA[
+        あなたは自動的に生成された実験的なビルドを実行しています。 新しい変更によってモジュールの一部が壊れることがあります。
+        問題が見つかった場合、それらの報告がまだ存在しない場合は<a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">GitHubで公開</a>してください。<br>
+        このビルドには、<b>非常に実験的</b> な機能が含まれています。問題を報告する前に、XDAおよびGitHubで検索してください。 重複した報告は無視され、閉じられます。<br><br>
+        バグを報告するときは常にXposedログを添付し、クラッシュした場合はlogcatをつけてください
+        ]]></string>
   <string name="header_tweaks">調整</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">アプリ</string>
@@ -95,26 +111,45 @@
   <string name="keep_bg">テーマが独自に背景を適用した場合に有用です</string>
   <string name="keep_header_bg">ヘッダー</string>
   <string name="keep_panel_bg">クイック設定パネル</string>
+  <string name="force_old_date_position">強制的に時刻の右に日付を表示</string>
+  <string name="force_old_date_position_summary">通常では特定のサイズより小さい画面上では、日付は時刻の右に表示されるのではなく時刻の下に表示され、QSパネルを展開するときにのみ表示されます。 有効でその動作を置き換えます</string>
+  <string name="force_old_date_position_disabled_summary">お使いの端末は既に新しい日付の位置をサポートしています</string>
   <string name="notification_header_qs_tiles_count">クイック設定タイルの表示</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">タイル</string>
   <string name="battery_tile_show_percentage">バッテリータイルにパーセントを表示</string>
   <string name="battery_tile_show_percentage_summary">バッテリータイルにバッテリーパーセントを表示</string>
   <string name="enable_qs_editor">クイック設定エディターを有効にする</string>
+  <string name="alternative_qs_loading">代わりのQSの取得方法</string>
+  <string name="alternative_qs_loading_summary">別の方法で使用可能なQSタイルを取得します。 エディターでタイルが見つからない場合にのみ使用してください</string>
+  <string name="inject_gb_tiles">GravityBoxのタイルを追加</string>
+  <string name="inject_gb_tiles_summary">GravityBoxが提供するQSタイルを追加する場合に有効にする</string>
   <string name="inject_gb_tiles_not_installed">GravityBoxはインストールされていません</string>
   <string name="allow_fancy_qs_transition">ファンシーなクイック設定の遷移</string>
   <string name="enable_new_tile_click_behavior">新しいタイルをクリックしたときの動作</string>
+  <string name="enable_new_tile_click_behavior_summary">ヘッダーのタイルをタップするとトグル、パネルのタイルをタップすると拡大する</string>
   <string name="enable_large_first_row">最初の行を拡大</string>
+  <string name="enable_large_first_row_summary2">サポートされている場合、最初の2つのタイルを大きくする</string>
+  <string name="fix_stuck_inversion_title">反転の問題を修正</string>
+  <string name="fix_stuck_inversion">一部の端末では、有効にすると反転が起こります。 強制的に非アクティブにするにはここをクリック</string>
   <string name="hide_icons_title">ヘッダーのアイテムを隠す</string>
   <string name="hide_tuner_icon_title">システムUI調整ツールのアイコンを隠す</string>
+  <string name="hide_edit_tiles_title">タイルの編集ボタンを非表示</string>
+  <string name="hide_edit_tiles_summary">これはロムに元からある編集ボタンを隠すだけです！</string>
   <string name="hide_carrier_label_title">キャリア表示(auやdocomoなど) を隠す</string>
   <string name="header_notifications">通知</string>
   <string name="notifications_change_style">通知のスタイル</string>
+  <string name="notification_dismiss_button_title">通知の全消去ボタンの変更</string>
+  <string name="notification_dismiss_button">アイコンの代わりに「すべて消去」と表示する</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">検索</string>
+  <string name="notification_blacklisted_apps_title">ブラックリスト</string>
   <string name="notification_blacklisted_apps">これらのアプリには古い通知スタイルを使用する</string>
   <string name="notifications_custom_actions_color_title">カスタムアクションの背景色</string>
   <string name="notifications_custom_actions_color">通知ボタンの背景としてカスタムカラーを使用する</string>
+  <string name="notifications_actions_color_title">アクションの背景色</string>
+  <string name="notification_experimental_title">実験的なNの通知動作</string>
+  <string name="notification_experimental">Nのようなスクロール動作(上に積み重ねない)</string>
   <string name="notification_keyguard_max_title">ロック画面の最大通知数</string>
   <string name="enable_assistant">Googleアシスタントを有効にする</string>
   <string name="enable_assistant_summary">Now on Tap/画面の検索を新しいGoogleアシスタントに置き換えます</string>
@@ -145,7 +180,7 @@
   <string name="update_notification">最新のビルド(%1$d) が利用可能です！</string>
   <string name="update_notification_download">更新</string>
   <string name="update_warning">モジュールが更新されました</string>
-  <string name="update_warning_details">システムが不安定になる可能性がありますのでデバイスが再起動されるまでのバグ報告は無視されます</string>
+  <string name="update_warning_details">システムが不安定になる可能性がありますので端末が再起動されるまでのバグ報告は無視されます</string>
   <string name="check_for_updates_title">更新の確認</string>
   <string name="check_for_updates">アプリ起動時に更新を確認する</string>
   <string name="checking_for_update">更新を確認しています&#8230;</string>
@@ -262,25 +297,46 @@
   <string name="add">追加</string>
   <string name="add_custom_tile">ブロードキャストタイルを追加</string>
   <!-- Warning when the input for the custom tile is empty -->
+  <string name="spec_shouldnt_be_blank">タイルの指定は空白であってはいけません</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="reset_tiles">リセット</string>
   <string name="dialog_color_picker">カラーピッカー</string>
+  <string name="press_color_to_apply">適用するには色を押してください</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">16進数</string>
+  <string name="enable_install_source_title">アプリがどのようにインストールされたかの表示</string>
+  <string name="enable_install_source">アプリ情報ページにカテゴリを追加して、そのアプリがどのようにインストールされたかを表示する（Playストア、パッケージインストーラなど）</string>
   <string name="battery_detail_switch_title">バッテリー セーバー</string>
+  <string name="battery_detail_switch_summary">パフォーマンスとバックグラウンドデータを制限します</string>
+  <string name="qs_add_notes_title">注意</string>
+  <string name="qs_add_notes">これは、ブロードキャストタイルを提供するアプリケーション（「Custom Quick Settings」など）にのみ使用されます。 これを使用する前に、それらのアプリの説明をお読みください。</string>
   <string name="hide_tiles_on_lockscreen">ロック画面でタイルを隠す</string>
   <string name="done">完了</string>
   <string name="cm_qs_settings">CM QSの設定</string>
-  <string name="enable_notifications_background">バックグラウンド通知を有効にする</string>
+  <string name="disable_qs_paging">ページのようなQSパネルの無効化</string>
+  <string name="disable_qs_paging_summary">縦向き時にページのようなQSパネルを無効にする</string>
+  <string name="allow_direct_reply_on_keyguard">ロック画面でのダイレクト返信</string>
+  <string name="allow_direct_reply_on_keyguard_summary">ロック画面で通知に応答できるようにする</string>
+  <string name="enable_notifications_background">通知の背景を有効にする</string>
+  <string name="enable_notifications_background_summary">スワイプしたときに通知の後ろに白い背景が描画されます</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_expand">クイック設定を開く</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
   <string name="accessibility_quick_settings_collapse">クイック設定を閉じる</string>
   <string name="warning">警告</string>
   <string name="dont_show_again">次回から表示しない</string>
+  <string name="enable_data_disabled_indicator">モバイルデータ無効インジケーターを表示する</string>
+  <string name="enable_data_disabled_indicator_summary">モバイルデータが無効の場合、電波アンテナの代わりに×を表示する</string>
+  <string name="home">ホーム</string>
+  <plurals name="enable_experimental_countdown">
+    <item quantity="other">あと %1$d ステップで実験的機能が有効になります</item>
+  </plurals>
   <string name="show_experimental_on">実験的な機能を有効にしました！</string>
   <string name="show_experimental_on_already">その必要はありません、あなたは既に実験的な機能を有効にしています。</string>
   <string name="header_experimental">実験的</string>
   <string name="enable_experimental_features">実験的な機能を有効にする</string>
   <string name="enable_n_style_settings_dashboard">Nスタイルの設定</string>
+  <string name="enable_n_style_settings_dashboard_summary">N仕様の設定ダッシュボードにする</string>
   <string name="enable_settings_drawer">設定でのドロワーを有効にする</string>
+  <string name="partial_screenshot">部分スクリーンショット</string>
 </resources>

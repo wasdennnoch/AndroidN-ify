@@ -47,7 +47,7 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="enable_settings_summaries_title">Untertitel in Einstellungen</string>
   <string name="enable_settings_summaries">Zeige die wichtigsten Informationen direkt in der Übersicht</string>
   <string name="fix_sound_notif_tile_title">\"Töne &amp; Benachrichtigungen\"-Kachel reparieren</string>
-  <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kachel. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
+  <string name="fix_sound_notif_tile">Manche ROMs kombinieren die Töne- und Benachrichtigungen-Kacheln. Aktivieren, um dieser Kachel die richtige Zusammenfassung zuzuweisen</string>
   <string name="enable_n_platlogo_title">N-Logo in Easter Egg</string>
   <string name="use_namey_mcnameface_title">\"Namey McNameface\"-Icon verwenden</string>
   <!-- Wifi disconnected -->

@@ -111,6 +111,9 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="keep_bg">Užitečné pro témata, která používají vlastní pozadí</string>
   <string name="keep_header_bg">Záhlaví</string>
   <string name="keep_panel_bg">Panel rychlého nastavení</string>
+  <string name="force_old_date_position">Force date next to time</string>
+  <string name="force_old_date_position_summary">Na obrazovkách menším než je určitá velikost datum zobrazí pod hodinami místo vedle ní, viditelné pouze při rozbalení panelu QS. Povolit toto chování potlačit</string>
+  <string name="force_old_date_position_disabled_summary">Vaše zařízení podporuje již pozici nové datum</string>
   <string name="notification_header_qs_tiles_count">Zobrazit maximální</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">dlaždice.</string>
