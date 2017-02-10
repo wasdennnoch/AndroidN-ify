@@ -59,7 +59,7 @@ public class RomUtils {
     }
 
     public static boolean isOneplusStock() {
-        return SystemProperties.get("ro.oxygen.version", "").contains("3.5") || SystemProperties.get("ro.rom.version", "").contains("H2OS V2.5") || SystemProperties.get("ro.oxygen.verion", "").contains("O2_Open") || SystemProperties.get("ro.rom.version", "").contains("H2_Open");
+        return SystemProperties.get("ro.oxygen.version", "").contains("3.5") || SystemProperties.get("ro.rom.version", "").contains("H2OS V2.5") || SystemProperties.get("ro.oxygen.version", "").contains("O2_Open") || SystemProperties.get("ro.rom.version", "").contains("H2_Open");
     }
 
     public static boolean isCmBased() {
