@@ -385,7 +385,7 @@
     <string name="dont_show_again">Don\'t show again</string>
     <string name="enable_data_disabled_indicator">Show mobile data disabled indicator</string>
     <string name="enable_data_disabled_indicator_summary">Shows a \"x\" as the signal indicator when mobile data is disabled</string>
-    <string name="home">Home</string>
+    <string name="home">Settings Home</string>
     <plurals name="enable_experimental_countdown">
         <item quantity="one">You are now %1$d step away from enabling experimental features.</item>
         <item quantity="other">You are now %1$d steps away from enabling experimental features.</item>

@@ -51,6 +51,11 @@ public class RomUtils {
             sPrefs.edit().putString("rom", "cm").commit();
             return;
         }
+        String xperiaVersion = SystemProperties.get("ro.semc.version.fs_revision", "");
+        if(!xperiaVersion.equals("")) {
+            sPrefs.edit().putString("rom", "xperia").commit();
+            return;
+        }
         sPrefs.edit().putString("rom", "aosp").commit();
     }
 
@@ -66,11 +71,16 @@ public class RomUtils {
         return sPrefs.getString("rom", "").equals("aicp");
     }
 
+    public static boolean isXperia() {
+        return sPrefs.getString("rom", "").equals("xperia");
+    }
+
     public static boolean isCmBased() {
         String rom = sPrefs.getString("rom", "");
         switch (rom) {
             case "rr":
             case "aicp":
+            case "xperia":
             case "cm":
                 return true;
             default:

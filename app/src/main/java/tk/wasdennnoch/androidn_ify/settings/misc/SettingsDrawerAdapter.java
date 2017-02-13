@@ -17,6 +17,7 @@ package tk.wasdennnoch.androidn_ify.settings.misc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +37,7 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SETTINGS;
 
@@ -97,8 +99,10 @@ public class SettingsDrawerAdapter extends RecyclerView.Adapter<SettingsDrawerAd
                     if (!iconPkg.equals(PACKAGE_SETTINGS) && drawable != null) {
                         // If this drawable is coming from outside Settings, tint it to match the color.
                         TypedValue tintColorValue = new TypedValue();
-                        mActivity.getResources().getValue(mActivity.getResources().getIdentifier("external_tile_icon_tint_color", "color", mActivity.getPackageName()),
-                                tintColorValue, true);
+                        int resId = mActivity.getResources().getIdentifier("external_tile_icon_tint_color", "color", mActivity.getPackageName());
+                        if (resId == 0)
+                            return null;
+                        mActivity.getResources().getValue(resId, tintColorValue, true);
                         // If tintColorValue is TYPE_ATTRIBUTE, resolve it
                         if (tintColorValue.type == TypedValue.TYPE_ATTRIBUTE) {
                             mActivity.getTheme().resolveAttribute(tintColorValue.data,
@@ -150,7 +154,11 @@ public class SettingsDrawerAdapter extends RecyclerView.Adapter<SettingsDrawerAd
         ViewGroup itemView = (ViewGroup) holder.getItemView();
         Item item = mItems.get(position);
         if (type == TYPE_TILE) {
-            ((ImageView) itemView.findViewById(android.R.id.icon)).setImageDrawable(item.icon);
+            ImageView imageView = (ImageView) itemView.findViewById(android.R.id.icon);
+            imageView.setImageDrawable(item.icon);
+            if (RomUtils.isXperia() && position != 1) {
+                    imageView.setColorFilter(Color.argb(0,0,0,0));
+            }
         }
         ((TextView) itemView.findViewById(android.R.id.title)).setText(item.label);
     }
