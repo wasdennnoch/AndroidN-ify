@@ -52,7 +52,6 @@ public class StackScrollAlgorithmHooks {
 
     private static StackIndentationFunctor mBottomStackIndentationFunctor;
 
-    private static Field fieldCollapsedSize;
     private static Field fieldVisibleChildren;
     private static Field fieldScrollY;
     private static Field fieldShadeExpanded;
@@ -79,6 +78,7 @@ public class StackScrollAlgorithmHooks {
     private static Field fieldIsExpanded;
     private static Field fieldLayoutHeight;
     private static Field fieldTrackingHeadsUp;
+    private static Field fieldCollapsedSize;
 
     private static Method methodGetViewStateForView;
     private static Method methodGetTopHeadsUpEntry;
@@ -107,6 +107,8 @@ public class StackScrollAlgorithmHooks {
     private static Method methodGetMaxHeadsUpTranslation;
     private static Method methodGetIntrinsicHeightRow;
     private static Method methodAreChildrenExpanded;
+    private static Method methodUpdateStateForChildTransitioningInBottom;
+    private static Method methodUpdateStateForChildFullyInBottomStack;
 
     private static Class<?> classNotificationStackScrollLayout;
     private static Class<?> classStackScrollAlgorithm;
@@ -234,17 +236,23 @@ public class StackScrollAlgorithmHooks {
                 methodResetViewStates = XposedHelpers.findMethodBestMatch(classStackScrollState, "resetViewStates");
                 methodGetHostView = XposedHelpers.findMethodBestMatch(classStackScrollState, "getHostView");
 
+                methodUpdateStateForChildTransitioningInBottom = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateStateForChildTransitioningInBottom",
+                        classStackScrollAlgorithmState, float.class, float.class, float.class, classStackViewState, int.class);
+
+                methodUpdateStateForChildFullyInBottomStack = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateStateForChildFullyInBottomStack",
+                        classStackScrollAlgorithmState, float.class, classStackViewState, int.class, classAmbientState);
+
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "initConstants", initConstantsHook);
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "getStackScrollState", getStackScrollState);
-
-                /*XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onInterceptTouchEvent", MotionEvent.class, new XC_MethodHook() {
+                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "clampPositionToTopStackEnd", XC_MethodReplacement.DO_NOTHING);
+                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "updateStateForChildFullyInBottomStack", new XC_MethodHook() {
                     @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        MotionEvent ev = (MotionEvent) param.args[0];
-                        if (ev.getY() < mStateTop)
-                            param.setResult(false);
+                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                        int collapsedHeight = (int)param.args[3];
+                        Object childViewState = param.args[2];
+                        setInt(fieldHeight, childViewState, collapsedHeight);
                     }
-                });*/
+                });
             }
 
         } catch (Throwable t) {
@@ -435,63 +443,6 @@ public class StackScrollAlgorithmHooks {
         }
     }
 
-    private static void updateStateForChildTransitioningInBottom(Object algorithmState,
-                                                                 float transitioningPositionStart, Object child, float currentYPosition,
-                                                                 Object childViewState, int childHeight) {
-
-        // This is the transitioning element on top of bottom stack, calculate how far we are in.
-        setFloat(fieldPartialInBottom, algorithmState, 1.0f - (
-                (transitioningPositionStart - currentYPosition) / (childHeight +
-                        getInt(fieldPaddingBetweenElements, mStackScrollAlgorithm))));
-        // the offset starting at the transitionPosition of the bottom stack
-        float offset = mBottomStackIndentationFunctor.getValue(getFloat(fieldPartialInBottom, algorithmState));
-        setFloat(fieldItemsInBottomStack, algorithmState, getFloat(fieldItemsInBottomStack, algorithmState) + getFloat(fieldPartialInBottom, algorithmState));
-        int newHeight = childHeight;
-        if (childHeight > (int)invoke(methodGetHeight, child)) {
-
-            newHeight = (int) Math.max(Math.min(transitioningPositionStart + offset -
-                            getInt(fieldPaddingBetweenElements, mStackScrollAlgorithm) - currentYPosition, childHeight),
-                    (int)invoke(methodGetHeight, child));
-            setInt(fieldHeight, childViewState, newHeight);
-        }
-        setFloat(fieldYTranslation, childViewState, transitioningPositionStart + offset - newHeight
-                - getInt(fieldPaddingBetweenElements, mStackScrollAlgorithm));
-        setInt(fieldLocation, childViewState, LOCATION_MAIN_AREA);
-    }
-
-    private static void updateStateForChildFullyInBottomStack(Object algorithmState,
-                                                              float transitioningPositionStart, Object childViewState,
-                                                              int collapsedHeight, Object ambientState) {
-        int mPaddingBetweenElements = getInt(fieldPaddingBetweenElements, mStackScrollAlgorithm);
-        float currentYPosition;
-        setFloat(fieldItemsInBottomStack, algorithmState, getFloat(fieldItemsInBottomStack, algorithmState)+ 1.0f);
-        float mItemsInBottomStack = getFloat(fieldItemsInBottomStack, algorithmState);
-        if (mItemsInBottomStack < MAX_ITEMS_IN_BOTTOM_STACK) {
-            // We are visually entering the bottom stack
-            currentYPosition = transitioningPositionStart
-                    + mBottomStackIndentationFunctor.getValue(mItemsInBottomStack)
-                    - mPaddingBetweenElements;
-
-            setInt(fieldLocation, childViewState, LOCATION_BOTTOM_STACK_PEEKING);
-        } else {
-            // we are fully inside the stack
-            if (mItemsInBottomStack > MAX_ITEMS_IN_BOTTOM_STACK + 2) {
-                //XposedHelpers.setBooleanField(childViewState, "hidden", true);
-                //XposedHelpers.setFloatField(childViewState, "shadowAlpha", 0.0f);
-                setFloat(fieldAlpha, childViewState, 0.0f);
-
-            } else if (mItemsInBottomStack
-                    > MAX_ITEMS_IN_BOTTOM_STACK + 1) {
-                //XposedHelpers.setFloatField(childViewState, "shadowAlpha", 1.0f - XposedHelpers.getFloatField(algorithmState, "partialInBottom"));
-                setFloat(fieldAlpha, childViewState, 1.0f - getFloat(fieldPartialInBottom, algorithmState));
-            }
-            setInt(fieldLocation, childViewState, LOCATION_BOTTOM_STACK_HIDDEN);
-            currentYPosition = (int)invoke(methodGetInnerHeight, ambientState);
-        }
-        setInt(fieldHeight, childViewState, collapsedHeight);
-        setFloat(fieldYTranslation, childViewState, currentYPosition - collapsedHeight);
-    }
-
     private static void clampPositionToBottomStackStart(Object childViewState,
                                                         int childHeight, int minHeight, Object ambientState) {
 
@@ -545,6 +496,7 @@ public class StackScrollAlgorithmHooks {
 
         int childCount = visibleChildren.size();
         int paddingAfterChild;
+
         for (int i = 0; i < childCount; i++) {
             Object child = visibleChildren.get(i);
             Object childViewState = invoke(methodGetViewStateForView, resultState, child);
@@ -565,14 +517,14 @@ public class StackScrollAlgorithmHooks {
                 if (currentYPosition >= bottomStackStart) {
                     // According to the regular scroll view we are fully translated out of the
                     // bottom of the screen so we are fully in the bottom stack
-                    updateStateForChildFullyInBottomStack(algorithmState,
+                    invoke(methodUpdateStateForChildFullyInBottomStack, mStackScrollAlgorithm, algorithmState,
                             bottomStackStart, childViewState, collapsedHeight, ambientState);
                 } else {
                     // According to the regular scroll view we are currently translating out of /
                     // into the bottom of the screen
-                    updateStateForChildTransitioningInBottom(algorithmState,
-                            bottomStackStart, child, currentYPosition,
-                            childViewState, childHeight);
+                    invoke(methodUpdateStateForChildTransitioningInBottom, mStackScrollAlgorithm, algorithmState, bottomStackStart,
+                            bottomPeekStart, getFloat(fieldYTranslation, childViewState), childViewState,
+                            childHeight);
                 }
             } else {
                 // Case 2:
@@ -631,8 +583,8 @@ public class StackScrollAlgorithmHooks {
             boolean isPinned = classExpandableView.isInstance(row) && (boolean)invoke(methodIsPinned, row);
             if (isPinned) {
                 setFloat(fieldYTranslation, childState, Math.max(getFloat(fieldYTranslation, childState), 0));
-                int height = getInt(fieldHeight, childState);
-                setInt(fieldHeight, childState, Math.min((int)invoke(methodGetHeadsUpHeight, row), (int)invoke(methodGetIntrinsicHeight, row)));
+                int height = (int)invoke(methodGetHeadsUpHeight, row);
+                setInt(fieldHeight, childState, height);
                 Object topState = invoke(methodGetViewStateForView, resultState, topHeadsUpEntry);
                 if (!isTopEntry && (!mIsExpanded
                         || unmodifiedEndLocation < getFloat(fieldYTranslation, topState) + getInt(fieldHeight, topState))) {
@@ -659,7 +611,7 @@ public class StackScrollAlgorithmHooks {
         float newTranslation = Math.max(((float)invoke(methodGetTopPadding, ambientState)
                 + (float)invoke(methodGetStackTranslation, ambientState)), getFloat(fieldYTranslation, childState));
         setInt(fieldHeight, childState, (int) Math.max(getInt(fieldHeight, childState) - (newTranslation
-                - getFloat(fieldYTranslation, childState)), (int)invoke(methodGetIntrinsicHeightRow, row)));//should be getMinHeight but not yet implemented properly
+                - getFloat(fieldYTranslation, childState)), (int)invoke(methodGetMinHeight, row)));
         setFloat(fieldYTranslation, childState, newTranslation);
     }
 
@@ -668,8 +620,7 @@ public class StackScrollAlgorithmHooks {
         float newTranslation;
         float bottomPosition = (float)invoke(methodGetMaxHeadsUpTranslation, ambientState) - (int)invoke(methodGetMinHeight, row);
         newTranslation = Math.min(getFloat(fieldYTranslation, childState), bottomPosition);
-        setInt(fieldHeight, childState, (int) Math.max(getInt(fieldHeight, childState)
-                - (getFloat(fieldYTranslation, childState) - newTranslation), (int)invoke(methodGetIntrinsicHeightRow, row)));//same as above
+        setInt(fieldHeight, childState, Math.max(getInt(fieldHeight, childState), (int)invoke(methodGetHeadsUpHeight, row)));
         setFloat(fieldYTranslation, childState, newTranslation);
     }
 

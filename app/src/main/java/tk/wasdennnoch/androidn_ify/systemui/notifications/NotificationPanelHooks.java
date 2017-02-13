@@ -298,37 +298,42 @@ public class NotificationPanelHooks {
         }
     };
 
-    private static void setStackHeight (float height) {
-        XposedHelpers.setFloatField(mNotificationStackScroller, "mLastSetStackHeight", height);
-        XposedHelpers.callMethod(mNotificationStackScroller, "setIsExpanded", height > 0.0f);
-        int stackHeight;
-        int mCurrentStackHeight = XposedHelpers.getIntField(mNotificationStackScroller, "mCurrentStackHeight");
+    private static final XC_MethodReplacement setStackHeight = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            float height = (float)param.args[0];
+            XposedHelpers.setFloatField(mNotificationStackScroller, "mLastSetStackHeight", height);
+            XposedHelpers.callMethod(mNotificationStackScroller, "setIsExpanded", height > 0.0f);
+            int stackHeight;
+            int mCurrentStackHeight = XposedHelpers.getIntField(mNotificationStackScroller, "mCurrentStackHeight");
 
-        float translationY;
-        float appearEndPosition = getAppearEndPosition();
-        float appearStartPosition = getAppearStartPosition();
-        if (height >= appearEndPosition) {
-            translationY = XposedHelpers.getFloatField(mNotificationStackScroller, "mTopPaddingOverflow");
-            stackHeight = (int) height;
-        } else {
-            float appearFraction = getAppearFraction(height);
-            if (appearFraction >= 0) {
-                translationY = NotificationUtils.interpolate(getExpandTranslationStart(), 0,
-                        appearFraction);
+            float translationY;
+            float appearEndPosition = getAppearEndPosition();
+            float appearStartPosition = getAppearStartPosition();
+            if (height >= appearEndPosition) {
+                translationY = XposedHelpers.getFloatField(mNotificationStackScroller, "mTopPaddingOverflow");
+                stackHeight = (int) height;
             } else {
-                // This may happen when pushing up a heads up. We linearly push it up from the
-                // start
-                translationY = height - appearStartPosition + getExpandTranslationStart();
+                float appearFraction = getAppearFraction(height);
+                if (appearFraction >= 0) {
+                    translationY = NotificationUtils.interpolate(getExpandTranslationStart(), 0,
+                            appearFraction);
+                } else {
+                    // This may happen when pushing up a heads up. We linearly push it up from the
+                    // start
+                    translationY = height - appearStartPosition + getExpandTranslationStart();
+                }
+                stackHeight = (int) (height - translationY);
             }
-            stackHeight = (int) (height - translationY);
+            if (stackHeight != mCurrentStackHeight) {
+                XposedHelpers.setIntField(mNotificationStackScroller, "mCurrentStackHeight", stackHeight);
+                XposedHelpers.callMethod(mNotificationStackScroller, "updateAlgorithmHeightAndPadding");
+                XposedHelpers.callMethod(mNotificationStackScroller, "requestChildrenUpdate");
+            }
+            XposedHelpers.callMethod(mNotificationStackScroller, "setStackTranslation", translationY);
+            return null;
         }
-        if (stackHeight != mCurrentStackHeight) {
-            XposedHelpers.setIntField(mNotificationStackScroller, "mCurrentStackHeight", stackHeight);
-            XposedHelpers.callMethod(mNotificationStackScroller, "updateAlgorithmHeightAndPadding");
-            XposedHelpers.callMethod(mNotificationStackScroller, "requestChildrenUpdate");
-        }
-        XposedHelpers.callMethod(mNotificationStackScroller, "setStackTranslation", translationY);
-    }
+    };
 
     private static final XC_MethodReplacement getPeekHeightStackScroller = new XC_MethodReplacement() {
         @Override
@@ -890,6 +895,7 @@ public class NotificationPanelHooks {
                     XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "getDismissViewHeight", getDismissViewHeight);
                     XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateChildren", updateChildrenHook);
                     XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateSpeedBumpIndex", int.class, updateSpeedBumpIndex);
+                    XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setStackHeight", float.class, setStackHeight);
 
                     XposedHelpers.findAndHookMethod(classObservableScrollView, "overScrollBy", int.class, int.class, int.class, int.class, int.class, int.class, int.class, int.class, boolean.class, XC_MethodReplacement.returnConstant(false));
                     XposedHelpers.findAndHookMethod(classObservableScrollView, "fling", int.class, XC_MethodReplacement.DO_NOTHING);
