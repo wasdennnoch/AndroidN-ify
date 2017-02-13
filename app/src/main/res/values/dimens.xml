@@ -86,7 +86,11 @@
     <dimen name="z_distance_between_notifications">0.5dp</dimen>
     <dimen name="task_progress_height">2dp</dimen>
     <dimen name="no_notifications_padding_top">28dp</dimen>
-    <dimen name="no_notifications_text_size">14sp</dimen>
+    <dimen name="no_notifications_text_size">16sp</dimen>
+
+    <dimen name="min_stack_height">104dp</dimen>
+    <dimen name="keyguard_clock_notifications_margin_min">30dp</dimen>
+    <dimen name="keyguard_clock_notifications_margin_max">42dp</dimen>
 
     <dimen name="notification_separator_size">1dp</dimen>
     <dimen name="notification_header_shrink_min_width">72dp</dimen>

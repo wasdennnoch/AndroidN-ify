@@ -4,9 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.TimeAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -43,6 +45,8 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     private static final String TAG = "NotificationStackScrollLayoutHooks";
 
     private static final int ANIMATION_DURATION_STANDARD = 360;
+    private static final float BACKGROUND_ALPHA_DIMMED = 0.7f;
+    public static final int ANIMATION_DURATION_DIMMED_ACTIVATED = 220;
 
     private int TAG_ANIMATOR_TRANSLATION_Y;
     private int TAG_END_TRANSLATION_Y;
@@ -64,6 +68,26 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     private boolean mDontClampNextScroll;
     private boolean mContinuousShadowUpdate;
     private boolean mIsExpanded;
+    private float mDimAmount;
+    private float mBackgroundFadeAmount = 1.0f;
+    private int mBgColor;
+    private ValueAnimator mDimAnimator;
+
+    private ValueAnimator.AnimatorUpdateListener mDimUpdateListener
+            = new ValueAnimator.AnimatorUpdateListener() {
+
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation) {
+            setDimAmount((Float) animation.getAnimatedValue());
+        }
+    };
+
+    private Animator.AnimatorListener mDimEndListener = new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            mDimAnimator = null;
+        }
+    };
     private ViewTreeObserver.OnPreDrawListener mBackgroundUpdater = new SafeOnPreDrawListener() {
         @Override
         public boolean onPreDrawSafe() {
@@ -124,6 +148,7 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
                     mSwipeHelper = XposedHelpers.getObjectField(param.thisObject, "mSwipeHelper");
                     mContext = (Context) param.args[0];
                     mRes = ResourceUtils.getInstance(mContext);
+                    mBgColor = mRes.getColor(R.color.notification_shade_background_color);
                     initView();
                     hookSwipeHelper();
                 }
@@ -287,6 +312,24 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
                     });
             XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "setSpeedBumpView", XC_MethodReplacement.DO_NOTHING);
             XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateSpeedBump", boolean.class, XC_MethodReplacement.DO_NOTHING);
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setDimmed", boolean.class, boolean.class, new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                    boolean dimmed = (boolean) param.args[0];
+                    boolean animate = (boolean) param.args[1];
+                    XposedHelpers.callMethod(mAmbientState, "setDimmed", dimmed);
+
+                    if (animate && mAnimationsEnabled) {
+                        XposedHelpers.setBooleanField(mStackScrollLayout, "mDimmedNeedsAnimation", true);
+                        XposedHelpers.setBooleanField(mStackScrollLayout, "mNeedsAnimation", true);
+                        animateDimmed(dimmed);
+                    } else {
+                        setDimAmount(dimmed ? 1.0f : 0.0f);
+                    }
+                    XposedHelpers.callMethod(mStackScrollLayout, "requestChildrenUpdate");
+                    return null;
+                }
+            });
             classActivatableNotificationView = XposedHelpers.findClass("com.android.systemui.statusbar.ActivatableNotificationView", classLoader);
             classStackStateAnimator = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackStateAnimator", classLoader);
         } catch (Throwable t) {
@@ -576,6 +619,55 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
             mAnimationRunning = animationRunning;
             updateContinuousShadowDrawing();
         }
+    }
+
+    private void updateBackgroundDimming() {
+        float alpha = BACKGROUND_ALPHA_DIMMED + (1 - BACKGROUND_ALPHA_DIMMED) * (1.0f - mDimAmount);
+        alpha *= mBackgroundFadeAmount;
+        // We need to manually blend in the background color
+        Object mScrimController = XposedHelpers.getObjectField(mStackScrollLayout, "mScrimController");
+        int scrimColor = getScrimBehindColor(mScrimController);
+        // SRC_OVER blending Sa + (1 - Sa)*Da, Rc = Sc + (1 - Sa)*Dc
+        float alphaInv = 1 - alpha;
+        int color = Color.argb((int) (alpha * 255 + alphaInv * Color.alpha(scrimColor)),
+                (int) (mBackgroundFadeAmount * Color.red(mBgColor)
+                        + alphaInv * Color.red(scrimColor)),
+                (int) (mBackgroundFadeAmount * Color.green(mBgColor)
+                        + alphaInv * Color.green(scrimColor)),
+                (int) (mBackgroundFadeAmount * Color.blue(mBgColor)
+                        + alphaInv * Color.blue(scrimColor)));
+        mBackgroundPaint.setColor(color);
+        XposedHelpers.callMethod(mStackScrollLayout, "invalidate");
+    }
+
+    private void setDimAmount(float dimAmount) {
+        mDimAmount = dimAmount;
+        updateBackgroundDimming();
+    }
+
+    private void animateDimmed(boolean dimmed) {
+        if (mDimAnimator != null) {
+            mDimAnimator.cancel();
+        }
+        float target = dimmed ? 1.0f : 0.0f;
+        if (target == mDimAmount) {
+            return;
+        }
+        mDimAnimator = TimeAnimator.ofFloat(mDimAmount, target);
+        mDimAnimator.setDuration(ANIMATION_DURATION_DIMMED_ACTIVATED);
+        mDimAnimator.setInterpolator(Interpolators.FAST_OUT_SLOW_IN);
+        mDimAnimator.addListener(mDimEndListener);
+        mDimAnimator.addUpdateListener(mDimUpdateListener);
+        mDimAnimator.start();
+    }
+
+    private static int getScrimBehindColor(Object mScrimController) {
+        Object mScrimBehind = XposedHelpers.getObjectField(mScrimController, "mScrimBehind");
+        int color = XposedHelpers.getIntField(mScrimBehind, "mScrimColor");
+        float mViewAlpha = XposedHelpers.getFloatField(mScrimBehind, "mViewAlpha");
+        color = Color.argb((int) (Color.alpha(color) * mViewAlpha), Color.red(color),
+                Color.green(color), Color.blue(color));
+        return color;
     }
 
     private void updateContinuousShadowDrawing() {

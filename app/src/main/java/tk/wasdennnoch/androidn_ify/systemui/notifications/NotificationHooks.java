@@ -90,6 +90,7 @@ public class NotificationHooks {
     public static final String EXTRA_SUBSTITUTE_APP_NAME = "nify.substName";
 
     private static int mNotificationBgColor;
+    private static int mNotificationBgDimmedColor;
     private static int mAccentColor = 0;
     private static final Map<String, Integer> mGeneratedColors = new HashMap<>();
 
@@ -726,6 +727,12 @@ public class NotificationHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_min_height", modRes.fwd(R.dimen.notification_min_height));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_mid_height", modRes.fwd(R.dimen.notification_mid_height));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_max_height", modRes.fwd(R.dimen.notification_max_height));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "min_stack_height", modRes.fwd(R.dimen.min_stack_height));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "keyguard_clock_notifications_margin_min", modRes.fwd(R.dimen.keyguard_clock_notifications_margin_min));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "keyguard_clock_notifications_margin_max", modRes.fwd(R.dimen.keyguard_clock_notifications_margin_max));
+
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_material_background_color", modRes.fwd(R.color.notification_material_background_color));
+                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "color", "notification_material_background_dimmed_color", modRes.fwd(R.color.notification_material_background_dimmed_color));
 
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "integer", "keyguard_max_notification_count", config.notifications.keyguard_max);
 
@@ -802,7 +809,11 @@ public class NotificationHooks {
 
     @SuppressWarnings("deprecation")
     private static RippleDrawable getNotificationBackgroundDimmed(XResources xRes) {
-        return getNotificationBackground(xRes);
+        mNotificationBgDimmedColor = xRes.getColor(xRes.getIdentifier("notification_material_background_dimmed_color", "color", PACKAGE_SYSTEMUI));
+        return new RippleDrawable(
+                ColorStateList.valueOf(xRes.getColor(xRes.getIdentifier("notification_ripple_untinted_color", "color", PACKAGE_SYSTEMUI))),
+                getBackgroundRippleContent(mNotificationBgDimmedColor),
+                null);
     }
 
     @SuppressWarnings({"deprecation", "ConstantConditions"})
@@ -1216,14 +1227,11 @@ public class NotificationHooks {
         return false;
     }
 
-    public static void hookResAndroid(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
+    public static void hookResAndroid(XC_InitPackageResources.InitPackageResourcesParam resparam) {
         try {
-
-            final XModuleResources modRes = XModuleResources.createInstance(modulePath, resparam.res);
 
             if (ConfigUtils.notifications().change_style) {
 
-                resparam.res.setReplacement(PACKAGE_ANDROID, "dimen", "notification_title_text_size", modRes.fwd(R.dimen.notification_title_text_size));
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_material_action", notification_material_action);
                 //resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_icon_group", notification_template_icon_group);
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_material_base", notification_template_material_base);
@@ -1283,6 +1291,7 @@ public class NotificationHooks {
                         LinearLayout.LayoutParams titleLp = (LinearLayout.LayoutParams) title.getLayoutParams();
                         titleLp.width = WRAP_CONTENT;
                         titleLp.weight = 0;
+                        title.setTextSize(TypedValue.COMPLEX_UNIT_PX, ResourceUtils.getInstance().getDimensionPixelSize(R.dimen.notification_title_text_size));
 
                         layout.removeView(title);
 
