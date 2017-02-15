@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -79,6 +80,9 @@ public class StackScrollAlgorithmHooks {
     private static Field fieldLayoutHeight;
     private static Field fieldTrackingHeadsUp;
     private static Field fieldCollapsedSize;
+    private static Field fieldHostView;
+    private static Field fieldStateMap;
+    private static Field fieldClearAllTopPadding;
 
     private static Method methodGetViewStateForView;
     private static Method methodGetTopHeadsUpEntry;
@@ -109,6 +113,12 @@ public class StackScrollAlgorithmHooks {
     private static Method methodAreChildrenExpanded;
     private static Method methodUpdateStateForChildTransitioningInBottom;
     private static Method methodUpdateStateForChildFullyInBottomStack;
+    private static Method methodApplyState;
+    private static Method methodPerformVisibilityAnimationDismissView;
+    private static Method methodWillBeGoneDismissView;
+    private static Method methodPerformVisibilityAnimationEmptyShade;
+    private static Method methodWillBeGoneEmptyShade;
+
 
     private static Class<?> classNotificationStackScrollLayout;
     private static Class<?> classStackScrollAlgorithm;
@@ -118,6 +128,8 @@ public class StackScrollAlgorithmHooks {
     private static Class<?> classAmbientState;
     private static Class<?> classExpandableNotificationRow;
     private static Class<?> classExpandableView;
+    private static Class<?> classDismissView;
+    private static Class<?> classEmptyShadeView;
     private static Class<?> classHeadsUpManager;
 
     public static void hook(ClassLoader classLoader) {
@@ -171,6 +183,8 @@ public class StackScrollAlgorithmHooks {
                 classExpandableNotificationRow = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableNotificationRow", classLoader);
                 classExpandableView = XposedHelpers.findClass("com.android.systemui.statusbar.ExpandableView", classLoader);
                 classHeadsUpManager = XposedHelpers.findClass("com.android.systemui.statusbar.policy.HeadsUpManager", classLoader);
+                classDismissView = XposedHelpers.findClass("com.android.systemui.statusbar.DismissView", classLoader);
+                classEmptyShadeView = XposedHelpers.findClass("com.android.systemui.statusbar.EmptyShadeView", classLoader);
 
                 //XposedHelpers.findAndHookMethod(classAmbientState, "getInnerHeight", getInnerHeight);
 
@@ -200,8 +214,10 @@ public class StackScrollAlgorithmHooks {
                 fieldBottomStackPeekSize = XposedHelpers.findField(classStackScrollAlgorithm, "mBottomStackPeekSize");
                 fieldIsExpanded = XposedHelpers.findField(classStackScrollAlgorithm, "mIsExpanded");
                 fieldLayoutHeight = XposedHelpers.findField(classAmbientState, "mLayoutHeight");
-
                 fieldTrackingHeadsUp = XposedHelpers.findField(classHeadsUpManager, "mTrackingHeadsUp");
+                fieldHostView = XposedHelpers.findField(classStackScrollState, "mHostView");
+                fieldStateMap = XposedHelpers.findField(classStackScrollState, "mStateMap");
+                fieldClearAllTopPadding = XposedHelpers.findField(classStackScrollState, "mClearAllTopPadding");
 
                 methodGetViewStateForView = XposedHelpers.findMethodBestMatch(classStackScrollState, "getViewStateForView", View.class);
                 methodGetTopHeadsUpEntry = XposedHelpers.findMethodBestMatch(classAmbientState, "getTopHeadsUpEntry");
@@ -242,9 +258,22 @@ public class StackScrollAlgorithmHooks {
                 methodUpdateStateForChildFullyInBottomStack = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateStateForChildFullyInBottomStack",
                         classStackScrollAlgorithmState, float.class, classStackViewState, int.class, classAmbientState);
 
+                methodApplyState = XposedHelpers.findMethodBestMatch(classStackScrollState, "applyState", classExpandableView, classStackViewState);
+                methodPerformVisibilityAnimationDismissView = XposedHelpers.findMethodBestMatch(classDismissView, "performVisibilityAnimation", boolean.class);
+                methodWillBeGoneDismissView = XposedHelpers.findMethodBestMatch(classDismissView, "willBeGone");
+                methodPerformVisibilityAnimationEmptyShade = XposedHelpers.findMethodBestMatch(classEmptyShadeView, "performVisibilityAnimation", boolean.class);
+                methodWillBeGoneEmptyShade = XposedHelpers.findMethodBestMatch(classEmptyShadeView, "willBeGone");
+
+                XposedHelpers.findAndHookMethod(classStackScrollState, "apply", apply);
+
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "initConstants", initConstantsHook);
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "getStackScrollState", getStackScrollState);
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "clampPositionToTopStackEnd", XC_MethodReplacement.DO_NOTHING);
+                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "updateFirstChildMaxSizeToMaxHeight", XC_MethodReplacement.DO_NOTHING);
+                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "onExpansionStarted", XC_MethodReplacement.DO_NOTHING);
+                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "updateIsSmallScreen", XC_MethodReplacement.DO_NOTHING);
+                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "onExpansionStopped", XC_MethodReplacement.DO_NOTHING);
+                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "notifyChildrenChanged", XC_MethodReplacement.DO_NOTHING);
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "updateStateForChildFullyInBottomStack", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -301,6 +330,34 @@ public class StackScrollAlgorithmHooks {
         }
     };
 
+    private static final XC_MethodReplacement apply = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            Object stackScrollState = param.thisObject;
+            ViewGroup mHostView = (ViewGroup)get(fieldHostView, stackScrollState);
+            HashMap<?,?> mStateMap = (HashMap)get(fieldStateMap, stackScrollState);
+            int numChildren = mHostView.getChildCount();
+            for (int i = 0; i < numChildren; i++) {
+                Object child = mHostView.getChildAt(i);
+                Object state = mStateMap.get(child);
+                if (!(boolean)invoke(methodApplyState, stackScrollState, child, state)) {
+                    continue;
+                }
+                if (classDismissView.isInstance(child)) {
+                    boolean willBeGone = (boolean)invoke(methodWillBeGoneDismissView, child);
+                    boolean visible = getInt(fieldClipTopAmount, state) < getInt(fieldClearAllTopPadding, stackScrollState);
+                    invoke(methodPerformVisibilityAnimationDismissView, child, visible && !willBeGone);
+                } else if (classEmptyShadeView.isInstance(child)) {
+                    boolean willBeGone = (boolean)invoke(methodWillBeGoneEmptyShade, child);
+                    boolean visible = getInt(fieldClipTopAmount, state) <= 0;
+                    invoke(methodPerformVisibilityAnimationEmptyShade, child,
+                            visible && !willBeGone);
+                }
+            }
+            return null;
+        }
+    };
+
     public static void updateClipping(Object resultState,
                                       Object algorithmState, Object ambientState) {
         ArrayList<ViewGroup> visibleChildren = (ArrayList<ViewGroup>) get(fieldVisibleChildren, algorithmState);
@@ -315,7 +372,7 @@ public class StackScrollAlgorithmHooks {
             Object child = visibleChildren.get(i);
             Object state = invoke(methodGetViewStateForView, resultState, child);
             boolean mIsHeadsUp = classExpandableNotificationRow.isInstance(child) && getBoolean(fieldIsHeadsUp, child);
-            boolean isTransparent = classExpandableView.isInstance(child) && (boolean)invoke(methodIsTransparent, child);
+            boolean isTransparent = (boolean)invoke(methodIsTransparent, child);
             if (!mIsHeadsUp) {
                 previousNotificationEnd = Math.max(drawStart, previousNotificationEnd);
                 previousNotificationStart = Math.max(drawStart, previousNotificationStart);
@@ -603,7 +660,7 @@ public class StackScrollAlgorithmHooks {
             View expandableView = child;
             return (int)invoke(methodGetIntrinsicHeight, expandableView);
         }
-        return child == null? getInt(fieldCollapsedSize, mStackScrollAlgorithm) : child.getHeight();
+        return child == null? getInt(fieldCollapsedSize, mStackScrollAlgorithm) : (int)invoke(methodGetHeight, child);
     }
 
     private static void clampHunToTop(Object ambientState, Object row,
