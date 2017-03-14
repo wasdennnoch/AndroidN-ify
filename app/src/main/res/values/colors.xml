@@ -16,6 +16,8 @@
 
     <color name="remote_input_text_enabled">#ffffffff</color>
     <color name="remote_input_hint">#99ffffff</color>
+
+    <color name="notification_shade_background_color">#ffeeeeee</color>
     <!-- /Notifications / Status bar header -->
 
     <!-- Emergency info -->
@@ -28,14 +30,6 @@
     <color name="hint_text_color">#36000000</color>
     <color name="m_blue_grey_900">#ff263238</color>
     <color name="m_blue_grey_950">#ff21272b</color>
-
-    <!-- The color of the material notification background -->
-    <color name="notification_material_background_color">#ffffffff</color>
-
-    <!-- The color of the material notification background when dimmed -->
-    <color name="notification_material_background_dimmed_color">#ccffffff</color>
-
-    <color name="notification_shade_background_color">#ffeeeeee</color>
     <!-- /Emergency Info -->
 
 </resources>
