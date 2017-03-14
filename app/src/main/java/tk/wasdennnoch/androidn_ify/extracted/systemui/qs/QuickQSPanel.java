@@ -118,12 +118,14 @@ public class QuickQSPanel extends LinearLayout {
             View.OnClickListener click = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        XposedHelpers.callMethod(tile, "click");
-                    } catch (Throwable t) {
-                        try { // PA
-                            XposedHelpers.callMethod(tile, "click", false);
-                        } catch (Throwable ignore) {
+                    if (getTileVisibility(tile)) {
+                        try {
+                            XposedHelpers.callMethod(tile, "click");
+                        } catch (Throwable t) {
+                            try { // PA
+                                XposedHelpers.callMethod(tile, "click", false);
+                            } catch (Throwable ignore) {
+                            }
                         }
                     }
                 }
@@ -131,13 +133,17 @@ public class QuickQSPanel extends LinearLayout {
             View.OnClickListener clickSecondary = new SafeOnClickListener() {
                 @Override
                 public void onClickSafe(View v) {
-                    XposedHelpers.callMethod(tile, "secondaryClick");
+                    if (getTileVisibility(tile)) {
+                        XposedHelpers.callMethod(tile, "secondaryClick");
+                    }
                 }
             };
             View.OnLongClickListener longClick = new SafeOnLongClickListener() {
                 @Override
                 public boolean onLongClickSafe(View v) {
-                    XposedHelpers.callMethod(tile, "longClick");
+                    if (getTileVisibility(tile)) {
+                        XposedHelpers.callMethod(tile, "longClick");
+                    }
                     return true;
                 }
             };
@@ -282,6 +288,11 @@ public class QuickQSPanel extends LinearLayout {
             return false;
         }
 
+    }
+
+    private boolean getTileVisibility(Object tile) {
+        Object state = XposedHelpers.getObjectField(tile, "mState");
+        return XposedHelpers.getBooleanField(state, "visible");
     }
 
 }

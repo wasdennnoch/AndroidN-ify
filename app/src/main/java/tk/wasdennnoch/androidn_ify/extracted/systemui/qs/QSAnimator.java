@@ -27,15 +27,13 @@ import java.util.List;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
-import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
-import tk.wasdennnoch.androidn_ify.systemui.qs.KeyguardMonitor;
-import tk.wasdennnoch.androidn_ify.systemui.qs.QSTileHostHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.PageListener, OnLayoutChangeListener,
-        OnAttachStateChangeListener, TouchAnimator.Listener {
+public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeListener,
+        OnAttachStateChangeListener, TouchAnimator.Listener, NotificationPanelHooks.BarStateCallback {
 
     private static final float EXPANDED_TILE_DELAY = .86f;
 
@@ -45,7 +43,6 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
     private final QuickQSPanel mQuickQsPanel;
     private final ViewGroup mQsPanel;
     private final ViewGroup mQsContainer;
-    private KeyguardMonitor mKeyguard;
 
     private PagedTileLayout mPagedLayout;
 
@@ -73,7 +70,6 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         container.addOnLayoutChangeListener(this);
         mPagedLayout = StatusBarHeaderHooks.qsHooks.getTileLayout();
         mPagedLayout.setPageListener(this);
-        mKeyguard = QSTileHostHooks.mKeyguard;
 
         if (ConfigUtils.qs().fix_header_space) {
             ResourceUtils res = ResourceUtils.getInstance(container.getContext());
@@ -92,22 +88,12 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
     @Override
     public void onViewAttachedToWindow(View v) {
         updateAnimators();
-        if (mKeyguard == null) {
-            mKeyguard = QSTileHostHooks.mKeyguard;
-            mQsPanel.post(new SafeRunnable() {
-                @Override
-                public void runSafe() {
-                    mKeyguard.addCallback(QSAnimator.this);
-                }
-            });
-            return;
-        }
-        mKeyguard.addCallback(this);
+        NotificationPanelHooks.addBarStateCallback(this);
     }
 
     @Override
     public void onViewDetachedFromWindow(View v) {
-        mKeyguard.removeCallback(this);
+        NotificationPanelHooks.removeBarStateCallback(this);
     }
 
     @Override
@@ -380,7 +366,7 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
     };
 
     @Override
-    public void onKeyguardChanged() {
-        setOnKeyguard(mKeyguard.isShowing());
+    public void onStateChanged() {
+        setOnKeyguard(NotificationPanelHooks.getStatusBarState() == NotificationPanelHooks.STATE_KEYGUARD);
     }
 }
