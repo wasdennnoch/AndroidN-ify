@@ -3,13 +3,10 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -32,12 +29,8 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
@@ -65,7 +58,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     private boolean mExperimental;
 
-    @SuppressLint("CommitPrefEdits")
+    @SuppressLint("ApplySharedPref")
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +70,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             new AlertDialog.Builder(this)
                     .setTitle("\"Pro version\" warning")
                     .setMessage("The \"Pro version\" in the play store is not provided by the original developer (MrWasdennnoch). " +
-                            "I (the original developer) do not get any penny from it. Please do yourself a favor and refound the purchase as " +
+                            "I (the original developer) do not get any penny from it. Please do yourself a favor and refund the purchase as " +
                             "fast as possible to not support people who just grab the work of others and want money for it.\n\n" +
                             "There are snapshot builds of Android N-ify available and linked in the XDA thread and on Github. " +
-                            "These contain the same functionality as the play store version. The play version doesn't get any \"additional developement\", " +
+                            "These contain the same functionality as the play store version. The play version doesn't get any \"additional development\", " +
                             "it's exactly the same as one of these snapshots. Rating in the play store will be ignored by me as well as any bug reports.")
                     .setPositiveButton("Go to play store", new DialogInterface.OnClickListener() {
                         @Override
@@ -189,7 +182,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
 
-        private LoaderManager.LoaderCallbacks<String> updateLoaderCallbacks = new LoaderManager.LoaderCallbacks<String>() {
+        /*private LoaderManager.LoaderCallbacks<String> updateLoaderCallbacks = new LoaderManager.LoaderCallbacks<String>() {
             @Override
             public Loader<String> onCreateLoader(int id, Bundle args) {
                 return new AsyncTaskLoader<String>(getActivity()) {
@@ -215,7 +208,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 };
             }
 
-            @SuppressLint("CommitPrefEdits")
+            @SuppressLint("ApplySharedPref")
             @Override
             public void onLoadFinished(Loader loader, String data) {
                 try {
@@ -228,7 +221,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             @Override
             public void onLoaderReset(Loader loader) {
             }
-        };
+        };*/
 
         private SharedPreferences prefs;
         private boolean mExperimental;
@@ -237,7 +230,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         private boolean mAssistantSupported = false;
         private String mGoogleAppVersionName;
 
-        @SuppressLint("CommitPrefEdits")
+        @SuppressLint("ApplySharedPref")
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -275,10 +268,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 mGoogleAppVersionName = "Error";
             }
 
-            if (UpdateUtils.isConnected(getActivity())) {
+            /*if (UpdateUtils.isConnected(getActivity())) {
                 // Always update from cloud if connected
                 getLoaderManager().initLoader(0, null, updateLoaderCallbacks).startLoading();
-            } else {
+            } else {*/
                 // Else load config from assets
                 try {
                     String result = MiscUtils.readInputStream(getResources().getAssets().open("assistant_hooks"));
@@ -290,7 +283,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
-            }
+            //}
 
             // Read version and check if supported
             try {
@@ -424,7 +417,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             }
         }
 
-        @SuppressLint("CommitPrefEdits")
+        @SuppressLint("ApplySharedPref")
         private void sendUpdateBroadcast(SharedPreferences prefs, String key) {
             Intent intent = new Intent();
             switch (key) {
