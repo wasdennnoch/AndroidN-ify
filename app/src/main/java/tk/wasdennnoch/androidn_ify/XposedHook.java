@@ -54,6 +54,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static boolean debug = false;
     private static String sModulePath;
     private static XSharedPreferences sPrefs;
+    private static boolean pro = false;
 
     public static void markUnstable() {
         LOG_FORMAT = "[Android N-ify] [UNSTABLE] %1$s %2$s: %3$s";
@@ -82,6 +83,11 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public void initZygote(StartupParam startupParam) throws Throwable {
         sModulePath = startupParam.modulePath;
         sPrefs = new XSharedPreferences(PACKAGE_OWN);
+        if (sPrefs.getBoolean("pro", false)) {
+            pro = true;
+            logW(TAG, "Pro version detected. Aborting.");
+            return;
+        }
         RomUtils.init(sPrefs);
 
         logI(TAG, "Version " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
@@ -123,6 +129,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
+        if (pro || sPrefs.getBoolean("pro", false)) {
+            return;
+        }
 
         switch (lpparam.packageName) {
             case PACKAGE_SETTINGS:
@@ -200,6 +209,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
 
     @Override
     public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam resparam) throws Throwable {
+        if (pro || sPrefs.getBoolean("pro", false)) {
+            return;
+        }
 
         switch (resparam.packageName) {
             case PACKAGE_SETTINGS:

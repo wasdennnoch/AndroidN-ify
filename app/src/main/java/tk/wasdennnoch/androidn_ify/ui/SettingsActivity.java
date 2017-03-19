@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -64,12 +65,38 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     private boolean mExperimental;
 
+    @SuppressLint("CommitPrefEdits")
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final SharedPreferences prefs = ConfigUtils.getPreferences(this);
         ViewUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
+        if (!getPackageName().equals("tk.wasdennnoch.androidn_ify")) {
+            prefs.edit().putBoolean("pro", true).commit();
+            new AlertDialog.Builder(this)
+                    .setTitle("\"Pro version\" warning")
+                    .setMessage("The \"Pro version\" in the play store is not provided by the original developer (MrWasdennnoch). " +
+                            "I (the original developer) do not get any penny from it. Please do yourself a favor and refound the purchase as " +
+                            "fast as possible to not support people who just grab the work of others and want money for it.\n\n" +
+                            "There are snapshot builds of Android N-ify available and linked in the XDA thread and on Github. " +
+                            "These contain the same functionality as the play store version. The play version doesn't get any \"additional developement\", " +
+                            "it's exactly the same as one of these snapshots. Rating in the play store will be ignored by me as well as any bug reports.")
+                    .setPositiveButton("Go to play store", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
+                        }
+                    })
+                    .setCancelable(false)
+                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            finish();
+                        }
+                    })
+                    .show();
+        }
         RomUtils.init(this);
         setContentView(R.layout.activity_settings);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
