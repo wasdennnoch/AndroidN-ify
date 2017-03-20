@@ -72,7 +72,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         final SharedPreferences prefs = ConfigUtils.getPreferences(this);
         ViewUtils.applyTheme(this, prefs);
         super.onCreate(savedInstanceState);
-        if (!getPackageName().equals("tk.wasdennnoch.androidn_ify")) {
+        if (!getPackageName().equals("tk.wasdennnoch.androidn_ify") && !BuildConfig.DEBUG && "com.android.vending".equals(getPackageManager().getInstallerPackageName(getPackageName()))) {
             prefs.edit().putBoolean("pro", true).commit();
             new AlertDialog.Builder(this)
                     .setTitle("\"Pro version\" warning")
