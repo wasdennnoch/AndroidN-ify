@@ -56,24 +56,7 @@ public class AssistantHooks {
             }
             final JSONObject activeHooks = activeHooksTemp;
 
-            /*
-            findAndHookMethod(ASSISTANT_PACKAGE + ".settings.AssistantSettingsActivity", classLoader, "onCreate", Bundle.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-
-                }
-            });
-
-            findAndHookMethod(GSA_PACKAGE + ".shared.config.a.b", classLoader, "adY", new XC_MethodHook() {
-                @Override
-                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    callStaticMethod(findClass(GSA_PACKAGE + ".shared.config.a.c", classLoader), "B", 1518, true);
-                    callStaticMethod(findClass(GSA_PACKAGE + ".shared.config.a.c", classLoader), "B", 1519, true);
-                }
-            });
-            //*/
-
-            Class a = findClass(ASSISTANT_PACKAGE + activeHooks.optString(KEY_ASSISTANT_CLASS, ".a.e"), classLoader);
+            Class a = findClass(ASSISTANT_PACKAGE + activeHooks.optString(KEY_ASSISTANT_CLASS, ".shared.h"), classLoader);
 
             hookAllConstructors(a, new XC_MethodHook() {
                 @Override
