@@ -14,7 +14,7 @@ ext.updaterUrl = System.getenv("UPDATER_URL") ?: "null"
 ext.buildNumber = System.getenv("BUILD_NUMBER") ?: "0"
 ext.useSigningConfig = false
 
-ext.supportLibraryVersion = "25.3.0";
+ext.supportLibraryVersion = "24.2.0";
 
 def keyPropPath = System.getenv("KEY_PROP_PATH") ?: "../../../"
 def propFile = project.file(keyPropPath + "key.properties")
