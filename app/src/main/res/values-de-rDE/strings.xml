@@ -14,15 +14,14 @@
   <string name="prefs_not_readable_description"><![CDATA[
         Xposed kann die Datei mit den Einstellungen nicht lesen, Standardwerte werden benutzt.
         Es gibt mehrere Wege, dieses Problem zu lösen. Beachte auch, dass diese Meldung angezeigt wird,
-        wenn du die App noch nie geöffnet hast.<br><br>
-        Als Erstes, versuche dein Gerät neu zu starten (Kein Soft Reboot!).<br>
+        wenn du die App erstmals geöffnet hast.<br><br>
+        Versuche zunächst, dein Gerät neu zu starten (Kein Soft-Reboot!).<br>
         Wenn das nicht hilft, versuche das Modul neu zu installieren.<br>
         Wenn beide Versuche scheitern, stelle sicher, dass der SELinux-Modus auf <i>permissive</i> gesetzt ist.
         Im <i>Enforcing</i>-Modus könnte SELinux den Zugriff auf die Datei sperren. Um den Modus zu ändern,
         benutze die App <tt>SELinuxModeChanger</tt>, welche du in
         <a href="http://forum.xda-developers.com/showthread.php?t=2524485">diesem XDA thread</a> herunterladen kannst.<br>
-        Falls selbst das scheitert, wirst du vermutlich mit Standardwerten leben müssen, sorry :(
-        ]]></string>
+        Falls selbst das scheitert, wirst du vermutlich mit Standardwerten leben müssen, sorry :(        ]]></string>
   <string name="automated_build_warning"><![CDATA[Dies ist eine automatisch generierte Version. Manche Teile des Moduls könnten aufgrund neuer Änderungen nicht korrekt funktionieren. Wenn du ein Problem gefunden hast, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">öffne ein Issue auf GitHub</a> falls ein selbiges nicht bereits existert.<br><br>Denke daran, dem Bugreport immer deinen Xposed-Log beizulegen oder einen Logcat im Falle von Crashes.]]></string>
   <string name="experimental_build_warning"><![CDATA[
 Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Moduls können aufgrund neuer Änderungen Fehler haben. Wenn Sie Fehler finden, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> melden Sie diese auf GitHub</a>, wenn nicht bereits eine vorhanden ist. <br>Diese Version enthält <b>sehr experimentelle</b> Funktionen. Bitte durchsuchen Sie XDA und GitHub bevor Sie Fehler melden. Doppelte Berichte werden ignoriert und geschlossen. <br><br>Vergessen Sie nicht Xposed-Logs anhängen, wenn Sie Fehler melden und einen Logcat wenn Sie Abstürze melden.        ]]></string>
@@ -93,15 +92,15 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="recents_navigation_delay_title">Navigationsverzögerung</string>
   <string name="recents_navigation_delay">Zeit, bis die ausgewählte App in den Vordergrund geht</string>
   <string name="enable_large_recents">Große Recents</string>
-  <string name="enable_large_recents_summary">Macht nur die Recents Karten volle Breite, die Höhe ändert sich nicht</string>
+  <string name="enable_large_recents_summary">Maximiert nur die Breite der Recents-Karten, die Höhe bleibt unverändert</string>
   <string name="no_recents_image">\"Keine Recents\"-Bild ändern</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Keine zuletzt genutzten Apps</string>
   <string name="recents_button_behavior_previous">Zur letzten App zurückkehren</string>
   <string name="recents_button_behavior_current">Zur aktuellen App zurückkehren</string>
   <string name="recents_button_behavior_cycle">Durch Apps wechseln</string>
-  <string name="header_qs">Schnelleinstellungen</string>
-  <string name="enable_notification_header">Header stylen</string>
+  <string name="header_qs">Schnelleinstellungen (QS)</string>
+  <string name="enable_notification_header">Kopfzeile stylen</string>
   <string name="keep_bg_title">Unveränderte Hintergründe</string>
   <string name="keep_bg">Nützlich für Themes, die einen eigenen Hintergrund verwenden</string>
   <string name="keep_header_bg">Kopfzeile</string>
@@ -109,7 +108,7 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="force_old_date_position">Datum neben Zeit erzwingen</string>
   <string name="force_old_date_position_summary">Bei Bildschirmen, welche kleiner als eine bestimmte Größe sind, wird das Datum unterhalb der Uhr anstatt daneben angezeigt (nur sichtbar wenn das QS Fenster vergrößert wurde). Aktivieren um dieses Verhalten zu überschreiben</string>
   <string name="force_old_date_position_disabled_summary">Ihr Gerät unterstützt bereits die neue Datumsposition</string>
-  <string name="notification_header_qs_tiles_count">Anzahl der Kacheln im Header</string>
+  <string name="notification_header_qs_tiles_count">Anzahl der Kopfzeilenkacheln</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">Kacheln</string>
   <string name="battery_tile_show_percentage">Prozent in der Batterie-Kachel</string>
@@ -127,11 +126,11 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="enable_large_first_row_summary2">Vergrößert die ersten beiden Kacheln falls unterstützt</string>
   <string name="fix_stuck_inversion_title">Invertierung reparieren</string>
   <string name="fix_stuck_inversion">Auf manchen Geräten kann die Farbunkehrung nach dem Aktivieren nicht mehr deaktiviert werden. Klicken, um die Invertierung manuell zu deaktivieren.</string>
-  <string name="hide_icons_title">Header-Items verstecken</string>
+  <string name="hide_icons_title">Kopfzeilenelemente verstecken</string>
   <string name="hide_tuner_icon_title">SystemUI Tuner-Icon verstecken</string>
-  <string name="hide_edit_tiles_title">\"Kacheln Bearbeiten\" Button verstecken</string>
+  <string name="hide_edit_tiles_title">\"Kacheln bearbeiten\" Button verstecken</string>
   <string name="hide_edit_tiles_summary">Dies versteckt nur den originalen Button, falls vorhanden!</string>
-  <string name="hide_carrier_label_title">Anbietertext verstecken</string>
+  <string name="hide_carrier_label_title">Anbietersignatur verstecken</string>
   <string name="header_notifications">Benachrichtigungen</string>
   <string name="notifications_change_style">Benachrichtigungen stylen</string>
   <string name="notification_dismiss_button_title">Benachrichtigungs-Löschbutton ändern</string>
@@ -144,7 +143,7 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="notifications_custom_actions_color">Nutze eine eigene Farbe als Hintergrund für die Benachrichtigungs-Aktionen</string>
   <string name="notifications_actions_color_title">Actions-Hintergrundfarbe</string>
   <string name="notification_experimental_title">Experimentelles N Benachrichtigungs-Verhalten</string>
-  <string name="notification_experimental">N Scrollverhalten (kein \'Stacken\' am oberen Ende)</string>
+  <string name="notification_experimental">N Scrollverhalten (kein Stapeln am oberen Ende)</string>
   <string name="notification_keyguard_max_title">Maximale Benachrichtigungen auf Sperrbildschirm</string>
   <string name="enable_assistant">Google-Assistent aktivieren</string>
   <string name="enable_assistant_summary">Ersetzt Now on Tap/Screen search mit dem neuen Google Assistant</string>
@@ -344,12 +343,12 @@ Sie benutzen eine experimentelle, automatisierte Version. Einige Teile des Modul
   <string name="enable_data_disabled_indicator_summary">Zeige ein \"x\" als Signal, wenn mobile Daten deaktiviert sind</string>
   <string name="home">Home</string>
   <plurals name="enable_experimental_countdown">
-    <item quantity="one">Sie sind jetzt %1$d Schritte entfernt, die experimentelle Funktionen zu aktivieren.</item>
+    <item quantity="one">Sie sind jetzt %1$d Schritte entfernt, die experimentellen Funktionen zu aktivieren.</item>
     <item quantity="other">Sie sind jetzt %1$d Schritte entfernt, die experimentelle Funktionen zu aktivieren.</item>
   </plurals>
-  <string name="show_experimental_on">Sie haben die experimentelle Funktionen aktiviert!</string>
+  <string name="show_experimental_on">Sie haben die experimentellen Funktionen aktiviert!</string>
   <string name="show_experimental_on_already">Nicht nötig, experimentelle Funktionen sind bereits aktiviert.</string>
-  <string name="header_experimental">Experimental</string>
+  <string name="header_experimental">Experimentell</string>
   <string name="enable_experimental_features">Experimentelle Funktionen aktivieren</string>
   <string name="enable_n_style_settings_dashboard">N Design Einstellungen</string>
   <string name="enable_n_style_settings_dashboard_summary">Die Startseite der Einstellungen abändern, um wie in N auszusehen</string>

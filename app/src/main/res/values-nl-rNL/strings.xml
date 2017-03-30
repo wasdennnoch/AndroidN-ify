@@ -106,12 +106,20 @@ U gebruikt een experimentele automatische build. Sommige functies werken hierdoo
   <string name="keep_bg">Handig voor thema\'s met aparte achtergronden</string>
   <string name="keep_header_bg">Bovenkant</string>
   <string name="keep_panel_bg">QS paneel</string>
+  <string name="force_old_date_position">Forceer datum naast de tijd</string>
+  <string name="force_old_date_position_summary">Op schermen kleiner dan een bepaalde grootte wordt de tijd onder de klok weergegeven in plaats van ernaast, alleen zichtbaar wanneer het QS paneel is uitgebreid. Zet aan om dit gedrag te omzeilen</string>
+  <string name="force_old_date_position_disabled_summary">Uw apparaat ondersteunt de nieuwe datum positie al</string>
   <string name="notification_header_qs_tiles_count">QS tegels om te tonen</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">tegels</string>
   <string name="battery_tile_show_percentage">Toon percentage in battery tegel</string>
   <string name="battery_tile_show_percentage_summary">Toon batterij percentage in batterij tegel</string>
   <string name="enable_qs_editor">Zet QS editor aan</string>
+  <string name="alternative_qs_loading">Alternatieve QS laadmethode</string>
+  <string name="alternative_qs_loading_summary">Gebruik een andere manier om beschikbare QS tegels te krijgen. Gebruik dit alleen als je tegels mist in de editor</string>
+  <string name="inject_gb_tiles">Injecteer GravityBox tegels</string>
+  <string name="inject_gb_tiles_summary">Zet dit aan als je QS tegels van GravityBox wil toevoegen</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox is niet geïnstalleerd</string>
   <string name="allow_fancy_qs_transition">Fancy QS overgang</string>
   <string name="enable_new_tile_click_behavior">Android N tegel klik gedrag</string>
   <string name="enable_new_tile_click_behavior_summary">Als je klikt op een tegel die zich in de header bevindt, wordt deze geopend en het paneel wordt uitgebreid</string>
@@ -346,4 +354,5 @@ U gebruikt een experimentele automatische build. Sommige functies werken hierdoo
   <string name="enable_n_style_settings_dashboard">N stijl instellingen</string>
   <string name="enable_n_style_settings_dashboard_summary">Laat de instellingen op her dashboard eruit zien als N</string>
   <string name="enable_settings_drawer">Lade instellingen inschakelen</string>
+  <string name="partial_screenshot">Gedeeltelijke screenshot</string>
 </resources>

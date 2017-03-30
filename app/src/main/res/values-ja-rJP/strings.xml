@@ -304,7 +304,7 @@
   <string name="press_color_to_apply">適用するには色を押してください</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">16進数</string>
-  <string name="enable_install_source_title">アプリがどのようにインストールされたかの表示</string>
+  <string name="enable_install_source_title">アプリのインストール元を表示</string>
   <string name="enable_install_source">アプリ情報ページにカテゴリを追加して、そのアプリがどのようにインストールされたかを表示する（Playストア、パッケージインストーラなど）</string>
   <string name="battery_detail_switch_title">バッテリー セーバー</string>
   <string name="battery_detail_switch_summary">パフォーマンスとバックグラウンドデータを制限します</string>

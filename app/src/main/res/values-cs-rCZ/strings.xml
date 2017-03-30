@@ -120,6 +120,11 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="battery_tile_show_percentage">Zobrazit procenta v dlaždici s baterií</string>
   <string name="battery_tile_show_percentage_summary">Zobrazit procenta v dlaždici s baterií</string>
   <string name="enable_qs_editor">Povolit úpravu rychlých nastavení</string>
+  <string name="alternative_qs_loading">Alternativní metoda načítání QS</string>
+  <string name="alternative_qs_loading_summary">Používat jiný způsob, jak získat dostupné dlaždice QS. Používejte pouze, pokud v editoru nějaké chybí</string>
+  <string name="inject_gb_tiles">Vložit dlaždice GravityBoxu</string>
+  <string name="inject_gb_tiles_summary">Povolte, pokud chcete přidat dlaždice QS poskytované GravityBoxem</string>
+  <string name="inject_gb_tiles_not_installed">GravityBox není nainstalován</string>
   <string name="allow_fancy_qs_transition">Ozdobný přechod rychlých nastavení</string>
   <string name="enable_new_tile_click_behavior">Android N chování dlaždice po klepnutí</string>
   <string name="enable_new_tile_click_behavior_summary">Klepnutí na dlaždici v záhlaví ji přepne a klepnutí na dlaždici v panelu ji rozbalí</string>
@@ -348,4 +353,5 @@ Nezapomeňte vždy přiložit Xposed log v případě hlášení potíží, a lo
   <string name="enable_n_style_settings_dashboard">N style settings</string>
   <string name="enable_n_style_settings_dashboard_summary">Theme the settings dashboard to look like N</string>
   <string name="enable_settings_drawer">Enable settings drawer</string>
+  <string name="partial_screenshot">Částečný snímek obrazovky</string>
 </resources>

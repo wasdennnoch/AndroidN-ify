@@ -8,7 +8,7 @@
   <string name="activity_about">Acerca de Android N-ify</string>
   <string name="about_author">Desarrollado por @MrWasdennnoch</string>
   <!-- Insert/Add your (preferably XDA) username here -->
-  <string name="about_translator">Traducido por @Raikem</string>
+  <string name="about_translator">Traducido por la comunidad de habla hispana</string>
   <string name="about_version">Versión %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Advertencia:</b> Xposed no puede leer el archivo de preferencias. Pulsar para más información&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
@@ -35,7 +35,7 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="header_tweaks">Modificaciones</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Aplicación</string>
-  <string name="app_theme_title">Tema de aplicación</string>
+  <string name="app_theme_title">Tema de la aplicación</string>
   <string name="app_theme_light">Claro</string>
   <string name="app_theme_dark">Oscuro</string>
   <string name="app_theme_device">Predeterminado del dispositivo</string>
@@ -50,12 +50,12 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="theme_colorPrimary">Color primario</string>
   <string name="header_lockscreen">Pantalla de bloqueo</string>
   <string name="header_settings">Ajustes</string>
-  <string name="enable_settings_summaries_title">Activar Android N-ify</string>
+  <string name="enable_settings_summaries_title">Mostrar informacion importante en los ajustes</string>
   <string name="enable_settings_summaries">Muestra la información más importante directamente en la barra de notificaciones</string>
   <string name="fix_sound_notif_tile_title">Corregir \"Sonidos &amp; notificaciones\"</string>
   <string name="fix_sound_notif_tile">Algunas ROMs enlazan el volumen de llamada y de notificaciones. Activa esto para mostrar la información correctamente</string>
   <string name="enable_n_platlogo_title">Logo de \"N\" en el Easter Egg</string>
-  <string name="use_namey_mcnameface_title">Usar el icono \"Namey McNameface\"</string>
+  <string name="use_namey_mcnameface_title">Usar icono \"Namey McNameface\"</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Desconectado</string>
   <string name="disabled">Desactivado</string>
@@ -78,9 +78,9 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="battery_charging_ac">%1$s - Cargando en CA</string>
   <string name="memory_summary">Uso de memoria %1$s de %2$s </string>
   <string name="user_summary">Conectado como %1$s</string>
-  <string name="location_on_power">Activada: Ahorro de energía</string>
-  <string name="location_on_device">Activada: Solo dispositivo</string>
-  <string name="location_on_high">Activada: Máxima precisión</string>
+  <string name="location_on_power">Activado: Ahorro de energía</string>
+  <string name="location_on_device">Activado: Solo dispositivo</string>
+  <string name="location_on_high">Activado: Máxima precisión</string>
   <string name="print_summary" tools:ignore="PluralsCandidate">%1$d trabajos de impresión</string>
   <!-- Header of app installation source -->
   <string name="store">Tienda</string>
@@ -99,7 +99,7 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="recents_navigation_delay_title">Retraso de navegación</string>
   <string name="recents_navigation_delay">Tiempo para que se abra la aplicación seleccionada</string>
   <string name="enable_large_recents">Activar tarjetas recientes grandes</string>
-  <string name="enable_large_recents_summary">Sólo hace las tarjetas de aplicaciones recientes ancho completo, no cambia la altura.</string>
+  <string name="enable_large_recents_summary">Solo anchura, no cambia la altura.</string>
   <string name="no_recents_image">Cambiar imagen de \"No hay aplicaciones recientes\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">No hay aplicaciones recientes</string>
@@ -113,16 +113,16 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="keep_header_bg">Encabezado</string>
   <string name="keep_panel_bg">Panel de ajustes rápidos</string>
   <string name="force_old_date_position">Forzar fecha junto a la hora</string>
-  <string name="force_old_date_position_summary">En pantallas más pequeñas que cierto tamaño la fecha obtiene aparece debajo del reloj en vez de al lado, sólo está visible al expandir el panel de QS. Activar para anular este comportamiento</string>
+  <string name="force_old_date_position_summary">En pantallas pequeñas la fecha aparece debajo del reloj en vez de al lado, y solo es visible al expandir el panel de ajustes rápidos. Activa para anular este comportamiento</string>
   <string name="force_old_date_position_disabled_summary">Su dispositivo ya es compatible con la nueva posición de la fecha</string>
   <string name="notification_header_qs_tiles_count">Ajustes rápidos a mostrar</string>
   <!-- The unit of the counter next to the slider -->
-  <string name="notification_header_qs_tiles_count_monitor">Ajustes</string>
+  <string name="notification_header_qs_tiles_count_monitor">Iconos</string>
   <string name="battery_tile_show_percentage">Mostrar porcentaje de batería</string>
   <string name="battery_tile_show_percentage_summary">Muestra el porcentaje de batería en el ajuste rápido</string>
   <string name="enable_qs_editor">Activar editor de ajustes</string>
   <string name="alternative_qs_loading">Método de carga alternativo para ajustes rápidos</string>
-  <string name="alternative_qs_loading_summary">Utilice una forma diferente para obtener los elementos de ajustes rápidos disponibles. Úselo solo si faltan elementos en el editor</string>
+  <string name="alternative_qs_loading_summary">Usar método alternativo para mostrar los ajustes rápidos. Solo use esto si estas perdiendo elementos en el editor.</string>
   <string name="inject_gb_tiles">Inyectar elementos de GravityBox</string>
   <string name="inject_gb_tiles_summary">Activar si desea agregar elementos de ajustes rápidos proporcionados por GravityBox</string>
   <string name="inject_gb_tiles_not_installed">GravityBox no está instalado</string>
@@ -132,15 +132,15 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="enable_large_first_row">Alargar la primera fila</string>
   <string name="enable_large_first_row_summary2">Hace que los dos primeros ajustes rápidos aparezcan en grande si es compatible</string>
   <string name="fix_stuck_inversion_title">Arreglar inversión bloqueada</string>
-  <string name="fix_stuck_inversion">En algunos dispositivos la inversión de colores se bloquea al activarla. Selecciona para forzar desactivación</string>
-  <string name="hide_icons_title">Ocultar información</string>
+  <string name="fix_stuck_inversion">En algunos dispositivos la inversión se bloquea al activarla. Selecciona para forzar desactivación</string>
+  <string name="hide_icons_title">Ocultar elementos</string>
   <string name="hide_tuner_icon_title">Ocultar icono de SystemUI Tuner</string>
   <string name="hide_edit_tiles_title">Ocultar botón editar ajustes</string>
   <string name="hide_edit_tiles_summary">Esto sólo oculta el botón de editar original</string>
   <string name="hide_carrier_label_title">Ocultar operador de red</string>
   <string name="header_notifications">Notificaciones</string>
-  <string name="notifications_change_style">Notificaciones de Android Nougat</string>
-  <string name="notification_dismiss_button_title">Cambiar botón \"descartar notificaciones\"</string>
+  <string name="notifications_change_style">Estilo de notificaciones</string>
+  <string name="notification_dismiss_button_title">Cambiar botón \"descartar notificacones\"</string>
   <string name="notification_dismiss_button">Mostrar \"BORRAR TODO\" en vez del icono de descartar</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Buscar</string>
@@ -221,7 +221,7 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="tab_title_contacts">Contactos</string>
   <string name="add_emergency_contact">Agregar contacto</string>
   <string name="user_emergency_info_title">Información de emergencia</string>
-  <string name="user_emergency_info_consent">La información que usted introduzca aquí puede ayudar a primeros respondedores en una emergencia. Se almacena solo en su dispositivo y nadie puede leerla desde el marcador de emergencia sin desbloquear el teléfono.</string>
+  <string name="user_emergency_info_consent">La información que ingresa aquí puede ser de ayuda en caso de emergencia. Se almacena en el dispositivo y cualquiera puede leerlo desde el marcador de emergencia sin desbloquear el teléfono.</string>
   <string name="emergency_info_continue">Continuar</string>
   <string name="clear">Borrar</string>
   <string name="clear_all_message">¿Borrar toda la información y contactos?</string>
@@ -229,7 +229,7 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="phone_type_and_phone_number">%1$s • %2$s</string>
   <string name="remove_contact">¿Quitar %1$s de los contactos de emergencia?</string>
   <string name="remove_contact_icon_text">Eliminar contacto</string>
-  <string name="remove">Quitar</string>
+  <string name="remove">Eliminar</string>
   <string name="cancel">Cancelar</string>
   <string name="no_info_provided">No se proporcionó informacion de emergencia</string>
   <string name="emergency_contacts_title">Contactos de emergencia</string>
@@ -276,29 +276,29 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <!-- Example: 3 hours left -->
   <string name="remaining_length_format">Faltan %1$s</string>
   <!-- Example: Approx. 3 hours left -->
-  <string name="power_remaining_duration_only">Falta aprox. %1$s</string>
+  <string name="power_remaining_duration_only">Aproximadamente %1$s</string>
   <!-- Example: 3h left -->
   <string name="power_remaining_duration_only_short">Faltan %1$s</string>
   <!-- Example: 75% - approx. 3 hours left -->
   <string name="power_discharging_duration">%1$s - Quedan %2$s apróximadamente</string>
   <!-- Example: 75% - 3h left -->
-  <string name="power_discharging_duration_short">Faltan %1$s - %2$s</string>
+  <string name="power_discharging_duration_short">%1$s - %2$s restantes</string>
   <!-- Example: 75% - Charging -->
-  <string name="power_charging">%1$s - %2$s</string>
+  <string name="power_charging">%1$s - Cargando</string>
   <!-- Example: 75% - 3 hours until full -->
-  <string name="power_charging_duration">%1$s - %2$s hasta que se complete</string>
+  <string name="power_charging_duration">%1$s - %2$s para completar carga</string>
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
-  <string name="power_charging_duration_ac">%1$s - %2$s hasta que se complete en AC</string>
+  <string name="power_charging_duration_ac">%1$s - %2$s hasta completar carga en AC</string>
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
-  <string name="power_charging_duration_usb">%1$s - %2$s hasta que se complete en USB</string>
+  <string name="power_charging_duration_usb">%1$s - %2$s hasta completar carga por USB</string>
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
-  <string name="power_charging_duration_wireless">%1$s - %2$s hastq eu se complete inálambricamente</string>
+  <string name="power_charging_duration_wireless">%1$s - %2$s hasta completar carga inalambrica</string>
   <!-- Example: 75% - 3h -->
   <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">Desconocido</string>
@@ -309,10 +309,10 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="battery_info_status_charging_usb_short">Cargando</string>
   <string name="battery_info_status_charging_wireless">Carga inalámbrica</string>
   <string name="battery_info_status_charging_wireless_short">Cargando</string>
-  <string name="battery_info_status_discharging">No carga</string>
-  <string name="battery_info_status_not_charging">No está cargando</string>
+  <string name="battery_info_status_discharging">No se esta cargando</string>
+  <string name="battery_info_status_not_charging">No se esta cargando</string>
   <string name="battery_info_status_full">Cargada</string>
-  <string name="battery_panel_title">Uso de batería</string>
+  <string name="battery_panel_title">Uso de la batería</string>
   <string name="battery_detail_charging_summary">El Ahorro de batería no está disponible durante la carga</string>
   <!-- Add a custom tile -->
   <string name="add">Añadir</string>
@@ -320,7 +320,7 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <!-- Warning when the input for the custom tile is empty -->
   <string name="spec_shouldnt_be_blank">Los detalles no pueden estar en blanco</string>
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
-  <string name="reset_tiles">Por defecto</string>
+  <string name="reset_tiles">Restablecer</string>
   <string name="dialog_color_picker">Selector de color</string>
   <string name="press_color_to_apply">Pulsa en el color para aplicar</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
@@ -333,10 +333,10 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="qs_add_notes">Esto sólo se utiliza para aplicaciones que usan el ajuste de difusión (tales como \"Custom Quick Settings\"). Por favor lea las instrucciones de la aplicación antes de usar esta opción.</string>
   <string name="hide_tiles_on_lockscreen">Ocultar ajustes rápidos en pantalla de bloqueo</string>
   <string name="done">Hecho</string>
-  <string name="cm_qs_settings">Ajustes de QS de CM</string>
+  <string name="cm_qs_settings">Ajustes rapidos de CM</string>
   <string name="disable_qs_paging">Desactivar paginación de los ajustes rapidos</string>
   <string name="disable_qs_paging_summary">Desactivar paginación de los ajustes rápidos en modo retrato</string>
-  <string name="allow_direct_reply_on_keyguard">Respuesta directa en pantalla de bloqueo</string>
+  <string name="allow_direct_reply_on_keyguard">Permitir respuesta directa en pantalla de bloqueo</string>
   <string name="allow_direct_reply_on_keyguard_summary">Permite que las notificaciones sean respondidas en la pantalla de bloqueo</string>
   <string name="enable_notifications_background">Activar fondo de notificaciones</string>
   <string name="enable_notifications_background_summary">Añade un fondo blanco detrás de las notificaciones al deslizar para eliminar</string>
@@ -347,7 +347,7 @@ Recuerda siempre adjuntar registros (logs) de Xposed al reportar bugs, y logcat 
   <string name="warning">Advertencia</string>
   <string name="dont_show_again">No mostrar otra vez</string>
   <string name="enable_data_disabled_indicator">Indicador de datos móviles desactivados</string>
-  <string name="enable_data_disabled_indicator_summary">Muestra una \"x\" como indicador de señal cuando los datos móviles están desactivados</string>
+  <string name="enable_data_disabled_indicator_summary">Muestra una \"x\" en el icono de datos moviles cuando esten desactivados</string>
   <string name="home">Inicio</string>
   <plurals name="enable_experimental_countdown">
     <item quantity="one">Estás a %1$d paso de habilitar las características experimentales.</item>

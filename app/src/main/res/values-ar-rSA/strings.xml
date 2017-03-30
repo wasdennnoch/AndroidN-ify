@@ -290,16 +290,23 @@
   <!-- Example: 75% - 3h left -->
   <string name="power_discharging_duration_short">%1$s - متبقي %2$s</string>
   <!-- Example: 75% - Charging -->
+  <string name="power_charging">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full -->
   <string name="power_charging_duration">%1$s-%2$s حتى يكتمل</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full on AC -->
+  <string name="power_charging_duration_ac">%1$s-%2$s حتى كامل التردد</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_ac_short">%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full over USB -->
   <string name="power_charging_duration_usb">%1$s-%2$s حتى يكتمل عبر USB</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_usb_short">&gt;%1$s - %2$s</string>
   <!-- Example: 75% - 3 hours until full from wireless -->
+  <string name="power_charging_duration_wireless">%1$s-%2$s حتى إكامله من اللاسلكي</string>
   <!-- Example: 75% - 3h -->
+  <string name="power_charging_duration_wireless_short">%1$s - %2$s</string>
   <string name="battery_info_status_unknown">مجهول</string>
   <string name="battery_info_status_charging">جار الشحن</string>
   <string name="battery_info_status_charging_ac">جار الشحن بتيار متردد</string>
@@ -323,9 +330,18 @@
   <string name="dialog_color_picker">منتقي الألوان</string>
   <string name="press_color_to_apply">اضغط على اللون للتطبيق</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
+  <string name="color_picker_hex">ست عشري</string>
   <string name="enable_install_source_title">إظهار مصدر تثبيت التطبيق</string>
+  <string name="enable_install_source">إضافة فئة إلى صفحة معلومات التطبيق لإظهار كيف حصلت على التطبيق المثبت (مخزن اللعب، حزمة المثبت إلخ)</string>
   <string name="battery_detail_switch_title">حافظ الطاقه</string>
   <string name="battery_detail_switch_summary">يقلل من الأداء والبيانات التي في الخلفية</string>
+  <string name="qs_add_notes_title">وتلاحظ</string>
+  <string name="qs_add_notes">Note 2.</string>
+  <string name="hide_tiles_on_lockscreen">إخفاء الأرضية من شاشة القفل</string>
+  <string name="done">إستمر</string>
+  <string name="cm_qs_settings">CM QS إعدادت</string>
+  <string name="disable_qs_paging">تعطيل QS إستدعاء</string>
+  <string name="disable_qs_paging_summary">تعطيل الإستدعاء QS في صورة</string>
   <string name="allow_direct_reply_on_keyguard">الرد المباشر من شاشة القفل</string>
   <string name="allow_direct_reply_on_keyguard_summary">يسمح بإجابة التنبيهات في شاشة القفل</string>
   <string name="enable_notifications_background">تمكين إخطارات الخلفية</string>
@@ -336,4 +352,15 @@
   <string name="accessibility_quick_settings_collapse">إغلاق الإعدادات السريعة.</string>
   <string name="warning">تحذير</string>
   <string name="dont_show_again">لا تظهر مرة أخرى</string>
+  <string name="enable_data_disabled_indicator">عرض مؤشر تعطيل بيانات الجوال</string>
+  <string name="enable_data_disabled_indicator_summary">عرض \"x\" كمؤشر إشارة عند تعطيل بيانات الجوال</string>
+  <string name="home">الصفحة الرئيسية</string>
+  <string name="show_experimental_on">لديك تمكين الميزات التجريبية!</string>
+  <string name="show_experimental_on_already">لا حاجة، لديك بالفعل تمكين الميزات التجريبية.</string>
+  <string name="header_experimental">تجريبي</string>
+  <string name="enable_experimental_features">تمكين الميزات التجريبية</string>
+  <string name="enable_n_style_settings_dashboard">N إعدادات النمط</string>
+  <string name="enable_n_style_settings_dashboard_summary">موضوع لوحة أجهزة الإعدادات لتبدو وكأنها N</string>
+  <string name="enable_settings_drawer">تمكين إعدادات درج</string>
+  <string name="partial_screenshot">لقطة شاشة جزئية</string>
 </resources>

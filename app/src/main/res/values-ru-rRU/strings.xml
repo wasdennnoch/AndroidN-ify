@@ -28,7 +28,7 @@
         Если вы нашли любую проблему, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">сообщите о ней на GitHub</a> если она там не существует.<br><br>
         Не забывайте всегда прикреплять логи Xposed  при сообщении об ошибках и logcat в случае аварий.
         ]]></string>
-  <string name="experimental_build_warning"><![CDATA[         Вы запустили экспериментальную автоматическую сборку . Некоторые части модуля могут сломаться из-за новых изменений.         Если у вас появился какой-либо вопрос, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> откройте  GitHub</a>, и посмотрите , не задавался ли этот вопрос ранее. <br>Эта сборка содержит <b>очень экспериментальные</b> функции. Пожалуйста, поищите на XDA и GitHub, прежде чем задавать какой нибудь вопрос. Повторяющиеся отчеты будут проигнорированы и закрыты. <br><br>Помните : всегда прикрепляйте Xposed логи при сообщении об ошибках и logcat в случае поломки.         ]]></string>
+  <string name="experimental_build_warning"><![CDATA[         Вы работаете на экспериментальной автоматической сборке . Некоторые части модуля могут сломаться из-за новых изменений.         Если у вас появился какой-либо вопрос, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new"> откройте  GitHub</a>, и посмотрите , не задавался ли этот вопрос ранее. <br>Эта сборка содержит <b>очень экспериментальные</b> функции. Пожалуйста, поищите на XDA и GitHub, прежде чем задавать какой нибудь вопрос. Повторяющиеся отчеты будут проигнорированы и закрыты. <br><br>Помните : всегда прикрепляйте Xposed логи при сообщении об ошибках и logcat в случае поломки.         ]]></string>
   <string name="header_tweaks">Твики</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
   <string name="header_app">Приложение</string>
@@ -47,10 +47,10 @@
   <string name="theme_colorPrimary">Главный цвет</string>
   <string name="header_lockscreen">Экран блокировки</string>
   <string name="header_settings">Настройки</string>
-  <string name="enable_settings_summaries_title">Подписи настроек</string>
+  <string name="enable_settings_summaries_title">Параметры сводки</string>
   <string name="enable_settings_summaries">Показывает самую важную информацию под пунктами настроек</string>
   <string name="fix_sound_notif_tile_title">Исправить пункт \"Звуки и Уведомления\"</string>
-  <string name="fix_sound_notif_tile">Некоторые прошивки объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения.</string>
+  <string name="fix_sound_notif_tile">В некоторых прошивках объединяют настройки звука и уведомлений. Включите эту опцию для корректного отображения</string>
   <string name="enable_n_platlogo_title">Логотип пасхалки в стиле android N</string>
   <string name="use_namey_mcnameface_title">Использовать значок \"Namey McNameface\"</string>
   <!-- Wifi disconnected -->
@@ -84,7 +84,7 @@
   <!-- Header of app installation source -->
   <string name="app_details">О приложении</string>
   <string name="install_source">Приложение установлено из %1$s</string>
-  <string name="from_pm">Приложение установлено через Установщик Пакетов</string>
+  <string name="from_pm">Приложение установлено через Программу установки пакета</string>
   <string name="header_recents">Недавние приложения</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Быстрое переключение</string>
@@ -96,23 +96,23 @@
   <string name="recents_navigation_delay_title">Задержка навигации</string>
   <string name="recents_navigation_delay">Время, за которое выделенное приложение получит фокус</string>
   <string name="enable_large_recents">Большие недавние приложения</string>
-  <string name="enable_large_recents_summary">Делает запущенные приложения шире , но не выше</string>
-  <string name="no_recents_image">Изменить изображение на  \"Нет недавних приложений\"</string>
+  <string name="enable_large_recents_summary">Делает запущенные приложения шире, но не выше</string>
+  <string name="no_recents_image">Показывать иконку при отсутствии недавних приложений</string>
   <!-- Appears as a toast if there's no recent app to switch to -->
   <string name="no_previous_recents">Нет недавних приложений</string>
   <string name="recents_button_behavior_previous">Возврат к предыдущему приложению</string>
   <string name="recents_button_behavior_current">Возврат к текущему приложению</string>
   <string name="recents_button_behavior_cycle">Переключение между приложениями</string>
-  <string name="header_qs">Быстрые Настройки</string>
-  <string name="enable_notification_header">Изменить стиль панели Быстрых настроек</string>
-  <string name="keep_bg_title">Не изменять фон панели Быстрых настроек</string>
-  <string name="keep_bg">Полезно для тех тем, которые используют свой фон для панели Быстрых настроек</string>
+  <string name="header_qs">Переключатели</string>
+  <string name="enable_notification_header">Изменить стиль панели переключателей</string>
+  <string name="keep_bg_title">Не изменять фон</string>
+  <string name="keep_bg">Полезно для тех тем, которые используют свой фон для панели переключателей</string>
   <string name="keep_header_bg">Шапка статус-бара</string>
-  <string name="keep_panel_bg">Панель Быстрых Настроек</string>
+  <string name="keep_panel_bg">Панель переключателей</string>
   <string name="force_old_date_position">Дата после времени</string>
-  <string name="force_old_date_position_summary">На экранах меньше определенного размера дата отображается под часами, а не рядом с ними, видны только при расширении группы QS. Включить, чтобы переопределить это поведение.</string>
+  <string name="force_old_date_position_summary">На экранах меньше определенного размера дата отображается под часами, а не рядом с ними, видна только при полном раскрытии. Включите, если у вас такое наблюдается</string>
   <string name="force_old_date_position_disabled_summary">Устройство уже поддерживает новое положение даты</string>
-  <string name="notification_header_qs_tiles_count">Количество плиток в панели Быстрого переключения</string>
+  <string name="notification_header_qs_tiles_count">Количество плиток в панели переключателей</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">плиток</string>
   <string name="battery_tile_show_percentage">Показывать проценты на плитке с аккумулятором</string>
@@ -120,9 +120,9 @@
   <string name="enable_qs_editor">Новый редактор плиток</string>
   <string name="alternative_qs_loading">Альтернативный вариант загрузки QS</string>
   <string name="alternative_qs_loading_summary">Используйте другой способ, чтобы получить QS плитки. Используйте только, если вы получаете ошибку в редакторе.</string>
-  <string name="inject_gb_tiles">Добавить  плитки GravityBox
+  <string name="inject_gb_tiles">Добавить плитки GravityBox
 </string>
-  <string name="inject_gb_tiles_summary">Включите, если вы хотите добавить QS плитки, предоставляемые GravityBox</string>
+  <string name="inject_gb_tiles_summary">Включите, если вы хотите добавить переключатели, предоставляемые GravityBox</string>
   <string name="inject_gb_tiles_not_installed">GravityBox не установлен</string>
   <string name="allow_fancy_qs_transition">Анимация перехода плиток</string>
   <string name="enable_new_tile_click_behavior">Переключать быстрые настройки одним кликом</string>
@@ -147,7 +147,7 @@
   <string name="notifications_custom_actions_color_title">Изменить цвет фона панели действий</string>
   <string name="notifications_custom_actions_color">Используйте пользовательский цвет в качестве фона кнопки уведомления</string>
   <string name="notifications_actions_color_title">Цвет фона панели действий</string>
-  <string name="notification_experimental_title">Эксперементальный стиль N уведомлений</string>
+  <string name="notification_experimental_title">Эксперементальный стиль уведомлений</string>
   <string name="notification_experimental">Прокрутка уведомлений в стиле N ( без верхнего стека )</string>
   <string name="notification_keyguard_max_title">Максимальное количество уведомлений при заблокированном экране</string>
   <string name="enable_assistant">Включить Google Assistant</string>
@@ -217,17 +217,17 @@
   <string name="update_notification_downloading_details">Загружается билд %1$d</string>
   <string name="update_notification_download_fail">Загрузка не удалась</string>
   <string name="update_notification_download_fail_details">Не удалось загрузить билд %1$d</string>
-  <string name="emergency_info">Экстренная Информация</string>
+  <string name="emergency_info">Экстренная информация</string>
   <string name="emergency_info_launch_hint">Коснитесь снова для открытия</string>
   <string name="enable_emergency_info_title">Активировать Экстренную Информацию</string>
-  <string name="enable_emergency_info">Добавить кнопку Экстренной Информации в экстренный телефон</string>
-  <string name="edit_emergency_info_title">Редактировать Экстренную Информацию</string>
+  <string name="enable_emergency_info">Добавить кнопку экстренной информации в экстренный номеронабиратель</string>
+  <string name="edit_emergency_info_title">Редактировать экстренную информацию</string>
   <string name="clear_all">Очистить все</string>
   <string name="tab_title_info">Информация</string>
   <string name="tab_title_contacts">Контакты</string>
   <string name="add_emergency_contact">Добавить контакт</string>
   <string name="user_emergency_info_title">Экстренная информация</string>
-  <string name="user_emergency_info_consent">Информация которую вы вводите здесь может помочь первым спасателям в чрезвычайной ситуации. Она хранится только на устройстве и любой может прочитать её в экстренном номеронабирателе без разблокировки телефона.</string>
+  <string name="user_emergency_info_consent">Информация, которую вы вводите здесь может помочь первым спасателям в чрезвычайной ситуации. Она хранится только на устройстве и любой может прочитать её в экстренном номеронабирателе без разблокировки телефона.</string>
   <string name="emergency_info_continue">Продолжить</string>
   <string name="clear">Очистить</string>
   <string name="clear_all_message">Очистить всю информацию и контакты?</string>
@@ -247,13 +247,13 @@
   <string name="unknown_blood_type">Неизвестно</string>
   <string name="allergies">Аллергия</string>
   <string name="unknown_allergies">Неизвестно</string>
-  <string name="allergies_hint">Например арахис</string>
+  <string name="allergies_hint">Например, арахис</string>
   <string name="medications">Лекарства</string>
   <string name="unknown_medications">Неизвестно</string>
-  <string name="medications_hint">Например аспирин</string>
+  <string name="medications_hint">Например, аспирин</string>
   <string name="medical_conditions">Медицинские примечания</string>
   <string name="unknown_medical_conditions">Неизвестно</string>
-  <string name="medical_conditions_hint">Например астма</string>
+  <string name="medical_conditions_hint">Например, астма</string>
   <string name="organ_donor">Донор органов</string>
   <string name="unknown_organ_donor">Неизвестно</string>
   <string name="info_bloodtype_op">О+</string>
@@ -332,7 +332,7 @@
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">Цвет 16 бит</string>
   <string name="enable_install_source_title">Показывать источник установки приложения</string>
-  <string name="enable_install_source">Добавляет категорию \" app info \" что бы показать откуда приложение было установленно</string>
+  <string name="enable_install_source">Добавляет пункт в сведениях о приложении, в котором указано откуда приложение было установленно (Play Маркет, Программа установки пакета и т.д.)</string>
   <string name="battery_detail_switch_title">Режим энергосбережения</string>
   <string name="battery_detail_switch_summary">Сокращает производительность и фоновые программы</string>
   <string name="qs_add_notes_title">Примечания</string>
