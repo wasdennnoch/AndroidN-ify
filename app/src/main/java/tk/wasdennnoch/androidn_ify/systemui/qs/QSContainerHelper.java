@@ -67,27 +67,21 @@ public class QSContainerHelper {
         qsPanelLp.setMargins(0, res.getDimensionPixelSize(R.dimen.qs_margin_top), 0, 0);
         qsPanel.setLayoutParams(qsPanelLp);
 
-        ViewGroup notificationContainer = (ViewGroup) mNotificationPanelView.getChildAt(1);
-        ViewGroup notificationScrollLayout = (ViewGroup) notificationContainer.getChildAt(1);
-        ViewGroup scrollView = (ViewGroup)notificationContainer.getChildAt(0);
+        ViewGroup notificationQSContainer = (ViewGroup) mNotificationPanelView.getChildAt(1);
+        ViewGroup notificationScrollLayout = (ViewGroup) notificationQSContainer.getChildAt(1);
+        ViewGroup scrollView = (ViewGroup)notificationQSContainer.getChildAt(0);
         LinearLayout linearLayout = (LinearLayout)scrollView.getChildAt(0);
 
         linearLayout.removeViewAt(0);
         scrollView.removeView(linearLayout);
         scrollView.addView(mQSContainer);
+
         ViewGroup.LayoutParams notificationContainerParams = scrollView.getLayoutParams();
         notificationContainerParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
-        notificationContainer.setLayoutParams(notificationContainerParams);
+        notificationQSContainer.setLayoutParams(notificationContainerParams);
+
         mNotificationPanelView.removeView(mHeader);
         mQSContainer.addView(mHeader,1);
-        mQSPanel.setVisibility(View.INVISIBLE);
-        mHeader.setClickable(false);
-        mHeader.setFocusable(false);
-        mHeader.setActivated(false);
-
-        scrollView.setClipChildren(false);
-        scrollView.setClipToPadding(false);
-        scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         mQSContainer.setClipChildren(false);
         mQSContainer.setClipToPadding(false);
 
@@ -197,7 +191,7 @@ public class QSContainerHelper {
             XposedHelpers.callMethod(notificationPanelView, "updateStackHeight", (float) XposedHelpers.callMethod(notificationPanelView, "getExpandedHeight"));
             XposedHelpers.callMethod(notificationPanelView, "updateHeader");
         }
-        XposedHelpers.callMethod(mNotificationStackScroller, "updateIsSmallScreen", mHeaderHeight);
+        //XposedHelpers.callMethod(mNotificationStackScroller, "updateIsSmallScreen", mHeaderHeight);
 
         if (ConfigUtils.M) {
             // If we are running a size change animation, the animation takes care of the height of

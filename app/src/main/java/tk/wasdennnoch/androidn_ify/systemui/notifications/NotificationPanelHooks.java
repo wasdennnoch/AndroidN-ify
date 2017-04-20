@@ -97,6 +97,9 @@ public class NotificationPanelHooks {
         }
     };
 
+    /**
+     * START
+     */
     private static final XC_MethodReplacement onQsExpansionStarted = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
@@ -604,6 +607,57 @@ public class NotificationPanelHooks {
         }
     };
 
+    private static final XC_MethodReplacement updateHeader = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            if (getStatusBarState() == STATE_KEYGUARD)
+                XposedHelpers.callMethod(mNotificationPanelView, "updateHeaderKeyguardAlpha");
+            updateQsExpansion();
+            return null;
+        }
+    };
+
+    private static final XC_MethodHook calculateQsTopPaddingHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHelpers.setIntField(mNotificationPanelView, "mScrollYOverride", -1);
+        }
+    };
+
+    private static final XC_MethodHook updateChildrenHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            updateScrollStateForAddedChildren();
+        }
+    };
+
+    private static final XC_MethodReplacement updateSpeedBumpIndex = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            int newIndex = (int)param.args[0];
+            Object mAmbientState = XposedHelpers.getObjectField(mNotificationStackScroller, "mAmbientState");
+            XposedHelpers.callMethod(mAmbientState, "setSpeedBumpIndex", newIndex);
+            return null;
+        }
+    };
+
+    private static final XC_MethodReplacement onViewAddedInternal = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            Object child = param.args[0];
+            XposedHelpers.callMethod(mNotificationStackScroller, "updateHideSensitiveForChild", child);
+            XposedHelpers.callMethod(child, "setOnHeightChangedListener", this);
+            XposedHelpers.callMethod(mNotificationStackScroller, "generateAddAnimation", child, false /* fromMoreCard */);
+            XposedHelpers.callMethod(mNotificationStackScroller, "updateAnimationState", child);
+            XposedHelpers.callMethod(mNotificationStackScroller, "updateChronometerForChild", child);
+            return null;
+        }
+    };
+
+    private static void updateQsExpansion() {
+        QSContainerHelper.setQsExpansion((float)XposedHelpers.callMethod(mNotificationPanelView, "getQsExpansionFraction"), (float)XposedHelpers.callMethod(mNotificationPanelView, "getHeaderTranslation"));
+    }
+
     private static int getFirstItemMinHeight() {
         final Object firstChild = XposedHelpers.callMethod(mNotificationStackScroller, "getFirstChildNotGone");
         int mCollapsedSize = XposedHelpers.getIntField(mNotificationStackScroller, "mCollapsedSize");
@@ -691,59 +745,6 @@ public class NotificationPanelHooks {
                 / (appearEndPosition - appearStartPosition);
     }
 
-    private static final XC_MethodHook setBarStateHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHook.logD(TAG, "setBarStateHook: Setting state to " + (int) param.args[0]);
-            //StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
-            for (BarStateCallback callback : mBarStateCallbacks) {
-                callback.onStateChanged();
-            }
-        }
-    };
-
-    private static XC_MethodHook setVerticalPanelTranslationHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            if (mQsCustomizer != null)
-                mQsCustomizer.setTranslationX((float) param.args[0]);
-        }
-    };
-
-    private static final XC_MethodReplacement updateHeader = new XC_MethodReplacement() {
-        @Override
-        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-            if (getStatusBarState() == STATE_KEYGUARD)
-                XposedHelpers.callMethod(mNotificationPanelView, "updateHeaderKeyguardAlpha");
-            updateQsExpansion();
-            return null;
-        }
-    };
-
-    private static final XC_MethodHook calculateQsTopPaddingHook = new XC_MethodHook() {
-        @Override
-        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            XposedHelpers.setIntField(mNotificationPanelView, "mScrollYOverride", -1);
-        }
-    };
-
-    private static final XC_MethodHook updateChildrenHook = new XC_MethodHook() {
-        @Override
-        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            updateScrollStateForAddedChildren();
-        }
-    };
-
-    private static final XC_MethodReplacement updateSpeedBumpIndex = new XC_MethodReplacement() {
-        @Override
-        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-            int newIndex = (int)param.args[0];
-            Object mAmbientState = XposedHelpers.getObjectField(mNotificationStackScroller, "mAmbientState");
-            XposedHelpers.callMethod(mAmbientState, "setSpeedBumpIndex", newIndex);
-            return null;
-        }
-    };
-
     private static void updateScrollStateForAddedChildren() {
         int mPaddingBetweenElements = XposedHelpers.getIntField(mNotificationStackScroller, "mPaddingBetweenElements");
         int mOwnScrollY = XposedHelpers.getIntField(mNotificationStackScroller, "mOwnScrollY");
@@ -766,10 +767,28 @@ public class NotificationPanelHooks {
         }
         XposedHelpers.callMethod(mNotificationStackScroller, "clampScrollPosition");
     }
+    /**
+     *END
+     */
 
-    private static void updateQsExpansion() {
-        QSContainerHelper.setQsExpansion((float)XposedHelpers.callMethod(mNotificationPanelView, "getQsExpansionFraction"), (float)XposedHelpers.callMethod(mNotificationPanelView, "getHeaderTranslation"));
-    }
+    private static final XC_MethodHook setBarStateHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            XposedHook.logD(TAG, "setBarStateHook: Setting state to " + (int) param.args[0]);
+            //StatusBarHeaderHooks.onSetBarState((int) param.args[0]);
+            for (BarStateCallback callback : mBarStateCallbacks) {
+                callback.onStateChanged();
+            }
+        }
+    };
+
+    private static XC_MethodHook setVerticalPanelTranslationHook = new XC_MethodHook() {
+        @Override
+        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            if (mQsCustomizer != null)
+                mQsCustomizer.setTranslationX((float) param.args[0]);
+        }
+    };
 
     private static final View.OnClickListener mExpandIndicatorListener = new SafeOnClickListener() {
         @Override
@@ -839,6 +858,9 @@ public class NotificationPanelHooks {
     }
 
     public static int getStatusBarState() {
+        if (mNotificationPanelView == null) {
+            return 0;
+        }
         return XposedHelpers.getIntField(mNotificationPanelView, "mStatusBarState");
     }
 
@@ -896,6 +918,7 @@ public class NotificationPanelHooks {
                     XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateChildren", updateChildrenHook);
                     XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateSpeedBumpIndex", int.class, updateSpeedBumpIndex);
                     XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setStackHeight", float.class, setStackHeight);
+                    //XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onViewAddedInternal", View.class, onViewAddedInternal);
 
                     XposedHelpers.findAndHookMethod(classObservableScrollView, "overScrollBy", int.class, int.class, int.class, int.class, int.class, int.class, int.class, int.class, boolean.class, XC_MethodReplacement.returnConstant(false));
                     XposedHelpers.findAndHookMethod(classObservableScrollView, "fling", int.class, XC_MethodReplacement.DO_NOTHING);
