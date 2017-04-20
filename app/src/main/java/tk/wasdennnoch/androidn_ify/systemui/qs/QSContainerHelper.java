@@ -3,11 +3,13 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.graphics.Rect;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -25,7 +27,6 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 public class QSContainerHelper {
 
     private static final String TAG = "QSContainerHelper";
-
     private static ViewGroup mNotificationPanelView;
     private static ViewGroup mHeader;
     private static ViewGroup mQSContainer;
@@ -53,8 +54,6 @@ public class QSContainerHelper {
         mQSContainer.setPadding(0, 0, 0, 0);
         mQSDetail = StatusBarHeaderHooks.qsHooks.setupQsDetail(mQSPanel, mHeader);
 
-        //((ViewGroup) mHeader.getParent()).removeView(mHeader);
-        //mQSContainer.addView(mHeader);
         mQSContainer.addView(mQSDetail);
         //mQSDetail = (View) XposedHelpers.getObjectField(mQSPanel, "mDetail");
 
@@ -76,9 +75,9 @@ public class QSContainerHelper {
         scrollView.removeView(linearLayout);
         scrollView.addView(mQSContainer);
 
-        ViewGroup.LayoutParams notificationContainerParams = scrollView.getLayoutParams();
-        notificationContainerParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
-        notificationQSContainer.setLayoutParams(notificationContainerParams);
+        ViewGroup.LayoutParams scrollViewLayoutParams = scrollView.getLayoutParams();
+        scrollViewLayoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
+        scrollView.setLayoutParams(scrollViewLayoutParams);
 
         mNotificationPanelView.removeView(mHeader);
         mQSContainer.addView(mHeader,1);
@@ -191,7 +190,7 @@ public class QSContainerHelper {
             XposedHelpers.callMethod(notificationPanelView, "updateStackHeight", (float) XposedHelpers.callMethod(notificationPanelView, "getExpandedHeight"));
             XposedHelpers.callMethod(notificationPanelView, "updateHeader");
         }
-        //XposedHelpers.callMethod(mNotificationStackScroller, "updateIsSmallScreen", mHeaderHeight);
+        XposedHelpers.callMethod(mNotificationStackScroller, "updateIsSmallScreen", mHeaderHeight);
 
         if (ConfigUtils.M) {
             // If we are running a size change animation, the animation takes care of the height of
