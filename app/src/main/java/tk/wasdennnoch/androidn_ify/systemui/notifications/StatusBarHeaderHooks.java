@@ -344,7 +344,7 @@ public class StatusBarHeaderHooks {
                 mAlarmStatus.setBackgroundResource(rippleRes);
 
 
-                LinearLayout.LayoutParams dateTimeGroupLp = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+                LinearLayout.LayoutParams dateTimeGroupLp = new LinearLayout.LayoutParams(WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.date_time_group_height));
                 mDateTimeGroup = new LinearLayout(mContext);
                 mDateTimeGroup.setLayoutParams(dateTimeGroupLp);
                 mDateTimeGroup.setId(View.generateViewId());
