@@ -24,6 +24,7 @@ import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelViewHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.stack.StackScrollAlgorithmHooks;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.LiveDisplayObserver;
@@ -135,6 +136,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 RecentsStackHooks.hookSystemUI(lpparam.classLoader);
                 RecentsNavigation.hookSystemUI(lpparam.classLoader);
                 DoubleTapSwKeys.hook(lpparam.classLoader);
+                if(ConfigUtils.qs().fix_header_space) {
+                    NotificationPanelViewHooks.hook(lpparam.classLoader);
+                }
                 break;
             case PACKAGE_ANDROID:
                 AndroidHooks.hook(lpparam.classLoader);

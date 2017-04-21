@@ -3,13 +3,10 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.graphics.Rect;
-import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -67,7 +64,6 @@ public class QSContainerHelper {
         qsPanel.setLayoutParams(qsPanelLp);
 
         ViewGroup notificationQSContainer = (ViewGroup) mNotificationPanelView.getChildAt(1);
-        ViewGroup notificationScrollLayout = (ViewGroup) notificationQSContainer.getChildAt(1);
         ViewGroup scrollView = (ViewGroup)notificationQSContainer.getChildAt(0);
         LinearLayout linearLayout = (LinearLayout)scrollView.getChildAt(0);
 
