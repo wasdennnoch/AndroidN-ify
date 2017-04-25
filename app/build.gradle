@@ -25,7 +25,7 @@ android {
     signingConfigs {
         main
     }
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "tk.wasdennnoch.androidn_ify"

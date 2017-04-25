@@ -39,6 +39,7 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.NonInterceptingScrollView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ResizingSpace;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
@@ -49,6 +50,7 @@ public class QSDetail extends LinearLayout {
 
     private static final String TAG = "QSDetail";
     private static final long FADE_DURATION = 300;
+    private static final boolean mReconfigureNotificationPanel = ConfigUtils.qs().reconfigure_notification_panel;
 
     private final Context mContext;
 
@@ -258,13 +260,15 @@ public class QSDetail extends LinearLayout {
             XposedHelpers.callMethod(mQsPanel, "setDetailRecord", r);
             listener = mHideGridContentWhenDone;
             setVisibility(View.VISIBLE);
-            //transition(mHeader, false);
+            if (!mReconfigureNotificationPanel)
+                transition(mHeader, false);
         } else {
             mClosingDetail = true;
             mDetailAdapter = null;
             listener = mTeardownDetailWhenDone;
             //mHeader.setVisibility(View.VISIBLE);
-            //transition(mHeader, true);
+            if (!mReconfigureNotificationPanel)
+                transition(mHeader, true);
             XposedHelpers.callMethod(mQsPanel, "setGridContentVisibility", true);
             XposedHelpers.callMethod(mQsPanel, "fireScanStateChanged", false);
         }

@@ -26,6 +26,7 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.misc.SafeRunnable;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
@@ -59,9 +60,10 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
 
     private boolean mOnKeyguard;
 
-    private boolean mAllowFancy = ConfigUtils.qs().allow_fancy_qs_transition;
+    private final boolean mAllowFancy = ConfigUtils.qs().allow_fancy_qs_transition;
+    private final boolean mReconfigureNotificationPanel = ConfigUtils.qs().reconfigure_notification_panel;
     private boolean mFullRows = true;
-    private int mNumQuickTiles = ConfigUtils.qs().qs_tiles_count;
+    private final int mNumQuickTiles = ConfigUtils.qs().qs_tiles_count;
     private float mLastPosition;
     private int mQsTopAdjustment = 0;
 
@@ -74,6 +76,11 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
         mPagedLayout = StatusBarHeaderHooks.qsHooks.getTileLayout();
         mPagedLayout.setPageListener(this);
         mKeyguard = QSTileHostHooks.mKeyguard;
+
+        if (ConfigUtils.qs().fix_header_space && !mReconfigureNotificationPanel) {
+            ResourceUtils res = ResourceUtils.getInstance(container.getContext());
+            mQsTopAdjustment = res.getDimensionPixelSize(R.dimen.qs_margin_top) - res.getDimensionPixelSize(R.dimen.status_bar_header_height);
+        }
     }
 
     private void setOnKeyguard(boolean onKeyguard) {
@@ -146,9 +153,6 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
 
         mAllViews.add(StatusBarHeaderHooks.qsHooks.getTileLayout());
 
-        if(!ConfigUtils.qs().fix_header_space)
-            mQsTopAdjustment = mQuickQsPanel.getHeight();
-
         for (int i = 0; i < records.size(); i++) {
             Object tileRecord = records.get(i);
             final ViewGroup tileView = (ViewGroup) XposedHelpers.getObjectField(tileRecord, "tileView");
@@ -157,19 +161,24 @@ public class QSAnimator implements KeyguardMonitor.Callback, PagedTileLayout.Pag
             final View tileIcon = findIcon(tileView);
             if (count < mNumQuickTiles && mAllowFancy) {
                 // Quick tiles.
-                View quickTileView = mQuickQsPanel.getTileView(i);
+                ViewGroup quickTileView = mQuickQsPanel.getTileView(i);
 
                 lastX = loc1[0];
-                getRelativePosition(loc1, quickTileView, mQsContainer); //just for testing
-                getRelativePosition(loc2, tileIcon, mQsContainer);
+
+                getRelativePosition(loc1, quickTileView.getChildAt(0), mReconfigureNotificationPanel ? mQsContainer
+                        : StatusBarHeaderHooks.mStatusBarHeaderView);
+                getRelativePosition(loc2, tileIcon, mReconfigureNotificationPanel ? mQsContainer
+                        : mQsPanel);
                 final int xDiff = loc2[0] - loc1[0] + ((i < maxTilesOnPage) ? 0 : mPagedLayout.getWidth());
                 final int yDiff = loc2[1] - loc1[1] +
-                        mQsTopAdjustment + (StatusBarHeaderHooks.mUseDragPanel ? 0 : mQsContainer.getPaddingTop());
+                        (mReconfigureNotificationPanel ? 0
+                        : mQuickQsPanel.getHeight() )
+                        + (StatusBarHeaderHooks.mUseDragPanel ? 0 : mQsContainer.getPaddingTop());
 
                 lastXDiff = loc1[0] - lastX;
                 // Move the quick tile right from its location to the new one.
                 translationXBuilder.addFloat(quickTileView, "translationX", 0, xDiff);
-                translationYBuilder.addFloat(quickTileView, "translationY", 0, yDiff);
+                translationYBuilder.addFloat(quickTileView, "translationY", 0, yDiff + mQsTopAdjustment);
 
                 // Counteract the parent translation on the tile. So we have a static base to
                 // animate the label position off from.

@@ -364,6 +364,12 @@
 
             <SwitchPreference
                 android:defaultValue="false"
+                android:dependency="fix_header_space"
+                android:key="reconfigure_notification_panel"
+                android:title="@string/reconfigure_notification_panel_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
                 android:dependency="enable_experimental_features"
                 android:key="notification_experimental"
                 android:summary="@string/notification_experimental"

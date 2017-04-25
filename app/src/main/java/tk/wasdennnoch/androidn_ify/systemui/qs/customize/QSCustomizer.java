@@ -204,6 +204,10 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         initShow(records);
         setAlpha(1);
         mClipper.animateCircularClip(x, y, true, mExpandAnimationListener);
+        if (ConfigUtils.qs().fix_header_space && !ConfigUtils.qs().reconfigure_notification_panel) {
+            this.bringToFront();
+            this.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initShow(ArrayList<Object> records) {
@@ -240,6 +244,8 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         } else {
             mHideAnimationListener.run();
         }
+        if (ConfigUtils.qs().fix_header_space && !ConfigUtils.qs().reconfigure_notification_panel)
+            this.setVisibility(View.INVISIBLE);
     }
 
     public void hideCircular() {

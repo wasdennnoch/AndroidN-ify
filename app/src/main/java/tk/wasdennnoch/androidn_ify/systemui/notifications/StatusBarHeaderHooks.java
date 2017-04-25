@@ -137,7 +137,7 @@ public class StatusBarHeaderHooks {
     private static float mExpansion = 0;
     private static boolean mRecreatingStatusBar = false;
 
-    private static int mQsRippleAdjustment;
+    private static int mQsRippleAdjustment = 0;
 
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
     public static ArrayList<Object> mRecords;
@@ -158,8 +158,9 @@ public class StatusBarHeaderHooks {
             ResourceUtils res = mResUtils;
             ConfigUtils config = ConfigUtils.getInstance();
 
-            mQsRippleAdjustment = mResUtils.getDimensionPixelSize(R.dimen.status_bar_header_height) -
-                    mResUtils.getDimensionPixelSize(R.dimen.qs_margin_top);
+            if (ConfigUtils.qs().fix_header_space)
+                mQsRippleAdjustment = res.getResources().getDimensionPixelSize(R.dimen.status_bar_header_height) -
+                    res.getResources().getDimensionPixelSize(R.dimen.qs_margin_top);
 
             mShowFullAlarm = res.getResources().getBoolean(R.bool.quick_settings_show_full_alarm) || config.qs.force_old_date_position;
 
@@ -275,9 +276,8 @@ public class StatusBarHeaderHooks {
                 ((ViewGroup) mEmergencyCallsOnly.getParent()).removeView(mEmergencyCallsOnly);
                 createEditButton(rightIconHeight, rightIconWidth);
 
-                int settingsIconSize = res.getDimensionPixelSize(R.dimen.settings_icon_size);
-                Drawable settingsIcon = mSettingsButton.getDrawable();
-                settingsIcon.setBounds(0, 0, settingsIconSize, settingsIconSize);
+                Drawable settingsIcon = res.getDrawable(R.drawable.ic_settings_20dp);
+                mSettingsButton.setImageDrawable(settingsIcon);
 
                 RelativeLayout.LayoutParams rightContainerLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.right_layout_height));
                 rightContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
@@ -718,7 +718,7 @@ public class StatusBarHeaderHooks {
                         View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                         param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
                         param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
-                                + mQsPanel.getTop() + (ConfigUtils.qs().fix_header_space ? mQsRippleAdjustment : 0);
+                                + mQsPanel.getTop() + mQsRippleAdjustment;
                     } catch (Throwable ignore) { // OOS3
                     }
                 }
@@ -753,8 +753,7 @@ public class StatusBarHeaderHooks {
         TouchAnimator.Builder settingsAlphaBuilder = new TouchAnimator.Builder()
                 .addFloat(mEdit, "alpha", 0.0F, 1.0F)
                 .addFloat(mMultiUserSwitch, "alpha", 0.0F, 1.0F)
-                .addFloat(mLeftContainer, "alpha", 0.0F, 1.0F)
-                .setStartDelay(0.7F);
+                .addFloat(mLeftContainer, "alpha", 0.0F, 1.0F);
         if (mWeatherContainer != null) {
             settingsAlphaBuilder
                     .addFloat(mWeatherContainer, "alpha", 0.0F, 1.0F);

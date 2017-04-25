@@ -22,6 +22,7 @@ import tk.wasdennnoch.androidn_ify.google.AssistantHooks;
 import tk.wasdennnoch.androidn_ify.phone.emergency.EmergencyHooks;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.ActivatableNotificationViewHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelViewHooks;
@@ -33,6 +34,7 @@ import tk.wasdennnoch.androidn_ify.systemui.recents.doubletap.DoubleTapSwKeys;
 import tk.wasdennnoch.androidn_ify.systemui.recents.navigate.RecentsNavigation;
 import tk.wasdennnoch.androidn_ify.systemui.recents.stack.RecentsStackHooks;
 import tk.wasdennnoch.androidn_ify.systemui.screenshot.ScreenshotHooks;
+import tk.wasdennnoch.androidn_ify.systemui.statusbar.ScrimHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.PermissionGranter;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
@@ -136,7 +138,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 RecentsStackHooks.hookSystemUI(lpparam.classLoader);
                 RecentsNavigation.hookSystemUI(lpparam.classLoader);
                 DoubleTapSwKeys.hook(lpparam.classLoader);
-                if(ConfigUtils.qs().fix_header_space) {
+                if(ConfigUtils.qs().reconfigure_notification_panel) {
                     NotificationPanelViewHooks.hook(lpparam.classLoader);
                 }
                 break;

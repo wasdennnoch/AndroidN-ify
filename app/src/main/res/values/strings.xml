@@ -399,6 +399,8 @@
     <string name="enable_settings_drawer">Enable settings drawer</string>
     <string name="partial_screenshot">Partial screenshot</string>
     <string name="fix_header_space_title">Fix huge space under qs header</string>
+    <string name="reconfigure_notification_panel_title">Reconfigure notification panel layout hierarchy</string>
+    <string name="reconfigure_notification_panel_warning">This setting might fix or might induce a lot of bugs if the ROM is incompatible. Only try on AOSP ROMs.</string>
     <string name="generate_notification_accent_color">Generate notification color from app icon</string>
 
 </resources>

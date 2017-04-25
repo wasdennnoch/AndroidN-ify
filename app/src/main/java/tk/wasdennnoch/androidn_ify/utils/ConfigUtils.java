@@ -175,6 +175,7 @@ public class ConfigUtils {
         public final boolean hide_carrier_label;
         public final boolean disable_qs_paging;
         public final boolean fix_header_space;
+        public final boolean reconfigure_notification_panel;
 
         public QuickSettingsConfig(SharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
@@ -192,6 +193,7 @@ public class ConfigUtils {
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
             disable_qs_paging = prefs.getBoolean("disable_qs_paging", false);
             fix_header_space = prefs.getBoolean("fix_header_space", true) && EXPERIMENTAL;
+            reconfigure_notification_panel = prefs.getBoolean("reconfigure_notification_panel", false) && EXPERIMENTAL && fix_header_space;
 
             Set<String> keepBgs = prefs.getStringSet("keep_backgrounds", Collections.<String>emptySet());
             keep_header_background = keepBgs.contains("header");

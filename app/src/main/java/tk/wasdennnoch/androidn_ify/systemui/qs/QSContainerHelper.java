@@ -24,11 +24,12 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 public class QSContainerHelper {
 
     private static final String TAG = "QSContainerHelper";
+    private static boolean reconfigureNotifPanel = false;
     private static ViewGroup mNotificationPanelView;
     private static ViewGroup mHeader;
     private static ViewGroup mQSContainer;
     private static ViewGroup mQSPanel;
-    private static ViewGroup mNotificationStackScroller;
+    private static Object mNotificationStackScroller;
     private static QSDetail mQSDetail;
     private static float mQsExpansion;
     private static int mHeaderHeight;
@@ -63,22 +64,25 @@ public class QSContainerHelper {
         qsPanelLp.setMargins(0, res.getDimensionPixelSize(R.dimen.qs_margin_top), 0, 0);
         qsPanel.setLayoutParams(qsPanelLp);
 
-        ViewGroup notificationQSContainer = (ViewGroup) mNotificationPanelView.getChildAt(1);
-        ViewGroup scrollView = (ViewGroup)notificationQSContainer.getChildAt(0);
-        LinearLayout linearLayout = (LinearLayout)scrollView.getChildAt(0);
+        if(ConfigUtils.qs().reconfigure_notification_panel) {
+            reconfigureNotifPanel = true;
+            ViewGroup notificationQSContainer = (ViewGroup) mNotificationPanelView.getChildAt(1);
+            ViewGroup scrollView = (ViewGroup) notificationQSContainer.getChildAt(0);
+            LinearLayout linearLayout = (LinearLayout) scrollView.getChildAt(0);
 
-        linearLayout.removeViewAt(0);
-        scrollView.removeView(linearLayout);
-        scrollView.addView(mQSContainer);
+            linearLayout.removeViewAt(0);
+            scrollView.removeView(linearLayout);
+            scrollView.addView(mQSContainer);
 
-        ViewGroup.LayoutParams scrollViewLayoutParams = scrollView.getLayoutParams();
-        scrollViewLayoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
-        scrollView.setLayoutParams(scrollViewLayoutParams);
+            ViewGroup.LayoutParams scrollViewLayoutParams = scrollView.getLayoutParams();
+            scrollViewLayoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
+            scrollView.setLayoutParams(scrollViewLayoutParams);
 
-        mNotificationPanelView.removeView(mHeader);
-        mQSContainer.addView(mHeader,1);
-        mQSContainer.setClipChildren(false);
-        mQSContainer.setClipToPadding(false);
+            mNotificationPanelView.removeView(mHeader);
+            mQSContainer.addView(mHeader, 1);
+            mQSContainer.setClipChildren(false);
+            mQSContainer.setClipToPadding(false);
+        }
 
         setUpOnLayout();
     }
@@ -96,8 +100,11 @@ public class QSContainerHelper {
         mQsExpansion = expansion;
         final float translationScaleY = expansion - 1;
         if (!mHeaderAnimating) {
-            XposedHelpers.callMethod(mQSContainer, "setTranslationY", keyguardShowing ? (translationScaleY * mHeader.getHeight())
-                    : headerTranslation);
+            float translation = keyguardShowing ? (translationScaleY * mHeader.getHeight())
+                    : headerTranslation;
+            mQSContainer.setTranslationY(translation);
+            if (!reconfigureNotifPanel)
+                mHeader.setTranslationY(translation);
         }
         XposedHelpers.callMethod(mHeader, "setExpansion", mKeyguardShowing ? 1 : expansion);
         mQSPanel.setTranslationY(translationScaleY * mQSPanel.getHeight());
@@ -115,7 +122,8 @@ public class QSContainerHelper {
     public static void updateBottom() {
         int height = calculateContainerHeight();
         mQSContainer.setBottom(mQSContainer.getTop() + height);
-        mQSDetail.setBottom(mQSContainer.getTop() + height);
+        if (reconfigureNotifPanel)
+            mQSDetail.setBottom(mQSContainer.getTop() + height);
     }
 
     private static int calculateContainerHeight() {
@@ -125,7 +133,7 @@ public class QSContainerHelper {
     }
 
     private void setUpOnLayout() {
-        mNotificationStackScroller = (ViewGroup)XposedHelpers.getObjectField(mNotificationPanelView, "mNotificationStackScroller");
+        mNotificationStackScroller = XposedHelpers.getObjectField(mNotificationPanelView, "mNotificationStackScroller");
         mKeyguardStatusView = XposedHelpers.getObjectField(mNotificationPanelView, "mKeyguardStatusView");
         mClockView = (TextView) XposedHelpers.getObjectField(mNotificationPanelView, "mClockView");
     }

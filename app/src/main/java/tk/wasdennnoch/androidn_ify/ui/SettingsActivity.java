@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import de.robv.android.xposed.XposedBridge;
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -54,6 +55,8 @@ import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 public class SettingsActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "SettingsActivity";
+
+    private static SettingsActivity mInstance = null;
 
     public static final String ACTION_RECENTS_CHANGED = "tk.wasdennnoch.androidn_ify.action.ACTION_RECENTS_CHANGED";
     public static final String EXTRA_RECENTS_DOUBLE_TAP_SPEED = "extra.recents.DOUBLE_TAP_SPEED";
@@ -95,6 +98,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 }, android.R.string.ok, R.string.dont_show_again);
             }
         }
+        this.mInstance = this;
     }
 
     private String getWarningPrefsKey() {
@@ -118,17 +122,17 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction) {
+    private static void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction) {
         showDialog(titleRes, contentRes, onlyOk, okAction, null, android.R.string.ok, android.R.string.cancel);
     }
 
-    private void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction, final Runnable cancelAction, int okText, int cancelText) {
-        showDialog(titleRes, getString(contentRes), onlyOk, okAction, cancelAction, okText, cancelText);
+    private static void showDialog(int titleRes, int contentRes, boolean onlyOk, final Runnable okAction, final Runnable cancelAction, int okText, int cancelText) {
+        showDialog(titleRes, SettingsActivity.getInstance().getString(contentRes), onlyOk, okAction, cancelAction, okText, cancelText);
     }
 
-    private void showDialog(int titleRes, String content, boolean onlyOk, final Runnable okAction, final Runnable cancelAction, int okText, int cancelText) {
+    private static void showDialog(int titleRes, String content, boolean onlyOk, final Runnable okAction, final Runnable cancelAction, int okText, int cancelText) {
         //noinspection deprecation
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.getInstance())
                 .setMessage(Html.fromHtml(content));
         if (titleRes > 0)
             builder.setTitle(titleRes);
@@ -205,6 +209,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
         private SharedPreferences prefs;
         private boolean mExperimental;
+        private boolean mShowedDialog;
         private boolean mShowExperimental;
 
         private boolean mAssistantSupported = false;
@@ -225,6 +230,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 p.setSummary(R.string.inject_gb_tiles_not_installed);
             }
             mExperimental = ConfigUtils.isExperimental(prefs);
+            mShowedDialog = prefs.getBoolean("reconfigure_notification_panel_warning", false);
             mShowExperimental = ConfigUtils.showExperimental(prefs);
             if (UpdateUtils.isEnabled()) {
                 if (prefs.getBoolean("check_for_updates", true))
@@ -344,8 +350,26 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         break;
                     case "settings_experimental":
                         Preference assistant = findPreference("enable_assistant");
+                        Preference reconfigureNotifPanel = findPreference("reconfigure_notification_panel");
+                        reconfigureNotifPanel.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                            @Override
+                            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                                boolean newVal = (boolean) newValue;
+                                if(newVal && !mShowedDialog)
+                                    showDialog(0, R.string.reconfigure_notification_panel_warning, false, null, new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            prefs.edit().putBoolean("reconfigure_notification_panel_warning", true).apply();
+                                            mShowedDialog = true;
+                                        }
+                                    }, android.R.string.ok, R.string.dont_show_again);
+                                return true;
+
+                            }
+                        });
                         if (!ConfigUtils.M) {
                             lockPreference(assistant);
+                            lockPreference(reconfigureNotifPanel);
                         } else {
                             if (!mAssistantSupported) {
                                 assistant.setEnabled(false);
@@ -447,6 +471,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static SettingsActivity getInstance() {
+        return mInstance;
     }
 
 }

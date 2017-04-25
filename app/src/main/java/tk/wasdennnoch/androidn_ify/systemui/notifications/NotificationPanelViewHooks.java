@@ -390,7 +390,7 @@ public class NotificationPanelViewHooks {
             float appearEndPosition = getAppearEndPosition();
             float appearStartPosition = getAppearStartPosition();
             if (height >= appearEndPosition) {
-                translationY = 0;
+                translationY = XposedHelpers.getFloatField(mNotificationStackScroller, "mTopPaddingOverflow");
                 stackHeight = (int) height;
             } else {
                 float appearFraction = getAppearFraction(height);

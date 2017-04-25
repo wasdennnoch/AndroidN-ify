@@ -1251,7 +1251,7 @@ public class NotificationHooks {
                         Context context = action.getContext();
                         ResourceUtils res = ResourceUtils.getInstance(context);
                         int width_height = res.getDimensionPixelSize(R.dimen.notification_media_action_width);
-                        RelativeLayout.LayoutParams lParams = new RelativeLayout.LayoutParams(width_height,width_height);
+                        RelativeLayout.LayoutParams lParams = new RelativeLayout.LayoutParams(width_height, width_height);
                         lParams.setMarginEnd(res.getDimensionPixelSize(R.dimen.notification_media_action_margin));
                         int padding = ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_media_action_padding);
                         action.setPadding(0, padding, 0, padding);
@@ -1311,6 +1311,9 @@ public class NotificationHooks {
                         textLine1Lp.setMarginStart(ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_text_line1_margin_start));
                         textLine1.setLayoutParams(textLine1Lp);
 
+                        ViewGroup parent = (ViewGroup)title.getParent();
+                        if (parent != null)
+                            parent.removeView(title);
                         container.addView(title);
                         container.addView(textLine1);
 
