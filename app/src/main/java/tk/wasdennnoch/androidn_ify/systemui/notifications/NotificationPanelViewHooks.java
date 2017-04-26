@@ -3,12 +3,10 @@ package tk.wasdennnoch.androidn_ify.systemui.notifications;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
@@ -22,9 +20,6 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.QSContainerHelper;
 import static tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks.getStatusBarState;
 import static tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks.isOnKeyguard;
 
-/**
- * Created by victo on 4/20/2017.
- */
 
 public class NotificationPanelViewHooks {
 
@@ -33,8 +28,6 @@ public class NotificationPanelViewHooks {
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
     private static final String CLASS_NOTIFICATION_STACK_SCROLL_LAYOUT = "com.android.systemui.statusbar.stack.NotificationStackScrollLayout";
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
-    private static final String CLASS_QS_CONTAINER = "com.android.systemui.qs.QSContainer";
-    private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
     private static final String CLASS_OBSERVABLE_SCROLL_VIEW = "com.android.systemui.statusbar.phone.ObservableScrollView";
 
     public static final int STATE_SHADE = 0;
@@ -77,8 +70,6 @@ public class NotificationPanelViewHooks {
 
         Class<?> classNotificationStackScrollLayout = XposedHelpers.findClass(CLASS_NOTIFICATION_STACK_SCROLL_LAYOUT, classLoader);
         Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
-        Class<?> classQSContainer = XposedHelpers.findClass(CLASS_QS_CONTAINER, classLoader);
-        Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
         Class<?> classObservableScrollView = XposedHelpers.findClass(CLASS_OBSERVABLE_SCROLL_VIEW, classLoader);
 
         methodCancelQsAnimation = XposedHelpers.findMethodBestMatch(classNotificationPanelView, "cancelQsAnimation");
@@ -173,9 +164,6 @@ public class NotificationPanelViewHooks {
         }
     };
 
-    /**
-     * START
-     */
     private static final XC_MethodReplacement onQsExpansionStarted = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
@@ -844,7 +832,4 @@ public class NotificationPanelViewHooks {
         }
         XposedHelpers.callMethod(mNotificationStackScroller, "clampScrollPosition");
     }
-    /**
-     *END
-     */
 }
