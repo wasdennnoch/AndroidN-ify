@@ -1,13 +1,12 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications.stack;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,8 +19,6 @@ import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.FakeShadowView;
-import tk.wasdennnoch.androidn_ify.extracted.systemui.stack.PiecewiseLinearIndentationFunctor;
-import tk.wasdennnoch.androidn_ify.extracted.systemui.stack.StackIndentationFunctor;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -48,8 +45,6 @@ public class StackScrollAlgorithmHooks {
     private static boolean mQsExpanded;
 
     private static int mLayoutMinHeight = 0;
-
-    private static Field fieldBottomStackIndentationFunctor;
 
     private static Field fieldQsExpanded;
 
@@ -92,7 +87,6 @@ public class StackScrollAlgorithmHooks {
     private static Method methodGetStackTranslation;
     private static Method methodIsTransparent;
     private static Method methodIsPinned;
-    private static Method methodGetBottomStackSlowDownLength;
     private static Method methodResetViewStates;
     private static Method methodGetOverScrollAmount;
     private static Method methodGetHeight;
@@ -185,7 +179,6 @@ public class StackScrollAlgorithmHooks {
                 fieldHeight = XposedHelpers.findField(classStackViewState, "height");
                 fieldBottomStackSlowDownLength = XposedHelpers.findField(classStackScrollAlgorithm, "mBottomStackSlowDownLength");
                 fieldPaddingBetweenElements = XposedHelpers.findField(classStackScrollAlgorithm, "mPaddingBetweenElements");
-                fieldBottomStackIndentationFunctor = XposedHelpers.findField(classStackScrollAlgorithm, "mBottomStackIndentationFunctor");
 
                 fieldTempAlgorithmState = XposedHelpers.findField(classStackScrollAlgorithm, "mTempAlgorithmState");
                 fieldZDistanceBetweenElements = XposedHelpers.findField(classStackScrollAlgorithm, "mZDistanceBetweenElements");
@@ -210,7 +203,6 @@ public class StackScrollAlgorithmHooks {
                 methodUpdateDimmedActivatedHideSensitive = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateDimmedActivatedHideSensitive", classAmbientState,classStackScrollState, classStackScrollAlgorithmState);
                 methodUpdateSpeedBumpState = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateSpeedBumpState", classStackScrollState, classStackScrollAlgorithmState, int.class);
                 methodGetNotificationChildrenStates = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "getNotificationChildrenStates", classStackScrollState, classStackScrollAlgorithmState);
-                methodGetBottomStackSlowDownLength = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "getBottomStackSlowDownLength");
                 methodUpdateVisibleChildren = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateVisibleChildren", classStackScrollState, classStackScrollAlgorithmState);
 
                 methodGetSpeedBumpIndex = XposedHelpers.findMethodBestMatch(classAmbientState, "getSpeedBumpIndex");
@@ -282,11 +274,11 @@ public class StackScrollAlgorithmHooks {
         mLayoutMinHeight = layoutMinHeight;
     }
 
-    private static void updateAlgorithmLayoutMinHeight() throws IllegalAccessException {
+    private static void updateAlgorithmLayoutMinHeight() throws IllegalAccessException, InvocationTargetException {
         setLayoutMinHeight(mQsExpanded && !isOnKeyguard() ? getLayoutMinHeight() : 0);
     }
 
-    public static void setQsExpanded(boolean qsExpanded) throws IllegalAccessException {
+    public static void setQsExpanded(boolean qsExpanded) throws IllegalAccessException, InvocationTargetException {
         mQsExpanded = qsExpanded;
         updateAlgorithmLayoutMinHeight();
     }
@@ -325,14 +317,8 @@ public class StackScrollAlgorithmHooks {
     private static final XC_MethodHook initConstantsHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            int mBottomStackPeekSize = getInt(fieldTempAlgorithmState, mStackScrollLayout);
             setInt(fieldZDistanceBetweenElements, param.thisObject, Math.max(1, ResourceUtils.getInstance().getResources()
                     .getDimensionPixelSize(R.dimen.z_distance_between_notifications)));
-            fieldBottomStackIndentationFunctor.set(new PiecewiseLinearIndentationFunctor(
-                    MAX_ITEMS_IN_BOTTOM_STACK,
-                    mBottomStackPeekSize,
-                    (int)invoke(methodGetBottomStackSlowDownLength, param.thisObject),
-                    0.5f), param.thisObject);
         }
     };
 

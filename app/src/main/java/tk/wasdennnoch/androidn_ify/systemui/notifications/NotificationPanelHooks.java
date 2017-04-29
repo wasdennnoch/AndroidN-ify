@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class NotificationPanelHooks {
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_QS_CONTAINER = "com.android.systemui.qs.QSContainer";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
+
+    private static Field fieldStatusBarState;
 
     public static final int STATE_KEYGUARD = 1;
 
@@ -178,7 +181,11 @@ public class NotificationPanelHooks {
         if (mNotificationPanelView == null) {
             return 0;
         }
-        return XposedHelpers.getIntField(mNotificationPanelView, "mStatusBarState");
+        int state = 0;
+        try {
+            state = fieldStatusBarState.getInt(mNotificationPanelView);
+        } catch (IllegalAccessException ignore) {}
+        return state;
     }
 
     public static void hook(ClassLoader classLoader) {
@@ -189,6 +196,8 @@ public class NotificationPanelHooks {
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classQSContainer = XposedHelpers.findClass(CLASS_QS_CONTAINER, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
+
+                fieldStatusBarState = XposedHelpers.findField(classNotificationPanelView, "mStatusBarState");
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
