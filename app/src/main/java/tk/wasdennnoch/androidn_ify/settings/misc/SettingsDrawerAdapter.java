@@ -157,7 +157,7 @@ public class SettingsDrawerAdapter extends RecyclerView.Adapter<SettingsDrawerAd
             ImageView imageView = (ImageView) itemView.findViewById(android.R.id.icon);
             imageView.setImageDrawable(item.icon);
             if (RomUtils.isXperia() && position != 1) {
-                    imageView.setColorFilter(Color.argb(0,0,0,0));
+                imageView.setColorFilter(Color.argb(0, 0, 0, 0));
             }
         }
         ((TextView) itemView.findViewById(android.R.id.title)).setText(item.label);

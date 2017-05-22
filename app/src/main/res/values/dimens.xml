@@ -167,5 +167,27 @@
     <dimen name="big_media_actions_margin_start">8dp</dimen>
     <dimen name="zero">0dp</dimen>
     <dimen name="notification_text_line1_margin_start">10dp</dimen>
+    
+    <!--Package Installer -->
+    <dimen name="app_icon_size">24dp</dimen>
+    <dimen name="app_icon_margin">16dp</dimen>
+    <dimen name="app_name_margin_left">32dp</dimen>
+    <dimen name="app_name_margin_right">16dp</dimen>
+    <dimen name="install_confirm_question_padding">16dp</dimen>
+    <dimen name="button_container_padding">8dp</dimen>
+    <dimen name="divider_height">16dp</dimen>
+    <dimen name="center_view_padding">16dp</dimen>
+    <dimen name="center_icon_margin">12dp</dimen>
+    <dimen name="progress_bar_width">250dp</dimen>
+    <dimen name="explanation_view_padding">16dip</dimen>
+    <dimen name="explanation_status_margin">8dp</dimen>
+    <dimen name="buttons_panel_padding">8dp</dimen>
+    <dimen name="activity_text_padding">16dp</dimen>
+    <dimen name="top_divider_side_padding">16dp</dimen>
+    <dimen name="top_divider_top_padding">4dp</dimen>
+    <dimen name="progress_view_padding">16dp</dimen>
+    <dimen name="image_margin">12dp</dimen>
+    <dimen name="status_view_padding">16dp</dimen>
+    <dimen name="ok_panel_padding">8dip</dimen>
 
 </resources>

@@ -3,15 +3,13 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -33,6 +31,7 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
@@ -170,6 +169,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 okAction.run();
             }
         } : null);
+        builder.create();
         View v = builder.show().findViewById(android.R.id.message);
         if (v instanceof TextView)
             ((TextView) v).setMovementMethod(LinkMovementMethod.getInstance());
@@ -279,17 +279,17 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 // Always update from cloud if connected
                 getLoaderManager().initLoader(0, null, updateLoaderCallbacks).startLoading();
             } else {*/
-                // Else load config from assets
-                try {
-                    String result = MiscUtils.readInputStream(getResources().getAssets().open("assistant_hooks"));
-                    JSONArray hookConfigs = MiscUtils.checkValidJSONArray(result);
-                    // Only update if config from assets is newer
-                    if (hookConfigs.optInt(0) > new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
-                        prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, hookConfigs.toString()).commit();
-                    }
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
+            // Else load config from assets
+            try {
+                String result = MiscUtils.readInputStream(getResources().getAssets().open("assistant_hooks"));
+                JSONArray hookConfigs = MiscUtils.checkValidJSONArray(result);
+                // Only update if config from assets is newer
+                if (hookConfigs.optInt(0) > new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
+                    prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, hookConfigs.toString()).commit();
                 }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
             //}
 
             // Read version and check if supported
@@ -376,14 +376,16 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             @Override
                             public boolean onPreferenceChange(Preference preference, Object newValue) {
                                 boolean newVal = (boolean) newValue;
-                                if(newVal && !mShowedDialog)
-                                    showDialog(0, R.string.reconfigure_notification_panel_warning, false, null, new Runnable() {
+                                if(newVal && !mShowedDialog) {
+                                    showDialog(0, R.string.reconfigure_notification_panel_warning, false, new Runnable() {
                                         @Override
                                         public void run() {
-                                            prefs.edit().putBoolean("reconfigure_notification_panel_warning", true).apply();
                                             mShowedDialog = true;
+                                            prefs.edit().putBoolean("reconfigure_notification_panel_warning", mShowedDialog).apply();
                                         }
-                                    }, android.R.string.ok, R.string.dont_show_again);
+                                    }, null, android.R.string.ok, android.R.string.cancel);
+                                    return false;
+                                }
                                 return true;
 
                             }

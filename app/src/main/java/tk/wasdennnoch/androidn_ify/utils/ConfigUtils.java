@@ -36,6 +36,7 @@ public class ConfigUtils {
     public NotificationsConfig notifications;
     public LockscreenConfig lockscreen;
     public AssistantConfig assistant;
+    public OthersConfig others;
 
     private ConfigUtils() {
         mInstance = this;
@@ -67,6 +68,7 @@ public class ConfigUtils {
         notifications = new NotificationsConfig(mPrefs);
         lockscreen = new LockscreenConfig(mPrefs);
         assistant = new AssistantConfig(mPrefs);
+        others = new OthersConfig(mPrefs);
     }
 
     public static ConfigUtils getInstance() {
@@ -97,6 +99,10 @@ public class ConfigUtils {
 
     public static AssistantConfig assistant() {
         return getInstance().assistant;
+    }
+
+    public static OthersConfig others() {
+        return getInstance().others;
     }
 
     public SharedPreferences getPrefs() {
@@ -262,6 +268,14 @@ public class ConfigUtils {
         public AssistantConfig(SharedPreferences prefs) {
             enable_assistant = prefs.getBoolean("enable_assistant", true);
             google_app_hook_configs = prefs.getString("google_app_hook_configs", "[]");
+        }
+    }
+
+    public class OthersConfig {
+        public final boolean package_installer;
+
+        public OthersConfig(SharedPreferences prefs) {
+            package_installer = prefs.getBoolean("package_installer", false);
         }
     }
 

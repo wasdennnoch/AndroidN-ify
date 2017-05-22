@@ -26,7 +26,6 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
@@ -158,7 +157,7 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
                 final int xDiff = loc2[0] - loc1[0] + ((i < maxTilesOnPage) ? 0 : mPagedLayout.getWidth());
                 final int yDiff = loc2[1] - loc1[1] +
                         (mReconfigureNotificationPanel ? 0
-                        : mQuickQsPanel.getHeight() )
+                                : mQuickQsPanel.getHeight())
                         + (StatusBarHeaderHooks.mUseDragPanel ? 0 : mQsContainer.getPaddingTop());
 
                 lastXDiff = loc1[0] - lastX;
@@ -374,6 +373,6 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
 
     @Override
     public void onStateChanged() {
-        setOnKeyguard(NotificationPanelHooks.getStatusBarState() == NotificationPanelHooks.STATE_KEYGUARD);
+        setOnKeyguard(NotificationPanelHooks.isOnKeyguard());
     }
 }

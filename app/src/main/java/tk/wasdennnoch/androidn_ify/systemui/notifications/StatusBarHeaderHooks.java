@@ -160,7 +160,7 @@ public class StatusBarHeaderHooks {
 
             if (ConfigUtils.qs().fix_header_space)
                 mQsRippleAdjustment = res.getResources().getDimensionPixelSize(R.dimen.status_bar_header_height) -
-                    res.getResources().getDimensionPixelSize(R.dimen.qs_margin_top);
+                        res.getResources().getDimensionPixelSize(R.dimen.qs_margin_top);
 
             mShowFullAlarm = res.getResources().getBoolean(R.bool.quick_settings_show_full_alarm) || config.qs.force_old_date_position;
 
@@ -373,7 +373,7 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setGravity(Gravity.TOP);
                 mDateCollapsed.setTextColor(dateTimeTextColor);
                 mDateCollapsed.setTextSize(TypedValue.COMPLEX_UNIT_PX, dateTimeCollapsedSize);
-                mDateCollapsed.setTypeface(Typeface.create("sans-serif-medium",Typeface.NORMAL));
+                mDateCollapsed.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
                 if (mShowFullAlarm) {
                     mDateCollapsed.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.header_dot), null, null, null);
                     mDateCollapsed.setCompoundDrawablePadding(dateCollapsedDrawablePadding);
@@ -462,10 +462,10 @@ public class StatusBarHeaderHooks {
                 mDateTimeAlarmGroup.addView(mAlarmStatus); // The view HAS to be attached to a parent, otherwise it apparently gets GC -> NPE. We hide it later if necessary
                 if (!mShowFullAlarm)
                     mDateTimeAlarmGroup.addView(mDateCollapsed);
-                mStatusBarHeaderView.addView(mRightContainer,0);
-                mStatusBarHeaderView.addView(mLeftContainer,1);
-                mStatusBarHeaderView.addView(mDateTimeAlarmGroup,2);
-                mStatusBarHeaderView.addView(mHeaderQsPanel,3);
+                mStatusBarHeaderView.addView(mRightContainer, 0);
+                mStatusBarHeaderView.addView(mLeftContainer, 1);
+                mStatusBarHeaderView.addView(mDateTimeAlarmGroup, 2);
+                mStatusBarHeaderView.addView(mHeaderQsPanel, 3);
                 mStatusBarHeaderView.setClipChildren(false);
                 mStatusBarHeaderView.setClipToPadding(false);
 

@@ -28,6 +28,7 @@ public class RomUtils {
         sPrefs = prefs;
         isOneplusStock();
     }
+
     public static void initRemote() {
         Context context = (Context) XposedHelpers.callMethod(XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"), "getSystemContext");
         sPrefs = new RemotePreferences(context, "tk.wasdennnoch.androidn_ify.PREFERENCES", "tk.wasdennnoch.androidn_ify_preferences");
@@ -48,7 +49,7 @@ public class RomUtils {
             return;
         }
         String xperiaVersion = SystemProperties.get("ro.semc.version.fs_revision", "");
-        if(!xperiaVersion.equals("")) {
+        if (!xperiaVersion.equals("")) {
             sPrefs.edit().putString("rom", "xperia").commit();
             return;
         }

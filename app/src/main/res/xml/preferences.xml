@@ -384,6 +384,18 @@
 
         </PreferenceScreen>
 
+        <PreferenceScreen
+            android:key="settings_others"
+            android:title="@string/header_others">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="package_installer"
+                android:summary="@string/package_installer"
+                android:title="@string/package_installer_title" />
+
+        </PreferenceScreen>
+
     </PreferenceCategory>
 
     <PreferenceCategory

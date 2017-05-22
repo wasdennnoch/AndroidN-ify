@@ -177,8 +177,8 @@ public class QSDetail extends LinearLayout {
         int buttonPadding = ResourceUtils.getInstance(mContext).getDimensionPixelSize(R.dimen.qs_detail_button_padding);
         mDetailDoneButton.setBackground(ResourceUtils.getInstance(mContext).getDrawable(R.drawable.qs_btn_borderless_rect));
         mDetailSettingsButton.setBackground(ResourceUtils.getInstance(mContext).getDrawable(R.drawable.qs_btn_borderless_rect));
-        mDetailDoneButton.setPadding(buttonPadding,buttonPadding,buttonPadding,buttonPadding);
-        mDetailSettingsButton.setPadding(buttonPadding,buttonPadding,buttonPadding,buttonPadding);
+        mDetailDoneButton.setPadding(buttonPadding, buttonPadding, buttonPadding, buttonPadding);
+        mDetailSettingsButton.setPadding(buttonPadding, buttonPadding, buttonPadding, buttonPadding);
     }
 
     public void updateResources() {

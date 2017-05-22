@@ -19,6 +19,7 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import tk.wasdennnoch.androidn_ify.android.AndroidHooks;
 import tk.wasdennnoch.androidn_ify.google.AssistantHooks;
+import tk.wasdennnoch.androidn_ify.packageinstaller.PackageInstallerHooks;
 import tk.wasdennnoch.androidn_ify.phone.emergency.EmergencyHooks;
 import tk.wasdennnoch.androidn_ify.settings.SettingsHooks;
 import tk.wasdennnoch.androidn_ify.systemui.SystemUIHooks;
@@ -47,6 +48,8 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
     public static final String PACKAGE_SETTINGS = "com.android.settings";
     public static final String PACKAGE_PHONE = "com.android.phone";
     public static final String PACKAGE_GOOGLE = "com.google.android.googlequicksearchbox";
+    public static final String PACKAGE_PACKAGEINSTALLER = "com.android.packageinstaller";
+    public static final String PACKAGE_GOOGLEPACKAGEINSTALLER = "com.google.android.packageinstaller";
     public static final String PACKAGE_OWN = "tk.wasdennnoch.androidn_ify";
     public static final String SETTINGS_OWN = PACKAGE_OWN + ".ui.SettingsActivity";
 
@@ -97,7 +100,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
             logI(TAG, "Official Build; Release: " + !BuildConfig.DEBUG + " (" + BuildConfig.BUILD_TYPE + ")");
             if (BuildConfig.DEBUG)
                 logI(TAG, "Build Time: " + BuildConfig.BUILD_TIME);
-        } else if (BuildConfig.AUTOMATED_BUILD){
+        } else if (BuildConfig.AUTOMATED_BUILD) {
             logI(TAG, "Automated Build; Version: " + BuildConfig.BUILD_NUMBER);
             logI(TAG, "Build Time: " + BuildConfig.BUILD_TIME);
             logI(TAG, "Git SHA: " + BuildConfig.GIT_COMMIT);
@@ -148,7 +151,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 RecentsStackHooks.hookSystemUI(lpparam.classLoader);
                 RecentsNavigation.hookSystemUI(lpparam.classLoader);
                 DoubleTapSwKeys.hook(lpparam.classLoader);
-                if(ConfigUtils.qs().reconfigure_notification_panel) {
+                if (ConfigUtils.qs().reconfigure_notification_panel) {
                     NotificationPanelViewHooks.hook(lpparam.classLoader);
                 }
                 break;
@@ -173,6 +176,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                     AssistantHooks.hook(lpparam.classLoader);
                 }
                 break;
+            case PACKAGE_PACKAGEINSTALLER:
+            case PACKAGE_GOOGLEPACKAGEINSTALLER:
+                PackageInstallerHooks.hook(lpparam.classLoader);
         }
 
         // Has to be hooked in every app as every app creates own instances of the Notification.Builder
@@ -230,6 +236,9 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 }
                 SystemUIHooks.hookResSystemUI(resparam, sModulePath);
                 break;
+            case PACKAGE_PACKAGEINSTALLER:
+            case PACKAGE_GOOGLEPACKAGEINSTALLER:
+                PackageInstallerHooks.hookRes(resparam, sModulePath);
         }
 
         // Has to be hooked in every app because every hook only applies to the current process

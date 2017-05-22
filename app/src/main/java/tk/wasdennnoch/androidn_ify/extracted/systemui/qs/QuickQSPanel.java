@@ -91,7 +91,7 @@ public class QuickQSPanel extends LinearLayout {
     }
 
     public ViewGroup getTileView(int i) {
-        return (ViewGroup)mIconViews.get(i).getParent();
+        return (ViewGroup) mIconViews.get(i).getParent();
     }
 
     private class HeaderTileLayout extends LinearLayout {

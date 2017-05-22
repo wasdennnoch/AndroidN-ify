@@ -29,16 +29,16 @@ public class StackScrollAlgorithmHooks {
 
     private static final String TAG = "StackScrollAlgorithmHooks";
 
-    public static final int LOCATION_UNKNOWN = 0x00;
-    public static final int LOCATION_FIRST_CARD = 0x01;
-    public static final int LOCATION_TOP_STACK_HIDDEN = 0x02;
-    public static final int LOCATION_MAIN_AREA = 0x08;
+    private static final int LOCATION_UNKNOWN = 0x00;
+    private static final int LOCATION_FIRST_CARD = 0x01;
+    private static final int LOCATION_TOP_STACK_HIDDEN = 0x02;
+    private static final int LOCATION_MAIN_AREA = 0x08;
 
     private static final int MAX_ITEMS_IN_BOTTOM_STACK = 3;
 
     private static final Rect mClipBounds = new Rect();
     public static ViewGroup mStackScrollLayout;
-    public static Object mStackScrollAlgorithm;
+    private static Object mStackScrollAlgorithm;
     private static float mStackTop = 0;
     private static float mStateTop = 0;
 
@@ -137,6 +137,10 @@ public class StackScrollAlgorithmHooks {
                     int mZBasicHeight = 4 * mZDistanceBetweenElements;
                     XposedHelpers.setIntField(param.thisObject, "mZDistanceBetweenElements", mZDistanceBetweenElements);
                     XposedHelpers.setIntField(param.thisObject, "mZBasicHeight", mZBasicHeight);
+                    try { //Xperia
+                        XposedHelpers.setIntField(param.thisObject, "mZBasicHeightNormal", mZBasicHeight);
+                        XposedHelpers.setIntField(param.thisObject, "mZBasicHeightDimmed", mZBasicHeight);
+                    } catch (Throwable ignore) {}
                 }
             });
 
@@ -199,8 +203,8 @@ public class StackScrollAlgorithmHooks {
                 methodGetInnerHeight = XposedHelpers.findMethodBestMatch(classAmbientState, "getInnerHeight");
                 methodGetScrollY = XposedHelpers.findMethodBestMatch(classAmbientState, "getScrollY");
 
-                methodHandleDraggedViews = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "handleDraggedViews", classAmbientState,classStackScrollState, classStackScrollAlgorithmState);
-                methodUpdateDimmedActivatedHideSensitive = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateDimmedActivatedHideSensitive", classAmbientState,classStackScrollState, classStackScrollAlgorithmState);
+                methodHandleDraggedViews = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "handleDraggedViews", classAmbientState, classStackScrollState, classStackScrollAlgorithmState);
+                methodUpdateDimmedActivatedHideSensitive = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateDimmedActivatedHideSensitive", classAmbientState, classStackScrollState, classStackScrollAlgorithmState);
                 methodUpdateSpeedBumpState = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateSpeedBumpState", classStackScrollState, classStackScrollAlgorithmState, int.class);
                 methodGetNotificationChildrenStates = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "getNotificationChildrenStates", classStackScrollState, classStackScrollAlgorithmState);
                 methodUpdateVisibleChildren = XposedHelpers.findMethodBestMatch(classStackScrollAlgorithm, "updateVisibleChildren", classStackScrollState, classStackScrollAlgorithmState);
@@ -240,7 +244,7 @@ public class StackScrollAlgorithmHooks {
                 XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onLayout", boolean.class, int.class, int.class, int.class, int.class, onLayoutHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "updateQsState", updateQsStateHook);
 
-                XposedBridge.hookAllMethods(classStackScrollAlgorithm, "initConstants", initConstantsHook);
+                //XposedBridge.hookAllMethods(classStackScrollAlgorithm, "initConstants", initConstantsHook);
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "getStackScrollState", getStackScrollState);
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "clampPositionToTopStackEnd", XC_MethodReplacement.DO_NOTHING);
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "updateFirstChildMaxSizeToMaxHeight", XC_MethodReplacement.DO_NOTHING);
@@ -252,7 +256,7 @@ public class StackScrollAlgorithmHooks {
                 XposedBridge.hookAllMethods(classStackScrollAlgorithm, "updateStateForChildFullyInBottomStack", new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        int collapsedHeight = (int)param.args[3];
+                        int collapsedHeight = (int) param.args[3];
                         Object childViewState = param.args[2];
                         setInt(fieldHeight, childViewState, collapsedHeight);
                     }
@@ -270,7 +274,7 @@ public class StackScrollAlgorithmHooks {
         }
     }
 
-    public static void setLayoutMinHeight(int layoutMinHeight) {
+    private static void setLayoutMinHeight(int layoutMinHeight) {
         mLayoutMinHeight = layoutMinHeight;
     }
 
@@ -278,7 +282,7 @@ public class StackScrollAlgorithmHooks {
         setLayoutMinHeight(mQsExpanded && !isOnKeyguard() ? getLayoutMinHeight() : 0);
     }
 
-    public static void setQsExpanded(boolean qsExpanded) throws IllegalAccessException, InvocationTargetException {
+    private static void setQsExpanded(boolean qsExpanded) throws IllegalAccessException, InvocationTargetException {
         mQsExpanded = qsExpanded;
         updateAlgorithmLayoutMinHeight();
     }
@@ -314,15 +318,7 @@ public class StackScrollAlgorithmHooks {
         }
     };
 
-    private static final XC_MethodHook initConstantsHook = new XC_MethodHook() {
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            setInt(fieldZDistanceBetweenElements, param.thisObject, Math.max(1, ResourceUtils.getInstance().getResources()
-                    .getDimensionPixelSize(R.dimen.z_distance_between_notifications)));
-        }
-    };
-
-    public  static final XC_MethodReplacement getStackScrollState = new XC_MethodReplacement() {
+    private static final XC_MethodReplacement getStackScrollState = new XC_MethodReplacement() {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             // The state of the local variables are saved in an algorithmState to easily subdivide it
@@ -352,21 +348,21 @@ public class StackScrollAlgorithmHooks {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             Object stackScrollState = param.thisObject;
-            ViewGroup mHostView = (ViewGroup)get(fieldHostView, stackScrollState);
-            HashMap<?,?> mStateMap = (HashMap)get(fieldStateMap, stackScrollState);
+            ViewGroup mHostView = (ViewGroup) get(fieldHostView, stackScrollState);
+            HashMap<?, ?> mStateMap = (HashMap) get(fieldStateMap, stackScrollState);
             int numChildren = mHostView.getChildCount();
             for (int i = 0; i < numChildren; i++) {
                 Object child = mHostView.getChildAt(i);
                 Object state = mStateMap.get(child);
-                if (!(boolean)invoke(methodApplyState, stackScrollState, child, state)) {
+                if (!(boolean) invoke(methodApplyState, stackScrollState, child, state)) {
                     continue;
                 }
                 if (classDismissView.isInstance(child)) {
-                    boolean willBeGone = (boolean)invoke(methodWillBeGoneDismissView, child);
+                    boolean willBeGone = (boolean) invoke(methodWillBeGoneDismissView, child);
                     boolean visible = getInt(fieldClipTopAmount, state) < getInt(fieldClearAllTopPadding, stackScrollState);
                     invoke(methodPerformVisibilityAnimationDismissView, child, visible && !willBeGone);
                 } else if (classEmptyShadeView.isInstance(child)) {
-                    boolean willBeGone = (boolean)invoke(methodWillBeGoneEmptyShade, child);
+                    boolean willBeGone = (boolean) invoke(methodWillBeGoneEmptyShade, child);
                     boolean visible = getInt(fieldClipTopAmount, state) <= 0;
                     invoke(methodPerformVisibilityAnimationEmptyShade, child,
                             visible && !willBeGone);
@@ -376,7 +372,7 @@ public class StackScrollAlgorithmHooks {
         }
     };
 
-    public static void updateClipping(Object resultState,
+    private static void updateClipping(Object resultState,
                                       Object algorithmState, Object ambientState) {
         ArrayList<ViewGroup> visibleChildren = (ArrayList<ViewGroup>) get(fieldVisibleChildren, algorithmState);
 
@@ -390,7 +386,7 @@ public class StackScrollAlgorithmHooks {
             Object child = visibleChildren.get(i);
             Object state = invoke(methodGetViewStateForView, resultState, child);
             boolean mIsHeadsUp = classExpandableNotificationRow.isInstance(child) && getBoolean(fieldIsHeadsUp, child);
-            boolean isTransparent = (boolean)invoke(methodIsTransparent, child);
+            boolean isTransparent = (boolean) invoke(methodIsTransparent, child);
             if (!mIsHeadsUp) {
                 previousNotificationEnd = Math.max(drawStart, previousNotificationEnd);
                 previousNotificationStart = Math.max(drawStart, previousNotificationStart);
@@ -454,13 +450,13 @@ public class StackScrollAlgorithmHooks {
                 }
                 setFloat(fieldZTranslation, childViewState, mZBasicHeight - zSubtraction);
             } else if (mIsHeadsUp
-                    && yTranslation < (float)invoke(methodGetTopPadding, ambientState)
-                    + (float)invoke(methodGetStackTranslation, ambientState)) {
+                    && yTranslation < (float) invoke(methodGetTopPadding, ambientState)
+                    + (float) invoke(methodGetStackTranslation, ambientState)) {
                 if (childrenOnTop != 0.0f) {
                     childrenOnTop++;
                 } else {
-                    float overlap = (float)invoke(methodGetTopPadding, ambientState)
-                            + (float)invoke(methodGetStackTranslation, ambientState) - getFloat(fieldYTranslation, childViewState);
+                    float overlap = (float) invoke(methodGetTopPadding, ambientState)
+                            + (float) invoke(methodGetStackTranslation, ambientState) - getFloat(fieldYTranslation, childViewState);
                     childrenOnTop += Math.min(1.0f, overlap / (getInt(fieldHeight, childViewState)));
                 }
                 setFloat(fieldZTranslation, childViewState, mZBasicHeight
@@ -476,9 +472,9 @@ public class StackScrollAlgorithmHooks {
 
         setFloat(fieldItemsInBottomStack, state, 0.0f);
         setFloat(fieldPartialInBottom, state, 0.0f);
-        float bottomOverScroll = (float)invoke(methodGetOverScrollAmount, ambientState, false /* onTop */);
+        float bottomOverScroll = (float) invoke(methodGetOverScrollAmount, ambientState, false /* onTop */);
 
-        int scrollY = (int)invoke(methodGetScrollY, ambientState);
+        int scrollY = (int) invoke(methodGetScrollY, ambientState);
 
         // Due to the overScroller, the stackscroller can have negative scroll state. This is
         // already accounted for by the top padding and doesn't need an additional adaption
@@ -491,7 +487,7 @@ public class StackScrollAlgorithmHooks {
 
         int mBottomStackPeekSize = getInt(fieldBottomStackPeekSize, mStackScrollAlgorithm);
         int mBottomStackSlowDownLength = getInt(fieldBottomStackSlowDownLength, mStackScrollAlgorithm);
-        int bottomStackStart = (int)invoke(methodGetInnerHeight, ambientState)
+        int bottomStackStart = (int) invoke(methodGetInnerHeight, ambientState)
                 - mBottomStackPeekSize - mBottomStackSlowDownLength;
         int childStart = bottomStackStart - childHeight;
         if (childStart < getFloat(fieldYTranslation, childViewState)) {
@@ -510,7 +506,7 @@ public class StackScrollAlgorithmHooks {
         int mBottomStackSlowDownLength = getInt(fieldBottomStackSlowDownLength, mStackScrollAlgorithm);
 
         // The starting position of the bottom stack peek
-        int bottomPeekStart = (int)invoke(methodGetInnerHeight, ambientState) - mBottomStackPeekSize -
+        int bottomPeekStart = (int) invoke(methodGetInnerHeight, ambientState) - mBottomStackPeekSize -
                 mBottomStackSlowDownLength + (int) invoke(methodGetScrollY, ambientState);
 
         // Collapse and expand the first child while the shade is being expanded
@@ -531,7 +527,7 @@ public class StackScrollAlgorithmHooks {
         int mBottomStackSlowDownLength = getInt(fieldBottomStackSlowDownLength, mStackScrollAlgorithm);
 
         // The starting position of the bottom stack peek
-        float bottomPeekStart = (int)invoke(methodGetInnerHeight, ambientState) - mBottomStackPeekSize;
+        float bottomPeekStart = (int) invoke(methodGetInnerHeight, ambientState) - mBottomStackPeekSize;
 
         // The position where the bottom stack starts.
         float bottomStackStart = bottomPeekStart - mBottomStackSlowDownLength;
@@ -623,17 +619,17 @@ public class StackScrollAlgorithmHooks {
                 clampHunToTop(ambientState, childState);
                 clampHunToMaxTranslation(ambientState, row, childState);
             }
-            boolean isPinned = classExpandableView.isInstance(row) && (boolean)invoke(methodIsPinned, row);
+            boolean isPinned = classExpandableView.isInstance(row) && (boolean) invoke(methodIsPinned, row);
             if (isPinned) {
                 setFloat(fieldYTranslation, childState, Math.max(getFloat(fieldYTranslation, childState), 0));
-                int height = (int)invoke(methodGetHeadsUpHeight, row);
+                int height = (int) invoke(methodGetHeadsUpHeight, row);
                 setInt(fieldHeight, childState, height);
                 Object topState = invoke(methodGetViewStateForView, resultState, topHeadsUpEntry);
                 if (!isTopEntry && (!mIsExpanded
                         || unmodifiedEndLocation < getFloat(fieldYTranslation, topState) + getInt(fieldHeight, topState))) {
                     // Ensure that a headsUp doesn't vertically extend further than the heads-up at
                     // the top most z-position
-                    setInt(fieldHeight, childState, (int)invoke(methodGetHeadsUpHeight, row));
+                    setInt(fieldHeight, childState, (int) invoke(methodGetHeadsUpHeight, row));
                     setFloat(fieldYTranslation, childState, getFloat(fieldYTranslation, topState) + getInt(fieldHeight, topState)
                             - getInt(fieldHeight, childState));
                 }
@@ -643,16 +639,15 @@ public class StackScrollAlgorithmHooks {
 
     private static int getMaxAllowedChildHeight(View child) {
         if (classExpandableView.isInstance(child)) {
-            View expandableView = child;
-            return (int)invoke(methodGetIntrinsicHeight, expandableView);
+            return (int) invoke(methodGetIntrinsicHeight, child);
         }
-        return child == null? getInt(fieldCollapsedSize, mStackScrollAlgorithm) : (int)invoke(methodGetHeight, child);
+        return child == null ? getInt(fieldCollapsedSize, mStackScrollAlgorithm) : (int) invoke(methodGetHeight, child);
     }
 
     private static void clampHunToTop(Object ambientState,
                                       Object childState) {
-        float newTranslation = Math.max(((float)invoke(methodGetTopPadding, ambientState)
-                + (float)invoke(methodGetStackTranslation, ambientState)), getFloat(fieldYTranslation, childState));
+        float newTranslation = Math.max(((float) invoke(methodGetTopPadding, ambientState)
+                + (float) invoke(methodGetStackTranslation, ambientState)), getFloat(fieldYTranslation, childState));
         setInt(fieldHeight, childState, (int) Math.max(getInt(fieldHeight, childState) - (newTranslation
                 - getFloat(fieldYTranslation, childState)), getInt(fieldCollapsedSize, mStackScrollAlgorithm)));
         setFloat(fieldYTranslation, childState, newTranslation);
@@ -661,9 +656,9 @@ public class StackScrollAlgorithmHooks {
     private static void clampHunToMaxTranslation(Object ambientState, Object row,
                                                  Object childState) {
         float newTranslation;
-        float bottomPosition = (float)invoke(methodGetMaxHeadsUpTranslation, ambientState) - getInt(fieldCollapsedSize, mStackScrollAlgorithm);
+        float bottomPosition = (float) invoke(methodGetMaxHeadsUpTranslation, ambientState) - getInt(fieldCollapsedSize, mStackScrollAlgorithm);
         newTranslation = Math.min(getFloat(fieldYTranslation, childState), bottomPosition);
-        setInt(fieldHeight, childState, Math.max(getInt(fieldHeight, childState), (int)invoke(methodGetHeadsUpHeight, row)));
+        setInt(fieldHeight, childState, Math.max(getInt(fieldHeight, childState), (int) invoke(methodGetHeadsUpHeight, row)));
         setFloat(fieldYTranslation, childState, newTranslation);
     }
 

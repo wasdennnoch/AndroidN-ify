@@ -18,7 +18,6 @@ package tk.wasdennnoch.androidn_ify.extracted.systemui;
 
 import android.graphics.Color;
 import android.view.View;
-import android.widget.ImageView;
 
 
 /**
