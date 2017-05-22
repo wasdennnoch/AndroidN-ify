@@ -151,9 +151,7 @@ public class XposedHook implements IXposedHookLoadPackage, IXposedHookZygoteInit
                 RecentsStackHooks.hookSystemUI(lpparam.classLoader);
                 RecentsNavigation.hookSystemUI(lpparam.classLoader);
                 DoubleTapSwKeys.hook(lpparam.classLoader);
-                if (ConfigUtils.qs().reconfigure_notification_panel) {
-                    NotificationPanelViewHooks.hook(lpparam.classLoader);
-                }
+                NotificationPanelViewHooks.hook(lpparam.classLoader);
                 break;
             case PACKAGE_ANDROID:
                 AndroidHooks.hook(lpparam.classLoader);
