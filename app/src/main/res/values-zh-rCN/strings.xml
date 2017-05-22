@@ -4,7 +4,7 @@
   <string name="xposed_description">在运行 Lollipop 和 Marshmallow 的设备上使用 Android N 内新引入的功能！</string>
   <string name="restart_systemui">重启系统界面</string>
   <string name="restart_systemui_message">您确定要重启系统界面吗？</string>
-  <string name="restart_broadcast_sent">已发送重启广播</string>
+  <string name="restart_broadcast_sent">已发送重启系统界面请求</string>
   <string name="activity_about">关于 Android N-ify</string>
   <string name="about_author">开发者 @MrWasdennnoch</string>
   <!-- Insert/Add your (preferably XDA) username here -->
@@ -193,7 +193,7 @@
   </plurals>
   <string name="update_notification_title">有可用的更新</string>
   <string name="update_notification">版本 %1$d 的更新已可供下载！</string>
-  <string name="update_notification_download">下载</string>
+  <string name="update_notification_download">更新</string>
   <string name="update_warning">模块已更新</string>
   <string name="update_warning_details">在重启设备之前系统将可能变得不稳定且相关的问题报告也将被忽略</string>
   <string name="check_for_updates_title">检查更新</string>
@@ -202,7 +202,7 @@
   <string name="check_for_update_fail">检查更新失败</string>
   <string name="no_updates">已为最新版本</string>
   <string name="update_notification_downloading">正在下载更新</string>
-  <string name="update_notification_downloading_details">正在下载版本 %1$d 的更新</string>
+  <string name="update_notification_downloading_details">正在新版本 %1$d</string>
   <string name="update_notification_download_fail">下载失败</string>
   <string name="update_notification_download_fail_details">下载 %1$d 版本的更新失败</string>
   <string name="emergency_info">急救信息</string>

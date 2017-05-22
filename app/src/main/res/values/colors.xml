@@ -16,6 +16,8 @@
 
     <color name="remote_input_text_enabled">#ffffffff</color>
     <color name="remote_input_hint">#99ffffff</color>
+
+    <color name="notification_shade_background_color">#ffeeeeee</color>
     <!-- /Notifications / Status bar header -->
 
     <!-- Emergency info -->

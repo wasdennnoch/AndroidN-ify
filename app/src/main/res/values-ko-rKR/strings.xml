@@ -246,9 +246,11 @@
   <!-- Warning when the input for the custom tile is empty -->
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="reset_tiles">초기화</string>
+  <string name="dialog_color_picker">색상 선택기</string>
   <string name="press_color_to_apply">색깔을 눌러 적용</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">헥스</string>
+  <string name="enable_install_source_title">응용 프로그램 설치 소스 보기</string>
   <string name="battery_detail_switch_title">배터리 세이버</string>
   <string name="done">완료</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->

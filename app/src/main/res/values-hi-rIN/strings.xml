@@ -114,8 +114,8 @@
   <string name="info_bloodtype_on">O-</string>
   <string name="battery">बैटरी</string>
   <string name="live_display_day">दिन</string>
-  <string name="live_display_night">रात</string>
-  <string name="live_display_outdoor">आउटडोर (उज्ज्वल सूरज)</string>
+  <string name="live_display_night">रात्रि</string>
+  <string name="live_display_outdoor">घर के बाहर (उज्ज्वल सूरज)</string>
   <!-- Example: 3 hours ago -->
   <!-- Example: 3 hours left -->
   <!-- Example: Approx. 3 hours left -->
@@ -131,9 +131,9 @@
   <!-- Example: 75% - 3h -->
   <!-- Example: 75% - 3 hours until full from wireless -->
   <!-- Example: 75% - 3h -->
-  <string name="battery_info_status_charging_ac_short">चार्ज</string>
-  <string name="battery_info_status_charging_usb">USB से चार्ज</string>
-  <string name="battery_info_status_charging_usb_short">चार्ज</string>
+  <string name="battery_info_status_charging_ac_short">चार्ज हो रहा है</string>
+  <string name="battery_info_status_charging_usb">USB से चार्ज हो रहा है</string>
+  <string name="battery_info_status_charging_usb_short">चार्ज हो रहा है</string>
   <!-- Add a custom tile -->
   <string name="add">जोड़ें</string>
   <!-- Warning when the input for the custom tile is empty -->
@@ -141,7 +141,7 @@
   <string name="reset_tiles">रीसेट करें</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="battery_detail_switch_title">बैटरी सेवर</string>
-  <string name="qs_add_notes_title">नोट्स</string>
+  <string name="qs_add_notes_title">टिप्पणियाँ</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
   <string name="warning">चेतावनी</string>

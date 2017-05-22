@@ -4,7 +4,7 @@
   <string name="xposed_description">Dodaje funkcje wprowadzone w Android N do Androida Lollipop i Marshmallow!</string>
   <string name="restart_systemui">Zrestartuj SystemUI</string>
   <string name="restart_systemui_message">Jesteś pewny, że chcesz zrestartować SystemUI?</string>
-  <string name="restart_broadcast_sent">Zrestartuj wysyłanie poleceń</string>
+  <string name="restart_broadcast_sent">Wysłano polecenie restartu</string>
   <string name="activity_about">O Android N-ify</string>
   <string name="about_author">Stworzone przez @MrWasdennnoch</string>
   <!-- Insert/Add your (preferably XDA) username here -->
@@ -51,7 +51,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="theme_colorPrimary">Główny kolor</string>
   <string name="header_lockscreen">Ekran blokady</string>
   <string name="header_settings">Ustawienia</string>
-  <string name="enable_settings_summaries_title">Włącz poprawki ustawień</string>
+  <string name="enable_settings_summaries_title">Włącz streszczenie ustawień</string>
   <string name="enable_settings_summaries">Pokaż najważniejsze informacje bezpośrednio w menu ustawień</string>
   <string name="fix_sound_notif_tile_title">Napraw kafelek \"Dźwięki i Powiadomienia\"</string>
   <string name="fix_sound_notif_tile">Niektóre ROMy łączą przełączniki szybkich ustawień Dźwięk i Powiadomienia. Włącz, by ustawić poprawne podsumowanie kafelka</string>
@@ -89,7 +89,7 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="app_details">Informacje o aplikacji</string>
   <string name="install_source">Aplikacja zainstalowana z %1$s</string>
   <string name="from_pm">Aplikacja zainstalowana z Menadżera Instalacji</string>
-  <string name="header_recents">Poprzednie aplikacje</string>
+  <string name="header_recents">Ostatnio używane aplikacje</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Szybkie przełączanie</string>
   <string name="enable_recents_double_tap">Podwójne dotknij klawisz poprzednio używanych aplikacji, aby zmienić na poprzednio używaną aplikację</string>
@@ -98,8 +98,8 @@ Używasz eksperymentalnej wersji modułu. Niektóre jego części mogą nie dzia
   <string name="double_tap_speed_title">Szybkość podwójnego dotknięcia</string>
   <string name="recents_button_behavior_title">Zachowanie przycisku poprzednich aplikacji</string>
   <string name="recents_navigation_delay_title">Opóźnienie zmiany poprzednich aplikacji</string>
-  <string name="recents_navigation_delay">Czas, po jakim nastąpi przełączenie na wybraną aplikację</string>
-  <string name="enable_large_recents">Włącz duże okna poprzednich aplikacji</string>
+  <string name="recents_navigation_delay">Czas po jakim nastąpi przełączenie na wybraną aplikację</string>
+  <string name="enable_large_recents">Włącz duże okna ostatnio używanych aplikacji</string>
   <string name="enable_large_recents_summary">Sprawia, że karty w \"ostatnich\" są w pełnej szerokości, nie zmienia ich wysokości</string>
   <string name="no_recents_image">Zmień obrazek \"brak poprzednich aplikacji\"</string>
   <!-- Appears as a toast if there's no recent app to switch to -->

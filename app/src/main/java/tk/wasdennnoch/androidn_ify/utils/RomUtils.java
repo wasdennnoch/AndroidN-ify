@@ -26,6 +26,7 @@ public class RomUtils {
     // Init from Xposed
     public static void init(XSharedPreferences prefs) {
         sPrefs = prefs;
+        isOneplusStock();
     }
     public static void initRemote() {
         Context context = (Context) XposedHelpers.callMethod(XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"), "getSystemContext");
@@ -36,11 +37,6 @@ public class RomUtils {
     @SuppressLint("CommitPrefEdits")
     private static void checkRom() {
         if (sPrefs.contains("rom")) return;
-        String rrVersion = SystemProperties.get("ro.rr.version", "");
-        if (!"".equals(rrVersion)) {
-            sPrefs.edit().putString("rom", "rr").commit();
-            return;
-        }
         String aicpVersion = SystemProperties.get("ro.aicp.version", "");
         if (!aicpVersion.equals("")) {
             sPrefs.edit().putString("rom", "aicp").commit();
@@ -63,12 +59,12 @@ public class RomUtils {
         return StatusBarHeaderHooks.mUseDragPanel;
     }
 
-    public static boolean isRr() {
-        return sPrefs.getString("rom", "").equals("rr");
-    }
-
     public static boolean isAicp() {
         return sPrefs.getString("rom", "").equals("aicp");
+    }
+
+    public static boolean isOneplusStock() {
+        return SystemProperties.get("ro.oxygen.version", "").contains("3.5") || SystemProperties.get("ro.rom.version", "").contains("H2OS V2.5") || SystemProperties.get("ro.oxygen.version", "").contains("O2_Open") || SystemProperties.get("ro.rom.version", "").contains("H2_Open");
     }
 
     public static boolean isXperia() {
@@ -78,7 +74,6 @@ public class RomUtils {
     public static boolean isCmBased() {
         String rom = sPrefs.getString("rom", "");
         switch (rom) {
-            case "rr":
             case "aicp":
             case "xperia":
             case "cm":

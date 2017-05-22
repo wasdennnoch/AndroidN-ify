@@ -6,32 +6,34 @@
   <string name="restart_systemui_message">Sistem Arayüzünü yeniden başlatmak istediğinizden emin misiniz?</string>
   <string name="restart_broadcast_sent">Sistem arayüzü yeniden başlatılıyor</string>
   <string name="activity_about">Android N-ify Hakkında</string>
-  <string name="about_author">Uygulama Geliştiricisi @MrWasdennnoch</string>
+  <string name="about_author">Geliştirici @MrWasdennnoch</string>
   <!-- Insert/Add your (preferably XDA) username here -->
   <string name="about_translator">Çeviri @Can OKUMUŞ - @Mevlüt TOPÇU - @trzpro</string>
   <string name="about_version">Sürüm %1$s (%2$d)</string>
   <string name="prefs_not_readable"><![CDATA[<b>Uyarı:</b> Tercih dosyası Xposed tarafından okunabilir değil. Daha fazla bilgi için tıklayınız&#8230;]]></string>
   <string name="prefs_not_readable_description"><![CDATA[
-Xposed bu modülün tercih dosyasını okuyor\okuyamıyor, fabrika değerleri kullanılacaktır.
-        Bu sorunu gidermek için çeşitli yollar vardır. Ayrıca, bu hata uygulamayı daha önce
-        hiç açmadıysanız bu sebeple ortaya çıktığını unutmayın.<br><br>
-        İlk olarak, cihazı yeniden başlatın (yazılımsal yeniden başlat değil!).<br>
+        Xposed bu modülün tercih dosyasını okuyamıyor, varsayılan değerler kullanılacaktır.
+        Bu sorunu gidermek için çeşitli yollar vardır. Ayrıca, bu hatanın uygulamayı daha önce
+        hiç açmadığınızdan dolayı çıktığını unutmayın.<br><br>
+        Önce, cihazı yeniden başlatın (yazılımsal yeniden başlat değil!).<br>
         Bu işe yaramazsa, modülü yeniden yüklemeyi deneyin.<br>
-        Her iki denemede başarısız olursa, SELinux modunun <i>permissive (serbest)</i> olarak ayarlanmış olduğundan emin olun.
-        <i>Enforcing (Zorunlu)</i> SELinux modu tercih dosyasına erişimi engelleyebilir. Modunu değiştirmek için,
+        Her iki deneme de başarısız olursa, SELinux modunun <i>permissive (serbest)</i> olarak ayarlanmış olduğundan emin olun.
+        <i>Enforcing (Zorunlu)</i> SELinux modu tercih dosyasına erişimi engelleyebilir. Modu değiştirmek için,
         <tt>SELinuxModeChanger</tt> uygulamasını kullanabilirsiniz. İndirmek için
-        <a href="http://forum.xda-developers.com/showthread.php?t=2524485"> bu XDA konusunu ziyaret edin</a>.<br>
-        Bu seferde başarısız olursa, muhtemelen varsayılan değerler ile yaşamak zorundasınız üzgünüm :(
+        <a href="http://forum.xda-developers.com/showthread.php?t=2524485"> XDA konusunu ziyaret edin</a>.<br>
+        Bu seferde başarısız olursa, muhtemelen varsayılan değerler ile yaşamak zorundasınız, üzgünüm :(
         ]]></string>
   <string name="automated_build_warning"><![CDATA[
 Otomatik inşa edilen bir sürüm kullanıyorsunuz. Yeni değişiklikler bazı ayarları bozabilir.
-       Hata bulursanız <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">Github</a> adresinden iletin.<br><br>
-       Hataları bildirirken her zaman Xposed veri günlükleri eklemeyi ve çökme durumunda logcat eklemeyi unutmayın.
+       Herhangi bir hata bulursanız, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">Github</a> adresinden iletin.<br><br>
+       Hataları bildirirken her zaman Xposed günlükleri eklemeyi, ve çökme durumunda logcat\'i eklemeyi unutmayın.
         ]]></string>
   <string name="experimental_build_warning"><![CDATA[
-Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler olabilir.
-        Bir hata bulursanız GitHub adresine <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">  </a>iletin <br>
-        Bu sürüm <b>çok deneysel özellikleri</b> barındırabilir<br><br>.
+        Deneysel otomatik inşa edilen bir sürüm kullanıyorsunuz. Yeni değişiklikler bazı ayarları bozabilir.
+        Herhangi bir hata bulursanız, <a href="https://github.com/wasdennnoch/AndroidN-ify/issues/new">Github</a> adresinden iletin. <br>
+        Bu sürüm <b>çok deneysel özellikler</b> içerir<br><br>. Herhangi bir sorunu bildirmeden önce lütfen XDA ve GitHub\'da arama yapın. Yinelenen raporlar dikkate alınmayacak ve kapatılacaktır.<br><br>
+        Hataları bildirirken her zaman Xposed günlükleri eklemeyi ve çökme durumunda logcat\'i eklemeyi unutmayın.
+        
         ]]></string>
   <string name="header_tweaks">Geliştirmeler</string>
   <!-- The header of the app settings like dark theme and language. Short for application. -->
@@ -51,7 +53,7 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="theme_colorPrimary">Ana renk</string>
   <string name="header_lockscreen">Kilit ekranı</string>
   <string name="header_settings">Ayarlar</string>
-  <string name="enable_settings_summaries_title">Ayarlardaki özetler</string>
+  <string name="enable_settings_summaries_title">Ayarlar özetleri</string>
   <string name="enable_settings_summaries">Ayarlar menüsünde doğrudan en önemli bilgileri gösterir</string>
   <string name="fix_sound_notif_tile_title">\"Ses &amp; bildirim\" karesini düzelt</string>
   <string name="fix_sound_notif_tile">Bazı ROM\'lar Sesler ve Bildirimler karesini birleştirir. Kareye uygun kısaltmayı ayarlamak için etkinleştirin.</string>
@@ -59,7 +61,7 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="use_namey_mcnameface_title">\"Namey McNameface\" simgesini kullan</string>
   <!-- Wifi disconnected -->
   <string name="disconnected">Bağlı değil</string>
-  <string name="disabled">Etkin değil</string>
+  <string name="disabled">Devre dışı</string>
   <string name="off">KAPALI</string>
   <string name="on">AÇIK</string>
   <string name="data_usage_summary">%1$s veri kullanıldı</string>
@@ -68,15 +70,15 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="sound_summary">Zil sesi düzeyi %1$s</string>
   <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d uygulama yüklendi</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
-  <string name="storage_summary">%1$s kullanılıyor (Toplam: %2$s)</string>
+  <string name="storage_summary">%2$s\'ın %1$s\'ı kullanılıyor</string>
   <!-- Battery settings summary: 58% - approx. 2h left -->
   <string name="battery_summary">%1$s - yaklaşık %2$s kaldı</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_wireless">%1$s - Kablosuz şarj</string>
+  <string name="battery_charging_wireless">%1$s - Kablosuz şarj oluyor</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_usb">%1$s - USB üzerinden şarj</string>
+  <string name="battery_charging_usb">%1$s - USB üzerinden şarj oluyor</string>
   <!-- Battery settings summary: Percentage -->
-  <string name="battery_charging_ac">%1$s - Priz üzerinden şarj</string>
+  <string name="battery_charging_ac">%1$s - Priz üzerinden şarj oluyor</string>
   <string name="memory_summary">Ortalama bellek kullanımı %1$s</string>
   <string name="user_summary">%1$s olarak giriş yapıldı</string>
   <string name="location_on_power">AÇIK / Pil tasarrufu</string>
@@ -87,18 +89,18 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="store">Mağaza</string>
   <!-- Header of app installation source -->
   <string name="app_details">Uygulama ayrıntıları</string>
-  <string name="install_source">Uygulama %1$s yüklendi</string>
+  <string name="install_source">Uygulama %1$s içinden yüklendi</string>
   <string name="from_pm">Uygulama Apk olarak yüklendi</string>
   <string name="header_recents">Son Uygulamalar</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Hızlı geçiş</string>
   <string name="enable_recents_double_tap">Son uygulamalar tuşuna çift tıklamak son kullanılan uygulamayı açar</string>
-  <string name="alternative_double_tap_title">Alternatif çift tıklama</string>
-  <string name="alternative_double_tap">Varsayılan Hızlı Geçiş doğru çalışmıyorsa aktif edin</string>
+  <string name="alternative_double_tap_title">Alternatif çift tıklama algılama</string>
+  <string name="alternative_double_tap">Hızlı geçiş düzgün çalışmıyorsa etkinleştirin</string>
   <string name="double_tap_speed_title">Çift tıklama hızı</string>
   <string name="recents_button_behavior_title">Son uygulamalar tuşuna dokunma davranışı</string>
   <string name="recents_navigation_delay_title">Gezinme gecikmesi</string>
-  <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir.</string>
+  <string name="recents_navigation_delay">Seçili uygulamanın odakta kalma süresini belirtir</string>
   <string name="enable_large_recents">Büyük son uygulamalar</string>
   <string name="enable_large_recents_summary">Son uygulamaları sadece tam genişlik yapar, yüksekliği değiştirmez</string>
   <string name="no_recents_image">\"Son uygulama yok\" görüntüsünü değiştir</string>
@@ -109,26 +111,26 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="recents_button_behavior_cycle">Uygulamalar arası geçiş</string>
   <string name="header_qs">Hızlı Ayarlar</string>
   <string name="enable_notification_header">Başlık stili</string>
-  <string name="keep_bg_title">Değiştirilmemiş arka plan</string>
-  <string name="keep_bg">Özel arka planlara uygulanan temalar için faydalı</string>
+  <string name="keep_bg_title">Değiştirilmemiş arka planlar</string>
+  <string name="keep_bg">Özel arka planlar uygulayan temalar için yararlıdır</string>
   <string name="keep_header_bg">Başlık</string>
   <string name="keep_panel_bg">Hızlı Ayarlar Paneli</string>
   <string name="force_old_date_position">Tarihi saatin yanına konumlandırmaya zorla</string>
-  <string name="force_old_date_position_summary">Belirli bir boyuttan küçük ekranlarda tarihi saatin yanında olmak yerine altında görünür. Bu davranışı geçersiz kılmak için etkinleştirin</string>
-  <string name="force_old_date_position_disabled_summary">Aygıtınız zaten yeni tarih konumunu destekliyor</string>
+  <string name="force_old_date_position_summary">Belirli bir boyuttan küçük ekranlarda tarih, saatin yanında değil altında görünür; sadece hızlı ayarlar panelini genişletirken görülebilir. Bu davranışı geçersiz kılmak için etkinleştirin</string>
+  <string name="force_old_date_position_disabled_summary">Cihazınız yeni tarih konumunu zaten destekliyor</string>
   <string name="notification_header_qs_tiles_count">Gösterilecek Hızlı Ayarlar kareleri</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">kareler</string>
-  <string name="battery_tile_show_percentage">Pil simgesinde yüzde göster</string>
-  <string name="battery_tile_show_percentage_summary">Pil karesinde pil yüzdesini göster</string>
-  <string name="enable_qs_editor">Hızlı Ayarlar düzenleyici etkinleştir</string>
-  <string name="alternative_qs_loading">Alternatif Hızlı Ayarlar Yükleme Methodu</string>
-  <string name="alternative_qs_loading_summary">Kullanılabilir HA karelerini almak için farklı bir yol kullan. Sadece HA kare düzenleyicisinde kare eksik ise kullanın</string>
-  <string name="inject_gb_tiles">GravityBox Hızlı Ayarlar Yönetimini Kullan</string>
-  <string name="inject_gb_tiles_summary">GravityBox tarafından sağlanan HA Karelerini eklemek istiyorsanız etkinleştirin</string>
+  <string name="battery_tile_show_percentage">Pil karesinde yüzde göster</string>
+  <string name="battery_tile_show_percentage_summary">Pil karesinde kalan pil yüzdesini göster</string>
+  <string name="enable_qs_editor">Hızlı Ayarlar düzenleyiciyi etkinleştir</string>
+  <string name="alternative_qs_loading">Alternatif Hızlı Ayarlar yükleme yöntemi</string>
+  <string name="alternative_qs_loading_summary">Kullanılabilir HA karelerini almak için farklı bir yol kullanın. Sadece düzenleyicide kareleriniz eksikse kullanın</string>
+  <string name="inject_gb_tiles">GravityBox karelerini ekle</string>
+  <string name="inject_gb_tiles_summary">GravityBox tarafından sağlanan HA karelerini eklemek istiyorsanız etkinleştirin</string>
   <string name="inject_gb_tiles_not_installed">GravityBox yüklü değil</string>
-  <string name="allow_fancy_qs_transition">Fantastik Hızlı Ayarlar geçişi</string>
-  <string name="enable_new_tile_click_behavior">N stili kare tıklama davranışı</string>
+  <string name="allow_fancy_qs_transition">Güzel Hızlı Ayarlar geçişi</string>
+  <string name="enable_new_tile_click_behavior">Yeni kare tıklama davranışı</string>
   <string name="enable_new_tile_click_behavior_summary">Başlıktaki karelere tıklayarak açıp/kapatabilir ve bir kareye tıklanarak panel genişletilebilir</string>
   <string name="enable_large_first_row">İlk satırı büyüt</string>
   <string name="enable_large_first_row_summary2">Destekliyorsa ilk iki satırı büyütür</string>
@@ -136,24 +138,24 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="fix_stuck_inversion">Etkinleştirildiğinde bazı cihazlarda ters çevirme takılıyor. Devre dışı bırakmaya zorlamak için tıklayın</string>
   <string name="hide_icons_title">Başlık öğelerini gizle</string>
   <string name="hide_tuner_icon_title">Sistem Arayüzü Ayar simgesini gizle</string>
-  <string name="hide_edit_tiles_title">Kareleri düzenleme tuşunu gizle</string>
-  <string name="hide_edit_tiles_summary">Bu sadece mevcut düzenleme düğmesini gizler!</string>
-  <string name="hide_carrier_label_title">Sim durumunu gizle</string>
+  <string name="hide_edit_tiles_title">Kareleri düzenleme düğmesini gizle</string>
+  <string name="hide_edit_tiles_summary">Bu sadece stok düzenleme düğmesini gizler!</string>
+  <string name="hide_carrier_label_title">Operatör adını gizle</string>
   <string name="header_notifications">Bildirimler</string>
   <string name="notifications_change_style">Bildirimler stili</string>
-  <string name="notification_dismiss_button_title">Temizleme tuşunu değiştir</string>
+  <string name="notification_dismiss_button_title">Temizleme düğmesini değiştir</string>
   <string name="notification_dismiss_button">Temizle tuşu yerine \"TÜMÜNÜ TEMİZLE\" yazısını göster</string>
   <!-- Search hint in the blacklist app Activity -->
   <string name="action_search">Ara</string>
   <string name="notification_blacklisted_apps_title">Kara listeye alınan uygulamalar</string>
-  <string name="notification_blacklisted_apps">Bu uygulamalar için eski stil bildirimleri kullan</string>
+  <string name="notification_blacklisted_apps">Bu uygulamalar için eski bildirim stilini kullan</string>
   <string name="notifications_custom_actions_color_title">Özel eylemler arka plan rengi</string>
-  <string name="notifications_custom_actions_color">Bildirim tuşlarının arka planı olarak özel bir renk kullanın</string>
+  <string name="notifications_custom_actions_color">Bildirim düğmelerinin arka planı olarak özel bir renk kullanın</string>
   <string name="notifications_actions_color_title">Eylemler arka plan rengi</string>
   <string name="notification_experimental_title">Deneysel N bildirimleri davranışı</string>
   <string name="notification_experimental">N stili kaydırma davranışı (üst yığınsız)</string>
   <string name="notification_keyguard_max_title">Kilit ekranında maksimum bildirim sayısı</string>
-  <string name="enable_assistant">Google Asistan\'ı Etkinleştir</string>
+  <string name="enable_assistant">Google Asistan\'ı etkinleştir</string>
   <string name="enable_assistant_summary">Now on Tap/Ekran Araması\'nı yeni Google Asistan ile değiştirir</string>
   <string name="enable_assistant_summary_unsupported">Google Uygulaması sürümün (%1$s) desteklenmiyor.</string>
   <!-- A string denoting the current point in time that should be as short as possible. Abbreviations are preferred to full strings as this might be shown repetitively. It is used in the header of notifications. [CHAR LIMIT=8]-->
@@ -207,7 +209,7 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="check_for_updates">Uygulama başlatıldığında güncellemeleri kontrol et</string>
   <string name="checking_for_update">Güncellemeler kontrol ediliyor&#8230;</string>
   <string name="check_for_update_fail">Güncellemeler kontrol edilemedi!</string>
-  <string name="no_updates">Yeni sürüm bulunmadı</string>
+  <string name="no_updates">Yeni sürüm bulunamadı!</string>
   <string name="update_notification_downloading">Güncelleme indiriliyor!</string>
   <string name="update_notification_downloading_details">Yapı %1$d indiriliyor</string>
   <string name="update_notification_download_fail">İndirme başarısız!</string>
@@ -218,21 +220,21 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="enable_emergency_info">Acil durum çeviricisi için acil durum bilgi düğmesi ekler</string>
   <string name="edit_emergency_info_title">Acil durum bilgilerini düzenle</string>
   <string name="clear_all">Tümünü temizle</string>
-  <string name="tab_title_info">Bilgi</string>
+  <string name="tab_title_info">Bilgiler</string>
   <string name="tab_title_contacts">Kişiler</string>
   <string name="add_emergency_contact">Kişi ekle</string>
-  <string name="user_emergency_info_title">Acil durum bilgisi</string>
-  <string name="user_emergency_info_consent">Buraya girdiğiniz bilgiler acil bir durumda ilk müdahale yardımcı olabilir. Sadece cihazınızda saklanır ve herkes telefonun kilidini açmadan acil çeviriciden okuyabilir.</string>
+  <string name="user_emergency_info_title">Acil durum bilgileri</string>
+  <string name="user_emergency_info_consent">Buraya girdiğiniz bilgiler acil bir durumda ilk müdahale eden kişilere yardımcı olabilir. Sadece cihazınızda saklanır ve herkes telefonunuzun kilidini açmadan acil çeviriciden okuyabilir.</string>
   <string name="emergency_info_continue">Devam</string>
   <string name="clear">Temizle</string>
-  <string name="clear_all_message">Tüm bilgi ve kişiler temizlensin mi?</string>
+  <string name="clear_all_message">Tüm bilgiler ve kişiler temizlensin mi?</string>
   <!-- Example: Mobile • 333-444-5566 -->
   <string name="phone_type_and_phone_number">%1$s • %2$s</string>
   <string name="remove_contact">%1$s kişisi acil durum kişilerinden kaldırılsın mı?</string>
   <string name="remove_contact_icon_text">Kişiyi kaldır</string>
   <string name="remove">Kaldır</string>
   <string name="cancel">İptal</string>
-  <string name="no_info_provided">Acil durum bilgisi verilmemiştir</string>
+  <string name="no_info_provided">Acil durum bilgileri sağlanmadı</string>
   <string name="emergency_contacts_title">Acil durumda aranacaklar</string>
   <string name="name">Ad</string>
   <string name="unknown_name">Bilinmiyor</string>
@@ -306,7 +308,7 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="battery_info_status_charging">Şarj oluyor</string>
   <string name="battery_info_status_charging_ac">Prizde şarj ediliyor</string>
   <string name="battery_info_status_charging_ac_short">Şarj oluyor</string>
-  <string name="battery_info_status_charging_usb">USB ile şarj oluyor</string>
+  <string name="battery_info_status_charging_usb">USB üzerinden şarj oluyor</string>
   <string name="battery_info_status_charging_usb_short">Şarj oluyor</string>
   <string name="battery_info_status_charging_wireless">Kablosuz şarj oluyor</string>
   <string name="battery_info_status_charging_wireless_short">Şarj oluyor</string>
@@ -328,7 +330,7 @@ Deneysel otomatik inşa edilen sürüm kullanıyorsunuz. Bazı değişiklikler o
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Uygulama yükleme kaynağını göster</string>
   <string name="enable_install_source">Uygulamanın nasıl yüklendiğini gösteren bir bilgi ekler. (Play Store , APK gibi)</string>
-  <string name="battery_detail_switch_title">Güç Tasarrufu</string>
+  <string name="battery_detail_switch_title">Güç tasarrufu</string>
   <string name="battery_detail_switch_summary">Performansı ve arka plan verilerini azaltır</string>
   <string name="qs_add_notes_title">Notlar</string>
   <string name="qs_add_notes">Bu, sadece (örneğin \"Özel Hızlı Ayarlar\" gibi) yayın kareleri sağlayan uygulamalar için kullanılır. Bunu kullanmadan önce kare sağlayıcı uygulamasından talimatlarını okuyun.</string>
