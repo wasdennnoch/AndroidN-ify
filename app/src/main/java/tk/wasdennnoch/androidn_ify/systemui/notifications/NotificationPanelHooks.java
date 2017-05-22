@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,14 +30,18 @@ public class NotificationPanelHooks {
     private static final String TAG = "NotificationPanelHooks";
 
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
-    private static final String CLASS_NOTIFICATION_STACK_SCROLL_LAYOUT = "com.android.systemui.statusbar.stack.NotificationStackScrollLayout";
     private static final String CLASS_NOTIFICATION_PANEL_VIEW = "com.android.systemui.statusbar.phone.NotificationPanelView";
     private static final String CLASS_QS_CONTAINER = "com.android.systemui.qs.QSContainer";
     private static final String CLASS_PANEL_VIEW = "com.android.systemui.statusbar.phone.PanelView";
 
+    private static Field fieldStatusBarState;
+
     public static final int STATE_KEYGUARD = 1;
 
     private static ViewGroup mNotificationPanelView;
+    private static ViewGroup mQsContainer;
+    private static ViewGroup mHeader;
+    private static ViewGroup mQsPanel;
     private static ExpandableIndicator mExpandIndicator;
     private static QSCustomizer mQsCustomizer;
     private static QSContainerHelper mQsContainerHelper;
@@ -51,10 +56,13 @@ public class NotificationPanelHooks {
 
             mNotificationPanelView.setClipChildren(false);
             mNotificationPanelView.setClipToPadding(false);
-            View mHeader = (View) XposedHelpers.getObjectField(param.thisObject, "mHeader");
+            mHeader = (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mHeader");
             mHeader.setOnClickListener(null);
             mExpandIndicator = (ExpandableIndicator) mHeader.findViewById(R.id.statusbar_header_expand_indicator);
             mExpandIndicator.setOnClickListener(mExpandIndicatorListener);
+
+            mQsContainer = (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mQsContainer");
+            mQsPanel = (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mQsPanel");
 
             if (!ConfigUtils.qs().keep_qs_panel_background) {
                 View mQsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mQsContainer");
@@ -74,10 +82,8 @@ public class NotificationPanelHooks {
             mQsCustomizer = qsCustomizer;
 
             if (ConfigUtils.qs().fix_header_space) {
-                mQsContainerHelper = new QSContainerHelper(mNotificationPanelView,
-                        (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mQsContainer"),
-                        (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mHeader"),
-                        (ViewGroup) XposedHelpers.getObjectField(mNotificationPanelView, "mQsPanel"));
+                mQsContainerHelper = new QSContainerHelper(mNotificationPanelView, mQsContainer, mHeader,
+                        mQsPanel);
 
                 mNotificationPanelView.requestLayout();
             }
@@ -166,21 +172,30 @@ public class NotificationPanelHooks {
         }
     }
 
+    public static boolean isOnKeyguard() {
+        return getStatusBarState() == NotificationPanelHooks.STATE_KEYGUARD;
+    }
+
     public static int getStatusBarState() {
         if (mNotificationPanelView == null) {
             return 0;
         }
-        return XposedHelpers.getIntField(mNotificationPanelView, "mStatusBarState");
+        int state = 0;
+        try {
+            state = fieldStatusBarState.getInt(mNotificationPanelView);
+        } catch (IllegalAccessException ignore) {}
+        return state;
     }
 
     public static void hook(ClassLoader classLoader) {
         try {
             if (ConfigUtils.qs().header) { // Although this is the notification panel everything here is header-related (mainly QS editor)
 
-                Class<?> classNotificationStackScrollLayout = XposedHelpers.findClass(CLASS_NOTIFICATION_STACK_SCROLL_LAYOUT, classLoader);
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classQSContainer = XposedHelpers.findClass(CLASS_QS_CONTAINER, classLoader);
                 Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
+
+                fieldStatusBarState = XposedHelpers.findField(classNotificationPanelView, "mStatusBarState");
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "setBarState", int.class, boolean.class, boolean.class, setBarStateHook);
@@ -248,36 +263,27 @@ public class NotificationPanelHooks {
 
                     hookOnLayout(classNotificationPanelView, classPanelView);
 
-                    /*
-                    XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingIn", new XC_MethodReplacement() {
-                        @Override
-                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                            if (mQsContainerHelper != null)
-                                mQsContainerHelper.animateHeaderSlidingIn();
-                            return null;
-                        }
-                    });
+                    if (ConfigUtils.M) {
+                        XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingIn", new XC_MethodReplacement() {
+                            @Override
+                            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                                if (mQsContainerHelper != null)
+                                    mQsContainerHelper.animateHeaderSlidingIn();
+                                return null;
+                            }
+                        });
 
-                    XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingOut", new XC_MethodReplacement() {
-                        @Override
-                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                            if (mQsContainerHelper != null)
-                                mQsContainerHelper.animateHeaderSlidingOut();
-                            return null;
-                        }
-                    });
+                        XposedHelpers.findAndHookMethod(classNotificationPanelView, "animateHeaderSlidingOut", new XC_MethodReplacement() {
+                            @Override
+                            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                                if (mQsContainerHelper != null)
+                                    mQsContainerHelper.animateHeaderSlidingOut();
+                                return null;
+                            }
+                        });
+                    }
 
                     XposedHelpers.findAndHookMethod(classNotificationPanelView, "updateHeaderShade", updateQsTranslation);
-
-                    XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onScrollTouch", MotionEvent.class, new XC_MethodHook() {
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            MotionEvent ev = (MotionEvent) param.args[0];
-                            if (mQsContainerHelper != null && ev.getY() < mQsContainerHelper.getBottom())
-                                param.setResult(false);
-                        }
-                    });
-                    */
                 }
             }
         } catch (Throwable t) {

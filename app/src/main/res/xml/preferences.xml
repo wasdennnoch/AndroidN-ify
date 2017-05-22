@@ -364,6 +364,12 @@
 
             <SwitchPreference
                 android:defaultValue="false"
+                android:dependency="fix_header_space"
+                android:key="reconfigure_notification_panel"
+                android:title="@string/reconfigure_notification_panel_title"/>
+
+            <SwitchPreference
+                android:defaultValue="false"
                 android:dependency="enable_experimental_features"
                 android:key="notification_experimental"
                 android:summary="@string/notification_experimental"
@@ -375,6 +381,18 @@
                 android:key="enable_assistant"
                 android:summary="@string/enable_assistant_summary"
                 android:title="@string/enable_assistant"/>
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="settings_others"
+            android:title="@string/header_others">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="package_installer"
+                android:summary="@string/package_installer"
+                android:title="@string/package_installer_title" />
 
         </PreferenceScreen>
 

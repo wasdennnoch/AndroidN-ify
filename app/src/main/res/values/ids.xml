@@ -27,5 +27,12 @@
     <item name="line2_container" type="id" />
     <item name="line3_container" type="id" />
     <item name="text_line_1" type="id" />
+    <item name="center_view" type="id" />
+    <item name="center_icon" type="id" />
+    <item name="explanation_view" type="id" />
+    <item name="explanation_status" type="id" />
+    <item name="status_view" type="id" />
+    <item name="users_button" type="id" />
+    <item name="progress_view" type="id" />
 
 </resources>

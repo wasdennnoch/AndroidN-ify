@@ -36,6 +36,7 @@ public class ConfigUtils {
     public NotificationsConfig notifications;
     public LockscreenConfig lockscreen;
     public AssistantConfig assistant;
+    public OthersConfig others;
 
     private ConfigUtils() {
         mInstance = this;
@@ -67,6 +68,7 @@ public class ConfigUtils {
         notifications = new NotificationsConfig(mPrefs);
         lockscreen = new LockscreenConfig(mPrefs);
         assistant = new AssistantConfig(mPrefs);
+        others = new OthersConfig(mPrefs);
     }
 
     public static ConfigUtils getInstance() {
@@ -97,6 +99,10 @@ public class ConfigUtils {
 
     public static AssistantConfig assistant() {
         return getInstance().assistant;
+    }
+
+    public static OthersConfig others() {
+        return getInstance().others;
     }
 
     public SharedPreferences getPrefs() {
@@ -175,6 +181,7 @@ public class ConfigUtils {
         public final boolean hide_carrier_label;
         public final boolean disable_qs_paging;
         public final boolean fix_header_space;
+        public final boolean reconfigure_notification_panel;
 
         public QuickSettingsConfig(SharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
@@ -192,6 +199,7 @@ public class ConfigUtils {
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
             disable_qs_paging = prefs.getBoolean("disable_qs_paging", false);
             fix_header_space = prefs.getBoolean("fix_header_space", true) && EXPERIMENTAL;
+            reconfigure_notification_panel = prefs.getBoolean("reconfigure_notification_panel", false) && EXPERIMENTAL && fix_header_space;
 
             Set<String> keepBgs = prefs.getStringSet("keep_backgrounds", Collections.<String>emptySet());
             keep_header_background = keepBgs.contains("header");
@@ -260,6 +268,14 @@ public class ConfigUtils {
         public AssistantConfig(SharedPreferences prefs) {
             enable_assistant = prefs.getBoolean("enable_assistant", true);
             google_app_hook_configs = prefs.getString("google_app_hook_configs", "[]");
+        }
+    }
+
+    public class OthersConfig {
+        public final boolean package_installer;
+
+        public OthersConfig(SharedPreferences prefs) {
+            package_installer = prefs.getBoolean("package_installer", false);
         }
     }
 

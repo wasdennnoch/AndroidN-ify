@@ -28,6 +28,7 @@ public class RomUtils {
         sPrefs = prefs;
         isOneplusStock();
     }
+
     public static void initRemote() {
         Context context = (Context) XposedHelpers.callMethod(XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"), "getSystemContext");
         sPrefs = new RemotePreferences(context, "tk.wasdennnoch.androidn_ify.PREFERENCES", "tk.wasdennnoch.androidn_ify_preferences");
@@ -47,6 +48,11 @@ public class RomUtils {
             sPrefs.edit().putString("rom", "cm").commit();
             return;
         }
+        String xperiaVersion = SystemProperties.get("ro.semc.version.fs_revision", "");
+        if (!xperiaVersion.equals("")) {
+            sPrefs.edit().putString("rom", "xperia").commit();
+            return;
+        }
         sPrefs.edit().putString("rom", "aosp").commit();
     }
 
@@ -62,10 +68,15 @@ public class RomUtils {
         return SystemProperties.get("ro.oxygen.version", "").contains("3.5") || SystemProperties.get("ro.rom.version", "").contains("H2OS V2.5") || SystemProperties.get("ro.oxygen.version", "").contains("O2_Open") || SystemProperties.get("ro.rom.version", "").contains("H2_Open");
     }
 
+    public static boolean isXperia() {
+        return sPrefs.getString("rom", "").equals("xperia");
+    }
+
     public static boolean isCmBased() {
         String rom = sPrefs.getString("rom", "");
         switch (rom) {
             case "aicp":
+            case "xperia":
             case "cm":
                 return true;
             default:

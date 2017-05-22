@@ -1322,6 +1322,9 @@ public class NotificationHooks {
                         textLine1Lp.setMarginStart(ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_text_line1_margin_start));
                         textLine1.setLayoutParams(textLine1Lp);
 
+                        ViewGroup parent = (ViewGroup) title.getParent();
+                        if (parent != null)
+                            parent.removeView(title);
                         container.addView(title);
                         container.addView(textLine1);
 

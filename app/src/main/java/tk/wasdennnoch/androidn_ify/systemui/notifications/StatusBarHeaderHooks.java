@@ -137,7 +137,7 @@ public class StatusBarHeaderHooks {
     private static float mExpansion = 0;
     private static boolean mRecreatingStatusBar = false;
 
-    private static int mQsTopMargin;
+    private static int mQsRippleAdjustment = 0;
 
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
     public static ArrayList<Object> mRecords;
@@ -157,6 +157,10 @@ public class StatusBarHeaderHooks {
             mResUtils = ResourceUtils.getInstance(mContext);
             ResourceUtils res = mResUtils;
             ConfigUtils config = ConfigUtils.getInstance();
+
+            if (ConfigUtils.qs().fix_header_space)
+                mQsRippleAdjustment = res.getResources().getDimensionPixelSize(R.dimen.status_bar_header_height) -
+                        res.getResources().getDimensionPixelSize(R.dimen.qs_margin_top);
 
             mShowFullAlarm = res.getResources().getBoolean(R.bool.quick_settings_show_full_alarm) || config.qs.force_old_date_position;
 
@@ -272,9 +276,8 @@ public class StatusBarHeaderHooks {
                 ((ViewGroup) mEmergencyCallsOnly.getParent()).removeView(mEmergencyCallsOnly);
                 createEditButton(rightIconHeight, rightIconWidth);
 
-                int settingsIconSize = res.getDimensionPixelSize(R.dimen.settings_icon_size);
-                Drawable settingsIcon = mSettingsButton.getDrawable();
-                settingsIcon.setBounds(0, 0, settingsIconSize, settingsIconSize);
+                Drawable settingsIcon = res.getDrawable(R.drawable.ic_settings_20dp);
+                mSettingsButton.setImageDrawable(settingsIcon);
 
                 RelativeLayout.LayoutParams rightContainerLp = new RelativeLayout.LayoutParams(WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.right_layout_height));
                 rightContainerLp.addRule(RelativeLayout.ALIGN_PARENT_END);
@@ -370,7 +373,7 @@ public class StatusBarHeaderHooks {
                 mDateCollapsed.setGravity(Gravity.TOP);
                 mDateCollapsed.setTextColor(dateTimeTextColor);
                 mDateCollapsed.setTextSize(TypedValue.COMPLEX_UNIT_PX, dateTimeCollapsedSize);
-                mDateCollapsed.setTypeface(Typeface.create("sans-serif-medium",Typeface.NORMAL));
+                mDateCollapsed.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
                 if (mShowFullAlarm) {
                     mDateCollapsed.setCompoundDrawablesWithIntrinsicBounds(res.getDrawable(R.drawable.header_dot), null, null, null);
                     mDateCollapsed.setCompoundDrawablePadding(dateCollapsedDrawablePadding);
@@ -459,10 +462,10 @@ public class StatusBarHeaderHooks {
                 mDateTimeAlarmGroup.addView(mAlarmStatus); // The view HAS to be attached to a parent, otherwise it apparently gets GC -> NPE. We hide it later if necessary
                 if (!mShowFullAlarm)
                     mDateTimeAlarmGroup.addView(mDateCollapsed);
-                mStatusBarHeaderView.addView(mLeftContainer);
-                mStatusBarHeaderView.addView(mRightContainer);
-                mStatusBarHeaderView.addView(mDateTimeAlarmGroup);
-                mStatusBarHeaderView.addView(mHeaderQsPanel);
+                mStatusBarHeaderView.addView(mRightContainer, 0);
+                mStatusBarHeaderView.addView(mLeftContainer, 1);
+                mStatusBarHeaderView.addView(mDateTimeAlarmGroup, 2);
+                mStatusBarHeaderView.addView(mHeaderQsPanel, 3);
                 mStatusBarHeaderView.setClipChildren(false);
                 mStatusBarHeaderView.setClipToPadding(false);
 
@@ -712,14 +715,10 @@ public class StatusBarHeaderHooks {
             } else {
                 if (tileRecord != null) {
                     try {
-                        if (ConfigUtils.qs().fix_header_space && mQsTopMargin == 0) {
-                            mQsTopMargin = mResUtils.getDimensionPixelSize(R.dimen.qs_margin_top);
-                        }
-
                         View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                         param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
                         param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
-                                + mQsPanel.getTop();
+                                + mQsPanel.getTop() + mQsRippleAdjustment;
                     } catch (Throwable ignore) { // OOS3
                     }
                 }
@@ -754,8 +753,7 @@ public class StatusBarHeaderHooks {
         TouchAnimator.Builder settingsAlphaBuilder = new TouchAnimator.Builder()
                 .addFloat(mEdit, "alpha", 0.0F, 1.0F)
                 .addFloat(mMultiUserSwitch, "alpha", 0.0F, 1.0F)
-                .addFloat(mLeftContainer, "alpha", 0.0F, 1.0F)
-                .setStartDelay(0.7F);
+                .addFloat(mLeftContainer, "alpha", 0.0F, 1.0F);
         if (mWeatherContainer != null) {
             settingsAlphaBuilder
                     .addFloat(mWeatherContainer, "alpha", 0.0F, 1.0F);

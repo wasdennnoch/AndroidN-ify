@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -23,24 +24,24 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 public class QSContainerHelper {
 
     private static final String TAG = "QSContainerHelper";
-    private final ViewGroup mNotificationPanelView;
-    private final ViewGroup mHeader;
-    private final ViewGroup mQSContainer;
-    private final ViewGroup mQSPanel;
-    private final QSDetail mQSDetail;
-    //private final View mQSDetail;
-    private float mQsExpansion;
-    private int mHeaderHeight;
-    private int mQsTopMargin;
+    private static boolean reconfigureNotifPanel = false;
+    private static ViewGroup mNotificationPanelView;
+    private static ViewGroup mHeader;
+    private static ViewGroup mQSContainer;
+    private static ViewGroup mQSPanel;
+    private static Object mNotificationStackScroller;
+    private static QSDetail mQSDetail;
+    private static float mQsExpansion;
+    private static int mHeaderHeight;
+    private static int mQsTopMargin;
 
     private static final int CAP_HEIGHT = 1456;
     private static final int FONT_HEIGHT = 2163;
-    private Object mNotificationStackScroller;
-    private Object mKeyguardStatusView;
-    private TextView mClockView;
-    private Rect mQsBounds = new Rect();
-    private boolean mKeyguardShowing = false;
-    private boolean mHeaderAnimating;
+    private static Object mKeyguardStatusView;
+    private static TextView mClockView;
+    private static Rect mQsBounds = new Rect();
+    private static boolean mKeyguardShowing = false;
+    private static boolean mHeaderAnimating;
 
     public QSContainerHelper(ViewGroup notificationPanelView, ViewGroup qsContainer, ViewGroup header, ViewGroup qsPanel) {
         mNotificationPanelView = notificationPanelView;
@@ -51,8 +52,6 @@ public class QSContainerHelper {
         mQSContainer.setPadding(0, 0, 0, 0);
         mQSDetail = StatusBarHeaderHooks.qsHooks.setupQsDetail(mQSPanel, mHeader);
 
-        //((ViewGroup) mHeader.getParent()).removeView(mHeader);
-        //mQSContainer.addView(mHeader);
         mQSContainer.addView(mQSDetail);
         //mQSDetail = (View) XposedHelpers.getObjectField(mQSPanel, "mDetail");
 
@@ -65,10 +64,30 @@ public class QSContainerHelper {
         qsPanelLp.setMargins(0, res.getDimensionPixelSize(R.dimen.qs_margin_top), 0, 0);
         qsPanel.setLayoutParams(qsPanelLp);
 
+        if(ConfigUtils.qs().reconfigure_notification_panel) {
+            reconfigureNotifPanel = true;
+            ViewGroup notificationQSContainer = (ViewGroup) mNotificationPanelView.getChildAt(1);
+            ViewGroup scrollView = (ViewGroup) notificationQSContainer.getChildAt(0);
+            LinearLayout linearLayout = (LinearLayout) scrollView.getChildAt(0);
+
+            linearLayout.removeViewAt(0);
+            scrollView.removeView(linearLayout);
+            scrollView.addView(mQSContainer);
+
+            ViewGroup.LayoutParams scrollViewLayoutParams = scrollView.getLayoutParams();
+            scrollViewLayoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
+            scrollView.setLayoutParams(scrollViewLayoutParams);
+
+            mNotificationPanelView.removeView(mHeader);
+            mQSContainer.addView(mHeader, 1);
+            mQSContainer.setClipChildren(false);
+            mQSContainer.setClipToPadding(false);
+        }
+
         setUpOnLayout();
     }
 
-    public void setQsExpansion(float expansion, float headerTranslation) {
+    public static void setQsExpansion(float expansion, float headerTranslation) {
         expansion = Math.max(0, expansion);
         boolean keyguardShowing = XposedHelpers.getBooleanField(mNotificationPanelView, "mKeyguardShowing");
         if (mKeyguardShowing != keyguardShowing) {
@@ -84,14 +103,13 @@ public class QSContainerHelper {
             float translation = keyguardShowing ? (translationScaleY * mHeader.getHeight())
                     : headerTranslation;
             mQSContainer.setTranslationY(translation);
-            mHeader.setTranslationY(translation);
+            if (!reconfigureNotifPanel)
+                mHeader.setTranslationY(translation);
         }
-        XposedHelpers.callMethod(mHeader, "setExpansion", keyguardShowing ? 1 : expansion);
-        float qsPanelTranslationY = translationScaleY * mQSPanel.getHeight();
-        mQSPanel.setTranslationY(qsPanelTranslationY);
+        XposedHelpers.callMethod(mHeader, "setExpansion", mKeyguardShowing ? 1 : expansion);
+        mQSPanel.setTranslationY(translationScaleY * mQSPanel.getHeight());
         mQSDetail.setFullyExpanded(expansion == 1);
-        // TODO implement this
-        //mQSDetail.setTranslationY(keyguardShowing ? 0 : -qsPanelTranslationY);
+        //mQSAnimator.setPosition(expansion); //not yet
         updateBottom();
 
         // Set bounds on the QS panel so it doesn't run over the header.
@@ -101,13 +119,14 @@ public class QSContainerHelper {
         mQSPanel.setClipBounds(mQsBounds);
     }
 
-    public void updateBottom() {
+    public static void updateBottom() {
         int height = calculateContainerHeight();
         mQSContainer.setBottom(mQSContainer.getTop() + height);
-        //mQSDetail.setBottom(mQSContainer.getTop() + height);
+        if (reconfigureNotifPanel)
+            mQSDetail.setBottom(mQSContainer.getTop() + height);
     }
 
-    private int calculateContainerHeight() {
+    private static int calculateContainerHeight() {
         int mHeightOverride = XposedHelpers.getIntField(mQSContainer, "mHeightOverride");
         int heightOverride = mHeightOverride != -1 ? mHeightOverride : mQSContainer.getMeasuredHeight() - mHeaderHeight;
         return (int) (mQsExpansion * heightOverride) + mHeaderHeight;

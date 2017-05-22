@@ -56,9 +56,10 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
 
     private boolean mOnKeyguard;
 
-    private boolean mAllowFancy = ConfigUtils.qs().allow_fancy_qs_transition;
+    private final boolean mAllowFancy = ConfigUtils.qs().allow_fancy_qs_transition;
+    private final boolean mReconfigureNotificationPanel = ConfigUtils.qs().reconfigure_notification_panel;
     private boolean mFullRows = true;
-    private int mNumQuickTiles = ConfigUtils.qs().qs_tiles_count;
+    private final int mNumQuickTiles = ConfigUtils.qs().qs_tiles_count;
     private float mLastPosition;
     private int mQsTopAdjustment = 0;
 
@@ -71,7 +72,7 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
         mPagedLayout = StatusBarHeaderHooks.qsHooks.getTileLayout();
         mPagedLayout.setPageListener(this);
 
-        if (ConfigUtils.qs().fix_header_space) {
+        if (ConfigUtils.qs().fix_header_space && !mReconfigureNotificationPanel) {
             ResourceUtils res = ResourceUtils.getInstance(container.getContext());
             mQsTopAdjustment = res.getDimensionPixelSize(R.dimen.qs_margin_top) - res.getDimensionPixelSize(R.dimen.status_bar_header_height);
         }
@@ -145,14 +146,19 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
             final View tileIcon = findIcon(tileView);
             if (count < mNumQuickTiles && mAllowFancy) {
                 // Quick tiles.
-                View quickTileView = mQuickQsPanel.getTileView(i);
+                ViewGroup quickTileView = mQuickQsPanel.getTileView(i);
 
                 lastX = loc1[0];
-                getRelativePosition(loc1, quickTileView, StatusBarHeaderHooks.mStatusBarHeaderView);
-                getRelativePosition(loc2, tileIcon, mQsPanel);
+
+                getRelativePosition(loc1, quickTileView.getChildAt(0), mReconfigureNotificationPanel ? mQsContainer
+                        : StatusBarHeaderHooks.mStatusBarHeaderView);
+                getRelativePosition(loc2, tileIcon, mReconfigureNotificationPanel ? mQsContainer
+                        : mQsPanel);
                 final int xDiff = loc2[0] - loc1[0] + ((i < maxTilesOnPage) ? 0 : mPagedLayout.getWidth());
                 final int yDiff = loc2[1] - loc1[1] +
-                        + mQuickQsPanel.getHeight() + (StatusBarHeaderHooks.mUseDragPanel ? 0 : StatusBarHeaderHooks.mQsContainer.getPaddingTop());
+                        (mReconfigureNotificationPanel ? 0
+                                : mQuickQsPanel.getHeight())
+                        + (StatusBarHeaderHooks.mUseDragPanel ? 0 : mQsContainer.getPaddingTop());
 
                 lastXDiff = loc1[0] - lastX;
                 // Move the quick tile right from its location to the new one.
@@ -337,7 +343,7 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
                                int oldTop, int oldRight, int oldBottom) {
-        //mQsPanel.post(mUpdateAnimators);
+        mQsPanel.post(mUpdateAnimators);
     }
 
     /*
@@ -367,6 +373,6 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
 
     @Override
     public void onStateChanged() {
-        setOnKeyguard(NotificationPanelHooks.getStatusBarState() == NotificationPanelHooks.STATE_KEYGUARD);
+        setOnKeyguard(NotificationPanelHooks.isOnKeyguard());
     }
 }

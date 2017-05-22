@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Space;
 
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class QuickQSPanel extends LinearLayout {
         mShowPercent = config.qs.battery_tile_show_percentage;
         setOrientation(VERTICAL);
         int m = mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
-        setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_bottom));
+        setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, 0);
         mTileLayout = new HeaderTileLayout(context);
         addView(mTileLayout);
     }
@@ -91,8 +90,8 @@ public class QuickQSPanel extends LinearLayout {
         return mRecords;
     }
 
-    public View getTileView(int i) {
-        return mIconViews.get(i);
+    public ViewGroup getTileView(int i) {
+        return (ViewGroup) mIconViews.get(i).getParent();
     }
 
     private class HeaderTileLayout extends LinearLayout {
@@ -218,7 +217,11 @@ public class QuickQSPanel extends LinearLayout {
 
         private void addViewToLayout(View view, int position, OnClickListener click, OnLongClickListener longClick) {
             view.setClickable(false);
-            RelativeLayout container = new RelativeLayout(view.getContext());
+            FrameLayout container = new FrameLayout(view.getContext());
+            if (ConfigUtils.qs().reconfigure_notification_panel) {
+                container.setClipChildren(false);
+                container.setClipToPadding(false);
+            }
             container.setClickable(true);
             container.setOnClickListener(click);
             container.setOnLongClickListener(longClick);
@@ -248,9 +251,9 @@ public class QuickQSPanel extends LinearLayout {
             removeAllViews();
         }
 
-        private RelativeLayout.LayoutParams generateLayoutParams() {
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mIconSizePx);
-            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+        private FrameLayout.LayoutParams generateLayoutParams() {
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mIconSizePx);
+            lp.gravity = Gravity.CENTER;
             return lp;
         }
 
@@ -269,7 +272,7 @@ public class QuickQSPanel extends LinearLayout {
         }
 
         private LayoutParams generateSpaceParams() {
-            LayoutParams layoutparams = new LayoutParams(0, mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_size));
+            LayoutParams layoutparams = new LayoutParams(0, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top));
             layoutparams.weight = 1.0F;
             layoutparams.gravity = Gravity.CENTER;
             return layoutparams;
