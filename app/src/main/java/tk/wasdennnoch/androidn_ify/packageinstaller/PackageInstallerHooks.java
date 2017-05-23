@@ -57,8 +57,6 @@ public class PackageInstallerHooks {
     private static final int DELETE_FAILED_OWNER_BLOCKED = -4;
     private static final int USER_NULL = -10000;
 
-    private static Button mUsersButton;
-
     public static void hook(ClassLoader classLoader) {
 
         try {
@@ -108,6 +106,8 @@ public class PackageInstallerHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Message msg = (Message) param.args[0];
             final Activity uninstallAppProgress = (Activity) XposedHelpers.getSurroundingThis(param.thisObject);
+            Button mUsersButton;
+            mUsersButton = (Button)uninstallAppProgress.findViewById(R.id.users_button);
             if (msg.what == UNINSTALL_COMPLETE) {
                 if (msg.arg1 == DELETE_FAILED_OWNER_BLOCKED) {
                     UserManager userManager =
@@ -128,6 +128,7 @@ public class PackageInstallerHooks {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             final Activity uninstallAppProgress = (Activity)param.thisObject;
+            Button mUsersButton;
             mUsersButton = (Button)uninstallAppProgress.findViewById(R.id.users_button);
             mUsersButton.setVisibility(View.GONE);
             mUsersButton.setOnClickListener(new View.OnClickListener() {
