@@ -3,6 +3,7 @@ package tk.wasdennnoch.androidn_ify.systemui.qs;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.graphics.Rect;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
@@ -14,6 +15,7 @@ import java.lang.reflect.Method;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.Interpolators;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QSDetail;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
@@ -66,11 +68,10 @@ public class QSContainerHelper {
 
         if(ConfigUtils.qs().reconfigure_notification_panel) {
             reconfigureNotifPanel = true;
-            ViewGroup notificationQSContainer = (ViewGroup) mNotificationPanelView.getChildAt(1);
-            ViewGroup scrollView = (ViewGroup) notificationQSContainer.getChildAt(0);
-            LinearLayout linearLayout = (LinearLayout) scrollView.getChildAt(0);
+            ViewGroup scrollView = (ViewGroup) mNotificationPanelView.findViewById(mQSContainer.getContext().getResources().getIdentifier("scroll_view", "id", XposedHook.PACKAGE_SYSTEMUI));
+            LinearLayout linearLayout = (LinearLayout)mQSContainer.getParent();
 
-            linearLayout.removeViewAt(0);
+            linearLayout.removeAllViews();
             scrollView.removeView(linearLayout);
             scrollView.addView(mQSContainer);
 

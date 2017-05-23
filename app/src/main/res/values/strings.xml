@@ -400,7 +400,7 @@
     <string name="partial_screenshot">Partial screenshot</string>
     <string name="fix_header_space_title">Fix huge space under qs header</string>
     <string name="reconfigure_notification_panel_title">Reconfigure notification panel layout hierarchy</string>
-    <string name="reconfigure_notification_panel_warning">This setting might fix a lot of bugs on AOSP ROMs. Do not try on other ROMs if you\'re not sure what you\'re doing.</string>
+    <string name="reconfigure_notification_panel_warning">This setting might fix a lot of bugs on AOSP and Xperia ROMs. Do not try on other ROMs if you\'re not sure what you\'re doing.</string>
     <string name="generate_notification_accent_color">Generate notification color from app icon</string>
     <string name="header_others">Others</string>
     <string name="package_installer">Enables the Nougat package installer layout</string>
