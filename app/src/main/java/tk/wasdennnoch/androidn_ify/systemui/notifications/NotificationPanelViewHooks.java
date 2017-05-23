@@ -694,19 +694,10 @@ public class NotificationPanelViewHooks {
                             XposedHelpers.callMethod(mNotificationPanelView, "getHeight"),
                             XposedHelpers.callMethod(mKeyguardStatusView, "getHeight"),
                             XposedHelpers.getFloatField(mNotificationPanelView, "mEmptyDragAmount"));
+                    XposedHelpers.callMethod(mClockPositionAlgorithm, "run", mClockPositionResult);
                 } catch (NoSuchMethodError e) {//Xperia
-                    XposedHelpers.callMethod(mClockPositionAlgorithm, "setup",
-                            XposedHelpers.callMethod(mStatusBar, "getMaxKeyguardNotifications"),
-                            methodGetMaxPanelHeight.invoke(mNotificationPanelView),
-                            methodGetExpandedHeight.invoke(mNotificationPanelView),
-                            methodGetNotGoneChildCount.invoke(mNotificationStackScroller),
-                            XposedHelpers.callMethod(mNotificationPanelView, "getHeight"),
-                            XposedHelpers.callMethod(mKeyguardStatusView, "getHeight"),
-                            XposedHelpers.getFloatField(mNotificationPanelView, "mEmptyDragAmount"),
-                            0,
-                            0);
+                    XposedHelpers.callMethod(mNotificationPanelView, "positionKeyguardClockAndResize");
                 }
-                XposedHelpers.callMethod(mClockPositionAlgorithm, "run", mClockPositionResult);
                 if (animate || mClockAnimator != null) {
                     XposedHelpers.callMethod(mNotificationPanelView, "startClockAnimation", XposedHelpers.getIntField(mClockPositionResult, "clockY"));
                 } else {
