@@ -117,6 +117,7 @@ public class NotificationPanelViewHooks {
             fieldIntrinsicPadding = XposedHelpers.findField(classNotificationStackScrollLayout, "mIntrinsicPadding");
             fieldOwnScrollY = XposedHelpers.findField(classNotificationStackScrollLayout, "mOwnScrollY");
             fieldCollapsedSize = XposedHelpers.findField(classNotificationStackScrollLayout, "mCollapsedSize");
+            fieldHeader = XposedHelpers.findField(classNotificationPanelView, "mHeader");
 
             methodGetFirstChildNotGone = XposedHelpers.findMethodBestMatch(classNotificationStackScrollLayout, "getFirstChildNotGone");
 
@@ -165,7 +166,6 @@ public class NotificationPanelViewHooks {
                 fieldExpandedHeight = XposedHelpers.findField(classNotificationPanelView, "mExpandedHeight");
                 fieldTopPaddingAdjustment = XposedHelpers.findField(classNotificationPanelView, "mTopPaddingAdjustment");
                 fieldQsExpansionEnabled = XposedHelpers.findField(classNotificationPanelView, "mQsExpansionEnabled");
-                fieldHeader = XposedHelpers.findField(classNotificationPanelView, "mHeader");
                 fieldClockPositionResult = XposedHelpers.findField(classNotificationPanelView, "mClockPositionResult");
                 fieldStatusBar = XposedHelpers.findField(classNotificationPanelView, "mStatusBar");
                 fieldScrollYOverride = XposedHelpers.findField(classNotificationPanelView, "mScrollYOverride");
@@ -178,8 +178,6 @@ public class NotificationPanelViewHooks {
                 fieldInterceptDelegateEnabled = XposedHelpers.findField(classNotificationStackScrollLayout, "mInterceptDelegateEnabled");
                 fieldOnlyScrollingInThisMotion = XposedHelpers.findField(classNotificationStackScrollLayout, "mOnlyScrollingInThisMotion");
                 fieldDelegateToScrollView = XposedHelpers.findField(classNotificationStackScrollLayout, "mDelegateToScrollView");
-
-  
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onOverscrolled", float.class, float.class, int.class, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "getTempQsMaxExpansion", getTempQsMaxExpansionHook);
