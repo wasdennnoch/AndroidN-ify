@@ -109,6 +109,7 @@ public class NotificationPanelViewHooks {
 
         try {
             Class<?> classNotificationStackScrollLayout = XposedHelpers.findClass(CLASS_NOTIFICATION_STACK_SCROLL_LAYOUT, classLoader);
+            Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
 
             fieldBottomStackSlowDownHeight = XposedHelpers.findField(classNotificationStackScrollLayout, "mBottomStackSlowDownHeight");
             fieldBottomStackPeekSize = XposedHelpers.findField(classNotificationStackScrollLayout, "mBottomStackPeekSize");
@@ -116,11 +117,13 @@ public class NotificationPanelViewHooks {
             fieldIntrinsicPadding = XposedHelpers.findField(classNotificationStackScrollLayout, "mIntrinsicPadding");
             fieldOwnScrollY = XposedHelpers.findField(classNotificationStackScrollLayout, "mOwnScrollY");
             fieldCollapsedSize = XposedHelpers.findField(classNotificationStackScrollLayout, "mCollapsedSize");
+            fieldHeader = XposedHelpers.findField(classNotificationPanelView, "mHeader");
 
             methodGetFirstChildNotGone = XposedHelpers.findMethodBestMatch(classNotificationStackScrollLayout, "getFirstChildNotGone");
 
+            XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
+            
             if (ConfigUtils.qs().reconfigure_notification_panel) {
-                Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classObservableScrollView = XposedHelpers.findClass(CLASS_OBSERVABLE_SCROLL_VIEW, classLoader);
                 Class<?> classHeadsUpManager = XposedHelpers.findClass(CLASS_HEADSUP_MANAGER, classLoader);
                 Class<?> classStackScrollAlgorithm = XposedHelpers.findClass(CLASS_STACK_SCROLL_ALGORITHM, classLoader);
@@ -163,7 +166,6 @@ public class NotificationPanelViewHooks {
                 fieldExpandedHeight = XposedHelpers.findField(classNotificationPanelView, "mExpandedHeight");
                 fieldTopPaddingAdjustment = XposedHelpers.findField(classNotificationPanelView, "mTopPaddingAdjustment");
                 fieldQsExpansionEnabled = XposedHelpers.findField(classNotificationPanelView, "mQsExpansionEnabled");
-                fieldHeader = XposedHelpers.findField(classNotificationPanelView, "mHeader");
                 fieldClockPositionResult = XposedHelpers.findField(classNotificationPanelView, "mClockPositionResult");
                 fieldStatusBar = XposedHelpers.findField(classNotificationPanelView, "mStatusBar");
                 fieldScrollYOverride = XposedHelpers.findField(classNotificationPanelView, "mScrollYOverride");
@@ -176,8 +178,6 @@ public class NotificationPanelViewHooks {
                 fieldInterceptDelegateEnabled = XposedHelpers.findField(classNotificationStackScrollLayout, "mInterceptDelegateEnabled");
                 fieldOnlyScrollingInThisMotion = XposedHelpers.findField(classNotificationStackScrollLayout, "mOnlyScrollingInThisMotion");
                 fieldDelegateToScrollView = XposedHelpers.findField(classNotificationStackScrollLayout, "mDelegateToScrollView");
-
-                XposedHelpers.findAndHookMethod(classNotificationPanelView, "onFinishInflate", onFinishInflateHook);
 
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "onOverscrolled", float.class, float.class, int.class, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "getTempQsMaxExpansion", getTempQsMaxExpansionHook);
