@@ -66,18 +66,20 @@ public class QSContainerHelper {
         qsPanelLp.setMargins(0, res.getDimensionPixelSize(R.dimen.qs_margin_top), 0, 0);
         qsPanel.setLayoutParams(qsPanelLp);
 
-        if(ConfigUtils.qs().reconfigure_notification_panel) {
+        //TODO fix landscape behavior
+        ViewGroup scrollView = (ViewGroup) mNotificationPanelView.findViewById(mQSContainer.getContext().getResources().getIdentifier("scroll_view", "id", XposedHook.PACKAGE_SYSTEMUI));
+        LinearLayout linearLayout = (LinearLayout) mQSContainer.getParent();
+
+        linearLayout.removeAllViews();
+        scrollView.removeView(linearLayout);
+        scrollView.addView(mQSContainer);
+
+        ViewGroup.LayoutParams scrollViewLayoutParams = scrollView.getLayoutParams();
+        scrollViewLayoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
+        scrollView.setLayoutParams(scrollViewLayoutParams);
+
+        if (ConfigUtils.qs().reconfigure_notification_panel) {
             reconfigureNotifPanel = true;
-            ViewGroup scrollView = (ViewGroup) mNotificationPanelView.findViewById(mQSContainer.getContext().getResources().getIdentifier("scroll_view", "id", XposedHook.PACKAGE_SYSTEMUI));
-            LinearLayout linearLayout = (LinearLayout)mQSContainer.getParent();
-
-            linearLayout.removeAllViews();
-            scrollView.removeView(linearLayout);
-            scrollView.addView(mQSContainer);
-
-            ViewGroup.LayoutParams scrollViewLayoutParams = scrollView.getLayoutParams();
-            scrollViewLayoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
-            scrollView.setLayoutParams(scrollViewLayoutParams);
 
             mNotificationPanelView.removeView(mHeader);
             mQSContainer.addView(mHeader, 1);
