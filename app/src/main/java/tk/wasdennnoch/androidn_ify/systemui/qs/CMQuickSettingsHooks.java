@@ -30,4 +30,9 @@ class CMQuickSettingsHooks extends QuickSettingsHooks {
     protected String getHookClass() {
         return CLASS_QS_DRAG_PANEL;
     }
+
+    @Override
+    protected String getSecondHookClass() {
+        return  CLASS_QS_PANEL;
+    }
 }
