@@ -73,6 +73,10 @@ public class StackScrollAlgorithmHooks {
     private static Field fieldHostView;
     private static Field fieldStateMap;
     private static Field fieldClearAllTopPadding;
+    private static Field fieldAmbientState;
+    private static Field fieldMaxLayoutHeight;
+    private static Field fieldCurrentStackHeight;
+    private static Field fieldTopPaddingScroller;
 
     private static Method methodGetViewStateForView;
     private static Method methodGetInnerHeight;
@@ -101,7 +105,8 @@ public class StackScrollAlgorithmHooks {
     private static Method methodPerformVisibilityAnimationEmptyShade;
     private static Method methodWillBeGoneEmptyShade;
     private static Method methodUpdateVisibleChildren;
-
+    private static Method methodSetLayoutHeight;
+    private static Method methodSetTopPadding;
 
     private static Class<?> classNotificationStackScrollLayout;
     private static Class<?> classStackScrollAlgorithm;
@@ -199,6 +204,11 @@ public class StackScrollAlgorithmHooks {
                 fieldStateMap = XposedHelpers.findField(classStackScrollState, "mStateMap");
                 fieldClearAllTopPadding = XposedHelpers.findField(classStackScrollState, "mClearAllTopPadding");
 
+                fieldAmbientState = XposedHelpers.findField(classNotificationStackScrollLayout, "mAmbientState");
+                fieldMaxLayoutHeight = XposedHelpers.findField(classNotificationStackScrollLayout, "mMaxLayoutHeight");
+                fieldCurrentStackHeight = XposedHelpers.findField(classNotificationStackScrollLayout, "mCurrentStackHeight");
+                fieldTopPaddingScroller = XposedHelpers.findField(classNotificationStackScrollLayout, "mTopPadding");
+
                 methodGetViewStateForView = XposedHelpers.findMethodBestMatch(classStackScrollState, "getViewStateForView", View.class);
                 methodGetInnerHeight = XposedHelpers.findMethodBestMatch(classAmbientState, "getInnerHeight");
                 methodGetScrollY = XposedHelpers.findMethodBestMatch(classAmbientState, "getScrollY");
@@ -214,6 +224,8 @@ public class StackScrollAlgorithmHooks {
                 methodGetStackTranslation = XposedHelpers.findMethodBestMatch(classAmbientState, "getStackTranslation");
                 methodGetOverScrollAmount = XposedHelpers.findMethodBestMatch(classAmbientState, "getOverScrollAmount", boolean.class);
                 methodGetMaxHeadsUpTranslation = XposedHelpers.findMethodBestMatch(classAmbientState, "getMaxHeadsUpTranslation");
+                methodSetLayoutHeight = XposedHelpers.findMethodBestMatch(classAmbientState, "setLayoutHeight", int.class);
+                methodSetTopPadding = XposedHelpers.findMethodBestMatch(classAmbientState, "setTopPadding", int.class);
 
                 methodIsTransparent = XposedHelpers.findMethodBestMatch(classExpandableView, "isTransparent");
                 methodGetHeight = XposedHelpers.findMethodBestMatch(classExpandableView, "getHeight");
@@ -240,7 +252,7 @@ public class StackScrollAlgorithmHooks {
 
                 XposedHelpers.findAndHookMethod(classAmbientState, "getInnerHeight", getInnerHeight);
 
-                XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateAlgorithmHeightAndPadding", updateAlgorithmHeightAndPaddingHook);
+                XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "updateAlgorithmHeightAndPadding", updateAlgorithmHeightAndPadding);
                 XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "onLayout", boolean.class, int.class, int.class, int.class, int.class, onLayoutHook);
                 XposedHelpers.findAndHookMethod(classNotificationPanelView, "updateQsState", updateQsStateHook);
 
@@ -304,10 +316,19 @@ public class StackScrollAlgorithmHooks {
         }
     };
 
-    private static final XC_MethodHook updateAlgorithmHeightAndPaddingHook = new XC_MethodHook() {
+    private static final XC_MethodReplacement updateAlgorithmHeightAndPadding = new XC_MethodReplacement() {
         @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            //replacing it rather than hooking it because it's different on Xperias
+            Object stackScroller = param.thisObject;
+            Object mAmbientState = fieldAmbientState.get(stackScroller);
+            int mMaxLayoutHeight = fieldMaxLayoutHeight.getInt(stackScroller);
+            int mCurrentStackHeight = fieldCurrentStackHeight.getInt(stackScroller);
+            int minLayoutHeight = Math.min(mMaxLayoutHeight, mCurrentStackHeight);
+            methodSetLayoutHeight.invoke(mAmbientState, minLayoutHeight);
             updateAlgorithmLayoutMinHeight();
+            methodSetTopPadding.invoke(mAmbientState, fieldTopPaddingScroller.getInt(stackScroller));
+            return null;
         }
     };
 

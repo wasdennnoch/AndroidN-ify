@@ -22,10 +22,11 @@ public class QuickSettingsHooks {
 
     private static final String TAG = "QuickSettingsHooks";
 
-    private static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
+    static final String CLASS_QS_PANEL = "com.android.systemui.qs.QSPanel";
     static final String CLASS_QS_DRAG_PANEL = "com.android.systemui.qs.QSDragPanel";
 
     final Class mHookClass;
+    private final Class mSecondHookClass;
 
     protected Context mContext;
     ViewGroup mQsPanel;
@@ -57,6 +58,7 @@ public class QuickSettingsHooks {
 
     QuickSettingsHooks(ClassLoader classLoader) {
         mHookClass = XposedHelpers.findClass(getHookClass(), classLoader);
+        mSecondHookClass = XposedHelpers.findClass(getSecondHookClass(), classLoader);
         hookConstructor();
         hookOnMeasure();
         hookOnLayout();
@@ -148,14 +150,21 @@ public class QuickSettingsHooks {
 
     private void hookFireScanStateChanged() {
         if (!ConfigUtils.qs().fix_header_space) return;
-        XposedHelpers.findAndHookMethod(mHookClass, "fireScanStateChanged", boolean.class, new XC_MethodReplacement() {
+        XC_MethodReplacement fireScanStateChanged = new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                 if (mQSDetail != null)
                     mQSDetail.onScanStateChanged((boolean) param.args[0]);
                 return null;
             }
-        });
+        };
+        try {
+            XposedHelpers.findAndHookMethod(mHookClass, "fireScanStateChanged", boolean.class, fireScanStateChanged);
+        } catch (NoSuchMethodError e) { //apparently on some CM ROMs it's in QSPanel
+            try {
+                XposedHelpers.findAndHookMethod(mSecondHookClass, "fireScanStateChanged", boolean.class, fireScanStateChanged);
+            } catch (Throwable ignore) {}
+        }
     }
 
     void setupTileLayout() {
@@ -266,6 +275,10 @@ public class QuickSettingsHooks {
 
     protected String getHookClass() {
         return CLASS_QS_PANEL;
+    }
+
+    protected String getSecondHookClass() {
+        return getHookClass();
     }
 
     public PagedTileLayout getTileLayout() {
