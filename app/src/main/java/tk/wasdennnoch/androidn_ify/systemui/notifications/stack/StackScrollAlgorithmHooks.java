@@ -21,6 +21,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.FakeShadowView;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
+import tk.wasdennnoch.androidn_ify.utils.RomUtils;
 
 import static tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks.isOnKeyguard;
 import static tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelViewHooks.getLayoutMinHeight;
@@ -291,6 +292,9 @@ public class StackScrollAlgorithmHooks {
     }
 
     private static void updateAlgorithmLayoutMinHeight() throws IllegalAccessException, InvocationTargetException {
+        if (RomUtils.isOneplusStock()) {
+            return;
+        }
         setLayoutMinHeight(mQsExpanded && !isOnKeyguard() ? getLayoutMinHeight() : 0);
     }
 
