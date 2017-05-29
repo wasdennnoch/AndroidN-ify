@@ -302,9 +302,15 @@
                 android:key="actions_background_colors"
                 android:title="@string/notifications_actions_color_title"/>
 
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="notification_change_style"
+                android:key="notification_change_keyguard_max"
+                android:title="@string/notification_keyguard_change_max_title"/>
+
             <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
                 android:defaultValue="3"
-                android:dependency="notification_change_style"
+                android:dependency="notification_change_keyguard_max"
                 android:key="notification_keyguard_max"
                 android:title="@string/notification_keyguard_max_title"
                 app:interval="1"
