@@ -168,36 +168,28 @@ public class ConfigUtils {
         public final boolean keep_header_background;
         public final boolean keep_qs_panel_background;
         public final boolean force_old_date_position;
-        public final int qs_tiles_count;
-        public final boolean battery_tile_show_percentage;
         public final boolean enable_qs_editor;
         public final boolean alternative_qs_loading;
         public final boolean inject_gb_tiles;
-        public final boolean allow_fancy_qs_transition;
         public final boolean new_click_behavior;
         public final boolean large_first_row;
         public final boolean hide_tuner_icon;
         public final boolean hide_edit_tiles;
         public final boolean hide_carrier_label;
-        public final boolean disable_qs_paging;
         public final boolean fix_header_space;
         public final boolean reconfigure_notification_panel;
 
         public QuickSettingsConfig(SharedPreferences prefs) {
             header = prefs.getBoolean("enable_notification_header", true);
             force_old_date_position = prefs.getBoolean("force_old_date_position", false);
-            qs_tiles_count = prefs.getInt("notification_header_qs_tiles_count", 6);
-            battery_tile_show_percentage = prefs.getBoolean("battery_tile_show_percentage", false);
             enable_qs_editor = prefs.getBoolean("enable_qs_editor", true);
             alternative_qs_loading = prefs.getBoolean("alternative_qs_loading", false);
             inject_gb_tiles = prefs.getBoolean("inject_gb_tiles", false);
-            allow_fancy_qs_transition = prefs.getBoolean("allow_fancy_qs_transition", true);
             new_click_behavior = prefs.getBoolean("enable_new_tile_click_behavior", true);
             large_first_row = prefs.getBoolean("enable_large_first_row", false);
             hide_tuner_icon = prefs.getBoolean("hide_tuner_icon", false);
             hide_edit_tiles = prefs.getBoolean("hide_edit_tiles", false);
             hide_carrier_label = prefs.getBoolean("hide_carrier_label", false);
-            disable_qs_paging = prefs.getBoolean("disable_qs_paging", false);
             fix_header_space = prefs.getBoolean("fix_header_space", true) && EXPERIMENTAL;
             reconfigure_notification_panel = prefs.getBoolean("reconfigure_notification_panel", false) && EXPERIMENTAL && fix_header_space;
 

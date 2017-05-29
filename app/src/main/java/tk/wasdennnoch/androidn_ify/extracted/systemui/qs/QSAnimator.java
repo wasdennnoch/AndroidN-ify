@@ -14,6 +14,7 @@
 
 package tk.wasdennnoch.androidn_ify.extracted.systemui.qs;
 
+import android.content.Context;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.View.OnLayoutChangeListener;
@@ -26,16 +27,21 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
+import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.PathInterpolatorBuilder;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.StatusBarHeaderHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.PreferenceService;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeListener,
-        OnAttachStateChangeListener, TouchAnimator.Listener, NotificationPanelHooks.BarStateCallback {
+        OnAttachStateChangeListener, TouchAnimator.Listener, NotificationPanelHooks.BarStateCallback, PreferenceService.Tunable {
 
+    private static final String TAG = "QSAnimator";
     private static final float EXPANDED_TILE_DELAY = .86f;
+    private static final String NUM_QUICK_TILES = "notification_header_qs_tiles_count";
+    private static final String ALLOW_FANCY_ANIMATION = "allow_fancy_qs_transition";
 
     private final ArrayList<View> mAllViews = new ArrayList<>();
     private final ArrayList<View> mTopFiveQs = new ArrayList<>();
@@ -43,6 +49,7 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
     private final QuickQSPanel mQuickQsPanel;
     private final ViewGroup mQsPanel;
     private final ViewGroup mQsContainer;
+    private final Context mContext;
 
     private PagedTileLayout mPagedLayout;
 
@@ -56,14 +63,15 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
 
     private boolean mOnKeyguard;
 
-    private final boolean mAllowFancy = ConfigUtils.qs().allow_fancy_qs_transition;
+    private boolean mAllowFancy;
     private final boolean mReconfigureNotificationPanel = ConfigUtils.qs().reconfigure_notification_panel;
     private boolean mFullRows = true;
-    private final int mNumQuickTiles = ConfigUtils.qs().qs_tiles_count;
+    private int mNumQuickTiles;// = ConfigUtils.qs().qs_tiles_count;
     private float mLastPosition;
     private int mQsTopAdjustment = 0;
 
     public QSAnimator(ViewGroup container, QuickQSPanel quickPanel, ViewGroup panel) {
+        mContext = container.getContext();
         mQsContainer = container;
         mQuickQsPanel = quickPanel;
         mQsPanel = panel;
@@ -90,11 +98,13 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
     public void onViewAttachedToWindow(View v) {
         updateAnimators();
         NotificationPanelHooks.addBarStateCallback(this);
+        PreferenceService.get(mContext).addTunable(this, NUM_QUICK_TILES, ALLOW_FANCY_ANIMATION);
     }
 
     @Override
     public void onViewDetachedFromWindow(View v) {
         NotificationPanelHooks.removeBarStateCallback(this);
+        PreferenceService.get(mContext).removeTunable(this);
     }
 
     @Override
@@ -117,6 +127,7 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
     }
 
     private void updateAnimators() {
+        if (mQuickQsPanel.getTileCount() < 1) return;
         List<Object> records = StatusBarHeaderHooks.getHeaderQsPanel().getRecords();
 
         TouchAnimator.Builder firstPageBuilder = new TouchAnimator.Builder();
@@ -374,5 +385,25 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
     @Override
     public void onStateChanged() {
         setOnKeyguard(NotificationPanelHooks.isOnKeyguard());
+    }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        if (NUM_QUICK_TILES.equals(key)) {
+            setMaxTiles(PreferenceService.parseInt(newValue, 6));
+        } else if (ALLOW_FANCY_ANIMATION.equals(key)) {
+            XposedHook.logD(TAG, "allowFancyAnimation: " + newValue);
+            setAllowFancy(PreferenceService.parseBoolean(newValue, true));
+        }
+    }
+
+    private void setAllowFancy(boolean allowFancy) {
+        mAllowFancy = allowFancy;
+        updateAnimators();
+    }
+
+    private void setMaxTiles(int maxTiles) {
+        mNumQuickTiles = maxTiles;
+        mQuickQsPanel.setMaxTiles(maxTiles);
     }
 }

@@ -35,12 +35,12 @@ public class QuickQSPanel extends LinearLayout {
     private final int mIconSizePx;
     private final int mQuickTilePadding;
 
-    private final int mMaxTiles;
+    private int mMaxTiles;
+    private int mTileCount;
     private final HeaderTileLayout mTileLayout;
     private final ResourceUtils mRes;
     protected final ArrayList<Object> mRecords = new ArrayList<>();
     private final ArrayList<View> mIconViews = new ArrayList<>();
-    private final boolean mShowPercent;
 
     public QuickQSPanel(Context context) {
         super(context);
@@ -49,8 +49,6 @@ public class QuickQSPanel extends LinearLayout {
         mIconSizePx = res.getDimensionPixelSize(res.getIdentifier("qs_tile_icon_size", "dimen", PACKAGE_SYSTEMUI));
         mRes = ResourceUtils.getInstance(context);
         mQuickTilePadding = mRes.getDimensionPixelSize(R.dimen.qs_quick_tile_padding);
-        mMaxTiles = config.qs.qs_tiles_count;
-        mShowPercent = config.qs.battery_tile_show_percentage;
         setOrientation(VERTICAL);
         int m = mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_margin_horizontal);
         setPadding(m, mRes.getDimensionPixelSize(R.dimen.qs_quick_panel_padding_top), m, 0);
@@ -67,12 +65,15 @@ public class QuickQSPanel extends LinearLayout {
         mTileLayout.removeTiles();
         mRecords.clear();
         mIconViews.clear();
+        mTileCount = 0;
 
         for (int i = 0; i < tileRecords.size(); i++) {
             Object tilerecord = tileRecords.get(i);
             mRecords.add(tilerecord);
-            if (i < mMaxTiles)
+            if (i < mMaxTiles) {
                 mTileLayout.addTile(tilerecord);
+                ++mTileCount;
+            }
         }
         if (StatusBarHeaderHooks.mQsAnimator == null)
             StatusBarHeaderHooks.createQsAnimator();
@@ -92,6 +93,15 @@ public class QuickQSPanel extends LinearLayout {
 
     public ViewGroup getTileView(int i) {
         return (ViewGroup) mIconViews.get(i).getParent();
+    }
+
+    public void setMaxTiles(int maxTile) {
+        mMaxTiles = maxTile;
+        setTiles(StatusBarHeaderHooks.mRecords);
+    }
+
+    public int getTileCount() {
+        return mTileCount;
     }
 
     private class HeaderTileLayout extends LinearLayout {
@@ -187,15 +197,6 @@ public class QuickQSPanel extends LinearLayout {
                 if (child.getId() == android.R.id.icon || child instanceof FrameLayout) {
                     child.setVisibility(VISIBLE);
                     iconView = child;
-                    if (mShowPercent && iconView instanceof FrameLayout) {
-                        if (((FrameLayout) iconView).getChildAt(0) != null) {
-                            View frameChild = ((FrameLayout) iconView).getChildAt(0);
-                            if (frameChild instanceof BatteryTile.BatteryView) {
-                                BatteryTile.BatteryView batteryView = (BatteryTile.BatteryView) frameChild;
-                                batteryView.setShowPercent(true);
-                            }
-                        }
-                    }
                 } else {
                     child.setVisibility(GONE);
                 }
