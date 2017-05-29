@@ -18,11 +18,13 @@ import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.qs.QuickSettingsHooks;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.PreferenceService;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
-public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QSTileLayout {
+public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QSTileLayout, PreferenceService.Tunable {
 
     private static final String TAG = "PagedTileLayout";
+    private static final String DISBLE_QS_PAGING = "disable_qs_paging";
 
     private final ArrayList<Object> mTiles = new ArrayList<>();
     private final ArrayList<TilePage> mPages = new ArrayList<>();
@@ -40,6 +42,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
     private TextView mEditBtn;
 
     public boolean mFirstRowLarge = ConfigUtils.qs().large_first_row;
+    private boolean mDisablePaging = false;
 
     public PagedTileLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -75,6 +78,18 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         setCurrentItem(0);
 
         addDecorView();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        PreferenceService.get(getContext()).addTunable(this, DISBLE_QS_PAGING);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        PreferenceService.get(getContext()).removeTunable(this);
     }
 
     @Override
@@ -146,6 +161,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         final int NT = mTiles.size();
         for (int i = 0; i < NT; i++) {
             Object tile = mTiles.get(i);
+            mPages.get(index).setDisablePaging(mDisablePaging);
             if (mPages.get(index).isFull()) {
                 if (++index == mPages.size()) {
                     XposedHook.logD(TAG, "Adding page for "
@@ -230,8 +246,21 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         return mPages.get(0);
     }
 
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        if (DISBLE_QS_PAGING.equals(key)) {
+            setDisablePaging(PreferenceService.parseBoolean(newValue, false));
+        }
+    }
+
+    private void setDisablePaging(boolean disablePaging) {
+        mDisablePaging = disablePaging;
+        postDistributeTiles();
+    }
+
     static class TilePage extends TileLayout {
         private int mMaxRows = 3;
+        private boolean mDisablePaging;
 
         public TilePage(Context context, AttributeSet attrs) {
             super(context, attrs);
@@ -268,7 +297,7 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
         }
 
         public boolean isFull() {
-            return !(ConfigUtils.qs().disable_qs_paging && isPortrait()) && mRecords.size() >= getMaxTiles();
+            return !(mDisablePaging && isPortrait()) && mRecords.size() >= getMaxTiles();
         }
 
         public int getMaxTiles() {
@@ -276,6 +305,10 @@ public class PagedTileLayout extends ViewPager implements QuickSettingsHooks.QST
             if (mFirstRowLarge)
                 max += 2 - mColumns;
             return max;
+        }
+
+        public void setDisablePaging(boolean disablePaging) {
+            mDisablePaging = disablePaging;
         }
     }
 

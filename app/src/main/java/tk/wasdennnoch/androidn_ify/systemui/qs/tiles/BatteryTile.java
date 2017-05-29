@@ -36,6 +36,7 @@ import tk.wasdennnoch.androidn_ify.systemui.qs.TilesManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryInfoManager;
 import tk.wasdennnoch.androidn_ify.systemui.qs.tiles.misc.BatteryMeterDrawable;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
+import tk.wasdennnoch.androidn_ify.utils.PreferenceService;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
 public class BatteryTile extends QSTile implements BatteryInfoManager.BatteryStatusListener {
@@ -129,13 +130,13 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
     }
 
     // A mix of GB BatteryView and AOSP BatteryMeterView
-    public class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener {
+    public class BatteryView extends ImageView implements BatteryInfoManager.BatteryStatusListener, PreferenceService.Tunable {
+        private static final String SHOW_PERCENTAGE = "battery_tile_show_percentage";
         private final BatteryMeterDrawable mDrawable = newDrawable();
 
         public BatteryView(Context context) {
             super(context);
             mDrawable.setHasIntrinsicSize(false);
-            mDrawable.setShowPercent(ConfigUtils.qs().battery_tile_show_percentage);
             setImageDrawable(mDrawable);
 
             int padding = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
@@ -143,6 +144,18 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             setPadding(0, padding, 0, padding);
 
             SystemUIHooks.batteryInfoManager.registerListener(this);
+        }
+
+        @Override
+        protected void onAttachedToWindow() {
+            super.onAttachedToWindow();
+            PreferenceService.get(getContext()).addTunable(this, SHOW_PERCENTAGE);
+        }
+
+        @Override
+        protected void onDetachedFromWindow() {
+            super.onDetachedFromWindow();
+            PreferenceService.get(getContext()).removeTunable(this);
         }
 
         @Override
@@ -161,6 +174,12 @@ public class BatteryTile extends QSTile implements BatteryInfoManager.BatterySta
             mDrawable.setShowPercent(show);
         }
 
+        @Override
+        public void onTuningChanged(String key, String newValue) {
+            if (SHOW_PERCENTAGE.equals(key)) {
+                mDrawable.setShowPercent(PreferenceService.parseBoolean(newValue, false));
+            }
+        }
     }
 
     private final class BatteryDetail implements DetailViewManager.DetailAdapter, View.OnClickListener,
