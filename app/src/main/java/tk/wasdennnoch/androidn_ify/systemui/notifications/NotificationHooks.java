@@ -745,7 +745,8 @@ public class NotificationHooks {
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "keyguard_clock_notifications_margin_min", modRes.fwd(R.dimen.keyguard_clock_notifications_margin_min));
                 resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "keyguard_clock_notifications_margin_max", modRes.fwd(R.dimen.keyguard_clock_notifications_margin_max));
 
-                resparam.res.setReplacement(PACKAGE_SYSTEMUI, "integer", "keyguard_max_notification_count", config.notifications.keyguard_max);
+                if (config.notifications.change_keyguard_max)
+                    resparam.res.setReplacement(PACKAGE_SYSTEMUI, "integer", "keyguard_max_notification_count", config.notifications.keyguard_max);
 
                 /*try {
                     resparam.res.setReplacement(PACKAGE_SYSTEMUI, "dimen", "notification_children_divider_height", zero);
