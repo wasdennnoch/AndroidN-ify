@@ -250,7 +250,11 @@ public class QSDetail extends LinearLayout {
             mDetailSettingsButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    XposedHelpers.callMethod(XposedHelpers.getObjectField(mQsPanel, "mHost"), "startActivityDismissingKeyguard", settingsIntent);
+                    try {
+                        XposedHelpers.callMethod(XposedHelpers.getObjectField(mQsPanel, "mHost"), "startActivityDismissingKeyguard", settingsIntent);
+                    } catch (NoSuchMethodError e) { //LP 5.1
+                        XposedHelpers.callMethod(XposedHelpers.getObjectField(mQsPanel, "mHost"), "startSettingsActivity", settingsIntent);
+                    }
                 }
             });
 
