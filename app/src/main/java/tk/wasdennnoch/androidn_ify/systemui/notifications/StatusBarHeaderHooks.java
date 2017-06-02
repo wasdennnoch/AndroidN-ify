@@ -1286,43 +1286,6 @@ public class StatusBarHeaderHooks {
                     }
                 });
 
-                /*resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-
-                        View view = liparam.view;
-                        Context context = view.getContext();
-
-                        int scrollViewId = context.getResources().getIdentifier("scroll_view", "id", PACKAGE_SYSTEMUI);
-                        int containerId = context.getResources().getIdentifier("notification_container_parent", "id", PACKAGE_SYSTEMUI);
-
-                        ViewGroup container = (ViewGroup) view.findViewById(containerId);
-                        ViewGroup mNotificationPanelView = (ViewGroup)container.getParent();
-                        ViewGroup scrollView = (ViewGroup) container.findViewById(scrollViewId);
-                        LinearLayout linearLayout = (LinearLayout) scrollView.getChildAt(0);
-                        FrameLayout frameLayout = new FrameLayout(context);
-                        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                        linearLayout.removeViewAt(0);
-                        scrollView.removeView(linearLayout);
-                        container.removeView(scrollView);
-                        container.addView(scrollView);
-
-                        container.addView(frameLayout,0);
-                        frameLayout.addView(mQsContainer);
-                        mQsContainer.setY(0);
-                        container.setLayoutParams(scrollView.getLayoutParams());
-                        mNotificationPanelView.removeView(mStatusBarHeaderView);
-                        mQsContainer.addView(mStatusBarHeaderView,1);
-                        mQsContainer.setVisibility(View.VISIBLE);
-
-                        //linearLayout.removeView(mQsContainer);
-                        //scrollView.setVisibility(View.GONE);
-
-                        //container.addView(mQsContainer,0);
-                        //container.setLayoutParams(scrollView.getLayoutParams());
-                    }
-                });*/
-
             }
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error hooking SystemUI resources", t);
