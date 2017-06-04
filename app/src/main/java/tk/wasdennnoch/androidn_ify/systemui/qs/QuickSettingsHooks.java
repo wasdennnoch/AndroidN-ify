@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
@@ -47,6 +48,8 @@ public class QuickSettingsHooks {
         }
     };
 
+    private Method mSetDetailRecord;
+
     public static QuickSettingsHooks create(ClassLoader classLoader) {
         try {
             XposedHelpers.findClass(CLASS_QS_DRAG_PANEL, classLoader);
@@ -67,6 +70,9 @@ public class QuickSettingsHooks {
         hookSetExpanded();
         hookShowDetail();
         hookFireScanStateChanged();
+
+        Class<?> classRecord = XposedHelpers.findClass(getSecondHookClass() + "$Record", classLoader);
+        mSetDetailRecord = XposedHelpers.findMethodExact(mSecondHookClass, "setDetailRecord", classRecord);
     }
 
     protected void hookConstructor() {
@@ -294,7 +300,7 @@ public class QuickSettingsHooks {
     }
 
     QSDetail setupQsDetail(ViewGroup panel, ViewGroup header) {
-        mQSDetail = new QSDetail(panel.getContext(), panel, header);
+        mQSDetail = new QSDetail(panel.getContext(), panel, header, mSetDetailRecord);
         return mQSDetail;
     }
 

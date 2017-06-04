@@ -34,6 +34,9 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.NonInterceptingScrollView;
@@ -53,6 +56,7 @@ public class QSDetail extends LinearLayout {
     private static final boolean mReconfigureNotificationPanel = ConfigUtils.qs().reconfigure_notification_panel;
 
     private final Context mContext;
+    private final Method mSetDetailRecord;
 
     private ViewGroup mDetailContent;
     private TextView mDetailSettingsButton;
@@ -76,11 +80,12 @@ public class QSDetail extends LinearLayout {
     private boolean mAnimatingOpen;
     private boolean mSwitchState;
 
-    public QSDetail(Context context, ViewGroup panel, ViewGroup header) {
+    public QSDetail(Context context, ViewGroup panel, ViewGroup header, Method setDetailRecord) {
         super(context);
         mContext = context;
         mQsPanel = panel;
         mHeader = header;
+        mSetDetailRecord = setDetailRecord;
 
         Resources resources = mContext.getResources();
         //noinspection deprecation
@@ -261,7 +266,7 @@ public class QSDetail extends LinearLayout {
             mDetailContent.removeAllViews();
             mDetailContent.addView(detailView);
             mDetailAdapter = adapter;
-            XposedHelpers.callMethod(mQsPanel, "setDetailRecord", r);
+            setDetailRecord(r);
             listener = mHideGridContentWhenDone;
             setVisibility(View.VISIBLE);
             if (!mReconfigureNotificationPanel)
@@ -288,6 +293,14 @@ public class QSDetail extends LinearLayout {
                         .setListener(listener)
                         .start();
             }
+        }
+    }
+
+    private void setDetailRecord(Object r) {
+        try {
+            mSetDetailRecord.invoke(mQsPanel, r);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
@@ -352,7 +365,7 @@ public class QSDetail extends LinearLayout {
     private final AnimatorListenerAdapter mTeardownDetailWhenDone = new AnimatorListenerAdapter() {
         public void onAnimationEnd(Animator animation) {
             mDetailContent.removeAllViews();
-            XposedHelpers.callMethod(mQsPanel, "setDetailRecord", (Object) null);
+            setDetailRecord(null);
             setVisibility(View.INVISIBLE);
             mClosingDetail = false;
         }
