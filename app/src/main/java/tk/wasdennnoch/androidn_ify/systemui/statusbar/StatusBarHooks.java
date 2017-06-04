@@ -28,6 +28,7 @@ public class StatusBarHooks {
     private static final String CLASS_MOBILE_DATA_CONTROLLER_51_MOTO = "com.android.systemui.statusbar.policy.MotorolaMobileDataControllerImpl"; // yeah thx Motorola
     private static final String CLASS_MOBILE_DATA_CONTROLLER_50 = "com.android.systemui.statusbar.policy.MobileDataController";
     private static final String CLASS_NAVIGATION_BAR_TRANSITIONS = "com.android.systemui.statusbar.phone.NavigationBarTransitions";
+    private static final String CLASS_NAVIGATION_BAR_VIEW = "com.android.systemui.statusbar.phone.NavigationBarView";
 
     public static final int LIGHTS_IN_DURATION = 250;
     public static final int LIGHTS_OUT_DURATION = 750;
@@ -67,8 +68,24 @@ public class StatusBarHooks {
             hookUpdateTelephony();
             hookSetMobileDataEnabled();
             hookApplyLightsOut();
+            if (ConfigUtils.others().slippery_navbar)
+                hookNavigationBar();
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error in <init>", t);
+        }
+    }
+
+    private void hookNavigationBar() {
+        try {
+            Class classNavigationBarView = XposedHelpers.findClass(CLASS_NAVIGATION_BAR_VIEW, mClassLoader);
+            XposedHelpers.findAndHookMethod(classNavigationBarView, "setSlippery", boolean.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    param.args[0] = true;
+                }
+            });
+        } catch (Throwable t) {
+            XposedHook.logE(TAG, "Can't hook NavigationBarView.setSlippery", t);
         }
     }
 

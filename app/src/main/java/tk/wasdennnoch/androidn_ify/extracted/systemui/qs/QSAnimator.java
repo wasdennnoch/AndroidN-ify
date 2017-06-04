@@ -292,12 +292,12 @@ public class QSAnimator implements PagedTileLayout.PageListener, OnLayoutChangeL
     }
 
     public void setPosition(float position) {
-        if (mFirstPageAnimator == null) return;
         if (mOnKeyguard) {
             return;
         }
         mLastPosition = position;
         if (mOnFirstPage && mAllowFancy && (!StatusBarHeaderHooks.mShowingDetail || position == 0)) {
+            if (mFirstPageAnimator == null) return;
             mQuickQsPanel.setAlpha(1);
             mFirstPageAnimator.setPosition(position);
             mFirstPageDelayedAnimator.setPosition(position);

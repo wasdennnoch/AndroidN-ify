@@ -1,0 +1,103 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/header_qs">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_notification_header"
+        android:title="@string/enable_notification_header"/>
+
+    <MultiSelectListPreference
+        android:defaultValue="@array/empty_array"
+        android:dependency="enable_notification_header"
+        android:entries="@array/keep_backgrounds"
+        android:entryValues="@array/keep_backgrounds_values"
+        android:key="keep_backgrounds"
+        android:summary="@string/keep_bg"
+        android:title="@string/keep_bg_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_notification_header"
+        android:key="force_old_date_position"
+        android:summary="@string/force_old_date_position_summary"
+        android:title="@string/force_old_date_position"/>
+
+    <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+        android:defaultValue="6"
+        android:dependency="enable_notification_header"
+        android:key="notification_header_qs_tiles_count"
+        android:title="@string/notification_header_qs_tiles_count"
+        app:interval="1"
+        app:maximum="10"
+        app:minimum="3"
+        app:monitorBoxEnabled="true"
+        app:monitorBoxLeadingSpace="true"
+        app:monitorBoxUnit="@string/notification_header_qs_tiles_count_monitor"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="enable_notification_header"
+        android:key="allow_fancy_qs_transition"
+        android:title="@string/allow_fancy_qs_transition"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="enable_notification_header"
+        android:key="enable_qs_editor"
+        android:title="@string/enable_qs_editor"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_qs_editor"
+        android:key="alternative_qs_loading"
+        android:summary="@string/alternative_qs_loading_summary"
+        android:title="@string/alternative_qs_loading"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_qs_editor"
+        android:key="inject_gb_tiles"
+        android:title="@string/inject_gb_tiles"
+        android:summary="@string/inject_gb_tiles_summary"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_qs_editor"
+        android:key="battery_tile_show_percentage"
+        android:summary="@string/battery_tile_show_percentage_summary"
+        android:title="@string/battery_tile_show_percentage"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="enable_notification_header"
+        android:key="enable_new_tile_click_behavior"
+        android:summary="@string/enable_new_tile_click_behavior_summary"
+        android:title="@string/enable_new_tile_click_behavior"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_notification_header"
+        android:key="enable_large_first_row"
+        android:summary="@string/enable_large_first_row_summary2"
+        android:title="@string/enable_large_first_row"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_qs_editor"
+        android:key="disable_qs_paging"
+        android:summary="@string/disable_qs_paging_summary"
+        android:title="@string/disable_qs_paging"/>
+
+    <tk.wasdennnoch.androidn_ify.ui.preference.SubPreference
+        android:dependency="enable_notification_header"
+        android:key="settings_hide_header_icons"
+        android:title="@string/hide_icons_title"
+        app:content="@xml/hide_header_icons_prefs" />
+
+    <Preference
+        android:key="fix_stuck_inversion"
+        android:summary="@string/fix_stuck_inversion"
+        android:title="@string/fix_stuck_inversion_title"/>
+
+</PreferenceScreen>

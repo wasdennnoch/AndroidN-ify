@@ -267,9 +267,11 @@ public class ConfigUtils {
 
     public class OthersConfig {
         public final boolean package_installer;
+        public final boolean slippery_navbar;
 
         public OthersConfig(SharedPreferences prefs) {
             package_installer = prefs.getBoolean("package_installer", false);
+            slippery_navbar = prefs.getBoolean("slippery_navbar", true);
         }
     }
 

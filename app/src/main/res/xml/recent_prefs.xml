@@ -1,0 +1,60 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/header_recents">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_recents_double_tap"
+        android:summary="@string/enable_recents_double_tap"
+        android:title="@string/enable_recents_double_tap_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_recents_double_tap"
+        android:key="alternative_method"
+        android:summary="@string/alternative_double_tap"
+        android:title="@string/alternative_double_tap_title"/>
+
+    <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+        android:defaultValue="400"
+        android:dependency="enable_recents_double_tap"
+        android:key="double_tap_speed"
+        android:title="@string/double_tap_speed_title"
+        app:interval="10"
+        app:maximum="1500"
+        app:minimum="100"
+        app:monitorBoxEnabled="true"
+        app:monitorBoxUnit="ms"/>
+
+    <tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference
+        android:defaultValue="0"
+        android:entries="@array/recents_button_behaviors"
+        android:entryValues="@array/recents_button_behaviors_values"
+        android:key="recents_button_behavior"
+        android:summary="[%s]"
+        android:title="@string/recents_button_behavior_title"/>
+
+    <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+        android:defaultValue="1000"
+        android:enabled="false"
+        android:key="recents_navigation_delay"
+        android:summary="@string/recents_navigation_delay"
+        android:title="@string/recents_navigation_delay_title"
+        app:interval="10"
+        app:maximum="4000"
+        app:minimum="500"
+        app:monitorBoxEnabled="true"
+        app:monitorBoxUnit="ms"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_large_recents"
+        android:summary="@string/enable_large_recents_summary"
+        android:title="@string/enable_large_recents"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="no_recents_image"
+        android:title="@string/no_recents_image"/>
+
+</PreferenceScreen>

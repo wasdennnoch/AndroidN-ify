@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/header_settings">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_settings_summaries"
+        android:summary="@string/enable_settings_summaries"
+        android:title="@string/enable_settings_summaries_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_settings_summaries"
+        android:key="fix_sound_notif_tile"
+        android:summary="@string/fix_sound_notif_tile"
+        android:title="@string/fix_sound_notif_tile_title"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_install_source"
+        android:summary="@string/enable_install_source"
+        android:title="@string/enable_install_source_title"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_n_platlogo"
+        android:title="@string/enable_n_platlogo_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_n_platlogo"
+        android:key="use_namey_mcnameface"
+        android:title="@string/use_namey_mcnameface_title"/>
+
+</PreferenceScreen>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/header_experimental">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="enable_experimental_features"
+        android:title="@string/enable_experimental_features"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="enable_experimental_features"
+        android:key="enable_n_style_settings_dashboard"
+        android:summary="@string/enable_n_style_settings_dashboard_summary"
+        android:title="@string/enable_n_style_settings_dashboard"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="enable_experimental_features"
+        android:key="enable_settings_drawer"
+        android:title="@string/enable_settings_drawer"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_experimental_features"
+        android:key="fix_header_space"
+        android:title="@string/fix_header_space_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="fix_header_space"
+        android:key="reconfigure_notification_panel"
+        android:title="@string/reconfigure_notification_panel_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="enable_experimental_features"
+        android:key="notification_experimental"
+        android:summary="@string/notification_experimental"
+        android:title="@string/notification_experimental_title"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="enable_experimental_features"
+        android:key="enable_assistant"
+        android:summary="@string/enable_assistant_summary"
+        android:title="@string/enable_assistant"/>
+
+</PreferenceScreen>

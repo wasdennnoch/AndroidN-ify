@@ -3,6 +3,8 @@ package tk.wasdennnoch.androidn_ify.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,6 +23,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -31,7 +34,6 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import tk.wasdennnoch.androidn_ify.BuildConfig;
 import tk.wasdennnoch.androidn_ify.R;
@@ -39,6 +41,7 @@ import tk.wasdennnoch.androidn_ify.XposedHook;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.views.RemoteInputHelper;
 import tk.wasdennnoch.androidn_ify.ui.emergency.PreferenceKeys;
 import tk.wasdennnoch.androidn_ify.ui.preference.DropDownPreference;
+import tk.wasdennnoch.androidn_ify.ui.preference.SubPreference;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.MiscUtils;
 import tk.wasdennnoch.androidn_ify.utils.RomUtils;
@@ -46,7 +49,8 @@ import tk.wasdennnoch.androidn_ify.utils.UpdateUtils;
 import tk.wasdennnoch.androidn_ify.utils.ViewUtils;
 
 @Keep
-public class SettingsActivity extends Activity implements View.OnClickListener {
+public class SettingsActivity extends Activity implements View.OnClickListener,
+        PreferenceFragment.OnPreferenceStartFragmentCallback {
 
     private static final String TAG = "SettingsActivity";
 
@@ -109,7 +113,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         }
         mExperimental = ConfigUtils.isExperimental(prefs);
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.fragment, new SettingsFragment()).commit();
             if (BuildConfig.AUTOMATED_BUILD && !prefs.contains(getWarningPrefsKey())) {
                 showDialog(R.string.warning, mExperimental ? R.string.experimental_build_warning : R.string.automated_build_warning, false, null, new Runnable() {
                     @Override
@@ -185,56 +189,33 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         });
     }
 
-    public static class Fragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
+    @Override
+    public boolean onPreferenceStartFragment(PreferenceFragment caller, Preference pref) {
+        if (pref instanceof SubPreference) {
+            Fragment fragment = SubSettingsFragment.newInstance(((SubPreference) pref));
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            setTitle(pref.getTitle());
+            transaction.setCustomAnimations(R.animator.fly_in, R.animator.fade_out, R.animator.fade_in, R.animator.fly_out);
+            transaction.replace(R.id.fragment, fragment);
+            transaction.addToBackStack("PreferenceFragment");
+            transaction.commit();
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+            return true;
+        }
+        return false;
+    }
 
-        /*private LoaderManager.LoaderCallbacks<String> updateLoaderCallbacks = new LoaderManager.LoaderCallbacks<String>() {
-            @Override
-            public Loader<String> onCreateLoader(int id, Bundle args) {
-                return new AsyncTaskLoader<String>(getActivity()) {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getActionBar().setDisplayHomeAsUpEnabled(getFragmentManager().getBackStackEntryCount() != 0);
+    }
 
-                    @Override
-                    protected void onStartLoading() {
-                        forceLoad();
-                    }
-
-                    @Override
-                    public String loadInBackground() {
-                        try {
-                            URL url = new URL("https://raw.githubusercontent.com/Maxr1998/AndroidN-ify/master/app/src/main/assets/assistant_hooks");
-                            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-                            return MiscUtils.readInputStream(in);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            return null;
-                        }
-                    }
-                };
-            }
-
-            @SuppressLint("ApplySharedPref")
-            @Override
-            public void onLoadFinished(Loader loader, String data) {
-                try {
-                    prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, MiscUtils.checkValidJSONArray(data).toString()).commit();
-                } catch (JSONException | NullPointerException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onLoaderReset(Loader loader) {
-            }
-        };*/
+    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, UpdateUtils.UpdateListener {
 
         private SharedPreferences prefs;
         private boolean mExperimental;
-        private boolean mShowedDialog;
         private boolean mShowExperimental;
-
-        private boolean mAssistantSupported = false;
-        private String mGoogleAppVersionName;
 
         @SuppressLint("ApplySharedPref")
         @Override
@@ -245,13 +226,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             addPreferencesFromResource(R.xml.preferences);
             prefs = ConfigUtils.getPreferences(getActivity());
             findPreference("theme_colorPrimary").setEnabled(!prefs.getString("app_theme", "light").equals("device"));
-            if (!MiscUtils.isGBInstalled(getActivity())) {
-                Preference p = findPreference("inject_gb_tiles");
-                p.setEnabled(false);
-                p.setSummary(R.string.inject_gb_tiles_not_installed);
-            }
             mExperimental = ConfigUtils.isExperimental(prefs);
-            mShowedDialog = prefs.getBoolean("reconfigure_notification_panel_warning", false);
             mShowExperimental = ConfigUtils.showExperimental(prefs);
             if (UpdateUtils.isEnabled()) {
                 if (prefs.getBoolean("check_for_updates", true))
@@ -268,43 +243,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             }
             // SELinux test, see XposedHook
             prefs.edit().putBoolean("can_read_prefs", true).commit();
-
-            try {
-                mGoogleAppVersionName = getActivity().getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName;
-            } catch (PackageManager.NameNotFoundException e) {
-                mGoogleAppVersionName = "Error";
-            }
-
-            /*if (UpdateUtils.isConnected(getActivity())) {
-                // Always update from cloud if connected
-                getLoaderManager().initLoader(0, null, updateLoaderCallbacks).startLoading();
-            } else {*/
-            // Else load config from assets
-            try {
-                String result = MiscUtils.readInputStream(getResources().getAssets().open("assistant_hooks"));
-                JSONArray hookConfigs = MiscUtils.checkValidJSONArray(result);
-                // Only update if config from assets is newer
-                if (hookConfigs.optInt(0) > new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
-                    prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, hookConfigs.toString()).commit();
-                }
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-            //}
-
-            // Read version and check if supported
-            try {
-                JSONArray hookConfigs = new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]"));
-                for (int i = 0; i < hookConfigs.length(); i++) {
-                    if (hookConfigs.optInt(i, -1) != -1)
-                        continue;
-                    if (mGoogleAppVersionName.matches(hookConfigs.getJSONObject(i).optString("version"))) {
-                        mAssistantSupported = true;
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            setHasOptionsMenu(true);
         }
 
         @Override
@@ -325,92 +264,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             }
         }
 
-        @Override
-        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-            super.onPreferenceTreeClick(preferenceScreen, preference);
-            if (preference instanceof PreferenceScreen) {
-                PreferenceScreen screen = (PreferenceScreen) preference;
-                if (screen.getDialog() != null)
-                    ViewUtils.applyTheme(screen.getDialog(), getActivity(), preference.getSharedPreferences());
-                switch (preference.getKey()) {
-                    case "settings_recents":
-                        DropDownPreference recentsBehaviorPref = (DropDownPreference) screen.findPreference("recents_button_behavior");
-                        if (!ConfigUtils.M) {
-                            lockPreference(recentsBehaviorPref);
-                        } else {
-                            final Preference delayPref = screen.findPreference("recents_navigation_delay");
-                            if (recentsBehaviorPref.getValue().equals("2")) {
-                                delayPref.setEnabled(true);
-                            }
-                            recentsBehaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                                @Override
-                                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                    delayPref.setEnabled(newValue.equals("2"));
-                                    return true;
-                                }
-                            });
-                        }
-                        break;
-                    case "settings_qs":
-                        if (getResources().getBoolean(R.bool.quick_settings_show_full_alarm)) { // Already showing full alarm
-                            final Preference forceOldDatePosPref = screen.findPreference("force_old_date_position");
-                            forceOldDatePosPref.setEnabled(false);
-                            forceOldDatePosPref.setSummary(R.string.force_old_date_position_disabled_summary);
-                        }
-                        break;
-                    case "settings_notifications":
-                        if (!ConfigUtils.M) {
-                            lockPreference(screen.findPreference("notification_experimental"));
-                            lockPreference(screen.findPreference("enable_notifications_background")); // For now
-                        }
-                        if (!RemoteInputHelper.DIRECT_REPLY_ENABLED) {
-                            Preference directReplyOnKeyguard = findPreference("allow_direct_reply_on_keyguard");
-                            if (directReplyOnKeyguard != null)
-                                screen.removePreference(directReplyOnKeyguard);
-                        }
-                        break;
-                    case "settings_experimental":
-                        Preference assistant = findPreference("enable_assistant");
-                        Preference reconfigureNotifPanel = findPreference("reconfigure_notification_panel");
-                        reconfigureNotifPanel.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                            @Override
-                            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                boolean newVal = (boolean) newValue;
-                                if(newVal && !mShowedDialog) {
-                                    showDialog(0, R.string.reconfigure_notification_panel_warning, false, new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            mShowedDialog = true;
-                                            prefs.edit().putBoolean("reconfigure_notification_panel_warning", mShowedDialog).apply();
-                                        }
-                                    }, null, android.R.string.ok, android.R.string.cancel);
-                                    return false;
-                                }
-                                return true;
-
-                            }
-                        });
-                        if (!ConfigUtils.M) {
-                            lockPreference(assistant);
-                            lockPreference(reconfigureNotifPanel);
-                        } else {
-                            if (!mAssistantSupported) {
-                                assistant.setEnabled(false);
-                                assistant.setSummary(getResources().getString(R.string.enable_assistant_summary_unsupported, mGoogleAppVersionName));
-                            }
-                        }
-                        break;
-                }
-            } else {
-                switch (preference.getKey()) {
-                    case "fix_stuck_inversion":
-                        getActivity().sendBroadcast(new Intent(ACTION_FIX_INVERSION).setPackage("com.android.systemui"));
-                        break;
-                }
-            }
-            return false;
-        }
-
         private void lockPreference(Preference pref) {
             if (pref == null) return;
             pref.setEnabled(false);
@@ -423,6 +276,8 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
             if (mShowExperimental != ConfigUtils.showExperimental(ConfigUtils.getPreferences(getActivity()))) {
                 getActivity().recreate();
+            } else {
+                getActivity().setTitle(R.string.app_name);
             }
         }
 
@@ -475,22 +330,191 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             if (updateData.getNumber() > BuildConfig.BUILD_NUMBER && updateData.hasArtifact())
                 UpdateUtils.showNotification(updateData, mContext, mExperimental);
         }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            inflater.inflate(R.menu.menu_settings, menu);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.restart_systemui:
+                    ((SettingsActivity) getActivity()).showRestartSystemUIDialog();
+                    return true;
+                case R.id.about:
+                    startActivity(new Intent(getActivity(), AboutActivity.class));
+                    return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
-        return true;
+    public static class SubSettingsFragment extends PreferenceFragment {
+
+        private static final String TITLE = "title";
+        private static final String CONTENT_RES_ID = "content_res_id";
+
+        private SharedPreferences prefs;
+
+        private boolean mShowedDialog;
+        private boolean mAssistantSupported = false;
+        private String mGoogleAppVersionName;
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(getContent());
+            PreferenceScreen screen = getPreferenceScreen();
+            prefs = screen.getSharedPreferences();
+            if (getContent() == R.xml.qs_prefs) {
+                if (!MiscUtils.isGBInstalled(getActivity())) {
+                    Preference p = findPreference("inject_gb_tiles");
+                    p.setEnabled(false);
+                    p.setSummary(R.string.inject_gb_tiles_not_installed);
+                }
+                if (getResources().getBoolean(R.bool.quick_settings_show_full_alarm)) { // Already showing full alarm
+                    final Preference forceOldDatePosPref = screen.findPreference("force_old_date_position");
+                    forceOldDatePosPref.setEnabled(false);
+                    forceOldDatePosPref.setSummary(R.string.force_old_date_position_disabled_summary);
+                }
+                findPreference("fix_stuck_inversion").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        getActivity().sendBroadcast(new Intent(ACTION_FIX_INVERSION).setPackage("com.android.systemui"));
+                        return false;
+                    }
+                });
+            } else if (getContent() == R.xml.recent_prefs) {
+                DropDownPreference recentsBehaviorPref = (DropDownPreference) screen.findPreference("recents_button_behavior");
+                if (!ConfigUtils.M) {
+                    lockPreference(recentsBehaviorPref);
+                } else {
+                    final Preference delayPref = screen.findPreference("recents_navigation_delay");
+                    if (recentsBehaviorPref.getValue().equals("2")) {
+                        delayPref.setEnabled(true);
+                    }
+                    recentsBehaviorPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                        @Override
+                        public boolean onPreferenceChange(Preference preference, Object newValue) {
+                            delayPref.setEnabled(newValue.equals("2"));
+                            return true;
+                        }
+                    });
+                }
+            } else if (getContent() == R.xml.notifications_prefs) {
+                if (!ConfigUtils.M) {
+                    lockPreference(screen.findPreference("notification_experimental"));
+                    lockPreference(screen.findPreference("enable_notifications_background")); // For now
+                }
+                if (!RemoteInputHelper.DIRECT_REPLY_ENABLED) {
+                    Preference directReplyOnKeyguard = findPreference("allow_direct_reply_on_keyguard");
+                    if (directReplyOnKeyguard != null)
+                        screen.removePreference(directReplyOnKeyguard);
+                }
+            } else if (getContent() == R.xml.experimental_prefs) {
+                mShowedDialog = prefs.getBoolean("reconfigure_notification_panel_warning", false);
+
+                try {
+                    mGoogleAppVersionName = getActivity().getPackageManager().getPackageInfo(XposedHook.PACKAGE_GOOGLE, 0).versionName;
+                } catch (PackageManager.NameNotFoundException e) {
+                    mGoogleAppVersionName = "Error";
+                }
+
+                /*if (UpdateUtils.isConnected(getActivity())) {
+                    // Always update from cloud if connected
+                    getLoaderManager().initLoader(0, null, updateLoaderCallbacks).startLoading();
+                } else {*/
+                // Else load config from assets
+                try {
+                    String result = MiscUtils.readInputStream(getResources().getAssets().open("assistant_hooks"));
+                    JSONArray hookConfigs = MiscUtils.checkValidJSONArray(result);
+                    // Only update if config from assets is newer
+                    if (hookConfigs.optInt(0) > new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]")).optInt(0)) {
+                        prefs.edit().putString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, hookConfigs.toString()).commit();
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+                //}
+
+                // Read version and check if supported
+                try {
+                    JSONArray hookConfigs = new JSONArray(prefs.getString(PreferenceKeys.GOOGLE_APP_HOOK_CONFIGS, "[]"));
+                    for (int i = 0; i < hookConfigs.length(); i++) {
+                        if (hookConfigs.optInt(i, -1) != -1)
+                            continue;
+                        if (mGoogleAppVersionName.matches(hookConfigs.getJSONObject(i).optString("version"))) {
+                            mAssistantSupported = true;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Preference assistant = findPreference("enable_assistant");
+                Preference reconfigureNotifPanel = findPreference("reconfigure_notification_panel");
+                reconfigureNotifPanel.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        boolean newVal = (boolean) newValue;
+                        if(newVal && !mShowedDialog) {
+                            showDialog(0, R.string.reconfigure_notification_panel_warning, false, new Runnable() {
+                                @Override
+                                public void run() {
+                                    mShowedDialog = true;
+                                    prefs.edit().putBoolean("reconfigure_notification_panel_warning", mShowedDialog).apply();
+                                }
+                            }, null, android.R.string.ok, android.R.string.cancel);
+                            return false;
+                        }
+                        return true;
+
+                    }
+                });
+                if (!ConfigUtils.M) {
+                    lockPreference(assistant);
+                    lockPreference(reconfigureNotifPanel);
+                } else {
+                    if (!mAssistantSupported) {
+                        assistant.setEnabled(false);
+                        assistant.setSummary(getResources().getString(R.string.enable_assistant_summary_unsupported, mGoogleAppVersionName));
+                    }
+                }
+            }
+        }
+
+        private void lockPreference(Preference pref) {
+            if (pref == null) return;
+            pref.setEnabled(false);
+            pref.setSummary(getString(R.string.requires_android_version, "Marshmallow"));
+        }
+
+        private int getContent() {
+            return getArguments().getInt(CONTENT_RES_ID);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            getActivity().setTitle(getArguments().getString(TITLE));
+        }
+
+        public static SubSettingsFragment newInstance(SubPreference preference) {
+            SubSettingsFragment fragment = new SubSettingsFragment();
+            Bundle b = new Bundle(2);
+            b.putString(TITLE, (String) preference.getTitle());
+            b.putInt(CONTENT_RES_ID, preference.getContent());
+            fragment.setArguments(b);
+            return fragment;
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.restart_systemui:
-                showRestartSystemUIDialog();
-                return true;
-            case R.id.about:
-                startActivity(new Intent(this, AboutActivity.class));
+            case android.R.id.home:
+                onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,0 +1,80 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/header_notifications">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notification_change_style"
+        android:title="@string/notifications_change_style"/>
+
+    <PreferenceScreen
+        android:dependency="notification_change_style"
+        android:key="notification_blacklisted_apps"
+        android:summary="@string/notification_blacklisted_apps"
+        android:title="@string/notification_blacklisted_apps_title">
+        <intent android:action="tk.wasdennnoch.androidn_ify.ui.BlacklistAppActivity"/>
+    </PreferenceScreen>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="allow_direct_reply_on_keyguard"
+        android:summary="@string/allow_direct_reply_on_keyguard_summary"
+        android:title="@string/allow_direct_reply_on_keyguard"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_notifications_background"
+        android:summary="@string/enable_notifications_background_summary"
+        android:title="@string/enable_notifications_background"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="enable_data_disabled_indicator"
+        android:summary="@string/enable_data_disabled_indicator_summary"
+        android:title="@string/enable_data_disabled_indicator"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notification_dismiss_button"
+        android:summary="@string/notification_dismiss_button"
+        android:title="@string/notification_dismiss_button_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="notification_change_style"
+        android:key="generate_notification_accent_color"
+        android:title="@string/generate_notification_accent_color"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="notification_change_style"
+        android:key="notifications_custom_actions_color"
+        android:summary="@string/notifications_custom_actions_color"
+        android:title="@string/notifications_custom_actions_color_title"/>
+
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        alphaSlider="true"
+        hexValue="true"
+        android:defaultValue="0"
+        android:dependency="notifications_custom_actions_color"
+        android:key="actions_background_colors"
+        android:title="@string/notifications_actions_color_title"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:dependency="notification_change_style"
+        android:key="notification_change_keyguard_max"
+        android:title="@string/notification_keyguard_change_max_title"/>
+
+    <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+        android:defaultValue="3"
+        android:dependency="notification_change_keyguard_max"
+        android:key="notification_keyguard_max"
+        android:title="@string/notification_keyguard_max_title"
+        app:interval="1"
+        app:maximum="5"
+        app:minimum="0"
+        app:monitorBoxEnabled="true"
+        app:monitorBoxUnit=""/>
+
+</PreferenceScreen>

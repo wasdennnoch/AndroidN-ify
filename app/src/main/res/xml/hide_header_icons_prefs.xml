@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/hide_icons_title">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="hide_tuner_icon"
+        android:title="@string/hide_tuner_icon_title" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="hide_edit_tiles"
+        android:summary="@string/hide_edit_tiles_summary"
+        android:title="@string/hide_edit_tiles_title" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="hide_carrier_label"
+        android:title="@string/hide_carrier_label_title" />
+
+</PreferenceScreen>
