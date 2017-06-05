@@ -1333,19 +1333,6 @@ public class NotificationHooks {
                     }
                 });
 
-                resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_part_line2", new XC_LayoutInflated() {
-                    @Override
-                    public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                        Context context = liparam.view.getContext();
-                        ResourceUtils res = ResourceUtils.getInstance(context);
-
-                        int notificationTextMarginEnd = res.getDimensionPixelSize(R.dimen.notification_text_margin_end);
-
-                        ViewStub progress = (ViewStub) liparam.view.findViewById(context.getResources().getIdentifier("progress", "id", PACKAGE_ANDROID));
-                        ViewUtils.setMarginEnd(progress, notificationTextMarginEnd);
-                    }
-                });
-
                 resparam.res.hookLayout(PACKAGE_ANDROID, "layout", "notification_template_part_line3", new XC_LayoutInflated() {
                     @Override
                     public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
