@@ -18,6 +18,9 @@
     <color name="remote_input_hint">#99ffffff</color>
 
     <color name="notification_shade_background_color">#ffeeeeee</color>
+    <color name="notification_action_list">#ffeeeeee</color>
+    <color name="notification_material_background_color">#ffffffff</color>
+    <color name="notification_default_color">#757575</color> <!-- Gray 600 -->
     <!-- /Notifications / Status bar header -->
 
     <!-- Emergency info -->

@@ -15,7 +15,6 @@
 
     <dimen name="qs_detail_margin_top">28dp</dimen>
     <dimen name="qs_detail_padding_bottom">8dp</dimen>
-    <dimen name="qs_detail_title_padding">16dp</dimen>
     <dimen name="qs_detail_button_padding">12dp</dimen>
 
     <dimen name="right_layout_height">48dp</dimen>
@@ -23,7 +22,6 @@
     <dimen name="right_layout_margin_right">12dp</dimen>
     <dimen name="right_icon_size">48dp</dimen>
     <dimen name="right_icon_width_small">38dp</dimen>
-    <dimen name="media_notification_expanded_image_max_size">94dp</dimen>
     <dimen name="expand_indicator_padding">12dp</dimen>
 
     <dimen name="qs_quick_panel_margin_horizontal">12dp</dimen>
@@ -55,11 +53,15 @@
     <dimen name="notification_icon_margin_end">3dp</dimen>
     <dimen name="notification_app_name_margin_start">3dp</dimen>
     <dimen name="notification_app_name_margin_end">2dp</dimen>
-    <dimen name="notification_actions_margin_start">8dp</dimen>
+    <dimen name="notification_actions_margin_start">12dp</dimen>
     <dimen name="notification_content_margin_start">16dp</dimen>
-    <dimen name="notification_content_margin_top">25.5dp</dimen> <!-- 37.5 - 12 -->
+    <dimen name="notification_content_margin_end">16dp</dimen>
+    <dimen name="notification_content_margin_top">37.5dp</dimen>
+    <dimen name="notification_content_margin_bottom">16dp</dimen>
+    <dimen name="notification_progressbar_container_margin">15dp</dimen>
     <dimen name="notification_header_height">53dp</dimen>
     <dimen name="notification_header_margin_top" tools:ignore="UnusedResources">10dp</dimen>
+    <dimen name="notification_large_icon_width">64dp</dimen>
     <dimen name="notification_right_icon_size">40dp</dimen>
     <dimen name="notification_right_icon_margin_top">36dp</dimen>
     <dimen name="notification_right_icon_margin_end">16dp</dimen>
@@ -70,17 +72,34 @@
     <dimen name="notification_max_height">284dp</dimen>
     <dimen name="notification_time_margin_start">1dp</dimen>
     <dimen name="notification_divider_margin_top">1dp</dimen>
-    <dimen name="notification_header_height_exclude_top">34dp</dimen>
     <dimen name="notification_text_margin_end">56dp</dimen>
-    <dimen name="notification_text_inbox_margin_end">48dp</dimen>
-    <dimen name="notification_actions_margin_top">16dp</dimen>
+    <dimen name="notification_inbox_padding">16dp</dimen>
+    <dimen name="notification_inbox_item_top_padding">5dp</dimen>
     <dimen name="notification_action_list_height">56dp</dimen>
+    <dimen name="notification_action_button_height">48dp</dimen>
+    <dimen name="notification_action_button_margin_start">4dp</dimen>
+    <dimen name="notification_action_button_padding">10dp</dimen>
     <dimen name="notification_media_action_width">48dp</dimen>
     <dimen name="notification_media_action_padding">8dp</dimen>
     <dimen name="notification_media_action_margin">2dp</dimen>
-    <dimen name="notification_dismiss_button_padding">16dp</dimen>
-    <dimen name="notification_dismiss_button_padding_top">14dp</dimen>
+    <dimen name="notification_media_actions_margin_top">-21dp</dimen>
+    <dimen name="notification_big_picture_margin_top">13dp</dimen>
+    <dimen name="notification_big_picture_margin_bottom">16dp</dimen>
+    <dimen name="notification_content_picture_margin">56dp</dimen>
+    <dimen name="notification_content_image_margin_end">8dp</dimen>
+    <dimen name="notification_dismiss_button_padding">12dp</dimen>
+    <dimen name="notification_dismiss_button_padding_top">10dp</dimen>
+    <dimen name="notification_dismiss_view_padding_right">8dp</dimen>
+    <dimen name="notification_dismiss_button_min_width">88dp</dimen>
+    <dimen name="notification_dismiss_button_min_height">48dp</dimen>
     <dimen name="notification_divider_height">0.5dp</dimen>
+    <dimen name="notification_action_button_text_size">14sp</dimen>
+    <dimen name="media_actions_margin_bottom">12dp</dimen>
+    <dimen name="media_actions_margin_start">10dp</dimen>
+    <dimen name="media_notification_expanded_image_max_size">94dp</dimen>
+    <dimen name="big_media_actions_margin_start">8dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="notification_text_line1_margin_start">16dp</dimen>
     <dimen name="notification_title_text_size">14sp</dimen>
     <dimen name="z_distance_between_notifications">0.5dp</dimen>
     <dimen name="task_progress_height">2dp</dimen>
@@ -93,18 +112,15 @@
 
     <dimen name="notification_separator_size">1dp</dimen>
     <dimen name="notification_header_shrink_min_width">72dp</dimen>
-    <dimen name="notification_content_margin_end">16dp</dimen>
     <dimen name="notification_content_plus_picture_margin_end">72dp</dimen>
     <dimen name="notification_content_plus_big_picture_margin_end">110dp</dimen>
+    <dimen name="notification_main_plus_big_picture_margin_end">126dp</dimen>
     <dimen name="notification_badge_size" tools:ignore="UnusedResources">12dp</dimen>
 
     <dimen name="notification_panel_width" tools:ignore="UnusedResources">@dimen/match_parent</dimen>
-    <dimen name="standard_notification_panel_width">416dp</dimen>
     <dimen name="navigation_bar_size">48dp</dimen>
 
     <dimen name="notification_min_content_height">41dp</dimen>
-    <dimen name="notification_content_margin_bottom">16dp</dimen>
-    <dimen name="notification_top_pad">10dp</dimen>
     <!-- /Notifications / Status bar header -->
 
     <dimen name="notification_header_background_height">45.5dp</dimen>
@@ -125,7 +141,6 @@
     <dimen name="qs_tile_margin">16dp</dimen>
     <dimen name="qs_tile_margin_top">16dp</dimen>
     <dimen name="qs_container_elevation">4dp</dimen>
-    <dimen name="settings_icon_size">20dp</dimen>
 
     <dimen name="battery_height">14.5dp</dimen>
     <dimen name="battery_width">9.5dp</dimen>
@@ -162,11 +177,6 @@
     <dimen name="notification_filter_button_width">52dp</dimen>
     <dimen name="qs_edit_bottom_margin">16dp</dimen>
     <dimen name="neko_display_size">64dp</dimen>
-    <dimen name="media_actions_margin_bottom">12dp</dimen>
-    <dimen name="media_actions_margin_start">10dp</dimen>
-    <dimen name="big_media_actions_margin_start">8dp</dimen>
-    <dimen name="zero">0dp</dimen>
-    <dimen name="notification_text_line1_margin_start">10dp</dimen>
     
     <!--Package Installer -->
     <dimen name="app_icon_size">24dp</dimen>
