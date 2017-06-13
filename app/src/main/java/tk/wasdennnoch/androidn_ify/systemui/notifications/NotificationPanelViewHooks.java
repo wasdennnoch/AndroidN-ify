@@ -1,5 +1,6 @@
 package tk.wasdennnoch.androidn_ify.systemui.notifications;
 
+import android.annotation.SuppressLint;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import static tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks.getStatusBarState;
 import static tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks.isOnKeyguard;
 
-
+@SuppressLint("StaticFieldLeak")
 public class NotificationPanelViewHooks {
 
     private static final String TAG = "NotificationPanelViewHooks";

@@ -100,8 +100,8 @@ def getGitInfo() {
 }
 
 dependencies {
-    provided 'de.robv.android.xposed:api:81'
-    provided 'de.robv.android.xposed:api:81:sources'
+    provided 'de.robv.android.xposed:api:82'
+    provided 'de.robv.android.xposed:api:82:sources'
     provided files('libs-provide/android_hidden_api_23.jar')
     compile "com.android.support:support-v13:$supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$supportLibraryVersion"

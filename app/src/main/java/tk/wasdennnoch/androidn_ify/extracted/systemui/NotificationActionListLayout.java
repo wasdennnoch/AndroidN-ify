@@ -16,7 +16,6 @@
 
 package tk.wasdennnoch.androidn_ify.extracted.systemui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Pair;
@@ -30,9 +29,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import tk.wasdennnoch.androidn_ify.R;
-import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
-
 /**
  * Layout for notification actions that ensures that no action consumes more than their share of
  * the remaining available width, and the last action consumes the remaining space.
@@ -40,15 +36,12 @@ import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 @RemoteViews.RemoteView
 public class NotificationActionListLayout extends ViewGroup {
 
-    private final int mPadding;
     private int mTotalWidth = 0;
     private SortableArrayList<Pair<Integer, TextView>> mMeasureOrderTextViews = new SortableArrayList<>();
     private ArrayList<View> mMeasureOrderOther = new ArrayList<>();
 
     public NotificationActionListLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mPadding = ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_content_margin_start);
-        setPadding(mPadding, getPaddingTop(), mPadding, getPaddingBottom());
     }
 
     @Override
@@ -57,9 +50,6 @@ public class NotificationActionListLayout extends ViewGroup {
         int textViews = 0;
         int otherViews = 0;
         int notGoneChildren = 0;
-
-        int pl = mPadding;
-        int pr = mPadding;
 
         View lastNotGoneChild = null;
         for (int i = 0; i < N; i++) {
@@ -98,7 +88,7 @@ public class NotificationActionListLayout extends ViewGroup {
         final boolean constrained =
                 MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.UNSPECIFIED;
 
-        final int innerWidth = MeasureSpec.getSize(widthMeasureSpec) - pl - pr;
+        final int innerWidth = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();
         final int otherSize = mMeasureOrderOther.size();
         int usedWidth = 0;
 
@@ -156,7 +146,7 @@ public class NotificationActionListLayout extends ViewGroup {
             usedWidth += lastNotGoneChild.getMeasuredWidth() + lp.rightMargin + lp.leftMargin;
         }
 
-        mTotalWidth = usedWidth + pr + pl;
+        mTotalWidth = usedWidth + getPaddingRight() + getPaddingLeft();
         setMeasuredDimension(resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec),
                 resolveSize(getSuggestedMinimumHeight(), heightMeasureSpec));
     }
@@ -195,12 +185,10 @@ public class NotificationActionListLayout extends ViewGroup {
         clearMeasureOrder();
     }
 
-    @SuppressLint("RtlHardcoded")
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        final boolean isLayoutRtl = getLayoutDirection() == LAYOUT_DIRECTION_RTL;
         final int paddingTop = getPaddingTop();
-        int paddingBottom = getPaddingBottom();
-        int paddingLeft = mPadding;
 
         int childTop;
         int childLeft;
@@ -209,7 +197,7 @@ public class NotificationActionListLayout extends ViewGroup {
         final int height = bottom - top;
 
         // Space available for child
-        int innerHeight = height - paddingTop - paddingBottom;
+        int innerHeight = height - paddingTop - getPaddingBottom();
 
         final int count = getChildCount();
 
@@ -217,16 +205,22 @@ public class NotificationActionListLayout extends ViewGroup {
         switch (Gravity.getAbsoluteGravity(Gravity.START, layoutDirection)) {
             case Gravity.RIGHT:
                 // mTotalWidth contains the padding already
-                childLeft = paddingLeft + right - left - mTotalWidth;
+                childLeft = getPaddingLeft() + right - left - mTotalWidth;
                 break;
+
             case Gravity.LEFT:
             default:
-                childLeft = paddingLeft;
+                childLeft = getPaddingLeft();
                 break;
         }
 
         int start = 0;
         int dir = 1;
+        //In case of RTL, start drawing from the last child.
+        if (isLayoutRtl) {
+            start = count - 1;
+            dir = -1;
+        }
 
         for (int i = 0; i < count; i++) {
             final int childIndex = start + dir * i;
@@ -252,7 +246,6 @@ public class NotificationActionListLayout extends ViewGroup {
         return new MarginLayoutParams(getContext(), attrs);
     }
 
-    @SuppressWarnings("ResourceType")
     @Override
     protected LayoutParams generateDefaultLayoutParams() {
         return new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);

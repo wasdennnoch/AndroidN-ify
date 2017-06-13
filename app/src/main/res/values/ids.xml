@@ -23,9 +23,8 @@
     <item name="qs_detail_header" type="id" />
     <item name="dummy_id" type="id" />
     <item name="content_container" type="id" />
-    <item name="line1_container" type="id" />
-    <item name="line2_container" type="id" />
-    <item name="line3_container" type="id" />
+    <item name="progress_container" type="id" />
+    <item name="notification_action_list_margin_target" type="id" />
     <item name="text_line_1" type="id" />
     <item name="center_view" type="id" />
     <item name="center_icon" type="id" />

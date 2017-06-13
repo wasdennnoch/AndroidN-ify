@@ -15,4 +15,10 @@ public class RemoteMarginLinearLayout extends LinearLayout {
         ResourceUtils res = ResourceUtils.getInstance(getContext());
         ViewUtils.setMarginEnd(this, res.getDimensionPixelSize(margin));
     }
+
+    @RemotableViewMethod
+    public void setMarginBottom(int margin) {
+        ResourceUtils res = ResourceUtils.getInstance(getContext());
+        ViewUtils.setMarginBottom(this, res.getDimensionPixelSize(margin));
+    }
 }
