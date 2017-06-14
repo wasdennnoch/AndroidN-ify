@@ -1469,8 +1469,6 @@ public class NotificationHooks {
             }
             layout.addView(notificationActionListMarginTarget);
             layout.addView(actionsContainer);
-            // Remove divider
-            notificationMain.removeViewAt(notificationMain.getChildCount() - 1);
         }
     };
 
@@ -1700,6 +1698,7 @@ public class NotificationHooks {
                 notificationMain = (LinearLayout) layout.getChildAt(layout.getChildCount() - 1);
             }
             ViewStub progressBar = (ViewStub) notificationMain.findViewById(res.getResources().getIdentifier("progress", "id", PACKAGE_ANDROID));
+            ViewUtils.setMarginEnd(progressBar, 0);
 
             FrameLayout.LayoutParams notificationMainLParams = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT, Gravity.TOP);
             notificationMainLParams.setMargins(notificationContentMargin, notificationContentMarginTop, notificationContentMargin, notificationContentMargin);
