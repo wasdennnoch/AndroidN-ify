@@ -210,6 +210,9 @@ public class NotificationHooks {
         if (child == null) {
             return;
         }
+        if (ConfigUtils.notifications().blacklistedApps.contains(context.getPackageName())) {
+            return;
+        }
         NotificationActionListLayout actionsLayout = (NotificationActionListLayout) child.findViewById(context.getResources().getIdentifier("actions", "id", PACKAGE_ANDROID));
         if (actionsLayout == null) {
             return;
@@ -493,6 +496,8 @@ public class NotificationHooks {
             }
 
             if (XposedHelpers.getObjectField(builder, "mLargeIcon") != null) {
+                if (ConfigUtils.notifications().blacklistedApps.contains(context.getPackageName()))
+                    return;
                 int notificationTextMarginEnd = R.dimen.notification_text_margin_end;
                 int progressBarContainerMargin = R.dimen.notification_content_plus_picture_margin_end;
                 contentView.setInt(res.getIdentifier("line1", "id", PACKAGE_ANDROID), "setMarginEnd", notificationTextMarginEnd);
@@ -510,6 +515,8 @@ public class NotificationHooks {
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             Context context = (Context) XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mBuilder"), "mContext");
             RemoteViews view = (RemoteViews) param.getResult();
+            if (ConfigUtils.notifications().blacklistedApps.contains(context.getPackageName()))
+                return;
 
             if (XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "mBuilder"), "mLargeIcon") != null) {
                 view.setInt(context.getResources().getIdentifier("line1", "id", PACKAGE_ANDROID), "setMarginEnd", R.dimen.zero);
@@ -769,6 +776,16 @@ public class NotificationHooks {
         }
     };
 
+    private static final XC_MethodHook calculateTopPaddingHook = new XC_MethodHook() {
+        @Override
+        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            Context context = (Context) param.args[0];
+            if (ConfigUtils.notifications().blacklistedApps.contains(context.getPackageName()))
+                return;
+            param.setResult(0);
+        }
+    };
+
     public static void hookResSystemui(XC_InitPackageResources.InitPackageResourcesParam resparam, String modulePath) {
         try {
             ConfigUtils config = ConfigUtils.getInstance();
@@ -903,7 +920,7 @@ public class NotificationHooks {
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resetStandardTemplate", RemoteViews.class, resetStandardTemplateHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "generateActionButton", Notification.Action.class, generateActionButtonHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "resolveColor", resolveColorHook);
-                XposedHelpers.findAndHookMethod(classNotificationBuilder, "calculateTopPadding", Context.class, boolean.class, float.class, XC_MethodReplacement.returnConstant(0));
+                XposedHelpers.findAndHookMethod(classNotificationBuilder, "calculateTopPadding", Context.class, boolean.class, float.class, calculateTopPaddingHook);
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "build", buildHook);
                 XposedHelpers.findAndHookMethod(NotificationCompat.Builder.class, "build", buildHook);
                 XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
@@ -1486,11 +1503,14 @@ public class NotificationHooks {
             layout.findViewById(context.getResources().getIdentifier("line3", "id", PACKAGE_ANDROID)).setVisibility(View.GONE);
             layout.findViewById(context.getResources().getIdentifier("overflow_divider", "id", PACKAGE_ANDROID)).setVisibility(View.GONE);
 
-            FrameLayout actionsContainer = (FrameLayout) layout.findViewById(R.id.actions_container);
             ImageView rightIcon = (ImageView) layout.findViewById(context.getResources().getIdentifier("right_icon", "id", PACKAGE_ANDROID));
-            NotificationHeaderView header = (NotificationHeaderView) layout.findViewById(R.id.notification_header);
             TextView bigText = (TextView) layout.findViewById(context.getResources().getIdentifier("big_text", "id", PACKAGE_ANDROID));
+            NotificationHeaderView header = (NotificationHeaderView) layout.findViewById(R.id.notification_header);
+            FrameLayout actionsContainer = (FrameLayout) layout.findViewById(R.id.actions_container);
+            LinearLayout progressContainer = (LinearLayout) layout.findViewById(R.id.progress_container);
             LinearLayout notificationActionListMarginTarget = new RemoteMarginLinearLayout(context);
+
+            layout.removeView(progressContainer);
 
             bigText.setPadding(0, 0, 0, res.getDimensionPixelSize(R.dimen.notification_inbox_padding));
             bigText.setGravity(Gravity.TOP);
@@ -1517,6 +1537,8 @@ public class NotificationHooks {
 
             ((ViewGroup)rightIcon.getParent()).removeView(rightIcon);
             ((ViewGroup)header.getParent()).removeView(header);
+
+            notificationMain.addView(progressContainer, 2);
 
             while (layout.getChildCount() > 0) {
                 View v = layout.getChildAt(0);
@@ -1546,14 +1568,16 @@ public class NotificationHooks {
             ImageView rightIcon = (ImageView) layout.findViewById(context.getResources().getIdentifier("right_icon", "id", PACKAGE_ANDROID));
             TextView text0 = (TextView) layout.findViewById(context.getResources().getIdentifier("inbox_text0", "id", PACKAGE_ANDROID));
             TextView text1 = (TextView) notificationMain.findViewById(context.getResources().getIdentifier("inbox_text1", "id", PACKAGE_ANDROID));
+            FrameLayout actionsContainer = (FrameLayout) notificationMain.findViewById(R.id.actions_container);
+            NotificationHeaderView header = (NotificationHeaderView) layout.findViewById(R.id.notification_header);
+            LinearLayout progressContainer = (LinearLayout) layout.findViewById(R.id.progress_container);
             LinearLayout notificationActionListMarginTarget = new RemoteMarginLinearLayout(context);
+
+            layout.removeView(progressContainer);
 
             text0.setPadding(0, res.getDimensionPixelSize(R.dimen.notification_inbox_item_top_padding), 0, 0);
             LinearLayout text0Container = (LinearLayout) text0.getParent();
             ViewUtils.setMarginEnd(text0Container, 0);
-            FrameLayout actionsContainer = (FrameLayout) notificationMain.findViewById(R.id.actions_container);
-
-            NotificationHeaderView header = (NotificationHeaderView) layout.findViewById(R.id.notification_header);
 
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
             lp.topMargin = res.getDimensionPixelSize(R.dimen.notification_content_margin_top);
@@ -1582,6 +1606,7 @@ public class NotificationHooks {
                 layout.removeView(v);
                 notificationActionListMarginTarget.addView(v);
             }
+            notificationMain.addView(progressContainer, 2);
             layout.addView(header);
             layout.addView(notificationActionListMarginTarget);
             layout.addView(actionsContainer);
@@ -1590,8 +1615,8 @@ public class NotificationHooks {
             while (notificationMain.getChildCount() > 9) {
                 notificationMain.removeViewAt(notificationMain.getChildCount() - 1);
             }
-            for (int i = 1; i < 7; i++) {
-                TextView line = (TextView) notificationMain.getChildAt(notificationMain.getChildCount() - i);
+            for (int i = 4; i < notificationMain.getChildCount(); i++) {
+                TextView line = (TextView) notificationMain.getChildAt(i);
                 ViewUtils.setMarginEnd(line, 0);
                 line.setPadding(0, res.getDimensionPixelSize(R.dimen.notification_inbox_item_top_padding), 0, 0);
             }
@@ -1974,10 +1999,13 @@ public class NotificationHooks {
 
             ImageView bigPicture = (ImageView) layout.findViewById(res.getResources().getIdentifier("big_picture", "id", PACKAGE_ANDROID));
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(res.getResources().getIdentifier("notification_main_column", "id", PACKAGE_ANDROID));
-            FrameLayout actionsContainer = (FrameLayout) layout.findViewById(R.id.actions_container);
             ImageView rightIcon = (ImageView) layout.findViewById(res.getResources().getIdentifier("right_icon", "id", PACKAGE_ANDROID));
             NotificationHeaderView header = (NotificationHeaderView) layout.findViewById(R.id.notification_header);
+            FrameLayout actionsContainer = (FrameLayout) layout.findViewById(R.id.actions_container);
+            LinearLayout progressContainer = (LinearLayout) layout.findViewById(R.id.progress_container);
             LinearLayout notificationActionListMargin = new RemoteMarginLinearLayout(context);
+
+            ((ViewGroup) progressContainer.getParent()).removeView(progressContainer);
 
             ((ViewGroup) notificationMain.getParent()).removeView(notificationMain);
             ((ViewGroup) header.getParent()).removeView(header);
@@ -2008,6 +2036,8 @@ public class NotificationHooks {
             notificationActionListMargin.setLayoutParams(notificationActionListMarginLp);
             bigPicture.setLayoutParams(pictureLp);
             notificationMain.setLayoutParams(mainLp);
+
+            notificationMain.addView(progressContainer, 2);
 
             layout.removeAllViews();
             notificationActionListMargin.addView(notificationMain);
