@@ -40,7 +40,7 @@
   <string name="app_theme_light">Luminoasă</string>
   <string name="app_theme_dark">Întunecată</string>
   <string name="app_theme_device">Implicită a dispozitivului</string>
-  <string name="hide_launcher_icon_title">Ascunde iconita în lansator</string>
+  <string name="hide_launcher_icon_title">Ascunde pictograma în lansator</string>
   <string name="hide_launcher_icon">Poate necesita repornirea lansatorului</string>
   <string name="debug_log_title">Log de depanare</string>
   <string name="debug_log">Atenție: încărcare log</string>
@@ -53,8 +53,8 @@
   <string name="header_settings">Setări</string>
   <string name="enable_settings_summaries_title">Sumar Setări</string>
   <string name="enable_settings_summaries">Afișează cele mai importante informații pe pagina principală</string>
-  <string name="fix_sound_notif_tile_title">Fixează titlul \"Sunete &amp; Notificări\"</string>
-  <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete &amp; Notificări. Activează această setare pentru a afișa titlul corect</string>
+  <string name="fix_sound_notif_tile_title">Repară titlul \"Sunete şi Notificări\"</string>
+  <string name="fix_sound_notif_tile">Unele ROM-uri combină titlul Sunete şi Notificări. Activează această setare pentru a afișa titlul corect</string>
   <string name="enable_n_platlogo_title">Logo-ul N în easter egg</string>
   <string name="use_namey_mcnameface_title">Folosește imaginea \"Namey McNameface\"</string>
   <!-- Wifi disconnected -->
@@ -64,8 +64,8 @@
   <string name="on">Pornit</string>
   <string name="data_usage_summary">%1$s din datele mobile utilizate</string>
   <!-- Is on or off -->
-  <string name="display_summary">Luminozitatea adaptivă este %1$s</string>
-  <string name="sound_summary">Volum sunet apel la %1$s</string>
+  <string name="display_summary">Luminozitate adaptivă: %1$s</string>
+  <string name="sound_summary">Volumul tonului de apel: %1$s</string>
   <string name="apps_summary" tools:ignore="PluralsCandidate">%1$d (de) aplicații instalate</string>
   <!-- Storage settings summary: 10GB of 12GB used -->
   <string name="storage_summary">%1$s din %2$s utilizați</string>
@@ -80,8 +80,8 @@
   <string name="memory_summary">%1$s din %2$s din memoria RAM utilizată</string>
   <string name="user_summary">Logat ca %1$s</string>
   <string name="location_on_power">Pornită / Economisire energie</string>
-  <string name="location_on_device">Pornit / Numai dispozitiv</string>
-  <string name="location_on_high">Pornit / Acuratețe ridicată</string>
+  <string name="location_on_device">Pornită / Numai dispozitiv</string>
+  <string name="location_on_high">Pornită / Precizie ridicată</string>
   <string name="print_summary" tools:ignore="PluralsCandidate">%1$d sarcini de printat</string>
   <!-- Header of app installation source -->
   <string name="store">Magazin</string>
@@ -92,7 +92,7 @@
   <string name="header_recents">Recente</string>
   <!-- That's how Google calls it -->
   <string name="enable_recents_double_tap_title">Comutator</string>
-  <string name="enable_recents_double_tap">Apasă dublu pe butonul de aplicatii recente pentru a schimba aplicațiile</string>
+  <string name="enable_recents_double_tap">Apasă dublu pe butonul de aplicaţii recente pentru a schimba aplicațiile</string>
   <string name="alternative_double_tap_title">Detectare alternativă a apăsării duble</string>
   <string name="alternative_double_tap">Activați dacă Comutatorul nu funcționează corect</string>
   <string name="double_tap_speed_title">Viteză apăsare dublă</string>
@@ -114,29 +114,29 @@
   <string name="keep_header_bg">Antet</string>
   <string name="keep_panel_bg">Panou Setari Rapide</string>
   <string name="force_old_date_position">Forțează data după oră</string>
-  <string name="force_old_date_position_summary">La expandarea panoului QS, pe ecranele mai mici de o anumită mărime, data e afișată sub ceas și nu lângă. Activează pentru a nu ține cont de acest comportament</string>
+  <string name="force_old_date_position_summary">La expandarea panoului Setări Rapide, pe ecranele mai mici de o anumită mărime, data e afișată sub ceas și nu lângă. Activează pentru a nu ține cont de acest comportament</string>
   <string name="force_old_date_position_disabled_summary">Dispozitivul dvs. acceptă deja poziţia nouă a datei</string>
-  <string name="notification_header_qs_tiles_count">Afișare titluri QS</string>
+  <string name="notification_header_qs_tiles_count">Afișare titluri Setări Rapide</string>
   <!-- The unit of the counter next to the slider -->
   <string name="notification_header_qs_tiles_count_monitor">tile-uri</string>
   <string name="battery_tile_show_percentage">Afișează procentajul bateriei în iconița bateriei</string>
   <string name="battery_tile_show_percentage_summary">Afișează procentajul bateriei în iconița bateriei</string>
-  <string name="enable_qs_editor">Activează editorul QS</string>
-  <string name="alternative_qs_loading">Metodă alternativă de încărcare QS</string>
-  <string name="alternative_qs_loading_summary">Utilizați o cale diferită de a obține tile-urile disponibile din QS. Utilizați doar dacă există tile-urile lipsă din editor</string>
+  <string name="enable_qs_editor">Activează editorul Setări Rapide</string>
+  <string name="alternative_qs_loading">Metodă alternativă de încărcare Setărilor Rapide</string>
+  <string name="alternative_qs_loading_summary">Utilizați o cale diferită de a obține tile-urile disponibile din Setările Rapide. Utilizați doar dacă există tile-urile lipsă din editor</string>
   <string name="inject_gb_tiles">Injectați tile-uri din GravityBox</string>
-  <string name="inject_gb_tiles_summary">Activați dacă doriți să fie adăugate în QS tile-urile oferite de GravityBox</string>
+  <string name="inject_gb_tiles_summary">Activați dacă doriți să fie adăugate în Setări Rapide tile-urile oferite de GravityBox</string>
   <string name="inject_gb_tiles_not_installed">GravityBox nu este instalat</string>
   <string name="allow_fancy_qs_transition">Tranziție QS pompoasă</string>
   <string name="enable_new_tile_click_behavior">Noul comportament la click pe un tile</string>
-  <string name="enable_new_tile_click_behavior_summary">Apăsând un chenar în antet îl vei comuta și apăsând un chenar în panou îl vei extinde</string>
+  <string name="enable_new_tile_click_behavior_summary">Apăsând un tile în antet îl vei comuta și apăsând un tile în panou îl vei extinde</string>
   <string name="enable_large_first_row">Lărgește primul rând</string>
   <string name="enable_large_first_row_summary2">Face ca primele două tile-uri să apară mai largi dacă este suportat</string>
   <string name="fix_stuck_inversion_title">Fixează inversiunea blocată</string>
   <string name="fix_stuck_inversion">Pe unele dispozitive inversiunea culorilor se blochează când este activată. Dați clic aici pentru a forța dezactivarea</string>
   <string name="hide_icons_title">Ascunde elementele antetului</string>
   <string name="hide_tuner_icon_title">Ascunde SystemUI Tuner</string>
-  <string name="hide_edit_tiles_title">Ascunde butonul de editare a chenarelor</string>
+  <string name="hide_edit_tiles_title">Ascunde butonul de editare a tile-urilor</string>
   <string name="hide_edit_tiles_summary">Aceasta ascunde numai butonul de editare implicit!</string>
   <string name="hide_carrier_label_title">Ascunde numele operatorului</string>
   <string name="header_notifications">Notificări</string>
@@ -166,7 +166,7 @@
   </plurals>
   <!-- Phrase describing a time duration using hours that is as short as possible, preferrably one character. If the language needs a space in between the integer and the unit, please also integrate it in the string, but preferably it should not have a space in between.[CHAR LIMIT=6] -->
   <plurals name="duration_hours_shortest">
-    <item quantity="one">%dora</item>
+    <item quantity="one">%doră</item>
     <item quantity="few">%dore</item>
     <item quantity="other">%dore</item>
   </plurals>
@@ -220,18 +220,18 @@
   <string name="update_notification_downloading_details">Se descarcă actualizarea numărul %1$d</string>
   <string name="update_notification_download_fail">Descărcarea a eșuat</string>
   <string name="update_notification_download_fail_details">Nu s-a putut descărca actualizarea %1$d</string>
-  <string name="emergency_info">Informatii de urgenta</string>
+  <string name="emergency_info">Informaţii de urgenţă</string>
   <string name="emergency_info_launch_hint">Apăsați din nou pentru a deschide</string>
-  <string name="enable_emergency_info_title">Activeaza informatiile de urgenta</string>
-  <string name="enable_emergency_info">Adaugă butonul „Informații de urgență” dialer-ul de urgență</string>
+  <string name="enable_emergency_info_title">Activează informaţiile de urgenţă</string>
+  <string name="enable_emergency_info">Adaugă butonul „Informații de urgență” în dialer-ul de urgență</string>
   <string name="edit_emergency_info_title">Editeaza informatiile de urgenta</string>
   <string name="clear_all">Șterge tot</string>
-  <string name="tab_title_info">Informatii</string>
+  <string name="tab_title_info">Informaţii</string>
   <string name="tab_title_contacts">Contacte</string>
-  <string name="add_emergency_contact">Adauga contacte</string>
-  <string name="user_emergency_info_title">Informatii de urgenta</string>
+  <string name="add_emergency_contact">Adaugă contacte</string>
+  <string name="user_emergency_info_title">Informaţii de urgenţă</string>
   <string name="user_emergency_info_consent">Informaţiile pe care le introduceţi aici pot ajuta primii răspunzători în caz de urgenţă. Acestea sunt stocate doar în dispozitivul dumneavoastră, şi oricine le poate citi din dialer-ul de urgență fără deblocarea telefonului.</string>
-  <string name="emergency_info_continue">Continua</string>
+  <string name="emergency_info_continue">Continuă</string>
   <string name="clear">Șterge</string>
   <string name="clear_all_message">Ștergeți toate informațiile și contactele?</string>
   <!-- Example: Mobile • 333-444-5566 -->
@@ -239,14 +239,14 @@
   <string name="remove_contact">Elimină %1$s din lista de contacte pentru urgenţe?</string>
   <string name="remove_contact_icon_text">Șterge contactul</string>
   <string name="remove">Șterge</string>
-  <string name="cancel">Revoca</string>
-  <string name="no_info_provided">Nicio informatie de urgenta furnizata</string>
-  <string name="emergency_contacts_title">Contacte de urgenta</string>
+  <string name="cancel">Revocă</string>
+  <string name="no_info_provided">Nicio informaţie de urgenţă furnizată</string>
+  <string name="emergency_contacts_title">Contacte de urgenţă</string>
   <string name="name">Nume</string>
   <string name="unknown_name">Necunoscut</string>
-  <string name="address">Adresa</string>
+  <string name="address">Adresă</string>
   <string name="unknown_address">Necunoscut</string>
-  <string name="blood_type">Grupă sanguină</string>
+  <string name="blood_type">Grupa sanguină</string>
   <string name="unknown_blood_type">Necunoscut</string>
   <string name="allergies">Alergii</string>
   <string name="unknown_allergies">Necunoscut</string>
@@ -331,7 +331,7 @@
   <!-- Overflow menu item in the tile editor to reset tiles to a default order -->
   <string name="reset_tiles">Resetare</string>
   <string name="dialog_color_picker">Alegător de culori</string>
-  <string name="press_color_to_apply">Apăsați pe o Culoare pentru a o aplica</string>
+  <string name="press_color_to_apply">Apăsați pe o culoare pentru a o aplica</string>
   <!-- Color picker: Hint text of the input field for hexadecimal color values -->
   <string name="color_picker_hex">HEX</string>
   <string name="enable_install_source_title">Afișează sursă de instalare a aplicațiilor</string>
@@ -344,16 +344,16 @@ Setări rapide personalizate\'\'). Vă rugăm să citiți informațiile din apli
   <string name="hide_tiles_on_lockscreen">Ascunde iconiţele de setări din ecranul de blocare</string>
   <string name="done">Terminat</string>
   <string name="cm_qs_settings">Setari QS din CM</string>
-  <string name="disable_qs_paging">Dezactiveaza paginare QS</string>
-  <string name="disable_qs_paging_summary">Dezactiveaza paginare QS in mod portret</string>
-  <string name="allow_direct_reply_on_keyguard">Raspunde direct din ecranul de blocare</string>
-  <string name="allow_direct_reply_on_keyguard_summary">Permite să se răspundă la notificări din lockscreen</string>
-  <string name="enable_notifications_background">Activeaza fundal notificari</string>
-  <string name="enable_notifications_background_summary">Desenează un fundal alb în spatele notificărilor când le dați la o parte</string>
+  <string name="disable_qs_paging">Dezactivează paginare QS</string>
+  <string name="disable_qs_paging_summary">Dezactivează paginare QS în mod portret</string>
+  <string name="allow_direct_reply_on_keyguard">Răspunde direct din ecranul de blocare</string>
+  <string name="allow_direct_reply_on_keyguard_summary">Permite să se răspundă la notificări din ecranul de blocare</string>
+  <string name="enable_notifications_background">Activează fundal notificări</string>
+  <string name="enable_notifications_background_summary">Desenează un fundal alb în spatele notificărilor când le dai la o parte</string>
   <!-- accessibility label for button to expand quick settings [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_expand">Deschide Quick Settings.</string>
+  <string name="accessibility_quick_settings_expand">Deschide Setări Rapide.</string>
   <!-- accessibility label for button to collapse quick settings [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_collapse">Închide Quick Settings.</string>
+  <string name="accessibility_quick_settings_collapse">Închide Setări Rapide.</string>
   <string name="warning">Atenție</string>
   <string name="dont_show_again">Nu arăta din nou</string>
   <string name="enable_data_disabled_indicator">Arată indicatorul de date mobile dezactivate</string>
@@ -372,4 +372,36 @@ Setări rapide personalizate\'\'). Vă rugăm să citiți informațiile din apli
   <string name="enable_n_style_settings_dashboard_summary">Aplică tema tabloului de bord din setări pentru a arata ca N</string>
   <string name="enable_settings_drawer">Activează panoul lateral din setări</string>
   <string name="partial_screenshot">Screenshot parţial</string>
+  <string name="fix_header_space_title">Repararea spațiului uriaș sub antetul QS</string>
+  <string name="reconfigure_notification_panel_title">Reconfigurarea aspectului ierarhiei panoului de notificare</string>
+  <string name="reconfigure_notification_panel_warning">Această setare ar putea repara o mulțime de erori pe AOSP și pe Xperia ROM. Nu încercați pe alte ROM-uri dacă nu sunteți sigur ce faceți.</string>
+  <string name="generate_notification_accent_color">Generare culoare notificare din pictograma aplicației</string>
+  <string name="header_others">Altele</string>
+  <string name="package_installer">Activează aspectul instalatorului de pachete Nougat</string>
+  <string name="package_installer_title">Noul aspect al instalatorului de pachete</string>
+  <string name="slippery_navbar_title">Bară de navigare alunecoasă</string>
+  
+   <string name="manage_users">Gestionare utilizatori</string>
+
+    <!--Package installer-->
+    <!-- Reason displayed when installation fails because the package was blocked
+        from being installed (e.g., device policy, verification, ...) [CHAR LIMIT=100] -->
+    <string name="install_failed_blocked">Instalarea pachetului a fost blocată.</string>
+    <!-- Reason displayed when installation fails because the package conflicts with
+        an existing application (e.g., incompatible certificates) [CHAR LIMIT=100] -->
+    <string name="install_failed_conflict">Pachetul este în conflict cu un pachet existent cu același nume.</string>
+    <!-- Reason displayed when installation fails because the package is incompatible with
+		the current tablet (e.g., missing native code for the current ABI, newer SDK, ...) [CHAR LIMIT=100] -->
+    <!--<string name="install_failed_incompatible" product="tablet">This app isn\'t
+        compatible with your tablet.</string>
+    &lt;!&ndash; Reason displayed when installation fails because the package is incompatible with
+       the current TV (e.g., missing native code for the current ABI, newer SDK, ...) [CHAR LIMIT=100] &ndash;&gt;
+    <string name="install_failed_incompatible" product="tv">This app isn\'t
+        compatible with your TV.</string>-->
+    <!-- Reason displayed when installation fails because the package is incompatible with
+       the current phone (e.g., missing native code for the current ABI, newer SDK, ...) [CHAR LIMIT=100] -->
+    <string name="install_failed_incompatible" product="default">Această aplicație nu este compatibilă cu telefonul dvs.</string>
+    <!-- Reason displayed when installation fails because the installation package itself is invalid
+        in some way (e.g., corrupt) [CHAR LIMIT=100] -->
+    <string name="install_failed_invalid_apk">Pachetul pare a fi deteriorat.</string>
 </resources>
