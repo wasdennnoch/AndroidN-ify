@@ -476,6 +476,7 @@ public class NotificationHooks {
             Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
             Resources res = context.getResources();
             RemoteViews contentView = (RemoteViews) param.getResult();
+            CharSequence mContentInfo = (CharSequence) XposedHelpers.getObjectField(builder, "mContentInfo");
 
             bindNotificationHeader(contentView, param);
 
@@ -485,6 +486,12 @@ public class NotificationHooks {
                 contentView.setInt(res.getIdentifier("title", "id", PACKAGE_ANDROID), "setWidth", showProgress
                         ? ViewGroup.LayoutParams.WRAP_CONTENT
                         : ViewGroup.LayoutParams.MATCH_PARENT);
+            }
+
+            if (mContentInfo != null) {
+                contentView.setTextViewText(R.id.header_text, processLegacyText(builder, mContentInfo));
+                contentView.setViewVisibility(R.id.header_text_divider, View.VISIBLE);
+                contentView.setViewVisibility(R.id.header_text, View.VISIBLE);
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

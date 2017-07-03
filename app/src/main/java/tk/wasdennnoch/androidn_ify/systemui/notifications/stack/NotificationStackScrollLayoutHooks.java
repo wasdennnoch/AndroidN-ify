@@ -682,8 +682,6 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     }
 
     private void applyCurrentBackgroundBounds() {
-        //TODO implement excluded background area in scrim controller
-
         if (!mFadingOut) {
             ScrimHelper.setExcludedBackgroundArea(mCurrentBounds);
         }
