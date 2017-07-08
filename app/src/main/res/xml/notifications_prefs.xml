@@ -23,6 +23,7 @@
 
     <SwitchPreference
         android:defaultValue="true"
+        android:dependency="notification_change_style"
         android:key="enable_notifications_background"
         android:summary="@string/enable_notifications_background_summary"
         android:title="@string/enable_notifications_background"/>
@@ -51,6 +52,13 @@
         android:key="notifications_custom_actions_color"
         android:summary="@string/notifications_custom_actions_color"
         android:title="@string/notifications_custom_actions_color_title"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="notification_change_style"
+        android:key="notification_change_colors"
+        android:summary="@string/notification_change_colors_summary"
+        android:title="@string/notification_change_colors_title"/>
 
     <net.margaritov.preference.colorpicker.ColorPickerPreference
         alphaSlider="true"

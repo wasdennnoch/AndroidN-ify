@@ -172,6 +172,8 @@
     <string name="notification_experimental">N scrolling behavior (no top stack)</string>
     <string name="notification_keyguard_change_max_title">Change max notifications on lockscreen</string>
     <string name="notification_keyguard_max_title">Max notifications on lockscreen</string>
+    <string name="notification_change_colors_title">Change notification colors to match N</string>
+    <string name="notification_change_colors_summary">Disable if using a custom theme</string>
 
     <string name="enable_assistant">Enable Google Assistant</string>
     <string name="enable_assistant_summary">Replaces Now on Tap/Screen search with the new Google Assistant</string>

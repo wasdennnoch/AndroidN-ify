@@ -10,12 +10,16 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.util.FloatProperty;
+import android.util.Property;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
 import android.view.ViewTreeObserver;
 import android.view.WindowInsets;
 import android.view.animation.Interpolator;
@@ -36,6 +40,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.FakeShadowView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.Interpolators;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnPreDrawListener;
 import tk.wasdennnoch.androidn_ify.systemui.notifications.NotificationPanelHooks;
+import tk.wasdennnoch.androidn_ify.systemui.notifications.ScrimHelper;
 import tk.wasdennnoch.androidn_ify.utils.ConfigUtils;
 import tk.wasdennnoch.androidn_ify.utils.ResourceUtils;
 
@@ -44,19 +49,22 @@ import static tk.wasdennnoch.androidn_ify.XposedHook.PACKAGE_SYSTEMUI;
 public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowInsetsListener {
     private static final String TAG = "NotificationStackScrollLayoutHooks";
 
-    private static final int ANIMATION_DURATION_STANDARD = 360;
-    private static final float BACKGROUND_ALPHA_DIMMED = 0.7f;
+    private static final int DARK_ANIMATION_ORIGIN_INDEX_ABOVE = -1;
+    private static final int DARK_ANIMATION_ORIGIN_INDEX_BELOW = -2;
+    private static final int ANIMATION_DELAY_PER_ELEMENT_DARK = 24;
     public static final int ANIMATION_DURATION_DIMMED_ACTIVATED = 220;
+    public static final int ANIMATION_DURATION_STANDARD = 360;
+    public static final float BACKGROUND_ALPHA_DIMMED = 0.7f;
 
     private int TAG_ANIMATOR_TRANSLATION_Y;
     private int TAG_END_TRANSLATION_Y;
 
     private Class<?> classActivatableNotificationView;
     private Class<?> classStackStateAnimator;
-    private ViewGroup mStackScrollLayout;
+    private static ViewGroup mStackScrollLayout;
     private Context mContext;
     private ResourceUtils mRes;
-    private final Paint mBackgroundPaint = new Paint();
+    private static final Paint mBackgroundPaint = new Paint();
     private OverScroller mScroller;
     private Object mAmbientState;
     private Object mSwipeHelper;
@@ -68,10 +76,26 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     private boolean mDontClampNextScroll;
     private boolean mContinuousShadowUpdate;
     private boolean mIsExpanded;
-    private float mDimAmount;
-    private float mBackgroundFadeAmount = 1.0f;
-    private int mBgColor;
+    private static boolean mFadingOut = false;
+    private static boolean mParentFadingOut;
+    private static boolean mDrawBackgroundAsSrc;
+    private static float mDimAmount;
+    private static float mBackgroundFadeAmount = 1.0f;
+    private static int mBgColor;
     private ValueAnimator mDimAnimator;
+
+    private static final Property<ViewGroup, Float> BACKGROUND_FADE =
+            new FloatProperty<ViewGroup>("backgroundFade") {
+                @Override
+                public void setValue(ViewGroup object, float value) {
+                    setBackgroundFadeAmount(value);
+                }
+
+                @Override
+                public Float get(ViewGroup object) {
+                    return getBackgroundFadeAmount();
+                }
+            };
 
     private ValueAnimator.AnimatorUpdateListener mDimUpdateListener
             = new ValueAnimator.AnimatorUpdateListener() {
@@ -102,6 +126,11 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
             return true;
         }
     };
+    private ViewPropertyAnimator inAnimation(ViewPropertyAnimator a) {
+        return a.alpha(1.0f)
+                .setDuration(200)
+                .setInterpolator(Interpolators.ALPHA_IN);
+    }
     private Rect mBackgroundBounds = new Rect();
     private Rect mStartAnimationRect = new Rect();
     private Rect mEndAnimationRect = new Rect();
@@ -116,7 +145,7 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     private int mTopPadding;
     private float mStackTranslation;
     private View mForcedScroll = null;
-    private PorterDuffXfermode mSrcMode = new PorterDuffXfermode(PorterDuff.Mode.SRC);
+    private static PorterDuffXfermode mSrcMode = new PorterDuffXfermode(PorterDuff.Mode.SRC);
     private ArrayList<View> mTmpSortedChildren = new ArrayList<>();
     private Comparator<View> mViewPositionComparator = new Comparator<View>() {
         @Override
@@ -137,6 +166,7 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     public NotificationStackScrollLayoutHooks(ClassLoader classLoader) {
         try {
             Class classNotificationStackScrollLayout = XposedHelpers.findClass("com.android.systemui.statusbar.stack.NotificationStackScrollLayout", classLoader);
+            Class classBrightnessMirrorController = XposedHelpers.findClass("com.android.systemui.statusbar.policy.BrightnessMirrorController", classLoader);
             XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "initView", new XC_MethodHook() {
                 @SuppressWarnings("unchecked")
                 @Override
@@ -330,6 +360,85 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
                     return null;
                 }
             });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "setDark", boolean.class, boolean.class, PointF.class, new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                    boolean dark = (boolean) param.args[0];
+                    boolean animate = (boolean) param.args[1];
+                    PointF touchWakeUpScreenLocation = (PointF) param.args[2];
+                    XposedHelpers.callMethod(mAmbientState, "setDark", dark);
+                    if (animate && mAnimationsEnabled) {
+                        XposedHelpers.setBooleanField(mStackScrollLayout, "mDarkNeedsAnimation", true);
+                        XposedHelpers.setIntField(mStackScrollLayout, "mDarkAnimationOriginIndex", (int) XposedHelpers.callMethod(mStackScrollLayout, "findDarkAnimationOriginIndex", touchWakeUpScreenLocation));
+                        XposedHelpers.setBooleanField(mStackScrollLayout, "mNeedsAnimation", true);
+                        setBackgroundFadeAmount(0.0f);
+                    } else if (!dark) {
+                        setBackgroundFadeAmount(1.0f);
+                    }
+                    XposedHelpers.callMethod(mStackScrollLayout, "requestChildrenUpdate");
+                    if (dark) {
+                        mStackScrollLayout.setWillNotDraw(true);
+                        ScrimHelper.setExcludedBackgroundArea(null);
+                    } else {
+                        updateBackground();
+                        mStackScrollLayout.setWillNotDraw(false);
+                    }
+                    return null;
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "generateDarkEvent", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    boolean mDarkNeedsAnimation = XposedHelpers.getBooleanField(mStackScrollLayout, "mDarkNeedsAnimation");
+                    if (mDarkNeedsAnimation)
+                        startBackgroundFadeIn();
+                }
+            });
+            XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "setScrimController", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    ScrimHelper.setScrimBehind(param.args[0]);
+                    ScrimHelper.setScrimBehindChangeRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateBackgroundDimming();
+                        }
+                    });
+                }
+            });
+            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "generateDarkEvent", new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    if (XposedHelpers.getBooleanField(param.thisObject, "mDarkNeedsAnimation"))
+                        startBackgroundFadeIn();
+                }
+            });
+            XposedHelpers.findAndHookMethod(classBrightnessMirrorController, "showMirror", new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    setFadingOut(true);
+                }
+            });
+            XposedHelpers.findAndHookMethod(classBrightnessMirrorController, "hideMirror", new XC_MethodReplacement() {
+                @Override
+                protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                    View mScrimBehind = (View) XposedHelpers.getObjectField(param.thisObject, "mScrimBehind");
+                    Object mPanelHolder = XposedHelpers.getObjectField(param.thisObject, "mPanelHolder");
+                    final View mBrightnessMirror = (View) XposedHelpers.getObjectField(param.thisObject, "mBrightnessMirror");
+                    XposedHelpers.callMethod(mScrimBehind, "animateViewAlpha", 1.0f, 200, Interpolators.ALPHA_IN);
+
+                    inAnimation((ViewPropertyAnimator) XposedHelpers.callMethod(mPanelHolder, "animate"))
+                            .withLayer()
+                            .withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mBrightnessMirror.setVisibility(View.INVISIBLE);
+                                    setFadingOut(false);
+                                }
+                            });
+                    return null;
+                }
+            });
             classActivatableNotificationView = XposedHelpers.findClass("com.android.systemui.statusbar.ActivatableNotificationView", classLoader);
             classStackStateAnimator = XposedHelpers.findClass("com.android.systemui.statusbar.stack.StackStateAnimator", classLoader);
         } catch (Throwable t) {
@@ -374,21 +483,10 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     }
 
     private void updateBackground() {
-        //TODO completely implement this
-        /*
-        if (mAmbientState.isDark()) {
+        if ((boolean) XposedHelpers.callMethod(mAmbientState, "isDark")) {
             return;
         }
-        */
         updateBackgroundBounds();
-        /*
-        if (!mCurrentBounds.equals(mBackgroundBounds)) {
-            mCurrentBounds.set(mBackgroundBounds);
-            //mScrimController.setExcludedBackgroundArea(mCurrentBounds);
-            mBackground.setBounds(0, mCurrentBounds.top, mStackScrollLayout.getWidth(), mCurrentBounds.bottom);
-            mStackScrollLayout.invalidate();
-        }
-        */
         if (!mCurrentBounds.equals(mBackgroundBounds)) {
             if (mAnimateNextBackgroundTop || mAnimateNextBackgroundBottom || areBoundsAnimating()) {
                 startBackgroundAnimation();
@@ -406,6 +504,68 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
         }
         mAnimateNextBackgroundBottom = false;
         mAnimateNextBackgroundTop = false;
+    }
+
+    private static void setBackgroundFadeAmount(float fadeAmount) {
+        mBackgroundFadeAmount = fadeAmount;
+        updateBackgroundDimming();
+    }
+
+    public static float getBackgroundFadeAmount() {
+        return mBackgroundFadeAmount;
+    }
+
+    public void setFadingOut(boolean fadingOut) {
+        if (fadingOut != mFadingOut) {
+            mFadingOut = fadingOut;
+            updateFadingState();
+        }
+    }
+
+    public void setParentFadingOut(boolean fadingOut) {
+        if (fadingOut != mParentFadingOut) {
+            mParentFadingOut = fadingOut;
+            updateFadingState();
+        }
+    }
+
+    private void updateFadingState() {
+        if (mFadingOut || mParentFadingOut || (boolean) XposedHelpers.callMethod(mAmbientState, "isDark")) {
+            ScrimHelper.setExcludedBackgroundArea(null);
+        } else {
+            applyCurrentBackgroundBounds();
+        }
+        updateSrcDrawing();
+    }
+
+    public static void setDrawBackgroundAsSrc(boolean asSrc) {
+        mDrawBackgroundAsSrc = asSrc;
+        updateSrcDrawing();
+    }
+
+    private static void updateSrcDrawing() {
+        mBackgroundPaint.setXfermode(mDrawBackgroundAsSrc && (!mFadingOut && !mParentFadingOut)
+                ? mSrcMode : null);
+        mStackScrollLayout.invalidate();
+    }
+
+    private void startBackgroundFadeIn() {
+        int mDarkAnimationOriginIndex = XposedHelpers.getIntField(mStackScrollLayout, "mDarkAnimationOriginIndex");
+        ObjectAnimator fadeAnimator = ObjectAnimator.ofFloat(mStackScrollLayout, BACKGROUND_FADE, 0f, 1f);
+        int maxLength;
+        if (mDarkAnimationOriginIndex == DARK_ANIMATION_ORIGIN_INDEX_ABOVE
+                || mDarkAnimationOriginIndex == DARK_ANIMATION_ORIGIN_INDEX_BELOW) {
+            maxLength = (int) XposedHelpers.callMethod(mStackScrollLayout, "getNotGoneChildCount") - 1;
+        } else {
+            maxLength = Math.max(mDarkAnimationOriginIndex,
+                    (int) XposedHelpers.callMethod(mStackScrollLayout, "getNotGoneChildCount") - mDarkAnimationOriginIndex - 1);
+        }
+        maxLength = Math.max(0, maxLength);
+        long delay = maxLength * ANIMATION_DELAY_PER_ELEMENT_DARK;
+        fadeAnimator.setStartDelay(delay);
+        fadeAnimator.setDuration(ANIMATION_DURATION_STANDARD);
+        fadeAnimator.setInterpolator(Interpolators.ALPHA_IN);
+        fadeAnimator.start();
     }
 
     private void startBackgroundAnimation() {
@@ -522,12 +682,10 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
     }
 
     private void applyCurrentBackgroundBounds() {
-        //TODO implement excluded background area in scrim controller
-        /*
         if (!mFadingOut) {
-            mScrimController.setExcludedBackgroundArea(mCurrentBounds);
+            ScrimHelper.setExcludedBackgroundArea(mCurrentBounds);
         }
-        */
+
         mStackScrollLayout.invalidate();
     }
 
@@ -620,12 +778,11 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
         }
     }
 
-    private void updateBackgroundDimming() {
+    private static void updateBackgroundDimming() {
         float alpha = BACKGROUND_ALPHA_DIMMED + (1 - BACKGROUND_ALPHA_DIMMED) * (1.0f - mDimAmount);
         alpha *= mBackgroundFadeAmount;
         // We need to manually blend in the background color
-        Object mScrimController = XposedHelpers.getObjectField(mStackScrollLayout, "mScrimController");
-        int scrimColor = getScrimBehindColor(mScrimController);
+        int scrimColor = ScrimHelper.getScrimBehindColor();
         // SRC_OVER blending Sa + (1 - Sa)*Da, Rc = Sc + (1 - Sa)*Dc
         float alphaInv = 1 - alpha;
         int color = Color.argb((int) (alpha * 255 + alphaInv * Color.alpha(scrimColor)),
@@ -636,7 +793,7 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
                 (int) (mBackgroundFadeAmount * Color.blue(mBgColor)
                         + alphaInv * Color.blue(scrimColor)));
         mBackgroundPaint.setColor(color);
-        XposedHelpers.callMethod(mStackScrollLayout, "invalidate");
+        mStackScrollLayout.invalidate();
     }
 
     private void setDimAmount(float dimAmount) {
@@ -658,15 +815,6 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
         mDimAnimator.addListener(mDimEndListener);
         mDimAnimator.addUpdateListener(mDimUpdateListener);
         mDimAnimator.start();
-    }
-
-    private static int getScrimBehindColor(Object mScrimController) {
-        Object mScrimBehind = XposedHelpers.getObjectField(mScrimController, "mScrimBehind");
-        int color = XposedHelpers.getIntField(mScrimBehind, "mScrimColor");
-        float mViewAlpha = XposedHelpers.getFloatField(mScrimBehind, "mViewAlpha");
-        color = Color.argb((int) (Color.alpha(color) * mViewAlpha), Color.red(color),
-                Color.green(color), Color.blue(color));
-        return color;
     }
 
     private void updateContinuousShadowDrawing() {
