@@ -409,6 +409,11 @@
     <string name="package_installer">Enables the Nougat package installer layout</string>
     <string name="package_installer_title">New package installer layout</string>
     <string name="slippery_navbar_title">Slippery navbar</string>
+    <string name="panic_detection_title">Back button panic detection</string>
+    <string name="panic_detection_timeout_title">Panic timeout</string>
+    <string name="panic_detection_timeout_summary">Duration between the first and second tap for a button press to be considered multi-press</string>
+    <string name="panic_detection_presses_title">Number of presses to trigger panic mode</string>
+    <string name="back_press_voice_assist_title">Open voice assist on back long press</string>
 
     <string name="manage_users">Manage users</string>
 

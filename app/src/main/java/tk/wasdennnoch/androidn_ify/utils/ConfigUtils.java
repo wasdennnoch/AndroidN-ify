@@ -270,10 +270,18 @@ public class ConfigUtils {
     public class OthersConfig {
         public final boolean package_installer;
         public final boolean slippery_navbar;
+        public final boolean back_press_voice_assist;
+        public final boolean panic_detection;
+        public final int panic_timeout;
+        public final int panic_presses;
 
         public OthersConfig(SharedPreferences prefs) {
-            package_installer = prefs.getBoolean("package_installer", false);
+            package_installer = prefs.getBoolean("package_installer", true);
             slippery_navbar = prefs.getBoolean("slippery_navbar", true);
+            back_press_voice_assist = prefs.getBoolean("back_press_voice_assist", false);
+            panic_detection = prefs.getBoolean("panic_detection", false);
+            panic_timeout = prefs.getInt("panic_detection_timeout", 300);
+            panic_presses = prefs.getInt("panic_presses", 4);
         }
     }
 
