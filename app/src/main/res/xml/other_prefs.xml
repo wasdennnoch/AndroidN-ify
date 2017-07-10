@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/header_others">
 
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="package_installer"
         android:summary="@string/package_installer"
         android:title="@string/package_installer_title" />
@@ -12,5 +13,38 @@
         android:title="@string/slippery_navbar_title"
         android:defaultValue="true"
         android:key="slippery_navbar" />
+
+    <SwitchPreference
+        android:title="@string/back_press_voice_assist_title"
+        android:defaultValue="false"
+        android:key="back_press_voice_assist" />
+
+    <SwitchPreference
+        android:title="@string/panic_detection_title"
+        android:defaultValue="false"
+        android:key="panic_detection" />
+
+    <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+        android:defaultValue="4"
+        android:dependency="panic_detection"
+        android:key="panic_presses"
+        android:title="@string/panic_detection_presses_title"
+        app:interval="1"
+        app:maximum="10"
+        app:minimum="2"
+        app:monitorBoxEnabled="true"
+        app:monitorBoxUnit=""/>
+
+    <tk.wasdennnoch.androidn_ify.ui.preference.SeekBarPreference
+        android:defaultValue="300"
+        android:dependency="panic_detection"
+        android:key="panic_detection_timeout"
+        android:title="@string/panic_detection_timeout_title"
+        android:summary="@string/panic_detection_timeout_summary"
+        app:interval="10"
+        app:maximum="1000"
+        app:minimum="100"
+        app:monitorBoxEnabled="true"
+        app:monitorBoxUnit="ms"/>
 
 </PreferenceScreen>
