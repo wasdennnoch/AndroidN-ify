@@ -160,7 +160,7 @@ public class ActivatableNotificationViewHooks {
             XposedHelpers.findAndHookMethod(classActivatableNotificationView, "setDimmed", boolean.class, boolean.class, setDimmed);
             XposedHelpers.findAndHookMethod(classActivatableNotificationView, "updateAppearRect", updateAppearRect);
         } catch (Throwable t) {
-            XposedHook.logE(TAG, "Error: ", t);
+            XposedHook.logE(TAG, "Error hooking ActivatableNotificationView ", t);
         }
     }
 

@@ -33,4 +33,16 @@ public class RemoteLpTextView extends TextView {
     public void setHeight(int height) {
         ViewUtils.setHeight(this, height);
     }
+
+    @RemotableViewMethod
+    public void setMarginEnd(int margin) {
+        ResourceUtils res = ResourceUtils.getInstance(getContext());
+        ViewUtils.setMarginEnd(this, margin);
+    }
+
+    @RemotableViewMethod
+    public void setMarginBottom(int margin) {
+        ResourceUtils res = ResourceUtils.getInstance(getContext());
+        ViewUtils.setMarginBottom(this, margin);
+    }
 }
