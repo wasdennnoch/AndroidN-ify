@@ -284,7 +284,7 @@ public class NotificationHooks {
         }
     };
 
-    private static final XC_MethodHook makeBigContentViewHook = new XC_MethodHook() {
+    private static final XC_MethodHook makeBigContentViewBigTextHook = new XC_MethodHook() {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             RemoteViews contentView = (RemoteViews) param.getResult();
@@ -299,6 +299,82 @@ public class NotificationHooks {
             contentView.setTextViewText(res.getResources().getIdentifier("big_text", "id", PACKAGE_ANDROID), processBigText(bigText, res));
         }
     };
+
+    private static final XC_MethodReplacement makeBigContentViewInbox = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            Object builder = XposedHelpers.getObjectField(param.thisObject, "mBuilder");
+            Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
+            ResourceUtils res = ResourceUtils.getInstance(context);
+            CharSequence oldBuilderContentText = (CharSequence) XposedHelpers.getObjectField(builder, "mContentText");
+            ArrayList<CharSequence> texts = (ArrayList) XposedHelpers.getObjectField(param.thisObject, "mTexts");
+            XposedHelpers.setObjectField(builder, "mContentText", null);
+
+            RemoteViews contentView = (RemoteViews) XposedHelpers.callMethod(param.thisObject, "getStandardView", XposedHelpers.callMethod(builder, "getInboxLayoutResource"));
+            XposedHelpers.setObjectField(builder, "mContentText", oldBuilderContentText);
+
+            //ugly
+            int[] rowIds = {context.getResources().getIdentifier("inbox_text0", "id", PACKAGE_ANDROID),
+                    context.getResources().getIdentifier("inbox_text1", "id", PACKAGE_ANDROID),
+                    context.getResources().getIdentifier("inbox_text2", "id", PACKAGE_ANDROID),
+                    context.getResources().getIdentifier("inbox_text3", "id", PACKAGE_ANDROID),
+                    context.getResources().getIdentifier("inbox_text4", "id", PACKAGE_ANDROID),
+                    context.getResources().getIdentifier("inbox_text5", "id", PACKAGE_ANDROID),
+                    context.getResources().getIdentifier("inbox_text6", "id", PACKAGE_ANDROID)};
+
+            // Make sure all rows are gone in case we reuse a view.
+            for (int rowId : rowIds) {
+                contentView.setViewVisibility(rowId, View.GONE);
+            }
+
+            int i=0;
+            int topPadding = res.getDimensionPixelSize(
+                    R.dimen.notification_inbox_item_top_padding);
+            boolean first = true;
+            int onlyViewId = 0;
+            int maxRows = rowIds.length;
+            if (((ArrayList) XposedHelpers.getObjectField(builder, "mActions")).size() > 0) {
+                maxRows--;
+            }
+            while (i < texts.size() && i < maxRows) {
+                CharSequence str = texts.get(i);
+                if (!TextUtils.isEmpty(str)) {
+                    contentView.setViewVisibility(rowIds[i], View.VISIBLE);
+                    contentView.setTextViewText(rowIds[i], (CharSequence) XposedHelpers.callMethod(builder, "processLegacyText", str));
+
+                    contentView.setViewPadding(rowIds[i], 0, topPadding, 0, 0);
+                    handleInboxImageMargin(builder, res, contentView, rowIds[i], first);
+                    if (first) {
+                        onlyViewId = rowIds[i];
+                    } else {
+                        onlyViewId = 0;
+                    }
+                    first = false;
+                }
+                i++;
+            }
+            if (onlyViewId != 0) {
+                // We only have 1 entry, lets make it look like the normal Text of a Bigtext
+                topPadding = res.getDimensionPixelSize(
+                        R.dimen.notification_text_margin_top);
+                contentView.setViewPadding(onlyViewId, 0, topPadding, 0, 0);
+            }
+            return contentView;
+        }
+    };
+
+    private static void handleInboxImageMargin(Object builder, ResourceUtils res, RemoteViews contentView, int id, boolean first) {
+        int endMargin = 0;
+        if (first) {
+            final int max = XposedHelpers.getIntField(builder, "mProgressMax");
+            final boolean ind = XposedHelpers.getBooleanField(builder, "mProgressIndeterminate");
+            boolean hasProgress = max != 0 || ind;
+            if (XposedHelpers.getObjectField(builder, "mLargeIcon") != null && !hasProgress) {
+                endMargin = res.getDimensionPixelSize(R.dimen.notification_content_picture_margin);
+            }
+        }
+        contentView.setInt(id, "setMarginEnd", endMargin);
+    }
 
     private static CharSequence processBigText(String text, ResourceUtils res) { //really hacky way to add the picture margin to the first two lines, since we cannot use ImageFloatingTextView
         String[] paragraphs = text.split("\\n");
@@ -357,12 +433,7 @@ public class NotificationHooks {
             contentView.setViewVisibility(R.id.header_text, View.VISIBLE);
             contentView.setViewVisibility(R.id.header_text_divider, View.VISIBLE);
         }
-        try {
-            // TODO Why it's crashing here
-            XposedHelpers.callMethod(builder, "unshrinkLine3Text");
-        } catch (Throwable ignore) {
-
-        }
+        XposedHelpers.callMethod(builder, "unshrinkLine3Text", contentView);
     }
 
     private static void bindSmallIcon(RemoteViews contentView, Object builder, int color) {
@@ -919,6 +990,7 @@ public class NotificationHooks {
                 Class classNotificationStyle = Notification.Style.class;
                 Class classNotificationMediaStyle = Notification.MediaStyle.class;
                 Class classNotificationBigTextStyle = Notification.BigTextStyle.class;
+                Class classNotificationInboxStyle = Notification.InboxStyle.class;
                 Class classRemoteViews = RemoteViews.class;
 
                 if (ConfigUtils.M) {
@@ -937,7 +1009,8 @@ public class NotificationHooks {
                 XposedHelpers.findAndHookMethod(classNotificationBuilder, "build", buildHook);
                 XposedHelpers.findAndHookMethod(NotificationCompat.Builder.class, "build", buildHook);
                 XposedHelpers.findAndHookMethod(classNotificationStyle, "getStandardView", int.class, getStandardViewHook);
-                XposedHelpers.findAndHookMethod(classNotificationBigTextStyle, "makeBigContentView", makeBigContentViewHook);
+                XposedHelpers.findAndHookMethod(classNotificationBigTextStyle, "makeBigContentView", makeBigContentViewBigTextHook);
+                XposedHelpers.findAndHookMethod(classNotificationInboxStyle, "makeBigContentView", makeBigContentViewInbox);
 
                 XposedHelpers.findAndHookMethod(classNotificationMediaStyle, "hideRightIcon", RemoteViews.class, XC_MethodReplacement.DO_NOTHING);
                 XposedHelpers.findAndHookMethod(classNotificationMediaStyle, "styleText", RemoteViews.class, XC_MethodReplacement.DO_NOTHING);
@@ -1389,7 +1462,7 @@ public class NotificationHooks {
                         TextView title = (TextView) layout.findViewById(context.getResources().getIdentifier("title", "id", PACKAGE_ANDROID));
                         TextView textLine1 = new TextView(context);
                         TextView newTitle = new RemoteLpTextView(context);
-                        RemoteMarginLinearLayout newLayout = new RemoteMarginLinearLayout(context);
+                        LinearLayout newLayout = new RemoteMarginLinearLayout(context);
 
                         newTitle.setId(title.getId());
                         newTitle.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Title);
@@ -1596,7 +1669,6 @@ public class NotificationHooks {
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
             ImageView rightIcon = (ImageView) layout.findViewById(context.getResources().getIdentifier("right_icon", "id", PACKAGE_ANDROID));
             TextView text0 = (TextView) layout.findViewById(context.getResources().getIdentifier("inbox_text0", "id", PACKAGE_ANDROID));
-            TextView text1 = (TextView) notificationMain.findViewById(context.getResources().getIdentifier("inbox_text1", "id", PACKAGE_ANDROID));
             FrameLayout actionsContainer = (FrameLayout) notificationMain.findViewById(R.id.actions_container);
             NotificationHeaderView header = (NotificationHeaderView) layout.findViewById(R.id.notification_header);
             LinearLayout progressContainer = (LinearLayout) layout.findViewById(R.id.progress_container);
@@ -1604,21 +1676,20 @@ public class NotificationHooks {
 
             layout.removeView(progressContainer);
 
-            text0.setPadding(0, res.getDimensionPixelSize(R.dimen.notification_inbox_item_top_padding), 0, 0);
             LinearLayout text0Container = (LinearLayout) text0.getParent();
-            ViewUtils.setMarginEnd(text0Container, 0);
+            text0Container.removeAllViews();
+            notificationMain.addView(text0, 3);
 
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
             lp.topMargin = res.getDimensionPixelSize(R.dimen.notification_content_margin_top);
             notificationActionListMarginTarget.setOrientation(LinearLayout.VERTICAL);
             notificationActionListMarginTarget.setId(R.id.notification_action_list_margin_target);
+            notificationActionListMarginTarget.setClipToPadding(false);
 
             LinearLayout.LayoutParams notificationMainLp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
             notificationMainLp.gravity = Gravity.TOP;
             notificationMain.setPaddingRelative(notifMainPadding, 0, notifMainPadding, notifMainPadding);
-
-            ViewUtils.setMarginEnd(text1, 0);
-            text1.setPadding(0, res.getDimensionPixelSize(R.dimen.notification_inbox_item_top_padding), 0, 0);
+            notificationMain.setClipToPadding(false);
 
             ViewUtils.setMarginEnd((View) text0.getParent(),
                     res.getDimensionPixelSize(R.dimen.notification_content_picture_margin));
@@ -1644,10 +1715,16 @@ public class NotificationHooks {
             while (notificationMain.getChildCount() > 10) {
                 notificationMain.removeViewAt(notificationMain.getChildCount() - 1);
             }
-            for (int i = 4; i < notificationMain.getChildCount(); i++) {
-                TextView line = (TextView) notificationMain.getChildAt(i);
-                ViewUtils.setMarginEnd(line, 0);
-                line.setPadding(0, res.getDimensionPixelSize(R.dimen.notification_inbox_item_top_padding), 0, 0);
+            for (int i = 3; i < notificationMain.getChildCount(); i++) {
+                TextView line = new RemoteLpTextView(context);
+                line.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, 0, 1));
+                line.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification);
+                line.setSingleLine();
+                line.setEllipsize(TextUtils.TruncateAt.END);
+                line.setVisibility(View.GONE);
+                line.setId(notificationMain.getChildAt(i).getId());
+                notificationMain.removeViewAt(i);
+                notificationMain.addView(line, i);
             }
             notificationMain.removeView(layout.findViewById(res.getResources().getIdentifier("line3", "id", PACKAGE_ANDROID))); //remove line3
         }
@@ -1747,7 +1824,7 @@ public class NotificationHooks {
             int notificationContentMarginTop = res.getDimensionPixelSize(R.dimen.notification_content_margin_top);
 
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", PACKAGE_ANDROID));
-            RemoteMarginLinearLayout progressContainer = new RemoteMarginLinearLayout(context);
+            LinearLayout progressContainer = new RemoteMarginLinearLayout(context);
             if (notificationMain == null) { // Some ROMs completely removed the ID
                 notificationMain = (LinearLayout) layout.getChildAt(layout.getChildCount() - 1);
             }

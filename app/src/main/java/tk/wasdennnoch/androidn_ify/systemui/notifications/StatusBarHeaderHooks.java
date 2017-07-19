@@ -1109,14 +1109,16 @@ public class StatusBarHeaderHooks {
                     final WifiTileHook w = new WifiTileHook(classLoader, (!mUseDragPanel && !firstRowLarge));
                     final BluetoothTileHook b = new BluetoothTileHook(classLoader, (!mUseDragPanel && !firstRowLarge));
                     final CellularTileHook c = new CellularTileHook(classLoader);
-                    XposedHelpers.findAndHookMethod(classQSTile, "handleLongClick", new XC_MethodHook() {
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            Object that = param.thisObject;
-                            if (w.maybeHandleLongClick(that) || b.maybeHandleLongClick(that) || c.maybeHandleLongClick(that))
-                                param.setResult(null);
-                        }
-                    });
+                    if (ConfigUtils.L1) {
+                        XposedHelpers.findAndHookMethod(classQSTile, "handleLongClick", new XC_MethodHook() {
+                            @Override
+                            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                                Object that = param.thisObject;
+                                if (w.maybeHandleLongClick(that) || b.maybeHandleLongClick(that) || c.maybeHandleLongClick(that))
+                                    param.setResult(null);
+                            }
+                        });
+                    }
                 }
 
                 XposedHelpers.findAndHookMethod(classQSTile, "handleStateChanged", handleStateChangedHook);
@@ -1126,7 +1128,7 @@ public class StatusBarHeaderHooks {
                 } catch (Throwable ignore) {
                 }
 
-                if (Build.VERSION.SDK_INT >= 22) {
+                if (ConfigUtils.L1) {
                     XposedHelpers.findAndHookMethod(classQSTileView, "setIcon", ImageView.class, CLASS_QS_STATE, new XC_MethodHook() {
                         boolean forceAnim = false;
 

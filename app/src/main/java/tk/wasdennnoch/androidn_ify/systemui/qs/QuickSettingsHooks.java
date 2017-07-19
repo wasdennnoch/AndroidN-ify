@@ -258,7 +258,7 @@ public class QuickSettingsHooks {
                     footer.getMeasuredWidth(), mQsPanel.getMeasuredHeight());
         }
 
-        if (!isShowingDetail() && !isClosingDetail()) {
+        if (ConfigUtils.L1 && !isShowingDetail() && !isClosingDetail()) {
             mBrightnessView.bringToFront();
         }
     }
