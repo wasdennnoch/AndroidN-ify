@@ -6,10 +6,12 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,7 @@ public class NotificationPanelHooks {
     private static QSContainerHelper mQsContainerHelper;
 
     private static final List<BarStateCallback> mBarStateCallbacks = new ArrayList<>();
+    private static Class <?> classPanelView;
 
     private static final XC_MethodHook onFinishInflateHook = new XC_MethodHook() {
         @Override
@@ -189,11 +192,23 @@ public class NotificationPanelHooks {
 
     public static void hook(ClassLoader classLoader) {
         try {
+            classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
+
+            if (ConfigUtils.M) {
+                XposedHelpers.findAndHookMethod(classPanelView, "expand", new XC_MethodReplacement() {
+                    @Override
+                    protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                        XposedHelpers.callMethod(param.thisObject, "instantExpand");
+                        return null;
+                    }
+                });
+                XposedHelpers.findAndHookMethod(classPanelView, "instantExpand", instantExpand);
+            }
+
             if (ConfigUtils.qs().header) { // Although this is the notification panel everything here is header-related (mainly QS editor)
 
                 Class<?> classNotificationPanelView = XposedHelpers.findClass(CLASS_NOTIFICATION_PANEL_VIEW, classLoader);
                 Class<?> classQSContainer = XposedHelpers.findClass(CLASS_QS_CONTAINER, classLoader);
-                Class<?> classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
                 fieldStatusBarState = XposedHelpers.findField(classNotificationPanelView, "mStatusBarState");
 
@@ -290,6 +305,63 @@ public class NotificationPanelHooks {
             XposedHook.logE(TAG, "Error in hook", t);
         }
     }
+
+    private static final XC_MethodReplacement instantExpand = new XC_MethodReplacement() {
+        @Override
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+            final FrameLayout panelView = (FrameLayout) param.thisObject;
+            final Object statusBar = XposedHelpers.getObjectField(panelView, "mStatusBar");
+
+            Method abortAnimations = XposedHelpers.findMethodBestMatch(classPanelView, "abortAnimations");
+            Method cancelPeek = XposedHelpers.findMethodBestMatch(classPanelView, "cancelPeek");
+            final Method notifyExpandingStarted = XposedHelpers.findMethodBestMatch(classPanelView, "notifyExpandingStarted");
+            final Method fling = XposedHelpers.findMethodBestMatch(classPanelView, "fling", int.class, boolean.class);
+            boolean isFullyCollapsed = (boolean) XposedHelpers.callMethod(panelView, "isFullyCollapsed");
+            boolean isCollapsing = (boolean) XposedHelpers.callMethod(panelView, "isCollapsing");
+
+            if (!isFullyCollapsed && !isCollapsing) {
+                return null;
+            }
+            XposedHelpers.setBooleanField(panelView, "mInstantExpanding", true);
+            XposedHelpers.setBooleanField(panelView, "mUpdateFlingOnLayout", false);
+            abortAnimations.invoke(panelView);
+            cancelPeek.invoke(panelView);
+            if (XposedHelpers.getBooleanField(panelView, "mTracking")) {
+                XposedHelpers.callMethod(panelView, "onTrackingStopped", true /* expands */); // The panel is expanded after this call.
+            }
+            if (XposedHelpers.getBooleanField(panelView, "mExpanding")) {
+                XposedHelpers.callMethod(panelView, "notifyExpandingFinished");
+            }
+            XposedHelpers.callMethod(panelView, "notifyBarPanelExpansionChanged");
+
+            // Wait for window manager to pickup the change, so we know the maximum height of the panel
+            // then.
+            panelView.getViewTreeObserver().addOnGlobalLayoutListener(
+                    new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout(){
+                            try {
+                                if (!XposedHelpers.getBooleanField(panelView, "mInstantExpanding")) {
+                                    panelView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                    return;
+                                }
+                                View statusBarWindow = (View) XposedHelpers.callMethod(statusBar, "getStatusBarWindow");
+                                if (statusBarWindow.getHeight()
+                                        != (int) XposedHelpers.callMethod(statusBar, "getStatusBarHeight")) {
+                                    panelView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                    notifyExpandingStarted.invoke(panelView);
+                                    fling.invoke(panelView, 0, true /* expand */);
+                                    XposedHelpers.setBooleanField(panelView, "mInstantExpanding", false);
+                                }
+                            } catch (Throwable ignore) {}
+                        }
+                    });
+
+            // Make sure a layout really happens.
+            panelView.requestLayout();
+            return null;
+        }
+    };
 
     private static void hookOnLayout(final Class<?> classNotificationPanelView, final Class<?> classPanelView) {
         XposedHelpers.findAndHookMethod(classNotificationPanelView, "onLayout", boolean.class, int.class, int.class, int.class, int.class, new XC_MethodReplacement() {
