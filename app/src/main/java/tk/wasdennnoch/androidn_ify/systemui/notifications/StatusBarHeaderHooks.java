@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -44,6 +43,7 @@ import tk.wasdennnoch.androidn_ify.extracted.systemui.AlphaOptimizedImageView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.NonInterceptingScrollView;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QSAnimator;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QSDetail;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.QuickQSPanel;
 import tk.wasdennnoch.androidn_ify.extracted.systemui.qs.TouchAnimator;
 import tk.wasdennnoch.androidn_ify.misc.SafeOnClickListener;
@@ -79,7 +79,7 @@ public class StatusBarHeaderHooks {
     private static final String CLASS_QS_TILE_VIEW = "com.android.systemui.qs.QSTileView";
     private static final String CLASS_DETAIL_ADAPTER = CLASS_QS_TILE + "$DetailAdapter";
 
-    private static boolean mCollapseAfterHideDatails = false;
+    private static boolean mCollapseAfterHideDetails = false;
     private static boolean mHideTunerIcon = false;
     private static boolean mHideEditTiles = false;
     private static boolean mHideCarrierLabel = false;
@@ -137,8 +137,6 @@ public class StatusBarHeaderHooks {
     private static float mExpansion = 0;
     private static boolean mRecreatingStatusBar = false;
 
-    private static int mQsRippleAdjustment = 0;
-
     private static final ArrayList<String> mPreviousTiles = new ArrayList<>();
     public static ArrayList<Object> mRecords;
 
@@ -157,10 +155,6 @@ public class StatusBarHeaderHooks {
             mResUtils = ResourceUtils.getInstance(mContext);
             ResourceUtils res = mResUtils;
             ConfigUtils config = ConfigUtils.getInstance();
-
-            if (ConfigUtils.qs().fix_header_space)
-                mQsRippleAdjustment = res.getResources().getDimensionPixelSize(R.dimen.status_bar_header_height) -
-                        res.getResources().getDimensionPixelSize(R.dimen.qs_margin_top);
 
             mShowFullAlarm = res.getResources().getBoolean(R.bool.quick_settings_show_full_alarm) || config.qs.force_old_date_position;
 
@@ -706,7 +700,8 @@ public class StatusBarHeaderHooks {
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             boolean show = (boolean) param.args[1];
             Object tileRecord = param.args[0];
-            if (show ? NotificationPanelHooks.isCollapsed() : mCollapseAfterHideDatails) {
+            QSDetail qsDetail = qsHooks.getQSDetail();
+            if (show ? NotificationPanelHooks.isCollapsed() : mCollapseAfterHideDetails) {
                 param.args[2] = mQsAnimator.getTileViewX(tileRecord);
                 param.args[3] = 0;
                 if (!show) {
@@ -718,12 +713,15 @@ public class StatusBarHeaderHooks {
                         View tileView = (View) XposedHelpers.getObjectField(tileRecord, "tileView");
                         param.args[2] = tileView.getLeft() + tileView.getWidth() / 2;
                         param.args[3] = tileView.getTop() + qsHooks.getTileLayout().getOffsetTop(tileRecord) + tileView.getHeight() / 2
-                                + mQsPanel.getTop() + mQsRippleAdjustment;
+                                + mQsPanel.getTop();
                     } catch (Throwable ignore) { // OOS3
                     }
                 }
             }
-            mCollapseAfterHideDatails = false;
+            mCollapseAfterHideDetails = false;
+            if (qsDetail != null) {
+                qsDetail.handleShowingDetail(param.args[0], (boolean) param.args[1], (int) param.args[2], (int) param.args[3]);
+            }
         }
 
         @Override
@@ -731,7 +729,7 @@ public class StatusBarHeaderHooks {
             boolean show = (boolean) param.args[1];
             XposedHook.logD(TAG, "handleShowDetailImpl: " + (show ? "showing" : "hiding") + " detail; expanding: " + NotificationPanelHooks.isCollapsed() + ";");
             if (show && NotificationPanelHooks.isCollapsed()) {
-                mCollapseAfterHideDatails = true;
+                mCollapseAfterHideDetails = true;
                 NotificationPanelHooks.expandIfNecessary();
             }
         }
@@ -849,7 +847,7 @@ public class StatusBarHeaderHooks {
                 }
             }
         } else {
-            XposedHook.logD(TAG, "handleShowingDetail: hiding detail; collapsing: " + mCollapseAfterHideDatails);
+            XposedHook.logD(TAG, "handleShowingDetail: hiding detail; collapsing: " + mCollapseAfterHideDetails);
             mQsDetailHeader.setClickable(false);
         }
     }

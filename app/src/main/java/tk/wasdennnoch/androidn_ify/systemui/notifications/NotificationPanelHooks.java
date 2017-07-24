@@ -40,6 +40,8 @@ public class NotificationPanelHooks {
 
     public static final int STATE_KEYGUARD = 1;
 
+    private static boolean mAnimate = true;
+
     private static ViewGroup mNotificationPanelView;
     private static ViewGroup mQsContainer;
     private static ViewGroup mHeader;
@@ -195,11 +197,11 @@ public class NotificationPanelHooks {
             classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
             if (ConfigUtils.M) {
-                XposedHelpers.findAndHookMethod(classPanelView, "expand", new XC_MethodReplacement() {
+                XposedHelpers.findAndHookMethod(classPanelView, "expand", instantExpand);
+                XposedHelpers.findAndHookMethod(classPanelView, "instantExpand", new XC_MethodHook() {
                     @Override
-                    protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                        XposedHelpers.callMethod(param.thisObject, "instantExpand");
-                        return null;
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        mAnimate = false;
                     }
                 });
                 XposedHelpers.findAndHookMethod(classPanelView, "instantExpand", instantExpand);
@@ -349,8 +351,12 @@ public class NotificationPanelHooks {
                                 if (statusBarWindow.getHeight()
                                         != (int) XposedHelpers.callMethod(statusBar, "getStatusBarHeight")) {
                                     panelView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                    notifyExpandingStarted.invoke(panelView);
-                                    fling.invoke(panelView, 0, true /* expand */);
+                                    if (mAnimate) {
+                                        notifyExpandingStarted.invoke(panelView);
+                                        fling.invoke(panelView, 0, true /* expand */);
+                                    } else {
+                                        XposedHelpers.callMethod(panelView, "setExpandedFraction", 1f);
+                                    }
                                     XposedHelpers.setBooleanField(panelView, "mInstantExpanding", false);
                                 }
                             } catch (Throwable ignore) {}
@@ -359,6 +365,7 @@ public class NotificationPanelHooks {
 
             // Make sure a layout really happens.
             panelView.requestLayout();
+            mAnimate = true;
             return null;
         }
     };
