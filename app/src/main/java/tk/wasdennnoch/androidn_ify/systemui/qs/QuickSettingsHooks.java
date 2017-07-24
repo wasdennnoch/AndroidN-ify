@@ -68,7 +68,6 @@ public class QuickSettingsHooks {
         hookUpdateResources();
         hookSetTiles();
         hookSetExpanded();
-        hookShowDetail();
         hookFireScanStateChanged();
 
         Class<?> classRecord = XposedHelpers.findClass(getSecondHookClass() + "$Record", classLoader);
@@ -142,16 +141,8 @@ public class QuickSettingsHooks {
         });
     }
 
-    private void hookShowDetail() {
-        if (!ConfigUtils.qs().fix_header_space) return;
-        XposedBridge.hookAllMethods(mHookClass, "handleShowDetailImpl", new XC_MethodReplacement() {
-            @Override
-            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                if (mQSDetail != null)
-                    mQSDetail.handleShowingDetail(param.args[0], (boolean) param.args[1], (int) param.args[2], (int) param.args[3]);
-                return null;
-            }
-        });
+    public QSDetail getQSDetail() {
+        return mQSDetail;
     }
 
     private void hookFireScanStateChanged() {
