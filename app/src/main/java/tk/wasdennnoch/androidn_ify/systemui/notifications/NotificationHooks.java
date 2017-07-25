@@ -517,6 +517,7 @@ public class NotificationHooks {
     private static boolean handleProgressBar(boolean hasProgress, RemoteViews contentView, Object builder, Resources res) {
         final int max = XposedHelpers.getIntField(builder, "mProgressMax");
         final boolean ind = XposedHelpers.getBooleanField(builder, "mProgressIndeterminate");
+        int progressId = res.getIdentifier("progress", "id", PACKAGE_ANDROID);
         if (hasProgress && (max != 0 || ind)) {
             CharSequence text = (CharSequence) XposedHelpers.getObjectField(builder, "mContentText");
             contentView.setTextViewText(R.id.text_line_1, text);
@@ -524,12 +525,12 @@ public class NotificationHooks {
             contentView.setViewVisibility(R.id.text_line_1, View.VISIBLE);
             contentView.setViewVisibility(res.getIdentifier("line3", "id", PACKAGE_ANDROID), View.GONE);
             XposedHelpers.callMethod(contentView, "setProgressBackgroundTintList",
-                    res.getIdentifier("progress", "id", PACKAGE_ANDROID), ColorStateList.valueOf(res.getColor(
+                    progressId, ColorStateList.valueOf(res.getColor(
                             res.getIdentifier("notification_progress_background_color", "color", PACKAGE_ANDROID))));
             if (XposedHelpers.getIntField(builder, "mColor") != COLOR_DEFAULT) {
                 ColorStateList colorStateList = ColorStateList.valueOf((int) XposedHelpers.callMethod(builder, "resolveColor"));
-                XposedHelpers.callMethod(contentView, "setProgressTintList", res.getIdentifier("progress", "id", PACKAGE_ANDROID), colorStateList);
-                XposedHelpers.callMethod(contentView, "setProgressIndeterminateTintList", res.getIdentifier("progress", "id", PACKAGE_ANDROID),
+                XposedHelpers.callMethod(contentView, "setProgressTintList", progressId, colorStateList);
+                XposedHelpers.callMethod(contentView, "setProgressIndeterminateTintList", progressId,
                         colorStateList);
             }
             return true;
@@ -702,10 +703,10 @@ public class NotificationHooks {
         @Override
         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             Object builder = param.thisObject;
+            Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
             int mColor = XposedHelpers.getIntField(builder, "mColor");
-            if (mColor != 0) return NotificationColorUtil.resolveContrastColor((Context)XposedHelpers.getObjectField(builder, "mContext"),
-                    (int)XposedHelpers.getObjectField(builder, "mColor")); // App specified color in notification builder
-            Context context = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+            if (mColor != 0) return NotificationColorUtil.resolveContrastColor(context,
+                    mColor); // App specified color in notification builder
             if (mAccentColor == 0) {
                 //noinspection deprecation
                 mAccentColor = context.getResources().getColor(context.getResources().getIdentifier("notification_icon_bg_color", "color", PACKAGE_ANDROID));

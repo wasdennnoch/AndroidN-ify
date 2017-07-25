@@ -17,6 +17,7 @@ import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import tk.wasdennnoch.androidn_ify.R;
 import tk.wasdennnoch.androidn_ify.XposedHook;
@@ -197,14 +198,18 @@ public class NotificationPanelHooks {
             classPanelView = XposedHelpers.findClass(CLASS_PANEL_VIEW, classLoader);
 
             if (ConfigUtils.M) {
-                XposedHelpers.findAndHookMethod(classPanelView, "expand", instantExpand);
-                XposedHelpers.findAndHookMethod(classPanelView, "instantExpand", new XC_MethodHook() {
-                    @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        mAnimate = false;
-                    }
-                });
-                XposedHelpers.findAndHookMethod(classPanelView, "instantExpand", instantExpand);
+                try {
+                    XposedBridge.hookAllMethods(classPanelView, "expand", instantExpand);
+                    XposedBridge.hookAllMethods(classPanelView, "instantExpand", new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            mAnimate = false;
+                        }
+                    });
+                    XposedBridge.hookAllMethods(classPanelView, "instantExpand", instantExpand);
+                } catch (Throwable t) {
+                    XposedHook.logE(TAG, "Error in PanelView hooks", t);
+                }
             }
 
             if (ConfigUtils.qs().header) { // Although this is the notification panel everything here is header-related (mainly QS editor)
