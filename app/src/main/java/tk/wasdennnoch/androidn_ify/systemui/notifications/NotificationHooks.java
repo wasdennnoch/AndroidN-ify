@@ -635,15 +635,15 @@ public class NotificationHooks {
 
     private static final XC_MethodHook processSmallIconAsLargeHook = new XC_MethodReplacement() {
         @Override
-        protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
             boolean legacy = false;
             try {
-                legacy = ((boolean) XposedHelpers.callMethod(methodHookParam.thisObject, "isLegacy"));
+                legacy = ((boolean) XposedHelpers.callMethod(param.thisObject, "isLegacy"));
             } catch (Throwable ignore) {
             }
             if (!legacy) {
-                RemoteViews contentView = (RemoteViews) methodHookParam.args[1];
-                int mColor = (int) XposedHelpers.callMethod(methodHookParam.thisObject, "resolveColor");
+                RemoteViews contentView = (RemoteViews) param.args[1];
+                int mColor = (int) XposedHelpers.callMethod(param.thisObject, "resolveColor");
                 XposedHelpers.callMethod(contentView, "setDrawableParameters",
                         android.R.id.icon,
                         false,
@@ -710,7 +710,7 @@ public class NotificationHooks {
                 //noinspection deprecation
                 mAccentColor = context.getResources().getColor(context.getResources().getIdentifier("notification_icon_bg_color", "color", PACKAGE_ANDROID));
             }
-            int c = NotificationColorUtil.resolveContrastColor((Context)XposedHelpers.getObjectField(builder, "mContext"), mAccentColor);
+            int c = NotificationColorUtil.resolveContrastColor(context, mAccentColor);
             if (ConfigUtils.notifications().generate_notification_accent_color) {
                 String packageName = context.getPackageName();
                 if (mGeneratedColors.containsKey(packageName))
@@ -1468,7 +1468,7 @@ public class NotificationHooks {
                         newTitle.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Title);
                         newTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, ResourceUtils.getInstance().getDimensionPixelSize(R.dimen.notification_title_text_size));
                         newTitle.setSingleLine();
-                        newTitle.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                        newTitle.setEllipsize(TextUtils.TruncateAt.END);
                         newTitle.setHorizontalFadingEdgeEnabled(true);
 
                         layout.removeView(title);
@@ -1479,7 +1479,7 @@ public class NotificationHooks {
                         textLine1.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification);
                         textLine1.setGravity(Gravity.END | Gravity.BOTTOM);
                         textLine1.setSingleLine();
-                        textLine1.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                        textLine1.setEllipsize(TextUtils.TruncateAt.END);
                         textLine1.setHorizontalFadingEdgeEnabled(true);
 
                         LinearLayout.LayoutParams textLine1Lp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
