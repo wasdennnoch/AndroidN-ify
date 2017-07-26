@@ -56,8 +56,6 @@ public class NotificationColorUtil {
     private static final int TYPE_BITMAP = 1;
     private static final int TYPE_RESOURCE = 2;
 
-    private static ResourceUtils res;
-
     private static final Object sLock = new Object();
     private static NotificationColorUtil sInstance;
 
@@ -77,9 +75,9 @@ public class NotificationColorUtil {
     }
 
     private NotificationColorUtil(Context context) {
+        ResourceUtils res = ResourceUtils.getInstance(context);
         mGrayscaleIconMaxSize = res.getResources().getDimensionPixelSize(
                 R.dimen.notification_large_icon_width);
-        res = ResourceUtils.getInstance(context);
     }
 
     /**
@@ -167,7 +165,7 @@ public class NotificationColorUtil {
      * @return True if the bitmap is grayscale; false if it is color or too large to examine.
      */
     public boolean isGrayscaleIcon(Context context, int drawableResId) {
-        res = ResourceUtils.getInstance(context);
+        ResourceUtils res = ResourceUtils.getInstance(context);
         if (drawableResId != 0) {
             try {
                 return isGrayscaleIcon(res.getDrawable(drawableResId));
@@ -311,7 +309,7 @@ public class NotificationColorUtil {
      * Resolves {@param color} to an actual color if it is {@link Notification#COLOR_DEFAULT}
      */
     public static int resolveColor(Context context, int color) {
-        res = ResourceUtils.getInstance(context);
+        ResourceUtils res = ResourceUtils.getInstance(context);
         if (color == Notification.COLOR_DEFAULT) {
             return res.getColor(R.color.notification_default_color);
         }
@@ -326,7 +324,7 @@ public class NotificationColorUtil {
      * @return a color of the same hue with enough contrast against the backgrounds.
      */
     public static int resolveContrastColor(Context context, int notificationColor) {
-        res = ResourceUtils.getInstance(context);
+        ResourceUtils res = ResourceUtils.getInstance(context);
         final int resolvedColor = resolveColor(context, notificationColor);
 
         final int actionBg = res.getColor(
