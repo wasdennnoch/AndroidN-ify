@@ -110,7 +110,7 @@ public class SettingsHooks {
         Object mChart = XposedHelpers.getAdditionalInstanceField(preference, KEY_CHART);
         if (field != null && field instanceof BatteryInfo) {
             if (view.findViewById(R.id.battery_usage) == null) {
-                FrameLayout oldLayout = (FrameLayout) view;
+                ViewGroup oldLayout = (ViewGroup) view;
                 oldLayout.removeAllViews();
 
                 Context context = oldLayout.getContext();
