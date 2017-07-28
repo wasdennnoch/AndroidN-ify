@@ -58,6 +58,7 @@ public class NotificationColorUtil {
 
     private static final Object sLock = new Object();
     private static NotificationColorUtil sInstance;
+    private static Context mContext;
 
     private final ImageUtils mImageUtils = new ImageUtils();
     private final WeakHashMap<Bitmap, Pair<Boolean, Integer>> mGrayscaleBitmapCache =
@@ -66,18 +67,22 @@ public class NotificationColorUtil {
     private final int mGrayscaleIconMaxSize; // @dimen/notification_large_icon_width (64dp)
 
     public static NotificationColorUtil getInstance(Context context) {
+        setContext(context);
         synchronized (sLock) {
             if (sInstance == null) {
-                sInstance = new NotificationColorUtil(context);
+                sInstance = new NotificationColorUtil();
             }
             return sInstance;
         }
     }
 
-    private NotificationColorUtil(Context context) {
-        ResourceUtils res = ResourceUtils.getInstance(context);
-        mGrayscaleIconMaxSize = res.getResources().getDimensionPixelSize(
+    private NotificationColorUtil() {
+        mGrayscaleIconMaxSize = mContext.getResources().getDimensionPixelSize(
                 R.dimen.notification_large_icon_width);
+    }
+
+    public static void setContext(Context context) {
+        mContext = ResourceUtils.createOwnContext(context);
     }
 
     /**
@@ -165,10 +170,9 @@ public class NotificationColorUtil {
      * @return True if the bitmap is grayscale; false if it is color or too large to examine.
      */
     public boolean isGrayscaleIcon(Context context, int drawableResId) {
-        ResourceUtils res = ResourceUtils.getInstance(context);
         if (drawableResId != 0) {
             try {
-                return isGrayscaleIcon(res.getDrawable(drawableResId));
+                return isGrayscaleIcon(context.getDrawable(drawableResId));
             } catch (Resources.NotFoundException ex) {
                 Log.e(TAG, "Drawable not found: " + drawableResId);
                 return false;
@@ -308,10 +312,9 @@ public class NotificationColorUtil {
     /**
      * Resolves {@param color} to an actual color if it is {@link Notification#COLOR_DEFAULT}
      */
-    public static int resolveColor(Context context, int color) {
-        ResourceUtils res = ResourceUtils.getInstance(context);
+    public static int resolveColor(int color) {
         if (color == Notification.COLOR_DEFAULT) {
-            return res.getColor(R.color.notification_default_color);
+            return mContext.getResources().getColor(R.color.notification_default_color);
         }
         return color;
     }
@@ -323,13 +326,12 @@ public class NotificationColorUtil {
      * @param notificationColor the color of the notification or {@link Notification#COLOR_DEFAULT}
      * @return a color of the same hue with enough contrast against the backgrounds.
      */
-    public static int resolveContrastColor(Context context, int notificationColor) {
-        ResourceUtils res = ResourceUtils.getInstance(context);
-        final int resolvedColor = resolveColor(context, notificationColor);
+    public static int resolveContrastColor(int notificationColor) {
+        final int resolvedColor = resolveColor(notificationColor);
 
-        final int actionBg = res.getColor(
+        final int actionBg = mContext.getResources().getColor(
                 R.color.notification_action_list);
-        final int notiBg = res.getColor(
+        final int notiBg = mContext.getResources().getColor(
                 R.color.notification_material_background_color);
 
         int color = resolvedColor;
@@ -341,7 +343,7 @@ public class NotificationColorUtil {
                 Log.w(TAG, String.format(
                         "Enhanced contrast of notification for %s %s (over action)"
                                 + " and %s (over background) by changing #%s to %s",
-                        context.getPackageName(),
+                        mContext.getPackageName(),
                         NotificationColorUtil.contrastChange(resolvedColor, color, actionBg),
                         NotificationColorUtil.contrastChange(resolvedColor, color, notiBg),
                         Integer.toHexString(resolvedColor), Integer.toHexString(color)));
