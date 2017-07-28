@@ -517,22 +517,12 @@ public class NotificationHooks {
     private static boolean handleProgressBar(boolean hasProgress, RemoteViews contentView, Object builder, Resources res) {
         final int max = XposedHelpers.getIntField(builder, "mProgressMax");
         final boolean ind = XposedHelpers.getBooleanField(builder, "mProgressIndeterminate");
-        int progressId = res.getIdentifier("progress", "id", PACKAGE_ANDROID);
         if (hasProgress && (max != 0 || ind)) {
             CharSequence text = (CharSequence) XposedHelpers.getObjectField(builder, "mContentText");
             contentView.setTextViewText(R.id.text_line_1, text);
             contentView.setViewVisibility(R.id.progress_container, View.VISIBLE);
             contentView.setViewVisibility(R.id.text_line_1, View.VISIBLE);
             contentView.setViewVisibility(res.getIdentifier("line3", "id", PACKAGE_ANDROID), View.GONE);
-            XposedHelpers.callMethod(contentView, "setProgressBackgroundTintList",
-                    progressId, ColorStateList.valueOf(res.getColor(
-                            res.getIdentifier("notification_progress_background_color", "color", PACKAGE_ANDROID))));
-            if (XposedHelpers.getIntField(builder, "mColor") != COLOR_DEFAULT) {
-                ColorStateList colorStateList = ColorStateList.valueOf((int) XposedHelpers.callMethod(builder, "resolveColor"));
-                XposedHelpers.callMethod(contentView, "setProgressTintList", progressId, colorStateList);
-                XposedHelpers.callMethod(contentView, "setProgressIndeterminateTintList", progressId,
-                        colorStateList);
-            }
             return true;
         } else {
             contentView.setViewVisibility(R.id.progress_container, View.GONE);
@@ -705,13 +695,13 @@ public class NotificationHooks {
             Object builder = param.thisObject;
             Context context = (Context) XposedHelpers.getObjectField(builder, "mContext");
             int mColor = XposedHelpers.getIntField(builder, "mColor");
-            if (mColor != 0) return NotificationColorUtil.resolveContrastColor(context,
-                    mColor); // App specified color in notification builder
+            NotificationColorUtil.setContext(context);
+            if (mColor != 0) return NotificationColorUtil.resolveContrastColor(mColor); // App specified color in notification builder
             if (mAccentColor == 0) {
                 //noinspection deprecation
                 mAccentColor = context.getResources().getColor(context.getResources().getIdentifier("notification_icon_bg_color", "color", PACKAGE_ANDROID));
             }
-            int c = NotificationColorUtil.resolveContrastColor(context, mAccentColor);
+            int c = NotificationColorUtil.resolveContrastColor(mAccentColor);
             if (ConfigUtils.notifications().generate_notification_accent_color) {
                 String packageName = context.getPackageName();
                 if (mGeneratedColors.containsKey(packageName))
@@ -1467,7 +1457,7 @@ public class NotificationHooks {
 
                         newTitle.setId(title.getId());
                         newTitle.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Title);
-                        newTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, ResourceUtils.getInstance().getDimensionPixelSize(R.dimen.notification_title_text_size));
+                        newTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_title_text_size));
                         newTitle.setSingleLine();
                         newTitle.setEllipsize(TextUtils.TruncateAt.END);
                         newTitle.setHorizontalFadingEdgeEnabled(true);
