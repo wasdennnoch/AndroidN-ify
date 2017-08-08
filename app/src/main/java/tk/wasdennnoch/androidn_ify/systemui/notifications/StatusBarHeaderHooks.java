@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -784,6 +785,27 @@ public class StatusBarHeaderHooks {
             mAlarmStatusCollapsed.setVisibility(mAlarmShowing ? View.VISIBLE : View.INVISIBLE);
     }
 
+    private static void showDetailAdapter(boolean show, Object adapter, int[] locationInWindow) throws Exception {
+        Class<?> classRecord = XposedHelpers.findClass(CLASS_QS_PANEL + "$Record", mQsPanel.getContext().getClassLoader());
+
+        int xInWindow = locationInWindow[0];
+        int yInWindow = locationInWindow[1];
+        ((View) mQsPanel.getParent()).getLocationInWindow(locationInWindow);
+
+        Constructor c = classRecord.getDeclaredConstructor();
+        c.setAccessible(true);
+        Object r = c.newInstance();
+
+        XposedHelpers.setObjectField(r, "detailAdapter", adapter);
+        XposedHelpers.setIntField(r, "x", xInWindow - locationInWindow[0]);
+        XposedHelpers.setIntField(r, "y", yInWindow - locationInWindow[1]);
+
+        locationInWindow[0] = xInWindow;
+        locationInWindow[1] = yInWindow;
+
+        XposedHelpers.callMethod(mQsPanel, "showDetail", show, r);
+    }
+
     private static void handleShowingDetail(final Object detail) {
         if (ConfigUtils.qs().fix_header_space) return;
         final boolean showingDetail = detail != null;
@@ -1044,7 +1066,6 @@ public class StatusBarHeaderHooks {
                         }
                     }
                 });
-
                 try {
                     XposedHelpers.findAndHookMethod(classQSPanel, "fireShowingDetail", CLASS_DETAIL_ADAPTER, new XC_MethodReplacement() {
                         @Override
@@ -1053,6 +1074,15 @@ public class StatusBarHeaderHooks {
                             return null;
                         }
                     });
+                    if (ConfigUtils.qs().fix_header_space) {
+                        XposedHelpers.findAndHookMethod(classQSPanel, "showDetailAdapter", boolean.class, CLASS_DETAIL_ADAPTER, int[].class, new XC_MethodReplacement() {
+                            @Override
+                            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                                showDetailAdapter((boolean) param.args[0], param.args[1], (int[]) param.args[2]);
+                                return null;
+                            }
+                        });
+                    }
                 } catch (Throwable t) {
                     XposedHelpers.findAndHookMethod(classQSPanel, "showDetailAdapter", boolean.class, CLASS_DETAIL_ADAPTER, int[].class, new XC_MethodReplacement() {
                         @Override

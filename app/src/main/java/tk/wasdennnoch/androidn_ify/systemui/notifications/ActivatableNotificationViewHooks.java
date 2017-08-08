@@ -293,6 +293,7 @@ public class ActivatableNotificationViewHooks {
             long delay = (long) param.args[2];
             View mBackgroundNormal = (View) XposedHelpers.getObjectField(expandableView, "mBackgroundNormal");
             View mBackgroundDimmed = (View) XposedHelpers.getObjectField(expandableView, "mBackgroundDimmed");
+            XposedHelpers.setBooleanField(expandableView, "mDark", mDark);
             mBackgroundDimmed.setVisibility(mBackgroundDimmedVisibility);
             mBackgroundNormal.setVisibility(mBackgroundNormalVisibility);
 
