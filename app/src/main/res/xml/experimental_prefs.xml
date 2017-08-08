@@ -33,13 +33,6 @@
         android:title="@string/reconfigure_notification_panel_title"/>
 
     <SwitchPreference
-        android:defaultValue="false"
-        android:dependency="enable_experimental_features"
-        android:key="notification_experimental"
-        android:summary="@string/notification_experimental"
-        android:title="@string/notification_experimental_title"/>
-
-    <SwitchPreference
         android:defaultValue="true"
         android:dependency="enable_experimental_features"
         android:key="enable_assistant"

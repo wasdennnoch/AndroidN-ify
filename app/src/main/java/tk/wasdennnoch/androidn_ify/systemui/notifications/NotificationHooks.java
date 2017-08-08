@@ -897,7 +897,7 @@ public class NotificationHooks {
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_no_notifications", status_bar_no_notifications);
 
-                if (ConfigUtils.notifications().experimental) {
+                if (ConfigUtils.notifications().new_stack_scroll_algorithm) {
                     resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded", new XC_LayoutInflated() {
                         @Override
                         public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
