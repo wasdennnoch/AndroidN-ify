@@ -334,7 +334,11 @@ public class NotificationHooks {
             int onlyViewId = 0;
             int maxRows = rowIds.length;
             if (((ArrayList) XposedHelpers.getObjectField(builder, "mActions")).size() > 0) {
-                maxRows--;
+                if (texts.size() < maxRows) {
+                    maxRows--;
+                } else {
+                    i++; //workaround for Whatsapp last message getting cut off
+                }
             }
             while (i < texts.size() && i < maxRows) {
                 CharSequence str = texts.get(i);
@@ -1665,6 +1669,7 @@ public class NotificationHooks {
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
             ImageView rightIcon = (ImageView) layout.findViewById(context.getResources().getIdentifier("right_icon", "id", PACKAGE_ANDROID));
             TextView text0 = (TextView) layout.findViewById(context.getResources().getIdentifier("inbox_text0", "id", PACKAGE_ANDROID));
+            TextView text6 = (TextView) layout.findViewById(context.getResources().getIdentifier("inbox_text6", "id", PACKAGE_ANDROID));
             FrameLayout actionsContainer = (FrameLayout) notificationMain.findViewById(R.id.actions_container);
             NotificationHeaderView header = (NotificationHeaderView) layout.findViewById(R.id.notification_header);
             LinearLayout progressContainer = (LinearLayout) layout.findViewById(R.id.progress_container);
@@ -1708,8 +1713,9 @@ public class NotificationHooks {
             layout.addView(actionsContainer);
             layout.addView(rightIcon);
             // Remove crap
-            while (notificationMain.getChildCount() > 10) {
-                notificationMain.removeViewAt(notificationMain.getChildCount() - 1);
+            View v;
+            while ((v = notificationMain.getChildAt(notificationMain.getChildCount() - 1)) != text6) {
+                notificationMain.removeView(v);
             }
             for (int i = 3; i < notificationMain.getChildCount(); i++) {
                 TextView line = new RemoteLpTextView(context);
