@@ -1455,6 +1455,9 @@ public class NotificationHooks {
                         TextView newTitle = new RemoteLpTextView(context);
                         LinearLayout newLayout = new RemoteMarginLinearLayout(context);
 
+                        if (title == null)
+                            return;
+
                         newTitle.setId(title.getId());
                         newTitle.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Title);
                         newTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_title_text_size));
@@ -1507,6 +1510,8 @@ public class NotificationHooks {
                             container.addView(view);
                         }
                         ViewGroup parent = (ViewGroup) layout.getParent();
+                        if (parent == null)
+                            return;
                         parent.removeView(layout);
                         parent.addView(container);
                     }

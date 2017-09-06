@@ -371,10 +371,10 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
                         XposedHelpers.setBooleanField(mStackScrollLayout, "mDarkNeedsAnimation", true);
                         XposedHelpers.setIntField(mStackScrollLayout, "mDarkAnimationOriginIndex", (int) XposedHelpers.callMethod(mStackScrollLayout, "findDarkAnimationOriginIndex", touchWakeUpScreenLocation));
                         XposedHelpers.setBooleanField(mStackScrollLayout, "mNeedsAnimation", true);
-                        setBackgroundFadeAmount(0.0f);
-                    } else if (!dark) {
+                        //setBackgroundFadeAmount(0.0f);
+                    } /*else if (!dark) {
                         setBackgroundFadeAmount(1.0f);
-                    }
+                    }*/
                     XposedHelpers.callMethod(mStackScrollLayout, "requestChildrenUpdate");
                     if (dark) {
                         mStackScrollLayout.setWillNotDraw(true);
@@ -384,14 +384,6 @@ public class NotificationStackScrollLayoutHooks implements View.OnApplyWindowIns
                         mStackScrollLayout.setWillNotDraw(false);
                     }
                     return null;
-                }
-            });
-            XposedHelpers.findAndHookMethod(classNotificationStackScrollLayout, "generateDarkEvent", new XC_MethodHook() {
-                @Override
-                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    boolean mDarkNeedsAnimation = XposedHelpers.getBooleanField(mStackScrollLayout, "mDarkNeedsAnimation");
-                    if (mDarkNeedsAnimation)
-                        startBackgroundFadeIn();
                 }
             });
             XposedBridge.hookAllMethods(classNotificationStackScrollLayout, "setScrimController", new XC_MethodHook() {
