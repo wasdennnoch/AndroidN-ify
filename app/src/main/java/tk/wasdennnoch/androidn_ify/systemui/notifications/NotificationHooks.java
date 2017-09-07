@@ -900,24 +900,6 @@ public class NotificationHooks {
 
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_no_notifications", status_bar_no_notifications);
-
-                if (ConfigUtils.notifications().new_stack_scroll_algorithm) {
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded", new XC_LayoutInflated() {
-                        @Override
-                        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                            View view = liparam.view;
-                            Context context = view.getContext();
-
-                            int containerId = context.getResources().getIdentifier("notification_container_parent", "id", PACKAGE_SYSTEMUI);
-                            int stackScrollerId = context.getResources().getIdentifier("notification_stack_scroller", "id", PACKAGE_SYSTEMUI);
-                            ViewGroup container = (ViewGroup) view.findViewById(containerId);
-                            ViewGroup stackScroller = (ViewGroup) container.findViewById(stackScrollerId);
-                            container.removeView(stackScroller);
-                            container.addView(stackScroller, 0);
-                        }
-                    });
-                }
-
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
                 try {
