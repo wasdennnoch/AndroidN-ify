@@ -15,7 +15,6 @@ import de.robv.android.xposed.XposedHelpers;
 public class ScrimHelper {
     private static final String TAG = "ScrimHelper";
 
-    private static ArrayList<ScrimHelper> instances = new ArrayList<>();
     private static ScrimHelper mScrimBehindHelper;
 
     public static View mScrimBehind;
@@ -34,14 +33,12 @@ public class ScrimHelper {
 
     private ScrimHelper(Object scrimView) {
         mScrimView = (View) scrimView;
-        instances.add(this);
+        XposedHelpers.setAdditionalInstanceField(scrimView, "mScrimHelper", this);
     }
 
     public static ScrimHelper getInstance(Object scrimView) {
-        for (ScrimHelper instance : instances)
-            if (instance.mScrimView.equals(scrimView))
-                return instance;
-        return new ScrimHelper(scrimView);
+        ScrimHelper helper = (ScrimHelper) XposedHelpers.getAdditionalInstanceField(scrimView, "mScrimHelper");
+        return helper != null ? helper : new ScrimHelper(scrimView);
     }
 
     public void onDraw(Canvas canvas) {

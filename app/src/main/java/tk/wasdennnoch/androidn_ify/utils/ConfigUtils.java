@@ -203,7 +203,7 @@ public class ConfigUtils {
         public final boolean change_style;
         public final boolean dismiss_button;
         public final boolean custom_actions_color;
-        public final boolean experimental;
+        public final boolean new_stack_scroll_algorithm;
         public final boolean allow_direct_reply_on_keyguard;
         public final boolean generate_notification_accent_color;
         public final boolean enable_notifications_background;
@@ -220,10 +220,10 @@ public class ConfigUtils {
             change_style = prefs.getBoolean("notification_change_style", true);
             dismiss_button = prefs.getBoolean("notification_dismiss_button", true);
             custom_actions_color = prefs.getBoolean("notifications_custom_actions_color", false);
-            experimental = M && EXPERIMENTAL && prefs.getBoolean("notification_experimental", false);
+            new_stack_scroll_algorithm = M && prefs.getBoolean("notification_experimental", false);
             allow_direct_reply_on_keyguard = prefs.getBoolean("allow_direct_reply_on_keyguard", false);
             generate_notification_accent_color = prefs.getBoolean("generate_notification_accent_color", false);
-            enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true);
+            enable_notifications_background = M && prefs.getBoolean("enable_notifications_background", true) && change_style;
             enable_data_disabled_indicator = prefs.getBoolean("enable_data_disabled_indicator", true);
             change_keyguard_max = prefs.getBoolean("notification_change_keyguard_max", false);
             change_colors = prefs.getBoolean("notification_change_colors", true);

@@ -77,15 +77,6 @@ public class ActivatableNotificationViewHooks {
             methodSetContentAlpha = XposedHelpers.findMethodBestMatch(classActivatableNotificationView, "setContentAlpha", float.class);
             fieldOnActivatedListener = XposedHelpers.findField(classActivatableNotificationView, "mOnActivatedListener");
 
-            XposedHelpers.findAndHookConstructor(classExpandableOutlineView, Context.class, AttributeSet.class, new XC_MethodHook() {
-                @Override
-                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    FrameLayout expandableView = (FrameLayout) param.thisObject;
-                    ExpandableOutlineViewHelper e = ExpandableOutlineViewHelper.getInstance(expandableView);
-                    e.construct(expandableView);
-                }
-            });
-
             XposedHelpers.findAndHookMethod(classActivatableNotificationView, "onFinishInflate", new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -293,6 +284,7 @@ public class ActivatableNotificationViewHooks {
             long delay = (long) param.args[2];
             View mBackgroundNormal = (View) XposedHelpers.getObjectField(expandableView, "mBackgroundNormal");
             View mBackgroundDimmed = (View) XposedHelpers.getObjectField(expandableView, "mBackgroundDimmed");
+            XposedHelpers.setBooleanField(expandableView, "mDark", mDark);
             mBackgroundDimmed.setVisibility(mBackgroundDimmedVisibility);
             mBackgroundNormal.setVisibility(mBackgroundNormalVisibility);
 

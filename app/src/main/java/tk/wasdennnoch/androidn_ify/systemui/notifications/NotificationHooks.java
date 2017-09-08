@@ -334,7 +334,11 @@ public class NotificationHooks {
             int onlyViewId = 0;
             int maxRows = rowIds.length;
             if (((ArrayList) XposedHelpers.getObjectField(builder, "mActions")).size() > 0) {
-                maxRows--;
+                if (texts.size() < maxRows) {
+                    maxRows--;
+                } else {
+                    i++; //workaround for Whatsapp last message getting cut off
+                }
             }
             while (i < texts.size() && i < maxRows) {
                 CharSequence str = texts.get(i);
@@ -896,24 +900,6 @@ public class NotificationHooks {
 
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "notification_public_default", notification_public_default);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_no_notifications", status_bar_no_notifications);
-
-                if (ConfigUtils.notifications().experimental) {
-                    resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_expanded", new XC_LayoutInflated() {
-                        @Override
-                        public void handleLayoutInflated(LayoutInflatedParam liparam) throws Throwable {
-                            View view = liparam.view;
-                            Context context = view.getContext();
-
-                            int containerId = context.getResources().getIdentifier("notification_container_parent", "id", PACKAGE_SYSTEMUI);
-                            int stackScrollerId = context.getResources().getIdentifier("notification_stack_scroller", "id", PACKAGE_SYSTEMUI);
-                            ViewGroup container = (ViewGroup) view.findViewById(containerId);
-                            ViewGroup stackScroller = (ViewGroup) container.findViewById(stackScrollerId);
-                            container.removeView(stackScroller);
-                            container.addView(stackScroller, 0);
-                        }
-                    });
-                }
-
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_row", status_bar_notification_row);
                 resparam.res.hookLayout(PACKAGE_SYSTEMUI, "layout", "status_bar_notification_keyguard_overflow", status_bar_notification_row);
                 try {
@@ -1455,6 +1441,9 @@ public class NotificationHooks {
                         TextView newTitle = new RemoteLpTextView(context);
                         LinearLayout newLayout = new RemoteMarginLinearLayout(context);
 
+                        if (title == null)
+                            return;
+
                         newTitle.setId(title.getId());
                         newTitle.setTextAppearance(context, android.R.style.TextAppearance_Material_Notification_Title);
                         newTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, ResourceUtils.getInstance(context).getDimensionPixelSize(R.dimen.notification_title_text_size));
@@ -1507,6 +1496,8 @@ public class NotificationHooks {
                             container.addView(view);
                         }
                         ViewGroup parent = (ViewGroup) layout.getParent();
+                        if (parent == null)
+                            return;
                         parent.removeView(layout);
                         parent.addView(container);
                     }
@@ -1660,6 +1651,7 @@ public class NotificationHooks {
             LinearLayout notificationMain = (LinearLayout) layout.findViewById(context.getResources().getIdentifier("notification_main_column", "id", "android"));
             ImageView rightIcon = (ImageView) layout.findViewById(context.getResources().getIdentifier("right_icon", "id", PACKAGE_ANDROID));
             TextView text0 = (TextView) layout.findViewById(context.getResources().getIdentifier("inbox_text0", "id", PACKAGE_ANDROID));
+            TextView text6 = (TextView) layout.findViewById(context.getResources().getIdentifier("inbox_text6", "id", PACKAGE_ANDROID));
             FrameLayout actionsContainer = (FrameLayout) notificationMain.findViewById(R.id.actions_container);
             NotificationHeaderView header = (NotificationHeaderView) layout.findViewById(R.id.notification_header);
             LinearLayout progressContainer = (LinearLayout) layout.findViewById(R.id.progress_container);
@@ -1703,8 +1695,9 @@ public class NotificationHooks {
             layout.addView(actionsContainer);
             layout.addView(rightIcon);
             // Remove crap
-            while (notificationMain.getChildCount() > 10) {
-                notificationMain.removeViewAt(notificationMain.getChildCount() - 1);
+            View v;
+            while ((v = notificationMain.getChildAt(notificationMain.getChildCount() - 1)) != text6) {
+                notificationMain.removeView(v);
             }
             for (int i = 3; i < notificationMain.getChildCount(); i++) {
                 TextView line = new RemoteLpTextView(context);

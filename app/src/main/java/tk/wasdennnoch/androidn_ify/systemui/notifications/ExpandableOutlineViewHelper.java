@@ -13,11 +13,10 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 
 import de.robv.android.xposed.XposedHelpers;
+import tk.wasdennnoch.androidn_ify.extracted.systemui.ExpandableIndicator;
 
 public class ExpandableOutlineViewHelper {
     private static final String TAG = "ExpandableOutlineViewHelper";
-
-    private static ArrayList<ExpandableOutlineViewHelper> instances = new ArrayList<>();
 
     public FrameLayout mExpandableView;
 
@@ -62,18 +61,17 @@ public class ExpandableOutlineViewHelper {
         }
     };
 
-    private ExpandableOutlineViewHelper() {
-        instances.add(this);
+    private ExpandableOutlineViewHelper(Object expandableView) {
+        XposedHelpers.setAdditionalInstanceField(expandableView, "mHelper", this);
+        init(expandableView);
     }
 
     public static ExpandableOutlineViewHelper getInstance(Object expandableView) {
-        for (ExpandableOutlineViewHelper e : instances)
-            if (e.mExpandableView.equals(expandableView))
-                return e;
-        return new ExpandableOutlineViewHelper();
+        ExpandableOutlineViewHelper helper = (ExpandableOutlineViewHelper) XposedHelpers.getAdditionalInstanceField(expandableView, "mHelper");
+        return helper != null ? helper : new ExpandableOutlineViewHelper(expandableView);
     }
 
-    public void construct(Object expandableView) {
+    public void init(Object expandableView) {
         mExpandableView = (FrameLayout) expandableView;
         mProvider = new ViewOutlineProvider() {
             @Override

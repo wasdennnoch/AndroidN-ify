@@ -29,6 +29,12 @@
         android:title="@string/enable_notifications_background"/>
 
     <SwitchPreference
+        android:defaultValue="false"
+        android:key="notification_experimental"
+        android:summary="@string/notification_experimental"
+        android:title="@string/notification_experimental_title"/>
+
+    <SwitchPreference
         android:defaultValue="true"
         android:key="enable_data_disabled_indicator"
         android:summary="@string/enable_data_disabled_indicator_summary"

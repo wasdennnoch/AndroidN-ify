@@ -20,10 +20,9 @@ public class ScrimHooks {
     private static final String PACKAGE_SYSTEMUI = XposedHook.PACKAGE_SYSTEMUI;
 
     public static void hook(ClassLoader classLoader) {
+        if (!ConfigUtils.notifications().enable_notifications_background)
+            return;
         try {
-            if (!ConfigUtils.notifications().enable_notifications_background)
-                return;
-
             final Class classScrimView = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.ScrimView", classLoader);
             final Class classScrimController = XposedHelpers.findClass(PACKAGE_SYSTEMUI + ".statusbar.phone.ScrimController", classLoader);
 
@@ -71,13 +70,6 @@ public class ScrimHooks {
                 }
             });
 
-            /*XposedHelpers.findAndHookMethod(classScrimController, "updateHeadsUpScrim", boolean.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    if (XposedHelpers.getBooleanField(param.thisObject, "mKeyguardFadingOutInProgress"))
-                        param.setResult(null);
-                }
-            });*/
         } catch (Throwable t) {
             XposedHook.logE(TAG, "Error", t);
         }

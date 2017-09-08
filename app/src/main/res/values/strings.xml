@@ -168,8 +168,8 @@
     <string name="notifications_custom_actions_color_title">Custom actions background color</string>
     <string name="notifications_custom_actions_color">Use a custom color as the background of the notification buttons</string>
     <string name="notifications_actions_color_title">Actions background color</string>
-    <string name="notification_experimental_title">Experimental N notifications behavior</string>
-    <string name="notification_experimental">N scrolling behavior (no top stack)</string>
+    <string name="notification_experimental_title">N notifications scrolling behavior</string>
+    <string name="notification_experimental">Removes the top stack</string>
     <string name="notification_keyguard_change_max_title">Change max notifications on lockscreen</string>
     <string name="notification_keyguard_max_title">Max notifications on lockscreen</string>
     <string name="notification_change_colors_title">Change notification colors to match N</string>
